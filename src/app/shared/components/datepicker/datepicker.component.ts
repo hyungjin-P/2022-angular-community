@@ -12,7 +12,7 @@ import {
 import * as moment from 'moment-timezone'
 
 @Component({
-    selector: 'tf-datepicker',
+    selector: 'keeping-datepicker',
     templateUrl: './datepicker.component.html',
     styleUrls: ['./datepicker.component.scss'],
 })

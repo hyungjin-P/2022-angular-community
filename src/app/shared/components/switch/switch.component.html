@@ -1,5 +1,5 @@
 <div
-    class="tf-switch d-flex align-items-center user-select-none"
+    class="keeping-switch d-flex align-items-center user-select-none"
     [class.checked]="isChecked"
     [class.disabled]="disabled"
     (click)="onChanged(!isChecked)"
@@ -10,5 +10,5 @@
             <div class="circle"></div>
         </div>
     </div>
-    <div class="text tf-typo-bodytext1" *ngIf="text">{{ text }}</div>
+    <div class="text keeping-typo-bodytext1" *ngIf="text">{{ text }}</div>
 </div>

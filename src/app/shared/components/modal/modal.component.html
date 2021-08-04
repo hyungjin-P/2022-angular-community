@@ -1,18 +1,18 @@
-<div class="tf-modal-background" #modalBackgroundElement></div>
-<div class="tf-modal-wrapper justify-content-center align-items-center" (click)="onCancel()" #modalWrapperElement>
-    <div class="tf-modal user-select-none" (click)="$event.stopPropagation()">
-        <div class="text tf-typo-title1 d-flex justify-content-center">{{ data?.text }}</div>
-        <div class="sub-text tf-typo-subtext2 d-flex justify-content-center">{{ data?.subText }}</div>
+<div class="keeping-modal-background" #modalBackgroundElement></div>
+<div class="keeping-modal-wrapper justify-content-center align-items-center" (click)="onCancel()" #modalWrapperElement>
+    <div class="keeping-modal user-select-none" (click)="$event.stopPropagation()">
+        <div class="text keeping-typo-title1 d-flex justify-content-center">{{ data?.text }}</div>
+        <div class="sub-text keeping-typo-subtext2 d-flex justify-content-center">{{ data?.subText }}</div>
         <div class="button-group d-flex">
             <div
-                class="cancel col d-flex justify-content-center align-items-center tf-typo-bodytext2"
+                class="cancel col d-flex justify-content-center align-items-center keeping-typo-bodytext2"
                 *ngIf="type == 'type1'"
                 (click)="onCancel()"
             >
                 {{ data?.cancelButtonText || '취소' }}
             </div>
             <div
-                class="confirm col d-flex justify-content-center align-items-center tf-typo-bodytext2"
+                class="confirm col d-flex justify-content-center align-items-center keeping-typo-bodytext2"
                 (click)="onConfirm()"
             >
                 {{ data?.confirmButtonText || '확인' }}

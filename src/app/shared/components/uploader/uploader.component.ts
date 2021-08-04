@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 
 @Component({
-    selector: 'tf-uploader',
+    selector: 'keeping-uploader',
     templateUrl: './uploader.component.html',
     styleUrls: ['./uploader.component.scss'],
 })

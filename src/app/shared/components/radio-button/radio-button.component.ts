@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, Renderer2 } from '@angular/core'
 
 @Component({
-    selector: 'tf-radio-button',
+    selector: 'keeping-radio-button',
     templateUrl: './radio-button.component.html',
     styleUrls: ['./radio-button.component.scss'],
 })

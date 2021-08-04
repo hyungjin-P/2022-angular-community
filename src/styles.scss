@@ -35,7 +35,7 @@
 }
 
 // Typography
-.tf-typo-headline1 {
+.keeping-typo-headline1 {
     font-size: 22px;
     font-weight: 700;
     line-height: 1.45;
@@ -43,14 +43,14 @@
     color: var(--font-color);
 }
 
-.tf-typo-headline2 {
+.keeping-typo-headline2 {
     font-size: 22px;
     line-height: 1.45;
     letter-spacing: -0.48px;
     color: var(--font-color);
 }
 
-.tf-typo-title1 {
+.keeping-typo-title1 {
     font-size: 16px;
     font-weight: 700;
     line-height: 1.5;
@@ -58,7 +58,7 @@
     color: var(--font-color);
 }
 
-.tf-typo-title2 {
+.keeping-typo-title2 {
     font-size: 15px;
     font-weight: 700;
     line-height: 1.4;
@@ -66,7 +66,7 @@
     color: var(--font-color);
 }
 
-.tf-typo-bodytext1 {
+.keeping-typo-bodytext1 {
     font-size: 14px;
     font-weight: 400;
     line-height: 1.43;
@@ -74,14 +74,14 @@
     color: var(--font-color);
 }
 
-.tf-typo-bodytext2 {
+.keeping-typo-bodytext2 {
     font-size: 13px;
     line-height: 1.46;
     letter-spacing: -0.17px;
     color: var(--font-color);
 }
 
-.tf-typo-subtext1 {
+.keeping-typo-subtext1 {
     font-size: 12px;
     font-weight: 400;
     line-height: 1.42;
@@ -89,7 +89,7 @@
     color: var(--darkgrey);
 }
 
-.tf-typo-subtext2 {
+.keeping-typo-subtext2 {
     font-size: 12px;
     font-weight: 400;
     line-height: 1.42;
@@ -97,14 +97,14 @@
     color: var(--grey);
 }
 
-.tf-typo-subtext3 {
+.keeping-typo-subtext3 {
     font-size: 11px;
     line-height: 1.45;
     letter-spacing: -0.12px;
     color: var(--font-color);
 }
 
-.tf-typo-subtext4 {
+.keeping-typo-subtext4 {
     font-size: 11px;
     font-weight: 400;
     line-height: 1.45;
@@ -113,7 +113,7 @@
 }
 
 // Tooltip
-.tf-tooltip {
+.keeping-tooltip {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -129,11 +129,11 @@
     z-index: 999;
 }
 
-.tf-tooltip-show {
+.keeping-tooltip-show {
     opacity: 0.8;
 }
 
-.tf-tooltip-top {
+.keeping-tooltip-top {
     &:after {
         content: '';
         position: absolute;
@@ -146,7 +146,7 @@
     }
 }
 
-.tf-tooltip-right {
+.keeping-tooltip-right {
     &:after {
         content: '';
         position: absolute;
@@ -159,7 +159,7 @@
     }
 }
 
-.tf-tooltip-bottom {
+.keeping-tooltip-bottom {
     &:after {
         content: '';
         position: absolute;
@@ -172,7 +172,7 @@
     }
 }
 
-.tf-tooltip-left {
+.keeping-tooltip-left {
     &:after {
         content: '';
         position: absolute;
@@ -186,7 +186,7 @@
 }
 
 // Input
-.tf-input {
+.keeping-input {
     box-sizing: border-box;
 
     height: 50px;
@@ -225,7 +225,7 @@
 }
 
 // Button
-.tf-button {
+.keeping-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -248,19 +248,19 @@
     }
 }
 
-.tf-button-type1 {
+.keeping-button-type1 {
     &:hover {
         background-color: var(--background-color);
     }
 }
 
-.tf-button-type2 {
+.keeping-button-type2 {
     &:hover {
         opacity: 0.8;
     }
 }
 
-.tf-button-disabled {
+.keeping-button-disabled {
     color: var(--white) !important;
     background-color: var(--lightgrey) !important;
     cursor: not-allowed;

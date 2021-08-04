@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, Renderer2 } from '@angular/core'
 
 @Component({
-    selector: 'tf-checkbox',
+    selector: 'keeping-checkbox',
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.scss'],
 })

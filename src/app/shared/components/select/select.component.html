@@ -1,6 +1,6 @@
-<div class="tf-select user-select-none" #selectElement>
+<div class="keeping-select user-select-none" #selectElement>
     <div
-        class="selected tf-typo-bodytext1 d-flex justify-content-center align-items-center"
+        class="selected keeping-typo-bodytext1 d-flex justify-content-center align-items-center"
         [class.open]="isOpen"
         [class.disabled]="disabled !== false"
         #selectedElement
@@ -18,7 +18,7 @@
             [class.disabled]="item.disabled"
             (click)="onSelect(item)"
         >
-            <span class="tf-typo-bodytext1">{{ item.name }}</span>
+            <span class="keeping-typo-bodytext1">{{ item.name }}</span>
         </div>
     </div>
 </div>

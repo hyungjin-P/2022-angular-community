@@ -1,20 +1,20 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2, OnDestroy } from '@angular/core'
 
 @Directive({
-    selector: '[tf-tooltip]',
+    selector: '[keeping-tooltip]',
 })
 export class TooltipDirective implements OnDestroy {
-    @Input() rwTooltipTitle: string
-    @Input() rwTooltipPlacement: string
-    @Input() rwTooltipDelay: number
+    @Input() keepingTooltipTitle: string
+    @Input() keepingTooltipPlacement: string
+    @Input() keepingTooltipDelay: number
 
     private tooltip: HTMLElement
     private offset = 10
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
-        this.rwTooltipTitle = 'Tooltip'
-        this.rwTooltipPlacement = 'left'
-        this.rwTooltipDelay = 200
+        this.keepingTooltipTitle = 'Tooltip'
+        this.keepingTooltipPlacement = 'left'
+        this.keepingTooltipDelay = 200
     }
 
     ngOnDestroy(): void {
@@ -28,7 +28,7 @@ export class TooltipDirective implements OnDestroy {
 
         setTimeout(() => {
             if (this.tooltip) {
-                this.renderer.addClass(this.tooltip, 'tf-tooltip-show')
+                this.renderer.addClass(this.tooltip, 'keeping-tooltip-show')
             }
         }, 0)
     }
@@ -43,36 +43,36 @@ export class TooltipDirective implements OnDestroy {
 
     create() {
         this.tooltip = this.renderer.createElement('div')
-        this.renderer.appendChild(this.tooltip, this.renderer.createText(this.rwTooltipTitle))
+        this.renderer.appendChild(this.tooltip, this.renderer.createText(this.keepingTooltipTitle))
         this.renderer.appendChild(document.body, this.tooltip)
 
-        this.renderer.addClass(this.tooltip, 'tf-tooltip')
-        this.renderer.addClass(this.tooltip, `tf-tooltip-${this.rwTooltipPlacement}`)
-        this.renderer.setStyle(this.tooltip, '-webkit-transition', `opacity ${this.rwTooltipDelay}ms`)
-        this.renderer.setStyle(this.tooltip, '-moz-transition', `opacity ${this.rwTooltipDelay}ms`)
-        this.renderer.setStyle(this.tooltip, '-o-transition', `opacity ${this.rwTooltipDelay}ms`)
-        this.renderer.setStyle(this.tooltip, 'transition', `opacity ${this.rwTooltipDelay}ms`)
+        this.renderer.addClass(this.tooltip, 'keeping-tooltip')
+        this.renderer.addClass(this.tooltip, `keeping-tooltip-${this.keepingTooltipPlacement}`)
+        this.renderer.setStyle(this.tooltip, '-webkit-transition', `opacity ${this.keepingTooltipDelay}ms`)
+        this.renderer.setStyle(this.tooltip, '-moz-transition', `opacity ${this.keepingTooltipDelay}ms`)
+        this.renderer.setStyle(this.tooltip, '-o-transition', `opacity ${this.keepingTooltipDelay}ms`)
+        this.renderer.setStyle(this.tooltip, 'transition', `opacity ${this.keepingTooltipDelay}ms`)
     }
 
     setPosition() {
         const hostPos = this.el.nativeElement.getBoundingClientRect()
         const toolTipPos = this.tooltip.getBoundingClientRect()
 
-        if (this.rwTooltipPlacement == 'top') {
+        if (this.keepingTooltipPlacement == 'top') {
             const adjusment =
                 hostPos.width > toolTipPos.width
                     ? hostPos.width / 2 - toolTipPos.width / 2
                     : (toolTipPos.width / 2 - hostPos.width / 2) * -1
             this.renderer.setStyle(this.tooltip, 'top', `${hostPos.top - toolTipPos.height - this.offset}px`)
             this.renderer.setStyle(this.tooltip, 'left', `${hostPos.left + adjusment}px`)
-        } else if (this.rwTooltipPlacement == 'right') {
+        } else if (this.keepingTooltipPlacement == 'right') {
             const adjusment =
                 hostPos.height > toolTipPos.height
                     ? hostPos.height / 2 - toolTipPos.height / 2
                     : (toolTipPos.height / 2 - hostPos.height / 2) * -1
             this.renderer.setStyle(this.tooltip, 'top', `${hostPos.top + adjusment}px`)
             this.renderer.setStyle(this.tooltip, 'left', `${hostPos.right + this.offset}px`)
-        } else if (this.rwTooltipPlacement == 'bottom') {
+        } else if (this.keepingTooltipPlacement == 'bottom') {
             const adjusment =
                 hostPos.width > toolTipPos.width
                     ? hostPos.width / 2 - toolTipPos.width / 2

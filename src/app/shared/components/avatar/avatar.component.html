@@ -1,4 +1,4 @@
-<div class="tf-avatar d-flex justify-content-center align-items-center user-select-none">
+<div class="keeping-avatar d-flex justify-content-center align-items-center user-select-none">
     <img #imgElement [src]="image" *ngIf="image" onerror="this.onerror=null; this.src='assets/images/profile.png'" />
     <div #textElement class="text d-flex justify-content-center align-items-center" *ngIf="!image">
         {{ text[0] | uppercase }}

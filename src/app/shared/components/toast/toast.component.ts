@@ -12,7 +12,7 @@ import {
 } from '@angular/core'
 
 @Component({
-    selector: 'tf-toast',
+    selector: 'keeping-toast',
     templateUrl: './toast.component.html',
     styleUrls: ['./toast.component.scss'],
 })
@@ -49,13 +49,13 @@ export class ToastComponent implements OnChanges, AfterViewChecked {
                 this.renderer.addClass(this.toastElement.nativeElement, 'display-flex')
                 this.setPosition()
                 setTimeout(() => {
-                    this.renderer.addClass(this.toastElement.nativeElement, 'tf-toast-show')
+                    this.renderer.addClass(this.toastElement.nativeElement, 'keeping-toast-show')
                 }, 0)
                 this.timer = setTimeout(() => {
                     this.onCancel()
                 }, this.delay)
             } else {
-                this.renderer.removeClass(this.toastElement.nativeElement, 'tf-toast-show')
+                this.renderer.removeClass(this.toastElement.nativeElement, 'keeping-toast-show')
                 setTimeout(() => {
                     this.renderer.removeClass(this.toastElement.nativeElement, 'display-flex')
                 }, 200)

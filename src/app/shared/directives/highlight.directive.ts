@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener } from '@angular/core'
 
 @Directive({
-    selector: '[tf-highlight]',
+    selector: '[keeping-highlight]',
     host: {
         '[style.cursor]': '"pointer"',
     },

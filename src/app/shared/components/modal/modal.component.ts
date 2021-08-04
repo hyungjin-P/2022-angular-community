@@ -12,7 +12,7 @@ import {
 } from '@angular/core'
 
 @Component({
-    selector: 'tf-modal',
+    selector: 'keeping-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
 })
@@ -50,12 +50,12 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 setTimeout(() => {
-                    this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'tf-modal-background-show')
-                    this.renderer.addClass(this.modalWrapperElement.nativeElement, 'tf-modal-wrapper-show')
+                    this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'keeping-modal-background-show')
+                    this.renderer.addClass(this.modalWrapperElement.nativeElement, 'keeping-modal-wrapper-show')
                 }, 0)
             } else {
-                this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'tf-modal-background-show')
-                this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'tf-modal-wrapper-show')
+                this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'keeping-modal-background-show')
+                this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'keeping-modal-wrapper-show')
                 setTimeout(() => {
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
