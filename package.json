@@ -19,10 +19,12 @@
         "@angular/platform-browser": "~12.1.0",
         "@angular/platform-browser-dynamic": "~12.1.0",
         "@angular/router": "~12.1.0",
+        "dom-autoscroller": "^2.3.4",
+        "firebase": "^7.0 || ^8.0",
+        "moment-timezone": "^0.5.33",
         "rxjs": "~6.6.0",
         "tslib": "^2.2.0",
-        "zone.js": "~0.11.4",
-        "firebase": "^7.0 || ^8.0"
+        "zone.js": "~0.11.4"
     },
     "devDependencies": {
         "@angular-devkit/architect": ">= 0.900 < 0.1300",
