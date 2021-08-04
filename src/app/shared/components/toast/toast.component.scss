@@ -1,0 +1,29 @@
+.tf-toast {
+    display: none;
+    position: fixed;
+    bottom: 60px;
+    padding: 11px 23px;
+    border-radius: 58px;
+    background-color: var(--font-color);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    z-index: 1000;
+
+    .tf-typo-bodytext2 {
+        font-weight: 700;
+        color: var(--white);
+    }
+
+    svg {
+        position: relative;
+        top: 2px;
+        width: 24px;
+        height: 24px;
+        margin-left: 40px;
+        cursor: pointer;
+    }
+}
+
+.tf-toast-show {
+    opacity: 1;
+}

@@ -1,0 +1,98 @@
+.tf-datepicker {
+    width: 255px;
+    height: 251px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: var(--white);
+
+    .col,
+    [class*='col-'] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .month {
+        .start,
+        .end {
+            .mdi {
+                font-size: 20px;
+                color: var(--grey);
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--darkgrey);
+                }
+            }
+        }
+
+        .center {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--font-color);
+        }
+    }
+
+    .week-header {
+        font-size: 13px;
+        color: var(--font-color);
+
+        & > div {
+            width: 26px;
+            height: 26px;
+        }
+    }
+
+    .week-row {
+        .week-col {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-size: 11px;
+        }
+    }
+}
+
+.tf-datepicker-date {
+    .week-row {
+        .week-col {
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--background-color);
+            }
+        }
+
+        .selected {
+            color: var(--white) !important;
+            background-color: var(--darkblue);
+
+            &:hover {
+                background-color: var(--darkblue);
+            }
+        }
+    }
+}
+
+.tf-datepicker-week {
+    .week-row {
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--background-color);
+        }
+    }
+
+    .selected {
+        background-color: var(--darkblue);
+
+        &:hover {
+            background-color: var(--darkblue);
+        }
+
+        .week-col {
+            color: var(--white) !important;
+        }
+    }
+}

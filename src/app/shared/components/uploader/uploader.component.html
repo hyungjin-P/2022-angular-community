@@ -1,0 +1,15 @@
+<div class="dropzone" dropzone (hovered)="toogleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
+    <h3>AngularFire Drop Zone</h3>
+    <p>Drag and Drop a File</p>
+    <div class="file">
+        <div class="file-label">
+            <input class="file-input" type="file" (change)="onDrop($event.target.files)" />
+        </div>
+    </div>
+</div>
+
+<h3>Uploads</h3>
+
+<div *ngFor="let file of files">
+    <upload-task [file]="file"></upload-task>
+</div>

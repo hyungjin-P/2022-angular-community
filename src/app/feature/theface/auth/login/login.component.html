@@ -1,0 +1,20 @@
+<div class="login full-absolute d-flex flex-column user-select-none">
+    <header></header>
+
+    <div class="flex-fill d-flex justify-content-center">
+        <div class="box d-flex flex-column">
+            <div class="button kakao d-flex justify-content-center align-items-center" (click)="signInWithKakao()">
+                <img src="assets/icons/social/kakao.svg" />
+                <span class="ss-typo-title2">카카오로 로그인</span>
+            </div>
+            <div class="button google d-flex justify-content-center align-items-center" (click)="signInWithGoogle()">
+                <img src="assets/icons/social/google.svg" />
+                <span class="ss-typo-title2">Google로 로그인</span>
+            </div>
+            <div class="button apple d-flex justify-content-center align-items-center" (click)="signInWithApple()">
+                <img src="assets/icons/social/apple.svg" />
+                <span class="ss-typo-title2">Apple로 로그인</span>
+            </div>
+        </div>
+    </div>
+</div>
