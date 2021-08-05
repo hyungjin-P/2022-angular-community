@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    serverAddress: 'https://REDACTED_SERVER_ADDRESS:3000',
+    serverAddress: 'https://REDACTED_SERVER_ADDRESS',
     wss: 'wss://REDACTED_WSS_ENDPOINT',
     firebase: {
         apiKey: 'REDACTED_FIREBASE_API_KEY',
