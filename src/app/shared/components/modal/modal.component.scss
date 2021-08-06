@@ -1,4 +1,4 @@
-.keeping-modal-background {
+.shared-modal-background {
     display: none;
     position: fixed;
     top: 0;
@@ -11,11 +11,11 @@
     z-index: 999;
 }
 
-.keeping-modal-background-show {
+.shared-modal-background-show {
     opacity: 0.3;
 }
 
-.keeping-modal-wrapper {
+.shared-modal-wrapper {
     display: none;
     position: fixed;
     top: 0;
@@ -24,7 +24,7 @@
     left: 0;
     z-index: 1000;
 
-    .keeping-modal {
+    .shared-modal {
         width: 334px;
         padding: 0 10px;
         border: 1px solid var(--border-color);
@@ -64,8 +64,8 @@
     }
 }
 
-.keeping-modal-wrapper-show {
-    .keeping-modal {
+.shared-modal-wrapper-show {
+    .shared-modal {
         opacity: 1;
     }
 }

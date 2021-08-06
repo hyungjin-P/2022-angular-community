@@ -2,10 +2,10 @@ import { Directive, ElementRef, Output, EventEmitter, AfterViewInit, OnDestroy }
 import { fromEvent, Subscription } from 'rxjs'
 
 @Directive({
-    selector: '[keepingClickOutside]',
+    selector: '[sharedClickOutside]',
 })
 export class ClickOutsideDirective implements AfterViewInit, OnDestroy {
-    @Output('keepingClickOutside') public clickOutside: EventEmitter<any> = new EventEmitter()
+    @Output('sharedClickOutside') public clickOutside: EventEmitter<any> = new EventEmitter()
 
     private documentClick: Subscription
 

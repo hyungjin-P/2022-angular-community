@@ -1,4 +1,4 @@
-.keeping-toast {
+.shared-toast {
     display: none;
     position: fixed;
     bottom: 60px;
@@ -9,7 +9,7 @@
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     z-index: 1000;
 
-    .keeping-typo-bodytext2 {
+    .shared-typo-bodytext2 {
         font-weight: 700;
         color: var(--white);
     }
@@ -24,6 +24,6 @@
     }
 }
 
-.keeping-toast-show {
+.shared-toast-show {
     opacity: 1;
 }

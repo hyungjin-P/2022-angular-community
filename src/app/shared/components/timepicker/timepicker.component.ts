@@ -2,7 +2,7 @@ import { Component, Input, ElementRef, Renderer2, Output, EventEmitter, OnInit, 
 import * as moment from 'moment-timezone'
 
 @Component({
-    selector: 'keeping-timepicker',
+    selector: 'shared-timepicker',
     templateUrl: './timepicker.component.html',
     styleUrls: ['./timepicker.component.scss'],
 })

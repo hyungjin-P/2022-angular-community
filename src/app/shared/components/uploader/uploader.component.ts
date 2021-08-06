@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 
 @Component({
-    selector: 'keeping-uploader',
+    selector: 'shared-uploader',
     templateUrl: './uploader.component.html',
     styleUrls: ['./uploader.component.scss'],
 })

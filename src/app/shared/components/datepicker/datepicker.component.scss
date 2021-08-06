@@ -1,4 +1,4 @@
-.keeping-datepicker {
+.shared-datepicker {
     width: 255px;
     height: 251px;
     padding: 10px;
@@ -53,7 +53,7 @@
     }
 }
 
-.keeping-datepicker-date {
+.shared-datepicker-date {
     .week-row {
         .week-col {
             cursor: pointer;
@@ -74,7 +74,7 @@
     }
 }
 
-.keeping-datepicker-week {
+.shared-datepicker-week {
     .week-row {
         border-radius: 5px;
         cursor: pointer;

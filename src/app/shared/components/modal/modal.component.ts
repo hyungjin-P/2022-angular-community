@@ -12,7 +12,7 @@ import {
 } from '@angular/core'
 
 @Component({
-    selector: 'keeping-modal',
+    selector: 'shared-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
 })
@@ -50,12 +50,12 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 setTimeout(() => {
-                    this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'keeping-modal-background-show')
-                    this.renderer.addClass(this.modalWrapperElement.nativeElement, 'keeping-modal-wrapper-show')
+                    this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
+                    this.renderer.addClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
                 }, 0)
             } else {
-                this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'keeping-modal-background-show')
-                this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'keeping-modal-wrapper-show')
+                this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
+                this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
                 setTimeout(() => {
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')

@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 
 @Component({
-    selector: 'keeping-avatar',
+    selector: 'shared-avatar',
     templateUrl: './avatar.component.html',
     styleUrls: ['./avatar.component.scss'],
 })

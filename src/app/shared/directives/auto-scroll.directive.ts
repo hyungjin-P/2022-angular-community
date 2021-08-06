@@ -2,7 +2,7 @@ import { Directive, ElementRef } from '@angular/core'
 import * as autoScroll from 'dom-autoscroller'
 
 @Directive({
-    selector: '[keeping-auto-scroll]',
+    selector: '[shared-auto-scroll]',
 })
 export class AutoScrollDirective {
     constructor(private el: ElementRef) {}

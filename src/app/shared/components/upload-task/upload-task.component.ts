@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 import { finalize, tap } from 'rxjs/operators'
 
 @Component({
-    selector: 'keeping-upload-task',
+    selector: 'shared-upload-task',
     templateUrl: './upload-task.component.html',
     styleUrls: ['./upload-task.component.scss'],
 })

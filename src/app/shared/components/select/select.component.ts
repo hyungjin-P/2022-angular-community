@@ -2,7 +2,7 @@ import { Component, Input, forwardRef, ElementRef, Renderer2, ViewChild, AfterVi
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
-    selector: 'keeping-select',
+    selector: 'shared-select',
     templateUrl: './select.component.html',
     styleUrls: ['./select.component.scss'],
     providers: [

@@ -1,11 +1,11 @@
-<div class="keeping-select user-select-none" #selectElement>
+<div class="shared-select user-select-none" #selectElement>
     <div
-        class="selected keeping-typo-bodytext1 d-flex justify-content-center align-items-center"
+        class="selected shared-typo-bodytext1 d-flex justify-content-center align-items-center"
         [class.open]="isOpen"
         [class.disabled]="disabled !== false"
         #selectedElement
         (click)="toggle()"
-        (rwClickOutside)="close()"
+        (sharedClickOutside)="close()"
     >
         <span class="text flex-fill">{{ value?.name }}</span>
         <span class="mdi mdi-chevron-down"></span>
@@ -18,7 +18,7 @@
             [class.disabled]="item.disabled"
             (click)="onSelect(item)"
         >
-            <span class="keeping-typo-bodytext1">{{ item.name }}</span>
+            <span class="shared-typo-bodytext1">{{ item.name }}</span>
         </div>
     </div>
 </div>

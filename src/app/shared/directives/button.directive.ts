@@ -10,63 +10,63 @@ import {
 } from '@angular/core'
 
 @Directive({
-    selector: '[keeping-button]',
+    selector: '[shared-button]',
 })
 export class ButtonDirective implements OnInit, OnChanges, AfterViewChecked {
-    @Input() keepingButtonWidth: string
-    @Input() keepingButtonHeight: string
-    @Input() keepingButtonColor: string
-    @Input() keepingButtonBorderColor: string
-    @Input() keepingButtonFontColor: string
-    @Input() keepingButtonDisabled: boolean
+    @Input() sharedButtonWidth: string
+    @Input() sharedButtonHeight: string
+    @Input() sharedButtonColor: string
+    @Input() sharedButtonBorderColor: string
+    @Input() sharedButtonFontColor: string
+    @Input() sharedButtonDisabled: boolean
 
     changed
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.keepingButtonDisabled && !changes.keepingButtonDisabled.firstChange) {
-            if (changes.keepingButtonDisabled.previousValue != changes.keepingButtonDisabled.currentValue) {
+        if (changes.sharedButtonDisabled && !changes.sharedButtonDisabled.firstChange) {
+            if (changes.sharedButtonDisabled.previousValue != changes.sharedButtonDisabled.currentValue) {
                 this.changed = true
             }
         }
     }
 
     ngOnInit(): void {
-        this.renderer.addClass(this.el.nativeElement, 'keeping-button')
+        this.renderer.addClass(this.el.nativeElement, 'shared-button')
 
-        if (this.keepingButtonWidth) {
-            this.el.nativeElement.style.width = `${this.keepingButtonWidth}px`
+        if (this.sharedButtonWidth) {
+            this.el.nativeElement.style.width = `${this.sharedButtonWidth}px`
         }
 
-        if (this.keepingButtonHeight) {
-            this.el.nativeElement.style.height = `${this.keepingButtonHeight}px`
+        if (this.sharedButtonHeight) {
+            this.el.nativeElement.style.height = `${this.sharedButtonHeight}px`
         }
 
-        if (!this.keepingButtonWidth && !this.keepingButtonHeight) {
+        if (!this.sharedButtonWidth && !this.sharedButtonHeight) {
             this.el.nativeElement.style.padding = '13px 15px'
         }
 
-        if (this.keepingButtonColor) {
-            this.el.nativeElement.style.backgroundColor = this.keepingButtonColor
+        if (this.sharedButtonColor) {
+            this.el.nativeElement.style.backgroundColor = this.sharedButtonColor
             this.el.nativeElement.style.color = 'var(--white)'
-            this.renderer.addClass(this.el.nativeElement, 'keeping-button-type2')
-        } else if (this.keepingButtonBorderColor) {
-            this.el.nativeElement.style.border = `1px solid ${this.keepingButtonBorderColor}`
+            this.renderer.addClass(this.el.nativeElement, 'shared-button-type2')
+        } else if (this.sharedButtonBorderColor) {
+            this.el.nativeElement.style.border = `1px solid ${this.sharedButtonBorderColor}`
             this.el.nativeElement.style.color = 'var(--font-color)'
-            this.renderer.addClass(this.el.nativeElement, 'keeping-button-type1')
+            this.renderer.addClass(this.el.nativeElement, 'shared-button-type1')
         } else {
-            this.renderer.addClass(this.el.nativeElement, 'keeping-button-type1')
+            this.renderer.addClass(this.el.nativeElement, 'shared-button-type1')
         }
 
-        if (this.keepingButtonFontColor) {
-            this.el.nativeElement.style.color = this.keepingButtonFontColor
+        if (this.sharedButtonFontColor) {
+            this.el.nativeElement.style.color = this.sharedButtonFontColor
         }
 
-        if (this.keepingButtonDisabled) {
-            this.renderer.addClass(this.el.nativeElement, 'keeping-button-disabled')
+        if (this.sharedButtonDisabled) {
+            this.renderer.addClass(this.el.nativeElement, 'shared-button-disabled')
 
-            if (this.keepingButtonBorderColor) {
+            if (this.sharedButtonBorderColor) {
                 this.el.nativeElement.style.border = `1px solid transparent`
             }
         }
@@ -76,17 +76,17 @@ export class ButtonDirective implements OnInit, OnChanges, AfterViewChecked {
         if (this.changed) {
             this.changed = false
 
-            if (this.keepingButtonDisabled) {
-                this.renderer.addClass(this.el.nativeElement, 'keeping-button-disabled')
+            if (this.sharedButtonDisabled) {
+                this.renderer.addClass(this.el.nativeElement, 'shared-button-disabled')
 
-                if (this.keepingButtonBorderColor) {
+                if (this.sharedButtonBorderColor) {
                     this.el.nativeElement.style.border = `1px solid transparent`
                 }
             } else {
-                this.renderer.removeClass(this.el.nativeElement, 'keeping-button-disabled')
+                this.renderer.removeClass(this.el.nativeElement, 'shared-button-disabled')
 
-                if (this.keepingButtonBorderColor) {
-                    this.el.nativeElement.style.border = `1px solid ${this.keepingButtonBorderColor}`
+                if (this.sharedButtonBorderColor) {
+                    this.el.nativeElement.style.border = `1px solid ${this.sharedButtonBorderColor}`
                 }
             }
         }
