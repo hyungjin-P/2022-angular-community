@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
 
         if (user) {
             if (url[1] == 'auth') {
-                this.router.navigateByUrl('/theface-home')
+                this.router.navigateByUrl('/keeping-home')
                 return false
             } else {
                 return true
