@@ -13,8 +13,7 @@ export class User {
         public color: string,
         public access_token: string,
         public refresh_token: string,
-        public custom_token: string,
-        public sign_in_method?: string
+        public custom_token: string
     ) {
         this.id = id
         this.provider = provider
@@ -30,6 +29,5 @@ export class User {
         this.access_token = access_token
         this.refresh_token = refresh_token
         this.custom_token = custom_token
-        this.sign_in_method = sign_in_method
     }
 }

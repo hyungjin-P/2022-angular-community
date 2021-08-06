@@ -29,21 +29,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+        this.angularFireAuth.setPersistence('session')
         this.subscription = this.angularFireAuth.authState.subscribe((user) => {
             if (user) {
                 if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
                     user.getIdToken().then((accessToken) => {
                         this.authService.signInWithFirebase({ accessToken }).subscribe(
                             (user) => {
-                                this.storageService.setSignInMethod(this.signInMethod)
-                                this.router.navigateByUrl('/theface-home')
+                                this.router.navigateByUrl('/keeping-home')
                             },
                             (e) => {}
                         )
                     })
                 } else {
-                    this.storageService.setSignInMethod(this.signInMethod)
-                    this.router.navigateByUrl('/theface-home')
+                    this.router.navigateByUrl('/keeping-home')
                 }
             }
         })

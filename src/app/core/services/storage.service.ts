@@ -35,12 +35,4 @@ export class StorageService {
         await this.angularFireAuth.signOut()
         this.storage.removeItem(this.userKey)
     }
-
-    setSignInMethod(signInMethod: string): void {
-        if (signInMethod) {
-            const user: User = this.getUser()
-            user.sign_in_method = signInMethod
-            this.setUser(user)
-        }
-    }
 }
