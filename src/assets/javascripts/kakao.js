@@ -1,5 +1,5 @@
 /**
- * Kakao SDK for JavaScript - v1.40.6
+ * Kakao SDK for JavaScript - v1.40.7
  *
  * Copyright 2017 Kakao Corp.
  *
@@ -915,6 +915,44 @@
     }
   }();
 
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+
+      if (enumerableOnly) {
+        symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
+      }
+
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
+
   function _typeof(obj) {
     "@babel/helpers - typeof";
 
@@ -966,40 +1004,6 @@
     }
 
     return obj;
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
   }
 
   function _inherits(subClass, superClass) {
@@ -1098,18 +1102,21 @@
   }
 
   function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
   }
 
   function _iterableToArrayLimit(arr, i) {
-    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+    if (_i == null) return;
     var _arr = [];
     var _n = true;
     var _d = false;
-    var _e = undefined;
+
+    var _s, _e;
 
     try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
         _arr.push(_s.value);
 
         if (i && _arr.length === i) break;
@@ -1329,7 +1336,7 @@
   var navigator$1 = getNavigator();
   var origin = getOrigin();
   var UA = getUA();
-  var VERSION = "1.40.6".concat('');
+  var VERSION = "1.40.7".concat('');
   var KAKAO_AGENT = ["sdk/".concat(VERSION), 'os/javascript', 'sdk_type/javascript', "lang/".concat(navigator$1.userLanguage || navigator$1.language), "device/".concat(navigator$1.platform.replace(/ /g, '_')), "origin/".concat(encodeURIComponent(origin))].join(' ');
   var URL = {
     authDomain: AUTH,
@@ -1481,6 +1488,11 @@
     if (popup.focus) {
       popup.focus();
     }
+    createAndSubmitForm(params, url, popupName);
+    return popup;
+  }
+  function createAndSubmitForm(params, url) {
+    var popupName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
     var form = document.createElement('form');
     form.setAttribute('accept-charset', 'utf-8');
     form.setAttribute('method', 'post');
@@ -1497,7 +1509,6 @@
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
-    return popup;
   }
 
   var eventObserverMap = {};
@@ -5242,7 +5253,7 @@
   var POPUP_NAME = '_blank';
   var POPUP_FEATURES$1 = 'width=380, height=520, scrollbars=yes';
   var ANDROID_WV = /Version\/4.0/i.test(UA.ua) || /; wv\)/i.test(UA.ua);
-  var ANDROID_WV_ALLOWLIST = /naver\(inapp|fb_iab|daumapps|instagram|ebay/g.test(UA.ua);
+  var ANDROID_WV_ALLOWLIST = /naver\(inapp|fb_iab|daumapps|instagram|ebay/g.test(UA.ua) || (typeof daumApps === "undefined" ? "undefined" : _typeof(daumApps)) === 'object';
   function login$2(stateToken, fallbackUrl, authParams, redirectUri) {
     if (!isSupport()) {
       return;
@@ -7214,6 +7225,7 @@
     after: pickerProperties.after
   };
   var pickerOptionalSettings = {
+    returnUrl: isString,
     success: isFunction,
     fail: isFunction,
     always: isFunction,
@@ -7257,39 +7269,38 @@
   }
   function openPickerPopup(settings, selectType) {
     cleanup$1();
-    var token = getAccessToken();
-    if (!token) {
-      handlePickerCallback(settings, {
-        code: -401,
-        msg: 'InvalidTokenException'
-      });
-      return;
-    }
     var transId = generateTxId();
-    createHiddenIframe(transId);
-    addPickerMessageEvent(settings);
     var pickerParams = _objectSpread2({
       transId: transId,
-      token: token,
       appKey: getAppKey$1(),
       ka: KAKAO_AGENT,
       pickerFriendFilter: settings.pickerFriendFilter,
       pickerFriendType: settings.pickerFriendType
     }, settings.properties);
+    if (getAccessToken() !== null) {
+      pickerParams.token = getAccessToken();
+    }
     if (settings.pickerFriendOrder) {
       pickerParams.pickerFriendOrder = settings.pickerFriendOrder;
     }
-    openPopupAndSubmitForm(pickerParams, {
-      url: "".concat(URL.pickerDomain, "/select/").concat(selectType),
-      popupName: 'friend_picker',
-      popupFeatures: 'location=no,resizable=no,status=no,scrollbars=no,width=460,height=608'
-    });
+    if (settings.returnUrl) {
+      pickerParams.returnUrl = settings.returnUrl;
+      createAndSubmitForm(pickerParams, "".concat(URL.pickerDomain, "/redirect/select/").concat(selectType));
+    } else {
+      createHiddenIframe(transId);
+      addPickerMessageEvent(settings);
+      openPopupAndSubmitForm(pickerParams, {
+        url: "".concat(URL.pickerDomain, "/select/").concat(selectType),
+        popupName: 'friend_picker',
+        popupFeatures: 'location=no,resizable=no,status=no,scrollbars=no,width=460,height=608'
+      });
+    }
   }
   function createHiddenIframe(transId) {
     var iframe = document.createElement('iframe');
     iframe.id = iframe.name = transId;
     iframe.src = "".concat(URL.pickerDomain, "/proxy?transId=").concat(transId);
-    iframe.setAttribute('style', 'border:none; width:0; height:0; display:none; overflow:hidden;');
+    iframe.style = "border:none; width:0; height:0; display:none; overflow:hidden;";
     document.body.appendChild(iframe);
     cleanups.push(function () {
       document.body.removeChild(iframe);
