@@ -15,14 +15,14 @@ const routes: Routes = [
 
     {
         path: 'auth',
-        loadChildren: () => import('./feature/theface/auth/auth.module').then((m) => m.AuthModule),
+        loadChildren: () => import('./feature/keeping/auth/auth.module').then((m) => m.AuthModule),
     },
 
     {
-        path: 'theface-home',
+        path: 'keeping-home',
         canActivate: [AuthGuard],
         loadChildren: () =>
-            import('./feature/theface/theface-home/theface-home.module').then((m) => m.ThefaceHomeModule),
+            import('./feature/keeping/keeping-home/keeping-home.module').then((m) => m.KeepingHomeModule),
     },
 
     { path: '404', component: NotFoundComponent },
