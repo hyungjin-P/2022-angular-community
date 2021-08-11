@@ -37,5 +37,22 @@
                 color: var(--white);
             }
         }
+
+        .naver {
+            margin-top: 15px;
+            background-color: rgb(2, 199, 89);
+
+            img {
+                width: 40px;
+            }
+
+            span {
+                color: var(--white);
+            }
+
+            #code {
+                display: none;
+            }
+        }
     }
 }

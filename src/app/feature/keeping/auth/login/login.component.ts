@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     signInMethod: string
     subscription: Subscription
 
+    naverLoginPopupWindowRef: Window
+
     constructor(
         private router: Router,
         private angularFireAuth: AngularFireAuth,
@@ -96,5 +98,31 @@ export class LoginComponent implements OnInit, OnDestroy {
             },
             (e) => {}
         )
+    }
+
+    signInWithNaver(): void {
+        this.signInMethod = 'naver'
+
+        let width = 504
+        let height = 642
+        let top = (window.outerHeight - height) / 2 + screenY
+        let left = (window.outerWidth - width) / 2 + screenX
+
+        let clientId = environment.naver['clientId']
+        let redirectUri = environment.naver['redirectUri']
+
+        this.naverLoginPopupWindowRef = window.open(
+            `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`,
+            '_blank',
+            `width=${width},height=${height},top=${top},left=${left},scrollbars=no`
+        )
+    }
+
+    _signInWithNaver(code: string) {
+        this.naverLoginPopupWindowRef.close()
+
+        this.authService.signWithNaver({ code: code }).subscribe((user) => {
+            this.angularFireAuth.signInWithCustomToken(user.custom_token)
+        })
     }
 }

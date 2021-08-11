@@ -7,6 +7,11 @@
                 <img src="assets/icons/social/kakao.svg" />
                 <span class="shared-typo-title2">카카오로 로그인</span>
             </div>
+            <div class="button naver d-flex justify-content-center align-items-center" (click)="signInWithNaver()">
+                <img src="assets/icons/social/naver.png" />
+                <span class="shared-typo-title2">네이버로 로그인</span>
+                <div id="code" #code (click)="_signInWithNaver(code.innerText); code.innerText = ''"></div>
+            </div>
             <div class="button google d-flex justify-content-center align-items-center" (click)="signInWithGoogle()">
                 <img src="assets/icons/social/google.svg" />
                 <span class="shared-typo-title2">Google로 로그인</span>

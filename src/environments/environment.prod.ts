@@ -16,5 +16,9 @@ export const environment = {
             javascript: 'REDACTED_KAKAO_JS_KEY',
         },
     },
+    naver: {
+        clientId: 'REDACTED_NAVER_CLIENT_ID',
+        redirectUri: 'https://keeping.link/auth/callback',
+    },
     recaptchaSiteKey: '',
 }

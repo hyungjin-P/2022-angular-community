@@ -54,6 +54,25 @@ export class AuthService {
         )
     }
 
+    signWithNaver(requestBody: SignInWithNaverRequestBody): Observable<User> {
+        const url = environment['serverAddress'] + '/auth/naver'
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.post<Response>(url, requestBody, options).pipe(
+            map((res) => {
+                const user: User = res.dataset[0]
+                this.storageService.setUser(user)
+                return user
+            }),
+            catchError(handleError)
+        )
+    }
+
     signInWithEmail(requestBody: SignInWithEmailRequestBody): Observable<User> {
         const url = environment['serverAddress'] + '/auth/login'
 
@@ -288,6 +307,10 @@ class SignInWithFirebaseRequestBody {
 
 class SignInWithKakaoRequestBody {
     accessToken: string
+}
+
+class SignInWithNaverRequestBody {
+    code: string
 }
 
 class SignInWithEmailRequestBody {
