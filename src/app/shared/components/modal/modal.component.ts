@@ -47,8 +47,8 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
             this.changed = false
 
             if (this.visible) {
-                this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
-                this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
+                this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'd-block')
+                this.renderer.addClass(this.modalWrapperElement.nativeElement, 'd-flex')
                 setTimeout(() => {
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
@@ -57,8 +57,8 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
                 setTimeout(() => {
-                    this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
-                    this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
+                    this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'd-block')
+                    this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'd-flex')
                 }, 200)
             }
         }

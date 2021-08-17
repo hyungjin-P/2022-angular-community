@@ -46,7 +46,7 @@ export class ToastComponent implements OnChanges, AfterViewChecked {
             this.changed = false
 
             if (this.visible) {
-                this.renderer.addClass(this.toastElement.nativeElement, 'display-flex')
+                this.renderer.addClass(this.toastElement.nativeElement, 'd-flex')
                 this.setPosition()
                 setTimeout(() => {
                     this.renderer.addClass(this.toastElement.nativeElement, 'shared-toast-show')
@@ -57,7 +57,7 @@ export class ToastComponent implements OnChanges, AfterViewChecked {
             } else {
                 this.renderer.removeClass(this.toastElement.nativeElement, 'shared-toast-show')
                 setTimeout(() => {
-                    this.renderer.removeClass(this.toastElement.nativeElement, 'display-flex')
+                    this.renderer.removeClass(this.toastElement.nativeElement, 'd-flex')
                 }, 200)
             }
         }
