@@ -411,84 +411,29 @@ body {
 @media (min-width: 360px) {
     .container {
         max-width: 328px;
-
-        .row {
-            margin-right: -15px;
-            margin-left: -15px;
-
-            > .col,
-            > [class*='col-'] {
-                padding-right: 15px;
-                padding-left: 15px;
-            }
-        }
     }
 }
 
 @media (min-width: 576px) {
     .container {
         max-width: 528px;
-
-        .row {
-            margin-right: -15px;
-            margin-left: -15px;
-
-            > .col,
-            > [class*='col-'] {
-                padding-right: 15px;
-                padding-left: 15px;
-            }
-        }
     }
 }
 
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
-
-        .row {
-            margin-right: -15px;
-            margin-left: -15px;
-
-            > .col,
-            > [class*='col-'] {
-                padding-right: 15px;
-                padding-left: 15px;
-            }
-        }
     }
 }
 
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
-
-        .row {
-            margin-right: -15px;
-            margin-left: -15px;
-
-            > .col,
-            > [class*='col-'] {
-                padding-right: 15px;
-                padding-left: 15px;
-            }
-        }
     }
 }
 
 @media (min-width: 1200px) {
     .container {
         max-width: 1080px;
-
-        .row {
-            margin-right: -15px;
-            margin-left: -15px;
-
-            > .col,
-            > [class*='col-'] {
-                padding-right: 15px;
-                padding-left: 15px;
-            }
-        }
     }
 }
