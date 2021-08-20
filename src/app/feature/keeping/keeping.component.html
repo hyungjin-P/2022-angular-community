@@ -1,4 +1,25 @@
 <div class="full-absolute" [class.touch-screen]="touchScreen">
+    <div class="banner user-select-none" *ngIf="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="content" #bannerElement>
+                        <div class="text">
+                            <img src="assets/icons/etc/gift-box.png" />
+                            <span>신규회원</span>
+                            <span>중고마켓 무료배송 쿠폰!</span>
+                        </div>
+                        <div class="close-all-day d-none d-lg-block" (click)="closeBannerAllDay()">
+                            하루동안 보지않기
+                        </div>
+                        <svg class="keeping-icon" (click)="closeBanner()">
+                            <use xlink:href="assets/icons/etc/close-18.svg#icon" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="header user-select-none">
         <div class="container">
             <div class="row">
