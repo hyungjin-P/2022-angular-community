@@ -132,14 +132,18 @@
 
             div:nth-child(1),
             div:nth-child(3) {
-                font-weight: 500;
+                outline: none;
                 cursor: pointer;
+
+                font-weight: 500;
             }
 
             div:nth-child(5),
             div:nth-child(7) {
-                font-weight: 700;
+                outline: none;
                 cursor: pointer;
+
+                font-weight: 700;
             }
 
             .middle-dot {
