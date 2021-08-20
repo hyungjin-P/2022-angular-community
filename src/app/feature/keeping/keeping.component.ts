@@ -47,5 +47,8 @@ export class KeepingComponent implements OnInit {
 
     closeBanner() {
         this.bannerElement.nativeElement.style.height = '0'
+        setTimeout(() => {
+            this.banner = false
+        }, 200)
     }
 }
