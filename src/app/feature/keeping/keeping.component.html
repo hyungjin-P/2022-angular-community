@@ -1,4 +1,4 @@
-<div class="full-absolute">
+<div class="full-absolute" [class.touch-screen]="touchScreen">
     <div class="header user-select-none">
         <div class="container">
             <div class="row">
@@ -24,7 +24,7 @@
                 <div class="col-6">
                     <div class="action">
                         <svg class="keeping-icon">
-                            <use xlink:href="assets/icons/search.svg#icon" />
+                            <use xlink:href="assets/icons/etc/search.svg#icon" />
                         </svg>
                         <div class="d-none d-lg-flex login">로그인/가입</div>
                     </div>
@@ -91,11 +91,11 @@
                         <div class="col-12">
                             <span class="ceo"><span>대표이사</span> : ***</span>
                             <span class="business-number"><span>사업자 등록번호</span> : ***-**-*****</span>
-                            <span class="address d-none d-lg-inline">
+                            <span class="address d-none d-sm-inline">
                                 <span>주소</span> : ***
                             </span>
                         </div>
-                        <div class="col-12 d-lg-none">
+                        <div class="col-12 d-sm-none">
                             <div class="address">
                                 <span>주소</span> : ***
                             </div>
@@ -105,6 +105,40 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav d-lg-none">
+        <div class="menu-box">
+            <div class="menu">
+                <svg class="keeping-icon">
+                    <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
+                </svg>
+                <div>홈</div>
+            </div>
+            <div class="menu">
+                <svg class="keeping-icon">
+                    <use xlink:href="assets/icons/bottom-nav/alarm.svg#icon" />
+                </svg>
+                <div>알림</div>
+            </div>
+            <div class="menu">
+                <svg class="keeping-icon">
+                    <use xlink:href="assets/icons/bottom-nav/pencil.svg#icon" />
+                </svg>
+                <div>글쓰기</div>
+            </div>
+            <div class="menu">
+                <svg class="keeping-icon">
+                    <use xlink:href="assets/icons/bottom-nav/clip.svg#icon" />
+                </svg>
+                <div>스크랩</div>
+            </div>
+            <div class="menu">
+                <svg class="keeping-icon">
+                    <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
+                </svg>
+                <div>로그인</div>
             </div>
         </div>
     </div>

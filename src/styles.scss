@@ -392,6 +392,10 @@ body {
     height: 100% !important;
 }
 
+.justify-content-evenly {
+    justify-content: space-evenly !important;
+}
+
 .user-select-none {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -410,10 +414,11 @@ body {
     height: 24px;
     background-size: cover;
     stroke: #7e8a9a;
+    fill: #7e8a9a;
 
-    &:hover,
-    &:focus {
+    &:hover {
         stroke: #567df4;
+        fill: #567df4;
     }
 }
 
