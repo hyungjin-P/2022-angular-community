@@ -38,13 +38,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                     user.getIdToken().then((accessToken) => {
                         this.authService.signInWithFirebase({ accessToken }).subscribe(
                             (user) => {
-                                this.router.navigateByUrl('/keeping-home')
+                                this.router.navigateByUrl('/')
                             },
                             (e) => {}
                         )
                     })
                 } else {
-                    this.router.navigateByUrl('/keeping-home')
+                    this.router.navigateByUrl('/')
                 }
             }
         })

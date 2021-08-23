@@ -5,13 +5,21 @@ import { AuthGuard } from '@services/guards/auth.guard'
 
 import { KeepingComponent } from './keeping.component'
 
-import { HomeComponent } from './contents/home/home.component'
-import { FeedComponent } from './contents/feed/feed.component'
-import { CommunityComponent } from './contents/community/community.component'
-import { MarketComponent } from './contents/market/market.component'
-import { MagazineComponent } from './contents/magazine/magazine.component'
-import { PrivacyComponent } from './contents/privacy/privacy.component'
-import { ServiceTermsComponent } from './contents/service-terms/service-terms.component'
+import { HomeComponent } from './children/home/home.component'
+import { FeedComponent } from './children/feed/feed.component'
+import { CommunityComponent } from './children/community/community.component'
+import { MarketComponent } from './children/market/market.component'
+import { MagazineComponent } from './children/magazine/magazine.component'
+
+import { NotificationComponent } from './children/notification/notification.component'
+import { WriteComponent } from './children/write/write.component'
+import { ScrapComponent } from './children/scrap/scrap.component'
+
+import { PrivacyComponent } from './children/privacy/privacy.component'
+import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
+
+import { SearchComponent } from './search/search.component'
+import { MyInfoComponent } from './my-info/my-info.component'
 
 const routes: Routes = [
     {
@@ -24,10 +32,18 @@ const routes: Routes = [
             { path: 'market', component: MarketComponent },
             { path: 'magazine', component: MagazineComponent },
 
+            { path: 'notification', component: NotificationComponent },
+            { path: 'write', component: WriteComponent },
+            { path: 'scrap', component: ScrapComponent },
+
             { path: 'privacy', component: PrivacyComponent },
             { path: 'service-terms', component: ServiceTermsComponent },
         ],
     },
+
+    { path: 'search', component: SearchComponent },
+
+    { path: 'my-info', component: MyInfoComponent },
 
     {
         path: 'auth',

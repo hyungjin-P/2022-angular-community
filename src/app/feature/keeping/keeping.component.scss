@@ -184,7 +184,7 @@
             background-color: #567df4;
             cursor: pointer;
 
-            font-weight: 700;
+            font-weight: 500;
             font-size: 13px;
             line-height: 34px;
             color: #ffffff;
@@ -325,11 +325,24 @@
                 color: #93a0b2;
             }
         }
+
+        .selected {
+            svg {
+                fill: #567df4;
+                stroke: #567df4;
+            }
+
+            div {
+                color: #567df4;
+            }
+        }
     }
 }
 
 @media (min-width: 360px) {
     .banner {
+        padding: 0 20px;
+
         .content {
             justify-content: flex-start;
         }
@@ -468,5 +481,11 @@
                 margin-bottom: 0px;
             }
         }
+    }
+}
+
+@media (min-width: 1200px) {
+    .banner {
+        padding: 0 60px;
     }
 }

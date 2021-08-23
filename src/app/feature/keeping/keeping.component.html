@@ -1,23 +1,15 @@
 <div class="full-absolute" [class.touch-screen]="touchScreen">
     <div class="banner user-select-none" *ngIf="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="content" #bannerElement>
-                        <div class="text">
-                            <img src="assets/icons/etc/gift-box.png" />
-                            <span>신규회원</span>
-                            <span>중고마켓 무료배송 쿠폰!</span>
-                        </div>
-                        <div class="close-all-day d-none d-lg-block" (click)="closeBannerAllDay()">
-                            하루동안 보지않기
-                        </div>
-                        <svg class="keeping-icon" (click)="closeBanner()">
-                            <use xlink:href="assets/icons/etc/close-18.svg#icon" />
-                        </svg>
-                    </div>
-                </div>
+        <div class="content" #bannerElement>
+            <div class="text">
+                <img src="assets/icons/etc/gift-box.png" />
+                <span>신규회원</span>
+                <span>중고마켓 무료배송 쿠폰!</span>
             </div>
+            <div class="close-all-day d-none d-lg-block" (click)="closeBannerAllDay()">하루동안 보지않기</div>
+            <svg class="keeping-icon" (click)="closeBanner()">
+                <use xlink:href="assets/icons/etc/close-18.svg#icon" />
+            </svg>
         </div>
     </div>
     <div class="mobile-header user-select-none d-lg-none">
@@ -30,7 +22,7 @@
                 </div>
                 <div class="col-6">
                     <div class="action">
-                        <svg class="keeping-icon">
+                        <svg class="keeping-icon" [routerLink]="['/search']">
                             <use xlink:href="assets/icons/etc/search.svg#icon" />
                         </svg>
                     </div>
@@ -62,10 +54,10 @@
                 </div>
                 <div class="col-6">
                     <div class="action">
-                        <svg class="keeping-icon">
+                        <svg class="keeping-icon" [routerLink]="['/search']">
                             <use xlink:href="assets/icons/etc/search.svg#icon" />
                         </svg>
-                        <div class="login">로그인/가입</div>
+                        <div class="login" [routerLink]="['/auth/login']">로그인/가입</div>
                     </div>
                 </div>
             </div>
@@ -149,35 +141,46 @@
     </div>
     <div class="bottom-nav d-lg-none">
         <div class="menu-box">
-            <div class="menu">
+            <div
+                class="menu"
+                [routerLink]="['/']"
+                routerLinkActive="selected"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
                 </svg>
                 <div>홈</div>
             </div>
-            <div class="menu">
+            <div class="menu" [routerLink]="['/notification']" routerLinkActive="selected">
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/alarm.svg#icon" />
                 </svg>
                 <div>알림</div>
             </div>
-            <div class="menu">
+            <div class="menu" [routerLink]="['/write']" routerLinkActive="selected">
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/pencil.svg#icon" />
                 </svg>
                 <div>글쓰기</div>
             </div>
-            <div class="menu">
+            <div class="menu" [routerLink]="['/scrap']" routerLinkActive="selected">
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/clip.svg#icon" />
                 </svg>
                 <div>스크랩</div>
             </div>
-            <div class="menu">
+            <div class="menu" *ngIf="!user" [routerLink]="['/auth/login']" routerLinkActive="selected">
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>
                 <div>로그인</div>
+            </div>
+            <div class="menu" *ngIf="user" [routerLink]="['/my-info']" routerLinkActive="selected">
+                <svg class="keeping-icon">
+                    <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
+                </svg>
+                <div>내 정보</div>
             </div>
         </div>
     </div>

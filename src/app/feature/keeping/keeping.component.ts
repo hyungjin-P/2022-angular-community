@@ -1,7 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
 import * as moment from 'moment-timezone'
 
 import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
+
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'keeping',
@@ -14,7 +18,9 @@ export class KeepingComponent implements OnInit {
     touchScreen: boolean
     banner: boolean
 
-    constructor(private globalService: GlobalService) {
+    user: User
+
+    constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {
         this.touchScreen = false
         this.banner = true
     }
@@ -38,6 +44,8 @@ export class KeepingComponent implements OnInit {
                 this.banner = false
             }
         }
+
+        this.user = this.storageService.getUser()
     }
 
     closeBannerAllDay() {
@@ -50,5 +58,10 @@ export class KeepingComponent implements OnInit {
         setTimeout(() => {
             this.banner = false
         }, 200)
+    }
+
+    async logout() {
+        await this.storageService.removeUser()
+        this.router.navigateByUrl('/')
     }
 }
