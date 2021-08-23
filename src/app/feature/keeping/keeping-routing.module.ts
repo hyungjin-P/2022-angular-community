@@ -15,11 +15,11 @@ import { NotificationComponent } from './children/notification/notification.comp
 import { WriteComponent } from './children/write/write.component'
 import { ScrapComponent } from './children/scrap/scrap.component'
 
+import { MyInfoComponent } from './children/my-info/my-info.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
 
 import { SearchComponent } from './search/search.component'
-import { MyInfoComponent } from './my-info/my-info.component'
 
 const routes: Routes = [
     {
@@ -36,14 +36,13 @@ const routes: Routes = [
             { path: 'write', component: WriteComponent },
             { path: 'scrap', component: ScrapComponent },
 
+            { path: 'my-info', component: MyInfoComponent },
             { path: 'privacy', component: PrivacyComponent },
             { path: 'service-terms', component: ServiceTermsComponent },
         ],
     },
 
     { path: 'search', component: SearchComponent },
-
-    { path: 'my-info', component: MyInfoComponent },
 
     {
         path: 'auth',

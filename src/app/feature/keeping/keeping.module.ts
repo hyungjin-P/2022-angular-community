@@ -15,11 +15,11 @@ import { NotificationComponent } from './children/notification/notification.comp
 import { WriteComponent } from './children/write/write.component'
 import { ScrapComponent } from './children/scrap/scrap.component'
 
+import { MyInfoComponent } from './children/my-info/my-info.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
 
 import { SearchComponent } from './search/search.component'
-import { MyInfoComponent } from './my-info/my-info.component'
 
 @NgModule({
     declarations: [
@@ -34,11 +34,11 @@ import { MyInfoComponent } from './my-info/my-info.component'
         WriteComponent,
         ScrapComponent,
 
+        MyInfoComponent,
         PrivacyComponent,
         ServiceTermsComponent,
 
         SearchComponent,
-        MyInfoComponent,
     ],
     imports: [KeepingRoutingModule, SharedModule],
     exports: [],
