@@ -429,31 +429,34 @@ body {
 
 // Bootstrap
 .container {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding: 0 16px;
 }
 
 @media (min-width: 360px) {
     .container {
-        max-width: 328px;
+        max-width: none;
+        padding: 0 16px;
     }
 }
 
 @media (min-width: 576px) {
     .container {
-        max-width: 528px;
+        max-width: none;
+        padding: 0 16px;
     }
 }
 
 @media (min-width: 768px) {
     .container {
-        max-width: 720px;
+        max-width: none;
+        padding: 0 16px;
     }
 }
 
 @media (min-width: 992px) {
     .container {
-        max-width: 960px;
+        max-width: none;
+        padding: 0 16px;
     }
 }
 

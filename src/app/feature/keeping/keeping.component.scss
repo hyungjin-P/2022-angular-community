@@ -16,6 +16,14 @@
         }
     }
 
+    .mobile-header {
+        .action {
+            svg {
+                cursor: default;
+            }
+        }
+    }
+
     .header {
         .leading {
             .nav {
@@ -107,6 +115,29 @@
     }
 }
 
+.mobile-header {
+    .leading,
+    .action {
+        display: flex;
+        align-items: center;
+        height: 50px;
+    }
+
+    .leading {
+        img {
+            height: 22px;
+        }
+    }
+
+    .action {
+        justify-content: flex-end;
+
+        svg {
+            cursor: pointer;
+        }
+    }
+}
+
 .header {
     position: sticky;
     top: 0;
@@ -118,6 +149,7 @@
     .action {
         display: flex;
         align-items: center;
+        height: 70px;
     }
 
     .leading {
@@ -126,6 +158,8 @@
         }
 
         .nav {
+            display: flex;
+
             .menu {
                 cursor: pointer;
             }
@@ -302,15 +336,10 @@
     }
 
     .header {
-        .leading,
-        .action {
-            height: 60px;
-        }
-
         .nav {
             .menu {
-                padding: 8px 0 16px 0;
-                height: 38px;
+                padding: 14px 0 16px 0;
+                height: 44px;
             }
         }
     }
@@ -337,8 +366,6 @@
 
     .bottom-nav {
         .menu-box {
-            padding: 0 16px;
-
             .menu {
                 width: 56px;
             }
@@ -367,8 +394,6 @@
 
     .bottom-nav {
         .menu-box {
-            padding: 0 24px;
-
             .menu {
                 width: 96px;
             }
@@ -422,11 +447,6 @@
     }
 
     .header {
-        .leading,
-        .action {
-            height: 70px;
-        }
-
         .leading {
             .nav {
                 margin-left: 67px;

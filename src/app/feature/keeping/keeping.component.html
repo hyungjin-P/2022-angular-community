@@ -20,13 +20,31 @@
             </div>
         </div>
     </div>
-    <div class="header user-select-none">
+    <div class="mobile-header user-select-none d-lg-none">
         <div class="container">
             <div class="row">
                 <div class="col-6">
                     <div class="leading">
                         <img src="assets/logo/header_logo.svg" />
-                        <div class="d-none d-lg-flex nav">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="action">
+                        <svg class="keeping-icon">
+                            <use xlink:href="assets/icons/etc/search.svg#icon" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header user-select-none">
+        <div class="container">
+            <div class="row d-none d-lg-flex">
+                <div class="col-6">
+                    <div class="leading">
+                        <img src="assets/logo/header_logo.svg" />
+                        <div class="nav">
                             <div
                                 class="menu"
                                 [routerLink]="['/']"
@@ -47,7 +65,7 @@
                         <svg class="keeping-icon">
                             <use xlink:href="assets/icons/etc/search.svg#icon" />
                         </svg>
-                        <div class="d-none d-lg-flex login">로그인/가입</div>
+                        <div class="login">로그인/가입</div>
                     </div>
                 </div>
             </div>
