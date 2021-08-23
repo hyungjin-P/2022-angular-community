@@ -18,6 +18,7 @@ export class KeepingComponent implements OnInit {
     touchScreen: boolean
     banner: boolean
 
+    login: any
     user: User
 
     constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {
@@ -45,6 +46,7 @@ export class KeepingComponent implements OnInit {
             }
         }
 
+        this.login = this.globalService.login
         this.user = this.storageService.getUser()
     }
 

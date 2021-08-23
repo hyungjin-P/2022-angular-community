@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
+import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 @Component({
@@ -9,11 +10,12 @@ import { StorageService } from '@services/storage.service'
     styleUrls: ['./my-info.component.scss'],
 })
 export class MyInfoComponent implements OnInit {
-    constructor(private router: Router, private storageService: StorageService) {}
+    constructor(private globalService: GlobalService, private router: Router, private storageService: StorageService) {}
 
     ngOnInit() {}
 
     async logout() {
+        this.globalService.login.valid = false
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }

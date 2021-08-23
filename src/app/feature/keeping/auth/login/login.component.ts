@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs'
 declare let Kakao: any
 
 import { environment } from '@environments/environment'
+import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private angularFireAuth: AngularFireAuth,
+        private globalService: GlobalService,
         private storageService: StorageService,
         private authService: AuthService
     ) {}
@@ -38,12 +40,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                     user.getIdToken().then((accessToken) => {
                         this.authService.signInWithFirebase({ accessToken }).subscribe(
                             (user) => {
+                                this.globalService.login.valid = true
                                 this.router.navigateByUrl('/')
                             },
                             (e) => {}
                         )
                     })
                 } else {
+                    this.globalService.login.valid = true
                     this.router.navigateByUrl('/')
                 }
             }

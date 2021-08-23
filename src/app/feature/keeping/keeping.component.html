@@ -170,13 +170,13 @@
                 </svg>
                 <div>스크랩</div>
             </div>
-            <div class="menu" *ngIf="!user" [routerLink]="['/auth/login']" routerLinkActive="selected">
+            <div class="menu" *ngIf="!login.valid" [routerLink]="['/auth/login']" routerLinkActive="selected">
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>
                 <div>로그인</div>
             </div>
-            <div class="menu" *ngIf="user" [routerLink]="['/my-info']" routerLinkActive="selected">
+            <div class="menu" *ngIf="login.valid" [routerLink]="['/my-info']" routerLinkActive="selected">
                 <svg class="keeping-icon">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>
