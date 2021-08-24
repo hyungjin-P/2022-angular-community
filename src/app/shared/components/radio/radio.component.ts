@@ -1,11 +1,11 @@
 import { Component, Input, ElementRef, Renderer2 } from '@angular/core'
 
 @Component({
-    selector: 'shared-radio-button',
-    templateUrl: './radio-button.component.html',
-    styleUrls: ['./radio-button.component.scss'],
+    selector: 'shared-radio',
+    templateUrl: './radio.component.html',
+    styleUrls: ['./radio.component.scss'],
 })
-export class RadioButtonComponent {
+export class RadioComponent {
     @Input() checked: boolean
     @Input() text: string
     @Input() disabled: boolean

@@ -1,0 +1,74 @@
+<div class="title">Button</div>
+<div class="content">
+    <div class="shared-typo-bodytext1" shared-button>
+        <span>일반 텍스트 버튼</span>
+    </div>
+    <div
+        class="shared-typo-title2"
+        shared-button
+        sharedButtonWidth="250"
+        sharedButtonHeight="60"
+        sharedButtonColor="var(--red)"
+    >
+        <span class="mdi mdi-plus"></span>
+        <span>센터 생성</span>
+    </div>
+    <div
+        class="shared-typo-bodytext1"
+        shared-button
+        sharedButtonWidth="164"
+        sharedButtonHeight="51"
+        sharedButtonColor="var(--darkgrey)"
+    >
+        <span class="mdi mdi-plus"></span>
+        <span>등록하기</span>
+    </div>
+    <div
+        class="shared-typo-bodytext1"
+        shared-button
+        sharedButtonWidth="105"
+        sharedButtonHeight="50"
+        sharedButtonBorderColor="var(--font-color)"
+    >
+        <span class="mdi mdi-close"></span>
+        <span>닫기</span>
+    </div>
+    <div
+        class="shared-typo-bodytext1"
+        shared-button
+        sharedButtonWidth="118"
+        sharedButtonHeight="43"
+        sharedButtonBorderColor="var(--lightgrey)"
+        sharedButtonFontColor="var(--darkgrey)"
+    >
+        <span class="mdi mdi-trash-can-outline"></span>
+        <span>사진 제거</span>
+    </div>
+    <div class="shared-typo-bodytext1" shared-button [sharedButtonDisabled]="buttonDisabled">
+        <span>일반 텍스트 버튼</span>
+    </div>
+    <div
+        class="shared-typo-bodytext1"
+        shared-button
+        sharedButtonWidth="164"
+        sharedButtonHeight="51"
+        sharedButtonColor="var(--darkgrey)"
+        [sharedButtonDisabled]="buttonDisabled"
+    >
+        <span class="mdi mdi-plus"></span>
+        <span>등록하기</span>
+    </div>
+    <div
+        class="shared-typo-bodytext1"
+        shared-button
+        sharedButtonWidth="118"
+        sharedButtonHeight="43"
+        sharedButtonBorderColor="var(--lightgrey)"
+        sharedButtonFontColor="var(--darkgrey)"
+        [sharedButtonDisabled]="buttonDisabled"
+    >
+        <span class="mdi mdi-trash-can-outline"></span>
+        <span>사진 제거</span>
+    </div>
+    <div shared-button (click)="toggleButtonDisabled()">ToggleButtonDisabled</div>
+</div>

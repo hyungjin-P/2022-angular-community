@@ -1,0 +1,9 @@
+<div class="title">DatePicker</div>
+<div class="content">
+    <shared-datepicker mode="date" [(data)]="data1"></shared-datepicker>
+    <span>{{ data1.date }}</span>
+    <shared-datepicker mode="week" [(data)]="data2"></shared-datepicker>
+    <span>{{ data2.startDate }}~{{ data2.endDate }}</span>
+    <shared-datepicker mode="multi" [(data)]="data3"></shared-datepicker>
+    <span>{{ data3 }}</span>
+</div>

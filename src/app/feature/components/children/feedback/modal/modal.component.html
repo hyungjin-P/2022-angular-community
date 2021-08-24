@@ -1,0 +1,18 @@
+<div class="title">Modal</div>
+<div class="content">
+    <div shared-button (click)="showModal()">Open Modal - Type1</div>
+    <shared-modal
+        [(visible)]="isVisible"
+        [data]="visibleData"
+        (cancel)="handleCancel()"
+        (confirm)="handleOk()"
+    ></shared-modal>
+    <div shared-button (click)="showModal2()">Open Modal - Type2</div>
+    <shared-modal
+        [(visible)]="isVisible2"
+        [data]="visibleData2"
+        type="type2"
+        (cancel)="handleCancel2()"
+        (confirm)="handleOk2()"
+    ></shared-modal>
+</div>

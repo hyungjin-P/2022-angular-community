@@ -1,0 +1,5 @@
+<div class="title">Toast</div>
+<div class="content">
+    <div shared-button (click)="showToast()">Show Toast</div>
+    <shared-toast [(visible)]="toastVisible" [text]="toastText" delay="5000" (cancel)="hideToast()"></shared-toast>
+</div>

@@ -7,7 +7,7 @@ import { AvatarComponent } from './components/avatar/avatar.component'
 import { CheckboxComponent } from './components/checkbox/checkbox.component'
 import { DatepickerComponent } from './components/datepicker/datepicker.component'
 import { ModalComponent } from './components/modal/modal.component'
-import { RadioButtonComponent } from './components/radio-button/radio-button.component'
+import { RadioComponent } from './components/radio/radio.component'
 import { SelectComponent } from './components/select/select.component'
 import { SwitchComponent } from './components/switch/switch.component'
 import { TimepickerComponent } from './components/timepicker/timepicker.component'
@@ -36,7 +36,7 @@ import { TimePipe } from './pipes/time.pipe'
         CheckboxComponent,
         DatepickerComponent,
         ModalComponent,
-        RadioButtonComponent,
+        RadioComponent,
         SelectComponent,
         SwitchComponent,
         TimepickerComponent,
@@ -68,7 +68,7 @@ import { TimePipe } from './pipes/time.pipe'
         CheckboxComponent,
         DatepickerComponent,
         ModalComponent,
-        RadioButtonComponent,
+        RadioComponent,
         SelectComponent,
         SwitchComponent,
         TimepickerComponent,

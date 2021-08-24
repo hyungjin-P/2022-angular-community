@@ -1,190 +1,27 @@
-<div class="components">
-    <div class="title">> Typography</div>
-    <div class="shared-typo-headline1">Headline 1</div>
-    <div class="shared-typo-headline2">Headline 2</div>
-    <div class="shared-typo-title1">Title 1</div>
-    <div class="shared-typo-title2">Title 2</div>
-    <div class="shared-typo-bodytext1">Body text 1</div>
-    <div class="shared-typo-bodytext2">Body text 2</div>
-    <div class="shared-typo-subtext1">Sub text 1</div>
-    <div class="shared-typo-subtext2">Sub text 2</div>
-    <div class="shared-typo-subtext3">Sub text 3</div>
-    <div class="shared-typo-subtext4">Sub text 4</div>
-
-    <div class="title">> Tooltip</div>
-    <div class="d-flex">
-        <div shared-tooltip sharedTooltipTitle="TOP" sharedTooltipPlacement="top">TOP</div>
-        <div shared-tooltip sharedTooltipTitle="RIGHT" sharedTooltipPlacement="right">RIGHT</div>
-        <div shared-tooltip sharedTooltipTitle="BOTTOM" sharedTooltipPlacement="bottom">BOTTOM</div>
-        <div shared-tooltip sharedTooltipTitle="LEFT" sharedTooltipPlacement="left">LEFT</div>
+<div class="components full-absolute user-select-none">
+    <div class="left-side">
+        <div class="label">General</div>
+        <div class="menu" [routerLink]="['/components/button']" routerLinkActive="selected">Button</div>
+        <div class="menu" [routerLink]="['/components/typography']" routerLinkActive="selected">Typography</div>
+        <div class="label">Data Entry</div>
+        <div class="menu" [routerLink]="['/components/checkbox']" routerLinkActive="selected">Checkbox</div>
+        <div class="menu" [routerLink]="['/components/datepicker']" routerLinkActive="selected">DatePicker</div>
+        <div class="menu" [routerLink]="['/components/input']" routerLinkActive="selected">Input</div>
+        <div class="menu" [routerLink]="['/components/radio']" routerLinkActive="selected">Radio</div>
+        <div class="menu" [routerLink]="['/components/select']" routerLinkActive="selected">Select</div>
+        <div class="menu" [routerLink]="['/components/switch']" routerLinkActive="selected">Switch</div>
+        <div class="menu" [routerLink]="['/components/timepicker']" routerLinkActive="selected">TimePicker</div>
+        <div class="label">Data Display</div>
+        <div class="menu" [routerLink]="['/components/avatar']" routerLinkActive="selected">Avatar</div>
+        <div class="menu" [routerLink]="['/components/tooltip']" routerLinkActive="selected">Tooltip</div>
+        <div class="label">Feedback</div>
+        <div class="menu" [routerLink]="['/components/modal']" routerLinkActive="selected">Modal</div>
+        <div class="menu" [routerLink]="['/components/toast']" routerLinkActive="selected">Toast</div>
+        <div class="label">Etc.</div>
+        <div class="menu" [routerLink]="['/components/websocket']" routerLinkActive="selected">Websocket</div>
+        <div class="menu" [routerLink]="['/components/email']" routerLinkActive="selected">Email</div>
     </div>
-
-    <div class="title">> Input</div>
-    <div class="d-flex">
-        <input shared-input placeholder="Placeholder" />
-        <input shared-input placeholder="Placeholder" disabled />
-    </div>
-
-    <div class="title">> Checkbox</div>
-    <div class="d-flex">
-        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()"></shared-checkbox>
-        <shared-checkbox text="Action Text" [checked]="checkbox" (click)="clickCheckbox()"></shared-checkbox>
-        <shared-checkbox text="Action Text" [checked]="true" [disabled]="true"></shared-checkbox>
-        <shared-checkbox text="Action Text" [checked]="false" [disabled]="true"></shared-checkbox>
-    </div>
-
-    <div class="title">> Radio Button</div>
-    <div class="d-flex">
-        <shared-radio-button [checked]="radio" (click)="clickRadio()"></shared-radio-button>
-        <shared-radio-button text="Action Text" [checked]="radio" (click)="clickRadio()"></shared-radio-button>
-        <shared-radio-button text="Action Text" [checked]="true" [disabled]="true"></shared-radio-button>
-        <shared-radio-button text="Action Text" [checked]="false" [disabled]="true"></shared-radio-button>
-    </div>
-
-    <div class="title">> Switch</div>
-    <div class="d-flex">
-        <shared-switch [disabled]="false" [(ngModel)]="switch1"></shared-switch>
-        <shared-switch text="Switch 1" [disabled]="false" [(ngModel)]="switch1"></shared-switch>
-        <shared-switch text="Switch 2" [disabled]="true" [(ngModel)]="switch2"></shared-switch>
-        <shared-switch text="Switch 3" [disabled]="true" [(ngModel)]="switch3"></shared-switch>
-    </div>
-
-    <div class="title">> Select</div>
-    <div class="d-flex">
-        <shared-select [items]="dropboxItems" [(ngModel)]="selectedDropboxItem"></shared-select>
-        <shared-select [items]="dropboxItems" [(ngModel)]="selectedDropboxItem" disabled></shared-select>
-        <shared-select [items]="dropboxItems" [(ngModel)]="selectedDropboxItem" width="200"></shared-select>
-    </div>
-
-    <div class="title">> Avatar</div>
-    <div class="d-flex">
-        <shared-avatar [image]="picture" text="AVATAR" size="30" fontSize="18"></shared-avatar>
-        <shared-avatar [image]="404" text="AVATAR" size="30" fontSize="18" backgroundColor="skyblue"></shared-avatar>
-        <shared-avatar [image]="" text="AVATAR" size="30" fontSize="18" backgroundColor="skyblue"></shared-avatar>
-    </div>
-
-    <div class="title">> Datepicker</div>
-    <div class="d-flex">
-        <shared-datepicker mode="date" [(data)]="data1"></shared-datepicker>
-        <span>{{ data1.date }}</span>
-        <shared-datepicker mode="week" [(data)]="data2"></shared-datepicker>
-        <span>{{ data2.startDate }}~{{ data2.endDate }}</span>
-        <shared-datepicker mode="multi" [(data)]="data3"></shared-datepicker>
-        <span>{{ data3 }}</span>
-    </div>
-
-    <div class="title">> Timepicker</div>
-    <div class="d-flex">
-        <shared-timepicker [(data)]="timeData"></shared-timepicker>
-        <span>{{ timeData }}</span>
-    </div>
-
-    <div class="title">> Button</div>
-    <div class="d-flex">
-        <div class="shared-typo-bodytext1" shared-button>
-            <span>일반 텍스트 버튼</span>
-        </div>
-        <div
-            class="shared-typo-title2"
-            shared-button
-            sharedButtonWidth="250"
-            sharedButtonHeight="60"
-            sharedButtonColor="var(--red)"
-        >
-            <span class="mdi mdi-plus"></span>
-            <span>센터 생성</span>
-        </div>
-        <div
-            class="shared-typo-bodytext1"
-            shared-button
-            sharedButtonWidth="164"
-            sharedButtonHeight="51"
-            sharedButtonColor="var(--darkgrey)"
-        >
-            <span class="mdi mdi-plus"></span>
-            <span>등록하기</span>
-        </div>
-        <div
-            class="shared-typo-bodytext1"
-            shared-button
-            sharedButtonWidth="105"
-            sharedButtonHeight="50"
-            sharedButtonBorderColor="var(--font-color)"
-        >
-            <span class="mdi mdi-close"></span>
-            <span>닫기</span>
-        </div>
-        <div
-            class="shared-typo-bodytext1"
-            shared-button
-            sharedButtonWidth="118"
-            sharedButtonHeight="43"
-            sharedButtonBorderColor="var(--lightgrey)"
-            sharedButtonFontColor="var(--darkgrey)"
-        >
-            <span class="mdi mdi-trash-can-outline"></span>
-            <span>사진 제거</span>
-        </div>
-        <div class="shared-typo-bodytext1" shared-button [sharedButtonDisabled]="buttonDisabled">
-            <span>일반 텍스트 버튼</span>
-        </div>
-        <div
-            class="shared-typo-bodytext1"
-            shared-button
-            sharedButtonWidth="164"
-            sharedButtonHeight="51"
-            sharedButtonColor="var(--darkgrey)"
-            [sharedButtonDisabled]="buttonDisabled"
-        >
-            <span class="mdi mdi-plus"></span>
-            <span>등록하기</span>
-        </div>
-        <div
-            class="shared-typo-bodytext1"
-            shared-button
-            sharedButtonWidth="118"
-            sharedButtonHeight="43"
-            sharedButtonBorderColor="var(--lightgrey)"
-            sharedButtonFontColor="var(--darkgrey)"
-            [sharedButtonDisabled]="buttonDisabled"
-        >
-            <span class="mdi mdi-trash-can-outline"></span>
-            <span>사진 제거</span>
-        </div>
-        <div shared-button (click)="toggleButtonDisabled()">ToggleButtonDisabled</div>
-    </div>
-
-    <div class="title">> Modal</div>
-    <div class="d-flex">
-        <div shared-button (click)="showModal()">Open Modal - Type1</div>
-        <shared-modal
-            [(visible)]="isVisible"
-            [data]="visibleData"
-            (cancel)="handleCancel()"
-            (confirm)="handleOk()"
-        ></shared-modal>
-        <div shared-button (click)="showModal2()">Open Modal - Type2</div>
-        <shared-modal
-            [(visible)]="isVisible2"
-            [data]="visibleData2"
-            type="type2"
-            (cancel)="handleCancel2()"
-            (confirm)="handleOk2()"
-        ></shared-modal>
-    </div>
-
-    <div class="title">> Toast</div>
-    <div class="d-flex">
-        <div shared-button (click)="showToast()">Show Toast</div>
-        <shared-toast [(visible)]="toastVisible" [text]="toastText" delay="5000" (cancel)="hideToast()"></shared-toast>
-    </div>
-
-    <div class="title">> Websocket</div>
-    <div class="d-flex">
-        <div shared-button (click)="connect()">connect</div>
-        <div shared-button (click)="disconnect()">disconnect</div>
-        <div shared-button (click)="publish()">publish</div>
-        <div shared-button (click)="subscribe()">subscribe</div>
-        <div shared-button (click)="unsubscribe()">unsubscribe</div>
+    <div class="section">
+        <router-outlet></router-outlet>
     </div>
 </div>
