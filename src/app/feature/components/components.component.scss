@@ -5,6 +5,12 @@
         flex: 2;
         padding: 25px;
         box-shadow: 3px 0px 3px #e8edf4;
+        overflow-y: auto;
+
+        /* width */
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
 
         .label {
             padding: 8px 0;

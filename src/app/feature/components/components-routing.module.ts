@@ -15,6 +15,7 @@ import { SwitchComponent } from './children/data-entry/switch/switch.component'
 import { TimePickerComponent } from './children/data-entry/timepicker/timepicker.component'
 
 import { AvatarComponent } from './children/data-display/avatar/avatar.component'
+import { CarouselComponent } from './children/data-display/carousel/carousel.component'
 import { TooltipComponent } from './children/data-display/tooltip/tooltip.component'
 
 import { ModalComponent } from './children/feedback/modal/modal.component'
@@ -41,6 +42,7 @@ const routes: Routes = [
             { path: 'timepicker', component: TimePickerComponent },
 
             { path: 'avatar', component: AvatarComponent },
+            { path: 'carousel', component: CarouselComponent },
             { path: 'tooltip', component: TooltipComponent },
 
             { path: 'modal', component: ModalComponent },
