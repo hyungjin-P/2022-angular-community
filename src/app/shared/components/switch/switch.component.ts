@@ -14,14 +14,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
     ],
 })
 export class SwitchComponent implements ControlValueAccessor {
-    @Input() text: string
+    @Input() size: string
     @Input() disabled: boolean
+    @Input() text: string
 
     isChecked: boolean
     onChange = (_) => {}
     onTouched = (_) => {}
 
     constructor() {
+        this.size = 'default'
         this.disabled = false
         this.isChecked = false
     }

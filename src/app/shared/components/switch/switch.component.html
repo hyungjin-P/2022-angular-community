@@ -2,6 +2,7 @@
     class="shared-switch d-flex align-items-center user-select-none"
     [class.checked]="isChecked"
     [class.disabled]="disabled"
+    [class.size-small]="size == 'small'"
     (click)="onChanged(!isChecked)"
 >
     <div class="switch">
@@ -10,5 +11,12 @@
             <div class="circle"></div>
         </div>
     </div>
-    <div class="text shared-typo-bodytext1" *ngIf="text">{{ text }}</div>
+    <div
+        class="text"
+        [class.shared-typo-body-m14]="size == 'default'"
+        [class.shared-typo-body-m12]="size == 'small'"
+        *ngIf="text"
+    >
+        {{ text }}
+    </div>
 </div>
