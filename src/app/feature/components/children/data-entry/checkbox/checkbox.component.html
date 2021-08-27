@@ -1,17 +1,6 @@
 <div class="title">Checkbox</div>
 <div class="content">
     <div class="d-flex">
-        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" shape="none"></shared-checkbox>
-        <shared-checkbox
-            text="텍스트를 입력하세요"
-            [checked]="checkbox"
-            (click)="clickCheckbox()"
-            shape="none"
-        ></shared-checkbox>
-        <shared-checkbox text="텍스트를 입력하세요" [checked]="true" [disabled]="true" shape="none"></shared-checkbox>
-        <shared-checkbox text="텍스트를 입력하세요" [checked]="false" [disabled]="true" shape="none"></shared-checkbox>
-    </div>
-    <div class="d-flex">
         <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" size="small" shape="none"></shared-checkbox>
         <shared-checkbox
             text="텍스트를 입력하세요"
@@ -36,10 +25,15 @@
         ></shared-checkbox>
     </div>
     <div class="d-flex">
-        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()"></shared-checkbox>
-        <shared-checkbox text="텍스트를 입력하세요" [checked]="checkbox" (click)="clickCheckbox()"></shared-checkbox>
-        <shared-checkbox text="텍스트를 입력하세요" [checked]="true" [disabled]="true"></shared-checkbox>
-        <shared-checkbox text="텍스트를 입력하세요" [checked]="false" [disabled]="true"></shared-checkbox>
+        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" shape="none"></shared-checkbox>
+        <shared-checkbox
+            text="텍스트를 입력하세요"
+            [checked]="checkbox"
+            (click)="clickCheckbox()"
+            shape="none"
+        ></shared-checkbox>
+        <shared-checkbox text="텍스트를 입력하세요" [checked]="true" [disabled]="true" shape="none"></shared-checkbox>
+        <shared-checkbox text="텍스트를 입력하세요" [checked]="false" [disabled]="true" shape="none"></shared-checkbox>
     </div>
     <div class="d-flex">
         <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" size="small"></shared-checkbox>
@@ -53,20 +47,10 @@
         <shared-checkbox text="텍스트를 입력하세요" [checked]="false" [disabled]="true" size="small"></shared-checkbox>
     </div>
     <div class="d-flex">
-        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" shape="circle"></shared-checkbox>
-        <shared-checkbox
-            text="텍스트를 입력하세요"
-            [checked]="checkbox"
-            (click)="clickCheckbox()"
-            shape="circle"
-        ></shared-checkbox>
-        <shared-checkbox text="텍스트를 입력하세요" [checked]="true" [disabled]="true" shape="circle"></shared-checkbox>
-        <shared-checkbox
-            text="텍스트를 입력하세요"
-            [checked]="false"
-            [disabled]="true"
-            shape="circle"
-        ></shared-checkbox>
+        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()"></shared-checkbox>
+        <shared-checkbox text="텍스트를 입력하세요" [checked]="checkbox" (click)="clickCheckbox()"></shared-checkbox>
+        <shared-checkbox text="텍스트를 입력하세요" [checked]="true" [disabled]="true"></shared-checkbox>
+        <shared-checkbox text="텍스트를 입력하세요" [checked]="false" [disabled]="true"></shared-checkbox>
     </div>
     <div class="d-flex">
         <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" size="small" shape="circle"></shared-checkbox>
@@ -89,6 +73,22 @@
             [checked]="false"
             [disabled]="true"
             size="small"
+            shape="circle"
+        ></shared-checkbox>
+    </div>
+    <div class="d-flex">
+        <shared-checkbox [checked]="checkbox" (click)="clickCheckbox()" shape="circle"></shared-checkbox>
+        <shared-checkbox
+            text="텍스트를 입력하세요"
+            [checked]="checkbox"
+            (click)="clickCheckbox()"
+            shape="circle"
+        ></shared-checkbox>
+        <shared-checkbox text="텍스트를 입력하세요" [checked]="true" [disabled]="true" shape="circle"></shared-checkbox>
+        <shared-checkbox
+            text="텍스트를 입력하세요"
+            [checked]="false"
+            [disabled]="true"
             shape="circle"
         ></shared-checkbox>
     </div>

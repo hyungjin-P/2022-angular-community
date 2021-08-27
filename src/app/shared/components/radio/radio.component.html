@@ -2,9 +2,18 @@
     class="shared-radio d-flex align-items-center user-select-none"
     [class.checked]="checked"
     [class.disabled]="disabled"
+    [class.checked-disabled]="checked && disabled"
+    [class.size-small]="size == 'small'"
 >
     <div class="circle d-flex justify-content-center align-items-center">
         <div class="checkmark"></div>
     </div>
-    <div class="text shared-typo-bodytext1" *ngIf="text">{{ text }}</div>
+    <div
+        class="text"
+        [class.shared-typo-body-m14]="size == 'default'"
+        [class.shared-typo-body-m12]="size == 'small'"
+        *ngIf="text"
+    >
+        {{ text }}
+    </div>
 </div>

@@ -2,8 +2,12 @@
     cursor: pointer;
 
     &.checked {
-        .circle .checkmark {
-            background-color: var(--red);
+        .circle {
+            border: 2px solid var(--blue-3);
+
+            .checkmark {
+                background-color: var(--blue-3);
+            }
         }
 
         &:hover {
@@ -28,21 +32,43 @@
         }
     }
 
+    &.checked-disabled {
+        .circle {
+            border: 2px solid var(--grey-6);
+
+            .checkmark {
+                background-color: var(--grey-6);
+            }
+        }
+    }
+
+    &.size-small {
+        .circle {
+            width: 20px;
+            height: 20px;
+
+            .checkmark {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+
     .circle {
-        width: 22px;
-        height: 22px;
-        border: 2px solid var(--grey);
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--grey-4);
         border-radius: 50%;
 
         .checkmark {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background-color: var(--white);
         }
     }
 
     .text {
-        margin-left: 10px;
+        margin-left: 8px;
     }
 }
