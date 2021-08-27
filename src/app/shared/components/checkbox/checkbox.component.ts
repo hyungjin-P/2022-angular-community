@@ -6,13 +6,17 @@ import { Component, Input, ElementRef, Renderer2 } from '@angular/core'
     styleUrls: ['./checkbox.component.scss'],
 })
 export class CheckboxComponent {
+    @Input() shape: string
+    @Input() size: string
     @Input() checked: boolean
-    @Input() text: string
     @Input() disabled: boolean
+    @Input() text: string
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
+        this.shape = 'square' // none, square, circle
+        this.size = 'default' // default, small
         this.checked = false
-        this.text = ''
         this.disabled = false
+        this.text = ''
     }
 }

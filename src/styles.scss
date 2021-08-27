@@ -1,115 +1,191 @@
 /* You can add global styles to this file, and also import other style files */
 
-// Colors
+// Color
 :root {
+    // Default
     --white: #ffffff;
     --black: #000000;
+    --text-1: #282c30;
+    --text-2: #424c59;
 
-    --lightgrey: #cfcfcf;
-    --grey: #c9c9c9;
-    --darkgrey: #606060;
+    // Primary
+    --red: #fe5f55;
+    --green: #4cd964;
+    --blue-3: #567dff;
 
-    --border-color: #f1f1f1;
-    --background-color: #f6f6f6;
-    --font-color: #212121;
+    // Secondary
+    --blue-1: #0c63de;
+    --blue-2: #396ae5;
+    --blue-4: #6297ff;
+    --blue-5: #7baeff;
+    --blue-6: #9cc2ff;
+    --blue-7: #d6e4fb;
+    --blue-8: #e3eeff;
+    --blue-9: #edf4ff;
 
-    --lighterred: #ffb9c2;
-    --lightred: #fb7f8f;
-    --red: #e34a5e;
-    --darkred: #c2273b;
-
-    --lightergreen: #ace5d7;
-    --lightgreen: #62c7af;
-    --green: #23967c;
-    --darkgreen: #0d755e;
-
-    --lighteryellow: #fed2a9;
-    --lightyellow: #ffb774;
-    --yellow: #ed9440;
-    --darkyellow: #c96b12;
-
-    --lighterblue: #d6e1ff;
-    --lightblue: #88a1e4;
-    --blue: #4e70c9;
-    --darkblue: #3457b1;
+    // System Grey
+    --grey-1: #647183;
+    --grey-2: #7e8a9a;
+    --grey-3: #93a0b2;
+    --grey-4: #b2bbc8;
+    --grey-5: #cdd4de;
+    --grey-6: #dee3ea;
+    --grey-7: #ebecef;
+    --grey-8: #f0f2f5;
 }
 
 // Typography
-.shared-typo-headline1 {
-    font-size: 22px;
+// Title - Bold
+.shared-typo-title-b26 {
     font-weight: 700;
-    line-height: 1.45;
-    letter-spacing: -0.48px;
-    color: var(--font-color);
+    font-size: 26px;
+    line-height: 34px;
 }
 
-.shared-typo-headline2 {
+.shared-typo-title-b24 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 34px;
+}
+
+.shared-typo-title-b22 {
+    font-weight: 700;
     font-size: 22px;
-    line-height: 1.45;
-    letter-spacing: -0.48px;
-    color: var(--font-color);
+    line-height: 32px;
 }
 
-.shared-typo-title1 {
+.shared-typo-title-b16 {
+    font-weight: 700;
     font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: -0.26px;
-    color: var(--font-color);
+    line-height: 24px;
 }
 
-.shared-typo-title2 {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: -0.23px;
-    color: var(--font-color);
-}
-
-.shared-typo-bodytext1 {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.43;
-    letter-spacing: -0.2px;
-    color: var(--font-color);
-}
-
-.shared-typo-bodytext2 {
+// Description - Medium
+.shared-typo-desc-m13 {
+    font-weight: 500;
     font-size: 13px;
-    line-height: 1.46;
-    letter-spacing: -0.17px;
-    color: var(--font-color);
+    line-height: 22px;
 }
 
-.shared-typo-subtext1 {
+// Description - Regular
+.shared-typo-desc-r13 {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 22px;
+}
+
+.shared-typo-desc-r12 {
+    font-weight: 400;
     font-size: 12px;
-    font-weight: 400;
-    line-height: 1.42;
-    letter-spacing: -0.14px;
-    color: var(--darkgrey);
+    line-height: 20px;
 }
 
-.shared-typo-subtext2 {
+// Body - Bold
+.shared-typo-body-b18 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-b16 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-b14 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-b13 {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 21px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-b12 {
+    font-weight: 700;
     font-size: 12px;
-    font-weight: 400;
-    line-height: 1.42;
-    letter-spacing: -0.14px;
-    color: var(--grey);
+    line-height: 20px;
+    letter-spacing: -0.2px;
 }
 
-.shared-typo-subtext3 {
-    font-size: 11px;
-    line-height: 1.45;
-    letter-spacing: -0.12px;
-    color: var(--font-color);
+// Body - Medium
+.shared-typo-body-m18 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.2px;
 }
 
-.shared-typo-subtext4 {
-    font-size: 11px;
+.shared-typo-body-m16 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-m14 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-m13 {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 21px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-m12 {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
+}
+
+// Body - Regular
+.shared-typo-body-r18 {
     font-weight: 400;
-    line-height: 1.45;
-    letter-spacing: -0.12px;
-    color: var(--grey);
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-r16 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-r14 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-r13 {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 21px;
+    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-r12 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
 }
 
 // Tooltip
@@ -280,7 +356,7 @@ body {
     font-weight: 400;
     font-style: normal;
     font-size: 13px;
-    color: var(--font-color);
+    color: var(--text-1);
 }
 
 .full-fixed {
@@ -408,7 +484,7 @@ body {
 }
 
 // Icons
-.keeping-icon {
+.icon-hover {
     display: inline-block;
     width: 24px;
     height: 24px;

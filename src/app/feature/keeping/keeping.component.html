@@ -7,9 +7,7 @@
                 <span>중고마켓 무료배송 쿠폰!</span>
             </div>
             <div class="close-all-day d-none d-lg-block" (click)="closeBannerAllDay()">하루동안 보지않기</div>
-            <svg class="keeping-icon" (click)="closeBanner()">
-                <use xlink:href="assets/icons/etc/close-18.svg#icon" />
-            </svg>
+            <img class="close-icon" src="assets/icons/etc/close-18.svg#icon" (click)="closeBanner()" />
         </div>
     </div>
     <div class="mobile-header user-select-none d-lg-none">
@@ -22,7 +20,7 @@
                 </div>
                 <div class="col-6">
                     <div class="action">
-                        <svg class="keeping-icon" [routerLink]="['/search']">
+                        <svg class="icon-hover" [routerLink]="['/search']">
                             <use xlink:href="assets/icons/etc/search.svg#icon" />
                         </svg>
                     </div>
@@ -54,7 +52,7 @@
                 </div>
                 <div class="col-6">
                     <div class="action">
-                        <svg class="keeping-icon" [routerLink]="['/search']">
+                        <svg class="icon-hover" [routerLink]="['/search']">
                             <use xlink:href="assets/icons/etc/search.svg#icon" />
                         </svg>
                         <div class="login" [routerLink]="['/auth/login']">로그인/가입</div>
@@ -147,37 +145,37 @@
                 routerLinkActive="selected"
                 [routerLinkActiveOptions]="{ exact: true }"
             >
-                <svg class="keeping-icon">
+                <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
                 </svg>
                 <div>홈</div>
             </div>
             <div class="menu" [routerLink]="['/notification']" routerLinkActive="selected">
-                <svg class="keeping-icon">
+                <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/alarm.svg#icon" />
                 </svg>
                 <div>알림</div>
             </div>
             <div class="menu" [routerLink]="['/write']" routerLinkActive="selected">
-                <svg class="keeping-icon">
+                <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/pencil.svg#icon" />
                 </svg>
                 <div>글쓰기</div>
             </div>
             <div class="menu" [routerLink]="['/scrap']" routerLinkActive="selected">
-                <svg class="keeping-icon">
+                <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/clip.svg#icon" />
                 </svg>
                 <div>스크랩</div>
             </div>
             <div class="menu" *ngIf="!login.valid" [routerLink]="['/auth/login']" routerLinkActive="selected">
-                <svg class="keeping-icon">
+                <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>
                 <div>로그인</div>
             </div>
             <div class="menu" *ngIf="login.valid" [routerLink]="['/my-info']" routerLinkActive="selected">
-                <svg class="keeping-icon">
+                <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>
                 <div>내 정보</div>

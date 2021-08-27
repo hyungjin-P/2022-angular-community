@@ -9,10 +9,24 @@
 }
 
 .content {
-    display: flex;
+    display: block;
     padding: 20px;
 
-    > * {
-        margin-right: 30px;
+    .carousel-view {
+        overflow: hidden;
+
+        .carousel-container {
+            padding: 0;
+            list-style: none;
+
+            font-size: 0;
+            white-space: nowrap;
+
+            .carousel-panel {
+                display: inline-block;
+                width: 100%;
+                min-height: 200px;
+            }
+        }
     }
 }

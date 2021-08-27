@@ -3,7 +3,8 @@
 
     &.checked {
         .box {
-            background-color: var(--red);
+            border: 1px solid var(--white);
+            background-color: var(--blue-3);
         }
 
         &:hover {
@@ -18,7 +19,12 @@
         cursor: not-allowed;
 
         .text {
-            color: var(--grey);
+            color: var(--grey-5);
+        }
+
+        .box {
+            border: 1px solid var(--grey-6);
+            background-color: var(--grey-8);
         }
 
         &:hover {
@@ -28,26 +34,79 @@
         }
     }
 
+    &.checked-disabled {
+        .box {
+            .checkmark {
+                fill: var(--grey-6);
+            }
+        }
+    }
+
+    &.unchecked-disabled {
+        .box {
+            .checkmark {
+                fill: var(--grey-8);
+            }
+        }
+    }
+
+    &.size-small {
+        .box {
+            width: 20px;
+            height: 20px;
+
+            .checkmark {
+                width: 9px;
+                height: 7px;
+            }
+        }
+    }
+
+    &.shape-none {
+        .box {
+            border: none;
+            background-color: transparent;
+        }
+
+        &.checked {
+            .box {
+                .checkmark {
+                    fill: var(--blue-3);
+                }
+            }
+        }
+
+        &.checked-disabled {
+            .box {
+                .checkmark {
+                    fill: var(--grey-6);
+                }
+            }
+        }
+    }
+
+    &.shape-circle {
+        .box {
+            border-radius: 50%;
+        }
+    }
+
     .box {
         width: 24px;
         height: 24px;
-        border-radius: 3px;
-        background-color: var(--grey);
+        border-radius: 4px;
+        border: 1px solid var(--grey-5);
 
         .checkmark {
-            position: relative;
-            top: -2px;
-            width: 7px;
-            height: 12px;
-            border: solid var(--white);
-            border-width: 0 2px 2px 0;
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
+            display: inline-block;
+            width: 12px;
+            height: 9px;
+            background-size: cover;
+            fill: white;
         }
     }
 
     .text {
-        margin-left: 10px;
+        margin-left: 8px;
     }
 }
