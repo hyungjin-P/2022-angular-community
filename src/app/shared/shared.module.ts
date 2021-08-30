@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms'
 import { AvatarComponent } from './components/avatar/avatar.component'
 import { CheckboxComponent } from './components/checkbox/checkbox.component'
 import { DatepickerComponent } from './components/datepicker/datepicker.component'
+import { InputComponent } from './components/input/input.component'
 import { ModalComponent } from './components/modal/modal.component'
 import { RadioComponent } from './components/radio/radio.component'
 import { SelectComponent } from './components/select/select.component'
@@ -19,7 +20,7 @@ import { ButtonDirective } from './directives/button.directive'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { DropzoneDirective } from './directives/dropzone.directive'
 import { HighlightDirective } from './directives/highlight.directive'
-import { InputDirective } from './directives/input.directive'
+// import { InputDirective } from './directives/input.directive'
 import { TooltipDirective } from './directives/tooltip.directive'
 
 // Pipes
@@ -35,6 +36,7 @@ import { TimePipe } from './pipes/time.pipe'
         AvatarComponent,
         CheckboxComponent,
         DatepickerComponent,
+        InputComponent,
         ModalComponent,
         RadioComponent,
         SelectComponent,
@@ -48,7 +50,7 @@ import { TimePipe } from './pipes/time.pipe'
         ClickOutsideDirective,
         DropzoneDirective,
         HighlightDirective,
-        InputDirective,
+        // InputDirective,
         TooltipDirective,
 
         // Pipes
@@ -67,6 +69,7 @@ import { TimePipe } from './pipes/time.pipe'
         AvatarComponent,
         CheckboxComponent,
         DatepickerComponent,
+        InputComponent,
         ModalComponent,
         RadioComponent,
         SelectComponent,
@@ -80,7 +83,7 @@ import { TimePipe } from './pipes/time.pipe'
         ClickOutsideDirective,
         DropzoneDirective,
         HighlightDirective,
-        InputDirective,
+        // InputDirective,
         TooltipDirective,
 
         // Pipes

@@ -277,37 +277,6 @@
     }
 }
 
-// Input
-.shared-input {
-    padding: 8px 12px;
-    width: 328px;
-    height: 44px;
-    border: 1px solid var(--grey-6);
-    border-radius: 4px;
-    outline: none;
-
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 28px;
-    letter-spacing: -0.2px;
-    color: var(--text-1);
-
-    &::placeholder {
-        color: var(--grey-5);
-    }
-
-    &:focus {
-        border: 1px solid var(--blue-6);
-    }
-
-    &:disabled {
-        background-color: var(--grey-8);
-        cursor: not-allowed;
-
-        color: var(--grey-4);
-    }
-}
-
 // Button
 .shared-button {
     display: flex;

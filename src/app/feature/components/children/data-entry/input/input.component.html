@@ -1,5 +1,43 @@
 <div class="title">Input</div>
 <div class="content">
-    <input shared-input placeholder="Placeholder" />
-    <input shared-input placeholder="Placeholder" disabled />
+    <div class="d-flex">
+        <shared-input placeholder="텍스트를 입력하세요" [(ngModel)]="text"></shared-input>
+        <shared-input placeholder="텍스트를 입력하세요" [(ngModel)]="text" disabled></shared-input>
+    </div>
+    <div class="d-flex">
+        <shared-input label="라벨텍스트" placeholder="텍스트를 입력하세요" [(ngModel)]="text"></shared-input>
+        <shared-input label="라벨텍스트" placeholder="텍스트를 입력하세요" [(ngModel)]="text" disabled></shared-input>
+    </div>
+    <div class="d-flex">
+        <shared-input
+            label="라벨텍스트"
+            placeholder="텍스트를 입력하세요"
+            [(ngModel)]="text"
+            info="설명을 입력해 주세요"
+        ></shared-input>
+        <shared-input
+            label="라벨텍스트"
+            placeholder="텍스트를 입력하세요"
+            [(ngModel)]="text"
+            info="설명을 입력해 주세요"
+            disabled
+        ></shared-input>
+    </div>
+    <div class="d-flex">
+        <shared-input
+            label="라벨텍스트"
+            placeholder="텍스트를 입력하세요"
+            [(ngModel)]="text"
+            info="설명을 입력해 주세요"
+            error="에러 메시지 입력"
+        ></shared-input>
+        <shared-input
+            label="라벨텍스트"
+            placeholder="텍스트를 입력하세요"
+            [(ngModel)]="text"
+            info="설명을 입력해 주세요"
+            error="에러 메시지 입력"
+            disabled
+        ></shared-input>
+    </div>
 </div>
