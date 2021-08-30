@@ -5,8 +5,8 @@
     .selected {
         height: 50px;
         padding: 15px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
+        border: 1px solid var(--grey-6);
+        border-radius: 4px;
         background-color: var(--white);
         cursor: pointer;
 
@@ -21,12 +21,12 @@
             transform: rotateX(0deg);
             transition: transform 0.2s linear;
             font-size: 22px;
-            color: var(--font-color);
+            color: var(--text-1);
         }
     }
 
     .open {
-        border: 1px solid var(--grey);
+        border: 1px solid var(--grey-4);
 
         .mdi {
             transform: rotateX(180deg);
@@ -35,13 +35,13 @@
     }
 
     .disabled {
-        border: 1px solid var(--border-color);
-        background-color: var(--background-color);
+        border: 1px solid var(--grey-6);
+        background-color: var(--grey-8);
         cursor: not-allowed;
 
         .text,
         .mdi {
-            color: var(--grey);
+            color: var(--grey-4);
         }
     }
 
@@ -50,8 +50,8 @@
         position: absolute;
         top: 55px;
         padding: 7px 0;
-        border: 1px solid var(--grey);
-        border-radius: 7px;
+        border: 1px solid var(--grey-4);
+        border-radius: 4px;
         background-color: var(--white);
         z-index: 1;
 
@@ -62,7 +62,7 @@
 
             &:hover {
                 width: 100%;
-                background-color: var(--background-color);
+                background-color: var(--grey-8);
             }
 
             span {
@@ -89,7 +89,7 @@
             }
 
             span {
-                color: var(--grey);
+                color: var(--grey-4);
             }
         }
     }
