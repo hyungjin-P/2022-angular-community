@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core'
-import { animationFrameScheduler, defer, fromEvent, Observable, interval, concat, of } from 'rxjs'
-import { merge } from 'rxjs/index'
+import { animationFrameScheduler, defer, fromEvent, Observable, interval, concat, of, merge } from 'rxjs'
 import { map, switchMap, takeUntil, take, startWith, tap, withLatestFrom, share, scan, takeWhile } from 'rxjs/operators'
 
 @Component({
@@ -43,7 +42,6 @@ export class CarouselComponent implements OnInit, AfterViewInit {
             startWith(0),
             map((event: any) => this.carousel.nativeElement.clientWidth)
         )
-        this.size$.subscribe((v) => console.log('clientWidth: ', v))
 
         this.start$ = fromEvent(this.carousel.nativeElement, EVENTS.start).pipe(this.toPos)
         this.move$ = fromEvent(this.carousel.nativeElement, EVENTS.move).pipe(this.toPos)
@@ -89,7 +87,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
                         let tobeIndex = store.index
                         if (Math.abs(distance) >= THRESHOLD) {
                             tobeIndex =
-                                distance < 0 ? Math.min(tobeIndex + 1, PANEL_COUNT - 1) : Math.max(tobeIndex - 1, 0)
+                                distance >= 0 ? Math.max(tobeIndex - 1, 0) : Math.min(tobeIndex + 1, PANEL_COUNT - 1)
                         }
 
                         updateStore.index = tobeIndex
@@ -109,10 +107,10 @@ export class CarouselComponent implements OnInit, AfterViewInit {
                     size: 0,
                 }
             ),
-            switchMap(({ from, to }) => (from === to ? of(to) : this.animation(from, to, DEFAULT_DURATION)))
+            switchMap(({ from, to }) => (from == to ? of(to) : this.animation(from, to, DEFAULT_DURATION)))
         )
+
         this.carousel$.subscribe((pos) => {
-            console.log('캐러셀 데이터', pos)
             this.translateX(pos)
         })
     }
@@ -131,7 +129,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
             const scheduler = animationFrameScheduler
             const start = scheduler.now()
             const interval$ = interval(0, scheduler).pipe(
-                map(() => scheduler.now() - start / duration),
+                map(() => (scheduler.now() - start) / duration),
                 takeWhile((rate) => rate < 1)
             )
 
