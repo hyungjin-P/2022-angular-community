@@ -132,11 +132,11 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked 
                 }
 
                 if (date.format('YYYYMMDD') == this.today.format('YYYYMMDD')) {
-                    weekCol['color'] = 'rgb(51, 102, 255)'
+                    weekCol['color'] = 'var(--blue-3)'
                 } else if (date.format('MM') != currentDate.format('MM')) {
-                    weekCol['color'] = 'rgb(228, 233, 242)'
+                    weekCol['color'] = 'var(--grey-4)'
                 } else {
-                    weekCol['color'] = 'rgb(143, 155, 179)'
+                    weekCol['color'] = 'var(--grey-1)'
                 }
 
                 if (this.mode == 'date') {
@@ -168,7 +168,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked 
                     month: date.format('MM'),
                     year: date.format('YYYY'),
                     date: date.format('YYYY-MM-DD'),
-                    color: 'rgb(228, 233, 242)',
+                    color: 'var(--grey-4)',
                     selected: false,
                 }
 

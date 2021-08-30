@@ -17,11 +17,11 @@
         .end {
             .mdi {
                 font-size: 20px;
-                color: var(--grey);
+                color: var(--grey-1);
                 cursor: pointer;
 
                 &:hover {
-                    color: var(--darkgrey);
+                    color: var(--text-1);
                 }
             }
         }
@@ -29,13 +29,13 @@
         .center {
             font-size: 15px;
             font-weight: 500;
-            color: var(--font-color);
+            color: var(--text-1);
         }
     }
 
     .week-header {
         font-size: 13px;
-        color: var(--font-color);
+        color: var(--text-1);
 
         & > div {
             width: 26px;
@@ -59,16 +59,16 @@
             cursor: pointer;
 
             &:hover {
-                background-color: var(--background-color);
+                background-color: var(--grey-8);
             }
         }
 
         .selected {
             color: var(--white) !important;
-            background-color: var(--darkblue);
+            background-color: var(--blue-3);
 
             &:hover {
-                background-color: var(--darkblue);
+                background-color: var(--blue-3);
             }
         }
     }
@@ -80,15 +80,15 @@
         cursor: pointer;
 
         &:hover {
-            background-color: var(--background-color);
+            background-color: var(--grey-8);
         }
     }
 
     .selected {
-        background-color: var(--darkblue);
+        background-color: var(--blue-3);
 
         &:hover {
-            background-color: var(--darkblue);
+            background-color: var(--blue-3);
         }
 
         .week-col {
