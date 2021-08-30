@@ -64,14 +64,14 @@
 .shared-typo-desc-m13 {
     font-weight: 500;
     font-size: 13px;
-    line-height: 22px;
+    line-height: 21px;
 }
 
 // Description - Regular
 .shared-typo-desc-r13 {
     font-weight: 400;
     font-size: 13px;
-    line-height: 22px;
+    line-height: 21px;
 }
 
 .shared-typo-desc-r12 {
@@ -106,7 +106,6 @@
     font-weight: 700;
     font-size: 13px;
     line-height: 21px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-b12 {
@@ -114,6 +113,12 @@
     font-size: 12px;
     line-height: 20px;
     letter-spacing: -0.2px;
+}
+
+.shared-typo-body-b11 {
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 20px;
 }
 
 // Body - Medium
@@ -149,7 +154,12 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 20px;
-    letter-spacing: -0.2px;
+}
+
+.shared-typo-body-m11 {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 20px;
 }
 
 // Body - Regular
@@ -188,6 +198,12 @@
     letter-spacing: -0.2px;
 }
 
+.shared-typo-body-r11 {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 20px;
+}
+
 // Tooltip
 .shared-tooltip {
     position: fixed;
@@ -199,7 +215,7 @@
     text-align: center;
     color: var(--white);
     overflow-wrap: break-word;
-    background-color: var(--font-color);
+    background-color: var(--text-1);
     border-radius: 6px;
     opacity: 0;
     z-index: 999;
@@ -218,7 +234,7 @@
         margin-left: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: var(--font-color) transparent transparent transparent;
+        border-color: var(--text-1) transparent transparent transparent;
     }
 }
 
@@ -231,7 +247,7 @@
         margin-top: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: transparent var(--font-color) transparent transparent;
+        border-color: transparent var(--text-1) transparent transparent;
     }
 }
 
@@ -244,7 +260,7 @@
         margin-left: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: transparent transparent var(--font-color) transparent;
+        border-color: transparent transparent var(--text-1) transparent;
     }
 }
 
@@ -257,46 +273,38 @@
         margin-top: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: transparent transparent transparent var(--font-color);
+        border-color: transparent transparent transparent var(--text-1);
     }
 }
 
 // Input
 .shared-input {
-    box-sizing: border-box;
-
-    height: 50px;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    padding: 8px 12px;
+    width: 328px;
+    height: 44px;
+    border: 1px solid var(--grey-6);
+    border-radius: 4px;
     outline: none;
 
+    font-weight: 400;
     font-size: 14px;
-    font-weight: 500;
-    line-height: 1.43;
+    line-height: 28px;
     letter-spacing: -0.2px;
-    color: var(--font-color);
+    color: var(--text-1);
 
     &::placeholder {
-        font-weight: 400;
-        color: var(--grey);
+        color: var(--grey-5);
     }
 
     &:focus {
-        font-weight: 700;
-        border: 1px solid var(--grey);
-    }
-
-    &:focus::placeholder {
-        font-weight: 400;
-        color: var(--grey);
+        border: 1px solid var(--blue-6);
     }
 
     &:disabled {
-        border: 1px solid var(--border-color);
-        background-color: var(--background-color);
-        color: var(--grey);
+        background-color: var(--grey-8);
         cursor: not-allowed;
+
+        color: var(--grey-4);
     }
 }
 
