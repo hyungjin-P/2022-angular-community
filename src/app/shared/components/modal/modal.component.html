@@ -1,18 +1,18 @@
 <div class="shared-modal-background" #modalBackgroundElement></div>
 <div class="shared-modal-wrapper justify-content-center align-items-center" (click)="onCancel()" #modalWrapperElement>
     <div class="shared-modal user-select-none" (click)="$event.stopPropagation()">
-        <div class="text shared-typo-title1 d-flex justify-content-center">{{ data?.text }}</div>
-        <div class="sub-text shared-typo-subtext2 d-flex justify-content-center">{{ data?.subText }}</div>
+        <div class="text shared-typo-body-b16 d-flex justify-content-center">{{ data?.text }}</div>
+        <div class="sub-text shared-typo-body-m14 d-flex justify-content-center">{{ data?.subText }}</div>
         <div class="button-group d-flex">
             <div
-                class="cancel col d-flex justify-content-center align-items-center shared-typo-bodytext2"
+                class="cancel col d-flex justify-content-center align-items-center shared-typo-body-m14"
                 *ngIf="type == 'type1'"
                 (click)="onCancel()"
             >
                 {{ data?.cancelButtonText || '취소' }}
             </div>
             <div
-                class="confirm col d-flex justify-content-center align-items-center shared-typo-bodytext2"
+                class="confirm col d-flex justify-content-center align-items-center shared-typo-body-m14"
                 (click)="onConfirm()"
             >
                 {{ data?.confirmButtonText || '확인' }}

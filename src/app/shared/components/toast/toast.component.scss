@@ -4,19 +4,18 @@
     bottom: 60px;
     padding: 11px 23px;
     border-radius: 58px;
-    background-color: var(--font-color);
+    background-color: var(--text-1);
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     z-index: 1000;
 
-    .shared-typo-bodytext2 {
-        font-weight: 700;
+    .text {
         color: var(--white);
     }
 
     svg {
         position: relative;
-        top: 2px;
+        top: 1px;
         width: 24px;
         height: 24px;
         margin-left: 40px;
