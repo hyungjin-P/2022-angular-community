@@ -48,10 +48,7 @@
         .container .row {
             .menu {
                 div:nth-child(1),
-                div:nth-child(3) {
-                    cursor: default;
-                }
-
+                div:nth-child(3),
                 div:nth-child(5),
                 div:nth-child(7) {
                     cursor: default;
@@ -224,27 +221,14 @@
 
         .menu {
             display: flex;
-
-            font-weight: 400;
-            font-size: 11px;
-            line-height: 16px;
-            letter-spacing: -0.3px;
-            color: #7e8a9a;
+            color: var(--grey-1);
 
             div:nth-child(1),
-            div:nth-child(3) {
-                outline: none;
-                cursor: pointer;
-
-                font-weight: 500;
-            }
-
+            div:nth-child(3),
             div:nth-child(5),
             div:nth-child(7) {
                 outline: none;
                 cursor: pointer;
-
-                font-weight: 700;
             }
 
             .middle-dot {
@@ -257,31 +241,14 @@
             display: flex;
 
             .company {
-                display: flex;
                 margin-right: 16px;
-
-                img {
-                    height: 16px;
-                }
-            }
-
-            .copyright {
-                position: relative;
-                top: 2px;
             }
         }
 
         .ceo,
         .business-number,
         .address {
-            font-size: 10px;
-            line-height: 16px;
-            letter-spacing: -0.5px;
-            color: #7e8a9a;
-
-            span:nth-child(1) {
-                font-weight: 500;
-            }
+            color: var(--grey-1);
         }
 
         .business-number {
@@ -289,11 +256,7 @@
         }
 
         .copyright {
-            font-weight: 300;
-            font-size: 10px;
-            line-height: 16px;
-            letter-spacing: -0.2px;
-            color: #647183;
+            color: var(--grey-1);
         }
     }
 }
@@ -325,7 +288,7 @@
                 font-weight: 500;
                 font-size: 10px;
                 line-height: 12px;
-                color: #93a0b2;
+                color: var(--grey-3);
             }
         }
 
@@ -367,15 +330,50 @@
             padding-bottom: 30px;
 
             .menu {
-                margin-bottom: 20px;
+                margin-bottom: 30px;
+
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 20px;
             }
 
             .company-box {
                 margin-bottom: 12px;
+
+                .company {
+                    font-family: Montserrat;
+                    font-style: italic;
+                    font-weight: bold;
+                    font-size: 18px;
+                    line-height: 16px;
+                    color: var(--grey-1);
+                }
+            }
+
+            .ceo,
+            .business-number,
+            .address {
+                span:nth-child(1) {
+                    font-weight: 500;
+                    font-size: 11px;
+                    line-height: 18px;
+                }
+
+                span:nth-child(2) {
+                    font-weight: 400;
+                    font-size: 11px;
+                    line-height: 18px;
+                }
             }
 
             .address {
                 margin-bottom: 12px;
+            }
+
+            .copyright {
+                font-weight: 400;
+                font-size: 11px;
+                line-height: 18px;
             }
         }
     }
@@ -383,45 +381,79 @@
     .bottom-nav {
         .menu-box {
             .menu {
-                width: 56px;
+                width: 62px;
             }
         }
     }
 }
 
 @media (min-width: 576px) {
-    .footer {
-        .container .row {
-            padding-bottom: 20px;
-
-            .menu {
-                margin-bottom: 16px;
-            }
-
-            .company-box {
-                margin-bottom: 8px;
-            }
-
-            .address {
-                margin-bottom: 0px;
-            }
-        }
-    }
-
     .bottom-nav {
         .menu-box {
             .menu {
-                width: 96px;
+                width: 105px;
             }
         }
     }
 }
 
 @media (min-width: 768px) {
+    .footer {
+        .container .row {
+            padding-bottom: 20px;
+
+            .menu {
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 20px;
+                letter-spacing: -0.2px;
+            }
+
+            .company-box {
+                margin-bottom: 8px;
+
+                .company {
+                    font-size: 20px;
+                    line-height: 18px;
+                }
+
+                .copyright {
+                    position: relative;
+                    top: -1px;
+                }
+            }
+
+            .ceo,
+            .business-number,
+            .address {
+                span:nth-child(1) {
+                    font-weight: 500;
+                    font-size: 13px;
+                    line-height: 20px;
+                    letter-spacing: -0.2px;
+                }
+
+                span:nth-child(2) {
+                    font-weight: 400;
+                    font-size: 13px;
+                    line-height: 20px;
+                    letter-spacing: -0.2px;
+                }
+            }
+
+            .copyright {
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 20px;
+                letter-spacing: -0.2px;
+            }
+        }
+    }
+
     .bottom-nav {
         .menu-box {
             .menu {
-                width: 134px;
+                width: 144px;
             }
         }
     }
