@@ -27,10 +27,15 @@
         }
 
         &:disabled {
+            border: none;
             background-color: var(--grey-8);
             cursor: not-allowed;
 
             color: var(--grey-4);
+        }
+
+        &.input-error:enabled {
+            border: 1px solid var(--red);
         }
     }
 

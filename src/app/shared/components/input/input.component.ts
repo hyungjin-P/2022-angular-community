@@ -14,6 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
     ],
 })
 export class InputComponent implements ControlValueAccessor {
+    @Input() type: string
     @Input() label: string
     @Input() placeholder: string
     @Input() disabled: boolean
@@ -25,6 +26,7 @@ export class InputComponent implements ControlValueAccessor {
     onTouched = (_) => {}
 
     constructor() {
+        this.type = 'text'
         this.label = ''
         this.placeholder = ''
         this.disabled = false

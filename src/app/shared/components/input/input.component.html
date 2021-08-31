@@ -1,6 +1,13 @@
 <div class="shared-input">
     <div class="label shared-typo-body-b13" *ngIf="label">{{ label }}</div>
-    <input [placeholder]="placeholder" [ngModel]="text" [disabled]="disabled" (ngModelChange)="onChange($event)" />
+    <input
+        [type]="type"
+        [class.input-error]="error"
+        [placeholder]="placeholder"
+        [ngModel]="text"
+        [disabled]="disabled"
+        (ngModelChange)="onChange($event)"
+    />
     <div class="info shared-typo-body-r12" *ngIf="info && !error">
         <span class="mdi mdi-alert-circle-outline"></span>
         <div>{{ info }}</div>
