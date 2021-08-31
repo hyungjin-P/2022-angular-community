@@ -11,12 +11,14 @@
         }
 
         &:hover {
-            opacity: 0.8;
+            .switch {
+                opacity: 0.8;
+            }
         }
     }
 
     &.disabled {
-        opacity: 0.5;
+        opacity: 1;
         cursor: not-allowed;
 
         .text {
@@ -28,7 +30,7 @@
         }
 
         &:hover {
-            opacity: 0.5;
+            opacity: 1;
         }
     }
 
@@ -81,5 +83,6 @@
 
     .text {
         margin-left: 8px;
+        color: var(--text-2);
     }
 }
