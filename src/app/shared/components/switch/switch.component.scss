@@ -1,5 +1,5 @@
 .shared-switch {
-    cursor: pointer;
+    cursor: default;
 
     &.checked {
         .switch .box {
@@ -84,5 +84,11 @@
     .text {
         margin-left: 8px;
         color: var(--text-2);
+    }
+}
+
+@media (min-width: 992px) {
+    .shared-switch {
+        cursor: pointer;
     }
 }
