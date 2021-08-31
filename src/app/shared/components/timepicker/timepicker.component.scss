@@ -35,18 +35,18 @@
             outline: none;
 
             &:hover {
-                border: 1px solid var(--grey-5);
+                border: 1px solid var(--grey-7);
             }
 
             &:focus {
-                border: 1px solid var(--grey-4);
+                border: 1px solid var(--grey-6);
             }
         }
 
         .am,
         .pm {
             font-size: 14px;
-            color: var(--grey-1);
+            color: var(--grey-2);
             cursor: pointer;
         }
 
