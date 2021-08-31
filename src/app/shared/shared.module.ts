@@ -20,7 +20,6 @@ import { ButtonDirective } from './directives/button.directive'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { DropzoneDirective } from './directives/dropzone.directive'
 import { HighlightDirective } from './directives/highlight.directive'
-// import { InputDirective } from './directives/input.directive'
 import { TooltipDirective } from './directives/tooltip.directive'
 
 // Pipes
@@ -50,7 +49,6 @@ import { TimePipe } from './pipes/time.pipe'
         ClickOutsideDirective,
         DropzoneDirective,
         HighlightDirective,
-        // InputDirective,
         TooltipDirective,
 
         // Pipes
@@ -83,7 +81,6 @@ import { TimePipe } from './pipes/time.pipe'
         ClickOutsideDirective,
         DropzoneDirective,
         HighlightDirective,
-        // InputDirective,
         TooltipDirective,
 
         // Pipes
