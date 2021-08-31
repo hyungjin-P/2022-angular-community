@@ -12,6 +12,10 @@
                 opacity: 0.8;
             }
         }
+
+        .text {
+            color: var(--text-2);
+        }
     }
 
     &.disabled {

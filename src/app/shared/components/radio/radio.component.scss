@@ -22,7 +22,7 @@
         cursor: not-allowed;
 
         .text {
-            color: var(--grey);
+            color: var(--grey-5);
         }
 
         &:hover {
@@ -39,6 +39,12 @@
             .checkmark {
                 background-color: var(--grey-6);
             }
+        }
+    }
+
+    &.unchecked-disabled {
+        .circle {
+            border: 2px solid var(--grey-6);
         }
     }
 
@@ -70,5 +76,6 @@
 
     .text {
         margin-left: 8px;
+        color: var(--text-2);
     }
 }
