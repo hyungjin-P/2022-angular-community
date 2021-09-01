@@ -1,6 +1,6 @@
 <div class="full-absolute" [class.touch-screen]="touchScreen">
-    <div class="banner user-select-none" *ngIf="banner">
-        <div class="content" #bannerElement>
+    <div class="banner-box user-select-none" *ngIf="banner">
+        <div class="banner" #bannerElement>
             <div class="text">
                 <img src="assets/icons/etc/gift-box.png" />
                 <span>신규회원</span>
@@ -31,7 +31,7 @@
     <div class="header user-select-none">
         <div class="container">
             <div class="row d-none d-lg-flex">
-                <div class="col-6">
+                <div class="col-8">
                     <div class="leading">
                         <img src="assets/logo/header_logo.svg" />
                         <div class="nav">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <div class="action">
                         <svg class="icon-hover" [routerLink]="['/search']">
                             <use xlink:href="assets/icons/etc/search.svg#icon" />

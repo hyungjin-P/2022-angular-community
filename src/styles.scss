@@ -600,12 +600,12 @@ body {
     width: 24px;
     height: 24px;
     background-size: cover;
-    stroke: #7e8a9a;
-    fill: #7e8a9a;
+    stroke: var(--grey-2);
+    fill: var(--grey-2);
 
     &:hover {
-        stroke: #567df4;
-        fill: #567df4;
+        stroke: var(--blue-3);
+        fill: var(--blue-3);
     }
 }
 
@@ -615,10 +615,6 @@ body {
 }
 
 // Bootstrap
-.container {
-    padding: 0 16px;
-}
-
 @media (min-width: 360px) {
     .container {
         max-width: none;
@@ -650,5 +646,10 @@ body {
 @media (min-width: 1200px) {
     .container {
         max-width: 1080px;
+
+        .row {
+            margin-right: -25px;
+            margin-left: -25px;
+        }
     }
 }
