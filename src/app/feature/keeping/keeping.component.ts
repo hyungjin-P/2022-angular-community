@@ -71,7 +71,7 @@ export class KeepingComponent implements OnInit {
     scrollTop() {
         this.keeping.nativeElement.scroll({
             top: 0,
-            behavior: 'smooth',
+            behavior: 'auto',
         })
     }
 }
