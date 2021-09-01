@@ -13,6 +13,7 @@ import { User } from '@schemas/user'
     styleUrls: ['./keeping.component.scss'],
 })
 export class KeepingComponent implements OnInit {
+    @ViewChild('keeping') keeping: ElementRef
     @ViewChild('bannerElement') bannerElement: ElementRef
 
     touchScreen: boolean
@@ -65,5 +66,12 @@ export class KeepingComponent implements OnInit {
     async logout() {
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
+    }
+
+    scrollTop() {
+        this.keeping.nativeElement.scroll({
+            top: 0,
+            behavior: 'smooth',
+        })
     }
 }

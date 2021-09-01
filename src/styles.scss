@@ -615,11 +615,9 @@ body {
 }
 
 // Bootstrap
-@media (min-width: 360px) {
-    .container {
-        max-width: none;
-        padding: 0 16px;
-    }
+.container {
+    max-width: none;
+    padding: 0 16px;
 }
 
 @media (min-width: 576px) {

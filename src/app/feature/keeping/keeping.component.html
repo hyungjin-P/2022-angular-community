@@ -1,4 +1,4 @@
-<div class="full-absolute" [class.touch-screen]="touchScreen">
+<div class="full-absolute" [class.touch-screen]="touchScreen" #keeping>
     <div class="banner-box user-select-none" *ngIf="banner">
         <div class="banner" #bannerElement>
             <div class="text">
@@ -82,7 +82,7 @@
     <div class="section">
         <div class="container">
             <div class="row">
-                <div class="col" style="height: 1000px">
+                <div class="col">
                     <router-outlet></router-outlet>
                 </div>
             </div>
@@ -112,9 +112,9 @@
                                 <div class="middle-dot">&#183;</div>
                                 <div>이메일 문의하기</div>
                                 <div class="middle-dot">&#183;</div>
-                                <div [routerLink]="['/service-terms']">이용약관</div>
+                                <div [routerLink]="['/service-terms']" (click)="scrollTop()">이용약관</div>
                                 <div class="middle-dot">&#183;</div>
-                                <div [routerLink]="['/privacy']">개인정보 처리방침</div>
+                                <div [routerLink]="['/privacy']" (click)="scrollTop()">개인정보 처리방침</div>
                             </div>
                         </div>
                         <div class="col-12">
