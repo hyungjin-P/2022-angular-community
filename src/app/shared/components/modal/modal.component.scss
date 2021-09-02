@@ -53,7 +53,7 @@
                 justify-content: center;
                 align-items: center;
                 border-radius: 8px;
-                cursor: pointer;
+                cursor: default;
                 -webkit-user-select: none;
                 -moz-user-select: none;
                 -ms-user-select: none;
@@ -159,6 +159,19 @@
         .button-group {
             .confirm-button {
                 width: 292px !important;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .shared-modal-wrapper {
+        .shared-modal {
+            .button-group {
+                .cancel-button,
+                .confirm-button {
+                    cursor: pointer;
+                }
             }
         }
     }
