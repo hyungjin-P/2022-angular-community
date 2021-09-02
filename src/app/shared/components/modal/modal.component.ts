@@ -31,7 +31,7 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
     changed: boolean
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
-        this.type = 'type1'
+        this.type = 'alert' // alert, confirm
     }
 
     ngOnChanges(changes: SimpleChanges) {

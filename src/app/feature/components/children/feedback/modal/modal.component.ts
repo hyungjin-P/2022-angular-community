@@ -12,7 +12,7 @@ export class ModalComponent implements OnInit {
         subText: `서브 텍스트 문구를 입력해주세요.
         서브 텍스트 문구를 입력해주세요.`,
         cancelButtonText: '취소', // 선택
-        confirmButtonText: '저장', // 선택
+        confirmButtonText: '확인', // 선택
     }
 
     isVisible2 = false
@@ -20,6 +20,7 @@ export class ModalComponent implements OnInit {
         text: '문구를 입력해주세요.',
         subText: `서브 텍스트 문구를 입력해주세요.
         서브 텍스트 문구를 입력해주세요.`,
+        cancelButtonText: '취소', // 선택
         confirmButtonText: '확인', // 선택
     }
 

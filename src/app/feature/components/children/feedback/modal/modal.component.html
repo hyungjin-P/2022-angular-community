@@ -1,17 +1,36 @@
 <div class="title">Modal</div>
 <div class="content">
-    <div shared-button (click)="showModal()">Open Modal - Type1</div>
+    <div
+        shared-button
+        sharedButtonType="primary"
+        sharedButtonSize="small"
+        sharedButtonWidth="160"
+        sharedButtonHeight="44"
+        (click)="showModal()"
+    >
+        Alert
+    </div>
     <shared-modal
         [(visible)]="isVisible"
         [data]="visibleData"
+        type="alert"
         (cancel)="handleCancel()"
         (confirm)="handleOk()"
     ></shared-modal>
-    <div shared-button (click)="showModal2()">Open Modal - Type2</div>
+    <div
+        shared-button
+        sharedButtonType="primary"
+        sharedButtonSize="small"
+        sharedButtonWidth="160"
+        sharedButtonHeight="44"
+        (click)="showModal2()"
+    >
+        Confirm
+    </div>
     <shared-modal
         [(visible)]="isVisible2"
         [data]="visibleData2"
-        type="type2"
+        type="confirm"
         (cancel)="handleCancel2()"
         (confirm)="handleOk2()"
     ></shared-modal>
