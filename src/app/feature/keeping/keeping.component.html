@@ -1,4 +1,4 @@
-<div class="full-absolute" [class.touch-screen]="touchScreen" #keeping>
+<div class="full-absolute" [class.touch-screen]="touchScreen" #keeping (scroll)="scroll($event)">
     <div class="banner-box user-select-none" *ngIf="banner">
         <div class="banner" #bannerElement>
             <div class="text">

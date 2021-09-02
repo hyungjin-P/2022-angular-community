@@ -16,6 +16,7 @@ export class KeepingComponent implements OnInit {
     @ViewChild('keeping') keeping: ElementRef
     @ViewChild('bannerElement') bannerElement: ElementRef
 
+    scrollPosition: number
     touchScreen: boolean
     banner: boolean
 
@@ -73,5 +74,9 @@ export class KeepingComponent implements OnInit {
             top: 0,
             behavior: 'auto',
         })
+    }
+
+    scroll(event) {
+        this.scrollPosition = event.target.scrollTop
     }
 }
