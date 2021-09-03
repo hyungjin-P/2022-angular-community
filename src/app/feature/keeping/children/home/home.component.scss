@@ -1,0 +1,32 @@
+.title {
+    padding-bottom: 11px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.content {
+    display: block;
+    padding: 20px;
+
+    .carousel-view {
+        overflow: hidden;
+
+        .carousel-container {
+            padding: 0;
+            list-style: none;
+
+            font-size: 0;
+            white-space: nowrap;
+
+            .carousel-panel {
+                display: inline-block;
+                width: 100%;
+                min-height: 200px;
+            }
+        }
+    }
+}

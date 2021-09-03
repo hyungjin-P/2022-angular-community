@@ -1,6 +1,30 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core'
-import { animationFrameScheduler, defer, fromEvent, Observable, interval, concat, of, merge } from 'rxjs'
-import { map, switchMap, takeUntil, take, startWith, tap, withLatestFrom, share, scan, takeWhile } from 'rxjs/operators'
+import {
+    animationFrameScheduler,
+    defer,
+    fromEvent,
+    Observable,
+    interval,
+    concat,
+    of,
+    scheduled,
+    queueScheduler,
+    asapScheduler,
+    asyncScheduler,
+} from 'rxjs'
+import {
+    map,
+    switchMap,
+    takeUntil,
+    take,
+    startWith,
+    tap,
+    withLatestFrom,
+    share,
+    scan,
+    takeWhile,
+    mergeAll,
+} from 'rxjs/operators'
 
 @Component({
     selector: 'carousel',
@@ -72,7 +96,8 @@ export class CarouselComponent implements OnInit, AfterViewInit {
             })
         )
 
-        this.carousel$ = merge(this.drag$, this.drop$).pipe(
+        this.carousel$ = scheduled([this.drag$, this.drop$], asapScheduler).pipe(
+            mergeAll(),
             scan(
                 (store, { distance, size }) => {
                     const updateStore: any = {
