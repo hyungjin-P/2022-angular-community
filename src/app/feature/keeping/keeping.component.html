@@ -1,5 +1,5 @@
-<div class="full-absolute" [class.touch-screen]="touchScreen" #keeping (scroll)="scroll($event)">
-    <div class="banner-box user-select-none" *ngIf="banner">
+<div class="full-absolute" [class.touch-screen]="touchScreen" #keeping>
+    <div class="banner-box user-select-none" *ngIf="isBannerVisible">
         <div class="banner" #bannerElement>
             <div class="text">
                 <img src="assets/icons/etc/gift-box.png" />
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="scroll-header user-select-none" [class.scroll-header-show]="scrollPosition > 310">
+    <div class="scroll-header user-select-none" [class.scroll-header-show]="isHeaderVisible">
         <div class="container">
             <div class="row d-lg-none">
                 <div class="col">
@@ -189,7 +189,7 @@
             </div>
         </div>
     </div>
-    <div class="bottom-nav d-lg-none">
+    <div class="bottom-nav" [class.bottom-nav-show]="isBottomNavVisible">
         <div class="menu-box">
             <div
                 class="menu"
