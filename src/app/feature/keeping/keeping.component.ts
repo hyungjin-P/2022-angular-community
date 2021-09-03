@@ -111,7 +111,7 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     setScrollStream() {
-        const THRESHOLD = 500
+        const THRESHOLD = 150
 
         const scroll$ = fromEvent(this.keeping.nativeElement, 'scroll')
         this.scrollSubscription = scroll$.pipe(throttle((event: any) => interval(100))).subscribe((event) => {
