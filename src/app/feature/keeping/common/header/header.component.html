@@ -23,13 +23,42 @@
                             [routerLink]="['/']"
                             routerLinkActive="selected"
                             [routerLinkActiveOptions]="{ exact: true }"
+                            (click)="changeIndex('/')"
                         >
                             홈
                         </div>
-                        <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">피드</div>
-                        <div class="menu" [routerLink]="['/community']" routerLinkActive="selected">커뮤니티</div>
-                        <div class="menu" [routerLink]="['/market']" routerLinkActive="selected">중고마켓</div>
-                        <div class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">매거진</div>
+                        <div
+                            class="menu"
+                            [routerLink]="['/feed']"
+                            routerLinkActive="selected"
+                            (click)="changeIndex('/feed')"
+                        >
+                            피드
+                        </div>
+                        <div
+                            class="menu"
+                            [routerLink]="['/community']"
+                            routerLinkActive="selected"
+                            (click)="changeIndex('/community')"
+                        >
+                            커뮤니티
+                        </div>
+                        <div
+                            class="menu"
+                            [routerLink]="['/market']"
+                            routerLinkActive="selected"
+                            (click)="changeIndex('/market')"
+                        >
+                            중고마켓
+                        </div>
+                        <div
+                            class="menu"
+                            [routerLink]="['/magazine']"
+                            routerLinkActive="selected"
+                            (click)="changeIndex('/magazine')"
+                        >
+                            매거진
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,13 +72,42 @@
                                 [routerLink]="['/']"
                                 routerLinkActive="selected"
                                 [routerLinkActiveOptions]="{ exact: true }"
+                                (click)="changeIndex('/')"
                             >
                                 홈
                             </div>
-                            <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">피드</div>
-                            <div class="menu" [routerLink]="['/community']" routerLinkActive="selected">커뮤니티</div>
-                            <div class="menu" [routerLink]="['/market']" routerLinkActive="selected">중고마켓</div>
-                            <div class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">매거진</div>
+                            <div
+                                class="menu"
+                                [routerLink]="['/feed']"
+                                routerLinkActive="selected"
+                                (click)="changeIndex('/feed')"
+                            >
+                                피드
+                            </div>
+                            <div
+                                class="menu"
+                                [routerLink]="['/community']"
+                                routerLinkActive="selected"
+                                (click)="changeIndex('/community')"
+                            >
+                                커뮤니티
+                            </div>
+                            <div
+                                class="menu"
+                                [routerLink]="['/market']"
+                                routerLinkActive="selected"
+                                (click)="changeIndex('/market')"
+                            >
+                                중고마켓
+                            </div>
+                            <div
+                                class="menu"
+                                [routerLink]="['/magazine']"
+                                routerLinkActive="selected"
+                                (click)="changeIndex('/magazine')"
+                            >
+                                매거진
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -15,4 +15,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    changeIndex(url: string) {
+        if (this.variables.navMenu.indexOf(url) > -1) {
+            this.variables.navMenuIndex = this.variables.navMenu.indexOf(url)
+        }
+    }
 }

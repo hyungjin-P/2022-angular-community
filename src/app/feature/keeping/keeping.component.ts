@@ -29,8 +29,6 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     isHeaderVisible: boolean
     isBottomNavVisible: boolean
 
-    currentIndex
-    routes: any
     carouselSubscription: Subscription
 
     constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {
@@ -43,9 +41,6 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isBannerVisible = true
         this.isHeaderVisible = false
         this.isBottomNavVisible = false
-
-        this.currentIndex = 0
-        this.routes = ['/', '/feed', '/community', '/market', '/magazine']
     }
 
     ngOnInit(): void {
@@ -179,15 +174,15 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
                     if (Math.abs(distance) >= THRESHOLD) {
                         if (distance >= 0) {
                             // Left
-                            this.currentIndex = this.currentIndex - 1
-                            if (this.currentIndex < 0) {
-                                this.currentIndex = this.routes.length - 1
+                            this.variables.navMenuIndex = this.variables.navMenuIndex - 1
+                            if (this.variables.navMenuIndex < 0) {
+                                this.variables.navMenuIndex = this.variables.navMenu.length - 1
                             }
                         } else {
                             // Right
-                            this.currentIndex = this.currentIndex + 1
-                            if (this.currentIndex > this.routes.length - 1) {
-                                this.currentIndex = 0
+                            this.variables.navMenuIndex = this.variables.navMenuIndex + 1
+                            if (this.variables.navMenuIndex > this.variables.navMenu.length - 1) {
+                                this.variables.navMenuIndex = 0
                             }
                         }
                     }
@@ -202,17 +197,17 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.carouselSubscription = carousel$.subscribe((v) => {
             let url = this.router.url
-            let path = this.routes[this.currentIndex]
+            let path = this.variables.navMenu[this.variables.navMenuIndex]
 
-            if (url != path && this.routes.indexOf(url) > -1) {
+            if (url != path && this.variables.navMenu.indexOf(url) > -1) {
                 this.router.navigateByUrl(path)
             }
         })
     }
 
     changeIndex(url: string) {
-        if (this.routes.indexOf(url) > -1) {
-            this.currentIndex = this.routes.indexOf(url)
+        if (this.variables.navMenu.indexOf(url) > -1) {
+            this.variables.navMenuIndex = this.variables.navMenu.indexOf(url)
         }
     }
 
