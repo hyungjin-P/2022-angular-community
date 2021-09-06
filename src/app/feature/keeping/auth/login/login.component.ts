@@ -19,6 +19,8 @@ import { AuthService } from '@services/auth.service'
 export class LoginComponent implements OnInit, OnDestroy {
     TAG = '로그인'
 
+    variables: any
+
     signInMethod: string
     subscription: Subscription
 
@@ -30,7 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         private globalService: GlobalService,
         private storageService: StorageService,
         private authService: AuthService
-    ) {}
+    ) {
+        this.variables = this.globalService.variables
+    }
 
     ngOnInit() {
         this.angularFireAuth.setPersistence('session')
@@ -40,14 +44,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                     user.getIdToken().then((accessToken) => {
                         this.authService.signInWithFirebase({ accessToken }).subscribe(
                             (user) => {
-                                this.globalService.login.valid = true
+                                this.globalService.variables.isLogin = true
                                 this.router.navigateByUrl('/')
                             },
                             (e) => {}
                         )
                     })
                 } else {
-                    this.globalService.login.valid = true
+                    this.globalService.variables.isLogin = true
                     this.router.navigateByUrl('/')
                 }
             }

@@ -1,0 +1,67 @@
+<div [class.touch-screen]="variables.isTouchScreen">
+    <div class="header">
+        <div class="container">
+            <div class="row d-lg-none">
+                <div class="col-6">
+                    <div class="leading">
+                        <img src="assets/logo/header_logo.svg" />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="action">
+                        <svg class="icon-hover" [routerLink]="['/search']">
+                            <use xlink:href="assets/icons/etc/search.svg#icon" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-lg-none">
+                <div class="col">
+                    <div class="nav">
+                        <div
+                            class="menu"
+                            [routerLink]="['/']"
+                            routerLinkActive="selected"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                        >
+                            홈
+                        </div>
+                        <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">피드</div>
+                        <div class="menu" [routerLink]="['/community']" routerLinkActive="selected">커뮤니티</div>
+                        <div class="menu" [routerLink]="['/market']" routerLinkActive="selected">중고마켓</div>
+                        <div class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">매거진</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-none d-lg-flex">
+                <div class="col-8">
+                    <div class="leading">
+                        <img src="assets/logo/header_logo.svg" />
+                        <div class="nav">
+                            <div
+                                class="menu"
+                                [routerLink]="['/']"
+                                routerLinkActive="selected"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
+                                홈
+                            </div>
+                            <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">피드</div>
+                            <div class="menu" [routerLink]="['/community']" routerLinkActive="selected">커뮤니티</div>
+                            <div class="menu" [routerLink]="['/market']" routerLinkActive="selected">중고마켓</div>
+                            <div class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">매거진</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="action">
+                        <svg class="icon-hover" [routerLink]="['/search']">
+                            <use xlink:href="assets/icons/etc/search.svg#icon" />
+                        </svg>
+                        <div class="login" [routerLink]="['/auth/login']">로그인/가입</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

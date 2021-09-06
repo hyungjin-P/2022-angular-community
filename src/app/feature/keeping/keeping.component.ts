@@ -18,10 +18,9 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('keeping') keeping: ElementRef
     @ViewChild('bannerElement') bannerElement: ElementRef
 
-    login: any
+    variables: any
     user: User
 
-    touchScreen: boolean
     scrollSubscription: Subscription
     previousScrollTop: number
     currentScrollTop: number
@@ -35,7 +34,9 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     carouselSubscription: Subscription
 
     constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {
-        this.touchScreen = false
+        this.variables = this.globalService.variables
+        this.user = this.storageService.getUser()
+
         this.previousScrollTop = 0
         this.currentScrollTop = 0
 
@@ -48,8 +49,10 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.setUser()
-        this.checkTouchscreen()
+        if (window.hasOwnProperty('ontouchstart')) {
+            this.variables.isTouchScreen = true
+        }
+
         this.setBanner()
     }
 
@@ -61,18 +64,6 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.scrollSubscription.unsubscribe()
         this.carouselSubscription.unsubscribe()
-    }
-
-    setUser() {
-        this.login = this.globalService.login
-        this.user = this.storageService.getUser()
-    }
-
-    checkTouchscreen() {
-        if (window.hasOwnProperty('ontouchstart')) {
-            this.globalService.touchScreen = true
-            this.touchScreen = true
-        }
     }
 
     setBanner() {
@@ -133,7 +124,7 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
                 // upward
                 this.isHeaderVisible = false
 
-                if (this.touchScreen) {
+                if (this.variables.isTouchScreen) {
                     this.isBottomNavVisible = true
                 }
             }
@@ -231,6 +222,7 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     async logout() {
+        this.globalService.variables.isLogin = false
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }

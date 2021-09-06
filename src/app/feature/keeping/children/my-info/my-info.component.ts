@@ -15,7 +15,7 @@ export class MyInfoComponent implements OnInit {
     ngOnInit() {}
 
     async logout() {
-        this.globalService.login.valid = false
+        this.globalService.variables.isLogin = false
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }

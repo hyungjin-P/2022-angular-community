@@ -10,7 +10,7 @@
                 cursor: default;
             }
 
-            svg {
+            .close-icon {
                 cursor: default;
             }
         }
@@ -51,7 +51,7 @@
 }
 
 .banner-box {
-    padding: 0 15px;
+    padding: 0 16px;
     background-color: #28319c;
 
     .banner {
@@ -106,7 +106,7 @@
     }
 }
 
-.scroll-header {
+.header {
     position: fixed;
     top: -44px;
     right: 0;
@@ -186,99 +186,16 @@
             text-decoration: underline;
             text-decoration-color: var(--blue-3);
             text-decoration-thickness: 3px;
-            text-underline-offset: 12px;
+            text-underline-offset: 13px;
         }
     }
 }
 
-.scroll-header-show {
+.header-show {
     top: 0px !important;
 }
 
-.header {
-    box-shadow: 0px 1px #e8edf4;
-    background-color: var(--white);
-    z-index: 1;
-
-    .leading,
-    .action {
-        display: flex;
-        align-items: center;
-        height: 50px;
-    }
-
-    .leading {
-        img {
-            height: 22px;
-        }
-
-        .nav {
-            display: flex;
-
-            .menu {
-                cursor: pointer;
-            }
-        }
-    }
-
-    .action {
-        justify-content: flex-end;
-
-        svg {
-            outline: none;
-            cursor: pointer;
-        }
-
-        .login {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: 28px;
-            width: 101px;
-            height: 32px;
-            border-radius: 30px;
-            background-color: var(--blue-3);
-            cursor: pointer;
-
-            font-weight: 700;
-            font-size: 13px;
-            line-height: 32px;
-            color: var(--white);
-        }
-    }
-
-    .nav {
-        display: flex;
-        align-items: flex-end;
-        margin-right: -16px;
-        margin-left: -16px;
-        height: 44px;
-
-        .menu {
-            padding: 8px 16px 16px;
-            height: 38px;
-            outline: none;
-
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 14px;
-            color: var(--text-2);
-        }
-
-        .selected {
-            font-weight: 700;
-            text-decoration: underline;
-            text-decoration-color: var(--blue-3);
-            text-decoration-thickness: 3px;
-            text-underline-offset: 12px;
-        }
-    }
-}
-
 .footer {
-    position: absolute;
-    right: 0;
-    left: 0;
     padding-top: 20px;
     background-color: #e8edf4;
 
@@ -514,7 +431,7 @@
         }
     }
 
-    .scroll-header {
+    .header {
         top: -70px;
 
         .leading,
@@ -538,35 +455,7 @@
                 }
 
                 .selected {
-                    text-underline-offset: 23px;
-                }
-            }
-        }
-    }
-
-    .header {
-        .leading,
-        .action {
-            height: 70px;
-        }
-
-        .leading {
-            .nav {
-                align-items: center;
-                margin-left: 51px;
-                height: 70px;
-
-                .menu {
-                    padding: 16px;
-                    height: 48px;
-
-                    font-weight: 700;
-                    font-size: 16px;
-                    line-height: 16px;
-                }
-
-                .selected {
-                    text-underline-offset: 23px;
+                    text-underline-offset: 24px;
                 }
             }
         }

@@ -1,5 +1,5 @@
-<div class="full-absolute" [class.touch-screen]="touchScreen" #keeping>
-    <div class="banner-box user-select-none" *ngIf="isBannerVisible">
+<div class="full-absolute user-select-none" [class.touch-screen]="variables.isTouchScreen" #keeping>
+    <div class="banner-box" *ngIf="isBannerVisible">
         <div class="banner" #bannerElement>
             <div class="text">
                 <img src="assets/icons/etc/gift-box.png" />
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="scroll-header user-select-none" [class.scroll-header-show]="isHeaderVisible">
+    <div class="header" [class.header-show]="isHeaderVisible">
         <div class="container">
             <div class="row d-lg-none">
                 <div class="col">
@@ -121,190 +121,59 @@
         </div>
     </div>
 
-    <div class="header user-select-none">
-        <div class="container">
-            <div class="row d-lg-none">
-                <div class="col-6">
-                    <div class="leading">
-                        <img src="assets/logo/header_logo.svg" />
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="action">
-                        <svg class="icon-hover" [routerLink]="['/search']">
-                            <use xlink:href="assets/icons/etc/search.svg#icon" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-lg-none">
-                <div class="col">
-                    <div class="nav">
-                        <div
-                            class="menu"
-                            [routerLink]="['/']"
-                            routerLinkActive="selected"
-                            [routerLinkActiveOptions]="{ exact: true }"
-                            (click)="changeIndex('/')"
-                        >
-                            홈
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/feed']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/feed')"
-                        >
-                            피드
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/community']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/community')"
-                        >
-                            커뮤니티
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/market']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/market')"
-                        >
-                            중고마켓
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/magazine']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/magazine')"
-                        >
-                            매거진
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-none d-lg-flex">
-                <div class="col-8">
-                    <div class="leading">
-                        <img src="assets/logo/header_logo.svg" />
-                        <div class="nav">
-                            <div
-                                class="menu"
-                                [routerLink]="['/']"
-                                routerLinkActive="selected"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                                (click)="changeIndex('/')"
-                            >
-                                홈
-                            </div>
-                            <div
-                                class="menu"
-                                [routerLink]="['/feed']"
-                                routerLinkActive="selected"
-                                (click)="changeIndex('/feed')"
-                            >
-                                피드
-                            </div>
-                            <div
-                                class="menu"
-                                [routerLink]="['/community']"
-                                routerLinkActive="selected"
-                                (click)="changeIndex('/community')"
-                            >
-                                커뮤니티
-                            </div>
-                            <div
-                                class="menu"
-                                [routerLink]="['/market']"
-                                routerLinkActive="selected"
-                                (click)="changeIndex('/market')"
-                            >
-                                중고마켓
-                            </div>
-                            <div
-                                class="menu"
-                                [routerLink]="['/magazine']"
-                                routerLinkActive="selected"
-                                (click)="changeIndex('/magazine')"
-                            >
-                                매거진
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="action">
-                        <svg class="icon-hover" [routerLink]="['/search']">
-                            <use xlink:href="assets/icons/etc/search.svg#icon" />
-                        </svg>
-                        <div class="login" [routerLink]="['/auth/login']">로그인/가입</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="section">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="footer">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
-            <div class="footer user-select-none">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 d-lg-none">
-                            <div class="menu">
-                                <div>공지사항</div>
-                                <div class="middle-dot">&#183;</div>
-                                <div>이메일 문의하기</div>
-                                <div class="middle-dot">&#183;</div>
-                                <div [routerLink]="['/service-terms']" (click)="scrollTop()">이용약관</div>
-                                <div class="middle-dot">&#183;</div>
-                                <div [routerLink]="['/privacy']" (click)="scrollTop()">개인정보 처리방침</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6 company-box">
-                            <div class="company">Flexible</div>
-                            <div class="copyright d-none d-md-block">
-                                Copyright © 2021 Flexible. All rights reserved.
-                            </div>
-                        </div>
-                        <div class="d-none d-lg-flex justify-content-end col-lg-6">
-                            <div class="menu">
-                                <div>공지사항</div>
-                                <div class="middle-dot">&#183;</div>
-                                <div>이메일 문의하기</div>
-                                <div class="middle-dot">&#183;</div>
-                                <div [routerLink]="['/service-terms']" (click)="scrollTop()">이용약관</div>
-                                <div class="middle-dot">&#183;</div>
-                                <div [routerLink]="['/privacy']" (click)="scrollTop()">개인정보 처리방침</div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <span class="ceo"><span>대표이사 : </span><span>***</span> </span>
-                            <span class="business-number"
-                                ><span>사업자 등록번호 : </span><span>***-**-*****</span>
-                            </span>
-                            <span class="address d-none d-md-inline">
-                                <span>주소 : </span><span>***</span>
-                            </span>
-                        </div>
-                        <div class="col-12 d-md-none">
-                            <div class="address">
-                                <span>주소 : </span>
-                                <span>***</span>
-                            </div>
-                        </div>
-                        <div class="col-12 d-md-none copyright-box">
-                            <div class="copyright">Copyright © 2021 Flexible. All rights reserved.</div>
-                        </div>
+                <div class="col-12 d-lg-none">
+                    <div class="menu">
+                        <div>공지사항</div>
+                        <div class="middle-dot">&#183;</div>
+                        <div>이메일 문의하기</div>
+                        <div class="middle-dot">&#183;</div>
+                        <div [routerLink]="['/service-terms']" (click)="scrollTop()">이용약관</div>
+                        <div class="middle-dot">&#183;</div>
+                        <div [routerLink]="['/privacy']" (click)="scrollTop()">개인정보 처리방침</div>
                     </div>
+                </div>
+                <div class="col-12 col-lg-6 company-box">
+                    <div class="company">Flexible</div>
+                    <div class="copyright d-none d-md-block">Copyright © 2021 Flexible. All rights reserved.</div>
+                </div>
+                <div class="d-none d-lg-flex justify-content-end col-lg-6">
+                    <div class="menu">
+                        <div>공지사항</div>
+                        <div class="middle-dot">&#183;</div>
+                        <div>이메일 문의하기</div>
+                        <div class="middle-dot">&#183;</div>
+                        <div [routerLink]="['/service-terms']" (click)="scrollTop()">이용약관</div>
+                        <div class="middle-dot">&#183;</div>
+                        <div [routerLink]="['/privacy']" (click)="scrollTop()">개인정보 처리방침</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <span class="ceo"><span>대표이사 : </span><span>***</span> </span>
+                    <span class="business-number"><span>사업자 등록번호 : </span><span>***-**-*****</span> </span>
+                    <span class="address d-none d-md-inline">
+                        <span>주소 : </span><span>***</span>
+                    </span>
+                </div>
+                <div class="col-12 d-md-none">
+                    <div class="address">
+                        <span>주소 : </span>
+                        <span>***</span>
+                    </div>
+                </div>
+                <div class="col-12 d-md-none copyright-box">
+                    <div class="copyright">Copyright © 2021 Flexible. All rights reserved.</div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="bottom-nav" [class.bottom-nav-show]="isBottomNavVisible">
         <div class="menu-box">
             <div
@@ -337,13 +206,13 @@
                 </svg>
                 <div>스크랩</div>
             </div>
-            <div class="menu" *ngIf="!login.valid" [routerLink]="['/auth/login']" routerLinkActive="selected">
+            <div class="menu" *ngIf="!variables.isLogin" [routerLink]="['/auth/login']" routerLinkActive="selected">
                 <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>
                 <div>로그인</div>
             </div>
-            <div class="menu" *ngIf="login.valid" [routerLink]="['/my-info']" routerLinkActive="selected">
+            <div class="menu" *ngIf="variables.isLogin" [routerLink]="['/my-info']" routerLinkActive="selected">
                 <svg class="icon-hover">
                     <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
                 </svg>

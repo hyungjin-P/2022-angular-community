@@ -5,6 +5,8 @@ import { KeepingComponent } from './keeping.component'
 
 import { SharedModule } from '@shared/shared.module'
 
+import { HeaderComponent } from './common/header/header.component'
+
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
 import { CommunityComponent } from './children/community/community.component'
@@ -24,6 +26,9 @@ import { SearchComponent } from './search/search.component'
 @NgModule({
     declarations: [
         KeepingComponent,
+
+        HeaderComponent,
+
         HomeComponent,
         FeedComponent,
         CommunityComponent,
