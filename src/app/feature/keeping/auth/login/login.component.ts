@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     naverLoginPopupWindowRef: Window
 
     email: string
+    password: string
 
     constructor(
         private router: Router,

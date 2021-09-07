@@ -1,1 +1,208 @@
-registration
+<div class="full-absolute user-select-none">
+    <div class="header d-lg-none">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="leading">
+                        <img src="assets/logo/header_logo.svg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="registration-image d-lg-none">
+        <img src="assets/images/auth/login-image.png" />
+    </div>
+    <div class="registration-form d-lg-none">
+        <div class="container">
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="text-1 shared-typo-title-b26">
+                        <span>키핑 서비스 가입하기</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="email">
+                        <shared-input
+                            label="이메일"
+                            placeholder="이메일 주소를 입력해 주세요"
+                            [(ngModel)]="email"
+                        ></shared-input>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="password">
+                        <shared-input
+                            label="비밀번호"
+                            placeholder="비밀번호를 입력해 주세요."
+                            [(ngModel)]="password"
+                        ></shared-input>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="password">
+                        <shared-input
+                            label="비밀번호 확인"
+                            placeholder="비밀번호를 한번 더 입력해 주세요"
+                            [(ngModel)]="confirmPassword"
+                        ></shared-input>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="agreement d-flex justify-content-between">
+                        <div>
+                            <shared-checkbox
+                                text="키핑 가입 약관에 모두 동의합니다"
+                                [checked]="checkbox"
+                                (click)="clickCheckbox()"
+                                size="small"
+                                shape="circle"
+                            ></shared-checkbox>
+                        </div>
+                        <div>확인하기</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="text-2 shared-typo-body-r11">
+                        <div>(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="registration-button">
+                        <div
+                            class="d-sm-none"
+                            shared-button
+                            sharedButtonType="primary"
+                            sharedButtonSize="small"
+                            sharedButtonHeight="44"
+                        >
+                            <div>가입하기</div>
+                        </div>
+                        <div
+                            class="d-none d-sm-flex"
+                            shared-button
+                            sharedButtonType="primary"
+                            sharedButtonSize="medium"
+                            sharedButtonHeight="52"
+                        >
+                            <div>가입하기</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop d-none d-lg-flex">
+        <div class="left-side">
+            <div class="desktop-registration-image">
+                <img src="assets/images/auth/desktop-login-image.png" />
+            </div>
+        </div>
+        <div class="right-side d-flex justify-content-center align-items-center">
+            <div class="desktop-registration-form">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-1 shared-typo-title-b26">
+                                <span>키핑 서비스 가입하기</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="email">
+                                <shared-input
+                                    label="이메일"
+                                    placeholder="이메일 주소를 입력해 주세요"
+                                    [(ngModel)]="email"
+                                ></shared-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="password">
+                                <shared-input
+                                    label="비밀번호"
+                                    placeholder="비밀번호를 입력해 주세요."
+                                    [(ngModel)]="password"
+                                ></shared-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="password">
+                                <shared-input
+                                    label="비밀번호 확인"
+                                    placeholder="비밀번호를 한번 더 입력해 주세요"
+                                    [(ngModel)]="confirmPassword"
+                                ></shared-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="agreement d-flex justify-content-between">
+                                <div>
+                                    <shared-checkbox
+                                        text="키핑 가입 약관에 모두 동의합니다"
+                                        [checked]="checkbox"
+                                        (click)="clickCheckbox()"
+                                        size="small"
+                                        shape="circle"
+                                    ></shared-checkbox>
+                                </div>
+                                <div>확인하기</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-2 shared-typo-body-r11">
+                                <div>(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="registration-button">
+                                <div
+                                    class="d-sm-none"
+                                    shared-button
+                                    sharedButtonType="primary"
+                                    sharedButtonSize="small"
+                                    sharedButtonHeight="44"
+                                >
+                                    <div>가입하기</div>
+                                </div>
+                                <div
+                                    class="d-none d-sm-flex"
+                                    shared-button
+                                    sharedButtonType="primary"
+                                    sharedButtonSize="medium"
+                                    sharedButtonHeight="52"
+                                >
+                                    <div>가입하기</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
