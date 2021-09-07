@@ -41,6 +41,8 @@ export class ButtonDirective implements OnInit, OnChanges, AfterViewChecked {
 
         if (this.sharedButtonWidth) {
             this.el.nativeElement.style.width = `${this.sharedButtonWidth}px`
+        } else {
+            this.el.nativeElement.style.width = '100%'
         }
 
         if (this.sharedButtonHeight) {

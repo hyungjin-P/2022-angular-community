@@ -5,9 +5,21 @@ import { AuthRoutingModule } from './auth-routing.module'
 import { SharedModule } from '@shared/shared.module'
 
 import { LoginComponent } from './login/login.component'
+import { CallbackComponent } from './callback/callback.component'
+import { TosComponent } from './tos/tos.component'
+import { RegistrationComponent } from './registration/registration.component'
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
+import { ResetPasswordComponent } from './reset-password/reset-password.component'
 
 @NgModule({
-    declarations: [LoginComponent],
+    declarations: [
+        LoginComponent,
+        CallbackComponent,
+        TosComponent,
+        RegistrationComponent,
+        ForgotPasswordComponent,
+        ResetPasswordComponent,
+    ],
     imports: [AuthRoutingModule, SharedModule],
     exports: [],
     providers: [],

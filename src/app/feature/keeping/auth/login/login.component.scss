@@ -1,58 +1,116 @@
-.login {
-    .box {
-        width: 415px;
-        padding-top: 70px;
-
-        .button {
-            position: relative;
-            height: 55px;
-            border-radius: 6px;
-            cursor: pointer;
-
-            img {
-                position: absolute;
-                left: 11px;
-            }
-        }
-
-        .kakao {
-            margin-top: 44px;
-            background-color: #fee500;
-        }
-
-        .google {
-            margin-top: 15px;
-            background-color: #4285f4;
-
-            span {
-                color: var(--white);
-            }
-        }
-
-        .apple {
-            margin-top: 15px;
-            background-color: black;
-
-            span {
-                color: var(--white);
-            }
-        }
-
-        .naver {
-            margin-top: 15px;
-            background-color: rgb(2, 199, 89);
-
-            img {
-                width: 40px;
-            }
-
-            span {
-                color: var(--white);
-            }
-
-            #code {
-                display: none;
-            }
-        }
+.header {
+    .leading {
+        display: flex;
+        align-items: center;
+        height: 50px;
     }
 }
+
+.login-image {
+    height: 120px;
+
+    img {
+        height: 100%;
+    }
+}
+
+.login-form {
+    padding: 8px;
+
+    .text-1 {
+        margin-top: 40px;
+
+        text-align: center;
+        color: var(--text-1);
+    }
+
+    .text-2 {
+        margin-top: 20px;
+        text-align: center;
+
+        span:nth-child(1) {
+            color: var(--grey-2);
+        }
+
+        span:nth-child(2) {
+            margin-left: 5px;
+            color: var(--blue-3);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+        }
+    }
+
+    .email {
+        margin-top: 42px;
+    }
+
+    .password {
+        margin-top: 24px;
+    }
+
+    .text-3 {
+        margin-top: 16px;
+        text-align: end;
+        color: var(--grey-1);
+    }
+}
+
+// .login {
+//     .box {
+//         width: 415px;
+//         padding-top: 70px;
+
+//         .button {
+//             position: relative;
+//             height: 55px;
+//             border-radius: 6px;
+//             cursor: pointer;
+
+//             img {
+//                 position: absolute;
+//                 left: 11px;
+//             }
+//         }
+
+//         .kakao {
+//             margin-top: 44px;
+//             background-color: #fee500;
+//         }
+
+//         .google {
+//             margin-top: 15px;
+//             background-color: #4285f4;
+
+//             span {
+//                 color: var(--white);
+//             }
+//         }
+
+//         .apple {
+//             margin-top: 15px;
+//             background-color: black;
+
+//             span {
+//                 color: var(--white);
+//             }
+//         }
+
+//         .naver {
+//             margin-top: 15px;
+//             background-color: rgb(2, 199, 89);
+
+//             img {
+//                 width: 40px;
+//             }
+
+//             span {
+//                 color: var(--white);
+//             }
+
+//             #code {
+//                 display: none;
+//             }
+//         }
+//     }
+// }

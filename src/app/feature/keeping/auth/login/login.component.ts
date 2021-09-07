@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     naverLoginPopupWindowRef: Window
 
+    email: string
+
     constructor(
         private router: Router,
         private angularFireAuth: AngularFireAuth,
