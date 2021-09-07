@@ -1,0 +1,125 @@
+.header {
+    box-shadow: 0px 1px #e8edf4;
+    background-color: var(--white);
+    z-index: 1;
+
+    .leading {
+        display: flex;
+        align-items: center;
+        height: 50px;
+    }
+}
+
+.agreement-form {
+    padding: 0 8px 30px;
+
+    .text-1 {
+        margin-top: 40px;
+    }
+
+    .text-2 {
+        margin-top: 22px;
+    }
+
+    .agreement-all {
+        margin-top: 81px;
+    }
+
+    .h-line {
+        margin-top: 15px;
+        border-bottom: 1px solid var(--grey-8);
+    }
+
+    .agreement-1 {
+        margin-top: 16px;
+    }
+
+    .agreement-2,
+    .agreement-3,
+    .agreement-4 {
+        margin-top: 12px;
+
+        div:nth-child(2) {
+            color: var(--grey-2);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+
+    .agreement-button {
+        margin-top: 24px;
+    }
+}
+
+@media (min-width: 576px) {
+    .agreement-form {
+        margin: 0 -21px;
+        padding: 0 0 30px;
+
+        .text-1 {
+            margin-top: 60px;
+
+            font-size: 24px;
+            line-height: 34px;
+        }
+
+        .text-2 {
+            margin-top: 20px;
+
+            font-size: 13px;
+            line-height: 21px;
+            letter-spacing: -0.5px;
+        }
+
+        .text-3 {
+            font-size: 13px;
+            line-height: 21px;
+        }
+
+        .agreement-all {
+            margin-top: 48px;
+        }
+
+        .h-line {
+            margin-top: 15px;
+            border-bottom: 1px solid var(--grey-8);
+        }
+
+        .agreement-2,
+        .agreement-3,
+        .agreement-4 {
+            margin-top: 16px;
+
+            div:nth-child(2) {
+                color: var(--grey-2);
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+        }
+
+        .agreement-button {
+            margin-top: 36px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .agreement-form {
+        margin: 0;
+        padding: 0 75px 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    .agreement-form {
+        margin: 0;
+        padding: 0 45px 30px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .agreement-form {
+        margin: 0;
+        padding: 0 165px 30px;
+    }
+}
