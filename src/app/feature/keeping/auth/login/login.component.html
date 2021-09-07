@@ -1,5 +1,5 @@
 <div class="full-absolute user-select-none">
-    <div class="header">
+    <div class="header d-lg-none">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -10,10 +10,10 @@
             </div>
         </div>
     </div>
-    <div class="login-image">
+    <div class="login-image d-lg-none">
         <img src="assets/images/login-image.png" />
     </div>
-    <div class="login-form b-1">
+    <div class="login-form d-lg-none">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col col-sm-8 offset-sm-2">
                     <div class="email">
                         <shared-input
                             label="이메일"
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col col-sm-8 offset-sm-2">
                     <div class="password">
                         <shared-input
                             label="비밀번호"
@@ -53,9 +53,132 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col col-sm-8 offset-sm-2">
                     <div class="text-3 shared-typo-body-m13">
                         <span>비밀번호를 잊으셨나요?</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="email-login-button">
+                        <div
+                            class="d-sm-none"
+                            shared-button
+                            sharedButtonType="primary"
+                            sharedButtonSize="small"
+                            sharedButtonHeight="44"
+                        >
+                            <div>로그인</div>
+                        </div>
+                        <div
+                            class="d-none d-sm-flex"
+                            shared-button
+                            sharedButtonType="primary"
+                            sharedButtonSize="medium"
+                            sharedButtonHeight="52"
+                        >
+                            <div>로그인</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2">
+                    <div class="kakao-login-button">
+                        <img src="assets/icons/social/kakao.svg" />
+                        <div>카카오로 3초만에 시작하기</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop d-none d-lg-flex">
+        <div class="left-side">
+            <div class="desktop-login-image">
+                <img src="assets/images/desktop-login-image.png" />
+            </div>
+        </div>
+        <div class="right-side d-flex justify-content-center align-items-center">
+            <div class="desktop-login-form">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-1 shared-typo-title-b26">
+                                <span>로그인</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="email">
+                                <shared-input
+                                    label="이메일"
+                                    placeholder="이메일 주소를 입력해 주세요"
+                                    [(ngModel)]="email"
+                                ></shared-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="password">
+                                <shared-input
+                                    label="비밀번호"
+                                    placeholder="이메일 주소를 입력해 주세요"
+                                    [(ngModel)]="email"
+                                ></shared-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-3 shared-typo-body-m13">
+                                <span>비밀번호를 잊으셨나요?</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="email-login-button">
+                                <div
+                                    class="d-sm-none"
+                                    shared-button
+                                    sharedButtonType="primary"
+                                    sharedButtonSize="small"
+                                    sharedButtonHeight="44"
+                                >
+                                    <div>로그인</div>
+                                </div>
+                                <div
+                                    class="d-none d-sm-flex"
+                                    shared-button
+                                    sharedButtonType="primary"
+                                    sharedButtonSize="medium"
+                                    sharedButtonHeight="52"
+                                >
+                                    <div>로그인</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="kakao-login-button">
+                                <img src="assets/icons/social/kakao.svg" />
+                                <div>카카오로 3초만에 시작하기</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="text-2">
+                                <span class="shared-typo-desc-m13">아직 키핑 회원이 아니세요?</span>
+                                <span class="shared-typo-body-m13">회원가입</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
