@@ -13,13 +13,14 @@
         color: var(--white);
     }
 
-    svg {
+    .mdi {
         position: relative;
-        top: 1px;
-        width: 24px;
-        height: 24px;
+        top: 0px;
+        font-size: 18px;
         margin-left: 40px;
         cursor: pointer;
+
+        color: var(--white);
     }
 }
 

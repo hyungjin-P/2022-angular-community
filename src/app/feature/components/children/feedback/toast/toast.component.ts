@@ -6,18 +6,18 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./toast.component.scss'],
 })
 export class ToastComponent implements OnInit {
-    toastVisible = false
-    toastText = '초대가 거절되었습니다.'
+    isToastVisible = false
+    toastText = '텍스트를 입력하세요.'
 
     constructor() {}
 
     ngOnInit() {}
 
     showToast() {
-        this.toastVisible = true
+        this.isToastVisible = true
     }
 
     hideToast() {
-        this.toastVisible = false
+        this.isToastVisible = false
     }
 }
