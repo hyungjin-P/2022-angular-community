@@ -6,32 +6,33 @@
         sharedButtonSize="small"
         sharedButtonWidth="160"
         sharedButtonHeight="44"
-        (click)="showModal()"
+        (click)="showAlertModal()"
     >
         Alert
     </div>
     <shared-modal
-        [(visible)]="isVisible"
-        [data]="visibleData"
+        [(visible)]="isAlertModalVisible"
+        [data]="alertModalData"
         type="alert"
-        (cancel)="handleCancel()"
-        (confirm)="handleOk()"
+        (cancel)="alertModalCancel()"
+        (confirm)="alertModalOk()"
     ></shared-modal>
+
     <div
         shared-button
         sharedButtonType="primary"
         sharedButtonSize="small"
         sharedButtonWidth="160"
         sharedButtonHeight="44"
-        (click)="showModal2()"
+        (click)="showConfirmModal()"
     >
         Confirm
     </div>
     <shared-modal
-        [(visible)]="isVisible2"
-        [data]="visibleData2"
+        [(visible)]="isConfirmModalVisible"
+        [data]="confirmModalData"
         type="confirm"
-        (cancel)="handleCancel2()"
-        (confirm)="handleOk2()"
+        (cancel)="confirmModalCancel()"
+        (confirm)="confirmModalOk()"
     ></shared-modal>
 </div>

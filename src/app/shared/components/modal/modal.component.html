@@ -1,18 +1,99 @@
 <div class="shared-modal-background" #modalBackgroundElement></div>
 <div class="shared-modal-wrapper justify-content-center align-items-center" (click)="onCancel()" #modalWrapperElement>
-    <div class="shared-modal user-select-none" [class.alert-modal]="type == 'alert'" (click)="$event.stopPropagation()">
+    <div class="shared-modal user-select-none" (click)="$event.stopPropagation()">
         <div class="d-flex justify-content-center">
             <img src="assets/icons/etc/emoji_smail.png" />
         </div>
-        <div class="text shared-typo-body-b15 d-flex justify-content-center">{{ data?.text }}</div>
-        <div class="sub-text shared-typo-body-m13 d-flex justify-content-center">{{ data?.subText }}</div>
-        <div class="button-group d-flex justify-content-between">
-            <div class="cancel-button" *ngIf="type == 'confirm'" (click)="onCancel()">
-                <div>{{ data?.cancelButtonText || '취소' }}</div>
-            </div>
-            <div class="confirm-button" (click)="onConfirm()">
-                <div>{{ data?.confirmButtonText || '확인' }}</div>
-            </div>
-        </div>
+
+        <ng-container *ngTemplateOutlet="text"></ng-container>
+
+        <ng-container *ngTemplateOutlet="subText"></ng-container>
+
+        <ng-container *ngIf="type == 'confirm'">
+            <ng-container *ngTemplateOutlet="confirmButtonGroup"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="type == 'alert'">
+            <ng-container *ngTemplateOutlet="alertButtonGroup"></ng-container>
+        </ng-container>
     </div>
 </div>
+
+<ng-template #text>
+    <div class="d-sm-none text shared-typo-body-b15">{{ data?.text }}</div>
+    <div class="d-none d-sm-flex text shared-typo-body-b16">{{ data?.text }}</div>
+</ng-template>
+
+<ng-template #subText>
+    <div class="d-sm-none sub-text shared-typo-body-m13">{{ data?.subText }}</div>
+    <div class="d-none d-sm-flex sub-text shared-typo-body-m14">{{ data?.subText }}</div>
+</ng-template>
+
+<ng-template #confirmButtonGroup>
+    <div class="button-group d-sm-none">
+        <div
+            style="margin-right: 12px"
+            shared-button
+            sharedButtonType="secondary"
+            sharedButtonSize="xsmall"
+            sharedButtonHeight="36"
+            (click)="onCancel()"
+        >
+            <div>취소</div>
+        </div>
+        <div
+            shared-button
+            sharedButtonType="primary"
+            sharedButtonSize="xsmall"
+            sharedButtonHeight="36"
+            (click)="onConfirm()"
+        >
+            <div>확인</div>
+        </div>
+    </div>
+    <div class="button-group d-none d-sm-flex">
+        <div
+            style="margin-right: 12px"
+            shared-button
+            sharedButtonType="secondary"
+            sharedButtonSize="small"
+            sharedButtonHeight="44"
+            (click)="onCancel()"
+        >
+            <div>취소</div>
+        </div>
+        <div
+            shared-button
+            sharedButtonType="primary"
+            sharedButtonSize="small"
+            sharedButtonHeight="44"
+            (click)="onConfirm()"
+        >
+            <div>확인</div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #alertButtonGroup>
+    <div class="button-group d-sm-none">
+        <div
+            shared-button
+            sharedButtonType="primary"
+            sharedButtonSize="xsmall"
+            sharedButtonHeight="36"
+            (click)="onConfirm()"
+        >
+            <div>확인</div>
+        </div>
+    </div>
+    <div class="button-group d-none d-sm-flex">
+        <div
+            shared-button
+            sharedButtonType="primary"
+            sharedButtonSize="small"
+            sharedButtonHeight="44"
+            (click)="onConfirm()"
+        >
+            <div>확인</div>
+        </div>
+    </div>
+</ng-template>
