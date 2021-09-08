@@ -144,7 +144,7 @@
         box-shadow: 0px 32px 32px -8px rgba(0, 0, 0, 0.08), 0px 0px 32px -8px rgba(0, 0, 0, 0.12),
             0px 0px 1px rgba(0, 0, 0, 0.2);
 
-        .header {
+        .privacy-service-terms-header {
             all: unset;
             position: relative;
             display: flex;
@@ -160,7 +160,7 @@
             }
         }
 
-        .nav {
+        .privacy-service-terms-nav {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -189,7 +189,7 @@
             }
         }
 
-        .content {
+        .privacy-service-terms-content {
             position: absolute;
             top: 102px;
             right: 0;
@@ -262,12 +262,6 @@
                 }
             }
 
-            @media (min-width: 992px) {
-                .title {
-                    text-align: center;
-                }
-            }
-
             .mb-8px {
                 margin-bottom: 8px !important;
             }
@@ -281,7 +275,7 @@
             }
         }
 
-        .confirm {
+        .privacy-service-terms-confirm {
             position: absolute;
             right: 0;
             bottom: 0;
@@ -309,6 +303,10 @@
     .popup-privacy-service-terms {
         .privacy-service-terms {
             width: 510px;
+
+            .container {
+                padding: 0 16px;
+            }
         }
     }
 }

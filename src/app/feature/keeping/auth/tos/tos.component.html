@@ -164,7 +164,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="header">
+                    <div class="privacy-service-terms-header">
                         <div class="shared-typo-title-b16">약관동의</div>
                         <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
                             <span class="mdi mdi-close"></span>
@@ -173,7 +173,7 @@
                 </div>
             </div>
         </div>
-        <div class="nav">
+        <div class="privacy-service-terms-nav">
             <div
                 class="menu shared-typo-body-m14"
                 [class.selected]="selectedMenu == 'service-terms'"
@@ -190,7 +190,7 @@
                 개인정보 처리방침
             </div>
         </div>
-        <div class="content scroll-y">
+        <div class="privacy-service-terms-content scroll-y">
             <div *ngIf="selectedMenu == 'service-terms'">
                 <div class="container">
                     <div class="row">
@@ -1219,8 +1219,8 @@
                 </div>
             </div>
         </div>
-        <div class="confirm">
-            <div shared-button sharedButtonType="primary" sharedButtonSize="medium" sharedButtonHeight="52">
+        <div class="privacy-service-terms-confirm">
+            <div shared-button sharedButtonType="primary" sharedButtonSize="medium" sharedButtonHeight="52" (click)="hidePopup('popup-privacy-service-terms')">
                 <div>확인</div>
             </div>
         </div>
