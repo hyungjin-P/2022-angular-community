@@ -342,3 +342,15 @@
         }
     }
 }
+
+@media (min-width: 576px) {
+    .popup-privacy-service-terms {
+        .privacy-service-terms {
+            width: 412px;
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+    }
+}

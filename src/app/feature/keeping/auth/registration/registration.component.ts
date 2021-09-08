@@ -39,6 +39,8 @@ export class RegistrationComponent implements OnInit {
     hidePopup(popupName: string) {
         if (popupName == 'popup-privacy-service-terms') {
             this.popupPrivacyServiceTermsRef.nativeElement.style.visibility = 'hidden'
+            this.isPrivacyOpen = false
+            this.isServiceTermsOpen = false
         }
     }
 
