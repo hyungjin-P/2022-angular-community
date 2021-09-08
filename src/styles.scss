@@ -401,26 +401,26 @@
 }
 
 .shared-button-type-outline {
-    border: 1px solid var(--blue-3);
-    color: var(--blue-2);
+    border: 1px solid var(--blue-1);
+    color: var(--blue-1);
 
     &:hover {
-        border: 1px solid var(--blue-2);
+        background-color: var(--blue-9);
     }
 
     &:active {
-        border: 1px solid var(--blue-2);
+        background-color: var(--blue-9);
     }
 }
 
 .shared-button-type-outline-disabled {
-    border: 1px solid var(--blue-3);
+    border: 1px solid var(--blue-1);
     opacity: 0.5;
     cursor: not-allowed;
 
     &:hover,
     &:active {
-        border: 1px solid var(--blue-3);
+        border: 1px solid var(--blue-1);
         opacity: 0.5;
     }
 }
@@ -444,7 +444,7 @@
     }
 
     div {
-        // shared-typo-body-m15
+        // shared-typo-body-m14
         font-weight: 500;
         font-size: 14px;
         line-height: 22px;

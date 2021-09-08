@@ -17,6 +17,7 @@ import { SwitchComponent } from './children/data-entry/switch/switch.component'
 import { TimePickerComponent } from './children/data-entry/timepicker/timepicker.component'
 
 import { AvatarComponent } from './children/data-display/avatar/avatar.component'
+import { CarouselComponent } from './children/data-display/carousel/carousel.component'
 import { TooltipComponent } from './children/data-display/tooltip/tooltip.component'
 
 import { ModalComponent } from './children/feedback/modal/modal.component'
@@ -41,6 +42,7 @@ import { EmailComponent } from './children/etc/email/email.component'
         TimePickerComponent,
 
         AvatarComponent,
+        CarouselComponent,
         TooltipComponent,
 
         ModalComponent,

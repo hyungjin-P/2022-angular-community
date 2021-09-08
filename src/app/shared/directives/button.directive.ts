@@ -22,7 +22,7 @@ export class ButtonDirective implements OnInit, OnChanges, AfterViewChecked {
     changed
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
-        this.sharedButtonType = 'primary' // primary, secondary, outline, teriary primary-text, secondary-text
+        this.sharedButtonType = 'primary' // primary, secondary, teriary, outline,
         this.sharedButtonSize = 'small' // xsmall, small, medium, large
     }
 
@@ -47,6 +47,8 @@ export class ButtonDirective implements OnInit, OnChanges, AfterViewChecked {
 
         if (this.sharedButtonHeight) {
             this.el.nativeElement.style.height = `${this.sharedButtonHeight}px`
+        } else {
+            this.el.nativeElement.style.height = '100%'
         }
 
         if (this.sharedButtonDisabled) {

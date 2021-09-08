@@ -6,13 +6,7 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
-    buttonDisabled
-
     constructor() {}
 
     ngOnInit() {}
-
-    toggleButtonDisabled() {
-        this.buttonDisabled = !this.buttonDisabled
-    }
 }
