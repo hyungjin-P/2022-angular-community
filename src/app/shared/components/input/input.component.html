@@ -1,5 +1,5 @@
 <div class="shared-input">
-    <div class="label shared-typo-body-b13" *ngIf="label">{{ label }}</div>
+    <div class="label shared-typo-body-b13" [class.disabled]="disabled" *ngIf="label">{{ label }}</div>
     <input
         [type]="type"
         [class.input-error]="error"

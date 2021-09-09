@@ -1,6 +1,11 @@
 .shared-input {
     .label {
         margin-bottom: 8px;
+        color: var(--text-2);
+    }
+
+    .disabled {
+        color: var(--grey-5);
     }
 
     input {
