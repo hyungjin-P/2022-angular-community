@@ -1,0 +1,140 @@
+.footer {
+    padding-top: 20px;
+    background-color: #e8edf4;
+
+    .container .row {
+        padding-bottom: 30px;
+
+        .menu {
+            display: flex;
+            margin-bottom: 30px;
+
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 20px;
+            color: var(--grey-1);
+
+            div:nth-child(1),
+            div:nth-child(3),
+            div:nth-child(5),
+            div:nth-child(7) {
+                outline: none;
+                cursor: pointer;
+            }
+
+            .middle-dot {
+                width: 16px;
+                text-align: center;
+            }
+        }
+
+        .company-box {
+            display: flex;
+            margin-bottom: 12px;
+
+            .company {
+                margin-right: 16px;
+
+                font-family: Montserrat;
+                font-style: italic;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 16px;
+                color: var(--grey-1);
+            }
+        }
+
+        .ceo,
+        .business-number,
+        .address {
+            font-size: 11px;
+            line-height: 18px;
+            color: var(--grey-1);
+
+            span:nth-child(1) {
+                font-weight: 500;
+            }
+
+            span:nth-child(2) {
+                font-weight: 400;
+            }
+        }
+
+        .business-number {
+            margin: 0 8px;
+        }
+
+        .address {
+            margin-bottom: 12px;
+        }
+
+        .copyright {
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 18px;
+            color: var(--grey-1);
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .footer {
+        .container .row {
+            padding-bottom: 20px;
+
+            .menu {
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 20px;
+                letter-spacing: -0.2px;
+            }
+
+            .company-box {
+                margin-bottom: 8px;
+
+                .company {
+                    font-size: 20px;
+                    line-height: 18px;
+                }
+
+                .copyright {
+                    position: relative;
+                    top: -1px;
+                }
+            }
+
+            .ceo,
+            .business-number,
+            .address {
+                font-size: 13px;
+                line-height: 20px;
+                letter-spacing: -0.2px;
+
+                span:nth-child(1) {
+                    font-weight: 500;
+                }
+
+                span:nth-child(2) {
+                    font-weight: 400;
+                }
+            }
+
+            .copyright {
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 20px;
+                letter-spacing: -0.2px;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .footer {
+        .container .row {
+            .menu {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}

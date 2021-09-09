@@ -1,0 +1,53 @@
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-lg-none">
+                <ng-container *ngTemplateOutlet="footerMenu"></ng-container>
+            </div>
+            <div class="col-12 col-lg-6 company-box">
+                <div class="company">Flexible</div>
+                <div class="copyright d-none d-md-block">
+                    <ng-container *ngTemplateOutlet="footerCopyright"></ng-container>
+                </div>
+            </div>
+            <div class="d-none col-lg-6 d-lg-flex justify-content-end">
+                <ng-container *ngTemplateOutlet="footerMenu"></ng-container>
+            </div>
+            <div class="col-12">
+                <span class="ceo"><span>대표이사 : </span><span>***</span> </span>
+                <span class="business-number"><span>사업자 등록번호 : </span><span>***-**-*****</span> </span>
+                <div class="address d-none d-md-inline">
+                    <ng-container *ngTemplateOutlet="footerAddress"></ng-container>
+                </div>
+            </div>
+            <div class="col-12 d-md-none">
+                <div class="address">
+                    <ng-container *ngTemplateOutlet="footerAddress"></ng-container>
+                </div>
+            </div>
+            <div class="col-12 d-md-none copyright-box">
+                <div class="copyright">
+                    <ng-container *ngTemplateOutlet="footerCopyright"></ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #footerMenu>
+    <div class="menu">
+        <div>공지사항</div>
+        <div class="middle-dot">&#183;</div>
+        <div>이메일 문의하기</div>
+        <div class="middle-dot">&#183;</div>
+        <div [routerLink]="['/service-terms']" (click)="scrollTop()">이용약관</div>
+        <div class="middle-dot">&#183;</div>
+        <div [routerLink]="['/privacy']" (click)="scrollTop()">개인정보 처리방침</div>
+    </div>
+</ng-template>
+
+<ng-template #footerAddress>
+    <span>주소 : </span> <span>***</span>
+</ng-template>
+
+<ng-template #footerCopyright> Copyright © 2021 Flexible. All rights reserved. </ng-template>

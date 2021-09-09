@@ -6,6 +6,7 @@ import { KeepingComponent } from './keeping.component'
 import { SharedModule } from '@shared/shared.module'
 
 import { HeaderComponent } from './common/header/header.component'
+import { FooterComponent } from './common/footer/footer.component'
 
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
@@ -28,6 +29,7 @@ import { SearchComponent } from './search/search.component'
         KeepingComponent,
 
         HeaderComponent,
+        FooterComponent,
 
         HomeComponent,
         FeedComponent,

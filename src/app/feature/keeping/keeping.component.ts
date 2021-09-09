@@ -44,10 +44,6 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        if (window.hasOwnProperty('ontouchstart')) {
-            this.variables.isTouchScreen = true
-        }
-
         this.setBanner()
     }
 
