@@ -75,6 +75,8 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.isBannerVisible = false
             }
         }
+
+        this.isBannerVisible = false
     }
 
     closeBannerAllDay() {

@@ -3,53 +3,6 @@
     background-color: var(--white);
 }
 
-.touch-screen {
-    .banner-box {
-        .banner {
-            .close-all-day {
-                cursor: default;
-            }
-
-            .close-icon {
-                cursor: default;
-            }
-        }
-    }
-
-    .header {
-        .leading {
-            .nav {
-                .menu {
-                    cursor: default;
-                }
-            }
-        }
-
-        .action {
-            svg {
-                cursor: default;
-            }
-
-            .login {
-                cursor: default;
-            }
-        }
-    }
-
-    .footer {
-        .container .row {
-            .menu {
-                div:nth-child(1),
-                div:nth-child(3),
-                div:nth-child(5),
-                div:nth-child(7) {
-                    cursor: default;
-                }
-            }
-        }
-    }
-}
-
 .banner-box {
     padding: 0 16px;
     background-color: #28319c;
