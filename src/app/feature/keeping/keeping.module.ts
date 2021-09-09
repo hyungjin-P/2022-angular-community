@@ -5,8 +5,10 @@ import { KeepingComponent } from './keeping.component'
 
 import { SharedModule } from '@shared/shared.module'
 
-import { HeaderComponent } from './common/header/header.component'
 import { FooterComponent } from './common/footer/footer.component'
+import { HeaderComponent } from './common/header/header.component'
+import { PrivacySnippetComponent } from './common/privacy-snippet/privacy-snippet.component'
+import { ServiceTermsSnippetComponent } from './common/service-terms-snippet/service-terms-snippet.component'
 
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
@@ -28,8 +30,10 @@ import { SearchComponent } from './search/search.component'
     declarations: [
         KeepingComponent,
 
-        HeaderComponent,
         FooterComponent,
+        HeaderComponent,
+        PrivacySnippetComponent,
+        ServiceTermsSnippetComponent,
 
         HomeComponent,
         FeedComponent,

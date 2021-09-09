@@ -1,0 +1,50 @@
+.service-terms {
+    padding: 20px 4px;
+
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
+    color: var(--text-2);
+
+    > div {
+        margin-bottom: 2px;
+    }
+
+    .title {
+        margin-bottom: 16px;
+
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -0.2px;
+    }
+
+    .item {
+        margin-top: 16px;
+        margin-bottom: 8px;
+
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: -0.2px;
+    }
+}
+
+@media (min-width: 992px) {
+    .title {
+        text-align: center;
+    }
+}
+
+.mb-8px {
+    margin-bottom: 8px !important;
+}
+
+.mb-4px {
+    margin-bottom: 4px !important;
+}
+
+.ml-4px {
+    margin-left: 4px !important;
+}
