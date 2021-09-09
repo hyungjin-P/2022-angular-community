@@ -1,5 +1,10 @@
-<div class="shared-avatar d-flex justify-content-center align-items-center user-select-none">
-    <img #imgElement [src]="image" *ngIf="image" onerror="this.onerror=null; this.src='assets/images/profile.png'" />
+<div class="shared-avatar d-flex user-select-none">
+    <img
+        #imgElement
+        [src]="image"
+        *ngIf="image"
+        onerror="this.onerror=null; this.src='assets/images/avatar/default.png'"
+    />
     <div #textElement class="text d-flex justify-content-center align-items-center" *ngIf="!image">
         {{ text[0] | uppercase }}
     </div>
