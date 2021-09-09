@@ -8,7 +8,7 @@
         border: 1px solid var(--grey-6);
         border-radius: 4px;
         background-color: var(--white);
-        cursor: default;
+        cursor: pointer;
 
         .text {
             font-weight: 500;
@@ -91,14 +91,6 @@
             span {
                 color: var(--grey-4);
             }
-        }
-    }
-}
-
-@media (min-width: 992px) {
-    .shared-select {
-        .selected {
-            cursor: pointer;
         }
     }
 }

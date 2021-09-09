@@ -1,5 +1,5 @@
 .shared-checkbox {
-    cursor: default;
+    cursor: pointer;
 
     &.checked {
         .box {
@@ -147,11 +147,5 @@
     .text {
         margin-left: 8px;
         color: var(--grey-1);
-    }
-}
-
-@media (min-width: 992px) {
-    .shared-checkbox {
-        cursor: pointer;
     }
 }
