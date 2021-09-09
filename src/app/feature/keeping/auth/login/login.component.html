@@ -1,190 +1,109 @@
 <div class="full-absolute">
-    <div class="header d-lg-none">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="leading">
-                        <img src="assets/images/logo/header_logo.svg" />
+    <div class="mobile d-lg-none">
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="leading">
+                            <img src="assets/images/logo/header_logo.svg" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="login-image d-lg-none">
-        <img src="assets/images/auth/login-image.png" />
-    </div>
-    <div class="login-form d-lg-none">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="text-1 shared-typo-title-b24">
-                        <span>로그인</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="text-2">
-                        <span class="shared-typo-desc-m13">아직 키핑 회원이 아니세요?</span>
-                        <span class="shared-typo-body-m13" [routerLink]="['/auth/registration']">회원가입</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2">
-                    <div class="email">
-                        <shared-input
-                            label="이메일"
-                            placeholder="이메일 주소를 입력해 주세요"
-                            [(ngModel)]="email"
-                        ></shared-input>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2">
-                    <div class="password">
-                        <shared-input
-                            label="비밀번호"
-                            placeholder="비밀번호를 입력해 주세요"
-                            [(ngModel)]="password"
-                        ></shared-input>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2">
-                    <div class="text-3 shared-typo-body-m13">
-                        <span [routerLink]="['/auth/forgot-password']">비밀번호를 잊으셨나요?</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2">
-                    <div class="email-login-button">
-                        <div
-                            class="d-sm-none"
-                            shared-button
-                            sharedButtonType="primary"
-                            sharedButtonSize="small"
-                            sharedButtonHeight="44"
-                        >
-                            <div>로그인</div>
-                        </div>
-                        <div
-                            class="d-none d-sm-flex"
-                            shared-button
-                            sharedButtonType="primary"
-                            sharedButtonSize="medium"
-                            sharedButtonHeight="52"
-                        >
-                            <div>로그인</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2">
-                    <div class="kakao-login-button">
-                        <img src="assets/icons/social/kakao.svg" />
-                        <div>카카오로 3초만에 시작하기</div>
-                    </div>
-                </div>
-            </div>
+        <div class="login-form">
+            <ng-container *ngTemplateOutlet="loginForm"></ng-container>
         </div>
     </div>
 
     <div class="desktop d-none d-lg-flex">
         <div class="left-side">
-            <div class="desktop-login-image">
-                <img src="assets/images/auth/desktop-login-image.png" />
+            <div class="login-image">
+                <img src="assets/images/auth/login-image.png" />
             </div>
         </div>
         <div class="right-side d-flex justify-content-center align-items-center">
-            <div class="desktop-login-form">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-1 shared-typo-title-b26">
-                                <span>로그인</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="email">
-                                <shared-input
-                                    label="이메일"
-                                    placeholder="이메일 주소를 입력해 주세요"
-                                    [(ngModel)]="email"
-                                ></shared-input>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="password">
-                                <shared-input
-                                    label="비밀번호"
-                                    placeholder="비밀번호를 입력해 주세요"
-                                    [(ngModel)]="password"
-                                ></shared-input>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-3 shared-typo-body-m13">
-                                <span [routerLink]="['/auth/forgot-password']">비밀번호를 잊으셨나요?</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="email-login-button">
-                                <div
-                                    class="d-sm-none"
-                                    shared-button
-                                    sharedButtonType="primary"
-                                    sharedButtonSize="small"
-                                    sharedButtonHeight="44"
-                                >
-                                    <div>로그인</div>
-                                </div>
-                                <div
-                                    class="d-none d-sm-flex"
-                                    shared-button
-                                    sharedButtonType="primary"
-                                    sharedButtonSize="medium"
-                                    sharedButtonHeight="52"
-                                >
-                                    <div>로그인</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="kakao-login-button">
-                                <img src="assets/icons/social/kakao.svg" />
-                                <div>카카오로 3초만에 시작하기</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-2">
-                                <span class="shared-typo-desc-m13">아직 키핑 회원이 아니세요?</span>
-                                <span class="shared-typo-body-m13" [routerLink]="['/auth/registration']">회원가입</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="login-form">
+                <ng-container *ngTemplateOutlet="loginForm"></ng-container>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #loginForm>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="text-1 shared-typo-title-b26">
+                    <span>로그인</span>
+                </div>
+            </div>
+        </div>
+        <div class="row d-lg-none">
+            <div class="col">
+                <ng-container *ngTemplateOutlet="loginFormText2"></ng-container>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="email">
+                    <shared-input
+                        label="이메일"
+                        placeholder="이메일 주소를 입력해 주세요"
+                        [(ngModel)]="email"
+                    ></shared-input>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="password">
+                    <shared-input
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="password"
+                    ></shared-input>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="text-3 shared-typo-body-m12">
+                    <span [routerLink]="['/auth/forgot-password']">비밀번호를 잊으셨나요?</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="email-login-button">
+                    <div shared-button sharedButtonType="primary" sharedButtonSize="medium" sharedButtonHeight="52">
+                        <div>로그인</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="kakao-login-button">
+                    <img src="assets/icons/social/kakao.svg" />
+                    <div>카카오로 3초만에 시작하기</div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-none d-lg-flex">
+            <div class="col">
+                <ng-container *ngTemplateOutlet="loginFormText2"></ng-container>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loginFormText2>
+    <div class="text-2">
+        <span class="shared-typo-desc-m13">아직 키핑 회원이 아니세요?</span>
+        <span class="shared-typo-body-m13" [routerLink]="['/auth/registration']">회원가입</span>
+    </div>
+</ng-template>
 
 <!-- <div class="login full-absolute d-flex flex-column user-select-none">
     <header></header>

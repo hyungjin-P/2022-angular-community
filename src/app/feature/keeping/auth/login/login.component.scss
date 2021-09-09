@@ -1,27 +1,21 @@
-.header {
-    .leading {
-        display: flex;
-        align-items: center;
-        height: 50px;
-    }
-}
+.mobile {
+    .header {
+        box-shadow: 0px 1px #e8edf4;
+        background-color: var(--white);
 
-.login-image {
-    height: 120px;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        .leading {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
     }
 }
 
 .login-form {
-    padding: 0 8px 30px;
+    margin: 60px 0 40px;
+    padding: 0 8px;
 
     .text-1 {
-        margin-top: 40px;
-
         text-align: center;
         color: var(--text-1);
     }
@@ -31,15 +25,16 @@
         text-align: center;
 
         span:nth-child(1) {
-            color: var(--grey-2);
+            color: var(--grey-3);
         }
 
         span:nth-child(2) {
             margin-left: 5px;
+            cursor: pointer;
+
             color: var(--blue-3);
             text-decoration: underline;
             text-underline-offset: 3px;
-            cursor: pointer;
         }
     }
 
@@ -53,76 +48,50 @@
 
     .text-3 {
         margin-top: 16px;
+        cursor: pointer;
+
         text-align: end;
-        color: var(--grey-1);
+        color: var(--grey-3);
+        text-decoration: underline;
+        text-underline-offset: 1px;
     }
 
     .email-login-button {
-        margin-top: 36px;
+        margin-top: 50px;
     }
-}
 
-.kakao-login-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 12px;
-    width: 100%;
-    height: 44px;
-    background-color: #f6e31a;
-    border-radius: 8px;
+    .kakao-login-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 12px;
+        width: 100%;
+        height: 52px;
+        background-color: #f6e31a;
+        border-radius: 8px;
 
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.2px;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: -0.2px;
 
-    img {
-        margin-right: 8px;
+        img {
+            margin-right: 8px;
+        }
     }
 }
 
 @media (min-width: 576px) {
-    .login-image {
-        height: 136px;
-    }
-
     .login-form {
-        margin: 0 -21px;
-        padding: 0 0 30px;
-
-        .text-1 {
-            font-size: 26px;
-        }
-
-        .kakao-login-button {
-            height: 50px;
-
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 22px;
-            letter-spacing: -0.2px;
-        }
+        margin: 80px -19px 40px;
+        padding: 0;
     }
 }
 
 @media (min-width: 768px) {
-    .login-image {
-        height: 200px;
-    }
-
     .login-form {
-        margin: 0;
-        padding: 0 75px 30px;
-
-        .kakao-login-button {
-            height: 50px;
-
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 22px;
-            letter-spacing: -0.2px;
-        }
+        margin: 80px 77px 40px;
+        padding: 0;
     }
 }
 
@@ -133,7 +102,7 @@
         .left-side {
             width: 40%;
 
-            .desktop-login-image {
+            .login-image {
                 height: 100%;
 
                 img {
@@ -147,119 +116,23 @@
         .right-side {
             width: 60%;
 
-            .desktop-login-form {
-                width: 412px;
+            .login-form {
+                width: 380px;
+                margin: 0;
+                padding: 0;
 
-                .text-1 {
-                    color: var(--black);
-                }
+                .container {
+                    padding: 0;
 
-                .email {
-                    margin-top: 44px;
-                }
-
-                .password {
-                    margin-top: 24px;
-                }
-
-                .text-3 {
-                    margin-top: 16px;
-                    text-align: end;
-                    color: var(--grey-1);
-                }
-
-                .email-login-button {
-                    margin-top: 40px;
-                }
-
-                .kakao-login-button {
-                    height: 50px;
-
-                    font-weight: 500;
-                    font-size: 15px;
-                    line-height: 22px;
-                    letter-spacing: -0.2px;
-                }
-
-                .text-2 {
-                    margin-top: 30px;
-                    text-align: center;
-
-                    span:nth-child(1) {
-                        color: var(--grey-2);
+                    .email {
+                        margin-top: 44px;
                     }
 
-                    span:nth-child(2) {
-                        margin-left: 5px;
-                        color: var(--blue-3);
-                        text-decoration: underline;
-                        text-underline-offset: 3px;
-                        cursor: pointer;
+                    .text-2 {
+                        margin-top: 30px;
                     }
                 }
             }
         }
     }
 }
-
-@media (min-width: 1200px) {
-}
-
-// .login {
-//     .box {
-//         width: 415px;
-//         padding-top: 70px;
-
-//         .button {
-//             position: relative;
-//             height: 55px;
-//             border-radius: 6px;
-//             cursor: pointer;
-
-//             img {
-//                 position: absolute;
-//                 left: 11px;
-//             }
-//         }
-
-//         .kakao {
-//             margin-top: 44px;
-//             background-color: #fee500;
-//         }
-
-//         .google {
-//             margin-top: 15px;
-//             background-color: #4285f4;
-
-//             span {
-//                 color: var(--white);
-//             }
-//         }
-
-//         .apple {
-//             margin-top: 15px;
-//             background-color: black;
-
-//             span {
-//                 color: var(--white);
-//             }
-//         }
-
-//         .naver {
-//             margin-top: 15px;
-//             background-color: rgb(2, 199, 89);
-
-//             img {
-//                 width: 40px;
-//             }
-
-//             span {
-//                 color: var(--white);
-//             }
-
-//             #code {
-//                 display: none;
-//             }
-//         }
-//     }
-// }
