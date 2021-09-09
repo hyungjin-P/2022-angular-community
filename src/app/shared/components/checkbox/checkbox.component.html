@@ -9,17 +9,17 @@
     [class.shape-circle]="shape == 'circle'"
 >
     <div class="box d-flex justify-content-center align-items-center">
-        <svg class="checkmark" *ngIf="size == 'default'">
-            <use xlink:href="assets/icons/etc/check.svg#icon" />
-        </svg>
         <svg class="checkmark" *ngIf="size == 'small'">
             <use xlink:href="assets/icons/etc/check-small.svg#icon" />
+        </svg>
+        <svg class="checkmark" *ngIf="size == 'default'">
+            <use xlink:href="assets/icons/etc/check.svg#icon" />
         </svg>
     </div>
     <div
         class="text"
-        [class.shared-typo-body-m14]="size == 'default'"
         [class.shared-typo-body-m12]="size == 'small'"
+        [class.shared-typo-body-m14]="size == 'default'"
         *ngIf="text"
     >
         {{ text }}
