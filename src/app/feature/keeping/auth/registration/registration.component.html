@@ -33,7 +33,7 @@
 <ng-template #registrationForm>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="text-1 shared-typo-title-b26">
                     <span>키핑 서비스 가입하기</span>
                 </div>
@@ -121,14 +121,17 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="privacy-service-terms-desc shared-typo-body-r12">
+                    <div class="privacy-service-terms-desc shared-typo-body-r12 d-sm-none">
+                        키핑은 개인정보를 안전하게 취급합니다.
+                    </div>
+                    <div class="privacy-service-terms-desc shared-typo-body-r14 d-none d-sm-block">
                         키핑은 개인정보를 안전하게 취급합니다.
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="agreement-all">
+                    <div class="privacy-service-terms-agreement-all">
                         <shared-checkbox
                             text="모두 동의하기"
                             [checked]="checkbox"
@@ -137,26 +140,45 @@
                             shape="circle"
                         ></shared-checkbox>
                     </div>
-                    <div class="agreement-1">
+                    <div class="privacy-service-terms-agreement-1">
                         <shared-checkbox
+                            class="d-sm-none"
                             text="[필수] 만 14세 이상입니다."
                             [checked]="checkbox1"
                             (click)="clickCheckbox1()"
                             size="small"
                             shape="none"
                         ></shared-checkbox>
-                    </div>
-                    <div class="agreement-2 d-flex justify-content-between">
                         <shared-checkbox
+                            class="d-none d-sm-flex"
+                            text="[필수] 만 14세 이상입니다."
+                            [checked]="checkbox1"
+                            (click)="clickCheckbox1()"
+                            shape="none"
+                        ></shared-checkbox>
+                    </div>
+                    <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
+                        <shared-checkbox
+                            class="d-sm-none"
                             text="[필수] 서비스 이용 약관 동의"
                             [checked]="checkbox1"
                             (click)="clickCheckbox1()"
                             size="small"
                             shape="none"
                         ></shared-checkbox>
-                        <div class="shared-typo-body-r11" (click)="openContent('privacy')">펼치기</div>
+                        <shared-checkbox
+                            class="d-none d-sm-flex"
+                            text="[필수] 서비스 이용 약관 동의"
+                            [checked]="checkbox1"
+                            (click)="clickCheckbox1()"
+                            shape="none"
+                        ></shared-checkbox>
+                        <div (click)="openContent('privacy')">펼치기</div>
                     </div>
-                    <div class="agreement-2-content scroll-y" [class.agreement-2-content-show]="isPrivacyOpen">
+                    <div
+                        class="privacy-service-terms-agreement-2-content scroll-y"
+                        [class.privacy-service-terms-agreement-2-content-show]="isPrivacyOpen"
+                    >
                         <div class="container">
                             <div class="row">
                                 <div class="col">
@@ -165,17 +187,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="agreement-3 d-flex justify-content-between">
+                    <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
                         <shared-checkbox
+                            class="d-sm-none"
                             text="[필수] 개인정보 수집 및 이용 동의"
                             [checked]="checkbox1"
                             (click)="clickCheckbox1()"
                             size="small"
                             shape="none"
                         ></shared-checkbox>
-                        <div class="shared-typo-body-r11" (click)="openContent('service-terms')">펼치기</div>
+                        <shared-checkbox
+                            class="d-none d-sm-flex"
+                            text="[필수] 개인정보 수집 및 이용 동의"
+                            [checked]="checkbox1"
+                            (click)="clickCheckbox1()"
+                            shape="none"
+                        ></shared-checkbox>
+                        <div (click)="openContent('service-terms')">펼치기</div>
                     </div>
-                    <div class="agreement-3-content scroll-y" [class.agreement-3-content-show]="isServiceTermsOpen">
+                    <div
+                        class="privacy-service-terms-agreement-3-content scroll-y"
+                        [class.privacy-service-terms-agreement-3-content-show]="isServiceTermsOpen"
+                    >
                         <div class="container">
                             <div class="row">
                                 <div class="col">
@@ -184,12 +217,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="agreement-4 d-flex justify-content-between">
+                    <div class="privacy-service-terms-agreement-4 d-flex justify-content-between">
                         <shared-checkbox
+                            class="d-sm-none"
                             text="[선택] 마케팅 정보 수신 동의"
                             [checked]="checkbox1"
                             (click)="clickCheckbox1()"
                             size="small"
+                            shape="none"
+                        ></shared-checkbox>
+                        <shared-checkbox
+                            class="d-none d-sm-flex"
+                            text="[선택] 마케팅 정보 수신 동의"
+                            [checked]="checkbox1"
+                            (click)="clickCheckbox1()"
                             shape="none"
                         ></shared-checkbox>
                     </div>
@@ -197,12 +238,23 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="privacy-service-terms-confirm">
+                    <div class="privacy-service-terms-confirm d-sm-none">
                         <div
                             shared-button
                             sharedButtonType="primary"
                             sharedButtonSize="small"
                             sharedButtonHeight="44"
+                            (click)="hidePopup('popup-privacy-service-terms')"
+                        >
+                            <div>확인</div>
+                        </div>
+                    </div>
+                    <div class="privacy-service-terms-confirm d-none d-sm-block">
+                        <div
+                            shared-button
+                            sharedButtonType="primary"
+                            sharedButtonSize="medium"
+                            sharedButtonHeight="52"
                             (click)="hidePopup('popup-privacy-service-terms')"
                         >
                             <div>확인</div>
