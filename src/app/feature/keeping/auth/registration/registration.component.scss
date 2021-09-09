@@ -1,32 +1,22 @@
-.header {
-    .leading {
-        display: flex;
-        align-items: center;
-        height: 50px;
-    }
-}
+.mobile {
+    .header {
+        box-shadow: 0px 1px #e8edf4;
+        background-color: var(--white);
 
-.registration-image {
-    height: 120px;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        .leading {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
     }
 }
 
 .registration-form {
-    padding: 0 8px 30px;
-
-    .text-1 {
-        margin-top: 40px;
-
-        color: var(--text-1);
-    }
+    margin: 40px 0 40px;
+    padding: 0 8px;
 
     .email {
-        margin-top: 43px;
+        margin-top: 42px;
     }
 
     .password {
@@ -42,16 +32,14 @@
                 font-size: 13px;
                 line-height: 20px;
                 letter-spacing: -0.2px;
+                color: var(--text-2);
             }
         }
 
         div:nth-child(2) {
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 20px;
             color: var(--grey-2);
             text-decoration: underline;
-            text-underline-offset: 3px;
+            text-underline-offset: 1px;
         }
     }
 
@@ -67,52 +55,16 @@
 }
 
 @media (min-width: 576px) {
-    .registration-image {
-        height: 136px;
-    }
-
     .registration-form {
-        margin: 0 -21px;
-        padding: 0 0 30px;
-
-        .text-1 {
-            font-size: 26px;
-        }
-
-        .agreement {
-            div:nth-child(1) {
-                ::ng-deep .text {
-                    font-size: 14px;
-                    line-height: 22px;
-                    letter-spacing: -0.2px;
-                }
-            }
-
-            div:nth-child(2) {
-                font-size: 13px;
-                letter-spacing: -0.2px;
-            }
-        }
-
-        .text-2 {
-            font-size: 13px;
-            line-height: 21px;
-        }
-
-        .registration-button {
-            margin-top: 36px;
-        }
+        margin: 80px -19px 40px;
+        padding: 0;
     }
 }
 
 @media (min-width: 768px) {
-    .registration-image {
-        height: 200px;
-    }
-
     .registration-form {
-        margin: 0;
-        padding: 0 75px 30px;
+        margin: 80px 77px 40px;
+        padding: 0;
     }
 }
 
@@ -123,7 +75,7 @@
         .left-side {
             width: 40%;
 
-            .desktop-registration-image {
+            .registration-image {
                 height: 100%;
 
                 img {
@@ -137,61 +89,21 @@
         .right-side {
             width: 60%;
 
-            .desktop-registration-form {
-                width: 412px;
+            .registration-form {
+                width: 380px;
+                margin: 0;
+                padding: 0;
 
-                .text-1 {
-                    color: var(--text-1);
-                }
+                .container {
+                    padding: 0;
 
-                .email {
-                    margin-top: 46px;
-                }
-
-                .password {
-                    margin-top: 24px;
-                }
-
-                .agreement {
-                    margin-top: 46px;
-
-                    div:nth-child(1) {
-                        ::ng-deep .text {
-                            font-weight: 500;
-                            font-size: 14px;
-                            line-height: 22px;
-                            letter-spacing: -0.2px;
-                        }
+                    .email {
+                        margin-top: 44px;
                     }
-
-                    div:nth-child(2) {
-                        font-weight: 500;
-                        font-size: 13px;
-                        line-height: 20px;
-                        color: var(--grey-2);
-                        text-decoration: underline;
-                        text-underline-offset: 3px;
-                    }
-                }
-
-                .text-2 {
-                    margin-top: 8px;
-
-                    font-weight: 400;
-                    font-size: 13px;
-                    line-height: 21px;
-                    color: var(--grey-1);
-                }
-
-                .registration-button {
-                    margin-top: 39px;
                 }
             }
         }
     }
-}
-
-@media (min-width: 1200px) {
 }
 
 .popup-privacy-service-terms {

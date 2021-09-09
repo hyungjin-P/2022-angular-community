@@ -4,6 +4,8 @@ import { AuthRoutingModule } from './auth-routing.module'
 
 import { SharedModule } from '@shared/shared.module'
 
+import { CommonModule } from '../common/common.module'
+
 import { LoginComponent } from './login/login.component'
 import { CallbackComponent } from './callback/callback.component'
 import { TosComponent } from './tos/tos.component'
@@ -20,7 +22,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         ForgotPasswordComponent,
         ResetPasswordComponent,
     ],
-    imports: [AuthRoutingModule, SharedModule],
+    imports: [AuthRoutingModule, SharedModule, CommonModule],
     exports: [],
     providers: [],
 })

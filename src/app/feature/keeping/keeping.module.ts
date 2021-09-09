@@ -5,10 +5,7 @@ import { KeepingComponent } from './keeping.component'
 
 import { SharedModule } from '@shared/shared.module'
 
-import { FooterComponent } from './common/footer/footer.component'
-import { HeaderComponent } from './common/header/header.component'
-import { PrivacySnippetComponent } from './common/privacy-snippet/privacy-snippet.component'
-import { ServiceTermsSnippetComponent } from './common/service-terms-snippet/service-terms-snippet.component'
+import { CommonModule } from './common/common.module'
 
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
@@ -30,11 +27,6 @@ import { SearchComponent } from './search/search.component'
     declarations: [
         KeepingComponent,
 
-        FooterComponent,
-        HeaderComponent,
-        PrivacySnippetComponent,
-        ServiceTermsSnippetComponent,
-
         HomeComponent,
         FeedComponent,
         CommunityComponent,
@@ -51,7 +43,7 @@ import { SearchComponent } from './search/search.component'
 
         SearchComponent,
     ],
-    imports: [KeepingRoutingModule, SharedModule],
+    imports: [KeepingRoutingModule, SharedModule, CommonModule],
     exports: [],
     providers: [],
 })
