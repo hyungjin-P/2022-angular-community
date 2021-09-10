@@ -113,6 +113,7 @@
 
     .privacy-service-terms {
         position: relative;
+
         width: 100%;
         height: 100%;
         background-color: var(--white);
@@ -120,14 +121,13 @@
             0px 0px 1px rgba(0, 0, 0, 0.2);
 
         .privacy-service-terms-header {
-            all: unset;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 48px;
 
-            .close-icon {
+            .privacy-service-terms-close-icon {
                 position: absolute;
                 right: 0;
 
@@ -142,7 +142,7 @@
             height: 54px;
             border-bottom: 1px solid var(--grey-7);
 
-            .menu {
+            .privacy-service-terms-menu {
                 flex: 1;
                 display: flex;
                 justify-content: center;
@@ -153,14 +153,16 @@
                 color: var(--grey-3);
             }
 
-            .v-line {
+            .privacy-service-terms-v-line {
                 height: 12px;
                 border-right: 1px solid var(--grey-7);
             }
 
-            .selected {
-                color: var(--blue-3);
+            .privacy-service-terms-selected {
                 border-bottom: 3px solid var(--blue-3);
+
+                font-weight: 700;
+                color: var(--blue-3);
             }
         }
 
@@ -170,84 +172,7 @@
             right: 0;
             bottom: 52px;
             left: 0;
-
-            .service-terms {
-                padding: 20px 4px;
-
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 20px;
-                letter-spacing: -0.2px;
-                color: var(--text-2);
-
-                > div {
-                    margin-bottom: 2px;
-                }
-
-                .title {
-                    margin-bottom: 16px;
-
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 24px;
-                    letter-spacing: -0.2px;
-                }
-
-                .item {
-                    margin-top: 16px;
-                    margin-bottom: 8px;
-
-                    font-weight: 700;
-                    font-size: 12px;
-                    line-height: 20px;
-                    letter-spacing: -0.2px;
-                }
-            }
-
-            .privacy {
-                padding: 20px 4px;
-
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 20px;
-                letter-spacing: -0.2px;
-                color: var(--text-2);
-
-                > div {
-                    margin-bottom: 2px;
-                }
-
-                .title {
-                    margin-bottom: 16px;
-
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 24px;
-                    letter-spacing: -0.2px;
-                }
-
-                .item {
-                    margin-top: 16px;
-                    margin-bottom: 8px;
-
-                    font-weight: 700;
-                    font-size: 12px;
-                    line-height: 20px;
-                    letter-spacing: -0.2px;
-                }
-            }
-
-            .mb-8px {
-                margin-bottom: 8px !important;
-            }
-
-            .mb-4px {
-                margin-bottom: 4px !important;
-            }
-
-            .ml-4px {
-                margin-left: 4px !important;
-            }
+            padding-top: 10px;
         }
 
         .privacy-service-terms-confirm {
@@ -270,6 +195,16 @@
             width: 412px;
             height: 642px;
             border-radius: 16px;
+
+            .privacy-service-terms-header {
+                height: 54px;
+            }
+
+            .privacy-service-terms-confirm {
+                ::ng-deep .shared-button {
+                    border-radius: 0 0 12px 12px;
+                }
+            }
         }
     }
 }
