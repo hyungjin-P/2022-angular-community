@@ -127,13 +127,7 @@
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-agreement-all">
-                        <shared-checkbox
-                            text="모두 동의하기"
-                            [checked]="checkbox"
-                            (click)="clickCheckbox()"
-                            size="small"
-                            shape="circle"
-                        ></shared-checkbox>
+                        <ng-container *ngTemplateOutlet="privacyServiceTermsAgreementAll"></ng-container>
                     </div>
                     <div class="privacy-service-terms-agreement-1">
                         <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement1"></ng-container>
@@ -189,6 +183,24 @@
     <div class="privacy-service-terms-desc shared-typo-body-r14 d-none d-sm-block">
         키핑은 개인정보를 안전하게 취급합니다.
     </div>
+</ng-template>
+
+<ng-template #privacyServiceTermsAgreementAll>
+    <shared-checkbox
+        class="d-sm-none"
+        text="모두 동의하기"
+        [checked]="checkbox"
+        (click)="clickCheckbox()"
+        size="small"
+        shape="circle"
+    ></shared-checkbox>
+    <shared-checkbox
+        class="d-none d-sm-flex"
+        text="모두 동의하기"
+        [checked]="checkbox"
+        (click)="clickCheckbox()"
+        shape="circle"
+    ></shared-checkbox>
 </ng-template>
 
 <ng-template #privacyServiceTermsAgreement1>
