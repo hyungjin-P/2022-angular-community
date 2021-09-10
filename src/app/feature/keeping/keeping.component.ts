@@ -21,13 +21,13 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     variables: any
     user: User
 
-    scrollSubscription: Subscription
-    previousScrollTop: number
-    currentScrollTop: number
-
     isBannerVisible: boolean
     isHeaderVisible: boolean
     isBottomNavVisible: boolean
+
+    scrollSubscription: Subscription
+    previousScrollTop: number
+    currentScrollTop: number
 
     carouselSubscription: Subscription
 
@@ -35,12 +35,12 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
 
-        this.previousScrollTop = 0
-        this.currentScrollTop = 0
-
         this.isBannerVisible = true
         this.isHeaderVisible = false
         this.isBottomNavVisible = false
+
+        this.previousScrollTop = 0
+        this.currentScrollTop = 0
     }
 
     ngOnInit(): void {
@@ -72,7 +72,7 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
 
-        this.isBannerVisible = false
+        // this.isBannerVisible = false
     }
 
     closeBannerAllDay() {

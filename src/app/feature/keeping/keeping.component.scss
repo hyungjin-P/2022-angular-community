@@ -3,11 +3,11 @@
     background-color: var(--white);
 }
 
-.banner-box {
+.banner {
     padding: 0 16px;
-    background-color: #28319c;
+    background-color: var(--blue-5);
 
-    .banner {
+    > div {
         position: relative;
         display: flex;
         justify-content: flex-start;
@@ -19,20 +19,20 @@
             display: flex;
             align-items: center;
 
-            span:nth-child(2),
-            span:nth-child(3) {
+            span:nth-child(1),
+            span:nth-child(2) {
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 20px;
                 color: var(--white);
             }
 
-            span:nth-child(2) {
+            span:nth-child(1) {
                 margin-left: 8px;
                 font-weight: 500;
             }
 
-            span:nth-child(3) {
+            span:nth-child(2) {
                 margin-left: 4px;
                 font-weight: 700;
             }
@@ -48,13 +48,13 @@
             cursor: pointer;
         }
 
-        .close-icon {
+        .mdi-close {
             position: absolute;
-            top: 14px;
             right: 0px;
-            width: 18px;
-            height: 18px;
             cursor: pointer;
+
+            font-size: 18px;
+            color: var(--white);
         }
     }
 }
@@ -158,7 +158,7 @@
     box-shadow: 0px -3px 10px rgba(168, 168, 168, 0.25);
     // transition: bottom 0.2s linear;
 
-    .menu-box {
+    > div {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
@@ -202,7 +202,7 @@
 
 @media (min-width: 576px) {
     .bottom-nav {
-        .menu-box {
+        > div {
             .menu {
                 width: 105px;
             }
@@ -212,7 +212,7 @@
 
 @media (min-width: 768px) {
     .bottom-nav {
-        .menu-box {
+        > div {
             .menu {
                 width: 144px;
             }
@@ -249,8 +249,8 @@
         }
     }
 
-    .banner-box {
-        .banner {
+    .banner {
+        > div {
             justify-content: center;
         }
     }
@@ -287,7 +287,7 @@
 }
 
 @media (min-width: 1200px) {
-    .banner-box {
+    .banner {
         padding: 0 60px;
     }
 }

@@ -613,24 +613,19 @@ body {
     border: 1px solid black;
 }
 
-.icon-hover {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-size: cover;
-    stroke: var(--grey-2);
-    fill: var(--grey-2);
+// .icon-hover {
+//     display: inline-block;
+//     width: 24px;
+//     height: 24px;
+//     background-size: cover;
+//     stroke: var(--grey-2);
+//     fill: var(--grey-2);
 
-    &:hover {
-        stroke: var(--blue-3);
-        fill: var(--blue-3);
-    }
-}
-
-// Material Design Icon
-.mdi {
-    display: flex;
-}
+//     &:hover {
+//         stroke: var(--blue-3);
+//         fill: var(--blue-3);
+//     }
+// }
 
 // Bootstrap
 .container {

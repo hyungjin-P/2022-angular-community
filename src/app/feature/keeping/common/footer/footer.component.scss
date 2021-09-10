@@ -26,11 +26,11 @@
         }
     }
 
-    .company-box {
+    .company {
         display: flex;
         margin-bottom: 12px;
 
-        .company {
+        > div:nth-child(1) {
             margin-right: 16px;
 
             font-family: Montserrat;
@@ -85,10 +85,10 @@
             letter-spacing: -0.2px;
         }
 
-        .company-box {
+        .company {
             margin-bottom: 8px;
 
-            .company {
+            > div:nth-child(1) {
                 font-size: 20px;
                 line-height: 18px;
             }
