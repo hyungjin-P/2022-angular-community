@@ -9,12 +9,7 @@
     [class.shape-circle]="shape == 'circle'"
 >
     <div class="box d-flex justify-content-center align-items-center">
-        <svg class="checkmark" *ngIf="size == 'small'">
-            <use xlink:href="assets/icons/etc/check-small.svg#icon" />
-        </svg>
-        <svg class="checkmark" *ngIf="size == 'default'">
-            <use xlink:href="assets/icons/etc/check.svg#icon" />
-        </svg>
+        <div class="mdi mdi-check"></div>
     </div>
     <div
         class="text"
