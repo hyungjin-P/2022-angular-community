@@ -134,7 +134,7 @@
                     </div>
                     <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
                         <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement2"></ng-container>
-                        <div (click)="openContent('privacy')">펼치기</div>
+                        
                     </div>
                     <div
                         class="privacy-service-terms-agreement-2-content scroll-y"
@@ -150,7 +150,7 @@
                     </div>
                     <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
                         <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement3"></ng-container>
-                        <div (click)="openContent('service-terms')">펼치기</div>
+                        
                     </div>
                     <div
                         class="privacy-service-terms-agreement-3-content scroll-y"
@@ -230,6 +230,7 @@
         size="small"
         shape="none"
     ></shared-checkbox>
+    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('privacy')">펼치기</div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 서비스 이용 약관 동의"
@@ -237,6 +238,7 @@
         (click)="clickCheckbox1()"
         shape="none"
     ></shared-checkbox>
+    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('privacy')">펼치기</div>
 </ng-template>
 
 <ng-template #privacyServiceTermsAgreement3>
@@ -248,6 +250,7 @@
         size="small"
         shape="none"
     ></shared-checkbox>
+    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('service-terms')">펼치기</div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 개인정보 수집 및 이용 동의"
@@ -255,6 +258,7 @@
         (click)="clickCheckbox1()"
         shape="none"
     ></shared-checkbox>
+    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('service-terms')">펼치기</div>
 </ng-template>
 
 <ng-template #privacyServiceTermsAgreement4>

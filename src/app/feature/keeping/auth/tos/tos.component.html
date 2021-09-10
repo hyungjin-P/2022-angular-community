@@ -1,4 +1,4 @@
-<div class="full-absolute user-select-none">
+<div class="full-absolute">
     <div class="header">
         <div class="container">
             <div class="row">
@@ -14,117 +14,31 @@
         <div class="container">
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="text-1 shared-typo-title-b22">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
+                    <ng-container *ngTemplateOutlet="text1"></ng-container>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="text-2 shared-typo-desc-r12">
-                        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
-                    </div>
-                    <div class="text-3 shared-typo-desc-r12">
-                        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
-                    </div>
+                    <ng-container *ngTemplateOutlet="text2"></ng-container>
                 </div>
             </div>
-            <div class="row d-sm-none">
-                <div class="col col-sm-8 offset-sm-2">
-                    <div class="agreement-all">
-                        <shared-checkbox
-                            text="모두 동의하기"
-                            [checked]="checkbox"
-                            (click)="clickCheckbox()"
-                            size="small"
-                            shape="circle"
-                        ></shared-checkbox>
-                    </div>
-                    <div class="h-line"></div>
-                    <div class="agreement-1">
-                        <shared-checkbox
-                            text="[필수] 만 14세 이상입니다."
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            size="small"
-                            shape="none"
-                        ></shared-checkbox>
-                    </div>
-                    <div class="agreement-2 d-flex justify-content-between">
-                        <shared-checkbox
-                            text="[필수] 서비스 이용 약관 동의"
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            size="small"
-                            shape="none"
-                        ></shared-checkbox>
-                        <div class="shared-typo-body-m12" (click)="showPopup('popup-privacy-service-terms')">보기</div>
-                    </div>
-                    <div class="agreement-3 d-flex justify-content-between">
-                        <shared-checkbox
-                            text="[필수] 개인정보 수집 및 이용 동의"
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            size="small"
-                            shape="none"
-                        ></shared-checkbox>
-                        <div class="shared-typo-body-m12">보기</div>
-                    </div>
-                    <div class="agreement-4 d-flex justify-content-between">
-                        <shared-checkbox
-                            text="[선택] 마케팅 정보 수신 동의"
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            size="small"
-                            shape="none"
-                        ></shared-checkbox>
-                        <div class="shared-typo-body-m12">보기</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-none d-sm-flex">
+            <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
                     <div class="agreement-all">
-                        <shared-checkbox
-                            text="모두 동의하기"
-                            [checked]="checkbox"
-                            (click)="clickCheckbox()"
-                            shape="circle"
-                        ></shared-checkbox>
+                        <ng-container *ngTemplateOutlet="agreementAll"></ng-container>
                     </div>
                     <div class="h-line"></div>
                     <div class="agreement-1">
-                        <shared-checkbox
-                            text="[필수] 만 14세 이상입니다."
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            shape="none"
-                        ></shared-checkbox>
+                        <ng-container *ngTemplateOutlet="agreement1"></ng-container>
                     </div>
                     <div class="agreement-2 d-flex justify-content-between">
-                        <shared-checkbox
-                            text="[필수] 서비스 이용 약관 동의"
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            shape="none"
-                        ></shared-checkbox>
-                        <div class="shared-typo-body-m13" (click)="showPopup('popup-privacy-service-terms')">보기</div>
+                        <ng-container *ngTemplateOutlet="agreement2"></ng-container>
                     </div>
                     <div class="agreement-3 d-flex justify-content-between">
-                        <shared-checkbox
-                            text="[필수] 개인정보 수집 및 이용 동의"
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            shape="none"
-                        ></shared-checkbox>
-                        <div class="shared-typo-body-m13">보기</div>
+                        <ng-container *ngTemplateOutlet="agreement3"></ng-container>
                     </div>
                     <div class="agreement-4 d-flex justify-content-between">
-                        <shared-checkbox
-                            text="[선택] 마케팅 정보 수신 동의"
-                            [checked]="checkbox1"
-                            (click)="clickCheckbox1()"
-                            shape="none"
-                        ></shared-checkbox>
-                        <div class="shared-typo-body-m13">보기</div>
+                        <ng-container *ngTemplateOutlet="agreement4"></ng-container>
                     </div>
                 </div>
             </div>
@@ -132,16 +46,6 @@
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
                     <div class="agreement-button">
                         <div
-                            class="d-sm-none"
-                            shared-button
-                            sharedButtonType="primary"
-                            sharedButtonSize="small"
-                            sharedButtonHeight="44"
-                        >
-                            <div>동의하고 가입하기</div>
-                        </div>
-                        <div
-                            class="d-none d-sm-flex"
                             shared-button
                             sharedButtonType="primary"
                             sharedButtonSize="medium"
@@ -155,6 +59,125 @@
         </div>
     </div>
 </div>
+
+<ng-template #text1>
+    <div class="d-sm-none shared-typo-title-b22">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
+    <div class="d-none d-sm-block shared-typo-title-b24">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
+</ng-template>
+
+<ng-template #text2>
+    <div class="d-sm-none text-2 shared-typo-desc-r12">
+        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
+        <br />
+        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
+    </div>
+    <div class="d-none d-sm-block text-2 shared-typo-desc-r13">
+        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
+        <br />
+        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
+    </div>
+</ng-template>
+
+<ng-template #agreementAll>
+    <shared-checkbox
+        class="d-sm-none"
+        text="모두 동의하기"
+        [checked]="checkbox"
+        (click)="clickCheckbox()"
+        size="small"
+        shape="circle"
+    ></shared-checkbox>
+    <shared-checkbox
+        class="d-none d-sm-flex"
+        text="모두 동의하기"
+        [checked]="checkbox"
+        (click)="clickCheckbox()"
+        shape="circle"
+    ></shared-checkbox>
+</ng-template>
+
+<ng-template #agreement1>
+    <shared-checkbox
+        class="d-sm-none"
+        text="[필수] 만 14세 이상입니다."
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        size="small"
+        shape="none"
+    ></shared-checkbox>
+    <shared-checkbox
+        class="d-none d-sm-flex"
+        text="[필수] 만 14세 이상입니다."
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        shape="none"
+    ></shared-checkbox>
+</ng-template>
+
+<ng-template #agreement2>
+    <shared-checkbox
+        class="d-sm-none"
+        text="[필수] 서비스 이용 약관 동의"
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        size="small"
+        shape="none"
+    ></shared-checkbox>
+    <div class="d-sm-none shared-typo-body-m12" (click)="showPopup('popup-privacy-service-terms')">보기</div>
+    <shared-checkbox
+        class="d-none d-sm-flex"
+        text="[필수] 서비스 이용 약관 동의"
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        shape="none"
+    ></shared-checkbox>
+    <div class="d-none d-sm-flex shared-typo-body-m13" (click)="showPopup('popup-privacy-service-terms')">보기</div>
+</ng-template>
+
+<ng-template #agreement3>
+    <shared-checkbox
+        class="d-sm-none"
+        text="[필수] 개인정보 수집 및 이용 동의"
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        size="small"
+        shape="none"
+    ></shared-checkbox>
+    <div class="d-sm-none shared-typo-body-m12">보기</div>
+    <shared-checkbox
+        class="d-none d-sm-flex"
+        text="[필수] 개인정보 수집 및 이용 동의"
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        shape="none"
+    ></shared-checkbox>
+    <div class="d-none d-sm-flex shared-typo-body-m12">보기</div>
+</ng-template>
+
+<ng-template #agreement4>
+    <shared-checkbox
+        class="d-sm-none"
+        text="[선택] 마케팅 정보 수신 동의"
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        size="small"
+        shape="none"
+    ></shared-checkbox>
+    <div class="d-sm-none shared-typo-body-m12">보기</div>
+    <shared-checkbox
+        class="d-none d-sm-flex"
+        text="[선택] 마케팅 정보 수신 동의"
+        [checked]="checkbox1"
+        (click)="clickCheckbox1()"
+        shape="none"
+    ></shared-checkbox>
+    <div class="d-none d-sm-flex shared-typo-body-m12">보기</div>
+</ng-template>
+
+<ng-template #agreementButton>
+
+</ng-template>
+
 <div
     class="popup-privacy-service-terms"
     #popupPrivacyServiceTermsRef

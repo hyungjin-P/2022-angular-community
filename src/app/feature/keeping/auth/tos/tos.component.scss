@@ -1,7 +1,6 @@
 .header {
     box-shadow: 0px 1px #e8edf4;
     background-color: var(--white);
-    z-index: 1;
 
     .leading {
         display: flex;
@@ -11,14 +10,16 @@
 }
 
 .agreement-form {
-    padding: 0 8px 30px;
-
-    .text-1 {
-        margin-top: 40px;
-    }
+    margin: 40px 0 40px;
+    padding: 0 8px;
 
     .text-2 {
         margin-top: 22px;
+    }
+
+    .text-2,
+    .text-3 {
+        color: var(--text-2);
     }
 
     .agreement-all {
@@ -26,12 +27,8 @@
     }
 
     .h-line {
-        margin-top: 15px;
+        margin: 16px 0;
         border-bottom: 1px solid var(--grey-8);
-    }
-
-    .agreement-1 {
-        margin-top: 16px;
     }
 
     .agreement-2,
@@ -39,7 +36,7 @@
     .agreement-4 {
         margin-top: 12px;
 
-        div:nth-child(2) {
+        > div {
             color: var(--grey-2);
             text-decoration: underline;
             text-underline-offset: 3px;
@@ -47,33 +44,17 @@
     }
 
     .agreement-button {
-        margin-top: 24px;
+        margin-top: 30px;
     }
 }
 
 @media (min-width: 576px) {
     .agreement-form {
-        margin: 0 -21px;
-        padding: 0 0 30px;
-
-        .text-1 {
-            margin-top: 60px;
-
-            font-size: 24px;
-            line-height: 34px;
-        }
+        margin: 60px -20.5px 40px;
+        padding: 0;
 
         .text-2 {
             margin-top: 20px;
-
-            font-size: 13px;
-            line-height: 21px;
-            letter-spacing: -0.5px;
-        }
-
-        .text-3 {
-            font-size: 13px;
-            line-height: 21px;
         }
 
         .agreement-all {
@@ -89,12 +70,6 @@
         .agreement-3,
         .agreement-4 {
             margin-top: 16px;
-
-            div:nth-child(2) {
-                color: var(--grey-2);
-                text-decoration: underline;
-                text-underline-offset: 3px;
-            }
         }
 
         .agreement-button {
@@ -105,22 +80,22 @@
 
 @media (min-width: 768px) {
     .agreement-form {
-        margin: 0;
-        padding: 0 75px 30px;
+        margin: 60px 75.5px 40px;
+        padding: 0;
     }
 }
 
 @media (min-width: 992px) {
     .agreement-form {
-        margin: 0;
-        padding: 0 45px 30px;
+        margin: 60px 45px 40px;
+        padding: 0;
     }
 }
 
 @media (min-width: 1200px) {
     .agreement-form {
-        margin: 0;
-        padding: 0 165px 30px;
+        margin: 60px 165px 40px;
+        padding: 0;
     }
 }
 
