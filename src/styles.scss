@@ -609,23 +609,21 @@ body {
     user-select: none;
 }
 
+.keeping-icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--grey-2);
+    fill: var(--grey-2);
+
+    &:hover {
+        stroke: var(--blue-3);
+        fill: var(--blue-3);
+    }
+}
+
 .b-1 {
     border: 1px solid black;
 }
-
-// .icon-hover {
-//     display: inline-block;
-//     width: 24px;
-//     height: 24px;
-//     background-size: cover;
-//     stroke: var(--grey-2);
-//     fill: var(--grey-2);
-
-//     &:hover {
-//         stroke: var(--blue-3);
-//         fill: var(--blue-3);
-//     }
-// }
 
 // Bootstrap
 .container {
