@@ -61,9 +61,9 @@ export class ButtonDirective implements OnInit, OnChanges, AfterViewChecked {
             this.changed = false
 
             if (this.sharedButtonDisabled) {
-                this.renderer.addClass(this.el.nativeElement, 'shared-button-disabled')
+                this.renderer.addClass(this.el.nativeElement, `shared-button-type-${this.sharedButtonType}-disabled`)
             } else {
-                this.renderer.removeClass(this.el.nativeElement, 'shared-button-disabled')
+                this.renderer.removeClass(this.el.nativeElement, `shared-button-type-${this.sharedButtonType}-disabled`)
             }
         }
     }

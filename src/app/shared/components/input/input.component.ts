@@ -19,6 +19,7 @@ export class InputComponent implements ControlValueAccessor {
     @Input() placeholder: string
     @Input() disabled: boolean
     @Input() text: string
+    @Input() maxlength: number
     @Input() info: string
     @Input() error: string
 

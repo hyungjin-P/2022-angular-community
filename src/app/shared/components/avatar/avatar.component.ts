@@ -36,6 +36,7 @@ export class AvatarComponent implements OnChanges, AfterViewInit {
             this.changed = true
         }
     }
+
     ngAfterViewInit() {
         this.apply()
     }
