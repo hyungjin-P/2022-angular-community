@@ -30,6 +30,7 @@
 
         span:nth-child(2) {
             margin-left: 5px;
+            outline: none;
             cursor: pointer;
 
             color: var(--blue-3);
@@ -39,21 +40,48 @@
     }
 
     .email {
+        position: relative;
         margin-top: 42px;
+
+        .mdi-check {
+            position: absolute;
+            top: 35px;
+            right: 18px;
+
+            font-size: 18px;
+            color: var(--grey-2);
+        }
     }
 
     .password {
-        margin-top: 24px;
+        position: relative;
+        margin-top: 34px;
+
+        .password-icon-visible,
+        .password-icon-invisible {
+            position: absolute;
+            top: 45px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .password-icon-invisible {
+            top: 50px;
+        }
     }
 
     .text-3 {
-        margin-top: 16px;
+        margin-top: 32px;
         cursor: pointer;
 
         text-align: end;
         color: var(--grey-3);
         text-decoration: underline;
         text-underline-offset: 1px;
+
+        span {
+            outline: none;
+        }
     }
 
     .email-login-button {
@@ -69,6 +97,7 @@
         height: 52px;
         background-color: #f6e31a;
         border-radius: 8px;
+        cursor: pointer;
 
         font-weight: 500;
         font-size: 15px;
@@ -77,6 +106,10 @@
 
         img {
             margin-right: 8px;
+        }
+
+        &:hover {
+            opacity: 0.8;
         }
     }
 }

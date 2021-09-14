@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AngularFireAuth } from '@angular/fire/auth'
 import * as firebase from 'firebase/app'
@@ -16,18 +16,24 @@ import { AuthService } from '@services/auth.service'
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     TAG = '로그인'
 
     variables: any
 
     signInMethod: string
     subscription: Subscription
-
     naverLoginPopupWindowRef: Window
 
     email: string
+    emailValid: boolean
+    emailErrorText: string
+    emailVisible: boolean
+
     password: string
+    passwordValid: boolean
+    passwordErrorText: string
+    passwordVisible: boolean
 
     constructor(
         private router: Router,
@@ -35,11 +41,21 @@ export class LoginComponent implements OnInit, OnDestroy {
         private globalService: GlobalService,
         private storageService: StorageService,
         private authService: AuthService
-    ) {
-        this.variables = this.globalService.variables
-    }
+    ) {}
 
     ngOnInit() {
+        this.variables = this.globalService.variables
+
+        this.email = ''
+        this.emailValid = false
+        this.emailErrorText = ''
+        this.emailVisible = true
+
+        this.password = ''
+        this.passwordValid = false
+        this.passwordErrorText = ''
+        this.passwordVisible = false
+
         this.angularFireAuth.setPersistence('session')
         this.subscription = this.angularFireAuth.authState.subscribe((user) => {
             if (user) {
@@ -65,8 +81,26 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
     }
 
+    ngAfterViewInit() {}
+
     ngOnDestroy() {
         this.subscription.unsubscribe()
+    }
+
+    async signInWithEmail() {
+        if (!this.formCheck()) {
+            return
+        }
+
+        this.signInMethod = 'email'
+        this.authService.signInWithEmail({ email: this.email, password: this.password }).subscribe(
+            (user) => {
+                this.angularFireAuth.signInWithCustomToken(user.custom_token)
+            },
+            (e) => {
+                console.log(e)
+            }
+        )
     }
 
     signInWithGoogle() {
@@ -135,5 +169,83 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.signWithNaver({ code: code }).subscribe((user) => {
             this.angularFireAuth.signInWithCustomToken(user.custom_token)
         })
+    }
+
+    onKeyup(event, type) {
+        if (event.key == 'Enter') {
+            if (this.formCheck()) {
+                this.signInWithEmail()
+            }
+        } else {
+            if (type == 'email') {
+                this.checkEmailPattern(this.email)
+            } else if (type == 'password') {
+                this.checkPasswordPattern(this.password)
+            }
+        }
+    }
+
+    formCheck() {
+        let isValid = false
+
+        if (this.checkEmailPattern(this.email) && this.checkPasswordPattern(this.password)) {
+            isValid = true
+        }
+
+        return isValid
+    }
+
+    checkEmailPattern(email: string) {
+        let isValid = false
+
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
+
+        if (emailRegex.test(email)) {
+            isValid = true
+            this.emailValid = true
+            this.emailErrorText = ''
+        } else {
+            this.emailValid = false
+            this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+        }
+
+        return isValid
+    }
+
+    checkPasswordPattern(password: string) {
+        let isValid = false
+
+        const pattern1 = /[0-9]/
+        const pattern2 = /[a-zA-Z]/
+        const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/
+        const pattern4 = /\s/
+
+        if (
+            pattern1.test(password) &&
+            pattern2.test(password) &&
+            pattern3.test(password) &&
+            !pattern4.test(password) &&
+            8 <= password.length &&
+            password.length <= 15
+        ) {
+            isValid = true
+            this.passwordValid = true
+            this.passwordErrorText = ''
+        } else if (pattern4.test(this.password)) {
+            this.passwordValid = false
+            this.passwordErrorText = '공백을 포함할 수 없습니다.'
+        } else if (this.password.length < 8) {
+            this.passwordValid = false
+            this.passwordErrorText = '비밀번호는 8자 이상입니다.'
+        } else if (!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password)) {
+            this.passwordValid = false
+            this.passwordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
+        }
+
+        return isValid
+    }
+
+    changePasswordVisible() {
+        this.passwordVisible = !this.passwordVisible
     }
 }
