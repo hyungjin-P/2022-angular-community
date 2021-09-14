@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { AngularFireAuth } from '@angular/fire/auth'
 import * as firebase from 'firebase/app'
@@ -16,7 +16,7 @@ import { AuthService } from '@services/auth.service'
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
     TAG = '로그인'
 
     variables: any
@@ -80,8 +80,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
             Kakao.init(`${environment.kakao['appKey']['javascript']}`)
         }
     }
-
-    ngAfterViewInit() {}
 
     ngOnDestroy() {
         this.subscription.unsubscribe()
