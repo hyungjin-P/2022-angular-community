@@ -175,9 +175,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.signInWithEmail()
             }
         } else {
-            if (type == 'email') {
+            if (event.key != 'Tab' && type == 'email') {
                 this.checkEmailPattern(this.email)
-            } else if (type == 'password') {
+            } else if (event.key != 'Tab' && type == 'password') {
                 this.checkPasswordPattern(this.password)
             }
         }
@@ -229,13 +229,13 @@ export class LoginComponent implements OnInit, OnDestroy {
             isValid = true
             this.passwordValid = true
             this.passwordErrorText = ''
-        } else if (pattern4.test(this.password)) {
+        } else if (pattern4.test(password)) {
             this.passwordValid = false
             this.passwordErrorText = '공백을 포함할 수 없습니다.'
-        } else if (this.password.length < 8) {
+        } else if (password.length < 8) {
             this.passwordValid = false
             this.passwordErrorText = '비밀번호는 8자 이상입니다.'
-        } else if (!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password)) {
+        } else if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
             this.passwordValid = false
             this.passwordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
         }

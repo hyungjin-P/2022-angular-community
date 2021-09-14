@@ -1,6 +1,4 @@
 .shared-input {
-    position: relative;
-
     .label {
         margin-bottom: 8px;
         color: var(--text-2);
@@ -48,7 +46,6 @@
 
     .info,
     .error {
-        position: absolute;
         display: flex;
         margin-top: 6px;
 
