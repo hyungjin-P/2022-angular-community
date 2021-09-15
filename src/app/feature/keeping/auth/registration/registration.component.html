@@ -41,20 +41,19 @@
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="email">
+                <div class="email" #emailRef>
                     <shared-input
                         label="이메일"
                         placeholder="이메일 주소를 입력해 주세요"
-                        [(ngModel)]="email"
                         maxlength="50"
+                        [(ngModel)]="email"
                         [error]="email != '' && emailErrorText"
-                        (keyup)="onKeyup($event, 'email')"
-                        [disabled]="emailValid"
+                        [disabled]="emailVerified"
                     ></shared-input>
                     <div
                         class="shared-typo-body-m12 send-verification-code"
                         [class.send-verification-code-enable]="emailValid"
-                        *ngIf="!emailValid && !verificationCodeVisible"
+                        *ngIf="!emailVerified && !verificationCodeVisible"
                         (click)="sendVerificationCodeMail()"
                     >
                         인증하기
@@ -66,7 +65,7 @@
                     >
                         재전송
                     </div>
-                    <div class="mdi mdi-check" *ngIf="emailValid"></div>
+                    <div class="mdi mdi-check" *ngIf="emailVerified"></div>
                 </div>
             </div>
         </div>
@@ -80,11 +79,13 @@
                         maxlength="6"
                         info="메일에 발송된 인증번호 6자리를 입력해 주세요."
                         [error]="verificationCodeErrorText"
+                        (keypress)="checkDigit($event)"
                         (keyup)="onKeyup($event, 'verificationCode')"
                     ></shared-input>
+                    <div class="shared-typo-body-m11 time" *ngIf="timeLeft > 0">{{ timeLeft | minuteSeconds }}</div>
                     <div
                         class="shared-typo-body-m12 confirm-verification-code"
-                        [class.confirm-verification-code-enable]="verificationCode.length == 6"
+                        [class.confirm-verification-code-enable]="verificationCode.length == 6 && timeLeft > 0"
                         (click)="checkVerificationCodeMail()"
                     >
                         인증확인
@@ -136,7 +137,7 @@
                 <div class="password">
                     <shared-input
                         type="text"
-                        label="비밀번호"
+                        label="비밀번호 확인"
                         placeholder="비밀번호를 입력해 주세요"
                         [(ngModel)]="confirmPassword"
                         maxlength="15"
@@ -153,7 +154,7 @@
 
                     <shared-input
                         type="password"
-                        label="비밀번호"
+                        label="비밀번호 확인"
                         placeholder="비밀번호를 입력해 주세요"
                         [(ngModel)]="confirmPassword"
                         maxlength="15"
@@ -176,8 +177,8 @@
                     <div>
                         <shared-checkbox
                             text="키핑 가입 약관에 모두 동의합니다"
-                            [checked]="checkbox"
-                            (click)="clickCheckbox()"
+                            [checked]="agreementAll"
+                            (click)="checkTerms('all')"
                             size="small"
                             shape="circle"
                         ></shared-checkbox>
@@ -196,7 +197,13 @@
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="registration-button">
-                    <div shared-button sharedButtonType="primary" sharedButtonSize="medium" sharedButtonHeight="52">
+                    <div
+                        shared-button
+                        sharedButtonType="primary"
+                        sharedButtonSize="medium"
+                        sharedButtonHeight="52"
+                        [sharedButtonDisabled]="!verifiedAll"
+                    >
                         <div>가입하기</div>
                     </div>
                 </div>
@@ -285,16 +292,16 @@
     <shared-checkbox
         class="d-sm-none"
         text="모두 동의하기"
-        [checked]="checkbox"
-        (click)="clickCheckbox()"
+        [checked]="agreementAll"
+        (click)="checkTerms('all')"
         size="small"
         shape="circle"
     ></shared-checkbox>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="모두 동의하기"
-        [checked]="checkbox"
-        (click)="clickCheckbox()"
+        [checked]="agreementAll"
+        (click)="checkTerms('all')"
         shape="circle"
     ></shared-checkbox>
 </ng-template>
@@ -303,16 +310,16 @@
     <shared-checkbox
         class="d-sm-none"
         text="[필수] 만 14세 이상입니다."
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementAge"
+        (click)="checkTerms('age')"
         size="small"
         shape="none"
     ></shared-checkbox>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 만 14세 이상입니다."
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementAge"
+        (click)="checkTerms('age')"
         shape="none"
     ></shared-checkbox>
 </ng-template>
@@ -321,8 +328,8 @@
     <shared-checkbox
         class="d-sm-none"
         text="[필수] 서비스 이용 약관 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementPrivacy"
+        (click)="checkTerms('privacy')"
         size="small"
         shape="none"
     ></shared-checkbox>
@@ -330,8 +337,8 @@
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 서비스 이용 약관 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementPrivacy"
+        (click)="checkTerms('privacy')"
         shape="none"
     ></shared-checkbox>
     <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('privacy')">펼치기</div>
@@ -341,8 +348,8 @@
     <shared-checkbox
         class="d-sm-none"
         text="[필수] 개인정보 수집 및 이용 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementServiceTerms"
+        (click)="checkTerms('serviceTerms')"
         size="small"
         shape="none"
     ></shared-checkbox>
@@ -350,8 +357,8 @@
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 개인정보 수집 및 이용 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementServiceTerms"
+        (click)="checkTerms('serviceTerms')"
         shape="none"
     ></shared-checkbox>
     <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('service-terms')">펼치기</div>
@@ -361,16 +368,16 @@
     <shared-checkbox
         class="d-sm-none"
         text="[선택] 마케팅 정보 수신 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementMarketing"
+        (click)="checkTerms('marketing')"
         size="small"
         shape="none"
     ></shared-checkbox>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[선택] 마케팅 정보 수신 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementMarketing"
+        (click)="checkTerms('marketing')"
         shape="none"
     ></shared-checkbox>
 </ng-template>

@@ -61,6 +61,14 @@
         position: relative;
         margin-top: 24px;
 
+        .time {
+            position: absolute;
+            top: 39px;
+            right: 72px;
+
+            color: var(--grey-1);
+        }
+
         .confirm-verification-code {
             position: absolute;
             top: 38px;
@@ -110,6 +118,8 @@
         }
 
         div:nth-child(2) {
+            cursor: pointer;
+
             color: var(--grey-2);
             text-decoration: underline;
             text-underline-offset: 1px;
@@ -222,6 +232,8 @@
             margin-top: 8px;
 
             > div {
+                cursor: pointer;
+
                 color: var(--grey-2);
                 text-decoration: underline;
                 text-underline-offset: 3px;

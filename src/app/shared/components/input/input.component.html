@@ -7,7 +7,7 @@
         [ngModel]="text"
         [maxlength]="maxlength"
         [disabled]="disabled"
-        (ngModelChange)="onChange($event)"
+        (ngModelChange)="onChanged($event)"
     />
     <div class="info shared-typo-body-r12" *ngIf="info && !error">
         <span class="mdi mdi-alert-circle-outline"></span>

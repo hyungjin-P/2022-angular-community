@@ -1,4 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import {
+    Component,
+    OnInit,
+    AfterViewInit,
+    OnDestroy,
+    ViewChild,
+    ViewChildren,
+    QueryList,
+    ElementRef,
+} from '@angular/core'
+import { Observable, fromEvent, Subscription } from 'rxjs'
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators'
 
 import { AuthService } from '@services/auth.service'
 
@@ -7,17 +18,21 @@ import { AuthService } from '@services/auth.service'
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.scss'],
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('popupPrivacyServiceTermsRef') popupPrivacyServiceTermsRef
+
+    @ViewChildren('emailRef') emailList: QueryList<ElementRef>
+    EmailInputKeyupSubscription1: Subscription
+    EmailInputKeyupSubscription2: Subscription
 
     email: string
     emailValid: boolean
+    emailVerified: boolean
     emailErrorText: string
-    emailVisible: boolean
 
+    verificationCodeVisible: boolean
     verificationCode: string
     verificationCodeErrorText: string
-    verificationCodeVisible: boolean
     timeLeft: number
     interval: any
 
@@ -31,8 +46,15 @@ export class RegistrationComponent implements OnInit {
     confirmPasswordErrorText: string
     confirmPasswordVisible: boolean
 
-    checkbox: boolean
-    checkbox1: boolean
+    passwordVerified: boolean
+
+    agreementAll: boolean
+    agreementAge: boolean
+    agreementPrivacy: boolean
+    agreementServiceTerms: boolean
+    agreementMarketing: boolean
+
+    verifiedAll: boolean
 
     isPrivacyOpen: boolean
     isServiceTermsOpen: boolean
@@ -42,12 +64,12 @@ export class RegistrationComponent implements OnInit {
     ngOnInit() {
         this.email = ''
         this.emailValid = false
+        this.emailVerified = false
         this.emailErrorText = ''
-        this.emailVisible = true
 
+        this.verificationCodeVisible = false
         this.verificationCode = ''
         this.verificationCodeErrorText = ''
-        this.verificationCodeVisible = false
         this.timeLeft = 0
 
         this.password = ''
@@ -59,39 +81,132 @@ export class RegistrationComponent implements OnInit {
         this.confirmPasswordValid = false
         this.confirmPasswordErrorText = ''
         this.confirmPasswordVisible = false
+
+        this.passwordVerified = false
+
+        this.agreementAll = false
+        this.agreementAge = false
+        this.agreementPrivacy = false
+        this.agreementServiceTerms = false
+        this.agreementMarketing = false
+
+        this.verifiedAll = false
     }
 
-    checkDuplicateMail() {
-        this.authService.checkDuplicateMail({ email: this.email }).subscribe(
-            (v) => {},
-            (e) => {}
+    ngAfterViewInit() {
+        this.emailList.forEach((email, index) => {
+            let inputElement = email.nativeElement.getElementsByTagName('input')[0]
+
+            if (index == 0) {
+                let keyup$ = fromEvent(inputElement, 'keyup').pipe(
+                    debounceTime(300),
+                    map((event) => {
+                        return {
+                            key: event['key'],
+                            email: event['target']['value'].trim(),
+                        }
+                    }),
+                    distinctUntilChanged()
+                )
+
+                this.EmailInputKeyupSubscription1 = keyup$.subscribe((v) => {
+                    this.checkDuplicateMail(v.key, v.email)
+                })
+            } else {
+                let keyup$ = fromEvent(inputElement, 'keyup').pipe(
+                    debounceTime(300),
+                    map((event) => {
+                        return {
+                            key: event['key'],
+                            email: event['target']['value'].trim(),
+                        }
+                    }),
+                    distinctUntilChanged()
+                )
+
+                this.EmailInputKeyupSubscription2 = keyup$.subscribe((v) => {
+                    this.checkDuplicateMail(v.key, v.email)
+                })
+            }
+        })
+    }
+
+    ngOnDestroy() {
+        this.EmailInputKeyupSubscription1.unsubscribe()
+        this.EmailInputKeyupSubscription2.unsubscribe()
+    }
+
+    checkDuplicateMail(key: string, email: string) {
+        if (key == 'Backspace') {
+            if (!this.checkEmailPattern(email)) {
+                this.emailValid = false
+                this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+            }
+
+            this.verificationCodeVisible = false
+            return
+        }
+
+        if (!this.checkEmailPattern(email)) {
+            this.emailValid = false
+            this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+            return
+        }
+
+        this.authService.checkDuplicateMail({ email: email }).subscribe(
+            (v) => {
+                this.emailValid = true
+                this.emailErrorText = ''
+
+                if (key == 'Enter') {
+                    this.sendVerificationCodeMail()
+                    return
+                }
+            },
+            (e) => {
+                this.emailValid = false
+                this.emailErrorText = e.message
+            }
         )
     }
 
     sendVerificationCodeMail() {
+        if (!this.emailValid) {
+            return
+        }
+
         this.verificationCodeVisible = true
+        this.verificationCode = ''
         this.verificationCodeErrorText = ''
 
         setTimeout(() => {
-            document.activeElement
-                .closest('.registration-form')
-                .querySelector('.verification-code')
-                .getElementsByTagName('input')[0]
-                .focus()
+            try {
+                document.activeElement
+                    .closest('.registration-form')
+                    .querySelector('.verification-code')
+                    .getElementsByTagName('input')[0]
+                    .focus()
+            } catch (e) {}
         }, 0)
 
-        // this.authService.sendVerificationCodeMail({ email: this.email }).subscribe(
-        //     (v) => {
-        //         if (this.interval) {
-        //             this.stopTimer()
-        //         }
-        //         this.startTimer()
-        //     },
-        //     (e) => {}
-        // )
+        this.authService.sendVerificationCodeMail({ email: this.email }).subscribe(
+            (v) => {
+                if (this.interval) {
+                    this.stopTimer()
+                }
+                this.startTimer()
+            },
+            (e) => {
+                this.verificationCodeErrorText = e.message
+            }
+        )
     }
 
     checkVerificationCodeMail() {
+        if (this.verificationCode.length != 6 || this.timeLeft <= 0) {
+            return
+        }
+
         this.authService
             .checkVerificationCodeMail({ email: this.email, verification_code: Number(this.verificationCode) })
             .subscribe(
@@ -100,10 +215,10 @@ export class RegistrationComponent implements OnInit {
                         this.stopTimer()
                     }
 
+                    this.emailVerified = true
+
                     this.verificationCodeVisible = false
                     this.verificationCodeErrorText = ''
-                    this.verificationCodeVisible = false
-                    this.emailValid = true
                 },
                 (e) => {
                     this.verificationCodeErrorText = e.message
@@ -117,6 +232,7 @@ export class RegistrationComponent implements OnInit {
             if (this.timeLeft > 0) {
                 this.timeLeft--
             } else {
+                this.verificationCodeErrorText = '인증번호 입력시간이 초과되었습니다.'
                 this.stopTimer()
             }
         }, 1000)
@@ -128,23 +244,20 @@ export class RegistrationComponent implements OnInit {
 
     onKeyup(event, type) {
         if (event.key == 'Enter') {
-            if (type == 'email') {
-                if (this.checkEmailPattern(this.email)) {
-                    this.sendVerificationCodeMail()
-                }
-            } else if (type == 'verificationCode') {
+            if (type == 'verificationCode') {
                 this.checkVerificationCodeMail()
-            } else {
-                if (this.formCheck()) {
-                }
             }
         } else {
-            if (event.key != 'Tab' && type == 'email') {
-                this.checkEmailPattern(this.email)
-            } else if (event.key != 'Tab' && type == 'password') {
-                this.checkPasswordPattern(this.password)
-            } else if (event.key != 'Tab' && type == 'confirmPassword') {
-                this.checkConfirmPasswordPattern(this.confirmPassword)
+            if (event.key != 'Tab' && (type == 'email' || type == 'password' || type == 'confirmPassword')) {
+                if (type == 'email') {
+                    this.checkEmailPattern(this.email)
+                } else if (type == 'password') {
+                    this.checkPasswordPattern(this.password)
+                } else if (type == 'confirmPassword') {
+                    this.checkConfirmPasswordPattern(this.confirmPassword)
+                }
+
+                this.verifiedAll = this.formCheck()
             }
         }
     }
@@ -153,14 +266,27 @@ export class RegistrationComponent implements OnInit {
         let isValid = false
 
         if (
-            this.checkEmailPattern(this.email) &&
+            this.emailVerified &&
             this.checkPasswordPattern(this.password) &&
-            this.checkPasswordPattern(this.confirmPassword)
+            this.checkPasswordPattern(this.confirmPassword) &&
+            this.password == this.confirmPassword &&
+            this.agreementAge &&
+            this.agreementPrivacy &&
+            this.agreementServiceTerms
         ) {
             isValid = true
         }
 
         return isValid
+    }
+
+    checkDigit(event) {
+        const code = event.which ? event.which : event.keyCode
+        if (48 <= code && code <= 57) {
+            return true
+        } else {
+            return false
+        }
     }
 
     checkEmailPattern(email: string) {
@@ -170,11 +296,6 @@ export class RegistrationComponent implements OnInit {
 
         if (emailRegex.test(email)) {
             isValid = true
-            // this.emailValid = true
-            this.emailErrorText = ''
-        } else {
-            // this.emailValid = false
-            this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
         }
 
         return isValid
@@ -261,12 +382,36 @@ export class RegistrationComponent implements OnInit {
         this.confirmPasswordVisible = !this.confirmPasswordVisible
     }
 
-    clickCheckbox() {
-        this.checkbox = !this.checkbox
-    }
+    checkTerms(item: string) {
+        if (item == 'all') {
+            if (this.agreementAll) {
+                this.agreementAll = false
+                this.agreementAge = false
+                this.agreementPrivacy = false
+                this.agreementServiceTerms = false
+                this.agreementMarketing = false
+            } else {
+                this.agreementAll = true
+                this.agreementAge = true
+                this.agreementPrivacy = true
+                this.agreementServiceTerms = true
+                this.agreementMarketing = true
+            }
+        } else if (item == 'age') {
+            this.agreementAge = !this.agreementAge
+        } else if (item == 'privacy') {
+            this.agreementPrivacy = !this.agreementPrivacy
+        } else if (item == 'serviceTerms') {
+            this.agreementServiceTerms = !this.agreementServiceTerms
+        } else if (item == 'marketing') {
+            this.agreementMarketing = !this.agreementMarketing
+        }
 
-    clickCheckbox1() {
-        this.checkbox1 = !this.checkbox1
+        if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms) {
+            this.agreementAll = true
+        } else {
+            this.agreementAll = false
+        }
     }
 
     showPopup(popupName: string) {
