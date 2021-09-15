@@ -16,11 +16,84 @@
     padding: 0 8px;
 
     .email {
+        position: relative;
         margin-top: 42px;
+
+        .mdi-check {
+            position: absolute;
+            top: 35px;
+            right: 18px;
+
+            font-size: 18px;
+            color: var(--grey-2);
+        }
+
+        .send-verification-code {
+            position: absolute;
+            top: 38px;
+            right: 18px;
+            cursor: not-allowed;
+
+            color: var(--grey-5);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .send-verification-code-enable {
+            cursor: pointer;
+
+            color: var(--blue-3);
+        }
+
+        .resend-verification-code {
+            position: absolute;
+            top: 38px;
+            right: 18px;
+            cursor: pointer;
+
+            color: var(--blue-3);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+    }
+
+    .verification-code {
+        position: relative;
+        margin-top: 24px;
+
+        .confirm-verification-code {
+            position: absolute;
+            top: 38px;
+            right: 18px;
+            cursor: not-allowed;
+
+            color: var(--grey-5);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .confirm-verification-code-enable {
+            cursor: pointer;
+
+            color: var(--blue-3);
+        }
     }
 
     .password {
+        position: relative;
         margin-top: 24px;
+
+        .password-icon-visible,
+        .password-icon-invisible {
+            position: absolute;
+            top: 45px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .password-icon-invisible {
+            top: 50px;
+        }
     }
 
     .agreement {

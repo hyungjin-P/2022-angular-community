@@ -46,7 +46,49 @@
                         label="이메일"
                         placeholder="이메일 주소를 입력해 주세요"
                         [(ngModel)]="email"
+                        maxlength="50"
+                        [error]="email != '' && emailErrorText"
+                        (keyup)="onKeyup($event, 'email')"
+                        [disabled]="emailValid"
                     ></shared-input>
+                    <div
+                        class="shared-typo-body-m12 send-verification-code"
+                        [class.send-verification-code-enable]="emailValid"
+                        *ngIf="!emailValid && !verificationCodeVisible"
+                        (click)="sendVerificationCodeMail()"
+                    >
+                        인증하기
+                    </div>
+                    <div
+                        class="shared-typo-body-m12 resend-verification-code"
+                        *ngIf="verificationCodeVisible"
+                        (click)="sendVerificationCodeMail()"
+                    >
+                        재전송
+                    </div>
+                    <div class="mdi mdi-check" *ngIf="emailValid"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" [class.d-none]="!verificationCodeVisible">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="verification-code">
+                    <shared-input
+                        label="인증번호"
+                        placeholder="인증번호를 입력해 주세요."
+                        [(ngModel)]="verificationCode"
+                        maxlength="6"
+                        info="메일에 발송된 인증번호 6자리를 입력해 주세요."
+                        [error]="verificationCodeErrorText"
+                        (keyup)="onKeyup($event, 'verificationCode')"
+                    ></shared-input>
+                    <div
+                        class="shared-typo-body-m12 confirm-verification-code"
+                        [class.confirm-verification-code-enable]="verificationCode.length == 6"
+                        (click)="checkVerificationCodeMail()"
+                    >
+                        인증확인
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,10 +96,38 @@
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="password">
                     <shared-input
+                        type="text"
                         label="비밀번호"
-                        placeholder="비밀번호를 입력해 주세요."
+                        placeholder="비밀번호를 입력해 주세요"
                         [(ngModel)]="password"
+                        maxlength="15"
+                        *ngIf="passwordVisible"
+                        [error]="password != '' && passwordErrorText"
+                        (keyup)="onKeyup($event, 'password')"
                     ></shared-input>
+                    <img
+                        class="password-icon-visible"
+                        src="assets/icons/etc/eye-visible.svg"
+                        (click)="changePasswordVisible()"
+                        *ngIf="passwordVisible"
+                    />
+
+                    <shared-input
+                        type="password"
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="password"
+                        maxlength="15"
+                        *ngIf="!passwordVisible"
+                        [error]="password != '' && passwordErrorText"
+                        (keyup)="onKeyup($event, 'password')"
+                    ></shared-input>
+                    <img
+                        class="password-icon-invisible"
+                        src="assets/icons/etc/eye-invisible.svg"
+                        (click)="changePasswordVisible()"
+                        *ngIf="!passwordVisible"
+                    />
                 </div>
             </div>
         </div>
@@ -65,10 +135,38 @@
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="password">
                     <shared-input
-                        label="비밀번호 확인"
-                        placeholder="비밀번호를 한번 더 입력해 주세요"
+                        type="text"
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해 주세요"
                         [(ngModel)]="confirmPassword"
+                        maxlength="15"
+                        *ngIf="confirmPasswordVisible"
+                        [error]="confirmPassword != '' && confirmPasswordErrorText"
+                        (keyup)="onKeyup($event, 'confirmPassword')"
                     ></shared-input>
+                    <img
+                        class="password-icon-visible"
+                        src="assets/icons/etc/eye-visible.svg"
+                        (click)="changeConfirmPasswordVisible()"
+                        *ngIf="confirmPasswordVisible"
+                    />
+
+                    <shared-input
+                        type="password"
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="confirmPassword"
+                        maxlength="15"
+                        *ngIf="!confirmPasswordVisible"
+                        [error]="confirmPassword != '' && confirmPasswordErrorText"
+                        (keyup)="onKeyup($event, 'confirmPassword')"
+                    ></shared-input>
+                    <img
+                        class="password-icon-invisible"
+                        src="assets/icons/etc/eye-invisible.svg"
+                        (click)="changeConfirmPasswordVisible()"
+                        *ngIf="!confirmPasswordVisible"
+                    />
                 </div>
             </div>
         </div>
