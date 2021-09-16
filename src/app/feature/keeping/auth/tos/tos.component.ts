@@ -1,4 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
+
+import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
+
+import { UserService } from '@services/user.service'
+
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'tos',
@@ -6,37 +14,109 @@ import { Component, OnInit, ViewChild } from '@angular/core'
     styleUrls: ['./tos.component.scss'],
 })
 export class TosComponent implements OnInit {
+    TAG = 'TOS'
+
     @ViewChild('popupPrivacyServiceTermsRef') popupPrivacyServiceTermsRef
+
+    user: User
 
     selectedMenu: string
 
-    checkbox: boolean
-    checkbox1: boolean
+    agreementAll: boolean
+    agreementAge: boolean
+    agreementPrivacy: boolean
+    agreementServiceTerms: boolean
+    agreementMarketing: boolean
 
-    constructor() {
+    constructor(
+        private router: Router,
+        private globalService: GlobalService,
+        private storageService: StorageService,
+        private userService: UserService
+    ) {}
+
+    ngOnInit() {
+        this.user = this.storageService.getUser()
+
         this.selectedMenu = 'service-terms' // service-terms, privacy
+
+        this.agreementAll = false
+        this.agreementAge = false
+        this.agreementPrivacy = false
+        this.agreementServiceTerms = false
+        this.agreementMarketing = false
     }
 
-    ngOnInit() {}
+    updateUser() {
+        if (!this.agreementAge || !this.agreementPrivacy || !this.agreementServiceTerms) {
+            return
+        }
 
-    clickCheckbox() {
-        this.checkbox = !this.checkbox
+        this.userService
+            .updateUser(this.user.id, {
+                agreement_age: this.agreementAge,
+                agreement_privacy: this.agreementPrivacy,
+                agreement_service_terms: this.agreementServiceTerms,
+                agreement_marketing: this.agreementMarketing,
+            })
+            .subscribe(
+                (v) => {
+                    this.user = {
+                        ...this.user,
+                        agreement_age: this.agreementAge,
+                        agreement_privacy: this.agreementPrivacy,
+                        agreement_service_terms: this.agreementServiceTerms,
+                        agreement_marketing: this.agreementMarketing,
+                    }
+                    this.storageService.setUser(this.user)
+
+                    this.router.navigateByUrl('/')
+                },
+                (e) => {
+                    this.globalService.showToast(e.message)
+                }
+            )
     }
 
-    clickCheckbox1() {
-        this.checkbox1 = !this.checkbox1
-    }
+    checkTerms(item: string) {
+        if (item == 'all') {
+            if (this.agreementAll) {
+                this.agreementAll = false
+                this.agreementAge = false
+                this.agreementPrivacy = false
+                this.agreementServiceTerms = false
+                this.agreementMarketing = false
+            } else {
+                this.agreementAll = true
+                this.agreementAge = true
+                this.agreementPrivacy = true
+                this.agreementServiceTerms = true
+                this.agreementMarketing = true
+            }
+        } else if (item == 'age') {
+            this.agreementAge = !this.agreementAge
+        } else if (item == 'privacy') {
+            this.agreementPrivacy = !this.agreementPrivacy
+        } else if (item == 'serviceTerms') {
+            this.agreementServiceTerms = !this.agreementServiceTerms
+        } else if (item == 'marketing') {
+            this.agreementMarketing = !this.agreementMarketing
+        }
 
-    showPopup(popupName: string) {
-        if (popupName == 'popup-privacy-service-terms') {
-            this.popupPrivacyServiceTermsRef.nativeElement.style.visibility = 'visible'
+        if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms) {
+            this.agreementAll = true
+        } else {
+            this.agreementAll = false
         }
     }
 
-    hidePopup(popupName: string) {
-        if (popupName == 'popup-privacy-service-terms') {
-            this.popupPrivacyServiceTermsRef.nativeElement.style.visibility = 'hidden'
-        }
+    showPopup(menu: string) {
+        this.changeMenu(menu)
+        this.popupPrivacyServiceTermsRef.nativeElement.style.visibility = 'visible'
+    }
+
+    hidePopup() {
+        this.popupPrivacyServiceTermsRef.nativeElement.style.visibility = 'hidden'
     }
 
     changeMenu(menu: string) {

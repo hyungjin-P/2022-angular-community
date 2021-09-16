@@ -37,6 +37,8 @@
         margin-top: 12px;
 
         > div {
+            cursor: pointer;
+
             color: var(--grey-2);
             text-decoration: underline;
             text-underline-offset: 3px;
@@ -130,6 +132,7 @@
             .privacy-service-terms-close-icon {
                 position: absolute;
                 right: 0;
+                cursor: pointer;
 
                 font-size: 24px;
             }
@@ -149,6 +152,7 @@
                 align-items: center;
                 height: 100%;
                 border-bottom: 3px solid transparent;
+                cursor: pointer;
 
                 color: var(--grey-3);
             }

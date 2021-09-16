@@ -21,8 +21,6 @@ import { User } from '@schemas/user'
 export class LoginComponent implements OnInit, OnDestroy {
     TAG = '로그인'
 
-    variables: any
-
     signInMethod: string
     subscription: Subscription
     naverLoginPopupWindowRef: Window
@@ -30,7 +28,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     email: string
     emailValid: boolean
     emailErrorText: string
-    emailVisible: boolean
 
     password: string
     passwordValid: boolean
@@ -46,19 +43,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.variables = this.globalService.variables
-
         this.email = ''
         this.emailValid = false
         this.emailErrorText = ''
-        this.emailVisible = true
 
         this.password = ''
         this.passwordValid = false
         this.passwordErrorText = ''
         this.passwordVisible = false
 
-        this.angularFireAuth.setPersistence('session')
+        // this.angularFireAuth.setPersistence('session')
         this.subscription = this.angularFireAuth.authState.subscribe((user) => {
             if (user) {
                 if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
@@ -67,14 +61,21 @@ export class LoginComponent implements OnInit, OnDestroy {
                             (user: User) => {
                                 this.globalService.variables.isLogin = true
                                 this.storageService.setUser(user)
-                                this.router.navigateByUrl('/')
+                                this.router.navigateByUrl('/auth/tos')
                             },
-                            (e) => {}
+                            (e) => {
+                                this.globalService.showToast(e.message)
+                            }
                         )
                     })
                 } else {
-                    this.globalService.variables.isLogin = true
-                    this.router.navigateByUrl('/')
+                    if (this.signInMethod == 'kakao' || this.signInMethod == 'naver') {
+                        this.globalService.variables.isLogin = true
+                        this.router.navigateByUrl('/auth/tos')
+                    } else {
+                        this.globalService.variables.isLogin = true
+                        this.router.navigateByUrl('/')
+                    }
                 }
             }
         })
@@ -86,23 +87,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe()
-    }
-
-    async signInWithEmail() {
-        if (!this.formCheck()) {
-            return
-        }
-
-        this.signInMethod = 'email'
-        this.authService.signInWithEmail({ email: this.email, password: this.password }).subscribe(
-            (user: User) => {
-                this.storageService.setUser(user)
-                this.angularFireAuth.signInWithCustomToken(user.custom_token)
-            },
-            (e) => {
-                console.log(e)
-            }
-        )
     }
 
     signInWithGoogle() {
@@ -144,7 +128,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.angularFireAuth.signInWithCustomToken(user.custom_token)
                 })
             },
-            (e) => {}
+            (e) => {
+                this.globalService.showToast(e.message)
+            }
         )
     }
 
@@ -169,10 +155,32 @@ export class LoginComponent implements OnInit, OnDestroy {
     _signInWithNaver(code: string) {
         this.naverLoginPopupWindowRef.close()
 
-        this.authService.signWithNaver({ code: code }).subscribe((user: User) => {
-            this.storageService.setUser(user)
-            this.angularFireAuth.signInWithCustomToken(user.custom_token)
-        })
+        this.authService.signWithNaver({ code: code }).subscribe(
+            (user: User) => {
+                this.storageService.setUser(user)
+                this.angularFireAuth.signInWithCustomToken(user.custom_token)
+            },
+            (e) => {
+                this.globalService.showToast(e.message)
+            }
+        )
+    }
+
+    async signInWithEmail() {
+        if (!this.formCheck()) {
+            return
+        }
+
+        this.signInMethod = 'email'
+        this.authService.signInWithEmail({ email: this.email, password: this.password }).subscribe(
+            (user: User) => {
+                this.storageService.setUser(user)
+                this.angularFireAuth.signInWithCustomToken(user.custom_token)
+            },
+            (e) => {
+                this.globalService.showToast(e.message)
+            }
+        )
     }
 
     onKeyup(event, type) {

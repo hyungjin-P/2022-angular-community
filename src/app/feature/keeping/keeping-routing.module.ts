@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 
 import { AuthGuard } from '@services/guards/auth.guard'
+import { TosGuard } from '@services/guards/tos.guard'
 
 import { KeepingComponent } from './keeping.component'
 
@@ -24,6 +25,7 @@ import { SearchComponent } from './search/search.component'
 const routes: Routes = [
     {
         path: '',
+        canActivate: [TosGuard],
         component: KeepingComponent,
         children: [
             { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -42,7 +44,7 @@ const routes: Routes = [
         ],
     },
 
-    { path: 'search', component: SearchComponent },
+    { path: 'search', canActivate: [TosGuard], component: SearchComponent },
 
     {
         path: 'auth',

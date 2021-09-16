@@ -14,10 +14,10 @@ const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'callback', canActivate: [AuthGuard], component: CallbackComponent },
-    { path: 'tos', canActivate: [], component: TosComponent },
-    { path: 'registration', canActivate: [], component: RegistrationComponent },
-    { path: 'forgot-password', canActivate: [], component: ForgotPasswordComponent },
-    { path: 'reset-password', canActivate: [], component: ResetPasswordComponent },
+    { path: 'tos', canActivate: [AuthGuard], component: TosComponent },
+    { path: 'registration', canActivate: [AuthGuard], component: RegistrationComponent },
+    { path: 'forgot-password', canActivate: [AuthGuard], component: ForgotPasswordComponent },
+    { path: 'reset-password', canActivate: [AuthGuard], component: ResetPasswordComponent },
 ]
 
 @NgModule({

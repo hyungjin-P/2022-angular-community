@@ -15,8 +15,15 @@ export class AuthGuard implements CanActivate {
 
         if (user) {
             if (url[1] == 'auth') {
-                this.router.navigateByUrl('/')
-                return false
+                if (
+                    url[2] == 'tos' &&
+                    (!user.agreement_age || !user.agreement_privacy || !user.agreement_service_terms)
+                ) {
+                    return true
+                } else {
+                    this.router.navigateByUrl('/')
+                    return false
+                }
             } else {
                 return true
             }

@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
                     <div class="agreement-all">
-                        <ng-container *ngTemplateOutlet="agreementAll"></ng-container>
+                        <ng-container *ngTemplateOutlet="agreementAllRef"></ng-container>
                     </div>
                     <div class="h-line"></div>
                     <div class="agreement-1">
@@ -45,7 +45,14 @@
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
                     <div class="agreement-button">
-                        <div shared-button sharedButtonType="primary" sharedButtonSize="medium" sharedButtonHeight="52">
+                        <div
+                            shared-button
+                            sharedButtonType="primary"
+                            sharedButtonSize="medium"
+                            sharedButtonHeight="52"
+                            [sharedButtonDisabled]="!agreementAge || !agreementPrivacy || !agreementServiceTerms"
+                            (click)="updateUser()"
+                        >
                             <div>동의하고 가입하기</div>
                         </div>
                     </div>
@@ -73,20 +80,20 @@
     </div>
 </ng-template>
 
-<ng-template #agreementAll>
+<ng-template #agreementAllRef>
     <shared-checkbox
         class="d-sm-none"
         text="모두 동의하기"
-        [checked]="checkbox"
-        (click)="clickCheckbox()"
+        [checked]="agreementAll"
+        (click)="checkTerms('all')"
         size="small"
         shape="circle"
     ></shared-checkbox>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="모두 동의하기"
-        [checked]="checkbox"
-        (click)="clickCheckbox()"
+        [checked]="agreementAll"
+        (click)="checkTerms('all')"
         shape="circle"
     ></shared-checkbox>
 </ng-template>
@@ -95,16 +102,16 @@
     <shared-checkbox
         class="d-sm-none"
         text="[필수] 만 14세 이상입니다."
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementAge"
+        (click)="checkTerms('age')"
         size="small"
         shape="none"
     ></shared-checkbox>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 만 14세 이상입니다."
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementAge"
+        (click)="checkTerms('age')"
         shape="none"
     ></shared-checkbox>
 </ng-template>
@@ -113,77 +120,68 @@
     <shared-checkbox
         class="d-sm-none"
         text="[필수] 서비스 이용 약관 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementPrivacy"
+        (click)="checkTerms('privacy')"
         size="small"
         shape="none"
     ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m12" (click)="showPopup('popup-privacy-service-terms')">보기</div>
+    <div class="d-sm-none shared-typo-body-m12" (click)="showPopup('service-terms')">보기</div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 서비스 이용 약관 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementPrivacy"
+        (click)="checkTerms('privacy')"
         shape="none"
     ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m13" (click)="showPopup('popup-privacy-service-terms')">보기</div>
+    <div class="d-none d-sm-flex shared-typo-body-m13" (click)="showPopup('service-terms')">보기</div>
 </ng-template>
 
 <ng-template #agreement3>
     <shared-checkbox
         class="d-sm-none"
         text="[필수] 개인정보 수집 및 이용 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementServiceTerms"
+        (click)="checkTerms('serviceTerms')"
         size="small"
         shape="none"
     ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m12">보기</div>
+    <div class="d-sm-none shared-typo-body-m12" (click)="showPopup('privacy')">보기</div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 개인정보 수집 및 이용 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementServiceTerms"
+        (click)="checkTerms('serviceTerms')"
         shape="none"
     ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m12">보기</div>
+    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="showPopup('privacy')">보기</div>
 </ng-template>
 
 <ng-template #agreement4>
     <shared-checkbox
         class="d-sm-none"
         text="[선택] 마케팅 정보 수신 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementMarketing"
+        (click)="checkTerms('marketing')"
         size="small"
         shape="none"
     ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m12">보기</div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[선택] 마케팅 정보 수신 동의"
-        [checked]="checkbox1"
-        (click)="clickCheckbox1()"
+        [checked]="agreementMarketing"
+        (click)="checkTerms('marketing')"
         shape="none"
     ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m12">보기</div>
 </ng-template>
 
-<div
-    class="popup-privacy-service-terms"
-    #popupPrivacyServiceTermsRef
-    (click)="hidePopup('popup-privacy-service-terms')"
->
+<div class="popup-privacy-service-terms" #popupPrivacyServiceTermsRef (click)="hidePopup()">
     <div class="privacy-service-terms" (click)="$event.stopPropagation()">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-header">
                         <ng-container *ngTemplateOutlet="privacyServiceTermsHeaderTitle"></ng-container>
-                        <div
-                            class="privacy-service-terms-close-icon"
-                            (click)="hidePopup('popup-privacy-service-terms')"
-                        >
+                        <div class="privacy-service-terms-close-icon" (click)="hidePopup()">
                             <span class="mdi mdi-close"></span>
                         </div>
                     </div>
@@ -233,7 +231,7 @@
                 sharedButtonType="primary"
                 sharedButtonSize="medium"
                 sharedButtonHeight="52"
-                (click)="hidePopup('popup-privacy-service-terms')"
+                (click)="hidePopup()"
             >
                 <div>확인</div>
             </div>

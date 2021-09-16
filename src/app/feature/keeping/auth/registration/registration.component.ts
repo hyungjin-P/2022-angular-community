@@ -25,6 +25,8 @@ import { User } from '@schemas/user'
     styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
+    TAG = '회원가입'
+
     @ViewChild('popupPrivacyServiceTermsRef') popupPrivacyServiceTermsRef
 
     @ViewChildren('emailRef') emailList: QueryList<ElementRef>

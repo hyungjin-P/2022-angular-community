@@ -44,15 +44,7 @@ export class UserService {
 
         return this.http.put<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = this.storageService.getUser()
-                this.storageService.setUser({
-                    ...res.dataset[0],
-                    access_token: user['access_token'],
-                    refresh_token: user['refresh_token'],
-                    custom_token: user['custom_token'],
-                    sign_in_method: user['sign_in_method'],
-                })
-                return this.storageService.getUser()
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -112,10 +104,15 @@ export class UserService {
 class UpdateUserRequestBody {
     name?: string
     picture?: string
+    age?: number
     sex?: string
     birth_date?: string
-    fcm_token?: string
     color?: string
+    fcm_token?: string
+    agreement_age?: boolean
+    agreement_privacy?: boolean
+    agreement_service_terms?: boolean
+    agreement_marketing?: boolean
 }
 
 class ChangePasswordRequestBody {
