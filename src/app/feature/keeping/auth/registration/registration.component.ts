@@ -8,10 +8,16 @@ import {
     QueryList,
     ElementRef,
 } from '@angular/core'
-import { Observable, fromEvent, Subscription } from 'rxjs'
+import { Router } from '@angular/router'
+import { fromEvent, Subscription } from 'rxjs'
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators'
 
+import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
+
 import { AuthService } from '@services/auth.service'
+
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'registration',
@@ -46,20 +52,21 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
     confirmPasswordErrorText: string
     confirmPasswordVisible: boolean
 
-    passwordVerified: boolean
-
     agreementAll: boolean
     agreementAge: boolean
     agreementPrivacy: boolean
     agreementServiceTerms: boolean
     agreementMarketing: boolean
 
-    verifiedAll: boolean
-
     isPrivacyOpen: boolean
     isServiceTermsOpen: boolean
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private router: Router,
+        private globalService: GlobalService,
+        private storageService: StorageService,
+        private authService: AuthService
+    ) {}
 
     ngOnInit() {
         this.email = ''
@@ -82,15 +89,11 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
         this.confirmPasswordErrorText = ''
         this.confirmPasswordVisible = false
 
-        this.passwordVerified = false
-
         this.agreementAll = false
         this.agreementAge = false
         this.agreementPrivacy = false
         this.agreementServiceTerms = false
         this.agreementMarketing = false
-
-        this.verifiedAll = false
     }
 
     ngAfterViewInit() {
@@ -226,6 +229,29 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
             )
     }
 
+    registration() {
+        if (!this.formCheck()) {
+            return
+        }
+
+        this.authService
+            .registration({
+                email: this.email,
+                verification_code: Number(this.verificationCode),
+                password: this.password,
+            })
+            .subscribe(
+                (user: User) => {
+                    this.globalService.variables.isLogin = true
+                    this.storageService.setUser(user)
+                    this.router.navigateByUrl('/')
+                },
+                (e) => {
+                    this.globalService.showToast(e.message)
+                }
+            )
+    }
+
     startTimer() {
         this.timeLeft = 3 * 60
         this.interval = setInterval(() => {
@@ -256,8 +282,6 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
                 } else if (type == 'confirmPassword') {
                     this.checkConfirmPasswordPattern(this.confirmPassword)
                 }
-
-                this.verifiedAll = this.formCheck()
             }
         }
     }

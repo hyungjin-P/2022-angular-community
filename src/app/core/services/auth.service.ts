@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators'
 import handleError from './handleError'
 
 import { environment } from '@environments/environment'
-import { StorageService } from '@services/storage.service'
 
 import { Response } from '@schemas/response'
 import { User } from '@schemas/user'
@@ -14,7 +13,7 @@ import { User } from '@schemas/user'
     providedIn: 'root',
 })
 export class AuthService {
-    constructor(private http: HttpClient, private storageService: StorageService) {}
+    constructor(private http: HttpClient) {}
 
     signInWithFirebase(requestBody: SignInWithFirebaseRequestBody): Observable<User> {
         const url = environment['serverAddress'] + '/auth/firebase'
@@ -27,9 +26,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = res.dataset[0]
-                this.storageService.setUser(user)
-                return user
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -46,9 +43,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = res.dataset[0]
-                this.storageService.setUser(user)
-                return user
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -65,9 +60,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = res.dataset[0]
-                this.storageService.setUser(user)
-                return user
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -84,9 +77,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = res.dataset[0]
-                this.storageService.setUser(user)
-                return user
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -171,9 +162,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = res.dataset[0]
-                this.storageService.setUser(user)
-                return user
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -224,9 +213,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const user: User = res.dataset[0]
-                this.storageService.setUser(user)
-                return user
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
@@ -339,7 +326,6 @@ class RegistrationRequestBody {
     email: string
     verification_code: number
     password: string
-    name: string
 }
 
 class SendResetPasswordLinkMailRequestBody {

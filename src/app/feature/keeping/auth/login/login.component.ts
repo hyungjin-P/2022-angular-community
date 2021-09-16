@@ -11,6 +11,8 @@ import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
 
+import { User } from '@schemas/user'
+
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',
@@ -62,8 +64,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
                     user.getIdToken().then((accessToken) => {
                         this.authService.signInWithFirebase({ accessToken }).subscribe(
-                            (user) => {
+                            (user: User) => {
                                 this.globalService.variables.isLogin = true
+                                this.storageService.setUser(user)
                                 this.router.navigateByUrl('/')
                             },
                             (e) => {}
@@ -92,7 +95,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         this.signInMethod = 'email'
         this.authService.signInWithEmail({ email: this.email, password: this.password }).subscribe(
-            (user) => {
+            (user: User) => {
+                this.storageService.setUser(user)
                 this.angularFireAuth.signInWithCustomToken(user.custom_token)
             },
             (e) => {
@@ -135,7 +139,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         kakao$.subscribe(
             (user) => {
                 const accessToken = user['access_token']
-                this.authService.signInWithKakao({ accessToken }).subscribe((user) => {
+                this.authService.signInWithKakao({ accessToken }).subscribe((user: User) => {
+                    this.storageService.setUser(user)
                     this.angularFireAuth.signInWithCustomToken(user.custom_token)
                 })
             },
@@ -164,7 +169,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     _signInWithNaver(code: string) {
         this.naverLoginPopupWindowRef.close()
 
-        this.authService.signWithNaver({ code: code }).subscribe((user) => {
+        this.authService.signWithNaver({ code: code }).subscribe((user: User) => {
+            this.storageService.setUser(user)
             this.angularFireAuth.signInWithCustomToken(user.custom_token)
         })
     }

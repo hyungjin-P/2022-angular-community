@@ -202,7 +202,15 @@
                         sharedButtonType="primary"
                         sharedButtonSize="medium"
                         sharedButtonHeight="52"
-                        [sharedButtonDisabled]="!verifiedAll"
+                        [sharedButtonDisabled]="
+                            !emailVerified ||
+                            !passwordValid ||
+                            !confirmPasswordValid ||
+                            password != confirmPassword ||
+                            !agreementAge ||
+                            !agreementPrivacy ||
+                            !agreementServiceTerms
+                        "
                     >
                         <div>가입하기</div>
                     </div>
