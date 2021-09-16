@@ -25,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     sendResetPasswordLinkMail() {
-        if (!this.emailValid) {
+        if (!this.formCheck()) {
             return
         }
 

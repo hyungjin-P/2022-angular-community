@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 
 import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
 
@@ -32,6 +33,7 @@ export class ResetPasswordComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private globalService: GlobalService,
+        private storageService: StorageService,
         private authService: AuthService
     ) {}
 
@@ -74,6 +76,8 @@ export class ResetPasswordComponent implements OnInit {
 
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe(
             (user: User) => {
+                this.globalService.variables.isLogin = true
+                this.storageService.setUser(user)
                 this.router.navigateByUrl('/')
             },
             (e) => {
