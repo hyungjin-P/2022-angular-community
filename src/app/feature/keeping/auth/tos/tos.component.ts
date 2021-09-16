@@ -14,7 +14,7 @@ import { User } from '@schemas/user'
     styleUrls: ['./tos.component.scss'],
 })
 export class TosComponent implements OnInit {
-    TAG = 'TOS'
+    TAG = '서비스 이용약관'
 
     @ViewChild('popupPrivacyServiceTermsRef') popupPrivacyServiceTermsRef
 
