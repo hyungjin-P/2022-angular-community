@@ -239,6 +239,10 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
                 email: this.email,
                 verification_code: Number(this.verificationCode),
                 password: this.password,
+                agreement_age: this.agreementAge,
+                agreement_privacy: this.agreementPrivacy,
+                agreement_service_terms: this.agreementServiceTerms,
+                agreement_marketing: this.agreementMarketing,
             })
             .subscribe(
                 (user: User) => {

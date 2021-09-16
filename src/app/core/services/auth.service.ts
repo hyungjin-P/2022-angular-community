@@ -326,6 +326,10 @@ class RegistrationRequestBody {
     email: string
     verification_code: number
     password: string
+    agreement_age: boolean
+    agreement_privacy: boolean
+    agreement_service_terms: boolean
+    agreement_marketing: boolean
 }
 
 class SendResetPasswordLinkMailRequestBody {
