@@ -41,7 +41,7 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
             this.variables.isLogin = true
         }
 
-        this.isBannerVisible = true
+        this.isBannerVisible = false
         this.isHeaderVisible = false
         this.isBottomNavVisible = false
 

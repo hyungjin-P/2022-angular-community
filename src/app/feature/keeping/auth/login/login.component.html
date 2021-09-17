@@ -129,6 +129,31 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="login-button" (click)="signInWithNaver()">
+                    <img src="assets/icons/social/naver.png" />
+                    <div>네이버로 로그인</div>
+                    <div id="code" #code (click)="_signInWithNaver(code.innerText); code.innerText = ''"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="login-button" (click)="signInWithGoogle()">
+                    <img src="assets/icons/social/google.svg" />
+                    <div>Google로 로그인</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="login-button" (click)="signInWithApple()">
+                    <img src="assets/icons/social/apple.svg" />
+                    <div>Apple로 로그인</div>
+                </div>
+            </div>
+        </div>
         <div class="row d-none d-lg-flex">
             <div class="col">
                 <ng-container *ngTemplateOutlet="loginFormText2"></ng-container>
@@ -143,29 +168,3 @@
         <span class="shared-typo-body-m13" [routerLink]="['/auth/registration']">회원가입</span>
     </div>
 </ng-template>
-
-<!-- <div class="login full-absolute d-flex flex-column user-select-none">
-    <header></header>
-
-    <div class="flex-fill d-flex justify-content-center">
-        <div class="box d-flex flex-column">
-            <div class="button kakao d-flex justify-content-center align-items-center" (click)="signInWithKakao()">
-                <img src="assets/icons/social/kakao.svg" />
-                <span class="shared-typo-title2">카카오로 로그인</span>
-            </div>
-            <div class="button naver d-flex justify-content-center align-items-center" (click)="signInWithNaver()">
-                <img src="assets/icons/social/naver.png" />
-                <span class="shared-typo-title2">네이버로 로그인</span>
-                <div id="code" #code (click)="_signInWithNaver(code.innerText); code.innerText = ''"></div>
-            </div>
-            <div class="button google d-flex justify-content-center align-items-center" (click)="signInWithGoogle()">
-                <img src="assets/icons/social/google.svg" />
-                <span class="shared-typo-title2">Google로 로그인</span>
-            </div>
-            <div class="button apple d-flex justify-content-center align-items-center" (click)="signInWithApple()">
-                <img src="assets/icons/social/apple.svg" />
-                <span class="shared-typo-title2">Apple로 로그인</span>
-            </div>
-        </div>
-    </div>
-</div> -->
