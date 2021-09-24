@@ -15,6 +15,9 @@
         border: 1px solid var(--grey-6);
         border-radius: 4px;
         outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
 
         font-weight: 400;
         font-size: 14px;
