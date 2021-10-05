@@ -63,7 +63,7 @@
 
         .time {
             position: absolute;
-            top: 39px;
+            top: 40px;
             right: 72px;
 
             color: var(--grey-1);
@@ -211,6 +211,20 @@
         border-radius: 16px;
 
         color: var(--text-2);
+
+        .privacy-service-terms-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .close-icon {
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+
+                font-size: 22px;
+            }
+        }
 
         .privacy-service-terms-desc {
             margin-top: 8px;

@@ -103,7 +103,7 @@ export class TosComponent implements OnInit {
             this.agreementMarketing = !this.agreementMarketing
         }
 
-        if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms) {
+        if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms && this.agreementMarketing) {
             this.agreementAll = true
         } else {
             this.agreementAll = false

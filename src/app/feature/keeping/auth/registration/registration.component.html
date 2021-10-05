@@ -77,7 +77,7 @@
                         placeholder="인증번호를 입력해 주세요."
                         [(ngModel)]="verificationCode"
                         maxlength="6"
-                        info="메일에 발송된 인증번호 6자리를 입력해 주세요."
+                        info="입력하신 메일로 인증번호가 발송되었습니다. 메일에 포함된 인증번호 6자리를 입력해주세요."
                         [error]="verificationCodeErrorText"
                         (keypress)="checkDigit($event)"
                         (keyup)="onKeyup($event, 'verificationCode')"
@@ -230,7 +230,12 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="shared-typo-title-b20">약관 확인하기</div>
+                    <div class="privacy-service-terms-header">
+                        <div class="shared-typo-title-b20">약관 확인하기</div>
+                        <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
+                            <span class="mdi mdi-close"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -342,7 +347,9 @@
         size="small"
         shape="none"
     ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('privacy')">펼치기</div>
+    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('privacy')">
+        {{ isPrivacyOpen ? '닫기' : '펼치기' }}
+    </div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 서비스 이용 약관 동의"
@@ -350,7 +357,9 @@
         (click)="checkTerms('privacy')"
         shape="none"
     ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('privacy')">펼치기</div>
+    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('privacy')">
+        {{ isPrivacyOpen ? '닫기' : '펼치기' }}
+    </div>
 </ng-template>
 
 <ng-template #privacyServiceTermsAgreement3>
@@ -362,7 +371,9 @@
         size="small"
         shape="none"
     ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('service-terms')">펼치기</div>
+    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('service-terms')">
+        {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
+    </div>
     <shared-checkbox
         class="d-none d-sm-flex"
         text="[필수] 개인정보 수집 및 이용 동의"
@@ -370,7 +381,9 @@
         (click)="checkTerms('serviceTerms')"
         shape="none"
     ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('service-terms')">펼치기</div>
+    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('service-terms')">
+        {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
+    </div>
 </ng-template>
 
 <ng-template #privacyServiceTermsAgreement4>

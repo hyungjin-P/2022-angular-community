@@ -170,7 +170,14 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             (e) => {
                 this.emailValid = false
-                this.emailErrorText = e.message
+
+                if (e.code == 'FUNCTION:AUTH:004') {
+                    this.emailErrorText = '이미 가입된 이메일 주소 입니다.'
+                } else if (e.code == 'VALIDATOR:VALIDATE') {
+                    this.emailErrorText = '규칙에 맞는 이메일을 주소를 입력해주세요'
+                } else {
+                    this.emailErrorText = e.message
+                }
             }
         )
     }
@@ -226,7 +233,11 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.verificationCodeErrorText = ''
                 },
                 (e) => {
-                    this.verificationCodeErrorText = e.message
+                    if (e.code == 'FUNCTION:AUTH:005') {
+                        this.verificationCodeErrorText = '인증번호가 일치하지 않습니다. 다시 입력해주세요.'
+                    } else {
+                        this.verificationCodeErrorText = e.message
+                    }
                 }
             )
     }
@@ -352,13 +363,13 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '공백을 포함할 수 없습니다.'
+            this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
         } else if (password.length < 8) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상입니다.'
-        } else if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+        } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
+            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
         }
 
         this.checkConfirmPasswordPattern(this.confirmPassword)
@@ -392,13 +403,13 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         } else if (pattern4.test(password)) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '공백을 포함할 수 없습니다.'
+            this.confirmPasswordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
         } else if (password.length < 8) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '비밀번호는 8자 이상입니다.'
-        } else if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+        } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
+            this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
         }
 
         return isValid
@@ -437,7 +448,7 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
             this.agreementMarketing = !this.agreementMarketing
         }
 
-        if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms) {
+        if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms && this.agreementMarketing) {
             this.agreementAll = true
         } else {
             this.agreementAll = false
