@@ -67,22 +67,6 @@ export class UserService {
         )
     }
 
-    checkPasswrod(userId: string, requestBody: { password: string }): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/check-password`
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
-
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
-    }
-
     changePassword(userId: string, requestBody: ChangePasswordRequestBody): Observable<Response> {
         const url = environment['serverAddress'] + `/users/${userId}/change-password`
 

@@ -306,7 +306,7 @@ class SignInWithEmailRequestBody {
 }
 
 class RefreshRequestBody {
-    accessToken: string
+    refreshToken: string
 }
 
 class CheckDuplicateMailRequestBody {
