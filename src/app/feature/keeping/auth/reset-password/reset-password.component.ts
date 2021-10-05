@@ -76,6 +76,10 @@ export class ResetPasswordComponent implements OnInit {
 
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe(
             (user: User) => {
+                this.globalService.showModal({
+                    text: '비밀번호 변경이 완료되었습니다.',
+                })
+
                 this.globalService.variables.isLogin = true
                 this.storageService.setUser(user)
                 this.router.navigateByUrl('/')
@@ -138,13 +142,13 @@ export class ResetPasswordComponent implements OnInit {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '공백을 포함할 수 없습니다.'
+            this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
         } else if (password.length < 8) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상입니다.'
-        } else if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+        } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
+            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
         }
 
         this.checkConfirmPasswordPattern(this.confirmPassword)
@@ -178,13 +182,13 @@ export class ResetPasswordComponent implements OnInit {
             }
         } else if (pattern4.test(password)) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '공백을 포함할 수 없습니다.'
+            this.confirmPasswordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
         } else if (password.length < 8) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '비밀번호는 8자 이상입니다.'
-        } else if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+        } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
+            this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
         }
 
         return isValid

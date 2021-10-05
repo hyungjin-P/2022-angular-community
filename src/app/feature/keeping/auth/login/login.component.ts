@@ -245,13 +245,13 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '공백을 포함할 수 없습니다.'
+            this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
         } else if (password.length < 8) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상입니다.'
-        } else if (!pattern1.test(password) || !pattern2.test(password) || !pattern3.test(password)) {
+            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+        } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '영어, 숫자, 특수문자가 모두 포함되어야 합니다.'
+            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
         }
 
         return isValid
