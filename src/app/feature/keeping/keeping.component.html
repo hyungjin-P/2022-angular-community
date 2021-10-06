@@ -1,15 +1,4 @@
 <div class="full-absolute" #keeping>
-    <div class="banner" *ngIf="isBannerVisible">
-        <div #bannerElement>
-            <div class="text">
-                <span>신규회원</span>
-                <span>중고마켓 무료배송 쿠폰!</span>
-            </div>
-            <div class="close-all-day d-none d-lg-block" (click)="closeBannerAllDay()">하루동안 보지않기</div>
-            <span class="mdi mdi-close" (click)="closeBanner()"></span>
-        </div>
-    </div>
-
     <div class="header" [class.header-show]="isHeaderVisible">
         <header></header>
     </div>

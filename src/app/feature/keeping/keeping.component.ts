@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } fr
 import { Router } from '@angular/router'
 import { Subscription, fromEvent, interval, scheduled, asapScheduler } from 'rxjs'
 import { throttle, map, switchMap, takeUntil, take, share, mergeAll } from 'rxjs/operators'
-import * as moment from 'moment-timezone'
 
 import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
@@ -16,12 +15,10 @@ import { User } from '@schemas/user'
 })
 export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('keeping') keeping: ElementRef
-    @ViewChild('bannerElement') bannerElement: ElementRef
 
     variables: any
     user: User
 
-    isBannerVisible: boolean
     isHeaderVisible: boolean
     isBottomNavVisible: boolean
 
@@ -41,7 +38,6 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
             this.variables.isLogin = true
         }
 
-        this.isBannerVisible = false
         this.isHeaderVisible = false
         this.isBottomNavVisible = false
 
@@ -57,34 +53,6 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.scrollSubscription.unsubscribe()
         this.carouselSubscription.unsubscribe()
-    }
-
-    setBanner() {
-        const bannerClosedAt = localStorage.getItem('bannerClosedAt')
-        if (bannerClosedAt) {
-            const now = moment().format('YYYY-MM-DD HH:mm:ss')
-            const _bannerClosedAt = moment(bannerClosedAt, 'x').format('yyyy-MM-DD HH:mm:ss')
-            const diff = moment(now).diff(_bannerClosedAt, 'hours')
-
-            if (diff >= 24) {
-                this.isBannerVisible = true
-                localStorage.removeItem('bannerClosedAt')
-            } else {
-                this.isBannerVisible = false
-            }
-        }
-    }
-
-    closeBannerAllDay() {
-        localStorage.setItem('bannerClosedAt', Date.now() + '')
-        this.closeBanner()
-    }
-
-    closeBanner() {
-        this.bannerElement.nativeElement.style.height = '0'
-        setTimeout(() => {
-            this.isBannerVisible = false
-        }, 200)
     }
 
     scrollTop() {
