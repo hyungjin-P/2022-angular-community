@@ -8,19 +8,19 @@ import { CommonModule } from '../common/common.module'
 
 import { LoginComponent } from './login/login.component'
 import { CallbackComponent } from './callback/callback.component'
-import { TosComponent } from './tos/tos.component'
 import { RegistrationComponent } from './registration/registration.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { ResetPasswordComponent } from './reset-password/reset-password.component'
+import { ServiceTermsComponent } from './service-terms/service-terms.component'
 
 @NgModule({
     declarations: [
         LoginComponent,
         CallbackComponent,
-        TosComponent,
         RegistrationComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
+        ServiceTermsComponent,
     ],
     imports: [AuthRoutingModule, SharedModule, CommonModule],
     exports: [],

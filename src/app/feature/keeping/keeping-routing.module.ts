@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 
 import { AuthGuard } from '@services/guards/auth.guard'
-import { TosGuard } from '@services/guards/tos.guard'
+import { ServiceTermsGuard } from '@services/guards/service-terms.guard'
 
 import { KeepingComponent } from './keeping.component'
 
@@ -25,7 +25,7 @@ import { SearchComponent } from './search/search.component'
 const routes: Routes = [
     {
         path: '',
-        canActivate: [TosGuard],
+        canActivate: [ServiceTermsGuard],
         component: KeepingComponent,
         children: [
             { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -44,7 +44,7 @@ const routes: Routes = [
         ],
     },
 
-    { path: 'search', canActivate: [TosGuard], component: SearchComponent },
+    { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 
     {
         path: 'auth',

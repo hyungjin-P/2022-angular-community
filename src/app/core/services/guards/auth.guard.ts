@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
         if (user) {
             if (url[1] == 'auth') {
                 if (
-                    url[2] == 'tos' &&
+                    url[2] == 'service-terms' &&
                     (!user.agreement_age || !user.agreement_privacy || !user.agreement_service_terms)
                 ) {
                     return true

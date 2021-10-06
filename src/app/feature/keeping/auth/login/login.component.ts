@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                             (user: User) => {
                                 this.globalService.variables.isLogin = true
                                 this.storageService.setUser(user)
-                                this.router.navigateByUrl('/auth/tos')
+                                this.router.navigateByUrl('/auth/service-terms')
                             },
                             (e) => {
                                 this.globalService.showToast(e.message)
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 } else {
                     if (this.signInMethod == 'kakao' || this.signInMethod == 'naver') {
                         this.globalService.variables.isLogin = true
-                        this.router.navigateByUrl('/auth/tos')
+                        this.router.navigateByUrl('/auth/service-terms')
                     } else {
                         this.globalService.variables.isLogin = true
                         this.router.navigateByUrl('/')

@@ -9,11 +9,11 @@ import { UserService } from '@services/user.service'
 import { User } from '@schemas/user'
 
 @Component({
-    selector: 'tos',
-    templateUrl: './tos.component.html',
-    styleUrls: ['./tos.component.scss'],
+    selector: 'service-terms',
+    templateUrl: './service-terms.component.html',
+    styleUrls: ['./service-terms.component.scss'],
 })
-export class TosComponent implements OnInit {
+export class ServiceTermsComponent implements OnInit {
     TAG = '서비스 이용약관'
 
     @ViewChild('popupPrivacyServiceTermsRef') popupPrivacyServiceTermsRef
