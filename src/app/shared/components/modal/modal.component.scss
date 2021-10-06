@@ -7,7 +7,7 @@
     left: 0;
     background-color: var(--black);
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.1s;
     z-index: 999;
 }
 
@@ -22,6 +22,7 @@
     right: 0;
     bottom: 0;
     left: 0;
+    outline: none;
     z-index: 1000;
 
     .shared-modal {
@@ -32,7 +33,7 @@
             0px 0px 1px rgba(0, 0, 0, 0.2);
         border-radius: 16px;
         opacity: 0;
-        transition: opacity 0s;
+        transition: opacity 0.1s;
 
         .text {
             display: flex;

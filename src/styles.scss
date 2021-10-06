@@ -14,7 +14,7 @@
     --blue-3: #567dff;
 
     // Secondary
-    --blue-1: #0c63de;
+    --blue-1: #1c4fcd;
     --blue-2: #396ae6;
     --blue-4: #6297ff;
     --blue-5: #7baeff;
@@ -66,6 +66,18 @@
     line-height: 34px;
 }
 
+.shared-typo-title-b28 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+}
+
+.shared-typo-title-b36 {
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 48px;
+}
+
 // Description - Regular
 .shared-typo-desc-r12 {
     font-weight: 400;
@@ -90,49 +102,44 @@
 .shared-typo-body-r11 {
     font-weight: 400;
     font-size: 11px;
-    line-height: 18px;
+    line-height: 19px;
 }
 
 .shared-typo-body-r12 {
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-r13 {
     font-weight: 400;
     font-size: 13px;
-    line-height: 20px;
-    letter-spacing: -0.2px;
+    line-height: 21px;
 }
 
 .shared-typo-body-r14 {
     font-weight: 400;
     font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.2px;
+    line-height: 22px;
 }
 
 .shared-typo-body-r16 {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-r18 {
     font-weight: 400;
     font-size: 18px;
     line-height: 26px;
-    letter-spacing: -0.2px;
 }
 
 // Body - Medium
 .shared-typo-body-m11 {
     font-weight: 500;
     font-size: 11px;
-    line-height: 18px;
+    line-height: 19px;
 }
 
 .shared-typo-body-m12 {
@@ -144,84 +151,74 @@
 .shared-typo-body-m13 {
     font-weight: 500;
     font-size: 13px;
-    line-height: 20px;
-    letter-spacing: -0.2px;
+    line-height: 21px;
 }
 
 .shared-typo-body-m14 {
     font-weight: 500;
     font-size: 14px;
     line-height: 22px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-m15 {
     font-weight: 500;
     font-size: 15px;
     line-height: 22px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-m16 {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-m18 {
     font-weight: 500;
     font-size: 18px;
     line-height: 26px;
-    letter-spacing: -0.2px;
 }
 
 // Body - Bold
 .shared-typo-body-b11 {
     font-weight: 700;
     font-size: 11px;
-    line-height: 18px;
+    line-height: 19px;
 }
 
 .shared-typo-body-b12 {
     font-weight: 700;
     font-size: 12px;
     line-height: 20px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-b13 {
     font-weight: 700;
     font-size: 13px;
-    line-height: 20px;
+    line-height: 21px;
 }
 
 .shared-typo-body-b14 {
     font-weight: 700;
     font-size: 14px;
     line-height: 22px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-b15 {
     font-weight: 700;
     font-size: 15px;
     line-height: 22px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-b16 {
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: -0.2px;
 }
 
 .shared-typo-body-b18 {
     font-weight: 700;
     font-size: 18px;
     line-height: 26px;
-    letter-spacing: -0.2px;
 }
 
 // Tooltip
@@ -442,7 +439,6 @@
         font-weight: 500;
         font-size: 14px;
         line-height: 22px;
-        letter-spacing: -0.2px;
     }
 }
 
@@ -456,7 +452,6 @@
         font-weight: 500;
         font-size: 15px;
         line-height: 22px;
-        letter-spacing: -0.2px;
     }
 }
 
@@ -470,7 +465,6 @@
         font-weight: 500;
         font-size: 18px;
         line-height: 26px;
-        letter-spacing: -0.2px;
     }
 }
 

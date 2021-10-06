@@ -50,17 +50,15 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'd-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'd-flex')
                 this.modalWrapperElement.nativeElement.focus()
-                setTimeout(() => {
-                    this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
-                    this.renderer.addClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
-                }, 0)
+
+                this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
+                this.renderer.addClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'shared-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'shared-modal-wrapper-show')
-                setTimeout(() => {
-                    this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'd-block')
-                    this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'd-flex')
-                }, 200)
+
+                this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'd-block')
+                this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'd-flex')
             }
         }
     }
