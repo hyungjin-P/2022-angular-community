@@ -7,7 +7,7 @@
     top: -60px;
     right: 0;
     left: 0;
-    transition: top 0.2s ease-in;
+    // transition: top 0.2s linear;
     z-index: 1;
 }
 
@@ -20,7 +20,7 @@
     right: 0;
     bottom: -60px;
     left: 0;
-    transition: bottom 0.2s ease-in;
+    // transition: bottom 0.2s linear;
     z-index: 1;
 }
 
