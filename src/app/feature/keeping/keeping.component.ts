@@ -61,15 +61,14 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
                 return
             }
 
-            if (diff < 0) {
-                // downward
-                this.isHeaderFixedVisible = true
-                this.isBottomNavFixedVisible = false
-            } else {
-                // upward
-                this.isHeaderFixedVisible = false
-
-                if (this.variables.isTouchScreen) {
+            if (this.variables.isTouchScreen) {
+                if (diff < 0) {
+                    // downward
+                    this.isHeaderFixedVisible = true
+                    this.isBottomNavFixedVisible = false
+                } else {
+                    // upward
+                    this.isHeaderFixedVisible = false
                     this.isBottomNavFixedVisible = true
                 }
             }
