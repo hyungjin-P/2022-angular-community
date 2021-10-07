@@ -8,19 +8,15 @@ import { KeepingComponent } from './keeping.component'
 
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
-import { CommunityComponent } from './children/community/community.component'
-import { MarketComponent } from './children/market/market.component'
-import { MagazineComponent } from './children/magazine/magazine.component'
-
-import { NotificationComponent } from './children/notification/notification.component'
 import { WriteComponent } from './children/write/write.component'
-import { ScrapComponent } from './children/scrap/scrap.component'
+import { CommunityComponent } from './children/community/community.component'
 
-import { MyInfoComponent } from './children/my-info/my-info.component'
+import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
 
 import { SearchComponent } from './search/search.component'
+import { NotificationComponent } from './children/notification/notification.component'
 
 const routes: Routes = [
     {
@@ -30,17 +26,14 @@ const routes: Routes = [
         children: [
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'feed', component: FeedComponent },
-            { path: 'community', component: CommunityComponent },
-            { path: 'market', component: MarketComponent },
-            { path: 'magazine', component: MagazineComponent },
-
-            { path: 'notification', component: NotificationComponent },
             { path: 'write', component: WriteComponent },
-            { path: 'scrap', component: ScrapComponent },
+            { path: 'community', component: CommunityComponent },
 
-            { path: 'my-info', component: MyInfoComponent },
+            { path: 'mypage', component: MypageComponent },
             { path: 'privacy', component: PrivacyComponent },
             { path: 'service-terms', component: ServiceTermsComponent },
+
+            { path: 'notification', component: NotificationComponent },
         ],
     },
 

@@ -9,19 +9,15 @@ import { CommonModule } from './common/common.module'
 
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
-import { CommunityComponent } from './children/community/community.component'
-import { MarketComponent } from './children/market/market.component'
-import { MagazineComponent } from './children/magazine/magazine.component'
-
-import { NotificationComponent } from './children/notification/notification.component'
 import { WriteComponent } from './children/write/write.component'
-import { ScrapComponent } from './children/scrap/scrap.component'
+import { CommunityComponent } from './children/community/community.component'
 
-import { MyInfoComponent } from './children/my-info/my-info.component'
+import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
 
 import { SearchComponent } from './search/search.component'
+import { NotificationComponent } from './children/notification/notification.component'
 
 @NgModule({
     declarations: [
@@ -29,19 +25,15 @@ import { SearchComponent } from './search/search.component'
 
         HomeComponent,
         FeedComponent,
-        CommunityComponent,
-        MarketComponent,
-        MagazineComponent,
-
-        NotificationComponent,
         WriteComponent,
-        ScrapComponent,
+        CommunityComponent,
 
-        MyInfoComponent,
+        MypageComponent,
         PrivacyComponent,
         ServiceTermsComponent,
 
         SearchComponent,
+        NotificationComponent,
     ],
     imports: [KeepingRoutingModule, SharedModule, CommonModule],
     exports: [],

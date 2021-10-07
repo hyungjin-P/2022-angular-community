@@ -5,11 +5,11 @@ import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 @Component({
-    selector: 'my-info',
-    templateUrl: './my-info.component.html',
-    styleUrls: ['./my-info.component.scss'],
+    selector: 'mypage',
+    templateUrl: './mypage.component.html',
+    styleUrls: ['./mypage.component.scss'],
 })
-export class MyInfoComponent implements OnInit {
+export class MypageComponent implements OnInit {
     constructor(private globalService: GlobalService, private router: Router, private storageService: StorageService) {}
 
     ngOnInit() {}

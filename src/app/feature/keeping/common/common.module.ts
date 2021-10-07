@@ -6,13 +6,13 @@ import { SharedModule } from '@shared/shared.module'
 
 import { HeaderComponent } from './header/header.component'
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component'
-import { PrivacyFragmentComponent } from './privacy-fragment/privacy-fragment.component'
-import { ServiceTermsFragmentComponent } from './service-terms-fragment/service-terms-fragment.component'
+import { PrivacyComponent } from './privacy/privacy.component'
+import { ServiceTermsComponent } from './service-terms/service-terms.component'
 
 @NgModule({
-    declarations: [HeaderComponent, BottomNavComponent, PrivacyFragmentComponent, ServiceTermsFragmentComponent],
+    declarations: [HeaderComponent, BottomNavComponent, PrivacyComponent, ServiceTermsComponent],
     imports: [RouterModule, SharedModule],
-    exports: [HeaderComponent, BottomNavComponent, PrivacyFragmentComponent, ServiceTermsFragmentComponent],
+    exports: [HeaderComponent, BottomNavComponent, PrivacyComponent, ServiceTermsComponent],
     providers: [],
 })
 export class CommonModule {}
