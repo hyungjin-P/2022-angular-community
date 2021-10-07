@@ -4,15 +4,15 @@ import { RouterModule } from '@angular/router'
 
 import { SharedModule } from '@shared/shared.module'
 
-import { FooterComponent } from './footer/footer.component'
 import { HeaderComponent } from './header/header.component'
+import { BottomNavComponent } from './bottom-nav/bottom-nav.component'
 import { PrivacyFragmentComponent } from './privacy-fragment/privacy-fragment.component'
 import { ServiceTermsFragmentComponent } from './service-terms-fragment/service-terms-fragment.component'
 
 @NgModule({
-    declarations: [FooterComponent, HeaderComponent, PrivacyFragmentComponent, ServiceTermsFragmentComponent],
+    declarations: [HeaderComponent, BottomNavComponent, PrivacyFragmentComponent, ServiceTermsFragmentComponent],
     imports: [RouterModule, SharedModule],
-    exports: [FooterComponent, HeaderComponent, PrivacyFragmentComponent, ServiceTermsFragmentComponent],
+    exports: [HeaderComponent, BottomNavComponent, PrivacyFragmentComponent, ServiceTermsFragmentComponent],
     providers: [],
 })
 export class CommonModule {}

@@ -1,14 +1,14 @@
 :host > div {
     overflow-x: hidden;
-    background-color: var(--white);
+    background-color: #f6f6f6;
 }
 
 .header {
     position: fixed;
-    top: -58px;
+    top: -60px;
     right: 0;
     left: 0;
-    transition: top 0.2s linear;
+    transition: top 0.2s ease-in;
     z-index: 1;
 }
 
@@ -19,71 +19,14 @@
 .bottom-nav {
     position: fixed;
     right: 0;
-    bottom: -58px;
+    bottom: -60px;
     left: 0;
-    // transition: bottom 0.2s linear;
-
-    > div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 58px;
-        background: #ffffff;
-        box-shadow: 0px -3px 10px rgba(168, 168, 168, 0.25);
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 62px;
-            outline: none;
-
-            div {
-                margin-top: 4px;
-
-                font-weight: 500;
-                font-size: 10px;
-                line-height: 12px;
-                color: var(--grey-3);
-            }
-        }
-
-        .selected {
-            svg {
-                fill: var(--blue-3);
-                stroke: var(--blue-3);
-            }
-
-            div {
-                color: var(--blue-3);
-            }
-        }
-    }
+    transition: bottom 0.2s ease-in;
+    z-index: 1;
 }
 
 .bottom-nav-show {
     bottom: 0px !important;
-}
-
-@media (min-width: 576px) {
-    .bottom-nav {
-        > div {
-            .menu {
-                width: 105px;
-            }
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .bottom-nav {
-        > div {
-            .menu {
-                width: 144px;
-            }
-        }
-    }
 }
 
 @media (min-width: 992px) {
@@ -112,36 +55,6 @@
         /* Handle on hover */
         &::-webkit-scrollbar-thumb:hover {
             background-color: #c9c9c9;
-        }
-    }
-
-    .header {
-        top: -71px;
-
-        .leading,
-        .action {
-            height: 70px;
-        }
-
-        .leading {
-            .nav {
-                align-items: center;
-                margin-left: 51px;
-                height: 70px;
-
-                .menu {
-                    padding: 16px;
-                    height: 48px;
-
-                    font-weight: 700;
-                    font-size: 16px;
-                    line-height: 16px;
-                }
-
-                .selected {
-                    text-underline-offset: 24px;
-                }
-            }
         }
     }
 }

@@ -1,12 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core'
-import { Router } from '@angular/router'
-import { Subscription, fromEvent, interval, scheduled, asapScheduler } from 'rxjs'
-import { throttle, map, switchMap, takeUntil, take, share, mergeAll } from 'rxjs/operators'
+import { Subscription, fromEvent, interval } from 'rxjs'
+import { throttle } from 'rxjs/operators'
 
 import { GlobalService } from '@services/global.service'
-import { StorageService } from '@services/storage.service'
-
-import { User } from '@schemas/user'
 
 @Component({
     selector: 'keeping',
@@ -17,42 +13,30 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('keeping') keeping: ElementRef
 
     variables: any
-    user: User
-
-    isHeaderVisible: boolean
-    isBottomNavVisible: boolean
 
     scrollSubscription: Subscription
     previousScrollTop: number
     currentScrollTop: number
+    isHeaderVisible: boolean
+    isBottomNavVisible: boolean
 
-    carouselSubscription: Subscription
-
-    constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {}
+    constructor(private globalService: GlobalService) {}
 
     ngOnInit(): void {
         this.variables = this.globalService.variables
-        this.user = this.storageService.getUser()
-
-        if (this.user) {
-            this.variables.isLogin = true
-        }
-
-        this.isHeaderVisible = false
-        this.isBottomNavVisible = false
 
         this.previousScrollTop = 0
         this.currentScrollTop = 0
+        this.isHeaderVisible = false
+        this.isBottomNavVisible = false
     }
 
     ngAfterViewInit() {
-        this.setScrollStream()
-        this.setCarousel()
+        this.setScrollEvent()
     }
 
     ngOnDestroy() {
         this.scrollSubscription.unsubscribe()
-        this.carouselSubscription.unsubscribe()
     }
 
     scrollTop() {
@@ -62,7 +46,7 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
         })
     }
 
-    setScrollStream() {
+    setScrollEvent() {
         const THRESHOLD = 150
 
         const scroll$ = fromEvent(this.keeping.nativeElement, 'scroll')
@@ -90,101 +74,5 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             }
         })
-    }
-
-    setCarousel() {
-        const SUPPORT_TOUCH = 'ontouchstart' in window
-        const EVENTS = {
-            start: SUPPORT_TOUCH ? 'touchstart' : 'mousedown',
-            move: SUPPORT_TOUCH ? 'touchmove' : 'mousemove',
-            end: SUPPORT_TOUCH ? 'touchend' : 'mouseup',
-        }
-
-        let start$ = fromEvent(this.keeping.nativeElement, EVENTS.start).pipe(this.toPos)
-        let move$ = fromEvent(this.keeping.nativeElement, EVENTS.move).pipe(this.toPos)
-        let end$ = fromEvent(this.keeping.nativeElement, EVENTS.end)
-
-        let drag$ = start$.pipe(
-            switchMap((start: any) =>
-                move$.pipe(
-                    map((move: number) => move - start),
-                    takeUntil(end$)
-                )
-            ),
-            share(),
-            map((distance) => ({
-                distance,
-                dropped: false,
-            }))
-        )
-
-        let drop$ = drag$.pipe(
-            switchMap((drag) =>
-                end$.pipe(
-                    map((event) => drag),
-                    take(1)
-                )
-            ),
-            map(({ distance }) => ({
-                distance,
-                dropped: true,
-            }))
-        )
-
-        let carousel$ = scheduled([drag$, drop$], asapScheduler).pipe(
-            mergeAll(),
-            map(({ distance, dropped }) => {
-                if (dropped == false) {
-                } else {
-                    const THRESHOLD = 30
-                    if (Math.abs(distance) >= THRESHOLD) {
-                        if (distance >= 0) {
-                            // Left
-                            this.variables.navMenuIndex = this.variables.navMenuIndex - 1
-                            if (this.variables.navMenuIndex < 0) {
-                                this.variables.navMenuIndex = this.variables.navMenu.length - 1
-                            }
-                        } else {
-                            // Right
-                            this.variables.navMenuIndex = this.variables.navMenuIndex + 1
-                            if (this.variables.navMenuIndex > this.variables.navMenu.length - 1) {
-                                this.variables.navMenuIndex = 0
-                            }
-                        }
-                    }
-                }
-
-                return {
-                    distance,
-                    dropped,
-                }
-            })
-        )
-
-        this.carouselSubscription = carousel$.subscribe((v) => {
-            let url = this.router.url
-            let path = this.variables.navMenu[this.variables.navMenuIndex]
-
-            if (url != path && this.variables.navMenu.indexOf(url) > -1) {
-                this.router.navigateByUrl(path)
-            }
-        })
-    }
-
-    changeIndex(url: string) {
-        if (this.variables.navMenu.indexOf(url) > -1) {
-            this.variables.navMenuIndex = this.variables.navMenu.indexOf(url)
-        }
-    }
-
-    toPos(obs$) {
-        const SUPPORT_TOUCH = 'ontouchstart' in window
-        return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)))
-    }
-
-    async logout() {
-        this.globalService.variables.isLogin = false
-        await this.storageService.removeUser()
-        this.router.navigateByUrl('/')
     }
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
+
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'header',
@@ -9,16 +13,22 @@ import { GlobalService } from '@services/global.service'
 })
 export class HeaderComponent implements OnInit {
     variables: any
+    user: User
 
-    constructor(private globalService: GlobalService) {}
+    constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {}
 
     ngOnInit() {
         this.variables = this.globalService.variables
+        this.user = this.storageService.getUser()
+
+        if (this.user) {
+            this.variables.isLogin = true
+        }
     }
 
-    changeIndex(url: string) {
-        if (this.variables.navMenu.indexOf(url) > -1) {
-            this.variables.navMenuIndex = this.variables.navMenu.indexOf(url)
-        }
+    async logout() {
+        this.globalService.variables.isLogin = false
+        await this.storageService.removeUser()
+        this.router.navigateByUrl('/')
     }
 }

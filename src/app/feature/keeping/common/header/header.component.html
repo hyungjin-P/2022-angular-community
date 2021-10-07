@@ -1,135 +1,21 @@
 <div class="header">
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="leading">
                     <img src="assets/images/logo/header_logo.svg" />
-                    <div class="nav d-none d-lg-flex">
-                        <div
-                            class="menu shared-typo-body-b16"
-                            [routerLink]="['/']"
-                            routerLinkActive="selected"
-                            [routerLinkActiveOptions]="{ exact: true }"
-                            (click)="changeIndex('/')"
-                        >
-                            홈
-                        </div>
-                        <div
-                            class="menu shared-typo-body-b16"
-                            [routerLink]="['/feed']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/feed')"
-                        >
-                            피드
-                        </div>
-                        <div
-                            class="menu shared-typo-body-b16"
-                            [routerLink]="['/community']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/community')"
-                        >
-                            커뮤니티
-                        </div>
-                        <div
-                            class="menu shared-typo-body-b16"
-                            [routerLink]="['/market']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/market')"
-                        >
-                            중고마켓
-                        </div>
-                        <div
-                            class="menu shared-typo-body-b16"
-                            [routerLink]="['/magazine']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/magazine')"
-                        >
-                            매거진
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="action">
-                    <svg class="keeping-icon" [routerLink]="['/search']">
-                        <use xlink:href="assets/icons/etc/search.svg#icon" />
-                    </svg>
-                    <div
-                        class="login d-none d-lg-flex"
-                        shared-button
-                        sharedButtonType="primary"
-                        sharedButtonSize="xsmall"
-                        sharedButtonWidth="101"
-                        sharedButtonHeight="32"
-                        [routerLink]="['/auth/login']"
-                    >
-                        <div>로그인/가입</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="row d-lg-none">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row d-none d-lg-flex">
-            <div class="col-8">
-                <div class="leading">
-                    <img src="assets/images/logo/header_logo.svg" />
-                    <div class="nav">
-                        <div
-                            class="menu"
-                            [routerLink]="['/']"
-                            routerLinkActive="selected"
-                            [routerLinkActiveOptions]="{ exact: true }"
-                            (click)="changeIndex('/')"
-                        >
-                            홈
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/feed']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/feed')"
-                        >
-                            피드
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/community']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/community')"
-                        >
-                            커뮤니티
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/market']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/market')"
-                        >
-                            중고마켓
-                        </div>
-                        <div
-                            class="menu"
-                            [routerLink]="['/magazine']"
-                            routerLinkActive="selected"
-                            (click)="changeIndex('/magazine')"
-                        >
-                            매거진
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-4">
+                <div class="center"></div>
+            </div>
+            <div class="col-4">
                 <div class="action">
-                    <svg class="icon-hover" [routerLink]="['/search']">
+                    <svg class="svg-icon" [routerLink]="['/search']">
                         <use xlink:href="assets/icons/etc/search.svg#icon" />
                     </svg>
-                    <div class="login" [routerLink]="['/auth/login']">로그인/가입</div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>

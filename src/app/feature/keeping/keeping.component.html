@@ -7,52 +7,7 @@
         <router-outlet></router-outlet>
     </div>
 
-    <footer (scrollTop)="scrollTop()"></footer>
-
     <div class="bottom-nav" [class.bottom-nav-show]="isBottomNavVisible">
-        <div>
-            <div
-                class="menu"
-                [routerLink]="['/']"
-                routerLinkActive="selected"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="changeIndex('/')"
-            >
-                <svg class="keeping-icon">
-                    <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
-                </svg>
-                <div>홈</div>
-            </div>
-            <div class="menu" [routerLink]="['/notification']" routerLinkActive="selected">
-                <svg class="keeping-icon">
-                    <use xlink:href="assets/icons/bottom-nav/alarm.svg#icon" />
-                </svg>
-                <div>알림</div>
-            </div>
-            <div class="menu" [routerLink]="['/write']" routerLinkActive="selected">
-                <svg class="keeping-icon">
-                    <use xlink:href="assets/icons/bottom-nav/pencil.svg#icon" />
-                </svg>
-                <div>글쓰기</div>
-            </div>
-            <div class="menu" [routerLink]="['/scrap']" routerLinkActive="selected">
-                <svg class="keeping-icon">
-                    <use xlink:href="assets/icons/bottom-nav/clip.svg#icon" />
-                </svg>
-                <div>스크랩</div>
-            </div>
-            <div class="menu" *ngIf="!variables.isLogin" [routerLink]="['/auth/login']" routerLinkActive="selected">
-                <svg class="keeping-icon">
-                    <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
-                </svg>
-                <div>로그인</div>
-            </div>
-            <div class="menu" *ngIf="variables.isLogin" [routerLink]="['/my-info']" routerLinkActive="selected">
-                <svg class="keeping-icon">
-                    <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
-                </svg>
-                <div>내 정보</div>
-            </div>
-        </div>
+        <bottom-nav></bottom-nav>
     </div>
 </div>
