@@ -26,6 +26,10 @@ export class HeaderComponent implements OnInit {
         }
     }
 
+    openNav() {
+        this.variables.isNavOpen = !this.variables.isNavOpen
+    }
+
     async logout() {
         this.globalService.variables.isLogin = false
         await this.storageService.removeUser()

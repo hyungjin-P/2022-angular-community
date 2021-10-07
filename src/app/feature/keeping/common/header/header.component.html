@@ -1,21 +1,16 @@
 <div class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <div class="leading">
-                    <img src="assets/images/logo/header_logo.svg" />
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="center"></div>
-            </div>
-            <div class="col-4">
-                <div class="action">
-                    <svg class="svg-icon" [routerLink]="['/search']">
-                        <use xlink:href="assets/icons/etc/search.svg#icon" />
-                    </svg>
-                </div>
-            </div>
+    <div class="leading">
+        <div class="burger-menu d-none d-lg-flex" (click)="openNav()">
+            <img src="assets/icons/nav/burger-menu.svg" />
         </div>
+        <div class="logo">
+            <img src="assets/images/logo/header_logo.svg" [routerLink]="['/']" />
+        </div>
+    </div>
+    <div class="center"></div>
+    <div class="action">
+        <svg class="svg-icon d-flex d-lg-none" [routerLink]="['/search']">
+            <use xlink:href="assets/icons/etc/search.svg#icon" />
+        </svg>
     </div>
 </div>

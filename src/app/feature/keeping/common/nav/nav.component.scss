@@ -1,0 +1,76 @@
+.nav {
+    padding: 14px 16px;
+    width: 84px;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 1px 10px 10px rgba(126, 126, 126, 0.1);
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 6px 0 6px 0;
+        width: 52px;
+        height: 54px;
+        border-radius: 12px;
+        cursor: pointer;
+
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            outline: none;
+
+            .fill {
+                stroke: var(--text-2);
+                fill: var(--white);
+            }
+
+            .stroke,
+            .stroke-blue3,
+            .stroke-blue7 {
+                stroke: var(--text-2);
+            }
+        }
+
+        .text {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
+            color: var(--grey-1);
+        }
+    }
+
+    .selected {
+        border: 1px solid var(--blue-8);
+        background-color: var(--blue-9);
+
+        .svg-icon {
+            .fill {
+                stroke: var(--blue-3);
+                fill: var(--blue-3);
+            }
+
+            .stroke {
+                stroke: var(--white);
+            }
+
+            .stroke-blue3 {
+                stroke: var(--blue-3);
+            }
+
+            .stroke-blue7 {
+                stroke: var(--blue-7);
+            }
+        }
+
+        .text {
+            font-weight: 700;
+            color: var(--blue-2);
+        }
+    }
+}
+
+.nav-open {
+    width: 240px;
+}

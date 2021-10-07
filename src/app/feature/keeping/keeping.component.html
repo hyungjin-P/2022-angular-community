@@ -1,13 +1,20 @@
-<div class="full-absolute" #keeping>
-    <div class="header" [class.header-show]="isHeaderVisible">
+<div class="keeping full-absolute d-flex flex-column" #keeping>
+    <div class="header-fixed" [class.header-fixed-show]="isHeaderFixedVisible">
         <header></header>
     </div>
 
-    <div class="section">
-        <router-outlet></router-outlet>
+    <header></header>
+
+    <div class="flex-fill d-flex">
+        <nav></nav>
+        <div class="flex-fill" style="position: relative">
+            <div class="full-absolute scroll-y">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
 
-    <div class="bottom-nav" [class.bottom-nav-show]="isBottomNavVisible">
+    <div class="bottom-nav-fixed" [class.bottom-nav-fixed-show]="isBottomNavFixedVisible">
         <bottom-nav></bottom-nav>
     </div>
 </div>

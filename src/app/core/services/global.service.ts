@@ -5,8 +5,7 @@ export class GlobalService {
     public variables: any = {
         isTouchScreen: false,
         isLogin: false,
-        navMenu: ['/', '/feed', '/community', '/market', '/magazine'],
-        navMenuIndex: 0,
+        isNavOpen: false,
     }
 
     public modal: any = {

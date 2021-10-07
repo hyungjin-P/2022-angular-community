@@ -17,8 +17,8 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     scrollSubscription: Subscription
     previousScrollTop: number
     currentScrollTop: number
-    isHeaderVisible: boolean
-    isBottomNavVisible: boolean
+    isHeaderFixedVisible: boolean
+    isBottomNavFixedVisible: boolean
 
     constructor(private globalService: GlobalService) {}
 
@@ -27,8 +27,8 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.previousScrollTop = 0
         this.currentScrollTop = 0
-        this.isHeaderVisible = false
-        this.isBottomNavVisible = false
+        this.isHeaderFixedVisible = false
+        this.isBottomNavFixedVisible = false
     }
 
     ngAfterViewInit() {
@@ -57,20 +57,20 @@ export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
             let diff = this.previousScrollTop - this.currentScrollTop
 
             if (scrollTop < THRESHOLD) {
-                this.isHeaderVisible = false
+                this.isHeaderFixedVisible = false
                 return
             }
 
             if (diff < 0) {
                 // downward
-                this.isHeaderVisible = true
-                this.isBottomNavVisible = false
+                this.isHeaderFixedVisible = true
+                this.isBottomNavFixedVisible = false
             } else {
                 // upward
-                this.isHeaderVisible = false
+                this.isHeaderFixedVisible = false
 
                 if (this.variables.isTouchScreen) {
-                    this.isBottomNavVisible = true
+                    this.isBottomNavFixedVisible = true
                 }
             }
         })
