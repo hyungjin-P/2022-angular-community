@@ -14,6 +14,7 @@
         width: 52px;
         height: 54px;
         border-radius: 12px;
+        border: 1px solid transparent;
         cursor: pointer;
 
         .svg-icon {
@@ -73,4 +74,79 @@
 
 .nav-open {
     width: 240px;
+
+    .menu {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 14px 12px 14px 20px;
+        width: 192px;
+
+        .text {
+            margin-left: 10px;
+
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 22px;
+        }
+    }
+
+    .selected {
+        border: 1px solid var(--blue-8);
+        background-color: var(--blue-9);
+    }
+
+    .footer {
+        margin-top: 30px;
+        margin-left: 5px;
+        padding: 30px 16px;
+        width: 192px;
+        border-top: 1px solid var(--grey-7);
+        outline: none;
+
+        .privacy,
+        .service-terms {
+            color: var(--grey-1);
+            cursor: pointer;
+        }
+
+        .privacy {
+            margin-right: 12px;
+        }
+
+        .logo img {
+            margin-top: 30px;
+            width: 61px;
+        }
+
+        .ceo,
+        .business-number,
+        .address,
+        .copyright {
+            color: var(--grey-3);
+        }
+
+        .ceo {
+            margin-top: 8px;
+        }
+
+        .business-number {
+            span:nth-child(2) {
+                letter-spacing: -0.5px;
+            }
+        }
+
+        .address {
+            > div:nth-child(1) {
+                width: 90px;
+            }
+
+            > div:nth-child(2) {
+                letter-spacing: 0.4px;
+            }
+        }
+
+        .copyright {
+            margin-top: 20px;
+        }
+    }
 }

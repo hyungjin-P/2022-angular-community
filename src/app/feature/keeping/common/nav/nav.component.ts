@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 
 import { GlobalService } from '@services/global.service'
 
@@ -8,6 +8,8 @@ import { GlobalService } from '@services/global.service'
     styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
+    @Output() scrollTop = new EventEmitter<any>()
+
     variables: any
 
     constructor(private globalService: GlobalService) {
@@ -15,4 +17,8 @@ export class NavComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    onScrollTop(): void {
+        this.scrollTop.emit({})
+    }
 }
