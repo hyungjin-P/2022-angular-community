@@ -10,11 +10,5 @@ export class InputComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit() {
-        // this.text = 'hello'
-    }
-
-    showText() {
-        console.log(this.text)
-    }
+    ngOnInit() {}
 }
