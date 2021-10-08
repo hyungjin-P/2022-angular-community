@@ -51,5 +51,33 @@
                 stroke: var(--blue-3);
             }
         }
+
+        .login,
+        .registration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 91px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .login {
+            margin-right: 4px;
+
+            span {
+                color: var(--blue-3);
+            }
+        }
+
+        .registration {
+            margin-right: 7px;
+            background: #567dff;
+            border-radius: 50px;
+
+            span {
+                color: var(--white);
+            }
+        }
     }
 }

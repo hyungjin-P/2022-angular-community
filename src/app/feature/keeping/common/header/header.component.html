@@ -12,5 +12,11 @@
         <svg class="svg-icon d-flex d-lg-none" [routerLink]="['/search']">
             <use xlink:href="assets/icons/etc/search.svg#icon" />
         </svg>
+        <div class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
+            <span class="shared-typo-body-b14">로그인</span>
+        </div>
+        <div class="registration d-none d-lg-flex" [routerLink]="['/auth/registration']">
+            <span class="shared-typo-body-b14">회원가입</span>
+        </div>
     </div>
 </div>
