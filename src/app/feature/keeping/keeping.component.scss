@@ -7,28 +7,17 @@
     top: -60px;
     right: 0;
     left: 0;
-    // transition: top 0.2s linear;
+    transition: transform 0.2s ease-out;
     z-index: 1;
 }
 
 .header-fixed-show {
-    top: 0px !important;
+    transform: translateY(60px);
 }
 
-.bottom-nav-fixed {
-    position: fixed;
-    right: 0;
-    bottom: -60px;
-    left: 0;
-    // transition: bottom 0.2s linear;
-    z-index: 1;
-}
+.section {
+    overflow-x: hidden;
 
-.bottom-nav-fixed-show {
-    bottom: 0px !important;
-}
-
-.scroll-y {
     overflow-y: auto;
 
     /* width */
@@ -54,4 +43,17 @@
     &::-webkit-scrollbar-thumb:hover {
         background-color: #c9c9c9;
     }
+}
+
+.bottom-nav-fixed {
+    position: fixed;
+    right: 0;
+    bottom: -60px;
+    left: 0;
+    transition: transform 0.2s ease-out;
+    z-index: 1;
+}
+
+.bottom-nav-fixed-show {
+    transform: translateY(-60px);
 }
