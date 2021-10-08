@@ -9,14 +9,43 @@
     </div>
     <div class="center"></div>
     <div class="action">
-        <svg class="svg-icon d-flex d-lg-none" [routerLink]="['/search']">
-            <use xlink:href="assets/icons/etc/search.svg#icon" />
-        </svg>
-        <div class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
-            <span class="shared-typo-body-b14">로그인</span>
+        <div class="search">
+            <svg class="svg-icon d-flex d-xl-none" [routerLink]="['/search']">
+                <use xlink:href="assets/icons/header/search.svg#icon" />
+            </svg>
         </div>
-        <div class="registration d-none d-lg-flex" [routerLink]="['/auth/registration']">
-            <span class="shared-typo-body-b14">회원가입</span>
-        </div>
+        <ng-container *ngIf="!variables.isLogin">
+            <div class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
+                <span class="shared-typo-body-b14">로그인</span>
+            </div>
+            <div class="registration d-none d-lg-flex" [routerLink]="['/auth/registration']">
+                <span class="shared-typo-body-b14">회원가입</span>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="variables.isLogin">
+            <div class="notification">
+                <svg class="svg-icon">
+                    <use xlink:href="assets/icons/header/notification.svg#icon" />
+                </svg>
+                <div class="dot"></div>
+            </div>
+            <div class="user d-none d-lg-flex">
+                <div class="avatar">
+                    <shared-avatar [image]="user.picture" text="AVATAR" size="29" fontSize="18"></shared-avatar>
+                    <div class="dot"></div>
+                </div>
+                <div class="email">
+                    <span class="shared-typo-body-b14">{{ user.email }}</span>
+                </div>
+                <span class="mdi mdi-chevron-down"></span>
+            </div>
+            <div class="vertical-line d-none d-lg-flex"></div>
+            <div class="write d-none d-lg-flex">
+                <img src="assets/icons/header/pencil.svg" />
+                <span class="shared-typo-body-b14">글쓰기</span>
+
+                <span class="mdi mdi-chevron-down"></span>
+            </div>
+        </ng-container>
     </div>
 </div>

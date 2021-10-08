@@ -45,11 +45,23 @@
             width: 24px;
             height: 24px;
             stroke: var(--grey-1);
+            fill: var(--grey-1);
             outline: none;
 
             &:hover {
                 stroke: var(--blue-3);
+                fill: var(--blue-3);
             }
+        }
+
+        .search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            outline: none;
+            cursor: pointer;
         }
 
         .login,
@@ -77,6 +89,144 @@
 
             span {
                 color: var(--white);
+            }
+        }
+
+        .notification {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 8px;
+            width: 36px;
+            height: 36px;
+            outline: none;
+            cursor: pointer;
+
+            .dot {
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                top: 7px;
+                right: 7px;
+                background-color: var(--red);
+            }
+        }
+
+        .user {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 10px;
+            padding-left: 6px;
+            padding-right: 10px;
+            width: 166px;
+            height: 40px;
+            border: 1px solid var(--blue-8);
+            border-radius: 50px;
+            background-color: var(--blue-9);
+            cursor: pointer;
+
+            .avatar {
+                position: relative;
+
+                .dot {
+                    position: absolute;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    top: 3px;
+                    right: 0px;
+                    background-color: var(--red);
+                }
+            }
+
+            .email {
+                width: 82px;
+
+                color: var(--grey-1);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .mdi {
+                position: relative;
+                top: -1px;
+                font-size: 20px;
+                color: var(--grey-4);
+            }
+
+            &:hover {
+                .email {
+                    color: var(--blue-3);
+                }
+
+                .mdi {
+                    color: var(--blue-5);
+                }
+            }
+        }
+
+        .vertical-line {
+            margin: 0 20px;
+            height: 14px;
+            border-right: 1px solid var(--grey-6);
+        }
+
+        .write {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 123px;
+            height: 40px;
+            border-radius: 30px;
+            background-color: var(--blue-3);
+            cursor: pointer;
+
+            img {
+                width: 18px;
+                height: 18px;
+            }
+
+            span:nth-child(2) {
+                margin-right: 6px;
+                margin-left: 8px;
+                color: var(--white);
+            }
+
+            .mdi {
+                position: relative;
+                top: -1px;
+                font-size: 20px;
+                color: var(--white);
+            }
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .header {
+        .action {
+            .search,
+            .notification {
+                width: 40px;
+                height: 40px;
+                border-radius: 50px;
+
+                &:hover {
+                    background-color: var(--blue-9);
+
+                    .svg-icon {
+                        stroke: var(--blue-3);
+                        fill: var(--blue-3);
+                    }
+                }
             }
         }
     }

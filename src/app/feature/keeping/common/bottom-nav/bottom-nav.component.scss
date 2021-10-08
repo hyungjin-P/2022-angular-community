@@ -70,6 +70,20 @@
             color: var(--blue-3);
         }
     }
+
+    .avatar {
+        position: relative;
+
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            top: 3px;
+            right: 0px;
+            background-color: var(--red);
+        }
+    }
 }
 
 @media (min-width: 576px) {

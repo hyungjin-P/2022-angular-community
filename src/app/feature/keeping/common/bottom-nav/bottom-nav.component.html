@@ -28,10 +28,11 @@
         </svg>
         <div class="text">로그인</div>
     </div>
-    <div class="menu" *ngIf="variables.isLogin" [routerLink]="['/my-info']" routerLinkActive="selected">
-        <svg class="svg-icon">
-            <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
-        </svg>
-        <div>내 정보</div>
+    <div class="menu" *ngIf="variables.isLogin" [routerLink]="['/mypage']" routerLinkActive="selected">
+        <div class="avatar">
+            <shared-avatar [image]="user.picture" text="AVATAR" size="29" fontSize="18"></shared-avatar>
+            <div class="dot"></div>
+        </div>
+        <div class="text">마이페이지</div>
     </div>
 </div>
