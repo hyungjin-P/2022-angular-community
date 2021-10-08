@@ -9,8 +9,8 @@
     </div>
     <div class="center"></div>
     <div class="action">
-        <div class="search">
-            <svg class="svg-icon d-flex d-xl-none" [routerLink]="['/search']">
+        <div class="search d-flex d-xl-none">
+            <svg class="svg-icon" [routerLink]="['/search']">
                 <use xlink:href="assets/icons/header/search.svg#icon" />
             </svg>
         </div>
@@ -29,15 +29,26 @@
                 </svg>
                 <div class="dot"></div>
             </div>
-            <div class="user d-none d-lg-flex">
+            <div class="user d-none d-lg-flex" (click)="openUserMenu($event)">
                 <div class="avatar">
-                    <shared-avatar [image]="user.picture" text="AVATAR" size="29" fontSize="18"></shared-avatar>
+                    <shared-avatar
+                        [image]="user.picture"
+                        text="{{ user.email }}"
+                        size="29"
+                        fontSize="18"
+                    ></shared-avatar>
                     <div class="dot"></div>
                 </div>
                 <div class="email">
                     <span class="shared-typo-body-b14">{{ user.email }}</span>
                 </div>
                 <span class="mdi mdi-chevron-down"></span>
+                <div
+                    class="user-menu"
+                    [class.d-flex]="userMenuVisible"
+                    (click)="$event.stopPropagation()"
+                    (sharedClickOutside)="closeUserMenu()"
+                ></div>
             </div>
             <div class="vertical-line d-none d-lg-flex"></div>
             <div class="write d-none d-lg-flex">

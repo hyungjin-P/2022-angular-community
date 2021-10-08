@@ -15,19 +15,37 @@ export class HeaderComponent implements OnInit {
     variables: any
     user: User
 
+    userMenuVisible: boolean
+
     constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {}
 
     ngOnInit() {
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
-        console.log(this.user)
+
         if (this.user) {
             this.variables.isLogin = true
         }
+
+        this.userMenuVisible = false
     }
 
     openNav() {
         this.variables.isNavOpen = !this.variables.isNavOpen
+    }
+
+    openUserMenu(event) {
+        event.stopPropagation()
+
+        if (this.userMenuVisible) {
+            this.closeUserMenu()
+        } else {
+            this.userMenuVisible = true
+        }
+    }
+
+    closeUserMenu() {
+        this.userMenuVisible = false
     }
 
     async logout() {
