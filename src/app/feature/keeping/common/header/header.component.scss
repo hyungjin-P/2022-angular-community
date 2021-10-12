@@ -333,6 +333,10 @@
                 height: 40px;
                 border-radius: 50px;
 
+                .dot {
+                    right: 9px;
+                }
+
                 &:hover {
                     background-color: var(--blue-9);
 

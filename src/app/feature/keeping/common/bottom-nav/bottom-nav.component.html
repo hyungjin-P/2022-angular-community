@@ -30,7 +30,7 @@
     </div>
     <div class="menu" *ngIf="variables.isLogin" [routerLink]="['/mypage']" routerLinkActive="selected">
         <div class="avatar">
-            <shared-avatar [image]="user.picture" text="AVATAR" size="29" fontSize="18"></shared-avatar>
+            <shared-avatar [image]="user.picture" text="{{ user.email }}" size="29" fontSize="14"></shared-avatar>
             <div class="dot"></div>
         </div>
         <div class="text">마이페이지</div>
