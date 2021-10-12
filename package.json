@@ -6,7 +6,8 @@
         "start": "ng serve",
         "build": "ng build --configuration production",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "deploy": "ng build -c production && aws s3 sync ./dist/keeping-angular s3://REDACTED_S3_BUCKET --acl public-read --delete --profile REDACTED_AWS_PROFILE && aws cloudfront create-invalidation --distribution-id REDACTED_CF_DISTRIBUTION_ID --paths \"/*\" --profile REDACTED_AWS_PROFILE"
     },
     "private": true,
     "dependencies": {
