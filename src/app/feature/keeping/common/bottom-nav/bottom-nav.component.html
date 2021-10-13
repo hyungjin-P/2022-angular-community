@@ -1,38 +1,38 @@
 <div class="bottom-nav">
-    <div class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
+    <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
         <svg class="svg-icon">
             <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
         </svg>
         <div class="text">홈</div>
-    </div>
-    <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
+    </a>
+    <a class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
         <svg class="svg-icon">
             <use xlink:href="assets/icons/bottom-nav/feed.svg#icon" />
         </svg>
         <div class="text feed-text">피드</div>
-    </div>
-    <div class="menu" [routerLink]="['/write']" routerLinkActive="selected">
+    </a>
+    <a class="menu" [routerLink]="['/write']" routerLinkActive="selected">
         <div class="write">
             <img src="assets/icons/bottom-nav/pencil.svg" />
         </div>
-    </div>
-    <div class="menu" [routerLink]="['/community']" routerLinkActive="selected">
+    </a>
+    <a class="menu" [routerLink]="['/community']" routerLinkActive="selected">
         <svg class="svg-icon">
             <use xlink:href="assets/icons/bottom-nav/community.svg#icon" />
         </svg>
         <div class="text">커뮤니티</div>
-    </div>
-    <div class="menu" *ngIf="!variables.isLogin" [routerLink]="['/auth/login']" routerLinkActive="selected">
+    </a>
+    <a class="menu" *ngIf="!variables.isLogin" [routerLink]="['/auth/login']" routerLinkActive="selected">
         <svg class="svg-icon">
             <use xlink:href="assets/icons/bottom-nav/user.svg#icon" />
         </svg>
         <div class="text">로그인</div>
-    </div>
-    <div class="menu" *ngIf="variables.isLogin" [routerLink]="['/mypage']" routerLinkActive="selected">
+    </a>
+    <a class="menu" *ngIf="variables.isLogin" [routerLink]="['/mypage']" routerLinkActive="selected">
         <div class="avatar">
             <shared-avatar [image]="user.picture" text="{{ user.email }}" size="29" fontSize="14"></shared-avatar>
             <div class="dot"></div>
         </div>
         <div class="text">마이페이지</div>
-    </div>
+    </a>
 </div>
