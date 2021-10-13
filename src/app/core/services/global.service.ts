@@ -6,6 +6,7 @@ export class GlobalService {
         isTouchScreen: false,
         isLogin: false,
         isNavOpen: false,
+        isDrawerOpen: false,
     }
 
     public modal: any = {

@@ -1,0 +1,138 @@
+.header {
+    display: flex;
+    padding: 0 20px;
+    height: 60px;
+    border-top-right-radius: 16px;
+    background-color: var(--blue-3);
+
+    .leading,
+    .action {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        height: 60px;
+    }
+
+    .leading {
+        justify-content: flex-start;
+
+        .logo {
+            height: 28px;
+            cursor: pointer;
+        }
+    }
+
+    .action {
+        justify-content: flex-end;
+
+        .close {
+            position: relative;
+            top: -2px;
+            cursor: pointer;
+            font-size: 22px;
+            color: var(--white);
+        }
+    }
+}
+
+.nav {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 14px 16px;
+
+    .menu {
+        display: flex;
+        align-items: center;
+        margin: 6px 0 6px 0;
+        padding: 14px 12px 14px 20px;
+        width: 192px;
+        height: 54px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        cursor: pointer;
+
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            outline: none;
+
+            .fill {
+                stroke: var(--text-2);
+                fill: var(--white);
+            }
+
+            .stroke,
+            .stroke-blue3,
+            .stroke-blue7 {
+                stroke: var(--text-2);
+            }
+        }
+
+        .text {
+            margin-left: 10px;
+
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 22px;
+            color: var(--grey-1);
+        }
+    }
+
+    .footer {
+        margin-top: 30px;
+        margin-left: 5px;
+        padding: 30px 16px;
+        width: 192px;
+        border-top: 1px solid var(--grey-7);
+        outline: none;
+
+        .privacy,
+        .service-terms {
+            color: var(--grey-1);
+            cursor: pointer;
+        }
+
+        .privacy {
+            margin-right: 12px;
+        }
+
+        .logo img {
+            margin-top: 30px;
+            width: 61px;
+        }
+
+        .ceo,
+        .business-number,
+        .address,
+        .copyright {
+            color: var(--grey-3);
+        }
+
+        .ceo {
+            margin-top: 8px;
+        }
+
+        .business-number {
+            span:nth-child(2) {
+                letter-spacing: -0.5px;
+            }
+        }
+
+        .address {
+            > div:nth-child(1) {
+                width: 90px;
+            }
+
+            > div:nth-child(2) {
+                letter-spacing: 0.4px;
+            }
+        }
+
+        .copyright {
+            margin-top: 20px;
+        }
+    }
+}

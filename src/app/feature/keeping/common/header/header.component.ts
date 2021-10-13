@@ -12,6 +12,8 @@ import { User } from '@schemas/user'
     styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+    url: string
+
     variables: any
     user: User
 
@@ -20,6 +22,8 @@ export class HeaderComponent implements OnInit {
     constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {}
 
     ngOnInit() {
+        this.url = this.router.url
+
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
 
@@ -32,6 +36,10 @@ export class HeaderComponent implements OnInit {
 
     openNav() {
         this.variables.isNavOpen = !this.variables.isNavOpen
+    }
+
+    openDrawer() {
+        this.variables.isDrawerOpen = true
     }
 
     openUserMenu(event) {

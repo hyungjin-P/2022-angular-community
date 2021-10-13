@@ -1,10 +1,13 @@
 <div class="header">
     <div class="leading">
-        <div class="burger-menu d-none d-lg-flex" (click)="openNav()">
+        <div class="burger-menu d-none d-lg-flex" *ngIf="url == '/'" (click)="openNav()">
             <img src="assets/icons/nav/burger-menu.svg" />
         </div>
-        <div class="logo">
-            <img src="assets/images/logo/header_logo.svg" [routerLink]="['/']" />
+        <div class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') != -1" (click)="openDrawer()">
+            <img src="assets/icons/nav/burger-menu.svg" />
+        </div>
+        <div class="logo" [routerLink]="['/']">
+            <img src="assets/images/logo/header_logo.svg" />
         </div>
     </div>
     <div class="center"></div>
@@ -106,7 +109,7 @@
                         </svg>
                         <div class="text shared-typo-body-m13">북마크</div>
                     </div>
-                    <div class="user-menu-menu">
+                    <div class="user-menu-menu" [routerLink]="['/settings']" (click)="closeUserMenu()">
                         <svg
                             class="user-menu-svg-icon"
                             width="18"

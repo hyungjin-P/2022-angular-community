@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.passwordErrorText = ''
         this.passwordVisible = false
 
-        // this.angularFireAuth.setPersistence('session')
+        this.angularFireAuth.setPersistence('session')
         this.subscription = this.angularFireAuth.authState.subscribe((user) => {
             if (user) {
                 if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
