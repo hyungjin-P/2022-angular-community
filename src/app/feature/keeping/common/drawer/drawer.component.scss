@@ -1,3 +1,5 @@
+@import '/src/assets/styles/text';
+
 .header {
     display: flex;
     padding: 0 20px;
@@ -29,6 +31,7 @@
             position: relative;
             top: -2px;
             cursor: pointer;
+
             font-size: 22px;
             color: var(--white);
         }
@@ -76,9 +79,7 @@
         .text {
             margin-left: 10px;
 
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 22px;
+            @include textStyle(500, 15px, 22px);
             color: var(--grey-1);
         }
     }
@@ -93,8 +94,10 @@
 
         .privacy,
         .service-terms {
-            color: var(--grey-1);
             cursor: pointer;
+
+            @include textStyle(400, 13px, 21px);
+            color: var(--grey-1);
         }
 
         .privacy {
@@ -113,6 +116,17 @@
             color: var(--grey-3);
         }
 
+        .ceo,
+        .business-number {
+            span:nth-child(1) {
+                @include textStyle(500, 12px, 20px);
+            }
+
+            span:nth-child(2) {
+                @include textStyle(400, 12px, 20px);
+            }
+        }
+
         .ceo {
             margin-top: 8px;
         }
@@ -126,15 +140,20 @@
         .address {
             > div:nth-child(1) {
                 width: 90px;
+
+                @include textStyle(500, 12px, 20px);
             }
 
             > div:nth-child(2) {
+                @include textStyle(400, 12px, 20px);
                 letter-spacing: 0.4px;
             }
         }
 
         .copyright {
             margin-top: 20px;
+
+            @include textStyle(400, 12px, 20px);
         }
     }
 }

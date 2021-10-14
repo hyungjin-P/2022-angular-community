@@ -128,8 +128,7 @@
         }
 
         .ceo,
-        .business-number,
-        .address {
+        .business-number {
             span:nth-child(1) {
                 @include textStyle(500, 12px, 20px);
             }
@@ -152,9 +151,12 @@
         .address {
             > div:nth-child(1) {
                 width: 90px;
+
+                @include textStyle(500, 12px, 20px);
             }
 
             > div:nth-child(2) {
+                @include textStyle(400, 12px, 20px);
                 letter-spacing: 0.4px;
             }
         }
