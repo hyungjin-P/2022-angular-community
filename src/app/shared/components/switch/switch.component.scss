@@ -36,32 +36,6 @@
         }
     }
 
-    &.size-small {
-        &.checked {
-            .switch .box {
-                .circle {
-                    transform: translateX(12px);
-                }
-            }
-        }
-
-        .switch {
-            .box {
-                width: 32px;
-                height: 18px;
-
-                .circle {
-                    width: 12px;
-                    height: 12px;
-                }
-            }
-        }
-
-        .text {
-            @include font(500, 12px, 20px);
-        }
-    }
-
     .switch {
         input {
             all: unset;

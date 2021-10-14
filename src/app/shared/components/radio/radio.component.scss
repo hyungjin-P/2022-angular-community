@@ -50,22 +50,6 @@
         }
     }
 
-    &.size-small {
-        .circle {
-            width: 20px;
-            height: 20px;
-
-            .checkmark {
-                width: 12px;
-                height: 12px;
-            }
-        }
-
-        .text {
-            @include font(500, 12px, 20px);
-        }
-    }
-
     .circle {
         width: 24px;
         height: 24px;

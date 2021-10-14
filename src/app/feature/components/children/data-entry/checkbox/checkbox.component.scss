@@ -22,7 +22,7 @@
         }
     }
 
-    ::ng-deep .checkbox-none-small shared-checkbox {
+    ::ng-deep .checkbox-small shared-checkbox {
         @include checkbox-small;
     }
 }

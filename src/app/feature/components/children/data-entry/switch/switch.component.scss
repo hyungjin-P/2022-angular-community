@@ -1,3 +1,5 @@
+@import '/src/assets/styles/switch';
+
 .title {
     padding-bottom: 11px;
     margin-bottom: 20px;
@@ -18,5 +20,9 @@
         > * {
             margin-right: 30px;
         }
+    }
+
+    ::ng-deep .switch-small shared-switch {
+        @include switch-small;
     }
 }

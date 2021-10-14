@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import './assets/styles/font';
-
 // Color
 :root {
     // Default
@@ -124,7 +122,9 @@
     -ms-user-select: none;
     user-select: none;
 
-    @include font(500, 14px, 22px);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
 }
 
 .shared-button-primary {

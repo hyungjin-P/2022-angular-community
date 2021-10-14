@@ -1,0 +1,19 @@
+@import '/src/assets/styles/font';
+
+@mixin radio-small {
+    .shared-radio {
+        .circle {
+            width: 20px;
+            height: 20px;
+
+            .checkmark {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        .text {
+            @include font(500, 12px, 20px);
+        }
+    }
+}
