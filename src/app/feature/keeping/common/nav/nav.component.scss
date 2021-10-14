@@ -1,3 +1,5 @@
+@import '/src/assets/styles/text';
+
 .nav {
     padding: 14px 16px;
     width: 84px;
@@ -13,8 +15,8 @@
         margin: 6px 0 6px 0;
         width: 52px;
         height: 54px;
-        border-radius: 12px;
         border: 1px solid transparent;
+        border-radius: 12px;
         cursor: pointer;
 
         text-decoration: none;
@@ -37,9 +39,7 @@
         }
 
         .text {
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 20px;
+            @include textStyle(400, 12px, 20px);
             color: var(--grey-1);
         }
     }
@@ -86,9 +86,7 @@
         .text {
             margin-left: 10px;
 
-            font-weight: 500;
-            font-size: 15px;
-            line-height: 22px;
+            @include textStyle(500, 15px, 22px);
         }
     }
 
@@ -107,8 +105,10 @@
 
         .privacy,
         .service-terms {
-            color: var(--grey-1);
             cursor: pointer;
+
+            @include textStyle(400, 13px, 21px);
+            color: var(--grey-1);
         }
 
         .privacy {
@@ -125,6 +125,18 @@
         .address,
         .copyright {
             color: var(--grey-3);
+        }
+
+        .ceo,
+        .business-number,
+        .address {
+            span:nth-child(1) {
+                @include textStyle(500, 12px, 20px);
+            }
+
+            span:nth-child(2) {
+                @include textStyle(400, 12px, 20px);
+            }
         }
 
         .ceo {
@@ -149,6 +161,8 @@
 
         .copyright {
             margin-top: 20px;
+
+            @include textStyle(400, 12px, 20px);
         }
     }
 }

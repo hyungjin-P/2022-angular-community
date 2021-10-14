@@ -1,4 +1,4 @@
-@import '/src/assets/styles/font';
+@import '/src/assets/styles/text';
 
 .shared-modal-background {
     display: none;
@@ -42,7 +42,7 @@
             justify-content: center;
             margin-top: 12px;
 
-            @include font(700, 15px, 22px);
+            @include textStyle(700, 15px, 22px);
         }
 
         .sub-text {
@@ -50,7 +50,7 @@
             justify-content: center;
             margin-top: 8px;
 
-            @include font(500, 13px, 21px);
+            @include textStyle(500, 13px, 21px);
             white-space: pre-line;
             text-align: center;
         }
@@ -81,11 +81,11 @@
             width: 352px;
 
             .text {
-                @include font(700, 16px, 24px);
+                @include textStyle(700, 16px, 24px);
             }
 
             .sub-text {
-                @include font(500, 14px, 22px);
+                @include textStyle(500, 14px, 22px);
             }
 
             .button-group {

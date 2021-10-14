@@ -1,4 +1,4 @@
-@import '/src/assets/styles/font';
+@import '/src/assets/styles/text';
 
 .header {
     display: flex;
@@ -88,7 +88,7 @@
         .login {
             margin-right: 4px;
 
-            @include font(700, 14px, 22px);
+            @include textStyle(700, 14px, 22px);
             color: var(--blue-3);
 
             &:hover {
@@ -100,7 +100,7 @@
             margin-right: 7px;
             border-radius: 50px;
 
-            @include font(700, 14px, 22px);
+            @include textStyle(700, 14px, 22px);
             color: var(--white);
         }
 
@@ -158,7 +158,7 @@
             .email {
                 width: 82px;
 
-                @include font(700, 14px, 22px);
+                @include textStyle(700, 14px, 22px);
                 color: var(--grey-1);
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -190,7 +190,7 @@
                 cursor: default;
 
                 .user-menu-label {
-                    @include font(500, 12px, 20px);
+                    @include textStyle(500, 12px, 20px);
                     color: var(--grey-1);
                 }
 
@@ -206,12 +206,12 @@
                         white-space: nowrap;
 
                         & div:nth-child(1) {
-                            @include font(700, 14px, 22px);
+                            @include textStyle(700, 14px, 22px);
                             color: var(--text-2);
                         }
 
                         & div:nth-child(2) {
-                            @include font(400, 11px, 19px);
+                            @include textStyle(400, 11px, 19px);
                             color: var(--grey-2);
                         }
                     }
@@ -255,7 +255,7 @@
                     .text {
                         margin-left: 12px;
 
-                        @include font(500, 13px, 21px);
+                        @include textStyle(500, 13px, 21px);
                         color: var(--grey-2);
                     }
 
@@ -311,7 +311,7 @@
                 margin-right: 6px;
                 margin-left: 8px;
 
-                @include font(700, 14px, 22px);
+                @include textStyle(700, 14px, 22px);
                 color: var(--white);
             }
 

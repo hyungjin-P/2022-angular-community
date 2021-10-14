@@ -1,4 +1,4 @@
-@import '/src/assets/styles/font';
+@import '/src/assets/styles/text';
 
 .shared-select {
     position: relative;
@@ -13,7 +13,7 @@
         cursor: pointer;
 
         .text {
-            @include font(400, 14px, 22px);
+            @include textStyle(400, 14px, 22px);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -69,7 +69,7 @@
             }
 
             span {
-                @include font(400, 14px, 22px);
+                @include textStyle(400, 14px, 22px);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;

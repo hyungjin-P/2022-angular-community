@@ -1,10 +1,10 @@
-@import '/src/assets/styles/font';
+@import '/src/assets/styles/text';
 
 .shared-input {
     .label {
         margin-bottom: 8px;
 
-        @include font(700, 13px, 21px);
+        @include textStyle(700, 13px, 21px);
         color: var(--text-2);
     }
 
@@ -23,7 +23,7 @@
         -moz-appearance: none;
         appearance: none;
 
-        @include font(400, 14px, 22px);
+        @include textStyle(400, 14px, 22px);
         color: var(--text-1);
 
         &::placeholder {
@@ -61,12 +61,12 @@
     }
 
     .info {
-        @include font(400, 12px, 20px);
+        @include textStyle(400, 12px, 20px);
         color: var(--grey-1);
     }
 
     .error {
-        @include font(400, 12px, 20px);
+        @include textStyle(400, 12px, 20px);
         color: var(--red);
     }
 }

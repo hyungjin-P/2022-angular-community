@@ -1,4 +1,4 @@
-@import '/src/assets/styles/font';
+@import '/src/assets/styles/text';
 
 @mixin switch-small {
     .shared-switch {
@@ -23,7 +23,7 @@
         }
 
         .text {
-            @include font(500, 12px, 20px);
+            @include textStyle(500, 12px, 20px);
         }
     }
 }

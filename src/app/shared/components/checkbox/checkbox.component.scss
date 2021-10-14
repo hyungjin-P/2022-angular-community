@@ -1,4 +1,4 @@
-@import '/src/assets/styles/font';
+@import '/src/assets/styles/text';
 
 .shared-checkbox {
     cursor: pointer;
@@ -134,7 +134,7 @@
     .text {
         margin-left: 8px;
 
-        @include font(500, 14px, 22px);
+        @include textStyle(500, 14px, 22px);
         color: var(--grey-1);
     }
 }
