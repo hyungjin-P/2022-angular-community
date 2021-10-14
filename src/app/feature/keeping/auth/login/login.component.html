@@ -34,7 +34,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="text-1 shared-typo-title-b26">
+                <div class="text-1">
                     <span>로그인</span>
                 </div>
             </div>
@@ -100,24 +100,19 @@
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="text-3 shared-typo-body-m12">
+                <div class="text-3">
                     <span [routerLink]="['/auth/forgot-password']">비밀번호를 잊으셨나요?</span>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="email-login-button">
-                    <div
-                        shared-button
-                        sharedButtonType="primary"
-                        sharedButtonSize="medium"
-                        sharedButtonHeight="52"
-                        [sharedButtonDisabled]="!emailValid || !passwordValid"
-                        (click)="signInWithEmail()"
-                    >
-                        <div>로그인</div>
-                    </div>
+                <div
+                    class="email-login-button shared-button-primary"
+                    [class.shared-button-primary-disabled]="!emailValid || !passwordValid"
+                    (click)="signInWithEmail()"
+                >
+                    <div>로그인</div>
                 </div>
             </div>
         </div>
@@ -164,7 +159,7 @@
 
 <ng-template #loginFormText2>
     <div class="text-2">
-        <span class="shared-typo-desc-m13">아직 키핑 회원이 아니세요?</span>
-        <span class="shared-typo-body-m13" [routerLink]="['/auth/registration']">회원가입</span>
+        <span>아직 키핑 회원이 아니세요?</span>
+        <span [routerLink]="['/auth/registration']">회원가입</span>
     </div>
 </ng-template>
