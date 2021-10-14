@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import './assets/styles/font';
+
 // Color
 :root {
     // Default
@@ -37,188 +39,128 @@
 // Typography
 // Title - Bold
 .shared-typo-title-b16 {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+    @include font(700, 16px, 24px);
 }
 
 .shared-typo-title-b20 {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 30px;
+    @include font(700, 20px, 30px);
 }
 
 .shared-typo-title-b22 {
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 32px;
+    @include font(700, 22px, 32px);
 }
 
 .shared-typo-title-b24 {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 34px;
+    @include font(700, 24px, 34px);
 }
 
 .shared-typo-title-b26 {
-    font-weight: 700;
-    font-size: 26px;
-    line-height: 34px;
+    @include font(700, 26px, 34px);
 }
 
 .shared-typo-title-b28 {
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 36px;
+    @include font(700, 28px, 36px);
 }
 
 .shared-typo-title-b36 {
-    font-weight: 700;
-    font-size: 35px;
-    line-height: 48px;
+    @include font(700, 36px, 48px);
 }
 
 // Description - Regular
 .shared-typo-desc-r12 {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
+    @include font(400, 12px, 20px);
 }
 
 .shared-typo-desc-r13 {
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 21px;
+    @include font(400, 13px, 21px);
 }
 
 // Description - Medium
 .shared-typo-desc-m13 {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 21px;
+    @include font(500, 13px, 21px);
 }
 
 // Body - Regular
 .shared-typo-body-r11 {
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 19px;
+    @include font(400, 11px, 19px);
 }
 
 .shared-typo-body-r12 {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
+    @include font(400, 12px, 20px);
 }
 
 .shared-typo-body-r13 {
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 21px;
+    @include font(400, 13px, 21px);
 }
 
 .shared-typo-body-r14 {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
+    @include font(400, 14px, 22px);
 }
 
 .shared-typo-body-r16 {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+    @include font(400, 16px, 24px);
 }
 
 .shared-typo-body-r18 {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 26px;
+    @include font(400, 18px, 26px);
 }
 
 // Body - Medium
 .shared-typo-body-m11 {
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 19px;
+    @include font(500, 11px, 19px);
 }
 
 .shared-typo-body-m12 {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 20px;
+    @include font(500, 12px, 20px);
 }
 
 .shared-typo-body-m13 {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 21px;
+    @include font(500, 13px, 21px);
 }
 
 .shared-typo-body-m14 {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 22px;
+    @include font(500, 14px, 22px);
 }
 
 .shared-typo-body-m15 {
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 22px;
+    @include font(500, 15px, 22px);
 }
 
 .shared-typo-body-m16 {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+    @include font(500, 16px, 24px);
 }
 
 .shared-typo-body-m18 {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 26px;
+    @include font(500, 18px, 26px);
 }
 
 // Body - Bold
 .shared-typo-body-b11 {
-    font-weight: 700;
-    font-size: 11px;
-    line-height: 19px;
+    @include font(700, 11px, 19px);
 }
 
 .shared-typo-body-b12 {
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 20px;
+    @include font(700, 12px, 20px);
 }
 
 .shared-typo-body-b13 {
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 21px;
+    @include font(700, 13px, 21px);
 }
 
 .shared-typo-body-b14 {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 22px;
+    @include font(700, 14px, 22px);
 }
 
 .shared-typo-body-b15 {
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 22px;
+    @include font(700, 15px, 22px);
 }
 
 .shared-typo-body-b16 {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+    @include font(700, 16px, 24px);
 }
 
 .shared-typo-body-b18 {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 26px;
+    @include font(700, 18px, 26px);
 }
 
 // Tooltip
@@ -228,8 +170,8 @@
     left: 0px;
     padding: 6px 10px;
     max-width: 150px;
-    background-color: var(--black);
     border-radius: 6px;
+    background-color: var(--black);
     opacity: 0;
     z-index: 999;
 
@@ -423,9 +365,7 @@
 
     div {
         // shared-typo-body-m12
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 20px;
+        @include font(500, 12px, 20px);
     }
 }
 
@@ -436,9 +376,7 @@
 
     div {
         // shared-typo-body-m14
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 22px;
+        @include font(500, 14px, 22px);
     }
 }
 
@@ -449,9 +387,7 @@
 
     div {
         // shared-typo-body-m15
-        font-weight: 500;
-        font-size: 15px;
-        line-height: 22px;
+        @include font(500, 15px, 22px);
     }
 }
 
@@ -462,9 +398,7 @@
 
     div {
         // shared-typo-body-m18
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 26px;
+        @include font(500, 18px, 26px);
     }
 }
 
@@ -474,9 +408,7 @@ body {
     padding: 0px;
 
     font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 13px;
+    @include font(400, 13px, 21px);
     color: var(--text-1);
 }
 

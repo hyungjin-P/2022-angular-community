@@ -1,3 +1,5 @@
+@import '/src/assets/styles/font';
+
 .shared-switch {
     cursor: pointer;
 
@@ -54,6 +56,10 @@
                 }
             }
         }
+
+        .text {
+            @include font(500, 12px, 20px);
+        }
     }
 
     .switch {
@@ -83,6 +89,8 @@
 
     .text {
         margin-left: 8px;
+
+        @include font(500, 14px, 22px);
         color: var(--text-2);
     }
 }

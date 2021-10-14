@@ -11,12 +11,7 @@
     <div class="box d-flex justify-content-center align-items-center">
         <div class="mdi mdi-check"></div>
     </div>
-    <div
-        class="text"
-        [class.shared-typo-body-m12]="size == 'small'"
-        [class.shared-typo-body-m14]="size == 'default'"
-        *ngIf="text"
-    >
+    <div class="text" *ngIf="text">
         {{ text }}
     </div>
 </div>

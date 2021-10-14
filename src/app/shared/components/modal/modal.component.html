@@ -11,9 +11,9 @@
             <img src="assets/icons/etc/emoji_smail.png" />
         </div>
 
-        <ng-container *ngTemplateOutlet="text"></ng-container>
+        <div class="text">{{ data?.text }}</div>
 
-        <ng-container *ngTemplateOutlet="subText"></ng-container>
+        <div class="sub-text">{{ data?.subText }}</div>
 
         <ng-container *ngIf="type == 'confirm'">
             <ng-container *ngTemplateOutlet="confirmButtonGroup"></ng-container>
@@ -23,16 +23,6 @@
         </ng-container>
     </div>
 </div>
-
-<ng-template #text>
-    <div class="d-sm-none text shared-typo-body-b15">{{ data?.text }}</div>
-    <div class="d-none d-sm-flex text shared-typo-body-b16">{{ data?.text }}</div>
-</ng-template>
-
-<ng-template #subText>
-    <div class="d-sm-none sub-text shared-typo-body-m13">{{ data?.subText }}</div>
-    <div class="d-none d-sm-flex sub-text shared-typo-body-m14">{{ data?.subText }}</div>
-</ng-template>
 
 <ng-template #confirmButtonGroup>
     <div class="button-group d-sm-none">

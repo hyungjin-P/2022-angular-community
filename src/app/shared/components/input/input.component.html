@@ -1,5 +1,5 @@
 <div class="shared-input">
-    <div class="label shared-typo-body-b13" [class.disabled]="disabled" *ngIf="label">{{ label }}</div>
+    <div class="label" [class.disabled]="disabled" *ngIf="label">{{ label }}</div>
     <input
         [type]="type"
         [class.input-error]="error"
@@ -9,11 +9,11 @@
         [disabled]="disabled"
         (ngModelChange)="onChanged($event)"
     />
-    <div class="info shared-typo-body-r12" *ngIf="info && !error">
+    <div class="info" *ngIf="info && !error">
         <span class="mdi mdi-alert-circle-outline"></span>
         <div>{{ info }}</div>
     </div>
-    <div class="error shared-typo-body-r12" *ngIf="error">
+    <div class="error" *ngIf="error">
         <span class="mdi mdi-alert-circle-outline"></span>
         <div>{{ error }}</div>
     </div>

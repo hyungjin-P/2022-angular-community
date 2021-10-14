@@ -1,3 +1,5 @@
+@import '/src/assets/styles/font';
+
 .shared-radio {
     cursor: pointer;
 
@@ -58,6 +60,10 @@
                 height: 12px;
             }
         }
+
+        .text {
+            @include font(500, 12px, 20px);
+        }
     }
 
     .circle {
@@ -76,6 +82,8 @@
 
     .text {
         margin-left: 8px;
+
+        @include font(500, 14px, 22px);
         color: var(--text-2);
     }
 }

@@ -1,3 +1,5 @@
+@import '/src/assets/styles/font';
+
 .shared-checkbox {
     cursor: pointer;
 
@@ -64,6 +66,10 @@
                 color: var(--white);
             }
         }
+
+        .text {
+            @include font(500, 12px, 20px);
+        }
     }
 
     &.shape-none {
@@ -103,8 +109,8 @@
 
     &.shape-circle {
         .box {
-            border-radius: 50%;
             border: 1px solid transparent;
+            border-radius: 50%;
             background-color: var(--grey-3);
         }
 
@@ -132,8 +138,8 @@
     .box {
         width: 24px;
         height: 24px;
-        border-radius: 4px;
         border: 1px solid var(--grey-4);
+        border-radius: 4px;
 
         .mdi-check {
             font-size: 16px;
@@ -143,6 +149,8 @@
 
     .text {
         margin-left: 8px;
+
+        @include font(500, 14px, 22px);
         color: var(--grey-1);
     }
 }

@@ -1,3 +1,5 @@
+@import '/src/assets/styles/font';
+
 .shared-modal-background {
     display: none;
     position: fixed;
@@ -28,10 +30,10 @@
     .shared-modal {
         padding: 30px 20px 24px;
         width: 300px;
+        border-radius: 16px;
         background-color: var(--white);
         box-shadow: 0px 32px 32px -8px rgba(0, 0, 0, 0.08), 0px 0px 32px -8px rgba(0, 0, 0, 0.12),
             0px 0px 1px rgba(0, 0, 0, 0.2);
-        border-radius: 16px;
         opacity: 0;
         transition: opacity 0.1s;
 
@@ -39,12 +41,16 @@
             display: flex;
             justify-content: center;
             margin-top: 12px;
+
+            @include font(700, 15px, 22px);
         }
 
         .sub-text {
             display: flex;
             justify-content: center;
             margin-top: 8px;
+
+            @include font(500, 13px, 21px);
             white-space: pre-line;
             text-align: center;
         }
@@ -67,6 +73,14 @@
         .shared-modal {
             padding: 40px 30px 30px;
             width: 352px;
+
+            .text {
+                @include font(700, 16px, 24px);
+            }
+
+            .sub-text {
+                @include font(500, 14px, 22px);
+            }
 
             .button-group {
                 margin-top: 32px;

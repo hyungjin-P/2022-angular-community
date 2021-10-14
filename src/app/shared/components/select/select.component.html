@@ -1,6 +1,6 @@
 <div class="shared-select user-select-none" #selectElement>
     <div
-        class="selected shared-typo-body-r14 d-flex justify-content-center align-items-center"
+        class="selected d-flex justify-content-center align-items-center"
         [class.open]="isOpen"
         [class.disabled]="disabled !== false"
         #selectedElement
@@ -18,7 +18,7 @@
             [class.disabled]="item.disabled"
             (click)="onSelect(item)"
         >
-            <span class="shared-typo-body-r14">{{ item.name }}</span>
+            <span>{{ item.name }}</span>
         </div>
     </div>
 </div>

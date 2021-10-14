@@ -1,3 +1,5 @@
+@import '/src/assets/styles/font';
+
 .shared-select {
     position: relative;
     display: inline-flex;
@@ -11,7 +13,7 @@
         cursor: pointer;
 
         .text {
-            font-weight: 500;
+            @include font(400, 14px, 22px);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -20,6 +22,7 @@
         .mdi {
             transform: rotateX(0deg);
             transition: transform 0.2s linear;
+
             font-size: 22px;
             color: var(--text-1);
         }
@@ -66,7 +69,7 @@
             }
 
             span {
-                font-weight: 500;
+                @include font(400, 14px, 22px);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -75,7 +78,7 @@
 
         .active {
             span {
-                font-weight: 700;
+                font-weight: 500;
             }
         }
 

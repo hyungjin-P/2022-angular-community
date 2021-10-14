@@ -1,6 +1,10 @@
+@import '/src/assets/styles/font';
+
 .shared-input {
     .label {
         margin-bottom: 8px;
+
+        @include font(700, 13px, 21px);
         color: var(--text-2);
     }
 
@@ -19,10 +23,7 @@
         -moz-appearance: none;
         appearance: none;
 
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 28px;
-        letter-spacing: -0.2px;
+        @include font(400, 14px, 22px);
         color: var(--text-1);
 
         &::placeholder {
@@ -60,10 +61,12 @@
     }
 
     .info {
+        @include font(400, 12px, 20px);
         color: var(--grey-1);
     }
 
     .error {
+        @include font(400, 12px, 20px);
         color: var(--red);
     }
 }
