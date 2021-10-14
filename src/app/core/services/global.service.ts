@@ -5,7 +5,7 @@ export class GlobalService {
     public variables: any = {
         isTouchScreen: false,
         isLogin: false,
-        isNavOpen: false,
+        isNavOpen: true,
         isDrawerOpen: false,
     }
 

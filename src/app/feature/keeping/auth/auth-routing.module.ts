@@ -17,7 +17,7 @@ const routes: Routes = [
     { path: 'registration', canActivate: [AuthGuard], component: RegistrationComponent },
     { path: 'forgot-password', canActivate: [AuthGuard], component: ForgotPasswordComponent },
     { path: 'reset-password', canActivate: [AuthGuard], component: ResetPasswordComponent },
-    { path: 'service-terms', canActivate: [AuthGuard], component: ServiceTermsComponent },
+    { path: 'service-terms', canActivate: [], component: ServiceTermsComponent },
 ]
 
 @NgModule({

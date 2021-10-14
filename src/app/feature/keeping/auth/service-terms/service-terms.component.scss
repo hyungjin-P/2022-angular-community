@@ -1,11 +1,15 @@
+@import '/src/assets/styles/text';
+@import '/src/assets/styles/checkbox';
+
 .header {
-    box-shadow: 0px 1px #e8edf4;
+    height: 60px;
     background-color: var(--white);
+    box-shadow: 0px 1px 0px #f0f2f5;
 
     .leading {
         display: flex;
         align-items: center;
-        height: 50px;
+        height: 60px;
     }
 }
 
@@ -13,8 +17,14 @@
     margin: 40px 0 40px;
     padding: 0 8px;
 
+    .text-1 {
+        @include textStyle(700, 22px, 32px);
+    }
+
     .text-2 {
         margin-top: 22px;
+
+        @include textStyle(400, 12px, 20px);
     }
 
     .text-2,
@@ -24,6 +34,10 @@
 
     .agreement-all {
         margin-top: 81px;
+
+        ::ng-deep shared-checkbox {
+            @include checkbox-small;
+        }
     }
 
     .h-line {
@@ -55,12 +69,22 @@
         margin: 60px -20.5px 40px;
         padding: 0;
 
+        .text-1 {
+            @include textStyle(700, 24px, 34px);
+        }
+
         .text-2 {
             margin-top: 20px;
+
+            @include textStyle(400, 13px, 21px);
         }
 
         .agreement-all {
             margin-top: 48px;
+
+            ::ng-deep shared-checkbox {
+                @include checkbox-default;
+            }
         }
 
         .h-line {

@@ -17,3 +17,21 @@
         }
     }
 }
+
+@mixin radio-default {
+    .shared-radio {
+        .circle {
+            width: 24px;
+            height: 24px;
+
+            .checkmark {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .text {
+            @include textStyle(500, 14px, 22px);
+        }
+    }
+}

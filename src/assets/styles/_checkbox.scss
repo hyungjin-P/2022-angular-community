@@ -17,3 +17,21 @@
         }
     }
 }
+
+@mixin checkbox-default {
+    .shared-checkbox {
+        .box {
+            width: 24px;
+            height: 24px;
+
+            .mdi-check {
+                font-size: 16px;
+                color: var(--white);
+            }
+        }
+
+        .text {
+            @include textStyle(500, 14px, 22px);
+        }
+    }
+}

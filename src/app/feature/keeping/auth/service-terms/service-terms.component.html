@@ -14,22 +14,36 @@
         <div class="container">
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <ng-container *ngTemplateOutlet="text1"></ng-container>
+                    <div class="text-1">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <ng-container *ngTemplateOutlet="text2"></ng-container>
+                    <div class="text-2">
+                        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
+                        <br />
+                        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
                     <div class="agreement-all">
-                        <ng-container *ngTemplateOutlet="agreementAllRef"></ng-container>
+                        <shared-checkbox
+                            text="모두 동의하기"
+                            [checked]="agreementAll"
+                            shape="circle"
+                            (click)="checkTerms('all')"
+                        ></shared-checkbox>
                     </div>
                     <div class="h-line"></div>
                     <div class="agreement-1">
-                        <ng-container *ngTemplateOutlet="agreement1"></ng-container>
+                        <shared-checkbox
+                            text="[필수] 만 14세 이상입니다."
+                            [checked]="agreementAge"
+                            shape="none"
+                            (click)="checkTerms('age')"
+                        ></shared-checkbox>
                     </div>
                     <div class="agreement-2 d-flex justify-content-between">
                         <ng-container *ngTemplateOutlet="agreement2"></ng-container>
@@ -61,42 +75,6 @@
         </div>
     </div>
 </div>
-
-<ng-template #text1>
-    <div class="d-sm-none shared-typo-title-b22">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
-    <div class="d-none d-sm-block shared-typo-title-b24">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
-</ng-template>
-
-<ng-template #text2>
-    <div class="d-sm-none text-2 shared-typo-desc-r12">
-        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
-        <br />
-        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
-    </div>
-    <div class="d-none d-sm-block text-2 shared-typo-desc-r13">
-        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
-        <br />
-        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
-    </div>
-</ng-template>
-
-<ng-template #agreementAllRef>
-    <shared-checkbox
-        class="d-sm-none"
-        text="모두 동의하기"
-        [checked]="agreementAll"
-        (click)="checkTerms('all')"
-        size="small"
-        shape="circle"
-    ></shared-checkbox>
-    <shared-checkbox
-        class="d-none d-sm-flex"
-        text="모두 동의하기"
-        [checked]="agreementAll"
-        (click)="checkTerms('all')"
-        shape="circle"
-    ></shared-checkbox>
-</ng-template>
 
 <ng-template #agreement1>
     <shared-checkbox
