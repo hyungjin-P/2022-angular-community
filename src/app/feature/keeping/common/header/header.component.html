@@ -3,7 +3,7 @@
         <div
             class="burger-menu d-none d-lg-flex"
             [class.selected]="variables.isNavOpen"
-            *ngIf="url == '/'"
+            *ngIf="url.indexOf('/settings') == -1"
             (click)="openNav()"
         >
             <img src="assets/icons/nav/burger-menu.svg" />

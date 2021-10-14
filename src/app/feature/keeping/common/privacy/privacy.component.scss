@@ -1,9 +1,9 @@
+@import '/src/assets/styles/text';
+
 .privacy {
     padding: 20px 4px;
 
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 20px;
+    @include textStyle(400, 12px, 20px);
     letter-spacing: -0.2px;
     color: var(--text-2);
 
@@ -14,9 +14,7 @@
     .title {
         margin-bottom: 16px;
 
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 24px;
+        @include textStyle(500, 16px, 24px);
         letter-spacing: -0.2px;
     }
 
@@ -24,10 +22,16 @@
         margin-top: 16px;
         margin-bottom: 8px;
 
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 20px;
+        @include textStyle(700, 12px, 20px);
         letter-spacing: -0.2px;
+    }
+
+    .text-1 {
+        @include textStyle(700, 12px, 20px);
+    }
+
+    .text-2 {
+        @include textStyle(500, 12px, 20px);
     }
 }
 
