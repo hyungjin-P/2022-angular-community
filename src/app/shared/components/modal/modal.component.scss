@@ -58,6 +58,12 @@
         .button-group {
             display: flex;
             margin-top: 28px;
+
+            .shared-button-primary,
+            .shared-button-secondary {
+                width: 100%;
+                height: 40px;
+            }
         }
     }
 }
@@ -84,6 +90,11 @@
 
             .button-group {
                 margin-top: 32px;
+
+                .shared-button-primary,
+                .shared-button-secondary {
+                    height: 44px;
+                }
             }
         }
     }

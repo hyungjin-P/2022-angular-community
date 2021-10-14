@@ -16,7 +16,6 @@ import { ToastComponent } from './components/toast/toast.component'
 
 // Directives
 import { AutoScrollDirective } from './directives/auto-scroll.directive'
-import { ButtonDirective } from './directives/button.directive'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { DropzoneDirective } from './directives/dropzone.directive'
 import { HighlightDirective } from './directives/highlight.directive'
@@ -45,7 +44,6 @@ import { TimePipe } from './pipes/time.pipe'
 
         // Directives
         AutoScrollDirective,
-        ButtonDirective,
         ClickOutsideDirective,
         DropzoneDirective,
         HighlightDirective,
@@ -77,7 +75,6 @@ import { TimePipe } from './pipes/time.pipe'
 
         // Directives
         AutoScrollDirective,
-        ButtonDirective,
         ClickOutsideDirective,
         DropzoneDirective,
         HighlightDirective,

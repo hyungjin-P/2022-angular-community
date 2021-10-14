@@ -1,15 +1,6 @@
 <div class="title">Modal</div>
 <div class="content">
-    <div
-        shared-button
-        sharedButtonType="primary"
-        sharedButtonSize="small"
-        sharedButtonWidth="160"
-        sharedButtonHeight="44"
-        (click)="showAlertModal()"
-    >
-        Alert
-    </div>
+    <div class="shared-button-primary" (click)="showAlertModal()">Alert</div>
     <shared-modal
         [(visible)]="isAlertModalVisible"
         [data]="alertModalData"
@@ -18,16 +9,7 @@
         (confirm)="alertModalOk()"
     ></shared-modal>
 
-    <div
-        shared-button
-        sharedButtonType="primary"
-        sharedButtonSize="small"
-        sharedButtonWidth="160"
-        sharedButtonHeight="44"
-        (click)="showConfirmModal()"
-    >
-        Confirm
-    </div>
+    <div class="shared-button-primary" (click)="showConfirmModal()">Confirm</div>
     <shared-modal
         [(visible)]="isConfirmModalVisible"
         [data]="confirmModalData"

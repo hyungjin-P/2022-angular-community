@@ -56,22 +56,6 @@
         }
     }
 
-    &.size-small {
-        .box {
-            width: 20px;
-            height: 20px;
-
-            .mdi-check {
-                font-size: 13px;
-                color: var(--white);
-            }
-        }
-
-        .text {
-            @include font(500, 12px, 20px);
-        }
-    }
-
     &.shape-none {
         .box {
             border: none;

@@ -1,0 +1,19 @@
+@import '/src/assets/styles/font';
+
+@mixin checkbox-small {
+    .shared-checkbox {
+        .box {
+            width: 20px;
+            height: 20px;
+
+            .mdi-check {
+                font-size: 13px;
+                color: var(--white);
+            }
+        }
+
+        .text {
+            @include font(500, 12px, 20px);
+        }
+    }
+}

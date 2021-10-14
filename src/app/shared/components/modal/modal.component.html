@@ -16,80 +16,21 @@
         <div class="sub-text">{{ data?.subText }}</div>
 
         <ng-container *ngIf="type == 'confirm'">
-            <ng-container *ngTemplateOutlet="confirmButtonGroup"></ng-container>
+            <div class="button-group">
+                <div class="shared-button-secondary" style="margin-right: 12px" (click)="onCancel()">
+                    <div>취소</div>
+                </div>
+                <div class="shared-button-primary" (click)="onConfirm()">
+                    <div>확인</div>
+                </div>
+            </div>
         </ng-container>
         <ng-container *ngIf="type == 'alert'">
-            <ng-container *ngTemplateOutlet="alertButtonGroup"></ng-container>
+            <div class="button-group">
+                <div class="shared-button-primary" (click)="onConfirm()">
+                    <div>확인</div>
+                </div>
+            </div>
         </ng-container>
     </div>
 </div>
-
-<ng-template #confirmButtonGroup>
-    <div class="button-group d-sm-none">
-        <div
-            style="margin-right: 12px"
-            shared-button
-            sharedButtonType="secondary"
-            sharedButtonSize="xsmall"
-            sharedButtonHeight="36"
-            (click)="onCancel()"
-        >
-            <div>취소</div>
-        </div>
-        <div
-            shared-button
-            sharedButtonType="primary"
-            sharedButtonSize="xsmall"
-            sharedButtonHeight="36"
-            (click)="onConfirm()"
-        >
-            <div>확인</div>
-        </div>
-    </div>
-    <div class="button-group d-none d-sm-flex">
-        <div
-            style="margin-right: 12px"
-            shared-button
-            sharedButtonType="secondary"
-            sharedButtonSize="small"
-            sharedButtonHeight="44"
-            (click)="onCancel()"
-        >
-            <div>취소</div>
-        </div>
-        <div
-            shared-button
-            sharedButtonType="primary"
-            sharedButtonSize="small"
-            sharedButtonHeight="44"
-            (click)="onConfirm()"
-        >
-            <div>확인</div>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #alertButtonGroup>
-    <div class="button-group d-sm-none">
-        <div
-            shared-button
-            sharedButtonType="primary"
-            sharedButtonSize="xsmall"
-            sharedButtonHeight="36"
-            (click)="onConfirm()"
-        >
-            <div>확인</div>
-        </div>
-    </div>
-    <div class="button-group d-none d-sm-flex">
-        <div
-            shared-button
-            sharedButtonType="primary"
-            sharedButtonSize="small"
-            sharedButtonHeight="44"
-            (click)="onConfirm()"
-        >
-            <div>확인</div>
-        </div>
-    </div>
-</ng-template>

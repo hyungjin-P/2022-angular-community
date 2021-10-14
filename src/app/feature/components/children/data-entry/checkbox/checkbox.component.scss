@@ -1,3 +1,5 @@
+@import '/src/assets/styles/checkbox';
+
 .title {
     padding-bottom: 11px;
     margin-bottom: 20px;
@@ -18,5 +20,9 @@
         > * {
             margin-right: 30px;
         }
+    }
+
+    ::ng-deep .checkbox-none-small shared-checkbox {
+        @include checkbox-small;
     }
 }

@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router'
 import { ComponentsComponent } from './components.component'
 
 import { ButtonComponent } from './children/general/button/button.component'
-import { TypographyComponent } from './children/general/typography/typography.component'
 
 import { CheckboxComponent } from './children/data-entry/checkbox/checkbox.component'
 import { DatePickerComponent } from './children/data-entry/datepicker/datepicker.component'
@@ -31,7 +30,6 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'button', pathMatch: 'full' },
             { path: 'button', component: ButtonComponent },
-            { path: 'typography', component: TypographyComponent },
 
             { path: 'checkbox', component: CheckboxComponent },
             { path: 'datepicker', component: DatePickerComponent },

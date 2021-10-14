@@ -1,14 +1,5 @@
 <div class="title">Toast</div>
 <div class="content">
-    <div
-        shared-button
-        sharedButtonType="primary"
-        sharedButtonSize="small"
-        sharedButtonWidth="160"
-        sharedButtonHeight="44"
-        (click)="showToast()"
-    >
-        Show Toast
-    </div>
+    <div class="shared-button-primary" (click)="showToast()">Show Toast</div>
     <shared-toast [(visible)]="isToastVisible" [text]="toastText" delay="5000" (cancel)="hideToast()"></shared-toast>
 </div>

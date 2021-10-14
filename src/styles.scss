@@ -36,133 +36,6 @@
     --grey-8: #f0f2f5;
 }
 
-// Typography
-// Title - Bold
-.shared-typo-title-b16 {
-    @include font(700, 16px, 24px);
-}
-
-.shared-typo-title-b20 {
-    @include font(700, 20px, 30px);
-}
-
-.shared-typo-title-b22 {
-    @include font(700, 22px, 32px);
-}
-
-.shared-typo-title-b24 {
-    @include font(700, 24px, 34px);
-}
-
-.shared-typo-title-b26 {
-    @include font(700, 26px, 34px);
-}
-
-.shared-typo-title-b28 {
-    @include font(700, 28px, 36px);
-}
-
-.shared-typo-title-b36 {
-    @include font(700, 36px, 48px);
-}
-
-// Description - Regular
-.shared-typo-desc-r12 {
-    @include font(400, 12px, 20px);
-}
-
-.shared-typo-desc-r13 {
-    @include font(400, 13px, 21px);
-}
-
-// Description - Medium
-.shared-typo-desc-m13 {
-    @include font(500, 13px, 21px);
-}
-
-// Body - Regular
-.shared-typo-body-r11 {
-    @include font(400, 11px, 19px);
-}
-
-.shared-typo-body-r12 {
-    @include font(400, 12px, 20px);
-}
-
-.shared-typo-body-r13 {
-    @include font(400, 13px, 21px);
-}
-
-.shared-typo-body-r14 {
-    @include font(400, 14px, 22px);
-}
-
-.shared-typo-body-r16 {
-    @include font(400, 16px, 24px);
-}
-
-.shared-typo-body-r18 {
-    @include font(400, 18px, 26px);
-}
-
-// Body - Medium
-.shared-typo-body-m11 {
-    @include font(500, 11px, 19px);
-}
-
-.shared-typo-body-m12 {
-    @include font(500, 12px, 20px);
-}
-
-.shared-typo-body-m13 {
-    @include font(500, 13px, 21px);
-}
-
-.shared-typo-body-m14 {
-    @include font(500, 14px, 22px);
-}
-
-.shared-typo-body-m15 {
-    @include font(500, 15px, 22px);
-}
-
-.shared-typo-body-m16 {
-    @include font(500, 16px, 24px);
-}
-
-.shared-typo-body-m18 {
-    @include font(500, 18px, 26px);
-}
-
-// Body - Bold
-.shared-typo-body-b11 {
-    @include font(700, 11px, 19px);
-}
-
-.shared-typo-body-b12 {
-    @include font(700, 12px, 20px);
-}
-
-.shared-typo-body-b13 {
-    @include font(700, 13px, 21px);
-}
-
-.shared-typo-body-b14 {
-    @include font(700, 14px, 22px);
-}
-
-.shared-typo-body-b15 {
-    @include font(700, 15px, 22px);
-}
-
-.shared-typo-body-b16 {
-    @include font(700, 16px, 24px);
-}
-
-.shared-typo-body-b18 {
-    @include font(700, 18px, 26px);
-}
-
 // Tooltip
 .shared-tooltip {
     position: fixed;
@@ -238,28 +111,26 @@
 }
 
 // Button
-.shared-button {
+@mixin shared-button {
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    width: 160px;
+    height: 46px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 
-    .l-icon {
-        margin-right: 7px;
-    }
-
-    .r-icon {
-        margin-left: 7px;
-    }
+    @include font(500, 14px, 22px);
 }
 
-.shared-button-type-primary {
+.shared-button-primary {
+    @include shared-button;
     background-color: var(--blue-3);
+
     color: var(--white);
 
     &:hover {
@@ -271,7 +142,7 @@
     }
 }
 
-.shared-button-type-primary-disabled {
+.shared-button-primary-disabled {
     background-color: var(--blue-3);
     opacity: 0.4;
     cursor: not-allowed;
@@ -283,8 +154,10 @@
     }
 }
 
-.shared-button-type-secondary {
+.shared-button-secondary {
+    @include shared-button;
     background-color: var(--blue-9);
+
     color: var(--blue-1);
 
     &:hover {
@@ -296,7 +169,7 @@
     }
 }
 
-.shared-button-type-secondary-disabled {
+.shared-button-secondary-disabled {
     background-color: var(--blue-8);
     opacity: 0.5;
     cursor: not-allowed;
@@ -308,8 +181,10 @@
     }
 }
 
-.shared-button-type-teriary {
+.shared-button-teriary {
+    @include shared-button;
     background-color: var(--grey-7);
+
     color: var(--grey-1);
 
     &:hover {
@@ -321,7 +196,7 @@
     }
 }
 
-.shared-button-type-teriary-disabled {
+.shared-button-teriary-disabled {
     background-color: var(--grey-7);
     opacity: 0.5;
     cursor: not-allowed;
@@ -329,12 +204,14 @@
     &:hover,
     &:active {
         background-color: var(--grey-7);
-        opacity: 0.6;
+        opacity: 0.5;
     }
 }
 
-.shared-button-type-outline {
+.shared-button-outline {
+    @include shared-button;
     border: 1px solid var(--blue-1);
+
     color: var(--blue-1);
 
     &:hover {
@@ -346,7 +223,7 @@
     }
 }
 
-.shared-button-type-outline-disabled {
+.shared-button-outline-disabled {
     border: 1px solid var(--blue-1);
     opacity: 0.5;
     cursor: not-allowed;
@@ -354,51 +231,8 @@
     &:hover,
     &:active {
         border: 1px solid var(--blue-1);
+        background-color: var(--white);
         opacity: 0.5;
-    }
-}
-
-.shared-button-size-xsmall {
-    .mdi {
-        font-size: 16px;
-    }
-
-    div {
-        // shared-typo-body-m12
-        @include font(500, 12px, 20px);
-    }
-}
-
-.shared-button-size-small {
-    .mdi {
-        font-size: 18px;
-    }
-
-    div {
-        // shared-typo-body-m14
-        @include font(500, 14px, 22px);
-    }
-}
-
-.shared-button-size-medium {
-    .mdi {
-        font-size: 18px;
-    }
-
-    div {
-        // shared-typo-body-m15
-        @include font(500, 15px, 22px);
-    }
-}
-
-.shared-button-size-large {
-    .mdi {
-        font-size: 20px;
-    }
-
-    div {
-        // shared-typo-body-m18
-        @include font(500, 18px, 26px);
     }
 }
 
@@ -408,7 +242,7 @@ body {
     padding: 0px;
 
     font-family: 'Noto Sans KR', sans-serif;
-    @include font(400, 13px, 21px);
+    font-size: 13px;
     color: var(--text-1);
 }
 

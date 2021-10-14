@@ -6,7 +6,6 @@ import { ComponentsComponent } from './components.component'
 import { SharedModule } from '@shared/shared.module'
 
 import { ButtonComponent } from './children/general/button/button.component'
-import { TypographyComponent } from './children/general/typography/typography.component'
 
 import { CheckboxComponent } from './children/data-entry/checkbox/checkbox.component'
 import { DatePickerComponent } from './children/data-entry/datepicker/datepicker.component'
@@ -31,7 +30,6 @@ import { EmailComponent } from './children/etc/email/email.component'
         ComponentsComponent,
 
         ButtonComponent,
-        TypographyComponent,
 
         CheckboxComponent,
         DatePickerComponent,
