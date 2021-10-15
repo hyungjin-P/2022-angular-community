@@ -1,29 +1,32 @@
 @import '/src/assets/styles/font';
 
 .service-terms {
-    padding: 20px 4px;
-
     @include textStyle(400, 12px, 20px);
-    letter-spacing: -0.2px;
     color: var(--text-2);
 
-    > div {
-        margin-bottom: 2px;
-    }
-
     .title {
-        margin-bottom: 16px;
-
-        @include textStyle(500, 16px, 24px);
-        letter-spacing: -0.2px;
+        @include textStyle(700, 16px, 24px);
     }
 
     .item {
         margin-top: 16px;
-        margin-bottom: 8px;
 
-        @include textStyle(700, 12px, 20px);
-        letter-spacing: -0.2px;
+        > div:nth-child(1) {
+            margin-bottom: 4px;
+
+            @include textStyle(500, 13px, 20px);
+        }
+
+        > div:not(div:nth-child(1)) {
+            > div:nth-child(1) {
+                margin-top: 4px;
+            }
+
+            > div:not(div:nth-child(1)) {
+                margin-top: 2px;
+                margin-left: 4px;
+            }
+        }
     }
 }
 
@@ -31,16 +34,4 @@
     .title {
         text-align: center;
     }
-}
-
-.mb-8px {
-    margin-bottom: 8px !important;
-}
-
-.mb-4px {
-    margin-bottom: 4px !important;
-}
-
-.ml-4px {
-    margin-left: 4px !important;
 }
