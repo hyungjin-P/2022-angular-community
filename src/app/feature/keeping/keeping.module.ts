@@ -18,9 +18,9 @@ import { NoticeComponent } from './children/notice/notice.component'
 import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
+import { NotificationComponent } from './children/notification/notification.component'
 
 import { SearchComponent } from './search/search.component'
-import { NotificationComponent } from './children/notification/notification.component'
 
 @NgModule({
     declarations: [
