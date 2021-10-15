@@ -21,8 +21,14 @@
             margin-right: 30px;
         }
     }
+}
 
-    ::ng-deep .checkbox-small shared-checkbox {
-        @include checkbox-small;
+@media (min-width: 576px) {
+    .content {
+        > * {
+            ::ng-deep shared-checkbox {
+                @include checkbox;
+            }
+        }
     }
 }

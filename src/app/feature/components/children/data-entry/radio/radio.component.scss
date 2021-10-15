@@ -21,8 +21,14 @@
             margin-right: 30px;
         }
     }
+}
 
-    ::ng-deep .radio-small shared-radio {
-        @include radio-small;
+@media (min-width: 576px) {
+    .content {
+        > * {
+            ::ng-deep shared-radio {
+                @include radio;
+            }
+        }
     }
 }

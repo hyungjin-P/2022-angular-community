@@ -1,23 +1,6 @@
-@import '/src/assets/styles/text';
+@import '/src/assets/styles/font';
 
-@mixin checkbox-small {
-    .shared-checkbox {
-        .box {
-            width: 20px;
-            height: 20px;
-
-            .mdi-check {
-                font-size: 13px;
-            }
-        }
-
-        .text {
-            @include textStyle(500, 12px, 20px);
-        }
-    }
-}
-
-@mixin checkbox-default {
+@mixin checkbox {
     .shared-checkbox {
         .box {
             width: 24px;

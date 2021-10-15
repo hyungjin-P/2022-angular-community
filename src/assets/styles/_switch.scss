@@ -1,29 +1,29 @@
-@import '/src/assets/styles/text';
+@import '/src/assets/styles/font';
 
-@mixin switch-small {
+@mixin switch {
     .shared-switch {
         &.checked {
             .switch .box {
                 .circle {
-                    transform: translateX(12px) !important;
+                    transform: translateX(18px) !important;
                 }
             }
         }
 
         .switch {
             .box {
-                width: 32px;
-                height: 18px;
+                width: 44px;
+                height: 24px;
 
                 .circle {
-                    width: 12px !important;
-                    height: 12px !important;
+                    width: 18px !important;
+                    height: 18px !important;
                 }
             }
         }
 
         .text {
-            @include textStyle(500, 12px, 20px);
+            @include textStyle(500, 14px, 22px);
         }
     }
 }

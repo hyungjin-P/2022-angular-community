@@ -1,4 +1,4 @@
-@import '/src/assets/styles/text';
+@import '/src/assets/styles/font';
 
 .shared-input {
     .label {
@@ -53,6 +53,8 @@
         display: flex;
         margin-top: 6px;
 
+        @include textStyle(400, 12px, 20px);
+
         .mdi {
             margin-right: 4px;
 
@@ -61,12 +63,10 @@
     }
 
     .info {
-        @include textStyle(400, 12px, 20px);
         color: var(--grey-1);
     }
 
     .error {
-        @include textStyle(400, 12px, 20px);
         color: var(--red);
     }
 }

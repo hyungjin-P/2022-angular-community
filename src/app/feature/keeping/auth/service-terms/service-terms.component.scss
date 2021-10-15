@@ -1,4 +1,4 @@
-@import '/src/assets/styles/text';
+@import '/src/assets/styles/font';
 @import '/src/assets/styles/checkbox';
 
 .header {
@@ -35,9 +35,9 @@
     .agreement-all {
         margin-top: 81px;
 
-        ::ng-deep shared-checkbox {
-            @include checkbox-small;
-        }
+        // ::ng-deep shared-checkbox {
+        //     @include checkbox-small;
+        // }
     }
 
     .h-line {
@@ -49,9 +49,9 @@
     .agreement-2,
     .agreement-3,
     .agreement-4 {
-        ::ng-deep shared-checkbox {
-            @include checkbox-small;
-        }
+        // ::ng-deep shared-checkbox {
+        //     @include checkbox-small;
+        // }
     }
 
     .agreement-2,
@@ -97,7 +97,7 @@
             margin-top: 48px;
 
             ::ng-deep shared-checkbox {
-                @include checkbox-default;
+                @include checkbox;
             }
         }
 
@@ -111,7 +111,7 @@
         .agreement-3,
         .agreement-4 {
             ::ng-deep shared-checkbox {
-                @include checkbox-default;
+                @include checkbox;
             }
         }
 

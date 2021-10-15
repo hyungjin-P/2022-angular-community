@@ -1,4 +1,4 @@
-@import '/src/assets/styles/text';
+@import '/src/assets/styles/font';
 
 .shared-switch {
     cursor: pointer;
@@ -8,7 +8,7 @@
             background-color: var(--blue-3);
 
             .circle {
-                transform: translateX(18px);
+                transform: translateX(12px);
             }
         }
 
@@ -43,8 +43,8 @@
 
         .box {
             position: relative;
-            width: 44px;
-            height: 24px;
+            width: 32px;
+            height: 18px;
             border-radius: 30px;
             background-color: var(--grey-4);
 
@@ -52,8 +52,8 @@
                 position: absolute;
                 top: 3px;
                 left: 4px;
-                width: 18px;
-                height: 18px;
+                width: 12px;
+                height: 12px;
                 border-radius: 50%;
                 background-color: var(--white);
                 transition: 0.4s;
@@ -64,7 +64,7 @@
     .text {
         margin-left: 8px;
 
-        @include textStyle(500, 14px, 22px);
+        @include textStyle(500, 12px, 20px);
         color: var(--text-2);
     }
 }

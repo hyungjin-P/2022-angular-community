@@ -21,8 +21,14 @@
             margin-right: 30px;
         }
     }
+}
 
-    ::ng-deep .switch-small shared-switch {
-        @include switch-small;
+@media (min-width: 576px) {
+    .content {
+        > * {
+            ::ng-deep shared-switch {
+                @include switch;
+            }
+        }
     }
 }
