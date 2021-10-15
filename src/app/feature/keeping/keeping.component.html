@@ -1,9 +1,9 @@
-<div class="keeping full-absolute d-flex flex-column">
+<div class="full-absolute d-flex flex-column">
     <div class="header-fixed d-block d-lg-none" [class.header-fixed-show]="isHeaderFixedVisible">
         <header></header>
     </div>
 
-    <header class="d-none d-lg-block"></header>
+    <header class="d-none d-lg-block" style="z-index: 1"></header>
 
     <div class="flex-fill d-flex">
         <nav class="d-none d-lg-block" (scrollTop)="scrollTop()"></nav>
