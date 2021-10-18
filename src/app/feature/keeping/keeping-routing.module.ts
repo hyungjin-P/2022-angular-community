@@ -38,17 +38,16 @@ const routes: Routes = [
             { path: 'mypage', component: MypageComponent },
             { path: 'privacy', component: PrivacyComponent },
             { path: 'service-terms', component: ServiceTermsComponent },
-
             { path: 'notification', component: NotificationComponent },
         ],
     },
+
+    { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 
     {
         path: 'auth',
         loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
     },
-
-    { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 
     {
         path: 'settings',

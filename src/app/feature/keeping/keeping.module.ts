@@ -37,9 +37,9 @@ import { SearchComponent } from './search/search.component'
         MypageComponent,
         PrivacyComponent,
         ServiceTermsComponent,
+        NotificationComponent,
 
         SearchComponent,
-        NotificationComponent,
     ],
     imports: [KeepingRoutingModule, SharedModule, CommonModule],
     exports: [],
