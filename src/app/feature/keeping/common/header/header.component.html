@@ -48,7 +48,7 @@
                     <div class="dot"></div>
                 </div>
                 <div class="email">
-                    <span>{{ user.email }}</span>
+                    <span>{{ user.email || '-' }}</span>
                 </div>
                 <span class="mdi mdi-chevron-down"></span>
                 <div
@@ -68,8 +68,8 @@
                             ></shared-avatar>
                         </div>
                         <div class="user-menu-email d-flex flex-column">
-                            <div>{{ user.email.split('@')[0] }}</div>
-                            <div>@{{ user.email.split('@')[1] }}</div>
+                            <div>{{ user.email ? user.email.split('@')[0] : '-' }}</div>
+                            <div>@{{ user.email ? user.email.split('@')[1] : ' -' }}</div>
                         </div>
                     </div>
                     <div class="user-menu-h-line-1"></div>
