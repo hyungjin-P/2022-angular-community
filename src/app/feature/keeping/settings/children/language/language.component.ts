@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Location } from '@angular/common'
 
 @Component({
     selector: 'language',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./language.component.scss'],
 })
 export class LanguageComponent implements OnInit {
-    constructor() {}
+    constructor(private location: Location) {}
 
     ngOnInit() {}
+
+    goBack() {
+        this.location.back()
+    }
 }

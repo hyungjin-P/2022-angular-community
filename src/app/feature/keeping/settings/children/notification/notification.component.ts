@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Location } from '@angular/common'
 
 @Component({
     selector: 'notification',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent implements OnInit {
-    constructor() {}
+    constructor(private location: Location) {}
 
     ngOnInit() {}
+
+    goBack() {
+        this.location.back()
+    }
 }

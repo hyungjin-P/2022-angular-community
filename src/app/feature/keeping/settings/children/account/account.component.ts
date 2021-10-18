@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Location } from '@angular/common'
 
 @Component({
     selector: 'account',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-    constructor() {}
+    constructor(private location: Location) {}
 
     ngOnInit() {}
+
+    goBack() {
+        this.location.back()
+    }
 }

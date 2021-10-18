@@ -1,8 +1,6 @@
-<div class="full-absolute">
-    <div class="header">
-        <div class="mdi mdi-chevron-left"></div>
-        <div>설정</div>
-    </div>
+<div class="full-absolute d-lg-none">
+    <mobile-header text="설정" (goBack)="goBack()"></mobile-header>
+
     <div class="nav">
         <div class="menu" [routerLink]="['/settings/profile']">
             <div>프로필 변경</div>
@@ -12,10 +10,30 @@
             <div>계정 관리</div>
             <div class="mdi mdi-chevron-right"></div>
         </div>
-        <div class="menu" [routerLink]="['/settings/notification']">알림 설정</div>
-        <div class="menu" [routerLink]="['/settings/language']">언어 설정</div>
-        <div class="menu" [routerLink]="['/settings/service-center']">고객 센터</div>
-        <div class="menu" [routerLink]="['/settings/company']">회사 정보</div>
-        <div class="menu">로그아웃</div>
+        <div class="menu" [routerLink]="['/settings/notification']">
+            <div>알림 설정</div>
+            <div class="mdi mdi-chevron-right"></div>
+        </div>
+        <div class="menu" [routerLink]="['/settings/language']">
+            <div>언어 설정</div>
+            <div class="mdi mdi-chevron-right"></div>
+        </div>
+        <div class="h-line"></div>
+        <div class="label">고객 센터</div>
+        <div class="menu" [routerLink]="['/settings/service-center']">
+            <div>고객 센터</div>
+            <div class="mdi mdi-chevron-right"></div>
+        </div>
+        <div class="h-line"></div>
+        <div class="label">회사 정보</div>
+        <div class="menu" [routerLink]="['/settings/company']">
+            <div>회사 정보</div>
+            <div class="mdi mdi-chevron-right"></div>
+        </div>
+        <div class="h-line"></div>
+        <div class="menu">
+            <div>로그아웃</div>
+            <div class="mdi mdi-chevron-right"></div>
+        </div>
     </div>
 </div>

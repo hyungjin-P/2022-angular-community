@@ -20,4 +20,8 @@ export class HomeComponent implements OnInit {
             this.router.navigateByUrl('/settings/profile')
         }
     }
+
+    goBack() {
+        this.router.navigateByUrl('/')
+    }
 }
