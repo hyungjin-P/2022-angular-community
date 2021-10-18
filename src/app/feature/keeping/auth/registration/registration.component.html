@@ -5,7 +5,9 @@
                 <div class="row">
                     <div class="col">
                         <div class="leading">
-                            <img src="assets/images/logo/header_logo.svg" />
+                            <div class="logo" [routerLink]="['/']">
+                                <img src="assets/images/logo/header_logo.svg" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -34,7 +36,7 @@
     <div class="container">
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="text-1 shared-typo-title-b26">
+                <div class="text-1">
                     <span>키핑 서비스 가입하기</span>
                 </div>
             </div>
@@ -51,7 +53,7 @@
                         [disabled]="emailVerified"
                     ></shared-input>
                     <div
-                        class="shared-typo-body-m12 send-verification-code"
+                        class="send-verification-code"
                         [class.send-verification-code-enable]="emailValid"
                         *ngIf="!emailVerified && !verificationCodeVisible"
                         (click)="sendVerificationCodeMail()"
@@ -59,7 +61,7 @@
                         인증하기
                     </div>
                     <div
-                        class="shared-typo-body-m12 resend-verification-code"
+                        class="resend-verification-code"
                         *ngIf="verificationCodeVisible"
                         (click)="sendVerificationCodeMail()"
                     >
@@ -82,9 +84,9 @@
                         (keypress)="checkDigit($event)"
                         (keyup)="onKeyup($event, 'verificationCode')"
                     ></shared-input>
-                    <div class="shared-typo-body-m11 time" *ngIf="timeLeft > 0">{{ timeLeft | minuteSeconds }}</div>
+                    <div class="time" *ngIf="timeLeft > 0">{{ timeLeft | minuteSeconds }}</div>
                     <div
-                        class="shared-typo-body-m12 confirm-verification-code"
+                        class="confirm-verification-code"
                         [class.confirm-verification-code-enable]="verificationCode.length == 6 && timeLeft > 0"
                         (click)="checkVerificationCodeMail()"
                     >
@@ -183,38 +185,33 @@
                             shape="circle"
                         ></shared-checkbox>
                     </div>
-                    <div class="shared-typo-body-m12" (click)="showPopup('popup-privacy-service-terms')">확인하기</div>
+                    <div (click)="showPopup('popup-privacy-service-terms')">확인하기</div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="text-2 shared-typo-body-r11">
+                <div class="text-2">
                     <div>(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의</div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="registration-button">
-                    <div
-                        shared-button
-                        sharedButtonType="primary"
-                        sharedButtonSize="medium"
-                        sharedButtonHeight="52"
-                        [sharedButtonDisabled]="
-                            !emailVerified ||
-                            !passwordValid ||
-                            !confirmPasswordValid ||
-                            password != confirmPassword ||
-                            !agreementAge ||
-                            !agreementPrivacy ||
-                            !agreementServiceTerms
-                        "
-                        (click)="registration()"
-                    >
-                        <div>가입하기</div>
-                    </div>
+                <div
+                    class="registration-button shared-button-primary"
+                    [class.shared-button-primary-disabled]="
+                        !emailVerified ||
+                        !passwordValid ||
+                        !confirmPasswordValid ||
+                        password != confirmPassword ||
+                        !agreementAge ||
+                        !agreementPrivacy ||
+                        !agreementServiceTerms
+                    "
+                    (click)="registration()"
+                >
+                    <div>가입하기</div>
                 </div>
             </div>
         </div>
@@ -231,7 +228,7 @@
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-header">
-                        <div class="shared-typo-title-b20">약관 확인하기</div>
+                        <div>약관 확인하기</div>
                         <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
                             <span class="mdi mdi-close"></span>
                         </div>
@@ -240,19 +237,37 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <ng-container *ngTemplateOutlet="privacyServiceTermsDesc"></ng-container>
+                    <div class="privacy-service-terms-desc">키핑은 개인정보를 안전하게 취급합니다.</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-agreement-all">
-                        <ng-container *ngTemplateOutlet="privacyServiceTermsAgreementAll"></ng-container>
+                        <shared-checkbox
+                            text="모두 동의하기"
+                            [checked]="agreementAll"
+                            shape="circle"
+                            (click)="checkTerms('all')"
+                        ></shared-checkbox>
                     </div>
                     <div class="privacy-service-terms-agreement-1">
-                        <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement1"></ng-container>
+                        <shared-checkbox
+                            text="[필수] 만 14세 이상입니다."
+                            [checked]="agreementAge"
+                            shape="none"
+                            (click)="checkTerms('age')"
+                        ></shared-checkbox>
                     </div>
                     <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
-                        <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement2"></ng-container>
+                        <shared-checkbox
+                            text="[필수] 서비스 이용 약관 동의"
+                            [checked]="agreementPrivacy"
+                            shape="none"
+                            (click)="checkTerms('privacy')"
+                        ></shared-checkbox>
+                        <div (click)="openContent('privacy')">
+                            {{ isPrivacyOpen ? '닫기' : '펼치기' }}
+                        </div>
                     </div>
                     <div
                         class="privacy-service-terms-agreement-2-content scroll-y"
@@ -267,7 +282,15 @@
                         </div>
                     </div>
                     <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
-                        <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement3"></ng-container>
+                        <shared-checkbox
+                            text="[필수] 개인정보 수집 및 이용 동의"
+                            [checked]="agreementServiceTerms"
+                            shape="none"
+                            (click)="checkTerms('serviceTerms')"
+                        ></shared-checkbox>
+                        <div (click)="openContent('service-terms')">
+                            {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
+                        </div>
                     </div>
                     <div
                         class="privacy-service-terms-agreement-3-content scroll-y"
@@ -282,149 +305,25 @@
                         </div>
                     </div>
                     <div class="privacy-service-terms-agreement-4 d-flex justify-content-between">
-                        <ng-container *ngTemplateOutlet="privacyServiceTermsAgreement4"></ng-container>
+                        <shared-checkbox
+                            text="[선택] 마케팅 정보 수신 동의"
+                            [checked]="agreementMarketing"
+                            shape="none"
+                            (click)="checkTerms('marketing')"
+                        ></shared-checkbox>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <ng-container *ngTemplateOutlet="privacyServiceTermsConfirm"></ng-container>
+                    <div
+                        class="privacy-service-terms-confirm shared-button-primary"
+                        (click)="hidePopup('popup-privacy-service-terms')"
+                    >
+                        <div>확인</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<ng-template #privacyServiceTermsDesc>
-    <div class="privacy-service-terms-desc shared-typo-body-r12 d-sm-none">키핑은 개인정보를 안전하게 취급합니다.</div>
-    <div class="privacy-service-terms-desc shared-typo-body-r14 d-none d-sm-block">
-        키핑은 개인정보를 안전하게 취급합니다.
-    </div>
-</ng-template>
-
-<ng-template #privacyServiceTermsAgreementAll>
-    <shared-checkbox
-        class="d-sm-none"
-        text="모두 동의하기"
-        [checked]="agreementAll"
-        (click)="checkTerms('all')"
-        size="small"
-        shape="circle"
-    ></shared-checkbox>
-    <shared-checkbox
-        class="d-none d-sm-flex"
-        text="모두 동의하기"
-        [checked]="agreementAll"
-        (click)="checkTerms('all')"
-        shape="circle"
-    ></shared-checkbox>
-</ng-template>
-
-<ng-template #privacyServiceTermsAgreement1>
-    <shared-checkbox
-        class="d-sm-none"
-        text="[필수] 만 14세 이상입니다."
-        [checked]="agreementAge"
-        (click)="checkTerms('age')"
-        size="small"
-        shape="none"
-    ></shared-checkbox>
-    <shared-checkbox
-        class="d-none d-sm-flex"
-        text="[필수] 만 14세 이상입니다."
-        [checked]="agreementAge"
-        (click)="checkTerms('age')"
-        shape="none"
-    ></shared-checkbox>
-</ng-template>
-
-<ng-template #privacyServiceTermsAgreement2>
-    <shared-checkbox
-        class="d-sm-none"
-        text="[필수] 서비스 이용 약관 동의"
-        [checked]="agreementPrivacy"
-        (click)="checkTerms('privacy')"
-        size="small"
-        shape="none"
-    ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('privacy')">
-        {{ isPrivacyOpen ? '닫기' : '펼치기' }}
-    </div>
-    <shared-checkbox
-        class="d-none d-sm-flex"
-        text="[필수] 서비스 이용 약관 동의"
-        [checked]="agreementPrivacy"
-        (click)="checkTerms('privacy')"
-        shape="none"
-    ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('privacy')">
-        {{ isPrivacyOpen ? '닫기' : '펼치기' }}
-    </div>
-</ng-template>
-
-<ng-template #privacyServiceTermsAgreement3>
-    <shared-checkbox
-        class="d-sm-none"
-        text="[필수] 개인정보 수집 및 이용 동의"
-        [checked]="agreementServiceTerms"
-        (click)="checkTerms('serviceTerms')"
-        size="small"
-        shape="none"
-    ></shared-checkbox>
-    <div class="d-sm-none shared-typo-body-m11" (click)="openContent('service-terms')">
-        {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
-    </div>
-    <shared-checkbox
-        class="d-none d-sm-flex"
-        text="[필수] 개인정보 수집 및 이용 동의"
-        [checked]="agreementServiceTerms"
-        (click)="checkTerms('serviceTerms')"
-        shape="none"
-    ></shared-checkbox>
-    <div class="d-none d-sm-flex shared-typo-body-m12" (click)="openContent('service-terms')">
-        {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
-    </div>
-</ng-template>
-
-<ng-template #privacyServiceTermsAgreement4>
-    <shared-checkbox
-        class="d-sm-none"
-        text="[선택] 마케팅 정보 수신 동의"
-        [checked]="agreementMarketing"
-        (click)="checkTerms('marketing')"
-        size="small"
-        shape="none"
-    ></shared-checkbox>
-    <shared-checkbox
-        class="d-none d-sm-flex"
-        text="[선택] 마케팅 정보 수신 동의"
-        [checked]="agreementMarketing"
-        (click)="checkTerms('marketing')"
-        shape="none"
-    ></shared-checkbox>
-</ng-template>
-
-<ng-template #privacyServiceTermsConfirm>
-    <div class="privacy-service-terms-confirm d-sm-none">
-        <div
-            shared-button
-            sharedButtonType="primary"
-            sharedButtonSize="small"
-            sharedButtonHeight="44"
-            (click)="hidePopup('popup-privacy-service-terms')"
-        >
-            <div>확인</div>
-        </div>
-    </div>
-    <div class="privacy-service-terms-confirm d-none d-sm-block">
-        <div
-            shared-button
-            sharedButtonType="primary"
-            sharedButtonSize="medium"
-            sharedButtonHeight="52"
-            (click)="hidePopup('popup-privacy-service-terms')"
-        >
-            <div>확인</div>
-        </div>
-    </div>
-</ng-template>

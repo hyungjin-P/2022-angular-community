@@ -10,6 +10,11 @@
         display: flex;
         align-items: center;
         height: 60px;
+
+        .logo {
+            height: 27px;
+            cursor: pointer;
+        }
     }
 }
 
@@ -34,14 +39,11 @@
 
     .agreement-all {
         margin-top: 81px;
-
-        // ::ng-deep shared-checkbox {
-        //     @include checkbox-small;
-        // }
     }
 
     .h-line {
-        margin: 16px 0;
+        margin-top: 16px;
+        margin-bottom: 4px;
         border-bottom: 1px solid var(--grey-8);
     }
 
@@ -49,15 +51,7 @@
     .agreement-2,
     .agreement-3,
     .agreement-4 {
-        // ::ng-deep shared-checkbox {
-        //     @include checkbox-small;
-        // }
-    }
-
-    .agreement-2,
-    .agreement-3,
-    .agreement-4 {
-        margin-top: 12px;
+        padding-top: 12px;
 
         > div {
             cursor: pointer;
@@ -110,15 +104,11 @@
         .agreement-2,
         .agreement-3,
         .agreement-4 {
+            padding-top: 16px;
+
             ::ng-deep shared-checkbox {
                 @include checkbox;
             }
-        }
-
-        .agreement-2,
-        .agreement-3,
-        .agreement-4 {
-            margin-top: 16px;
 
             > div {
                 @include textStyle(500, 13px, 21px);
@@ -153,7 +143,6 @@
 }
 
 .popup-privacy-service-terms {
-    visibility: hidden;
     position: fixed;
     top: 0;
     right: 0;
@@ -163,6 +152,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
+    visibility: hidden;
 
     .privacy-service-terms {
         position: relative;
