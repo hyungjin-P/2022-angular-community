@@ -37,7 +37,30 @@
         <div class="row">
             <div class="col">
                 <div class="text-1">
-                    <span>로그인</span>
+                    <span>{{ 'auth.login.text1' | translate }}</span>
+                </div>
+            </div>
+            <div class="col d-none d-lg-flex justify-content-end align-items-center">
+                <div class="lang" [class.lang-box-open]="langBoxVisible" (click)="openLangBox($event)">
+                    <span class="mdi mdi-web"></span>
+                    <span>{{ 'auth.login.text2' | translate }}</span>
+                    <span class="mdi mdi-chevron-down"></span>
+                    <div
+                        class="lang-box"
+                        [class.d-block]="langBoxVisible"
+                        (click)="$event.stopPropagation()"
+                        (sharedClickOutside)="closeLangBox()"
+                    >
+                        <div class="lang-box-menu" (click)="switchLanguage('ko')">
+                            <div>한국어</div>
+                            <shared-checkbox [checked]="selectedLanguage == 'ko'" shape="circle"></shared-checkbox>
+                        </div>
+                        <div class="lang-box-h-line"></div>
+                        <div class="lang-box-menu" (click)="switchLanguage('en')">
+                            <div>English</div>
+                            <shared-checkbox [checked]="selectedLanguage == 'en'" shape="circle"></shared-checkbox>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,7 +73,7 @@
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="email">
                     <shared-input
-                        label="이메일"
+                        [label]="'auth.login.email' | translate"
                         placeholder="이메일 주소를 입력해 주세요"
                         [(ngModel)]="email"
                         maxlength="50"

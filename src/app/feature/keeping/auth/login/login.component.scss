@@ -29,6 +29,66 @@
         color: var(--text-1);
     }
 
+    .lang {
+        position: relative;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        color: var(--grey-1);
+
+        span:nth-child(1) {
+            font-size: 20px;
+        }
+
+        span:nth-child(2) {
+            margin: 0 4px;
+
+            @include textStyle(400, 12px, 20px);
+        }
+
+        span:nth-child(3) {
+            position: relative;
+
+            font-size: 16px;
+        }
+
+        .lang-box {
+            display: none;
+            position: absolute;
+            top: 32px;
+            right: 0;
+            padding: 12px 20px;
+            width: 140px;
+            border: 1px solid var(--grey-8);
+            border-radius: 12px;
+            background: vaR(--white);
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), -4px 4px 16px rgba(0, 0, 0, 0.12);
+            cursor: default;
+            z-index: 1;
+
+            .lang-box-menu {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 40px;
+                cursor: pointer;
+            }
+
+            .lang-box-h-line {
+                border-bottom: 1px solid var(--grey-7);
+            }
+        }
+    }
+
+    .lang-box-open {
+        span:nth-child(3) {
+            top: 1px;
+            transform: rotateX(180deg);
+            transition: transform 0.2s linear;
+        }
+    }
+
     .text-2 {
         margin-top: 20px;
 

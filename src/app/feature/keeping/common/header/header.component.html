@@ -24,10 +24,10 @@
         </div>
         <ng-container *ngIf="!variables.isLogin">
             <div class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
-                <span>로그인</span>
+                <span>{{ 'common.header.login' | translate }}</span>
             </div>
             <div class="registration d-none d-lg-flex shared-button-primary" [routerLink]="['/auth/registration']">
-                <span>회원가입</span>
+                <span>{{ 'common.header.singup' | translate }}</span>
             </div>
         </ng-container>
         <ng-container *ngIf="variables.isLogin">

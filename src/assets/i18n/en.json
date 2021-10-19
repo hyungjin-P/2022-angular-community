@@ -1,0 +1,23 @@
+{
+    "auth": {
+        "login": {
+            "email": "Email",
+            "text1": "Login",
+            "text2": "Language"
+        }
+    },
+    "common": {
+        "header": {
+            "login": "Login",
+            "singup": "Sign Up"
+        },
+        "nav": {
+            "community": "Community",
+            "event": "Event",
+            "feed": "Feed",
+            "home": "Home",
+            "magazine": "Magazine",
+            "notice": "Notice"
+        }
+    }
+}

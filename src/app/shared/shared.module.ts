@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
+// Translate
+import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
+
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json')
+}
+
 // Components
 import { AvatarComponent } from './components/avatar/avatar.component'
 import { CheckboxComponent } from './components/checkbox/checkbox.component'
@@ -56,10 +65,23 @@ import { TimePipe } from './pipes/time.pipe'
         SafePipe,
         TimePipe,
     ],
-    imports: [CommonModule, FormsModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+
+        HttpClientModule,
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+    ],
     exports: [
         CommonModule,
         FormsModule,
+        TranslateModule,
 
         // Components
         AvatarComponent,

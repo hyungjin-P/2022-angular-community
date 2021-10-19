@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { TranslateService } from '@ngx-translate/core'
 
 import { GlobalService } from '@services/global.service'
 
@@ -12,13 +13,23 @@ export class AppComponent implements OnInit {
     modal: any
     toast: any
 
-    constructor(private globalService: GlobalService) {
+    constructor(private translate: TranslateService, private globalService: GlobalService) {
         this.variables = this.globalService.variables
         this.modal = this.globalService.modal
         this.toast = this.globalService.toast
     }
 
     ngOnInit(): void {
+        this.translate.setDefaultLang('ko')
+        let language = localStorage.getItem('language')
+        if (language) {
+            this.translate.use(language)
+        } else {
+            language = navigator.language || 'ko'
+            localStorage.setItem('language', language)
+            this.translate.use(language)
+        }
+
         if (window.hasOwnProperty('ontouchstart')) {
             this.variables.isTouchScreen = true
         }

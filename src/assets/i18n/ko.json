@@ -1,0 +1,23 @@
+{
+    "auth": {
+        "login": {
+            "email": "이메일",
+            "text1": "로그인",
+            "text2": "언어"
+        }
+    },
+    "common": {
+        "header": {
+            "login": "로그인",
+            "singup": "회원가입"
+        },
+        "nav": {
+            "community": "커뮤니티",
+            "event": "이벤트",
+            "feed": "피드",
+            "home": "홈",
+            "magazine": "매거진",
+            "notice": "공지사항"
+        }
+    }
+}

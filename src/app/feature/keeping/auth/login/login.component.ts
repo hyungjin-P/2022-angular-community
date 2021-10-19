@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { AngularFireAuth } from '@angular/fire/auth'
+import { TranslateService } from '@ngx-translate/core'
 import * as firebase from 'firebase/app'
 import { Observable, Subscription } from 'rxjs'
 declare let Kakao: any
@@ -34,9 +35,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     passwordErrorText: string
     passwordVisible: boolean
 
+    langBoxVisible: boolean
+    selectedLanguage: string
+
     constructor(
         private router: Router,
         private angularFireAuth: AngularFireAuth,
+        private translate: TranslateService,
         private globalService: GlobalService,
         private storageService: StorageService,
         private authService: AuthService
@@ -83,6 +88,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (!Kakao.isInitialized()) {
             Kakao.init(`${environment.kakao['appKey']['javascript']}`)
         }
+
+        this.selectedLanguage = localStorage.getItem('language')
     }
 
     ngOnDestroy() {
@@ -259,5 +266,27 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     changePasswordVisible() {
         this.passwordVisible = !this.passwordVisible
+    }
+
+    openLangBox(event) {
+        event.stopPropagation()
+
+        if (this.langBoxVisible) {
+            this.closeLangBox()
+        } else {
+            this.langBoxVisible = true
+        }
+    }
+
+    closeLangBox() {
+        this.langBoxVisible = false
+    }
+
+    switchLanguage(language: string) {
+        this.translate.use(language)
+
+        localStorage.setItem('language', language)
+        this.selectedLanguage = language
+        this.closeLangBox()
     }
 }
