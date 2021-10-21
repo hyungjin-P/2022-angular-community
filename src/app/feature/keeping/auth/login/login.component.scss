@@ -29,25 +29,45 @@
         color: var(--text-1);
     }
 
+    .text-2 {
+        margin-top: 20px;
+
+        text-align: center;
+
+        span:nth-child(1) {
+            @include textStyle(500, 13px, 21px);
+            color: var(--grey-3);
+        }
+
+        span:nth-child(2) {
+            margin-left: 5px;
+            outline: none;
+            cursor: pointer;
+
+            @include textStyle(500, 13px, 21px);
+            color: var(--blue-3);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+
     .lang {
         position: relative;
         display: flex;
+        justify-content: flex-end;
         align-items: center;
+        margin-top: 30px;
         cursor: pointer;
 
         color: var(--grey-1);
 
         span:nth-child(1) {
-            font-size: 20px;
-        }
-
-        span:nth-child(2) {
             margin: 0 4px;
 
             @include textStyle(400, 12px, 20px);
         }
 
-        span:nth-child(3) {
+        span:nth-child(2) {
             position: relative;
 
             font-size: 16px;
@@ -56,7 +76,7 @@
         .lang-box {
             display: none;
             position: absolute;
-            top: 32px;
+            top: 26px;
             right: 0;
             padding: 12px 20px;
             width: 140px;
@@ -89,31 +109,9 @@
         }
     }
 
-    .text-2 {
-        margin-top: 20px;
-
-        text-align: center;
-
-        span:nth-child(1) {
-            @include textStyle(500, 13px, 21px);
-            color: var(--grey-3);
-        }
-
-        span:nth-child(2) {
-            margin-left: 5px;
-            outline: none;
-            cursor: pointer;
-
-            @include textStyle(500, 13px, 21px);
-            color: var(--blue-3);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-    }
-
     .email {
         position: relative;
-        margin-top: 42px;
+        margin-top: 20px;
 
         .mdi-check {
             position: absolute;
@@ -252,10 +250,6 @@
 
                 .container {
                     padding: 0;
-
-                    .text-1 {
-                        text-align: start;
-                    }
 
                     .email {
                         margin-top: 44px;
