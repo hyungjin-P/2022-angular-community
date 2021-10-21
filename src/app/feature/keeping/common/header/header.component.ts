@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     variables: any
     user: User
 
-    userMenuVisible: boolean
+    userBoxVisible: boolean
 
     constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {}
 
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
             this.variables.isLogin = true
         }
 
-        this.userMenuVisible = false
+        this.userBoxVisible = false
     }
 
     openNav() {
@@ -42,18 +42,18 @@ export class HeaderComponent implements OnInit {
         this.variables.isDrawerOpen = true
     }
 
-    openUserMenu(event) {
+    openUserBox(event) {
         event.stopPropagation()
 
-        if (this.userMenuVisible) {
-            this.closeUserMenu()
+        if (this.userBoxVisible) {
+            this.closeUserBox()
         } else {
-            this.userMenuVisible = true
+            this.userBoxVisible = true
         }
     }
 
-    closeUserMenu() {
-        this.userMenuVisible = false
+    closeUserBox() {
+        this.userBoxVisible = false
     }
 
     async logout() {

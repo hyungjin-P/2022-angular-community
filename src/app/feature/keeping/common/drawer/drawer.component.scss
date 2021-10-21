@@ -217,3 +217,19 @@
         }
     }
 }
+
+@media (min-width: 992px) {
+    .header {
+        height: 68px;
+
+        .leading,
+        .center,
+        .action {
+            height: 68px;
+        }
+    }
+
+    .nav {
+        top: 68px;
+    }
+}

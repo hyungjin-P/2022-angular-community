@@ -216,7 +216,7 @@
                 color: var(--grey-4);
             }
 
-            .user-menu {
+            .user-box {
                 display: none;
                 position: absolute;
                 top: 45px;
@@ -230,15 +230,15 @@
                 z-index: 1;
                 cursor: default;
 
-                .user-menu-label {
+                .user-box-label {
                     @include textStyle(500, 12px, 20px);
                     color: var(--grey-1);
                 }
 
-                .user-menu-user {
+                .user-box-user {
                     margin-top: 14px;
 
-                    .user-menu-email {
+                    .user-box-email {
                         padding-left: 12px;
                         width: 130px;
 
@@ -258,19 +258,19 @@
                     }
                 }
 
-                .user-menu-h-line-1 {
+                .user-box-h-line-1 {
                     margin-top: 16px;
                     margin-bottom: 9px;
                     border-top: 1px solid var(--grey-7);
                 }
 
-                .user-menu-h-line-2 {
+                .user-box-h-line-2 {
                     margin-top: 11px;
                     margin-bottom: 11px;
                     border-top: 1px solid var(--grey-7);
                 }
 
-                .user-menu-menu {
+                .user-box-menu {
                     display: flex;
                     align-items: center;
                     margin: 0 3px;
@@ -279,16 +279,16 @@
                     border-radius: 8px;
                     cursor: pointer;
 
-                    .user-menu-svg-icon {
+                    .user-box-svg-icon {
                         width: 18px;
                         height: 18px;
                         outline: none;
 
-                        .user-menu-stroke {
+                        .user-box-stroke {
                             stroke: var(--grey-1);
                         }
 
-                        .user-menu-fill {
+                        .user-box-fill {
                             fill: var(--grey-1);
                         }
                     }
@@ -303,12 +303,12 @@
                     &:hover {
                         background-color: var(--blue-9);
 
-                        .user-menu-svg-icon {
-                            .user-menu-stroke {
+                        .user-box-svg-icon {
+                            .user-box-stroke {
                                 stroke: var(--blue-3);
                             }
 
-                            .user-menu-fill {
+                            .user-box-fill {
                                 fill: var(--blue-3);
                             }
                         }
@@ -321,7 +321,7 @@
             }
         }
 
-        .user-menu-open {
+        .user-box-open {
             .mdi {
                 transform: rotateX(180deg);
                 transition: transform 0.2s linear;

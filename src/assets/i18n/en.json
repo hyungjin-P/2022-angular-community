@@ -2,16 +2,28 @@
     "auth": {
         "login": {
             "email": "Email",
-            "text1": "Login",
+            "text1": "Sign In",
             "text2": "Language"
         }
     },
     "common": {
+        "bottom-nav": {
+            "feed": "Feed",
+            "home": "Home",
+            "magazine": "Magazine",
+            "mypage": "My Page",
+            "signin": "Sign In"
+        },
         "header": {
-            "login": "Login",
+            "signin": "Sign In",
             "singup": "Sign Up"
         },
         "nav": {
+            "address-label": "Address",
+            "address-text": "***",
+            "business-registration-number-label": "Business Registration Number",
+            "ceo-label": "CEO",
+            "ceo-text": "***",
             "event": "Event",
             "feed": "Feed",
             "help": "Help",
@@ -19,6 +31,8 @@
             "magazine": "Magazine",
             "more": "More",
             "notice": "Notice",
+            "privacy": "Privacy",
+            "service-terms": "Service Terms",
             "shop": "Shop"
         }
     }

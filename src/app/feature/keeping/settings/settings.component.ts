@@ -14,7 +14,9 @@ export class SettingsComponent implements OnInit {
         this.variables = this.globalService.variables
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.closeDrawer()
+    }
 
     closeDrawer() {
         this.variables.isDrawerOpen = false

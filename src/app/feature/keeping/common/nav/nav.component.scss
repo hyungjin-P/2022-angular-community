@@ -218,13 +218,17 @@
         }
 
         .address {
+            flex-direction: column;
+
             > div:nth-child(1) {
-                width: 90px;
+                min-width: 33px;
 
                 @include textStyle(500, 12px, 20px);
             }
 
             > div:nth-child(2) {
+                // flex: 1;
+
                 @include textStyle(400, 12px, 20px);
                 letter-spacing: -0.4px;
             }

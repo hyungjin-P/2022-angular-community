@@ -379,13 +379,13 @@
         </a>
         <div class="menu-more-box" [class.d-block]="menuMoreBoxVisible">
             <div class="menu-more-box-menu" [routerLink]="['/notice']" routerLinkActive="menu-more-box-menu-selected">
-                <span>공지사항</span>
+                <span>{{ 'common.nav.notice' | translate }}</span>
             </div>
             <div class="menu-more-box-menu" [routerLink]="['/event']" routerLinkActive="menu-more-box-menu-selected">
-                <span>이벤트</span>
+                <span>{{ 'common.nav.event' | translate }}</span>
             </div>
             <div class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
-                <span>고객센터</span>
+                <span>{{ 'common.nav.help' | translate }}</span>
             </div>
         </div>
         <a class="menu">
@@ -418,17 +418,27 @@
 
         <div class="footer">
             <div class="d-flex">
-                <div class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">이용약관</div>
-                <div class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">개인정보 처리방침</div>
+                <div class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">
+                    {{ 'common.nav.service-terms' | translate }}
+                </div>
+                <div class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">
+                    {{ 'common.nav.privacy' | translate }}
+                </div>
             </div>
             <div class="logo">
                 <img src="assets/images/logo/footer_logo.png" />
             </div>
-            <div class="ceo"><span>대표이사 : </span><span>***</span></div>
-            <div class="business-number"><span>사업자 등록번호 : </span><span>***-**-*****</span></div>
+            <div class="ceo">
+                <span>{{ 'common.nav.ceo-label' | translate }} : </span
+                ><span>{{ 'common.nav.ceo-text' | translate }}</span>
+            </div>
+            <div class="business-number">
+                <span>{{ 'common.nav.business-registration-number-label' | translate }} : </span
+                ><span>***-**-*****</span>
+            </div>
             <div class="address d-flex">
-                <div>주소 :</div>
-                <div>***</div>
+                <div>{{ 'common.nav.address-label' | translate }} :</div>
+                <div>{{ 'common.nav.address-text' | translate }}</div>
             </div>
             <div class="copyright">Copyright © 2021 Flexible. All rights reserved.</div>
         </div>
