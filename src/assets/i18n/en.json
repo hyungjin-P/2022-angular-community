@@ -14,6 +14,23 @@
             "mypage": "My Page",
             "signin": "Sign In"
         },
+        "drawer": {
+            "address-label": "Address",
+            "address-text": "***",
+            "business-registration-number-label": "Business Registration Number",
+            "ceo-label": "CEO",
+            "ceo-text": "***",
+            "event": "Event",
+            "feed": "Feed",
+            "help": "Help",
+            "home": "Home",
+            "magazine": "Magazine",
+            "more": "More",
+            "notice": "Notice",
+            "privacy": "Privacy",
+            "service-terms": "Service Terms",
+            "shop": "Shop"
+        },
         "header": {
             "signin": "Sign In",
             "singup": "Sign Up"

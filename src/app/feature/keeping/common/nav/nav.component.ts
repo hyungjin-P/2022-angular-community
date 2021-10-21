@@ -12,8 +12,6 @@ export class NavComponent implements OnInit {
 
     variables: any
 
-    menuMoreBoxVisible: boolean
-
     constructor(private globalService: GlobalService) {
         this.variables = this.globalService.variables
     }
@@ -25,6 +23,6 @@ export class NavComponent implements OnInit {
     }
 
     openMenuMoreBox() {
-        this.menuMoreBoxVisible = !this.menuMoreBoxVisible
+        this.variables.menuMoreBoxVisible = !this.variables.menuMoreBoxVisible
     }
 }

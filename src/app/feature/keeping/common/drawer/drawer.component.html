@@ -35,7 +35,7 @@
                 stroke-linejoin="round"
             />
         </svg>
-        <div class="text">홈</div>
+        <div class="text">{{ 'common.drawer.home' | translate }}</div>
     </a>
     <a class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
         <svg
@@ -64,7 +64,7 @@
             <path d="M18 6.0217V6" class="stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
 
-        <div class="text">피드</div>
+        <div class="text">{{ 'common.drawer.feed' | translate }}</div>
     </a>
     <a class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">
         <svg
@@ -105,9 +105,9 @@
             />
         </svg>
 
-        <div class="text">매거진</div>
+        <div class="text">{{ 'common.drawer.magazine' | translate }}</div>
     </a>
-    <a class="menu menu-more" [class.menu-more-box-open]="menuMoreBoxVisible" (click)="openMenuMoreBox()">
+    <a class="menu menu-more" [class.menu-more-box-open]="variables.menuMoreBoxVisible" (click)="openMenuMoreBox()">
         <svg
             class="svg-icon"
             width="24"
@@ -137,18 +137,18 @@
             />
         </svg>
 
-        <div class="text">{{ 'common.nav.more' | translate }}</div>
+        <div class="text">{{ 'common.drawer.more' | translate }}</div>
         <span class="mdi mdi-chevron-down"></span>
     </a>
-    <div class="menu-more-box" [class.d-block]="menuMoreBoxVisible">
+    <div class="menu-more-box" [class.d-block]="variables.menuMoreBoxVisible">
         <div class="menu-more-box-menu" [routerLink]="['/notice']" routerLinkActive="menu-more-box-menu-selected">
-            <span>공지사항</span>
+            <span>{{ 'common.drawer.notice' | translate }}</span>
         </div>
         <div class="menu-more-box-menu" [routerLink]="['/event']" routerLinkActive="menu-more-box-menu-selected">
-            <span>이벤트</span>
+            <span>{{ 'common.drawer.event' | translate }}</span>
         </div>
         <div class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
-            <span>고객센터</span>
+            <span>{{ 'common.drawer.help' | translate }}</span>
         </div>
     </div>
     <a class="menu">
@@ -176,22 +176,32 @@
             />
         </svg>
 
-        <div class="text">{{ 'common.nav.shop' | translate }}</div>
+        <div class="text">{{ 'common.drawer.shop' | translate }}</div>
     </a>
 
     <div class="footer">
         <div class="d-flex">
-            <div class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">이용약관</div>
-            <div class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">개인정보 처리방침</div>
+            <div class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">
+                {{ 'common.drawer.service-terms' | translate }}
+            </div>
+            <div class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">
+                {{ 'common.drawer.privacy' | translate }}
+            </div>
         </div>
         <div class="logo">
             <img src="assets/images/logo/footer_logo.png" />
         </div>
-        <div class="ceo"><span>대표이사 : </span><span>***</span></div>
-        <div class="business-number"><span>사업자 등록번호 : </span><span>***-**-*****</span></div>
+        <div class="ceo">
+            <span>{{ 'common.drawer.ceo-label' | translate }} : </span
+            ><span>{{ 'common.drawer.ceo-text' | translate }}</span>
+        </div>
+        <div class="business-number">
+            <span>{{ 'common.drawer.business-registration-number-label' | translate }} : </span
+            ><span>***-**-*****</span>
+        </div>
         <div class="address d-flex">
-            <div>주소 :</div>
-            <div>***</div>
+            <div>{{ 'common.drawer.address-label' | translate }} :</div>
+            <div>{{ 'common.drawer.address-text' | translate }}</div>
         </div>
         <div class="copyright">Copyright © 2021 Flexible. All rights reserved.</div>
     </div>
