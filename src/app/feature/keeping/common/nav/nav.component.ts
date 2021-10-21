@@ -12,6 +12,8 @@ export class NavComponent implements OnInit {
 
     variables: any
 
+    menuMoreBoxVisible: boolean
+
     constructor(private globalService: GlobalService) {
         this.variables = this.globalService.variables
     }
@@ -20,5 +22,9 @@ export class NavComponent implements OnInit {
 
     onScrollTop(): void {
         this.scrollTop.emit({})
+    }
+
+    openMenuMoreBox() {
+        this.menuMoreBoxVisible = !this.menuMoreBoxVisible
     }
 }

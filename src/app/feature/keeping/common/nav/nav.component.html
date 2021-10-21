@@ -344,7 +344,7 @@
 
             <div class="text">{{ 'common.nav.magazine' | translate }}</div>
         </a>
-        <a class="menu">
+        <a class="menu menu-more" [class.menu-more-box-open]="menuMoreBoxVisible" (click)="openMenuMoreBox()">
             <svg
                 class="svg-icon"
                 width="24"
@@ -375,7 +375,19 @@
             </svg>
 
             <div class="text">{{ 'common.nav.more' | translate }}</div>
+            <span class="mdi mdi-chevron-down"></span>
         </a>
+        <div class="menu-more-box" [class.d-block]="menuMoreBoxVisible">
+            <div class="menu-more-box-menu" [routerLink]="['/notice']" routerLinkActive="menu-more-box-menu-selected">
+                <span>공지사항</span>
+            </div>
+            <div class="menu-more-box-menu" [routerLink]="['/event']" routerLinkActive="menu-more-box-menu-selected">
+                <span>이벤트</span>
+            </div>
+            <div class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
+                <span>고객센터</span>
+            </div>
+        </div>
         <a class="menu">
             <svg
                 class="svg-icon"
