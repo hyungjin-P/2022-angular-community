@@ -26,6 +26,9 @@ export class AppComponent implements OnInit {
             this.translate.use(language)
         } else {
             language = navigator.language || 'ko'
+            if (language.indexOf('-') != -1) {
+                language = language.split('-')[0]
+            }
             localStorage.setItem('language', language)
             this.translate.use(language)
         }
