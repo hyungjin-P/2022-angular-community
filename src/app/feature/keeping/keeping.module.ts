@@ -10,10 +10,10 @@ import { CommonModule } from './common/common.module'
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
 import { WriteComponent } from './children/write/write.component'
-import { CommunityComponent } from './children/community/community.component'
 import { MagazineComponent } from './children/magazine/magazine.component'
-import { EventComponent } from './children/event/event.component'
 import { NoticeComponent } from './children/notice/notice.component'
+import { EventComponent } from './children/event/event.component'
+import { HelpComponent } from './children/help/help.component'
 
 import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
@@ -29,10 +29,10 @@ import { SearchComponent } from './search/search.component'
         HomeComponent,
         FeedComponent,
         WriteComponent,
-        CommunityComponent,
         MagazineComponent,
-        EventComponent,
         NoticeComponent,
+        EventComponent,
+        HelpComponent,
 
         MypageComponent,
         PrivacyComponent,

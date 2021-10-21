@@ -9,10 +9,10 @@ import { KeepingComponent } from './keeping.component'
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
 import { WriteComponent } from './children/write/write.component'
-import { CommunityComponent } from './children/community/community.component'
 import { MagazineComponent } from './children/magazine/magazine.component'
-import { EventComponent } from './children/event/event.component'
 import { NoticeComponent } from './children/notice/notice.component'
+import { EventComponent } from './children/event/event.component'
+import { HelpComponent } from './children/help/help.component'
 
 import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
@@ -30,10 +30,10 @@ const routes: Routes = [
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'feed', component: FeedComponent },
             { path: 'write', component: WriteComponent },
-            { path: 'community', component: CommunityComponent },
             { path: 'magazine', component: MagazineComponent },
-            { path: 'event', component: EventComponent },
             { path: 'notice', component: NoticeComponent },
+            { path: 'event', component: EventComponent },
+            { path: 'help', component: HelpComponent },
 
             { path: 'mypage', component: MypageComponent },
             { path: 'privacy', component: PrivacyComponent },
