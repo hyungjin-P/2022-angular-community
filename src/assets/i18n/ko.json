@@ -32,8 +32,16 @@
             "shop": "키핑Shop"
         },
         "header": {
+            "bookmark": "북마크",
+            "help": "고객센터",
+            "myaccount": "내 계정",
+            "mypage": "마이페이지",
+            "search-placeholder": "#태그, 게시물, ...",
+            "settings": "설정",
             "signin": "로그인",
-            "singup": "회원가입"
+            "signout": "로그아웃",
+            "singup": "회원가입",
+            "write": "글쓰기"
         },
         "nav": {
             "address-label": "주소",

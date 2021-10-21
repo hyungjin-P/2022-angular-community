@@ -32,8 +32,16 @@
             "shop": "Shop"
         },
         "header": {
+            "bookmark": "Bookmark",
+            "help": "Help",
+            "myaccount": "My Account",
+            "mypage": "My Page",
+            "search-placeholder": "#Tag, Post, ...",
+            "settings": "Settings",
             "signin": "Sign In",
-            "singup": "Sign Up"
+            "signout": "Sign Out",
+            "singup": "Sign Up",
+            "write": "Write"
         },
         "nav": {
             "address-label": "Address",
