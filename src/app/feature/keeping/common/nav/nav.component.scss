@@ -31,6 +31,10 @@
                 fill: var(--white);
             }
 
+            .fill-white {
+                fill: var(--text-2);
+            }
+
             .stroke,
             .stroke-blue3,
             .stroke-blue7 {
@@ -41,6 +45,7 @@
         .text {
             @include textStyle(400, 12px, 20px);
             color: var(--grey-1);
+            word-break: keep-all;
         }
 
         &:hover {
@@ -56,6 +61,10 @@
             .fill {
                 stroke: var(--blue-3);
                 fill: var(--blue-3);
+            }
+
+            .fill-white {
+                fill: var(--white);
             }
 
             .stroke {

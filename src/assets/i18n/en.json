@@ -12,12 +12,14 @@
             "singup": "Sign Up"
         },
         "nav": {
-            "community": "Community",
             "event": "Event",
             "feed": "Feed",
+            "help": "Help",
             "home": "Home",
             "magazine": "Magazine",
-            "notice": "Notice"
+            "more": "More",
+            "notice": "Notice",
+            "shop": "Shop"
         }
     }
 }

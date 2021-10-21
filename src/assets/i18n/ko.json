@@ -12,12 +12,14 @@
             "singup": "회원가입"
         },
         "nav": {
-            "community": "커뮤니티",
             "event": "이벤트",
             "feed": "피드",
+            "help": "고객센터",
             "home": "홈",
             "magazine": "매거진",
-            "notice": "공지사항"
+            "more": "더보기",
+            "notice": "공지사항",
+            "shop": "키핑Shop"
         }
     }
 }
