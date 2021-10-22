@@ -1,0 +1,329 @@
+<div class="full-absolute">
+    <div class="mobile d-lg-none">
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="leading">
+                            <div class="logo" [routerLink]="['/']">
+                                <img src="assets/images/logo/header_logo.svg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="registration-form">
+            <ng-container *ngTemplateOutlet="registrationForm"></ng-container>
+        </div>
+    </div>
+
+    <div class="desktop d-none d-lg-flex">
+        <div class="left-side">
+            <div class="registration-image">
+                <img src="assets/images/auth/registration-image.png" />
+            </div>
+        </div>
+        <div class="right-side d-flex justify-content-center align-items-center">
+            <div class="registration-form">
+                <ng-container *ngTemplateOutlet="registrationForm"></ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #registrationForm>
+    <div class="container">
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="text-1">
+                    <span>키핑 서비스 가입하기</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="email" #emailRef>
+                    <shared-input
+                        label="이메일"
+                        placeholder="이메일 주소를 입력해 주세요"
+                        maxlength="50"
+                        [(ngModel)]="email"
+                        [error]="email != '' && emailErrorText"
+                        [disabled]="emailVerified"
+                    ></shared-input>
+                    <div
+                        class="send-verification-code"
+                        [class.send-verification-code-enable]="emailValid"
+                        *ngIf="!emailVerified && !verificationCodeVisible"
+                        (click)="sendVerificationCodeMail()"
+                    >
+                        인증하기
+                    </div>
+                    <div
+                        class="resend-verification-code"
+                        *ngIf="verificationCodeVisible"
+                        (click)="sendVerificationCodeMail()"
+                    >
+                        재전송
+                    </div>
+                    <div class="mdi mdi-check" *ngIf="emailVerified"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" [class.d-none]="!verificationCodeVisible">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="verification-code">
+                    <shared-input
+                        label="인증번호"
+                        placeholder="인증번호를 입력해 주세요."
+                        [(ngModel)]="verificationCode"
+                        maxlength="6"
+                        info="입력하신 메일로 인증번호가 발송되었습니다. 메일에 포함된 인증번호 6자리를 입력해주세요."
+                        [error]="verificationCodeErrorText"
+                        (keypress)="checkDigit($event)"
+                        (keyup)="onKeyup($event, 'verificationCode')"
+                    ></shared-input>
+                    <div class="time" *ngIf="timeLeft > 0">{{ timeLeft | minuteSeconds }}</div>
+                    <div
+                        class="confirm-verification-code"
+                        [class.confirm-verification-code-enable]="verificationCode.length == 6 && timeLeft > 0"
+                        (click)="checkVerificationCodeMail()"
+                    >
+                        인증확인
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="password">
+                    <shared-input
+                        type="text"
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="password"
+                        maxlength="15"
+                        *ngIf="passwordVisible"
+                        [error]="password != '' && passwordErrorText"
+                        (keyup)="onKeyup($event, 'password')"
+                    ></shared-input>
+                    <img
+                        class="password-icon-visible"
+                        src="assets/icons/etc/eye-visible.svg"
+                        (click)="changePasswordVisible()"
+                        *ngIf="passwordVisible"
+                    />
+
+                    <shared-input
+                        type="password"
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="password"
+                        maxlength="15"
+                        *ngIf="!passwordVisible"
+                        [error]="password != '' && passwordErrorText"
+                        (keyup)="onKeyup($event, 'password')"
+                    ></shared-input>
+                    <img
+                        class="password-icon-invisible"
+                        src="assets/icons/etc/eye-invisible.svg"
+                        (click)="changePasswordVisible()"
+                        *ngIf="!passwordVisible"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="password">
+                    <shared-input
+                        type="text"
+                        label="비밀번호 확인"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="confirmPassword"
+                        maxlength="15"
+                        *ngIf="confirmPasswordVisible"
+                        [error]="confirmPassword != '' && confirmPasswordErrorText"
+                        (keyup)="onKeyup($event, 'confirmPassword')"
+                    ></shared-input>
+                    <img
+                        class="password-icon-visible"
+                        src="assets/icons/etc/eye-visible.svg"
+                        (click)="changeConfirmPasswordVisible()"
+                        *ngIf="confirmPasswordVisible"
+                    />
+
+                    <shared-input
+                        type="password"
+                        label="비밀번호 확인"
+                        placeholder="비밀번호를 입력해 주세요"
+                        [(ngModel)]="confirmPassword"
+                        maxlength="15"
+                        *ngIf="!confirmPasswordVisible"
+                        [error]="confirmPassword != '' && confirmPasswordErrorText"
+                        (keyup)="onKeyup($event, 'confirmPassword')"
+                    ></shared-input>
+                    <img
+                        class="password-icon-invisible"
+                        src="assets/icons/etc/eye-invisible.svg"
+                        (click)="changeConfirmPasswordVisible()"
+                        *ngIf="!confirmPasswordVisible"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="agreement d-flex justify-content-between">
+                    <div>
+                        <shared-checkbox
+                            text="키핑 가입 약관에 모두 동의합니다"
+                            [checked]="agreementAll"
+                            (click)="checkTerms('all')"
+                            size="small"
+                            shape="circle"
+                        ></shared-checkbox>
+                    </div>
+                    <div (click)="showPopup('popup-privacy-service-terms')">확인하기</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div class="text-2">
+                    <div>(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+                <div
+                    class="registration-button shared-button-primary"
+                    [class.shared-button-primary-disabled]="
+                        !emailVerified ||
+                        !passwordValid ||
+                        !confirmPasswordValid ||
+                        password != confirmPassword ||
+                        !agreementAge ||
+                        !agreementPrivacy ||
+                        !agreementServiceTerms
+                    "
+                    (click)="registration()"
+                >
+                    <div>가입하기</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div
+    class="popup-privacy-service-terms"
+    #popupPrivacyServiceTermsRef
+    (click)="hidePopup('popup-privacy-service-terms')"
+>
+    <div class="privacy-service-terms" (click)="$event.stopPropagation()">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="privacy-service-terms-header">
+                        <div>약관 확인하기</div>
+                        <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
+                            <span class="mdi mdi-close"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="privacy-service-terms-desc">키핑은 개인정보를 안전하게 취급합니다.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="privacy-service-terms-agreement-all">
+                        <shared-checkbox
+                            text="모두 동의하기"
+                            [checked]="agreementAll"
+                            shape="circle"
+                            (click)="checkTerms('all')"
+                        ></shared-checkbox>
+                    </div>
+                    <div class="privacy-service-terms-agreement-1">
+                        <shared-checkbox
+                            text="[필수] 만 14세 이상입니다."
+                            [checked]="agreementAge"
+                            shape="none"
+                            (click)="checkTerms('age')"
+                        ></shared-checkbox>
+                    </div>
+                    <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
+                        <shared-checkbox
+                            text="[필수] 서비스 이용 약관 동의"
+                            [checked]="agreementPrivacy"
+                            shape="none"
+                            (click)="checkTerms('privacy')"
+                        ></shared-checkbox>
+                        <div (click)="openContent('privacy')">
+                            {{ isPrivacyOpen ? '닫기' : '펼치기' }}
+                        </div>
+                    </div>
+                    <div
+                        class="privacy-service-terms-agreement-2-content scroll-y"
+                        [class.privacy-service-terms-agreement-2-content-show]="isPrivacyOpen"
+                    >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <service-terms-component></service-terms-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
+                        <shared-checkbox
+                            text="[필수] 개인정보 수집 및 이용 동의"
+                            [checked]="agreementServiceTerms"
+                            shape="none"
+                            (click)="checkTerms('serviceTerms')"
+                        ></shared-checkbox>
+                        <div (click)="openContent('service-terms')">
+                            {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
+                        </div>
+                    </div>
+                    <div
+                        class="privacy-service-terms-agreement-3-content scroll-y"
+                        [class.privacy-service-terms-agreement-3-content-show]="isServiceTermsOpen"
+                    >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <privacy-component></privacy-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="privacy-service-terms-agreement-4 d-flex justify-content-between">
+                        <shared-checkbox
+                            text="[선택] 마케팅 정보 수신 동의"
+                            [checked]="agreementMarketing"
+                            shape="none"
+                            (click)="checkTerms('marketing')"
+                        ></shared-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div
+                        class="privacy-service-terms-confirm shared-button-primary"
+                        (click)="hidePopup('popup-privacy-service-terms')"
+                    >
+                        <div>확인</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

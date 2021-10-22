@@ -21,150 +21,139 @@
 }
 
 .registration-form {
-    margin: 40px 0 40px;
+    margin: 70px 0 40px;
     padding: 0 8px;
 
     .text-1 {
-        @include textStyle(700, 26px, 34px);
+        @include textStyle(700, 20px, 30px);
+        text-align: center;
+    }
+
+    .text-2 {
+        margin-top: 30px;
+
+        @include textStyle(400, 13px, 21px);
+        text-align: center;
+        color: var(--grey-1);
+    }
+
+    .social-button-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+
+        .social-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .kakao-login-button {
+            margin-right: 20px;
+            background-color: #ffeb00;
+
+            img {
+                position: relative;
+                top: 2px;
+            }
+        }
+
+        .naver-login-button {
+            margin-right: 20px;
+            background-color: #1dc800;
+        }
+
+        .google-login-button {
+            background-color: #f5f5f5;
+        }
     }
 
     .email {
         position: relative;
-        margin-top: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 40px auto 0;
+        width: 256px;
+        height: 52px;
+        border: 1px solid var(--grey-6);
+        border-radius: 8px;
+        cursor: pointer;
 
-        .mdi-check {
+        @include textStyle(500, 14px, 22px);
+        color: var(--grey-1);
+
+        .mdi {
             position: absolute;
-            top: 38px;
-            right: 14px;
+            left: 0px;
 
-            font-size: 20px;
-            color: var(--blue-3);
-        }
-
-        .send-verification-code,
-        .resend-verification-code {
-            position: absolute;
-            top: 38px;
-            right: 18px;
-
-            @include textStyle(500, 12px, 20px);
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-
-        .send-verification-code {
-            cursor: not-allowed;
-
-            color: var(--grey-5);
-        }
-
-        .send-verification-code-enable {
-            cursor: pointer;
-
-            color: var(--blue-3);
-        }
-
-        .resend-verification-code {
-            cursor: pointer;
-
-            color: var(--blue-3);
-        }
-    }
-
-    .verification-code {
-        position: relative;
-        margin-top: 24px;
-
-        .time {
-            position: absolute;
-            top: 42px;
-            right: 72px;
-
-            @include textStyle(500, 11px, 19px);
+            font-size: 22px;
             color: var(--grey-1);
         }
 
-        .confirm-verification-code {
-            position: absolute;
-            top: 40px;
-            right: 18px;
-            cursor: not-allowed;
-
-            @include textStyle(500, 12px, 20px);
-            color: var(--grey-5);
-            text-decoration: underline;
-            text-underline-offset: 2px;
+        div {
+            margin-left: 20px;
         }
 
-        .confirm-verification-code-enable {
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .text-3 {
+        margin-top: 50px;
+
+        text-align: center;
+
+        span:nth-child(1) {
+            @include textStyle(500, 13px, 21px);
+            color: var(--grey-3);
+        }
+
+        span:nth-child(2) {
+            margin-left: 5px;
+            outline: none;
             cursor: pointer;
 
+            @include textStyle(500, 13px, 21px);
             color: var(--blue-3);
-        }
-    }
-
-    .password {
-        position: relative;
-        margin-top: 24px;
-
-        .password-icon-visible,
-        .password-icon-invisible {
-            position: absolute;
-            top: 45px;
-            right: 20px;
-            cursor: pointer;
-        }
-
-        .password-icon-invisible {
-            top: 50px;
-        }
-    }
-
-    .agreement {
-        margin-top: 48px;
-
-        div:nth-child(1) {
-            ::ng-deep .text {
-                @include textStyle(500, 13px, 21px);
-                color: var(--text-2);
-            }
-        }
-
-        div:nth-child(2) {
-            cursor: pointer;
-
-            @include textStyle(500, 12px, 20px);
-            color: var(--grey-2);
             text-decoration: underline;
-            text-underline-offset: 1px;
+            text-underline-offset: 3px;
         }
-    }
-
-    .text-2 {
-        margin-top: 8px;
-
-        @include textStyle(400, 11px, 19px);
-        letter-spacing: -0.1px;
-        color: var(--grey-1);
-    }
-
-    .registration-button {
-        margin-top: 24px;
-        width: 100%;
-        height: 52px;
     }
 }
 
 @media (min-width: 576px) {
     .registration-form {
-        margin: 80px -19px 40px;
+        margin: 60px -19px 40px;
         padding: 0;
+
+        .text-1 {
+            @include textStyle(700, 24px, 34px);
+        }
+
+        .text-2 {
+            margin-top: 40px;
+        }
+
+        .email {
+            width: 304px;
+        }
     }
 }
 
 @media (min-width: 768px) {
     .registration-form {
-        margin: 80px 77px 40px;
+        margin: 60px 77px 40px;
         padding: 0;
     }
 }
@@ -197,171 +186,8 @@
 
                 .container {
                     padding: 0;
-
-                    .email {
-                        margin-top: 44px;
-                    }
                 }
             }
-        }
-    }
-}
-
-.popup-privacy-service-terms {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    visibility: hidden;
-
-    .privacy-service-terms {
-        position: relative;
-        padding: 24px 1px;
-        width: 312px;
-        border-radius: 16px;
-        background-color: var(--white);
-        box-shadow: 0px 32px 32px -8px rgba(0, 0, 0, 0.08), 0px 0px 32px -8px rgba(0, 0, 0, 0.12),
-            0px 0px 1px rgba(0, 0, 0, 0.2);
-
-        color: var(--text-2);
-
-        .privacy-service-terms-header {
-            position: relative;
-            display: flex;
-            align-items: center;
-
-            > div:nth-child(1) {
-                @include textStyle(700, 20px, 30px);
-            }
-
-            .close-icon {
-                position: absolute;
-                right: 0;
-                cursor: pointer;
-
-                font-size: 22px;
-            }
-        }
-
-        .privacy-service-terms-desc {
-            margin-top: 8px;
-
-            @include textStyle(400, 12px, 20px);
-            color: var(--grey-1);
-        }
-
-        .privacy-service-terms-agreement-all {
-            margin-top: 40px;
-            margin-bottom: 8px;
-        }
-
-        .privacy-service-terms-agreement-1,
-        .privacy-service-terms-agreement-2,
-        .privacy-service-terms-agreement-3,
-        .privacy-service-terms-agreement-4 {
-            padding-top: 8px;
-
-            > div {
-                cursor: pointer;
-
-                @include textStyle(500, 11px, 19px);
-                color: var(--grey-2);
-                text-decoration: underline;
-                text-underline-offset: 3px;
-            }
-        }
-
-        .privacy-service-terms-agreement-2-content,
-        .privacy-service-terms-agreement-3-content {
-            height: 0px;
-            border: none;
-            border-radius: 4px;
-        }
-
-        .privacy-service-terms-agreement-2-content-show,
-        .privacy-service-terms-agreement-3-content-show {
-            margin-top: 12px;
-            height: 175px;
-            border: 1px solid var(--grey-7);
-            background-color: #fafafa;
-
-            .container {
-                padding: 0;
-                overflow-x: hidden;
-            }
-
-            ::ng-deep .privacy,
-            ::ng-deep .service-terms {
-                padding: 8px;
-
-                .title {
-                    @include textStyle(700, 14px, 22px);
-                }
-            }
-        }
-
-        .privacy-service-terms-confirm {
-            margin-top: 30px;
-            width: 100%;
-        }
-    }
-}
-
-@media (min-width: 576px) {
-    .popup-privacy-service-terms {
-        .privacy-service-terms {
-            padding: 30px 15px;
-            width: 412px;
-
-            .privacy-service-terms-desc {
-                @include textStyle(400, 14px, 22px);
-            }
-
-            .privacy-service-terms-agreement-all {
-                ::ng-deep shared-checkbox {
-                    @include checkbox;
-                }
-            }
-
-            .privacy-service-terms-agreement-1,
-            .privacy-service-terms-agreement-2,
-            .privacy-service-terms-agreement-3,
-            .privacy-service-terms-agreement-4 {
-                padding-top: 10px;
-
-                ::ng-deep shared-checkbox {
-                    @include checkbox;
-                }
-
-                > div {
-                    @include textStyle(500, 12px, 20px);
-                }
-            }
-
-            .privacy-service-terms-agreement-2-content-show,
-            .privacy-service-terms-agreement-3-content-show {
-                ::ng-deep .privacy,
-                ::ng-deep .service-terms {
-                    padding: 12px;
-                }
-            }
-
-            .privacy-service-terms-confirm {
-                height: 52px;
-            }
-        }
-    }
-}
-
-@media (min-width: 1200px) {
-    .popup-privacy-service-terms {
-        .privacy-service-terms {
-            padding: 30px;
         }
     }
 }

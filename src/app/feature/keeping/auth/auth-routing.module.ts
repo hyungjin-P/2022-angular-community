@@ -3,19 +3,21 @@ import { Routes, RouterModule } from '@angular/router'
 
 import { AuthGuard } from '@services/guards/auth.guard'
 
-import { LoginComponent } from './login/login.component'
 import { CallbackComponent } from './callback/callback.component'
-import { RegistrationComponent } from './registration/registration.component'
+import { EmailComponent } from './email/email.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
+import { LoginComponent } from './login/login.component'
+import { RegistrationComponent } from './registration/registration.component'
 import { ResetPasswordComponent } from './reset-password/reset-password.component'
 import { ServiceTermsComponent } from './service-terms/service-terms.component'
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'callback', canActivate: [AuthGuard], component: CallbackComponent },
-    { path: 'registration', canActivate: [AuthGuard], component: RegistrationComponent },
+    { path: 'email', canActivate: [AuthGuard], component: EmailComponent },
     { path: 'forgot-password', canActivate: [AuthGuard], component: ForgotPasswordComponent },
+    { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
+    { path: 'registration', canActivate: [AuthGuard], component: RegistrationComponent },
     { path: 'reset-password', canActivate: [AuthGuard], component: ResetPasswordComponent },
     { path: 'service-terms', canActivate: [AuthGuard], component: ServiceTermsComponent },
 ]
