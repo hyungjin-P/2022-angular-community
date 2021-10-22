@@ -147,43 +147,25 @@
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="kakao-login-button" (click)="signInWithKakao()">
-                    <img src="assets/icons/social/kakao.svg" />
-                    <div>카카오로 3초만에 시작하기</div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="login-button" (click)="signInWithNaver()">
-                    <img src="assets/icons/social/naver.png" />
-                    <div>네이버로 로그인</div>
-                    <div id="code" #code (click)="_signInWithNaver(code.innerText); code.innerText = ''"></div>
+                <div class="text-4">
+                    <span>SNS 계정으로 3초만에 시작하기</span>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="login-button" (click)="signInWithGoogle()">
-                    <img src="assets/icons/social/google.svg" />
-                    <div>Google로 로그인</div>
+                <div class="social-button-group">
+                    <div class="social-button kakao-login-button" (click)="signInWithKakao()">
+                        <img src="assets/icons/social/kakao.png" />
+                    </div>
+                    <div class="social-button naver-login-button" (click)="signInWithNaver()">
+                        <img src="assets/icons/social/naver.png" />
+                    </div>
+                    <div class="social-button google-login-button" (click)="signInWithGoogle()">
+                        <img src="assets/icons/social/google.png" />
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="login-button" (click)="signInWithApple()">
-                    <img src="assets/icons/social/apple.svg" />
-                    <div>Apple로 로그인</div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="row d-none d-lg-flex">
-            <div class="col">
-                <ng-container *ngTemplateOutlet="loginFormText2"></ng-container>
-            </div>
-        </div> -->
     </div>
 </ng-template>
-
-<ng-template #loginFormText2> </ng-template>
