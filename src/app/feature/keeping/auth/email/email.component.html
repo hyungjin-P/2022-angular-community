@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="text-1">
-                    <span>키핑 서비스 가입하기</span>
+                    <span>{{ 'auth.email.text1' | translate }}</span>
                 </div>
             </div>
         </div>
@@ -45,8 +45,8 @@
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="email" #emailRef>
                     <shared-input
-                        label="이메일"
-                        placeholder="이메일 주소를 입력해 주세요"
+                        [label]="'auth.email.email-label' | translate"
+                        [placeholder]="'auth.email.email-placeholder' | translate"
                         maxlength="50"
                         [(ngModel)]="email"
                         [error]="email != '' && emailErrorText"
@@ -58,14 +58,14 @@
                         *ngIf="!emailVerified && !verificationCodeVisible"
                         (click)="sendVerificationCodeMail()"
                     >
-                        인증하기
+                        {{ 'auth.email.send-verification-code' | translate }}
                     </div>
                     <div
                         class="resend-verification-code"
                         *ngIf="verificationCodeVisible"
                         (click)="sendVerificationCodeMail()"
                     >
-                        재전송
+                        {{ 'auth.email.resend-verification-code' | translate }}
                     </div>
                     <div class="mdi mdi-check" *ngIf="emailVerified"></div>
                 </div>
@@ -75,11 +75,11 @@
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="verification-code">
                     <shared-input
-                        label="인증번호"
-                        placeholder="인증번호를 입력해 주세요."
+                        [label]="'auth.email.verification-code-label' | translate"
+                        [placeholder]="'auth.email.verification-code-placeholder' | translate"
                         [(ngModel)]="verificationCode"
                         maxlength="6"
-                        info="입력하신 메일로 인증번호가 발송되었습니다. 메일에 포함된 인증번호 6자리를 입력해주세요."
+                        [info]="'auth.email.verification-code-info' | translate"
                         [error]="verificationCodeErrorText"
                         (keypress)="checkDigit($event)"
                         (keyup)="onKeyup($event, 'verificationCode')"
@@ -90,7 +90,7 @@
                         [class.confirm-verification-code-enable]="verificationCode.length == 6 && timeLeft > 0"
                         (click)="checkVerificationCodeMail()"
                     >
-                        인증확인
+                        {{ 'auth.email.confirm-verification-code' | translate }}
                     </div>
                 </div>
             </div>
@@ -100,8 +100,8 @@
                 <div class="password">
                     <shared-input
                         type="text"
-                        label="비밀번호"
-                        placeholder="비밀번호를 입력해 주세요"
+                        [label]="'auth.email.password-label' | translate"
+                        [placeholder]="'auth.email.password-placeholder' | translate"
                         [(ngModel)]="password"
                         maxlength="15"
                         *ngIf="passwordVisible"
@@ -117,8 +117,8 @@
 
                     <shared-input
                         type="password"
-                        label="비밀번호"
-                        placeholder="비밀번호를 입력해 주세요"
+                        [label]="'auth.email.password-label' | translate"
+                        [placeholder]="'auth.email.password-placeholder' | translate"
                         [(ngModel)]="password"
                         maxlength="15"
                         *ngIf="!passwordVisible"
@@ -139,8 +139,8 @@
                 <div class="password">
                     <shared-input
                         type="text"
-                        label="비밀번호 확인"
-                        placeholder="비밀번호를 입력해 주세요"
+                        [label]="'auth.email.confirm-password-label' | translate"
+                        [placeholder]="'auth.email.confirm-password-placeholder' | translate"
                         [(ngModel)]="confirmPassword"
                         maxlength="15"
                         *ngIf="confirmPasswordVisible"
@@ -156,8 +156,8 @@
 
                     <shared-input
                         type="password"
-                        label="비밀번호 확인"
-                        placeholder="비밀번호를 입력해 주세요"
+                        [label]="'auth.email.confirm-password-label' | translate"
+                        [placeholder]="'auth.email.confirm-password-placeholder' | translate"
                         [(ngModel)]="confirmPassword"
                         maxlength="15"
                         *ngIf="!confirmPasswordVisible"
@@ -178,21 +178,23 @@
                 <div class="agreement d-flex justify-content-between">
                     <div>
                         <shared-checkbox
-                            text="키핑 가입 약관에 모두 동의합니다"
+                            [text]="'auth.email.agreement-all' | translate"
                             [checked]="agreementAll"
                             (click)="checkTerms('all')"
                             size="small"
                             shape="circle"
                         ></shared-checkbox>
                     </div>
-                    <div (click)="showPopup('popup-privacy-service-terms')">확인하기</div>
+                    <div (click)="showPopup('popup-privacy-service-terms')">
+                        {{ 'auth.email.confirm-terms' | translate }}
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="text-2">
-                    <div>(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의</div>
+                    <div>{{ 'auth.email.text2' | translate }}</div>
                 </div>
             </div>
         </div>
@@ -211,24 +213,20 @@
                     "
                     (click)="registration()"
                 >
-                    <div>가입하기</div>
+                    <div>{{ 'auth.email.registration-button' | translate }}</div>
                 </div>
             </div>
         </div>
     </div>
 </ng-template>
 
-<div
-    class="popup-privacy-service-terms"
-    #popupPrivacyServiceTermsRef
-    (click)="hidePopup('popup-privacy-service-terms')"
->
+<div class="popup-privacy-service-terms" #popupPrivacyServiceTermsRef>
     <div class="privacy-service-terms" (click)="$event.stopPropagation()">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-header">
-                        <div>약관 확인하기</div>
+                        <div>{{ 'auth.email.privacy-service-terms-header' | translate }}</div>
                         <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
                             <span class="mdi mdi-close"></span>
                         </div>
@@ -237,14 +235,16 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="privacy-service-terms-desc">키핑은 개인정보를 안전하게 취급합니다.</div>
+                    <div class="privacy-service-terms-desc">
+                        {{ 'auth.email.privacy-service-terms-desc' | translate }}
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-agreement-all">
                         <shared-checkbox
-                            text="모두 동의하기"
+                            [text]="'auth.email.privacy-service-terms-agreement-all' | translate"
                             [checked]="agreementAll"
                             shape="circle"
                             (click)="checkTerms('all')"
@@ -252,7 +252,7 @@
                     </div>
                     <div class="privacy-service-terms-agreement-1">
                         <shared-checkbox
-                            text="[필수] 만 14세 이상입니다."
+                            [text]="'auth.email.privacy-service-terms-agreement1' | translate"
                             [checked]="agreementAge"
                             shape="none"
                             (click)="checkTerms('age')"
@@ -260,13 +260,13 @@
                     </div>
                     <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
                         <shared-checkbox
-                            text="[필수] 서비스 이용 약관 동의"
+                            [text]="'auth.email.privacy-service-terms-agreement2' | translate"
                             [checked]="agreementPrivacy"
                             shape="none"
                             (click)="checkTerms('privacy')"
                         ></shared-checkbox>
                         <div (click)="openContent('privacy')">
-                            {{ isPrivacyOpen ? '닫기' : '펼치기' }}
+                            {{ isPrivacyOpen ? ('auth.email.close' | translate) : ('auth.email.open' | translate) }}
                         </div>
                     </div>
                     <div
@@ -283,13 +283,15 @@
                     </div>
                     <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
                         <shared-checkbox
-                            text="[필수] 개인정보 수집 및 이용 동의"
+                            [text]="'auth.email.privacy-service-terms-agreement3' | translate"
                             [checked]="agreementServiceTerms"
                             shape="none"
                             (click)="checkTerms('serviceTerms')"
                         ></shared-checkbox>
                         <div (click)="openContent('service-terms')">
-                            {{ isServiceTermsOpen ? '닫기' : '펼치기' }}
+                            {{
+                                isServiceTermsOpen ? ('auth.email.close' | translate) : ('auth.email.open' | translate)
+                            }}
                         </div>
                     </div>
                     <div
@@ -306,7 +308,7 @@
                     </div>
                     <div class="privacy-service-terms-agreement-4 d-flex justify-content-between">
                         <shared-checkbox
-                            text="[선택] 마케팅 정보 수신 동의"
+                            [text]="'auth.email.privacy-service-terms-agreement4' | translate"
                             [checked]="agreementMarketing"
                             shape="none"
                             (click)="checkTerms('marketing')"
@@ -320,7 +322,7 @@
                         class="privacy-service-terms-confirm shared-button-primary"
                         (click)="hidePopup('popup-privacy-service-terms')"
                     >
-                        <div>확인</div>
+                        <div>{{ 'auth.email.privacy-service-terms-confirm' | translate }}</div>
                     </div>
                 </div>
             </div>
