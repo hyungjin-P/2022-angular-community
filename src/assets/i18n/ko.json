@@ -1,9 +1,25 @@
 {
     "auth": {
         "login": {
-            "email": "이메일",
+            "email-label": "이메일",
+            "email-login-button": "로그인",
+            "email-placeholder": "이메일 주소를 입력해 주세요",
+            "forgot-password": "비밀번호 찾기",
+            "lang": "언어",
+            "password-label": "비밀번호",
+            "password-placeholder": "비밀번호를 입력해 주세요",
             "text1": "로그인",
-            "text2": "언어"
+            "text2-1": "아직 키핑 회원이 아니세요?",
+            "text2-2": "회원가입",
+            "text3": "SNS 계정으로 3초만에 시작하기"
+        },
+        "registration": {
+            "email-signup-button": "이메일로 가입하기",
+            "text1-1": "간편하게 회원가입하고",
+            "text1-2": "피규어 커뮤니티 시작하세요!",
+            "text2": "SNS계정으로 회원가입",
+            "text3-1": "이미 계정이 있나요?",
+            "text3-2": "로그인"
         }
     },
     "common": {

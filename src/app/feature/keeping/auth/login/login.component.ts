@@ -225,7 +225,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.emailErrorText = ''
         } else {
             this.emailValid = false
-            this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+            } else {
+                this.emailErrorText = 'Invalid email address.'
+            }
         }
 
         return isValid
@@ -252,13 +256,25 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
+            } else {
+                this.passwordErrorText = 'Spaces are not allowed.'
+            }
         } else if (password.length < 8) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            } else {
+                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
+            }
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            } else {
+                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
+            }
         }
 
         return isValid

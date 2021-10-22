@@ -140,7 +140,7 @@
         }
     }
 
-    .text-3 {
+    .forgot-password {
         margin-top: 16px;
         cursor: pointer;
 
@@ -161,7 +161,7 @@
         height: 52px;
     }
 
-    .text-4 {
+    .text-3 {
         margin-top: 40px;
 
         @include textStyle(400, 12px, 20px);
@@ -215,7 +215,7 @@
         margin: 60px -19px 40px;
         padding: 0;
 
-        .text-4 {
+        .text-3 {
             @include textStyle(400, 13px, 21px);
         }
 
