@@ -29,12 +29,21 @@
             "verification-code-label": "인증번호",
             "verification-code-placeholder": "인증번호를 입력해 주세요."
         },
+        "forgot-password": {
+            "email-label": "이메일",
+            "email-placeholder": "이메일 주소를 입력해 주세요",
+            "send-reset-password-link-button": "재설정 링크 발송",
+            "text1": "비밀번호 찾기",
+            "text2": "가입 시 등록한 이메일 주소를 입력해 주세요.",
+            "text3": "새로운 비밀번호를 설정할수 있는 링크를 보내드리겠습니다.",
+            "text4": "발송된 이메일의 비밀번호 재설정은 3분 간 유효합니다."
+        },
         "login": {
             "email-label": "이메일",
             "email-login-button": "로그인",
             "email-placeholder": "이메일 주소를 입력해 주세요",
             "forgot-password": "비밀번호 찾기",
-            "lang": "언어",
+            "lang": "한국어",
             "password-label": "비밀번호",
             "password-placeholder": "비밀번호를 입력해 주세요",
             "text1": "로그인",
@@ -49,6 +58,15 @@
             "text2": "SNS계정으로 회원가입",
             "text3-1": "이미 계정이 있나요?",
             "text3-2": "로그인"
+        },
+        "reset-password": {
+            "confirm-password-label": "비밀번호 확인",
+            "confirm-password-placeholder": "비밀번호를 한번 더 입력해 주세요",
+            "password-label": "비밀번호",
+            "password-placeholder": "비밀번호를 입력해 주세요",
+            "send-reset-password-link-button": "설정 완료",
+            "text1": "비밀번호 재설정",
+            "text2": "새로 사용할 비밀번호를 입력해 주세요."
         }
     },
     "common": {

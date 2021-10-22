@@ -16,12 +16,16 @@ export class ForgotPasswordComponent implements OnInit {
     emailValid: boolean
     emailErrorText: string
 
+    selectedLanguage: string
+
     constructor(private globalService: GlobalService, private authService: AuthService) {}
 
     ngOnInit() {
         this.email = ''
         this.emailValid = false
         this.emailErrorText = ''
+
+        this.selectedLanguage = localStorage.getItem('language')
     }
 
     sendResetPasswordLinkMail() {
@@ -34,8 +38,15 @@ export class ForgotPasswordComponent implements OnInit {
                 this.email = ''
                 this.emailValid = false
 
+                let text = ''
+                if (this.selectedLanguage == 'ko') {
+                    text = '비밀번호 재설정 링크를 발송하였습니다.'
+                } else {
+                    text = 'We have sent you a password reset link.'
+                }
+
                 this.globalService.showModal({
-                    text: '비밀번호 재설정 링크를 발송하였습니다.',
+                    text: text,
                 })
             },
             (e) => {
@@ -77,7 +88,11 @@ export class ForgotPasswordComponent implements OnInit {
             this.emailErrorText = ''
         } else {
             this.emailValid = false
-            this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
+            } else {
+                this.emailErrorText = 'Invalid email address.'
+            }
         }
 
         return isValid

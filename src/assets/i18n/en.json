@@ -29,12 +29,21 @@
             "verification-code-label": "Verification Code",
             "verification-code-placeholder": "Enter the verification code"
         },
+        "forgot-password": {
+            "email-label": "Email",
+            "email-placeholder": "abc@example.com",
+            "send-reset-password-link-button": "Send",
+            "text1": "Find password",
+            "text2": "Please enter the email address you registered.",
+            "text3": "We will send you a link where you can set a new password.",
+            "text4": "The password reset in the email sent is valid for 10 minutes."
+        },
         "login": {
             "email-label": "Email",
             "email-login-button": "Sign In",
             "email-placeholder": "abc@example.com",
             "forgot-password": "Forgat password?",
-            "lang": "Language",
+            "lang": "English",
             "password-label": "Password",
             "password-placeholder": "Enter your password",
             "text1": "Sign in",
@@ -49,6 +58,15 @@
             "text2": "Continue with SNS account",
             "text3-1": "Already have an account?",
             "text3-2": "Sign in"
+        },
+        "reset-password": {
+            "confirm-password-label": "Re-Enter Password",
+            "confirm-password-placeholder": "Re-Enter your password",
+            "password-label": "Password",
+            "password-placeholder": "Enter your password",
+            "send-reset-password-link-button": "Confirm",
+            "text1": "Reset password",
+            "text2": "Please enter a new password"
         }
     },
     "common": {
