@@ -180,6 +180,9 @@
     </a>
 
     <div class="footer">
+        <div class="logo">
+            <img src="assets/images/logo/footer_logo.png" />
+        </div>
         <div class="d-flex">
             <div class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">
                 {{ 'common.drawer.service-terms' | translate }}
@@ -187,21 +190,6 @@
             <div class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">
                 {{ 'common.drawer.privacy' | translate }}
             </div>
-        </div>
-        <div class="logo">
-            <img src="assets/images/logo/footer_logo.png" />
-        </div>
-        <div class="ceo">
-            <span>{{ 'common.drawer.ceo-label' | translate }} : </span
-            ><span>{{ 'common.drawer.ceo-text' | translate }}</span>
-        </div>
-        <div class="business-number">
-            <span>{{ 'common.drawer.business-registration-number-label' | translate }} : </span
-            ><span>***-**-*****</span>
-        </div>
-        <div class="address d-flex">
-            <div>{{ 'common.drawer.address-label' | translate }} :</div>
-            <div>{{ 'common.drawer.address-text' | translate }}</div>
         </div>
         <div class="copyright">Copyright © 2021 Flexible. All rights reserved.</div>
     </div>

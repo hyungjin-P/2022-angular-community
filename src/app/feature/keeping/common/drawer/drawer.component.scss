@@ -145,18 +145,21 @@
     }
 
     .footer {
-        margin-top: 30px;
-        margin-left: 5px;
-        padding: 30px 16px;
+        position: absolute;
+        bottom: 30px;
+        padding: 0 20px;
         width: 192px;
-        border-top: 1px solid var(--grey-7);
-        outline: none;
+
+        .logo img {
+            width: 61px;
+        }
 
         .privacy,
         .service-terms {
+            margin-top: 12px;
             cursor: pointer;
 
-            @include textStyle(400, 13px, 21px);
+            @include textStyle(500, 12px, 20px);
             color: var(--grey-1);
         }
 
@@ -164,58 +167,11 @@
             margin-right: 12px;
         }
 
-        .logo img {
-            margin-top: 30px;
-            width: 61px;
-        }
-
-        .ceo,
-        .business-number,
-        .address,
-        .copyright {
-            color: var(--grey-3);
-        }
-
-        .ceo,
-        .business-number {
-            span:nth-child(1) {
-                @include textStyle(500, 12px, 20px);
-            }
-
-            span:nth-child(2) {
-                @include textStyle(400, 12px, 20px);
-            }
-        }
-
-        .ceo {
-            margin-top: 8px;
-        }
-
-        .business-number {
-            span:nth-child(2) {
-                letter-spacing: -0.5px;
-            }
-        }
-
-        .address {
-            flex-direction: column;
-
-            > div:nth-child(1) {
-                min-width: 33px;
-
-                @include textStyle(500, 12px, 20px);
-            }
-
-            > div:nth-child(2) {
-                @include textStyle(400, 12px, 20px);
-                letter-spacing: -0.4px;
-            }
-        }
-
         .copyright {
             margin-top: 20px;
 
             @include textStyle(400, 12px, 20px);
+            color: var(--grey-3);
         }
     }
 }
