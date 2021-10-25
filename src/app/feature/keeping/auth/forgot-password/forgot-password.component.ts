@@ -39,14 +39,18 @@ export class ForgotPasswordComponent implements OnInit {
                 this.emailValid = false
 
                 let text = ''
+                let confirmBtnText = ''
                 if (this.selectedLanguage == 'ko') {
                     text = '비밀번호 재설정 링크를 발송하였습니다.'
+                    confirmBtnText = '확인'
                 } else {
                     text = 'We have sent you a password reset link.'
+                    confirmBtnText = 'Confirm'
                 }
 
                 this.globalService.showModal({
                     text: text,
+                    confirmBtnText: confirmBtnText,
                 })
             },
             (e) => {

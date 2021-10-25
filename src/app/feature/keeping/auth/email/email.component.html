@@ -178,8 +178,8 @@
                 <div class="agreement d-flex justify-content-between">
                     <div>
                         <shared-checkbox
-                            [text]="'auth.email.agreement-all' | translate"
-                            [checked]="agreementAll"
+                            [text]="'auth.email.all-agreement' | translate"
+                            [checked]="allAgreement"
                             (click)="checkTerms('all')"
                             size="small"
                             shape="circle"
@@ -242,10 +242,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="privacy-service-terms-agreement-all">
+                    <div class="privacy-service-terms-all-agreement">
                         <shared-checkbox
-                            [text]="'auth.email.privacy-service-terms-agreement-all' | translate"
-                            [checked]="agreementAll"
+                            [text]="'auth.email.privacy-service-terms-all-agreement' | translate"
+                            [checked]="allAgreement"
                             shape="circle"
                             (click)="checkTerms('all')"
                         ></shared-checkbox>

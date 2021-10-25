@@ -29,6 +29,8 @@ export class ResetPasswordComponent implements OnInit {
     confirmPasswordErrorText: string
     confirmPasswordVisible: boolean
 
+    selectedLanguage: string
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -55,6 +57,8 @@ export class ResetPasswordComponent implements OnInit {
         this.confirmPasswordValid = false
         this.confirmPasswordErrorText = ''
         this.confirmPasswordVisible = false
+
+        this.selectedLanguage = localStorage.getItem('language')
     }
 
     checkResetPasswordLinkMail() {
@@ -76,8 +80,19 @@ export class ResetPasswordComponent implements OnInit {
 
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe(
             (user: User) => {
+                let text = ''
+                let confirmBtnText = ''
+                if (this.selectedLanguage == 'ko') {
+                    text = '비밀번호 변경이 완료되었습니다.'
+                    confirmBtnText = '확인'
+                } else {
+                    text = 'You have changed your password.'
+                    confirmBtnText = 'Confirm'
+                }
+
                 this.globalService.showModal({
-                    text: '비밀번호 변경이 완료되었습니다.',
+                    text: text,
+                    confirmBtnText: confirmBtnText,
                 })
 
                 this.globalService.variables.isLogin = true
@@ -142,13 +157,25 @@ export class ResetPasswordComponent implements OnInit {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
+            } else {
+                this.passwordErrorText = 'Spaces are not allowed.'
+            }
         } else if (password.length < 8) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            } else {
+                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
+            }
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            } else {
+                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
+            }
         }
 
         this.checkConfirmPasswordPattern(this.confirmPassword)
@@ -174,7 +201,11 @@ export class ResetPasswordComponent implements OnInit {
         ) {
             if (this.password != this.confirmPassword) {
                 this.confirmPasswordValid = false
-                this.confirmPasswordErrorText = '비밀번호가 일치하지 않습니다.'
+                if (this.selectedLanguage == 'ko') {
+                    this.confirmPasswordErrorText = '비밀번호가 일치하지 않습니다.'
+                } else {
+                    this.confirmPasswordErrorText = 'Passwords do not match.'
+                }
             } else {
                 isValid = true
                 this.confirmPasswordValid = true
@@ -182,13 +213,25 @@ export class ResetPasswordComponent implements OnInit {
             }
         } else if (pattern4.test(password)) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.confirmPasswordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
+            } else {
+                this.confirmPasswordErrorText = 'Spaces are not allowed.'
+            }
         } else if (password.length < 8) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            } else {
+                this.confirmPasswordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
+            }
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.confirmPasswordValid = false
-            this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            if (this.selectedLanguage == 'ko') {
+                this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
+            } else {
+                this.confirmPasswordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
+            }
         }
 
         return isValid
