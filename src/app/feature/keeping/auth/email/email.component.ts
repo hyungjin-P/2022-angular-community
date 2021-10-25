@@ -221,7 +221,7 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
             } catch (e) {}
         }, 0)
 
-        this.authService.sendVerificationCodeMail({ email: this.email }).subscribe(
+        this.authService.sendVerificationCodeMail({ email: this.email, lang: this.selectedLanguage || 'ko' }).subscribe(
             (v) => {
                 if (this.interval) {
                     this.stopTimer()

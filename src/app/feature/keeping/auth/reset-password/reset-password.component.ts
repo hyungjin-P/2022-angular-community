@@ -68,7 +68,15 @@ export class ResetPasswordComponent implements OnInit {
             },
             (e) => {
                 this.isTokenValid = false
-                this.globalService.showToast(e.message)
+                if (e.code == 'FUNCTION:AUTH:007') {
+                    if (this.selectedLanguage == 'ko') {
+                        this.globalService.showToast('만료된 비밀번호 재설정 링크입니다.')
+                    } else {
+                        this.globalService.showToast('This is an expired link.')
+                    }
+                } else {
+                    this.globalService.showToast(e.message)
+                }
             }
         )
     }

@@ -33,30 +33,32 @@ export class ForgotPasswordComponent implements OnInit {
             return
         }
 
-        this.authService.sendResetPasswordLinkMail({ email: this.email }).subscribe(
-            (v) => {
-                this.email = ''
-                this.emailValid = false
+        this.authService
+            .sendResetPasswordLinkMail({ email: this.email, lang: this.selectedLanguage || 'ko' })
+            .subscribe(
+                (v) => {
+                    this.email = ''
+                    this.emailValid = false
 
-                let text = ''
-                let confirmBtnText = ''
-                if (this.selectedLanguage == 'ko') {
-                    text = '비밀번호 재설정 링크를 발송하였습니다.'
-                    confirmBtnText = '확인'
-                } else {
-                    text = 'We have sent you a password reset link.'
-                    confirmBtnText = 'Confirm'
+                    let text = ''
+                    let confirmBtnText = ''
+                    if (this.selectedLanguage == 'ko') {
+                        text = '비밀번호 재설정 링크를 발송하였습니다.'
+                        confirmBtnText = '확인'
+                    } else {
+                        text = 'We have sent you a password reset link.'
+                        confirmBtnText = 'Confirm'
+                    }
+
+                    this.globalService.showModal({
+                        text: text,
+                        confirmBtnText: confirmBtnText,
+                    })
+                },
+                (e) => {
+                    this.globalService.showToast(e.message)
                 }
-
-                this.globalService.showModal({
-                    text: text,
-                    confirmBtnText: confirmBtnText,
-                })
-            },
-            (e) => {
-                this.globalService.showToast(e.message)
-            }
-        )
+            )
     }
 
     onKeyup(event, type) {

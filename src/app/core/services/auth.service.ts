@@ -315,6 +315,7 @@ class CheckDuplicateMailRequestBody {
 
 class SendVerificationCodeMailRequestBody {
     email: string
+    lang: string
 }
 
 class CheckVerificationCodeMailRequestBody {
@@ -334,7 +335,9 @@ class RegistrationRequestBody {
 
 class SendResetPasswordLinkMailRequestBody {
     email: string
+    lang: string
 }
+
 class CheckResetPasswordLinkMailRequestBody {
     token: string
 }
