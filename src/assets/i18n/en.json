@@ -67,6 +67,23 @@
             "send-reset-password-link-button": "Change password",
             "text1": "Reset password",
             "text2": "Please enter a new password"
+        },
+        "service-terms": {
+            "agreement-button": "Confirm",
+            "agreement1": "[Required] You must be at least 14 years old.",
+            "agreement2": "[Required] Consent to Privacy Policy",
+            "agreement3": "[Required] Consent to Terms of Service",
+            "agreement4": "[Optional] Consent to receive promotional emails",
+            "all-agreement": "I agree to all below:",
+            "privacy-service-terms-confirm": "Confirm",
+            "privacy-service-terms-header": "Terms and conditions",
+            "privacy-service-terms-privacy": "Privacy Policy",
+            "privacy-service-terms-service-terms": "Terms of Service",
+            "text1-1": "If you agree to the terms,",
+            "text1-2": "Sign up is complete.",
+            "text2-1": "In order to participate in community activities in Kipping, you must agree to the mandatory terms and conditions.",
+            "text2-2": "You can use the service even if you do not agree to the optional items, and you can change it on My Page.",
+            "view": "View"
         }
     },
     "common": {

@@ -37,7 +37,7 @@
         color: var(--text-2);
     }
 
-    .agreement-all {
+    .all-agreement {
         margin-top: 81px;
     }
 
@@ -87,7 +87,7 @@
             @include textStyle(400, 13px, 21px);
         }
 
-        .agreement-all {
+        .all-agreement {
             margin-top: 48px;
 
             ::ng-deep shared-checkbox {

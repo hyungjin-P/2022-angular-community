@@ -22,7 +22,7 @@ export class ServiceTermsComponent implements OnInit {
 
     selectedMenu: string
 
-    agreementAll: boolean
+    allAgreement: boolean
     agreementAge: boolean
     agreementPrivacy: boolean
     agreementServiceTerms: boolean
@@ -40,7 +40,7 @@ export class ServiceTermsComponent implements OnInit {
 
         this.selectedMenu = 'service-terms' // service-terms, privacy
 
-        this.agreementAll = false
+        this.allAgreement = false
         this.agreementAge = false
         this.agreementPrivacy = false
         this.agreementServiceTerms = false
@@ -80,14 +80,14 @@ export class ServiceTermsComponent implements OnInit {
 
     checkTerms(item: string) {
         if (item == 'all') {
-            if (this.agreementAll) {
-                this.agreementAll = false
+            if (this.allAgreement) {
+                this.allAgreement = false
                 this.agreementAge = false
                 this.agreementPrivacy = false
                 this.agreementServiceTerms = false
                 this.agreementMarketing = false
             } else {
-                this.agreementAll = true
+                this.allAgreement = true
                 this.agreementAge = true
                 this.agreementPrivacy = true
                 this.agreementServiceTerms = true
@@ -104,9 +104,9 @@ export class ServiceTermsComponent implements OnInit {
         }
 
         if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms && this.agreementMarketing) {
-            this.agreementAll = true
+            this.allAgreement = true
         } else {
-            this.agreementAll = false
+            this.allAgreement = false
         }
     }
 

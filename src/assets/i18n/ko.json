@@ -67,6 +67,23 @@
             "send-reset-password-link-button": "설정 완료",
             "text1": "비밀번호 재설정",
             "text2": "새로 사용할 비밀번호를 입력해 주세요."
+        },
+        "service-terms": {
+            "agreement-button": "동의하고 가입하기",
+            "agreement1": "[필수] 만 14세 이상입니다.",
+            "agreement2": "[필수] 서비스 이용 약관 동의",
+            "agreement3": "[필수] 개인정보 수집 및 이용 동의",
+            "agreement4": "[선택] 마케팅 정보 수신 동의",
+            "all-agreement": "모두 동의하기",
+            "privacy-service-terms-confirm": "확인",
+            "privacy-service-terms-header": "약관동의",
+            "privacy-service-terms-privacy": "개인정보 처리방침",
+            "privacy-service-terms-service-terms": "서비스 이용약관",
+            "text1-1": "약관에 동의하시면",
+            "text1-2": "회원가입이 완료됩니다.",
+            "text2-1": "키핑에서 커뮤니티 활동하기 위해선, 필수약관에 동의해주셔야 합니다.",
+            "text2-2": "선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 변경 가능합니다.",
+            "view": "보기"
         }
     },
     "common": {

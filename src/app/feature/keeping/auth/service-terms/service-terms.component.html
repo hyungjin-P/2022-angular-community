@@ -16,24 +16,27 @@
         <div class="container">
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="text-1">약관에 동의하시면<br />회원가입이 완료됩니다.</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="text-2">
-                        키핑에서 커뮤니티 활동을 하시기 위해선, 필수약관에 동의해주셔야 합니다.
-                        <br />
-                        선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 언제든지 변경 가능합니다.
+                    <div class="text-1">
+                        <span>{{ 'auth.service-terms.text1-1' | translate }}</span
+                        ><br /><span>{{ 'auth.service-terms.text1-2' | translate }}</span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="agreement-all">
+                    <div class="text-2">
+                        <span>{{ 'auth.service-terms.text2-1' | translate }}</span>
+                        <br />
+                        <span>{{ 'auth.service-terms.text2-2' | translate }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
+                    <div class="all-agreement">
                         <shared-checkbox
-                            text="모두 동의하기"
-                            [checked]="agreementAll"
+                            [text]="'auth.service-terms.all-agreement' | translate"
+                            [checked]="allAgreement"
                             shape="circle"
                             (click)="checkTerms('all')"
                         ></shared-checkbox>
@@ -41,7 +44,7 @@
                     <div class="h-line"></div>
                     <div class="agreement-1">
                         <shared-checkbox
-                            text="[필수] 만 14세 이상입니다."
+                            [text]="'auth.service-terms.agreement1' | translate"
                             [checked]="agreementAge"
                             shape="none"
                             (click)="checkTerms('age')"
@@ -49,25 +52,25 @@
                     </div>
                     <div class="agreement-2 d-flex justify-content-between">
                         <shared-checkbox
-                            text="[필수] 서비스 이용 약관 동의"
+                            [text]="'auth.service-terms.agreement2' | translate"
                             [checked]="agreementPrivacy"
                             shape="none"
                             (click)="checkTerms('privacy')"
                         ></shared-checkbox>
-                        <div (click)="showPopup('service-terms')">보기</div>
+                        <div (click)="showPopup('service-terms')">{{ 'auth.service-terms.view' | translate }}</div>
                     </div>
                     <div class="agreement-3 d-flex justify-content-between">
                         <shared-checkbox
-                            text="[필수] 개인정보 수집 및 이용 동의"
+                            [text]="'auth.service-terms.agreement3' | translate"
                             [checked]="agreementServiceTerms"
                             shape="none"
                             (click)="checkTerms('serviceTerms')"
                         ></shared-checkbox>
-                        <div (click)="showPopup('privacy')">보기</div>
+                        <div (click)="showPopup('privacy')">{{ 'auth.service-terms.view' | translate }}</div>
                     </div>
                     <div class="agreement-4 d-flex justify-content-between">
                         <shared-checkbox
-                            text="[선택] 마케팅 정보 수신 동의"
+                            [text]="'auth.service-terms.agreement4' | translate"
                             [checked]="agreementMarketing"
                             shape="none"
                             (click)="checkTerms('marketing')"
@@ -84,7 +87,7 @@
                         "
                         (click)="updateUser()"
                     >
-                        <div>동의하고 가입하기</div>
+                        <div>{{ 'auth.service-terms.agreement-button' | translate }}</div>
                     </div>
                 </div>
             </div>
@@ -98,7 +101,7 @@
             <div class="row">
                 <div class="col">
                     <div class="privacy-service-terms-header">
-                        <div>약관동의</div>
+                        <div>{{ 'auth.service-terms.privacy-service-terms-header' | translate }}</div>
                         <div class="privacy-service-terms-close-icon" (click)="hidePopup()">
                             <span class="mdi mdi-close"></span>
                         </div>
@@ -112,7 +115,7 @@
                 [class.privacy-service-terms-selected]="selectedMenu == 'service-terms'"
                 (click)="changeMenu('service-terms')"
             >
-                서비스 이용약관
+                {{ 'auth.service-terms.privacy-service-terms-service-terms' | translate }}
             </div>
             <div class="privacy-service-terms-v-line"></div>
             <div
@@ -120,7 +123,7 @@
                 [class.privacy-service-terms-selected]="selectedMenu == 'privacy'"
                 (click)="changeMenu('privacy')"
             >
-                개인정보 처리방침
+                {{ 'auth.service-terms.privacy-service-terms-privacy' | translate }}
             </div>
         </div>
         <div class="privacy-service-terms-content scroll-y">
@@ -144,7 +147,7 @@
             </div>
         </div>
         <div class="privacy-service-terms-confirm shared-button-primary" (click)="hidePopup()">
-            <div>확인</div>
+            <div>{{ 'auth.service-terms.privacy-service-terms-confirm' | translate }}</div>
         </div>
     </div>
 </div>
