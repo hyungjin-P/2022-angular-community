@@ -3,13 +3,17 @@
 
     <div class="flex-fill d-flex">
         <div class="nav d-none d-lg-block">
-            <div class="menu" [routerLink]="['/settings/profile']" routerLinkActive="selected">프로필 변경</div>
-            <div class="menu" [routerLink]="['/settings/account']" routerLinkActive="selected">계정 관리</div>
-            <div class="menu" [routerLink]="['/settings/notification']" routerLinkActive="selected">알림 설정</div>
-            <div class="menu" [routerLink]="['/settings/language']" routerLinkActive="selected">언어 설정</div>
-            <div class="menu" [routerLink]="['/settings/service-center']" routerLinkActive="selected">고객 센터</div>
-            <div class="menu" [routerLink]="['/settings/company']" routerLinkActive="selected">회사 정보</div>
-            <div class="menu">로그아웃</div>
+            <div class="menu" [routerLink]="['/settings/profile']" routerLinkActive="selected">
+                {{ 'settings.nav.profile' | translate }}
+            </div>
+            <div class="menu" [routerLink]="['/settings/account']" routerLinkActive="selected">
+                {{ 'settings.nav.account' | translate }}
+            </div>
+            <div class="menu" [routerLink]="['/settings/language']" routerLinkActive="selected">
+                {{ 'settings.nav.language' | translate }}
+            </div>
+            <div class="h-line"></div>
+            <div class="menu">{{ 'settings.nav.signout' | translate }}</div>
         </div>
         <div class="flex-fill" style="position: relative">
             <div class="section full-absolute">

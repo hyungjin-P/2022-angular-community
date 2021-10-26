@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Location } from '@angular/common'
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 
 import { StorageService } from '@services/storage.service'
@@ -7,7 +8,7 @@ import { StorageService } from '@services/storage.service'
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router, private storageService: StorageService) {}
+    constructor(private location: Location, private router: Router, private storageService: StorageService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const url = state.url.split('/')
@@ -21,7 +22,7 @@ export class AuthGuard implements CanActivate {
                 ) {
                     return true
                 } else {
-                    this.router.navigateByUrl('/')
+                    this.location.back()
                     return false
                 }
             } else {

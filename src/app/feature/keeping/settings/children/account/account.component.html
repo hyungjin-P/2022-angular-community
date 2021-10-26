@@ -1,3 +1,7 @@
 <div class="full-absolute">
-    <mobile-header class="d-lg-none" text="계정 관리" (goBack)="goBack()"></mobile-header>
+    <mobile-header
+        class="d-lg-none"
+        [text]="'settings.mobile-header.account' | translate"
+        (goBack)="goBack()"
+    ></mobile-header>
 </div>

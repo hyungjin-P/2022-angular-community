@@ -10,22 +10,10 @@ import { CommonModule } from '../common/common.module'
 import { HomeComponent } from './children/home/home.component'
 import { ProfileComponent } from './children/profile/profile.component'
 import { AccountComponent } from './children/account/account.component'
-import { NotificationComponent } from './children/notification/notification.component'
 import { LanguageComponent } from './children/language/language.component'
-import { ServiceCenterComponent } from './children/service-center/service-center.component'
-import { CompanyComponent } from './children/company/company.component'
 
 @NgModule({
-    declarations: [
-        SettingsComponent,
-        HomeComponent,
-        ProfileComponent,
-        AccountComponent,
-        NotificationComponent,
-        LanguageComponent,
-        ServiceCenterComponent,
-        CompanyComponent,
-    ],
+    declarations: [SettingsComponent, HomeComponent, ProfileComponent, AccountComponent, LanguageComponent],
     imports: [SettingsRoutingModule, SharedModule, CommonModule],
     exports: [],
     providers: [],

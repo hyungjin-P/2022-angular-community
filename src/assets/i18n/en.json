@@ -130,5 +130,25 @@
             "service-terms": "Service Terms",
             "shop": "Shop"
         }
+    },
+    "settings": {
+        "home": {
+            "account": "Account",
+            "language": "Language",
+            "profile": "Profile",
+            "signout": "Sign out"
+        },
+        "mobile-header": {
+            "account": "Account",
+            "language": "Language",
+            "profile": "Profile",
+            "settings": "Settings"
+        },
+        "nav": {
+            "account": "Account",
+            "language": "Language",
+            "profile": "Profile",
+            "signout": "Sign out"
+        }
     }
 }
