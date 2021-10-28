@@ -21,7 +21,11 @@
     <div class="desktop d-none d-lg-flex">
         <div class="left-side">
             <div class="registration-image">
-                <img src="assets/images/auth/registration-image.png" />
+                <img
+                    src="https://public.keeping.link/assets/images/auth/registration.jpg?w=768&q=10"
+                    #img
+                    (load)="onImageLoad(img)"
+                />
             </div>
         </div>
         <div class="right-side d-flex justify-content-center align-items-center">

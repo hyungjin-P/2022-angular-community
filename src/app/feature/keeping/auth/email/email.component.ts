@@ -16,6 +16,7 @@ import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
+import { HelperService } from '@services/helper.service'
 
 import { User } from '@schemas/user'
 
@@ -69,7 +70,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         private router: Router,
         private globalService: GlobalService,
         private storageService: StorageService,
-        private authService: AuthService
+        private authService: AuthService,
+        private helperService: HelperService
     ) {}
 
     ngOnInit() {
@@ -143,6 +145,10 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.EmailInputKeyupSubscription1.unsubscribe()
         this.EmailInputKeyupSubscription2.unsubscribe()
+    }
+
+    onImageLoad(element: HTMLImageElement) {
+        this.helperService.ImproveImageQuality(element)
     }
 
     checkDuplicateMail(key: string, email: string) {

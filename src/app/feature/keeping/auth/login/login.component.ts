@@ -11,6 +11,7 @@ import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
+import { HelperService } from '@services/helper.service'
 
 import { User } from '@schemas/user'
 
@@ -44,7 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         private translate: TranslateService,
         private globalService: GlobalService,
         private storageService: StorageService,
-        private authService: AuthService
+        private authService: AuthService,
+        private helperService: HelperService
     ) {}
 
     ngOnInit() {
@@ -94,6 +96,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe()
+    }
+
+    onImageLoad(element: HTMLImageElement) {
+        this.helperService.ImproveImageQuality(element)
     }
 
     signInWithGoogle() {
