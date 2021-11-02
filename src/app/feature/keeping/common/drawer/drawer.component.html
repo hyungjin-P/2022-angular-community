@@ -141,15 +141,15 @@
         <span class="mdi mdi-chevron-down"></span>
     </a>
     <div class="menu-more-box" [class.d-block]="variables.menuMoreBoxVisible">
-        <div class="menu-more-box-menu" [routerLink]="['/notice']" routerLinkActive="menu-more-box-menu-selected">
+        <a class="menu-more-box-menu" [routerLink]="['/notice']" routerLinkActive="menu-more-box-menu-selected">
             <span>{{ 'common.drawer.notice' | translate }}</span>
-        </div>
-        <div class="menu-more-box-menu" [routerLink]="['/event']" routerLinkActive="menu-more-box-menu-selected">
+        </a>
+        <a class="menu-more-box-menu" [routerLink]="['/event']" routerLinkActive="menu-more-box-menu-selected">
             <span>{{ 'common.drawer.event' | translate }}</span>
-        </div>
-        <div class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
+        </a>
+        <a class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
             <span>{{ 'common.drawer.help' | translate }}</span>
-        </div>
+        </a>
     </div>
     <a class="menu">
         <svg
@@ -184,12 +184,12 @@
             <img src="assets/images/logo/footer_logo.png" />
         </div>
         <div class="d-flex">
-            <div class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">
+            <a class="privacy" [routerLink]="['/service-terms']" (click)="onScrollTop()">
                 {{ 'common.drawer.service-terms' | translate }}
-            </div>
-            <div class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">
+            </a>
+            <a class="service-terms" [routerLink]="['/privacy']" (click)="onScrollTop()">
                 {{ 'common.drawer.privacy' | translate }}
-            </div>
+            </a>
         </div>
         <div class="copyright">Copyright © 2021 Flexible. All rights reserved.</div>
     </div>
