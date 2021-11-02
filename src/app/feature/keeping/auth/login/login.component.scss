@@ -39,7 +39,7 @@
             color: var(--grey-3);
         }
 
-        span:nth-child(2) {
+        a:nth-child(2) {
             margin-left: 5px;
             outline: none;
             cursor: pointer;
@@ -48,6 +48,10 @@
             color: var(--blue-3);
             text-decoration: underline;
             text-underline-offset: 3px;
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
     }
 
@@ -57,20 +61,25 @@
         justify-content: flex-end;
         align-items: center;
         margin-top: 30px;
-        cursor: pointer;
 
         color: var(--grey-1);
 
-        span:nth-child(1) {
-            margin: 0 4px;
+        > a {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
 
-            @include textStyle(400, 12px, 20px);
-        }
+            span:nth-child(1) {
+                margin: 0 4px;
 
-        span:nth-child(2) {
-            position: relative;
+                @include textStyle(400, 12px, 20px);
+            }
 
-            font-size: 16px;
+            span:nth-child(2) {
+                position: relative;
+
+                font-size: 16px;
+            }
         }
 
         .lang-box {
@@ -93,6 +102,10 @@
                 align-items: center;
                 height: 40px;
                 cursor: pointer;
+
+                &:hover {
+                    opacity: 0.8;
+                }
             }
 
             .lang-box-h-line {
@@ -102,10 +115,12 @@
     }
 
     .lang-box-open {
-        span:nth-child(3) {
-            top: 1px;
-            transform: rotateX(180deg);
-            transition: transform 0.2s linear;
+        > a {
+            span:nth-child(2) {
+                top: 1px;
+                transform: rotateX(180deg);
+                transition: transform 0.2s linear;
+            }
         }
     }
 
@@ -142,16 +157,20 @@
 
     .forgot-password {
         margin-top: 16px;
-        cursor: pointer;
 
-        @include textStyle(500, 12px, 20px);
         text-align: end;
-        color: var(--grey-3);
-        text-decoration: underline;
-        text-underline-offset: 1px;
 
-        span {
+        a {
             outline: none;
+
+            @include textStyle(500, 12px, 20px);
+            color: var(--grey-3);
+            text-decoration: underline;
+            text-underline-offset: 1px;
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
     }
 

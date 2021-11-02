@@ -49,30 +49,32 @@
             <div class="col">
                 <div class="text-2">
                     <span>{{ 'auth.login.text2-1' | translate }}</span>
-                    <span [routerLink]="['/auth/email']">{{ 'auth.login.text2-2' | translate }}</span>
+                    <a [routerLink]="['/auth/email']">{{ 'auth.login.text2-2' | translate }}</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="lang" [class.lang-box-open]="langBoxVisible" (click)="openLangBox($event)">
-                    <span>{{ 'auth.login.lang' | translate }}</span>
-                    <span class="mdi mdi-chevron-down"></span>
+                <div class="lang" [class.lang-box-open]="langBoxVisible">
+                    <a (click)="openLangBox($event)">
+                        <span>{{ 'auth.login.lang' | translate }}</span>
+                        <span class="mdi mdi-chevron-down"></span>
+                    </a>
                     <div
                         class="lang-box"
                         [class.d-block]="langBoxVisible"
                         (click)="$event.stopPropagation()"
                         (sharedClickOutside)="closeLangBox()"
                     >
-                        <div class="lang-box-menu" (click)="switchLanguage('ko')">
+                        <a class="lang-box-menu" (click)="switchLanguage('ko')">
                             <div>한국어</div>
                             <shared-checkbox [checked]="selectedLanguage == 'ko'" shape="circle"></shared-checkbox>
-                        </div>
+                        </a>
                         <div class="lang-box-h-line"></div>
-                        <div class="lang-box-menu" (click)="switchLanguage('en')">
+                        <a class="lang-box-menu" (click)="switchLanguage('en')">
                             <div>English</div>
                             <shared-checkbox [checked]="selectedLanguage == 'en'" shape="circle"></shared-checkbox>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -134,7 +136,7 @@
         <div class="row">
             <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
                 <div class="forgot-password">
-                    <span [routerLink]="['/auth/forgot-password']">{{ 'auth.login.forgot-password' | translate }}</span>
+                    <a [routerLink]="['/auth/forgot-password']">{{ 'auth.login.forgot-password' | translate }}</a>
                 </div>
             </div>
         </div>
