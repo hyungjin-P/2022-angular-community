@@ -1,14 +1,14 @@
 <div class="header">
     <div class="leading">
-        <div class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') == -1" (click)="openNav()">
+        <a class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') == -1" (click)="openNav()">
             <img src="assets/icons/nav/burger-menu.svg" />
-        </div>
-        <div class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') != -1" (click)="openDrawer()">
+        </a>
+        <a class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') != -1" (click)="openDrawer()">
             <img src="assets/icons/nav/burger-menu.svg" />
-        </div>
-        <div class="logo" [routerLink]="['/']">
+        </a>
+        <a class="logo" [routerLink]="['/']">
             <img src="assets/images/logo/header_logo.svg" />
-        </div>
+        </a>
     </div>
     <div class="center">
         <div
@@ -39,27 +39,27 @@
         </div>
     </div>
     <div class="action">
-        <div class="search d-flex" [class.d-lg-none]="!variables.isLogin" [class.d-xl-none]="variables.isLogin">
+        <a class="search d-flex" [class.d-lg-none]="!variables.isLogin" [class.d-xl-none]="variables.isLogin">
             <svg class="svg-icon" [routerLink]="['/search']">
                 <use xlink:href="assets/icons/header/search.svg#icon" />
             </svg>
-        </div>
+        </a>
         <ng-container *ngIf="!variables.isLogin">
-            <div class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
+            <a class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
                 <span>{{ 'common.header.signin' | translate }}</span>
-            </div>
-            <div class="registration d-none d-lg-flex shared-button-primary" [routerLink]="['/auth/registration']">
+            </a>
+            <a class="registration d-none d-lg-flex shared-button-primary" [routerLink]="['/auth/registration']">
                 <span>{{ 'common.header.singup' | translate }}</span>
-            </div>
+            </a>
         </ng-container>
         <ng-container *ngIf="variables.isLogin">
-            <div class="notification">
+            <a class="notification">
                 <svg class="svg-icon" viewBox="-2 -2 26 26">
                     <use xlink:href="assets/icons/header/notification.svg#icon" />
                 </svg>
                 <div class="dot"></div>
-            </div>
-            <div class="user d-none d-lg-flex" [class.user-box-open]="userBoxVisible" (click)="openUserBox($event)">
+            </a>
+            <a class="user d-none d-lg-flex" [class.user-box-open]="userBoxVisible" (click)="openUserBox($event)">
                 <div class="avatar">
                     <shared-avatar
                         [image]="user.picture"
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="user-box-h-line-1"></div>
-                    <div class="user-box-menu" [routerLink]="['/mypage']" (click)="closeUserBox()">
+                    <a class="user-box-menu" [routerLink]="['/mypage']" (click)="closeUserBox()">
                         <svg
                             class="user-box-svg-icon"
                             width="18"
@@ -118,8 +118,8 @@
                             />
                         </svg>
                         <div class="text">{{ 'common.header.mypage' | translate }}</div>
-                    </div>
-                    <div class="user-box-menu">
+                    </a>
+                    <a class="user-box-menu">
                         <svg
                             class="user-box-svg-icon"
                             width="18"
@@ -135,8 +135,8 @@
                             />
                         </svg>
                         <div class="text">{{ 'common.header.bookmark' | translate }}</div>
-                    </div>
-                    <div class="user-box-menu" [routerLink]="['/settings']" (click)="closeUserBox()">
+                    </a>
+                    <a class="user-box-menu" [routerLink]="['/settings']" (click)="closeUserBox()">
                         <svg
                             class="user-box-svg-icon"
                             width="18"
@@ -152,8 +152,8 @@
                             />
                         </svg>
                         <div class="text">{{ 'common.header.settings' | translate }}</div>
-                    </div>
-                    <div class="user-box-menu">
+                    </a>
+                    <a class="user-box-menu">
                         <svg
                             class="user-box-svg-icon"
                             width="18"
@@ -178,9 +178,9 @@
                             />
                         </svg>
                         <div class="text">{{ 'common.header.help' | translate }}</div>
-                    </div>
+                    </a>
                     <div class="user-box-h-line-2"></div>
-                    <div class="user-box-menu" (click)="logout()">
+                    <a class="user-box-menu" (click)="logout()">
                         <svg
                             class="user-box-svg-icon"
                             width="18"
@@ -197,15 +197,15 @@
                             />
                         </svg>
                         <div class="text">{{ 'common.header.signout' | translate }}</div>
-                    </div>
+                    </a>
                 </div>
-            </div>
+            </a>
             <div class="v-line d-none d-lg-flex"></div>
-            <div class="write d-none d-lg-flex shared-button-primary">
+            <a class="write d-none d-lg-flex shared-button-primary">
                 <img src="assets/icons/header/pencil.svg" />
                 <span>{{ 'common.header.write' | translate }}</span>
                 <span class="mdi mdi-chevron-down"></span>
-            </div>
+            </a>
         </ng-container>
     </div>
 </div>
