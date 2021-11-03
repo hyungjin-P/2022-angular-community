@@ -120,15 +120,18 @@
             color: var(--grey-3);
         }
 
-        span:nth-child(2) {
+        a:nth-child(2) {
             margin-left: 5px;
-            outline: none;
             cursor: pointer;
 
             @include textStyle(500, 13px, 21px);
             color: var(--blue-3);
             text-decoration: underline;
             text-underline-offset: 3px;
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
     }
 }
