@@ -80,7 +80,7 @@
             </div>
             <div class="row">
                 <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div
+                    <a
                         class="agreement-button shared-button-primary"
                         [class.shared-button-primary-disabled]="
                             !agreementAge || !agreementPrivacy || !agreementServiceTerms
@@ -88,7 +88,7 @@
                         (click)="updateUser()"
                     >
                         <div>{{ 'auth.service-terms.agreement-button' | translate }}</div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
