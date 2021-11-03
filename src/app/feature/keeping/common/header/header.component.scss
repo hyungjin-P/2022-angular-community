@@ -58,7 +58,6 @@
                 width: 24px;
                 height: 24px;
                 stroke: var(--grey-1);
-                outline: none;
             }
 
             input {
@@ -83,22 +82,11 @@
             height: 24px;
             stroke: var(--grey-1);
             fill: var(--grey-1);
-            outline: none;
 
             &:hover {
                 stroke: var(--blue-3);
                 fill: var(--blue-3);
             }
-        }
-
-        .search {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 36px;
-            height: 36px;
-            outline: none;
-            cursor: pointer;
         }
 
         .login,
@@ -132,6 +120,15 @@
             color: var(--white);
         }
 
+        .search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+        }
+
         .notification {
             position: relative;
             display: flex;
@@ -140,7 +137,6 @@
             margin-left: 8px;
             width: 36px;
             height: 36px;
-            outline: none;
             cursor: pointer;
 
             .dot {
@@ -285,7 +281,6 @@
                     .user-box-svg-icon {
                         width: 18px;
                         height: 18px;
-                        outline: none;
 
                         .user-box-stroke {
                             stroke: var(--grey-1);
