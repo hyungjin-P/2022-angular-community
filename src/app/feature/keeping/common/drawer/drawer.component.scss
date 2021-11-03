@@ -162,6 +162,10 @@
             @include textStyle(500, 12px, 20px);
             color: var(--grey-1);
             text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .privacy {

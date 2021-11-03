@@ -41,7 +41,6 @@
 
         a:nth-child(2) {
             margin-left: 5px;
-            outline: none;
             cursor: pointer;
 
             @include textStyle(500, 13px, 21px);
@@ -102,10 +101,6 @@
                 align-items: center;
                 height: 40px;
                 cursor: pointer;
-
-                &:hover {
-                    opacity: 0.8;
-                }
             }
 
             .lang-box-h-line {
@@ -161,8 +156,6 @@
         text-align: end;
 
         a {
-            outline: none;
-
             @include textStyle(500, 12px, 20px);
             color: var(--grey-3);
             text-decoration: underline;
