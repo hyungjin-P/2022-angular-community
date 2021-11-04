@@ -4,4 +4,22 @@
         [text]="'settings.mobile-header.language' | translate"
         (goBack)="goBack()"
     ></mobile-header>
+
+    <div class="language">
+        <div>
+            <div class="text-1">{{ 'settings.language.text-1' | translate }}</div>
+            <div class="text-2">{{ 'settings.language.text-2' | translate }}</div>
+            <a class="ko" (click)="changeLanguage('ko')">
+                <span>한국어</span>
+                <span class="mdi mdi-check" *ngIf="selectedLanguage == 'ko'"></span>
+            </a>
+            <a class="en" (click)="changeLanguage('en')">
+                <span>English</span>
+                <span class="mdi mdi-check" *ngIf="selectedLanguage == 'en'"></span>
+            </a>
+            <a class="complete-button shared-button-primary" (click)="switchLanguage()">
+                <div>{{ 'settings.language.complete-button' | translate }}</div>
+            </a>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,87 @@
+@import '/src/assets/styles/font';
+
+.language {
+    display: flex;
+    justify-content: center;
+
+    > div {
+        margin-top: 30px;
+        width: 312px;
+
+        .text-1 {
+            @include textStyle(700, 20px, 30px);
+        }
+
+        .text-2 {
+            margin-top: 8px;
+
+            @include textStyle(500, 14px, 22px);
+        }
+
+        .ko,
+        .en {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 52px;
+            border: 1px solid var(--grey-6);
+            border-radius: 8px;
+            cursor: pointer;
+
+            @include textStyle(500, 14px, 24px);
+            color: var(--text-2);
+
+            .mdi {
+                font-size: 20px;
+                color: var(--blue-3);
+            }
+        }
+
+        .ko {
+            margin-top: 40px;
+        }
+
+        .en {
+            margin-top: 12px;
+        }
+
+        .complete-button {
+            margin-top: 50px;
+            width: 100%;
+            height: 46px;
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .language {
+        > div {
+            margin-top: 40px;
+            width: 380px;
+
+            .complete-button {
+                margin-top: 60px;
+                height: 52px;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .language {
+        > div {
+            margin-top: 50px;
+            width: 420px;
+        }
+    }
+}
+
+@media (min-width: 1920px) {
+    .language {
+        > div {
+            margin-top: 50px;
+            width: 525px;
+        }
+    }
+}
