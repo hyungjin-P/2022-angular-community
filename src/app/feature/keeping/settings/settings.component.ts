@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
 
 @Component({
     selector: 'settings',
@@ -10,7 +12,7 @@ import { GlobalService } from '@services/global.service'
 export class SettingsComponent implements OnInit {
     variables: any
 
-    constructor(private globalService: GlobalService) {
+    constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {
         this.variables = this.globalService.variables
     }
 
@@ -20,5 +22,11 @@ export class SettingsComponent implements OnInit {
 
     closeDrawer() {
         this.variables.isDrawerOpen = false
+    }
+
+    async logout() {
+        this.globalService.variables.isLogin = false
+        await this.storageService.removeUser()
+        this.router.navigateByUrl('/')
     }
 }

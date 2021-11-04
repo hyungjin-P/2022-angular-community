@@ -13,7 +13,7 @@
                 {{ 'settings.nav.language' | translate }}
             </a>
             <div class="h-line"></div>
-            <a class="menu">{{ 'settings.nav.signout' | translate }}</a>
+            <a class="menu" (click)="logout()">{{ 'settings.nav.signout' | translate }}</a>
         </div>
         <div class="flex-fill" style="position: relative">
             <div class="section full-absolute">

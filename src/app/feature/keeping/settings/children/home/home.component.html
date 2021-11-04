@@ -2,22 +2,22 @@
     <mobile-header [text]="'settings.mobile-header.settings' | translate" (goBack)="goBack()"></mobile-header>
 
     <div class="nav">
-        <div class="menu" [routerLink]="['/settings/profile']">
+        <a class="menu" [routerLink]="['/settings/profile']">
             <div>{{ 'settings.home.profile' | translate }}</div>
             <div class="mdi mdi-chevron-right"></div>
-        </div>
-        <div class="menu" [routerLink]="['/settings/account']">
+        </a>
+        <a class="menu" [routerLink]="['/settings/account']">
             <div>{{ 'settings.home.account' | translate }}</div>
             <div class="mdi mdi-chevron-right"></div>
-        </div>
-        <div class="menu" [routerLink]="['/settings/language']">
+        </a>
+        <a class="menu" [routerLink]="['/settings/language']">
             <div>{{ 'settings.home.language' | translate }}</div>
             <div class="mdi mdi-chevron-right"></div>
-        </div>
+        </a>
         <div class="h-line"></div>
-        <div class="menu">
+        <a class="menu" (click)="logout()">
             <div>{{ 'settings.home.signout' | translate }}</div>
             <div class="mdi mdi-chevron-right"></div>
-        </div>
+        </a>
     </div>
 </div>

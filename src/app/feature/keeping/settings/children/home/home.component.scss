@@ -9,6 +9,8 @@
         align-items: center;
         height: 46px;
 
+        text-decoration: none;
+
         div:nth-child(1) {
             @include textStyle(500, 14px, 22px);
             color: var(--text-2);

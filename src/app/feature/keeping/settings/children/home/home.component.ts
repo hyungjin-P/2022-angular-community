@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
 
 @Component({
     selector: 'home',
@@ -11,7 +12,7 @@ import { GlobalService } from '@services/global.service'
 export class HomeComponent implements OnInit {
     variables: any
 
-    constructor(private router: Router, private globalService: GlobalService) {
+    constructor(private router: Router, private globalService: GlobalService, private storageService: StorageService) {
         this.variables = this.globalService.variables
     }
 
@@ -22,6 +23,12 @@ export class HomeComponent implements OnInit {
     }
 
     goBack() {
+        this.router.navigateByUrl('/')
+    }
+
+    async logout() {
+        this.globalService.variables.isLogin = false
+        await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }
 }
