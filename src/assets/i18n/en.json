@@ -139,9 +139,9 @@
             "signout": "Sign out"
         },
         "language": {
-            "complete-button": "Complete",
             "text-1": "변경할 언어를 선택해 주세요.",
-            "text-2": "Please select a language."
+            "text-2": "Please select a language.",
+            "update-button": "Update"
         },
         "mobile-header": {
             "account": "Account",
@@ -154,6 +154,14 @@
             "language": "Language",
             "profile": "Profile",
             "signout": "Sign out"
+        },
+        "profile": {
+            "about-me-label": "About me",
+            "about-me-placeholder": "Please enter text.",
+            "duplicate-check": "Verify",
+            "nickname-info": "Up to 10 Korean characters and 20 English characters are allowed.",
+            "nickname-label": "Nickname",
+            "update-button": "Update"
         }
     }
 }

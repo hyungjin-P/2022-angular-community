@@ -139,9 +139,9 @@
             "signout": "로그아웃"
         },
         "language": {
-            "complete-button": "설정 완료",
             "text-1": "Please select a language.",
-            "text-2": "변경할 언어를 선택해 주세요."
+            "text-2": "변경할 언어를 선택해 주세요.",
+            "update-button": "설정 완료"
         },
         "mobile-header": {
             "account": "계정 관리",
@@ -154,6 +154,14 @@
             "language": "언어 설정",
             "profile": "프로필 변경",
             "signout": "로그아웃"
+        },
+        "profile": {
+            "about-me-label": "자기소개",
+            "about-me-placeholder": "텍스트를 입력해주세요.",
+            "duplicate-check": "중복 검사",
+            "nickname-info": "한글 10자, 영문 20자까지 가능합니다.",
+            "nickname-label": "닉네임 변경",
+            "update-button": "프로필 수정 완료"
         }
     }
 }
