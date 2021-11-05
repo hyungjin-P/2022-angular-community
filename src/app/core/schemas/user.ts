@@ -1,9 +1,10 @@
+import { File } from './file'
+
 export class User {
     constructor(
         public id: string,
         public provider: string,
-        public name: string,
-        public picture: string,
+        public nickname: string,
         public age: number,
         public sex: string,
         public birth_date: string,
@@ -16,14 +17,15 @@ export class User {
         public agreement_privacy: boolean,
         public agreement_service_terms: boolean,
         public agreement_marketing: boolean,
+        public picture: Array<File>,
+        public background: Array<File>,
         public access_token: string,
         public refresh_token: string,
         public custom_token: string
     ) {
         this.id = id
         this.provider = provider
-        this.name = name
-        this.picture = picture
+        this.nickname = nickname
         this.age = age
         this.sex = sex
         this.birth_date = birth_date
@@ -36,6 +38,8 @@ export class User {
         this.agreement_privacy = agreement_privacy
         this.agreement_service_terms = agreement_service_terms
         this.agreement_marketing = agreement_marketing
+        this.picture = picture
+        this.background = background
         this.access_token = access_token
         this.refresh_token = refresh_token
         this.custom_token = custom_token
