@@ -9,6 +9,7 @@ import { StorageService } from '@services/storage.service'
 
 import { Response } from '@schemas/response'
 import { User } from '@schemas/user'
+import { File } from '@schemas/file'
 
 @Injectable({
     providedIn: 'root',
@@ -83,6 +84,74 @@ export class UserService {
             catchError(handleError)
         )
     }
+
+    createUserPicture(userId: string, requestBody: CreateUserPictureRequestBody): Observable<Response> {
+        const url = environment['serverAddress'] + `/users/${userId}/picture`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.post<Response>(url, requestBody, options).pipe(
+            map((res) => {
+                return res.dataset[0]
+            }),
+            catchError(handleError)
+        )
+    }
+
+    deleteUserPicture(userId: string, fileUrl: string): Observable<Response> {
+        const url = environment['serverAddress'] + `/users/${userId}/picture/${encodeURIComponent(fileUrl)}`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.delete<Response>(url, options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
+
+    createUserBackground(userId: string, requestBody: CreateUserBackgroundRequestBody): Observable<Response> {
+        const url = environment['serverAddress'] + `/users/${userId}/background`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.post<Response>(url, requestBody, options).pipe(
+            map((res) => {
+                return res.dataset[0]
+            }),
+            catchError(handleError)
+        )
+    }
+
+    deleteUserBackground(userId: string, fileUrl: string): Observable<Response> {
+        const url = environment['serverAddress'] + `/users/${userId}/background/${encodeURIComponent(fileUrl)}`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.delete<Response>(url, options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
 }
 
 class UpdateUserRequestBody {
@@ -101,4 +170,12 @@ class UpdateUserRequestBody {
 class ChangePasswordRequestBody {
     password: string
     new_password: string
+}
+
+class CreateUserPictureRequestBody {
+    files: Array<File>
+}
+
+class CreateUserBackgroundRequestBody {
+    files: Array<File>
 }

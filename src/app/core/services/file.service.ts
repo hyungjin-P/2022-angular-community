@@ -47,8 +47,8 @@ export class FileService {
         )
     }
 
-    deleteFile(location: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/files/${encodeURIComponent(location)}`
+    deleteFile(fileUrl: string): Observable<Response> {
+        const url = environment['serverAddress'] + `/files/${encodeURIComponent(fileUrl)}`
 
         const options = {
             headers: new HttpHeaders({
