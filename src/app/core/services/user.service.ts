@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators'
 import handleError from './handleError'
 
 import { environment } from '@environments/environment'
-import { StorageService } from '@services/storage.service'
 
 import { Response } from '@schemas/response'
 import { User } from '@schemas/user'
@@ -15,7 +14,7 @@ import { File } from '@schemas/file'
     providedIn: 'root',
 })
 export class UserService {
-    constructor(private http: HttpClient, private storageService: StorageService) {}
+    constructor(private http: HttpClient) {}
 
     getUser(userId: string): Observable<User> {
         const url = environment['serverAddress'] + `/users/${userId}`
