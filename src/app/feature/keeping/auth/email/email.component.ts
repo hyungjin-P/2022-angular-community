@@ -17,6 +17,7 @@ import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
 import { HelperService } from '@services/helper.service'
+import { TextService } from '@services/text.service'
 
 import { User } from '@schemas/user'
 
@@ -71,7 +72,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         private globalService: GlobalService,
         private storageService: StorageService,
         private authService: AuthService,
-        private helperService: HelperService
+        private helperService: HelperService,
+        private textService: TextService
     ) {}
 
     ngOnInit() {
@@ -155,11 +157,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (key == 'Backspace') {
             if (!this.checkEmailPattern(email)) {
                 this.emailValid = false
-                if (this.selectedLanguage == 'ko') {
-                    this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
-                } else {
-                    this.emailErrorText = 'Invalid email address.'
-                }
+                // 규칙에 맞는 이메일 주소를 입력해 주세요.
+                this.emailErrorText = this.textService.getText('auth:email:001')
             }
 
             this.verificationCodeVisible = false
@@ -168,11 +167,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (!this.checkEmailPattern(email)) {
             this.emailValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
-            } else {
-                this.emailErrorText = 'Invalid email address.'
-            }
+            // 규칙에 맞는 이메일 주소를 입력해 주세요.
+            this.emailErrorText = this.textService.getText('auth:email:001')
             return
         }
 
@@ -190,17 +186,11 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.emailValid = false
 
                 if (e.code == 'FUNCTION:AUTH:004') {
-                    if (this.selectedLanguage == 'ko') {
-                        this.emailErrorText = '이미 가입된 이메일 주소 입니다.'
-                    } else {
-                        this.emailErrorText = 'This is an already registered email address.'
-                    }
+                    // 이미 가입된 이메일 주소 입니다.
+                    this.emailErrorText = this.textService.getText('auth:email:002')
                 } else if (e.code == 'VALIDATOR:VALIDATE') {
-                    if (this.selectedLanguage == 'ko') {
-                        this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
-                    } else {
-                        this.emailErrorText = 'Invalid email address.'
-                    }
+                    // 규칙에 맞는 이메일 주소를 입력해 주세요.
+                    this.emailErrorText = this.textService.getText('auth:email:001')
                 } else {
                     this.emailErrorText = e.message
                 }
@@ -260,11 +250,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
                 },
                 (e) => {
                     if (e.code == 'FUNCTION:AUTH:005') {
-                        if (this.selectedLanguage == 'ko') {
-                            this.verificationCodeErrorText = '인증번호가 일치하지 않습니다. 다시 입력해주세요.'
-                        } else {
-                            this.verificationCodeErrorText = 'The verification code does not match.'
-                        }
+                        // 인증번호가 일치하지 않습니다. 다시 입력해주세요.
+                        this.verificationCodeErrorText = this.textService.getText('auth:email:003')
                     } else {
                         this.verificationCodeErrorText = e.message
                     }
@@ -305,11 +292,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.timeLeft > 0) {
                 this.timeLeft--
             } else {
-                if (this.selectedLanguage == 'ko') {
-                    this.verificationCodeErrorText = '인증번호 입력시간이 초과되었습니다.'
-                } else {
-                    this.verificationCodeErrorText = 'The time to enter the verification code has expired.'
-                }
+                // 인증번호 입력시간이 초과되었습니다.
+                this.verificationCodeErrorText = this.textService.getText('auth:email:004')
                 this.stopTimer()
             }
         }, 1000)
@@ -397,25 +381,16 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
-            } else {
-                this.passwordErrorText = 'Spaces are not allowed.'
-            }
+            // 비밀번호에 공백을 제외하고 입력해주세요.
+            this.passwordErrorText = this.textService.getText('auth:email:005')
         } else if (password.length < 8) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.passwordErrorText = this.textService.getText('auth:email:006')
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.passwordErrorText = this.textService.getText('auth:email:006')
         }
 
         this.checkConfirmPasswordPattern(this.confirmPassword)
@@ -441,11 +416,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         ) {
             if (this.password != this.confirmPassword) {
                 this.confirmPasswordValid = false
-                if (this.selectedLanguage == 'ko') {
-                    this.confirmPasswordErrorText = '비밀번호가 일치하지 않습니다.'
-                } else {
-                    this.confirmPasswordErrorText = 'Passwords do not match.'
-                }
+                // 비밀번호가 일치하지 않습니다.
+                this.confirmPasswordErrorText = this.textService.getText('auth:email:007')
             } else {
                 isValid = true
                 this.confirmPasswordValid = true
@@ -453,25 +425,16 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         } else if (pattern4.test(password)) {
             this.confirmPasswordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.confirmPasswordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
-            } else {
-                this.confirmPasswordErrorText = 'Spaces are not allowed.'
-            }
+            // 비밀번호에 공백을 제외하고 입력해주세요.
+            this.confirmPasswordErrorText = this.textService.getText('auth:email:005')
         } else if (password.length < 8) {
             this.confirmPasswordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.confirmPasswordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.confirmPasswordErrorText = this.textService.getText('auth:email:006')
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.confirmPasswordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.confirmPasswordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.confirmPasswordErrorText = this.textService.getText('auth:email:006')
         }
 
         return isValid

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { GlobalService } from '@services/global.service'
 
 import { AuthService } from '@services/auth.service'
+import { TextService } from '@services/text.service'
 
 @Component({
     selector: 'forgot-password',
@@ -18,7 +19,11 @@ export class ForgotPasswordComponent implements OnInit {
 
     selectedLanguage: string
 
-    constructor(private globalService: GlobalService, private authService: AuthService) {}
+    constructor(
+        private globalService: GlobalService,
+        private authService: AuthService,
+        private textService: TextService
+    ) {}
 
     ngOnInit() {
         this.email = ''
@@ -40,15 +45,10 @@ export class ForgotPasswordComponent implements OnInit {
                     this.email = ''
                     this.emailValid = false
 
-                    let text = ''
-                    let confirmBtnText = ''
-                    if (this.selectedLanguage == 'ko') {
-                        text = '비밀번호 재설정 링크를 발송하였습니다.'
-                        confirmBtnText = '확인'
-                    } else {
-                        text = 'We have sent you a password reset link.'
-                        confirmBtnText = 'Confirm'
-                    }
+                    // 비밀번호 재설정 링크를 발송하였습니다.
+                    let text = this.textService.getText('auth:forgot-password:001')
+                    // 확인
+                    let confirmBtnText = this.textService.getText('auth:forgot-password:002')
 
                     this.globalService.showModal({
                         text: text,
@@ -94,11 +94,8 @@ export class ForgotPasswordComponent implements OnInit {
             this.emailErrorText = ''
         } else {
             this.emailValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
-            } else {
-                this.emailErrorText = 'Invalid email address.'
-            }
+            // 규칙에 맞는 이메일 주소를 입력해 주세요.
+            this.emailErrorText = this.textService.getText('auth:forgot-password:003')
         }
 
         return isValid

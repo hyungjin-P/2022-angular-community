@@ -1,0 +1,43 @@
+import { Injectable } from '@angular/core'
+
+@Injectable({ providedIn: 'root' })
+export class TextService {
+    language: string
+
+    private text = {
+        ko: {
+            'auth:email:001': '규칙에 맞는 이메일 주소를 입력해 주세요.',
+            'auth:email:002': '이미 가입된 이메일 주소 입니다.',
+            'auth:email:003': '인증번호가 일치하지 않습니다. 다시 입력해주세요.',
+            'auth:email:004': '인증번호 입력시간이 초과되었습니다.',
+            'auth:email:005': '비밀번호에 공백을 제외하고 입력해주세요.',
+            'auth:email:006': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
+            'auth:email:007': '비밀번호가 일치하지 않습니다.',
+
+            'auth:forgot-password:001': '비밀번호 재설정 링크를 발송하였습니다.',
+            'auth:forgot-password:002': '확인',
+            'auth:forgot-password:003': '규칙에 맞는 이메일 주소를 입력해 주세요.',
+        },
+        en: {
+            'auth:email:001': 'Invalid email address.',
+            'auth:email:002': 'This is an already registered email address.',
+            'auth:email:003': 'The verification code does not match.',
+            'auth:email:004': 'The time to enter the verification code has expired.',
+            'auth:email:005': 'Spaces are not allowed.',
+            'auth:email:006': 'Password must be at least 8 characters and contain English + numbers.',
+            'auth:email:007': 'Passwords do not match.',
+
+            'auth:forgot-password:001': 'We have sent you a password reset link.',
+            'auth:forgot-password:002': 'Confirm',
+            'auth:forgot-password:003': 'Invalid email address.',
+        },
+    }
+
+    constructor() {
+        this.language = localStorage.getItem('language')
+    }
+
+    getText(code: string, defaultText?: string) {
+        return this.text[this.language][code] || defaultText
+    }
+}
