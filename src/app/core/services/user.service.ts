@@ -159,6 +159,7 @@ class UpdateUserRequestBody {
     sex?: string
     birth_date?: string
     color?: string
+    about_me?: string
     fcm_token?: string
     agreement_age?: boolean
     agreement_privacy?: boolean

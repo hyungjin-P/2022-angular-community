@@ -13,6 +13,7 @@ export class User {
         public phone_number: string,
         public phone_number_verified: boolean,
         public color: string,
+        public about_me: string,
         public agreement_age: boolean,
         public agreement_privacy: boolean,
         public agreement_service_terms: boolean,
@@ -34,6 +35,7 @@ export class User {
         this.phone_number = phone_number
         this.phone_number_verified = phone_number_verified
         this.color = color
+        this.about_me = about_me
         this.agreement_age = agreement_age
         this.agreement_privacy = agreement_privacy
         this.agreement_service_terms = agreement_service_terms
