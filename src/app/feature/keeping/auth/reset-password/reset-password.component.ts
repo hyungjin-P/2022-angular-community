@@ -103,7 +103,6 @@ export class ResetPasswordComponent implements OnInit {
                     confirmBtnText: confirmBtnText,
                 })
 
-                this.globalService.variables.isLogin = true
                 this.storageService.setUser(user)
                 this.router.navigateByUrl('/')
             },

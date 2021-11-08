@@ -276,7 +276,6 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
             })
             .subscribe(
                 (user: User) => {
-                    this.globalService.variables.isLogin = true
                     this.storageService.setUser(user)
                     this.router.navigateByUrl('/')
                 },

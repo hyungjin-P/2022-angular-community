@@ -43,7 +43,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                     user.getIdToken().then((accessToken) => {
                         this.authService.signInWithFirebase({ accessToken }).subscribe(
                             (user: User) => {
-                                this.globalService.variables.isLogin = true
                                 this.storageService.setUser(user)
                                 this.router.navigateByUrl('/auth/service-terms')
                             },
@@ -54,10 +53,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                     })
                 } else {
                     if (this.signInMethod == 'kakao' || this.signInMethod == 'naver') {
-                        this.globalService.variables.isLogin = true
                         this.router.navigateByUrl('/auth/service-terms')
                     } else {
-                        this.globalService.variables.isLogin = true
                         this.router.navigateByUrl('/')
                     }
                 }
