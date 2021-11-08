@@ -12,6 +12,7 @@ import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
 import { HelperService } from '@services/helper.service'
+import { TextService } from '@services/text.service'
 
 import { User } from '@schemas/user'
 
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         private globalService: GlobalService,
         private storageService: StorageService,
         private authService: AuthService,
-        private helperService: HelperService
+        private helperService: HelperService,
+        private textService: TextService
     ) {}
 
     ngOnInit() {
@@ -228,11 +230,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.emailErrorText = ''
         } else {
             this.emailValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.emailErrorText = '규칙에 맞는 이메일 주소를 입력해 주세요.'
-            } else {
-                this.emailErrorText = 'Invalid email address.'
-            }
+            // 규칙에 맞는 이메일 주소를 입력해 주세요.
+            this.emailErrorText = this.textService.getText('auth:login:001')
         }
 
         return isValid
@@ -259,25 +258,16 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
-            } else {
-                this.passwordErrorText = 'Spaces are not allowed.'
-            }
+            // 비밀번호에 공백을 제외하고 입력해주세요.
+            this.passwordErrorText = this.textService.getText('auth:login:002')
         } else if (password.length < 8) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.passwordErrorText = this.textService.getText('auth:login:003')
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.passwordErrorText = this.textService.getText('auth:login:003')
         }
 
         return isValid

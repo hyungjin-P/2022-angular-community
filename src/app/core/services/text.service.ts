@@ -17,6 +17,10 @@ export class TextService {
             'auth:forgot-password:001': '비밀번호 재설정 링크를 발송하였습니다.',
             'auth:forgot-password:002': '확인',
             'auth:forgot-password:003': '규칙에 맞는 이메일 주소를 입력해 주세요.',
+
+            'auth:login:001': '규칙에 맞는 이메일 주소를 입력해 주세요.',
+            'auth:login:002': '비밀번호에 공백을 제외하고 입력해주세요.',
+            'auth:login:003': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
         },
         en: {
             'auth:email:001': 'Invalid email address.',
@@ -30,6 +34,10 @@ export class TextService {
             'auth:forgot-password:001': 'We have sent you a password reset link.',
             'auth:forgot-password:002': 'Confirm',
             'auth:forgot-password:003': 'Invalid email address.',
+
+            'auth:login:001': 'Invalid email address.',
+            'auth:login:002': 'Spaces are not allowed.',
+            'auth:login:003': 'Password must be at least 8 characters and contain English + numbers.',
         },
     }
 
