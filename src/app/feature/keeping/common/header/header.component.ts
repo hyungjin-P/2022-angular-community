@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
     url: string
 
     variables: any
+    globalUser: any
     user: User
 
     userBoxVisible: boolean
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
         this.url = this.router.url
 
         this.variables = this.globalService.variables
+        this.globalUser = this.globalService.user
         this.user = this.storageService.getUser()
 
         this.userBoxVisible = false

@@ -2,8 +2,6 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } fr
 import { Subscription, fromEvent, interval } from 'rxjs'
 import { throttle } from 'rxjs/operators'
 
-import { GlobalService } from '@services/global.service'
-
 @Component({
     selector: 'keeping',
     templateUrl: './keeping.component.html',
@@ -12,19 +10,15 @@ import { GlobalService } from '@services/global.service'
 export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('keeping') keeping: ElementRef
 
-    variables: any
-
     scrollSubscription: Subscription
     previousScrollTop: number
     currentScrollTop: number
     isHeaderFixedVisible: boolean
     isBottomNavFixedVisible: boolean
 
-    constructor(private globalService: GlobalService) {}
+    constructor() {}
 
     ngOnInit(): void {
-        this.variables = this.globalService.variables
-
         this.previousScrollTop = 0
         this.currentScrollTop = 0
         this.isHeaderFixedVisible = false

@@ -31,7 +31,7 @@
     <a class="menu" *ngIf="variables.isLogin" [routerLink]="['/mypage']" routerLinkActive="selected">
         <div class="avatar">
             <shared-avatar
-                [image]="user.picture.length == 0 ? null : user.picture[0]['url']"
+                [image]="globalUser.picture?.url"
                 text="{{ user.email }}"
                 size="29"
                 fontSize="14"

@@ -29,6 +29,10 @@ export class AppComponent implements OnInit {
         this.modal = this.globalService.modal
         this.toast = this.globalService.toast
 
+        if (window.hasOwnProperty('ontouchstart')) {
+            this.variables.isTouchScreen = true
+        }
+
         this.user = this.storageService.getUser()
         if (this.user && this.globalService.variables.isLogin == false) {
             this.storageService.setUser(this.user)
@@ -45,10 +49,6 @@ export class AppComponent implements OnInit {
             }
             localStorage.setItem('language', language)
             this.translate.use(language)
-        }
-
-        if (window.hasOwnProperty('ontouchstart')) {
-            this.variables.isTouchScreen = true
         }
     }
 

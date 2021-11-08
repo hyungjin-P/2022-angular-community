@@ -62,7 +62,7 @@
             <a class="user d-none d-lg-flex" [class.user-box-open]="userBoxVisible" (click)="openUserBox($event)">
                 <div class="avatar">
                     <shared-avatar
-                        [image]="user.picture.length == 0 ? null : user.picture[0]['url']"
+                        [image]="globalUser.picture?.url"
                         text="{{ user.email }}"
                         size="26"
                         fontSize="14"
@@ -83,7 +83,7 @@
                     <div class="user-box-user d-flex">
                         <div class="user-box-avatar">
                             <shared-avatar
-                                [image]="user.picture.length == 0 ? null : user.picture[0]['url']"
+                                [image]="globalUser.picture?.url"
                                 text="{{ user.email }}"
                                 size="40"
                                 fontSize="20"

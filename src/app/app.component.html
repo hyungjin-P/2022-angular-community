@@ -1,11 +1,18 @@
 <div class="user-select-none" [class.touch-screen]="variables.isTouchScreen">
     <router-outlet></router-outlet>
 </div>
-<shared-modal
-    [(visible)]="modal['data']"
-    [data]="modal['data']"
-    type="alert"
-    (cancel)="hideModal()"
-    (confirm)="hideModal()"
-></shared-modal>
-<shared-toast [(visible)]="toast['visible']" [text]="toast['text']" delay="3000" (cancel)="hideToast()"></shared-toast>
+<div class="feedback-container">
+    <shared-modal
+        [(visible)]="modal['data']"
+        [data]="modal['data']"
+        type="alert"
+        (cancel)="hideModal()"
+        (confirm)="hideModal()"
+    ></shared-modal>
+    <shared-toast
+        [(visible)]="toast['visible']"
+        [text]="toast['text']"
+        delay="3000"
+        (cancel)="hideToast()"
+    ></shared-toast>
+</div>

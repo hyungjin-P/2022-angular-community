@@ -21,7 +21,7 @@
                 <shared-input
                     [label]="'settings.profile.nickname-label' | translate"
                     [(ngModel)]="currentNickname"
-                    maxlength="50"
+                    maxlength="20"
                     [info]="'settings.profile.nickname-info' | translate"
                     [error]="nicknameErrorText"
                     (keyup)="onKeyup($event, 'nickname')"
@@ -47,7 +47,11 @@
                     <div>{{ aboutMeErrorText }}</div>
                 </div>
             </div>
-            <a class="update-button shared-button-primary" (click)="updateUser(picture)">
+            <a
+                class="update-button shared-button-primary"
+                [class.shared-button-primary-disabled]="!currentNickname"
+                (click)="updateUser(picture)"
+            >
                 <div>{{ 'settings.profile.update-button' | translate }}</div>
             </a>
         </div>

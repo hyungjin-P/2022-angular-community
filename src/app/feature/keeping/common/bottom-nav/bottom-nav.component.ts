@@ -12,12 +12,14 @@ import { User } from '@schemas/user'
 })
 export class BottomNavComponent implements OnInit {
     variables: any
+    globalUser: any
     user: User
 
     constructor(private globalService: GlobalService, private storageService: StorageService) {}
 
     ngOnInit() {
         this.variables = this.globalService.variables
+        this.globalUser = this.globalService.user
         this.user = this.storageService.getUser()
     }
 }

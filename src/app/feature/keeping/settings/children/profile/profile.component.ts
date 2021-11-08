@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
         this.currentPicture = this.user.picture.length == 0 ? null : this.user.picture[0]['url']
         this.currentNickname = this.user.nickname
         this.checkNickname()
-        this.aboutMeText = this.user.about_me
+        this.aboutMeText = this.user.about_me ? this.user.about_me : ''
         if (this.selectedLanguage == 'ko') {
             this.aboutMeInfoText = '최대 30자까지 간단 소개글을 입력해 주세요.'
         } else {
@@ -116,6 +116,10 @@ export class ProfileComponent implements OnInit {
     }
 
     async updateUser(picture) {
+        if (!this.currentNickname) {
+            return
+        }
+
         const files: FileList = picture.files
 
         if (files && files.length > 0) {
@@ -138,6 +142,23 @@ export class ProfileComponent implements OnInit {
             this.storageService.setUser(this.user)
 
             this.globalService.user.picture = createdFiles[0]
+
+            picture.value = ''
         }
+
+        this.userService
+            .updateUser(this.user.id, { nickname: this.currentNickname, about_me: this.aboutMeText })
+            .subscribe(
+                (user: User) => {
+                    this.user.nickname = user.nickname
+                    this.user.about_me = user.about_me
+                    this.storageService.setUser(this.user)
+
+                    this.globalService.showToast('수정하였습니다.')
+                },
+                (e) => {
+                    this.globalService.showToast(e.message)
+                }
+            )
     }
 }
