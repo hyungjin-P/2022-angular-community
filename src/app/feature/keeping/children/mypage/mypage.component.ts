@@ -15,7 +15,6 @@ export class MypageComponent implements OnInit {
     ngOnInit() {}
 
     async logout() {
-        this.globalService.variables.isLogin = false
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }

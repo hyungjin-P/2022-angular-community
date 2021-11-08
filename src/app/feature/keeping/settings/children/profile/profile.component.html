@@ -20,12 +20,13 @@
             <div class="nickname">
                 <shared-input
                     [label]="'settings.profile.nickname-label' | translate"
-                    [(ngModel)]="user.nickname"
+                    [(ngModel)]="currentNickname"
                     maxlength="50"
                     [info]="'settings.profile.nickname-info' | translate"
                     [error]="nicknameErrorText"
+                    (keyup)="onKeyup($event, 'nickname')"
                 ></shared-input>
-                <div class="duplicate-check">
+                <div class="duplicate-check" (click)="checkDuplicateNickname()">
                     {{ 'settings.profile.duplicate-check' | translate }}
                 </div>
             </div>
@@ -34,6 +35,7 @@
                 <textarea
                     [class.textarea-error]="aboutMeErrorText"
                     [placeholder]="'settings.profile.about-me-placeholder' | translate"
+                    [(ngModel)]="aboutMeText"
                     maxlength="30"
                 ></textarea>
                 <div class="about-me-info" *ngIf="aboutMeInfoText && !aboutMeErrorText">
@@ -45,7 +47,7 @@
                     <div>{{ aboutMeErrorText }}</div>
                 </div>
             </div>
-            <a class="update-button shared-button-primary">
+            <a class="update-button shared-button-primary" (click)="updateUser(picture)">
                 <div>{{ 'settings.profile.update-button' | translate }}</div>
             </a>
         </div>

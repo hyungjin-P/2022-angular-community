@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 
 import { GlobalService } from '@services/global.service'
+import { StorageService } from '@services/storage.service'
+
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'app-root',
@@ -13,13 +16,24 @@ export class AppComponent implements OnInit {
     modal: any
     toast: any
 
-    constructor(private translate: TranslateService, private globalService: GlobalService) {
+    user: User
+
+    constructor(
+        private translate: TranslateService,
+        private globalService: GlobalService,
+        private storageService: StorageService
+    ) {}
+
+    ngOnInit(): void {
         this.variables = this.globalService.variables
         this.modal = this.globalService.modal
         this.toast = this.globalService.toast
-    }
 
-    ngOnInit(): void {
+        this.user = this.storageService.getUser()
+        if (this.user && this.globalService.variables.isLogin == false) {
+            this.storageService.setUser(this.user)
+        }
+
         this.translate.setDefaultLang('ko')
         let language = localStorage.getItem('language')
         if (language) {

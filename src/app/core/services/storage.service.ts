@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 declare let Kakao: any
 
+import { GlobalService } from '@services/global.service'
+
 import { User } from '@schemas/user'
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +11,7 @@ export class StorageService {
     private storage: Storage
     private userKey: string
 
-    constructor(private angularFireAuth: AngularFireAuth) {
+    constructor(private angularFireAuth: AngularFireAuth, private globalService: GlobalService) {
         this.storage = sessionStorage
         this.userKey = 'keeping:authUser'
     }
@@ -20,6 +22,11 @@ export class StorageService {
 
     setUser(user: User): void {
         this.storage.setItem(this.userKey, JSON.stringify(user))
+
+        this.globalService.variables.isLogin = true
+        this.globalService.user.nickname = user.nickname
+        this.globalService.user.picture = user.picture.length == 0 ? null : user.picture[0]
+        this.globalService.user.background = user.background.length == 0 ? null : user.background[0]
     }
 
     async removeUser() {
@@ -34,5 +41,10 @@ export class StorageService {
         }
         await this.angularFireAuth.signOut()
         this.storage.removeItem(this.userKey)
+
+        this.globalService.variables.isLogin = false
+        this.globalService.user.nickname = ''
+        this.globalService.user.picture = null
+        this.globalService.user.background = null
     }
 }

@@ -19,9 +19,5 @@ export class BottomNavComponent implements OnInit {
     ngOnInit() {
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
-
-        if (this.user) {
-            this.variables.isLogin = true
-        }
     }
 }

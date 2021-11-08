@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     }
 
     async logout() {
-        this.globalService.variables.isLogin = false
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }

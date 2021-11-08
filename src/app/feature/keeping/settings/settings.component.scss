@@ -66,6 +66,7 @@
     border-top-right-radius: 16px;
     background: #ffffff;
     box-shadow: 0px 0px 10px rgb(126 126 126 / 10%);
+    z-index: 1;
     transform: translateX(-240px);
     transition: transform 0.2s ease-out;
 }

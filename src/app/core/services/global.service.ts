@@ -10,6 +10,12 @@ export class GlobalService {
         menuMoreBoxVisible: false,
     }
 
+    public user: any = {
+        nickname: '',
+        picture: null,
+        background: null,
+    }
+
     public modal: any = {
         data: {},
     }

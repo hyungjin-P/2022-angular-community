@@ -27,10 +27,6 @@ export class HeaderComponent implements OnInit {
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
 
-        if (this.user) {
-            this.variables.isLogin = true
-        }
-
         this.userBoxVisible = false
     }
 
@@ -57,7 +53,6 @@ export class HeaderComponent implements OnInit {
     }
 
     async logout() {
-        this.globalService.variables.isLogin = false
         await this.storageService.removeUser()
         this.router.navigateByUrl('/')
     }
