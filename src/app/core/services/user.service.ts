@@ -84,6 +84,23 @@ export class UserService {
         )
     }
 
+    checkDuplicateNickname(userId: string, requestBody: CheckDuplicateNicknameRequestBody): Observable<Response> {
+        const url = environment['serverAddress'] + `/users/${userId}/check-duplicate-nickname`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.post<Response>(url, requestBody, options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
+
     createUserPicture(userId: string, requestBody: CreateUserPictureRequestBody): Observable<Response> {
         const url = environment['serverAddress'] + `/users/${userId}/picture`
 
@@ -170,6 +187,10 @@ class UpdateUserRequestBody {
 class ChangePasswordRequestBody {
     password: string
     new_password: string
+}
+
+class CheckDuplicateNicknameRequestBody {
+    nickname: string
 }
 
 class CreateUserPictureRequestBody {
