@@ -6,6 +6,7 @@ import { StorageService } from '@services/storage.service'
 
 import { FileService } from '@services/file.service'
 import { UserService } from '@services/user.service'
+import { TextService } from '@services/text.service'
 
 import { User } from '@schemas/user'
 import { File } from '@schemas/file'
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
     currentPicture: any
     currentNickname: string
     nicknameErrorText: string
-    aboutMeText: string
+    currentAboutMeText: string
     aboutMeInfoText: string
     aboutMeErrorText: string
 
@@ -32,7 +33,8 @@ export class ProfileComponent implements OnInit {
         private globalService: GlobalService,
         private storageService: StorageService,
         private fileService: FileService,
-        private userService: UserService
+        private userService: UserService,
+        private textService: TextService
     ) {}
 
     ngOnInit() {
@@ -40,15 +42,12 @@ export class ProfileComponent implements OnInit {
 
         this.selectedLanguage = localStorage.getItem('language')
 
-        this.currentPicture = this.user.picture.length == 0 ? null : this.user.picture[0]['url']
+        this.currentPicture = this.user.picture?.length == 0 ? null : this.user.picture[0]['url']
         this.currentNickname = this.user.nickname
         this.checkNickname()
-        this.aboutMeText = this.user.about_me ? this.user.about_me : ''
-        if (this.selectedLanguage == 'ko') {
-            this.aboutMeInfoText = '최대 30자까지 간단 소개글을 입력해 주세요.'
-        } else {
-            this.aboutMeInfoText = 'Please enter a brief introduction of up to 30 characters.'
-        }
+        this.currentAboutMeText = this.user.about_me ? this.user.about_me : ''
+        // 최대 30자까지 간단 소개글을 입력해 주세요.
+        this.aboutMeInfoText = this.textService.getText('settings:profile:001')
         this.aboutMeErrorText = ''
     }
 
@@ -79,19 +78,14 @@ export class ProfileComponent implements OnInit {
 
         this.userService.checkDuplicateNickname(this.user.id, { nickname: this.currentNickname }).subscribe(
             (v) => {
-                if (this.selectedLanguage == 'ko') {
-                    this.globalService.showToast('사용가능한 닉네임입니다.')
-                } else {
-                    this.globalService.showToast('Available nickname.')
-                }
+                // 사용가능한 닉네임입니다.
+                let message = this.textService.getText('settings:profile:002')
+                this.globalService.showToast(message)
             },
             (e) => {
                 if (e.code == 'FUNCTION:USER:002') {
-                    if (this.selectedLanguage == 'ko') {
-                        this.nicknameErrorText = '사용중인 닉네임입니다.'
-                    } else {
-                        this.nicknameErrorText = 'This nickname is already using.'
-                    }
+                    // 사용중인 닉네임입니다.
+                    this.nicknameErrorText = this.textService.getText('settings:profile:003')
                 } else {
                     this.nicknameErrorText = e.message
                 }
@@ -105,11 +99,8 @@ export class ProfileComponent implements OnInit {
 
     checkNickname() {
         if (!this.currentNickname) {
-            if (this.selectedLanguage == 'ko') {
-                this.nicknameErrorText = '닉네임을 입력해주세요.'
-            } else {
-                this.nicknameErrorText = 'Please enter your nickname.'
-            }
+            // 닉네임을 입력해주세요.
+            this.nicknameErrorText = this.textService.getText('settings:profile:004')
         } else {
             this.nicknameErrorText = ''
         }
@@ -147,14 +138,16 @@ export class ProfileComponent implements OnInit {
         }
 
         this.userService
-            .updateUser(this.user.id, { nickname: this.currentNickname, about_me: this.aboutMeText })
+            .updateUser(this.user.id, { nickname: this.currentNickname, about_me: this.currentAboutMeText })
             .subscribe(
                 (user: User) => {
                     this.user.nickname = user.nickname
                     this.user.about_me = user.about_me
                     this.storageService.setUser(this.user)
 
-                    this.globalService.showToast('수정하였습니다.')
+                    // 프로필이 수정되었습니다.
+                    let message = this.textService.getText('settings:profile:005')
+                    this.globalService.showToast(message)
                 },
                 (e) => {
                     this.globalService.showToast(e.message)

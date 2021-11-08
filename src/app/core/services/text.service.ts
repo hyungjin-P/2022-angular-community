@@ -28,6 +28,12 @@ export class TextService {
             'auth:reset-password:004': '비밀번호에 공백을 제외하고 입력해주세요.',
             'auth:reset-password:005': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
             'auth:reset-password:006': '비밀번호가 일치하지 않습니다.',
+
+            'settings:profile:001': '최대 30자까지 간단 소개글을 입력해 주세요.',
+            'settings:profile:002': '사용가능한 닉네임입니다.',
+            'settings:profile:003': '사용중인 닉네임입니다.',
+            'settings:profile:004': '닉네임을 입력해주세요.',
+            'settings:profile:005': '프로필이 수정되었습니다.',
         },
         en: {
             'auth:email:001': 'Invalid email address.',
@@ -52,6 +58,12 @@ export class TextService {
             'auth:reset-password:004': 'Spaces are not allowed.',
             'auth:reset-password:005': 'Password must be at least 8 characters and contain English + numbers.',
             'auth:reset-password:006': 'Passwords do not match.',
+
+            'settings:profile:001': 'Please enter a brief introduction of up to 30 characters.',
+            'settings:profile:002': 'Available nickname.',
+            'settings:profile:003': 'This nickname is already using.',
+            'settings:profile:004': 'Please enter your nickname.',
+            'settings:profile:005': 'Your profile has been modified.',
         },
     }
 

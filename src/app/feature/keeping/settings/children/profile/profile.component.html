@@ -35,7 +35,7 @@
                 <textarea
                     [class.textarea-error]="aboutMeErrorText"
                     [placeholder]="'settings.profile.about-me-placeholder' | translate"
-                    [(ngModel)]="aboutMeText"
+                    [(ngModel)]="currentAboutMeText"
                     maxlength="30"
                 ></textarea>
                 <div class="about-me-info" *ngIf="aboutMeInfoText && !aboutMeErrorText">
