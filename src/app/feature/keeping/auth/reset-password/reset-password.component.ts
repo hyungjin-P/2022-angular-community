@@ -5,6 +5,7 @@ import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 import { AuthService } from '@services/auth.service'
+import { TextService } from '@services/text.service'
 
 import { User } from '@schemas/user'
 
@@ -36,7 +37,8 @@ export class ResetPasswordComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private globalService: GlobalService,
         private storageService: StorageService,
-        private authService: AuthService
+        private authService: AuthService,
+        private textService: TextService
     ) {}
 
     ngOnInit() {
@@ -69,11 +71,9 @@ export class ResetPasswordComponent implements OnInit {
             (e) => {
                 this.isTokenValid = false
                 if (e.code == 'FUNCTION:AUTH:007') {
-                    if (this.selectedLanguage == 'ko') {
-                        this.globalService.showToast('만료된 비밀번호 재설정 링크입니다.')
-                    } else {
-                        this.globalService.showToast('This is an expired link.')
-                    }
+                    // 만료된 비밀번호 재설정 링크입니다.
+                    let message = this.textService.getText('auth:reset-password:001')
+                    this.globalService.showToast(message)
                 } else {
                     this.globalService.showToast(e.message)
                 }
@@ -88,15 +88,10 @@ export class ResetPasswordComponent implements OnInit {
 
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe(
             (user: User) => {
-                let text = ''
-                let confirmBtnText = ''
-                if (this.selectedLanguage == 'ko') {
-                    text = '비밀번호 변경이 완료되었습니다.'
-                    confirmBtnText = '확인'
-                } else {
-                    text = 'You have changed your password.'
-                    confirmBtnText = 'Confirm'
-                }
+                // 비밀번호 변경이 완료되었습니다.
+                let text = this.textService.getText('auth:reset-password:002')
+                // 확인
+                let confirmBtnText = this.textService.getText('auth:reset-password:003')
 
                 this.globalService.showModal({
                     text: text,
@@ -164,25 +159,16 @@ export class ResetPasswordComponent implements OnInit {
             this.passwordErrorText = ''
         } else if (pattern4.test(password)) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
-            } else {
-                this.passwordErrorText = 'Spaces are not allowed.'
-            }
+            // 비밀번호에 공백을 제외하고 입력해주세요.
+            this.passwordErrorText = this.textService.getText('auth:reset-password:004')
         } else if (password.length < 8) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.passwordErrorText = this.textService.getText('auth:reset-password:005')
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.passwordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.passwordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.passwordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.passwordErrorText = this.textService.getText('auth:reset-password:005')
         }
 
         this.checkConfirmPasswordPattern(this.confirmPassword)
@@ -208,11 +194,8 @@ export class ResetPasswordComponent implements OnInit {
         ) {
             if (this.password != this.confirmPassword) {
                 this.confirmPasswordValid = false
-                if (this.selectedLanguage == 'ko') {
-                    this.confirmPasswordErrorText = '비밀번호가 일치하지 않습니다.'
-                } else {
-                    this.confirmPasswordErrorText = 'Passwords do not match.'
-                }
+                // 비밀번호가 일치하지 않습니다.
+                this.confirmPasswordErrorText = this.textService.getText('auth:reset-password:006')
             } else {
                 isValid = true
                 this.confirmPasswordValid = true
@@ -220,25 +203,16 @@ export class ResetPasswordComponent implements OnInit {
             }
         } else if (pattern4.test(password)) {
             this.confirmPasswordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.confirmPasswordErrorText = '비밀번호에 공백을 제외하고 입력해주세요.'
-            } else {
-                this.confirmPasswordErrorText = 'Spaces are not allowed.'
-            }
+            // 비밀번호에 공백을 제외하고 입력해주세요.
+            this.confirmPasswordErrorText = this.textService.getText('auth:reset-password:004')
         } else if (password.length < 8) {
             this.confirmPasswordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.confirmPasswordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.confirmPasswordErrorText = this.textService.getText('auth:reset-password:005')
         } else if (!pattern1.test(password) || !pattern2.test(password)) {
             this.confirmPasswordValid = false
-            if (this.selectedLanguage == 'ko') {
-                this.confirmPasswordErrorText = '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.'
-            } else {
-                this.confirmPasswordErrorText = 'Password must be at least 8 characters and contain English + numbers.'
-            }
+            // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
+            this.confirmPasswordErrorText = this.textService.getText('auth:reset-password:005')
         }
 
         return isValid
