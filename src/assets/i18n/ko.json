@@ -132,6 +132,12 @@
         }
     },
     "settings": {
+        "account": {
+            "change-password": "비밀번호 변경",
+            "login-account-text": "로그인 계정",
+            "withdrawal": "계정 삭제",
+            "withdrawal-text": "개인정보, 키핑에 저장된 게시물과 설정이 모두 삭제됩니다."
+        },
         "home": {
             "account": "계정 관리",
             "language": "언어 설정",
@@ -145,9 +151,11 @@
         },
         "mobile-header": {
             "account": "계정 관리",
+            "change-password": "비밀번호 변경",
             "language": "언어 설정",
             "profile": "프로필 변경",
-            "settings": "설정"
+            "settings": "설정",
+            "withdrawal": "계정삭제"
         },
         "nav": {
             "account": "계정 관리",

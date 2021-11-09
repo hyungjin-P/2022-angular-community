@@ -132,6 +132,12 @@
         }
     },
     "settings": {
+        "account": {
+            "change-password": "Change password",
+            "login-account-text": "Login account",
+            "withdrawal": "Withdrawal",
+            "withdrawal-text": "All personal information, posts and settings saved in Keeping will be deleted."
+        },
         "home": {
             "account": "Account",
             "language": "Language",
@@ -145,9 +151,11 @@
         },
         "mobile-header": {
             "account": "Account",
+            "change-password": "Change password",
             "language": "Language",
             "profile": "Profile",
-            "settings": "Settings"
+            "settings": "Settings",
+            "withdrawal": "Withdrawal"
         },
         "nav": {
             "account": "Account",

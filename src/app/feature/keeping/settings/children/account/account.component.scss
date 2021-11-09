@@ -1,1 +1,162 @@
+@import '/src/assets/styles/font';
 
+.account {
+    display: flex;
+    justify-content: center;
+
+    > div {
+        padding: 0 16px;
+        width: 100%;
+
+        .login-account {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            height: 54px;
+
+            span:nth-child(1) {
+                @include textStyle(500, 14px, 22px);
+                color: var(--text-1);
+            }
+
+            div:nth-child(2) {
+                display: flex;
+                align-items: center;
+
+                .social {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 12px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 4px;
+                }
+
+                .social-kakao {
+                    background-color: #ffeb00;
+
+                    img {
+                        width: 12px;
+                    }
+                }
+
+                .social-naver {
+                    background-color: #1dc800;
+
+                    img {
+                        width: 10px;
+                    }
+                }
+
+                .social-google {
+                    background-color: #f5f5f5;
+
+                    img {
+                        width: 12px;
+                    }
+                }
+
+                .email {
+                    @include textStyle(400, 14px, 22px);
+                    color: var(--grey-1);
+                }
+            }
+        }
+
+        .h-line {
+            margin: 12px -24px;
+            height: 8px;
+            background-color: var(--grey-8);
+        }
+
+        .change-password,
+        .withdrawal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 46px;
+
+            text-decoration: none;
+
+            div:nth-child(1) {
+                @include textStyle(500, 14px, 22px);
+                color: var(--text-2);
+            }
+
+            .mdi {
+                font-size: 20px;
+                color: var(--grey-1);
+            }
+        }
+
+        .withdrawal {
+            height: 42px;
+        }
+
+        .withdrawal-text {
+            @include textStyle(400, 11px, 19px);
+            color: var(--grey-1);
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .account {
+        > div {
+            padding: 0 24px;
+
+            .withdrawal {
+                height: 49px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .account {
+        > div {
+            .change-password {
+                height: 52px;
+            }
+
+            .withdrawal-text {
+                @include textStyle(400, 12px, 20px);
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .account {
+        > div {
+            margin-top: 50px;
+            padding: 0;
+            width: 420px;
+
+            .h-line {
+                margin: 12px 0;
+                width: 100%;
+                height: 1px;
+                background-color: var(--grey-8);
+            }
+
+            .change-password {
+                height: 54px;
+            }
+
+            .withdrawal {
+                height: 42px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1920px) {
+    .account {
+        > div {
+            width: 525px;
+        }
+    }
+}
