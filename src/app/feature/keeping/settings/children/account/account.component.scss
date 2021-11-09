@@ -157,6 +157,10 @@
     .account {
         > div {
             width: 525px;
+
+            .withdrawal {
+                margin-top: 12px;
+            }
         }
     }
 }
