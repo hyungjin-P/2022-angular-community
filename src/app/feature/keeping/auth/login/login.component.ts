@@ -295,6 +295,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.translate.use(language)
 
         localStorage.setItem('language', language)
+        this.textService.changeLanguage(language)
         this.selectedLanguage = language
         this.closeLangBox()
     }

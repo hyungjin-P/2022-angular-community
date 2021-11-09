@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Location } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core'
 
+import { TextService } from '@services/text.service'
+
 @Component({
     selector: 'language',
     templateUrl: './language.component.html',
@@ -10,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core'
 export class LanguageComponent implements OnInit {
     selectedLanguage: string
 
-    constructor(private location: Location, private translate: TranslateService) {}
+    constructor(private location: Location, private translate: TranslateService, private textService: TextService) {}
 
     ngOnInit() {
         this.selectedLanguage = localStorage.getItem('language')
@@ -28,5 +30,6 @@ export class LanguageComponent implements OnInit {
         this.translate.use(this.selectedLanguage)
 
         localStorage.setItem('language', this.selectedLanguage)
+        this.textService.changeLanguage(this.selectedLanguage)
     }
 }

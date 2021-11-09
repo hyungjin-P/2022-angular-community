@@ -71,6 +71,10 @@ export class TextService {
         this.language = localStorage.getItem('language')
     }
 
+    changeLanguage(language: string) {
+        this.language = language
+    }
+
     getText(code: string, defaultText?: string) {
         return this.text[this.language][code] || defaultText
     }
