@@ -34,6 +34,11 @@ export class TextService {
             'settings:profile:003': '사용중인 닉네임입니다.',
             'settings:profile:004': '닉네임을 입력해주세요.',
             'settings:profile:005': '프로필이 수정되었습니다.',
+
+            'settings:change-password:001': '비밀번호에 공백을 제외하고 입력해주세요.',
+            'settings:change-password:002': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
+            'settings:change-password:003': '비밀번호가 일치하지 않습니다.',
+            'settings:change-password:004': '비밀번호가 변경되었습니다.',
         },
         en: {
             'auth:email:001': 'Invalid email address.',
@@ -64,6 +69,11 @@ export class TextService {
             'settings:profile:003': 'This nickname is already using.',
             'settings:profile:004': 'Please enter your nickname.',
             'settings:profile:005': 'Your profile has been modified.',
+
+            'settings:change-password:001': 'Spaces are not allowed.',
+            'settings:change-password:002': 'Password must be at least 8 characters and contain English + numbers.',
+            'settings:change-password:003': 'Passwords do not match.',
+            'settings:change-password:004': 'Your password has been changed.',
         },
     }
 

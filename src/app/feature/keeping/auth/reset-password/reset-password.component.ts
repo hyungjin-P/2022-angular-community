@@ -129,7 +129,7 @@ export class ResetPasswordComponent implements OnInit {
         if (
             this.isTokenValid &&
             this.checkPasswordPattern(this.password) &&
-            this.checkPasswordPattern(this.confirmPassword) &&
+            this.checkConfirmPasswordPattern(this.confirmPassword) &&
             this.password == this.confirmPassword
         ) {
             isValid = true
@@ -149,7 +149,6 @@ export class ResetPasswordComponent implements OnInit {
         if (
             pattern1.test(password) &&
             pattern2.test(password) &&
-            pattern3.test(password) &&
             !pattern4.test(password) &&
             8 <= password.length &&
             password.length <= 15
@@ -187,7 +186,6 @@ export class ResetPasswordComponent implements OnInit {
         if (
             pattern1.test(password) &&
             pattern2.test(password) &&
-            pattern3.test(password) &&
             !pattern4.test(password) &&
             8 <= password.length &&
             password.length <= 15

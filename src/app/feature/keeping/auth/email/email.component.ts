@@ -326,7 +326,7 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (
             this.emailVerified &&
             this.checkPasswordPattern(this.password) &&
-            this.checkPasswordPattern(this.confirmPassword) &&
+            this.checkConfirmPasswordPattern(this.confirmPassword) &&
             this.password == this.confirmPassword &&
             this.agreementAge &&
             this.agreementPrivacy &&
@@ -370,7 +370,6 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (
             pattern1.test(password) &&
             pattern2.test(password) &&
-            pattern3.test(password) &&
             !pattern4.test(password) &&
             8 <= password.length &&
             password.length <= 15
@@ -408,7 +407,6 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (
             pattern1.test(password) &&
             pattern2.test(password) &&
-            pattern3.test(password) &&
             !pattern4.test(password) &&
             8 <= password.length &&
             password.length <= 15

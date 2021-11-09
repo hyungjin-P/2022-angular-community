@@ -138,6 +138,16 @@
             "withdrawal": "계정 삭제",
             "withdrawal-text": "개인정보, 키핑에 저장된 게시물과 설정이 모두 삭제됩니다."
         },
+        "change-password": {
+            "confirm-new-password-label": "새 비밀번호 확인",
+            "confirm-new-password-placeholder": "새 비밀번호 입력",
+            "new-password-label": "새 비밀번호",
+            "new-password-placeholder": "새 비밀번호 입력",
+            "password-label": "기존 비밀번호",
+            "password-placeholder": "기존 비밀번호 입력",
+            "text-1": "비밀번호 변경",
+            "update-button": "비밀번호 변경"
+        },
         "home": {
             "account": "계정 관리",
             "language": "언어 설정",
