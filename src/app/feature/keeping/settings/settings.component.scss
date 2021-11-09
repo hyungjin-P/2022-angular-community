@@ -1,6 +1,13 @@
 @import '/src/assets/styles/font';
 
 .settings {
+    overflow-x: hidden;
+    margin-bottom: 60px;
+
+    .header {
+        z-index: 1;
+    }
+
     .nav {
         padding: 14px 16px;
         width: 240px;
@@ -39,6 +46,14 @@
             margin: 10px 0;
             border-bottom: 1px solid var(--grey-8);
         }
+    }
+
+    .bottom-nav {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
     }
 }
 

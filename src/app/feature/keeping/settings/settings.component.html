@@ -1,5 +1,5 @@
 <div class="settings full-absolute d-flex flex-column">
-    <header class="d-none d-lg-block" style="z-index: 1"></header>
+    <header class="header d-none d-lg-block"></header>
 
     <div class="flex-fill d-flex">
         <div class="nav d-none d-lg-block">
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <bottom-nav class="d-block d-lg-none"></bottom-nav>
+    <bottom-nav class="bottom-nav d-block d-lg-none"></bottom-nav>
 </div>
 
 <div class="drawer-wrapper" [class.drawer-wrapper-open]="variables.isDrawerOpen" (click)="closeDrawer()"></div>
