@@ -4,6 +4,7 @@ export class User {
     constructor(
         public id: string,
         public provider: string,
+        public name: string,
         public nickname: string,
         public age: number,
         public sex: string,
@@ -26,6 +27,7 @@ export class User {
     ) {
         this.id = id
         this.provider = provider
+        this.name = name
         this.nickname = nickname
         this.age = age
         this.sex = sex

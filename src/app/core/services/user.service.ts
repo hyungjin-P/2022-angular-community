@@ -172,6 +172,7 @@ export class UserService {
 }
 
 class UpdateUserRequestBody {
+    name?: string
     nickname?: string
     age?: number
     sex?: string
