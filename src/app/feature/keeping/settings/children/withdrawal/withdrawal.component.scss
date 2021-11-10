@@ -9,7 +9,28 @@
         margin-top: 30px;
         width: 312px;
 
-        .text-1,
+        .text-1 {
+            position: relative;
+            margin-bottom: 40px;
+
+            @include textStyle(700, 16px, 24px);
+
+            .mdi {
+                position: absolute;
+                top: 0;
+                left: -40px;
+                cursor: pointer;
+
+                font-size: 26px;
+                color: var(--grey-1);
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        .nickname,
         .text-2 {
             @include textStyle(700, 22px, 32px);
         }

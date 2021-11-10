@@ -7,7 +7,11 @@
 
     <div class="withdrawal">
         <div *ngIf="currentStep == '1'">
-            <div class="text-1">
+            <div class="text-1 d-none d-lg-block">
+                <span>{{ 'settings.withdrawal.text-1' | translate }}</span>
+                <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
+            </div>
+            <div class="nickname">
                 <span *ngIf="selectedLanguage != 'ko'">Hi {{ user.nickname || user.email || '' }},</span>
                 <span *ngIf="selectedLanguage == 'ko'">{{ user.nickname || user.email || '' }} 님,</span>
             </div>
@@ -33,6 +37,10 @@
             </a>
         </div>
         <div *ngIf="currentStep == '2'">
+            <div class="text-1 d-none d-lg-block">
+                <span>{{ 'settings.withdrawal.text-1' | translate }}</span>
+                <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
+            </div>
             <div class="text-6">{{ 'settings.withdrawal.text-6' | translate }}</div>
             <div class="text-7">{{ 'settings.withdrawal.text-7' | translate }}</div>
             <div class="user_withdrawal_reason_list">

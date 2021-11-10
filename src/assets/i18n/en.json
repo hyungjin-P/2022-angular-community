@@ -186,6 +186,7 @@
             "next-button": "Next",
             "previous-button": "Previous",
             "required": "[Required] I have read and agree to the membership cancellation notice.",
+            "text-1": "Withdrawal",
             "text-2": "Are you sure you want to cancel your mambership?",
             "text-3": "If you unsubscribe now, all member information and usage history will be deleted and cannot be recovered again!",
             "text-4": "Since the author cannot be identified due to deletion of member information after membership withdrawal, editing and deletion of posts is fundamentally impossible. If you wish to delete a post, please delete the post first and then apply for withdrawal.",
