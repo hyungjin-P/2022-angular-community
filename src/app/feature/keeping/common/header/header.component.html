@@ -70,7 +70,7 @@
                     <div class="dot"></div>
                 </div>
                 <div class="email">
-                    <span>{{ user.email || '-' }}</span>
+                    <span>{{ user.nickname || user.email || '' }}</span>
                 </div>
                 <span class="mdi mdi-chevron-down"></span>
                 <div
@@ -90,8 +90,8 @@
                             ></shared-avatar>
                         </div>
                         <div class="user-box-email d-flex flex-column">
-                            <div>{{ user.email ? user.email.split('@')[0] : '-' }}</div>
-                            <div>@{{ user.email ? user.email.split('@')[1] : ' -' }}</div>
+                            <div>{{ user.email ? user.email.split('@')[0] : '' }}</div>
+                            <div>@{{ user.email ? user.email.split('@')[1] : '' }}</div>
                         </div>
                     </div>
                     <div class="user-box-h-line-1"></div>

@@ -7,7 +7,10 @@
 
     <div class="withdrawal">
         <div *ngIf="currentStep == '1'">
-            <div class="text-1">{{ user.nickname || user.email || '' }} 님,</div>
+            <div class="text-1">
+                <span *ngIf="selectedLanguage != 'ko'">Hi {{ user.nickname || user.email || '' }},</span>
+                <span *ngIf="selectedLanguage == 'ko'">{{ user.nickname || user.email || '' }} 님,</span>
+            </div>
             <div class="text-2">{{ 'settings.withdrawal.text-2' | translate }}</div>
             <div class="warning-box">
                 <div class="text-3">- {{ 'settings.withdrawal.text-3' | translate }}</div>
