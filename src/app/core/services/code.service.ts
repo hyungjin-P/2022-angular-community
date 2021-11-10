@@ -12,7 +12,7 @@ import { CodeCategory } from '@schemas/code-category'
 @Injectable({
     providedIn: 'root',
 })
-export class FileService {
+export class CodeService {
     constructor(private http: HttpClient) {}
 
     getCategory(categoryId: string): Observable<CodeCategory> {

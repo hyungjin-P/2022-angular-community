@@ -4,4 +4,55 @@
         [text]="'settings.mobile-header.withdrawal' | translate"
         (goBack)="goBack()"
     ></mobile-header>
+
+    <div class="withdrawal">
+        <div *ngIf="currentStep == '1'">
+            <div class="text-1">{{ user.nickname || user.email || '' }} 님,</div>
+            <div class="text-2">{{ 'settings.withdrawal.text-2' | translate }}</div>
+            <div class="warning-box">
+                <div class="text-3">- {{ 'settings.withdrawal.text-3' | translate }}</div>
+                <div class="text-4">- {{ 'settings.withdrawal.text-4' | translate }}</div>
+                <div class="text-5">- {{ 'settings.withdrawal.text-5' | translate }}</div>
+            </div>
+            <div class="required">
+                <shared-checkbox
+                    [text]="'settings.withdrawal.required' | translate"
+                    [checked]="required"
+                    (click)="checkRequired()"
+                ></shared-checkbox>
+            </div>
+            <a
+                class="button shared-button-secondary"
+                [class.shared-button-secondary-disabled]="!required"
+                (click)="next()"
+            >
+                <div>{{ 'settings.withdrawal.next-button' | translate }}</div>
+            </a>
+        </div>
+        <div *ngIf="currentStep == '2'">
+            <div class="text-6">{{ 'settings.withdrawal.text-6' | translate }}</div>
+            <div class="text-7">{{ 'settings.withdrawal.text-7' | translate }}</div>
+            <div class="user_withdrawal_reason_list">
+                <div class="user_withdrawal_reason" *ngFor="let reason of userWithdrawalReasonList">
+                    <shared-checkbox
+                        text="{{ selectedLanguage == 'ko' ? reason.text_ko : reason.text_en }}"
+                        [checked]="userWithdrawalReasonObj[reason.id]"
+                        (click)="checkWithdrawalReason(reason)"
+                    ></shared-checkbox>
+                </div>
+            </div>
+            <textarea
+                [(ngModel)]="directInputText"
+                [placeholder]="'settings.withdrawal.direct-input-placeholder' | translate"
+            ></textarea>
+            <div class="button-group">
+                <a class="button shared-button-primary" (click)="previous()">
+                    <div>{{ 'settings.withdrawal.previous-button' | translate }}</div>
+                </a>
+                <a class="button shared-button-teriary" (click)="deleteUser()">
+                    <div>{{ 'settings.withdrawal.withdrawal-button' | translate }}</div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

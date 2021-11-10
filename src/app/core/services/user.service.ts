@@ -50,13 +50,14 @@ export class UserService {
         )
     }
 
-    deleteUser(userId: string): Observable<Response> {
+    deleteUser(userId: string, reasons: DeleteUserRequestBody): Observable<Response> {
         const url = environment['serverAddress'] + `/users/${userId}`
 
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
             }),
+            body: reasons,
         }
 
         return this.http.delete<Response>(url, options).pipe(
@@ -182,6 +183,10 @@ class UpdateUserRequestBody {
     agreement_privacy?: boolean
     agreement_service_terms?: boolean
     agreement_marketing?: boolean
+}
+
+class DeleteUserRequestBody {
+    reasons: Array<any>
 }
 
 class ChangePasswordRequestBody {
