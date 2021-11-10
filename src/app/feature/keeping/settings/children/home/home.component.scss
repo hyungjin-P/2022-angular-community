@@ -1,42 +1,46 @@
 @import '/src/assets/styles/font';
 
-.nav {
-    padding: 10px 16px;
+.section {
+    overflow-x: hidden;
 
-    .menu {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 46px;
+    .nav {
+        padding: 10px 16px;
 
-        text-decoration: none;
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 46px;
 
-        div:nth-child(1) {
-            @include textStyle(500, 14px, 22px);
-            color: var(--text-2);
+            text-decoration: none;
+
+            div:nth-child(1) {
+                @include textStyle(500, 14px, 22px);
+                color: var(--text-2);
+            }
+
+            .mdi {
+                font-size: 20px;
+                color: var(--grey-1);
+            }
         }
 
-        .mdi {
-            font-size: 20px;
-            color: var(--grey-1);
+        .h-line {
+            margin: 12px -20px;
+            height: 8px;
+            background-color: var(--grey-8);
         }
-    }
-
-    .h-line {
-        margin: 12px -20px;
-        height: 8px;
-        background-color: var(--grey-8);
     }
 }
 
 @media (min-width: 576px) {
-    .nav {
+    .section .nav {
         padding: 8px 18px;
     }
 }
 
 @media (min-width: 768px) {
-    .nav {
+    .section .nav {
         padding: 8px 20px;
 
         .menu {

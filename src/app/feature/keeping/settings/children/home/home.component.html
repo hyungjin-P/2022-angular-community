@@ -1,23 +1,29 @@
-<div class="full-absolute d-lg-none">
+<div class="full-absolute d-lg-none d-flex flex-column">
     <mobile-header [text]="'settings.mobile-header.settings' | translate" (goBack)="goBack()"></mobile-header>
 
-    <div class="nav">
-        <a class="menu" [routerLink]="['/settings/profile']">
-            <div>{{ 'settings.home.profile' | translate }}</div>
-            <div class="mdi mdi-chevron-right"></div>
-        </a>
-        <a class="menu" [routerLink]="['/settings/account']">
-            <div>{{ 'settings.home.account' | translate }}</div>
-            <div class="mdi mdi-chevron-right"></div>
-        </a>
-        <a class="menu" [routerLink]="['/settings/language']">
-            <div>{{ 'settings.home.language' | translate }}</div>
-            <div class="mdi mdi-chevron-right"></div>
-        </a>
-        <div class="h-line"></div>
-        <a class="menu" (click)="logout()">
-            <div>{{ 'settings.home.signout' | translate }}</div>
-            <div class="mdi mdi-chevron-right"></div>
-        </a>
+    <div class="flex-fill" style="position: relative">
+        <div class="section full-absolute scroll-y">
+            <div class="nav">
+                <a class="menu" [routerLink]="['/settings/profile']">
+                    <div>{{ 'settings.home.profile' | translate }}</div>
+                    <div class="mdi mdi-chevron-right"></div>
+                </a>
+                <a class="menu" [routerLink]="['/settings/account']">
+                    <div>{{ 'settings.home.account' | translate }}</div>
+                    <div class="mdi mdi-chevron-right"></div>
+                </a>
+                <a class="menu" [routerLink]="['/settings/language']">
+                    <div>{{ 'settings.home.language' | translate }}</div>
+                    <div class="mdi mdi-chevron-right"></div>
+                </a>
+                <div class="h-line"></div>
+                <a class="menu" (click)="logout()">
+                    <div>{{ 'settings.home.signout' | translate }}</div>
+                    <div class="mdi mdi-chevron-right"></div>
+                </a>
+            </div>
+        </div>
     </div>
+
+    <bottom-nav class="bottom-nav d-block d-lg-none"></bottom-nav>
 </div>

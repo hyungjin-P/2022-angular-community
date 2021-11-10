@@ -1,25 +1,31 @@
-<div class="full-absolute">
+<div class="full-absolute d-flex flex-column">
     <mobile-header
         class="d-lg-none"
         [text]="'settings.mobile-header.language' | translate"
         (goBack)="goBack()"
     ></mobile-header>
 
-    <div class="language">
-        <div>
-            <div class="text-1">{{ 'settings.language.text-1' | translate }}</div>
-            <div class="text-2">{{ 'settings.language.text-2' | translate }}</div>
-            <a class="ko" (click)="changeLanguage('ko')">
-                <span>한국어</span>
-                <span class="mdi mdi-check" *ngIf="selectedLanguage == 'ko'"></span>
-            </a>
-            <a class="en" (click)="changeLanguage('en')">
-                <span>English</span>
-                <span class="mdi mdi-check" *ngIf="selectedLanguage == 'en'"></span>
-            </a>
-            <a class="update-button shared-button-primary" (click)="switchLanguage()">
-                <div>{{ 'settings.language.update-button' | translate }}</div>
-            </a>
+    <div class="flex-fill" style="position: relative">
+        <div class="section full-absolute scroll-y">
+            <div class="language">
+                <div>
+                    <div class="text-1">{{ 'settings.language.text-1' | translate }}</div>
+                    <div class="text-2">{{ 'settings.language.text-2' | translate }}</div>
+                    <a class="ko" (click)="changeLanguage('ko')">
+                        <span>한국어</span>
+                        <span class="mdi mdi-check" *ngIf="selectedLanguage == 'ko'"></span>
+                    </a>
+                    <a class="en" (click)="changeLanguage('en')">
+                        <span>English</span>
+                        <span class="mdi mdi-check" *ngIf="selectedLanguage == 'en'"></span>
+                    </a>
+                    <a class="update-button shared-button-primary" (click)="switchLanguage()">
+                        <div>{{ 'settings.language.update-button' | translate }}</div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+
+    <bottom-nav class="bottom-nav d-block d-lg-none"></bottom-nav>
 </div>

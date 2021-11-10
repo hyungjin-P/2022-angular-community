@@ -1,59 +1,70 @@
-<div class="full-absolute">
+<div class="full-absolute d-flex flex-column">
     <mobile-header
         class="d-lg-none"
         [text]="'settings.mobile-header.profile' | translate"
         (goBack)="goBack()"
     ></mobile-header>
 
-    <div class="user-background">
-        <div class="user-picture">
-            <shared-avatar [image]="currentPicture" text="{{ user.email }}" size="80" fontSize="28"></shared-avatar>
-            <div class="camera" (click)="picture.click()">
-                <span class="mdi mdi-camera"></span>
+    <div class="flex-fill" style="position: relative">
+        <div class="section full-absolute scroll-y">
+            <div class="user-background">
+                <div class="user-picture">
+                    <shared-avatar
+                        [image]="currentPicture"
+                        text="{{ user.email }}"
+                        size="80"
+                        fontSize="28"
+                    ></shared-avatar>
+                    <div class="camera" (click)="picture.click()">
+                        <span class="mdi mdi-camera"></span>
+                    </div>
+                    <input type="file" accept="image/*" #picture (change)="onChangeFile(picture)" hidden />
+                </div>
             </div>
-            <input type="file" accept="image/*" #picture (change)="onChangeFile(picture)" hidden />
+
+            <div class="profile">
+                <div>
+                    <div class="nickname">
+                        <shared-input
+                            [label]="'settings.profile.nickname-label' | translate"
+                            [(ngModel)]="currentNickname"
+                            maxlength="20"
+                            [info]="'settings.profile.nickname-info' | translate"
+                            [error]="nicknameErrorText"
+                            (keyup)="onKeyup($event, 'nickname')"
+                        ></shared-input>
+                        <div class="duplicate-check" (click)="checkDuplicateNickname()">
+                            {{ 'settings.profile.duplicate-check' | translate }}
+                        </div>
+                    </div>
+                    <div class="about-me">
+                        <div class="label">{{ 'settings.profile.about-me-label' | translate }}</div>
+                        <textarea
+                            [class.textarea-error]="aboutMeErrorText"
+                            [placeholder]="'settings.profile.about-me-placeholder' | translate"
+                            [(ngModel)]="currentAboutMeText"
+                            maxlength="30"
+                        ></textarea>
+                        <div class="about-me-info" *ngIf="aboutMeInfoText && !aboutMeErrorText">
+                            <span class="mdi mdi-alert-circle-outline"></span>
+                            <div>{{ aboutMeInfoText }}</div>
+                        </div>
+                        <div class="about-me-error" *ngIf="aboutMeErrorText">
+                            <span class="mdi mdi-alert-circle-outline"></span>
+                            <div>{{ aboutMeErrorText }}</div>
+                        </div>
+                    </div>
+                    <a
+                        class="update-button shared-button-primary"
+                        [class.shared-button-primary-disabled]="!currentNickname"
+                        (click)="updateUser(picture)"
+                    >
+                        <div>{{ 'settings.profile.update-button' | translate }}</div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="profile">
-        <div>
-            <div class="nickname">
-                <shared-input
-                    [label]="'settings.profile.nickname-label' | translate"
-                    [(ngModel)]="currentNickname"
-                    maxlength="20"
-                    [info]="'settings.profile.nickname-info' | translate"
-                    [error]="nicknameErrorText"
-                    (keyup)="onKeyup($event, 'nickname')"
-                ></shared-input>
-                <div class="duplicate-check" (click)="checkDuplicateNickname()">
-                    {{ 'settings.profile.duplicate-check' | translate }}
-                </div>
-            </div>
-            <div class="about-me">
-                <div class="label">{{ 'settings.profile.about-me-label' | translate }}</div>
-                <textarea
-                    [class.textarea-error]="aboutMeErrorText"
-                    [placeholder]="'settings.profile.about-me-placeholder' | translate"
-                    [(ngModel)]="currentAboutMeText"
-                    maxlength="30"
-                ></textarea>
-                <div class="about-me-info" *ngIf="aboutMeInfoText && !aboutMeErrorText">
-                    <span class="mdi mdi-alert-circle-outline"></span>
-                    <div>{{ aboutMeInfoText }}</div>
-                </div>
-                <div class="about-me-error" *ngIf="aboutMeErrorText">
-                    <span class="mdi mdi-alert-circle-outline"></span>
-                    <div>{{ aboutMeErrorText }}</div>
-                </div>
-            </div>
-            <a
-                class="update-button shared-button-primary"
-                [class.shared-button-primary-disabled]="!currentNickname"
-                (click)="updateUser(picture)"
-            >
-                <div>{{ 'settings.profile.update-button' | translate }}</div>
-            </a>
-        </div>
-    </div>
+    <bottom-nav class="bottom-nav d-block d-lg-none"></bottom-nav>
 </div>
