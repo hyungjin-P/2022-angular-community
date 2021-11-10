@@ -59,6 +59,16 @@
                 height: 28px;
             }
         }
+
+        &:hover {
+            .svg-icon {
+                stroke: var(--blue-3);
+            }
+
+            .text {
+                color: var(--blue-3);
+            }
+        }
     }
 
     .selected {
