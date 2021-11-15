@@ -4,8 +4,8 @@ import { Location } from '@angular/common'
 import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
-import { FileService } from '@services/file.service'
 import { UserService } from '@services/user.service'
+import { FileService } from '@services/file.service'
 import { TextService } from '@services/text.service'
 
 import { User } from '@schemas/user'

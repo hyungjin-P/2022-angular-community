@@ -14,11 +14,11 @@ import { NoticeComponent } from './children/notice/notice.component'
 import { EventComponent } from './children/event/event.component'
 import { HelpComponent } from './children/help/help.component'
 
-import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
 import { NotificationComponent } from './children/notification/notification.component'
 
+import { MypageComponent } from './mypage/mypage.component'
 import { SearchComponent } from './search/search.component'
 
 const routes: Routes = [
@@ -35,12 +35,13 @@ const routes: Routes = [
             { path: 'event', component: EventComponent },
             { path: 'help', component: HelpComponent },
 
-            { path: 'mypage', component: MypageComponent },
             { path: 'privacy', component: PrivacyComponent },
             { path: 'service-terms', component: ServiceTermsComponent },
             { path: 'notification', component: NotificationComponent },
         ],
     },
+
+    { path: 'mypage', canActivate: [ServiceTermsGuard], component: MypageComponent },
 
     { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 

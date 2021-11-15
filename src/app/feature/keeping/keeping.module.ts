@@ -15,11 +15,11 @@ import { NoticeComponent } from './children/notice/notice.component'
 import { EventComponent } from './children/event/event.component'
 import { HelpComponent } from './children/help/help.component'
 
-import { MypageComponent } from './children/mypage/mypage.component'
 import { PrivacyComponent } from './children/privacy/privacy.component'
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component'
 import { NotificationComponent } from './children/notification/notification.component'
 
+import { MypageComponent } from './mypage/mypage.component'
 import { SearchComponent } from './search/search.component'
 
 @NgModule({
@@ -34,11 +34,11 @@ import { SearchComponent } from './search/search.component'
         EventComponent,
         HelpComponent,
 
-        MypageComponent,
         PrivacyComponent,
         ServiceTermsComponent,
         NotificationComponent,
 
+        MypageComponent,
         SearchComponent,
     ],
     imports: [KeepingRoutingModule, SharedModule, CommonModule],

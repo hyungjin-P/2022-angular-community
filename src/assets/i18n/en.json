@@ -131,6 +131,12 @@
             "shop": "Shop"
         }
     },
+    "mypage": {
+        "add-button-text": "Add Cover Photo",
+        "choose-button-text": "Choose a photo",
+        "delete-button-text": "Delete",
+        "edit-button-text": "Edit Cover Photo"
+    },
     "settings": {
         "account": {
             "change-password": "Change password",
