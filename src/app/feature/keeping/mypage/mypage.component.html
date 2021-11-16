@@ -25,34 +25,42 @@
             </svg>
         </a>
     </div>
-    <div class="background" *ngIf="user.background.length == 0">
-        <a class="add-button" (click)="background.click()">
-            <div class="line-1"></div>
-            <div class="line-2"></div>
-        </a>
-        <div class="add-button-text">
-            {{ 'mypage.add-button-text' | translate }}
-        </div>
-        <input type="file" accept="image/*" #background (change)="onChangeFile(background)" hidden />
-    </div>
-    <div class="background" *ngIf="user.background.length > 0">
-        <img [src]="user.background[0].url" />
-        <a class="edit-button" (click)="changeBackgroundEditMode(true)">
-            <div class="mdi mdi-camera-outline"></div>
-            <div class="edit-button-text">{{ 'mypage.edit-button-text' | translate }}</div>
-        </a>
-        <div class="edit-mode" (click)="changeBackgroundEditMode(false)" *ngIf="backgroundEditMode">
-            <div class="edit-mode-text">
-                {{ 'mypage.edit-button-text' | translate }}
+    <div class="background">
+        <div [class.empty-background-show]="user.background.length == 0">
+            <a class="add-button" (click)="background.click()">
+                <div class="line-1"></div>
+                <div class="line-2"></div>
+            </a>
+            <div class="add-button-text">
+                {{ 'mypage.add-button-text' | translate }}
             </div>
-            <div class="edit-mode-button-group" (click)="$event.stopPropagation()">
-                <div class="edit-mode-choose-button" (click)="newBackground.click()">
-                    {{ 'mypage.choose-button-text' | translate }}
+            <input type="file" accept="image/*" #background (change)="onChangeFile(background)" hidden />
+        </div>
+        <div [class.background-show]="user.background.length > 0">
+            <img [src]="user.background[0]?.url" />
+            <a class="edit-button" (click)="changeBackgroundEditMode(true)">
+                <div class="mdi mdi-camera-outline"></div>
+                <div class="edit-button-text">{{ 'mypage.edit-button-text' | translate }}</div>
+            </a>
+            <div class="edit-mode" (click)="changeBackgroundEditMode(false)" *ngIf="backgroundEditMode">
+                <div class="edit-mode-text">
+                    {{ 'mypage.edit-button-text' | translate }}
                 </div>
-                <div class="edit-mode-delete-button" (click)="deleteBackground(user.background[0]['url'])">
-                    {{ 'mypage.delete-button-text' | translate }}
+                <div class="edit-mode-button-group" (click)="$event.stopPropagation()">
+                    <div class="edit-mode-choose-button" (click)="newBackground.click()">
+                        {{ 'mypage.choose-button-text' | translate }}
+                    </div>
+                    <div class="edit-mode-delete-button" (click)="deleteBackground(user.background[0]['url'])">
+                        {{ 'mypage.delete-button-text' | translate }}
+                    </div>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        #newBackground
+                        (change)="changeBackground(newBackground)"
+                        hidden
+                    />
                 </div>
-                <input type="file" accept="image/*" #newBackground (change)="changeBackground(newBackground)" hidden />
             </div>
         </div>
     </div>
