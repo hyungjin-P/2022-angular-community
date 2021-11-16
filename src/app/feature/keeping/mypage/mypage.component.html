@@ -1,4 +1,4 @@
-<div class="settings full-absolute d-flex flex-column">
+<div class="mypage full-absolute d-flex flex-column">
     <header class="header d-none d-lg-block"></header>
 
     <div class="flex-fill" style="position: relative">
@@ -78,6 +78,48 @@
                         />
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="profile">
+            <div>
+                <div class="avatar">
+                    <shared-avatar
+                        [image]="globalUser.picture?.url"
+                        text="{{ user.email }}"
+                        size="74"
+                        fontSize="30"
+                    ></shared-avatar>
+                </div>
+                <div class="info">
+                    <div class="nickname">{{ user.nickname || user.email || '' }}</div>
+                    <div>
+                        <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
+                            <img src="assets/icons/social/kakao_2.png" />
+                        </div>
+                        <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
+                            <img src="assets/icons/social/naver.png" />
+                        </div>
+                        <div class="social social-google" *ngIf="user.provider == 'google.com'">
+                            <img src="assets/icons/social/google.png" />
+                        </div>
+                        <span class="email">{{ user.email || '' }}</span>
+                    </div>
+                    <div class="follow">
+                        <div class="following">{{ 'mypage.following-text' | translate }}</div>
+                        <div>999+</div>
+                        <div class="v-line"></div>
+                        <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
+                        <div>999+</div>
+                    </div>
+                    <a
+                        class="shared-button shared-button-outline edit-profile-button"
+                        [routerLink]="['/settings/profile']"
+                        >{{ 'mypage.edit-profile-button-text' | translate }}</a
+                    >
+                </div>
+            </div>
+            <div class="about-me">
+                {{ user.about_me }}
             </div>
         </div>
     </div>

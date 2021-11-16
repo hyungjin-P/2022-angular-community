@@ -135,7 +135,10 @@
         "add-button-text": "배경 이미지 추가",
         "choose-button-text": "이미지 바꾸기",
         "delete-button-text": "이미지 제거",
-        "edit-button-text": "배경 이미지 편집"
+        "edit-button-text": "배경 이미지 편집",
+        "edit-profile-button-text": "프로필 수정",
+        "follower-text": "팔로워",
+        "following-text": "팔로잉"
     },
     "settings": {
         "account": {

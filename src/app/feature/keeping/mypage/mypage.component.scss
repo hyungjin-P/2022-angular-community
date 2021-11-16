@@ -1,11 +1,17 @@
 @import '/src/assets/styles/font';
 
+.mypage {
+    background-color: #f6f6f6;
+    overflow-x: hidden;
+}
+
 .header {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 60px;
+    background-color: var(--white);
 
     .mdi {
         position: absolute;
@@ -214,6 +220,118 @@
     }
 }
 
+.profile {
+    position: relative;
+    padding: 32px 16px;
+
+    background-color: var(--white);
+
+    > div {
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+        width: 383px;
+
+        .avatar {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.5);
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            margin-left: 24px;
+
+            .nickname {
+                @include textStyle(700, 20px, 30px);
+            }
+
+            div:nth-child(2) {
+                display: flex;
+                align-items: center;
+                margin-top: 4px;
+
+                .social {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 12px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 4px;
+                }
+
+                .social-kakao {
+                    background-color: #ffeb00;
+
+                    img {
+                        width: 12px;
+                    }
+                }
+
+                .social-naver {
+                    background-color: #1dc800;
+
+                    img {
+                        width: 10px;
+                    }
+                }
+
+                .social-google {
+                    background-color: #f5f5f5;
+
+                    img {
+                        width: 12px;
+                    }
+                }
+
+                .email {
+                    @include textStyle(400, 13px, 21px);
+                    color: var(--text-2);
+                }
+            }
+
+            .follow {
+                display: flex;
+                align-items: center;
+                margin-top: 12px;
+
+                @include textStyle(400, 13px, 21px);
+
+                .following,
+                .follower {
+                    margin-right: 8px;
+                }
+
+                .v-line {
+                    margin: 0 12px;
+                    height: 10px;
+                    border-right: 1px solid var(--grey-4);
+                }
+            }
+
+            .edit-profile-button {
+                margin-top: 24px;
+                width: 98px;
+                height: 32px;
+                border-radius: 30px;
+
+                @include textStyle(500, 12px, 20px);
+                text-decoration: none;
+            }
+        }
+    }
+
+    .about-me {
+        margin-top: 32px;
+
+        @include textStyle(400, 14px, 22px);
+        color: var(--text-2);
+    }
+}
+
 .drawer-wrapper {
     display: none;
     position: fixed;
@@ -255,6 +373,18 @@
         > div {
             img {
                 height: 260px;
+            }
+        }
+    }
+
+    .profile {
+        > div {
+            width: 512px;
+
+            .edit-profile-button {
+                position: absolute;
+                top: 0;
+                right: 32px;
             }
         }
     }

@@ -135,7 +135,10 @@
         "add-button-text": "Add Cover Photo",
         "choose-button-text": "Choose a photo",
         "delete-button-text": "Delete",
-        "edit-button-text": "Edit Cover Photo"
+        "edit-button-text": "Edit Cover Photo",
+        "edit-profile-button-text": "Edit",
+        "follower-text": "Follower",
+        "following-text": "Following"
     },
     "settings": {
         "account": {

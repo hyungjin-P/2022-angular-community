@@ -18,6 +18,7 @@ import { File } from '@schemas/file'
 })
 export class MypageComponent implements OnInit {
     variables: any
+    globalUser: any
     user: User
 
     backgroundEditMode: boolean
@@ -32,8 +33,9 @@ export class MypageComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.user = this.storageService.getUser()
         this.variables = this.globalService.variables
+        this.globalUser = this.globalService.user
+        this.user = this.storageService.getUser()
 
         this.closeDrawer()
     }
