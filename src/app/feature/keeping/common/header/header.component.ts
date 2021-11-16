@@ -13,6 +13,7 @@ import { User } from '@schemas/user'
 })
 export class HeaderComponent implements OnInit {
     url: string
+    isDrawerMenu: boolean
 
     variables: any
     globalUser: any
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.url = this.router.url
+        this.isDrawerMenu = this.url.indexOf('/settings') != -1 || this.url.indexOf('/mypage') != -1
 
         this.variables = this.globalService.variables
         this.globalUser = this.globalService.user

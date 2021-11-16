@@ -1,9 +1,9 @@
 <div class="header">
     <div class="leading">
-        <a class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') == -1" (click)="openNav()">
+        <a class="burger-menu d-none d-lg-flex" *ngIf="!isDrawerMenu" (click)="openNav()">
             <img src="assets/icons/nav/burger-menu.svg" />
         </a>
-        <a class="burger-menu d-none d-lg-flex" *ngIf="url.indexOf('/settings') != -1" (click)="openDrawer()">
+        <a class="burger-menu d-none d-lg-flex" *ngIf="isDrawerMenu" (click)="openDrawer()">
             <img src="assets/icons/nav/burger-menu.svg" />
         </a>
         <a class="logo" [routerLink]="['/']">

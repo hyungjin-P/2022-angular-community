@@ -17,6 +17,7 @@ import { File } from '@schemas/file'
     styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit {
+    variables: any
     user: User
 
     backgroundEditMode: boolean
@@ -32,10 +33,17 @@ export class MypageComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.storageService.getUser()
+        this.variables = this.globalService.variables
+
+        this.closeDrawer()
     }
 
     goBack() {
         this.location.back()
+    }
+
+    closeDrawer() {
+        this.variables.isDrawerOpen = false
     }
 
     async onChangeFile(background) {

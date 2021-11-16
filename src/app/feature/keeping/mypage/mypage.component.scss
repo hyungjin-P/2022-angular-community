@@ -84,7 +84,7 @@
         align-items: center;
         opacity: 0;
         transition: opacity 0.1s linear;
-        z-index: 1;
+        z-index: -1;
 
         .add-button {
             position: relative;
@@ -205,13 +205,47 @@
     .empty-background-show {
         background-color: var(--blue-3);
         opacity: 1;
-        z-index: 2;
+        z-index: 0;
     }
 
     .background-show {
         opacity: 1;
-        z-index: 2;
+        z-index: 0;
     }
+}
+
+.drawer-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.drawer-wrapper-open {
+    display: block;
+    background-color: var(--black);
+    opacity: 0.5;
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    border-top-right-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0px 0px 10px rgb(126 126 126 / 10%);
+    z-index: 1;
+    transform: translateX(-240px);
+    transition: transform 0.2s ease-out;
+}
+
+.drawer-open {
+    transform: translateX(0px);
 }
 
 @media (min-width: 768px) {
