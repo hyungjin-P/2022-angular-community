@@ -137,8 +137,12 @@
         "delete-button-text": "Delete",
         "edit-button-text": "Edit Cover Photo",
         "edit-profile-button-text": "Edit",
+        "empty-text-1": "My own collection of figures.",
+        "empty-text-2": "My personal collection of figures.",
+        "empty-text-3": "Try making it!",
         "follower-text": "Follower",
-        "following-text": "Following"
+        "following-text": "Following",
+        "write": "Writing"
     },
     "settings": {
         "account": {

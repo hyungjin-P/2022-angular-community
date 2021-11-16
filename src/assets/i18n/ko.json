@@ -137,8 +137,12 @@
         "delete-button-text": "이미지 제거",
         "edit-button-text": "배경 이미지 편집",
         "edit-profile-button-text": "프로필 수정",
+        "empty-text-1": "나만의 소장 피규어 컬렉션",
+        "empty-text-2": "나만의 소장 피규어 컬렉션을",
+        "empty-text-3": "만들어 보세요!",
         "follower-text": "팔로워",
-        "following-text": "팔로잉"
+        "following-text": "팔로잉",
+        "write": "글쓰기"
     },
     "settings": {
         "account": {
