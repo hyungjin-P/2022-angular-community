@@ -223,7 +223,6 @@
         }
 
         .profile {
-            position: relative;
             padding: 32px 16px;
 
             background-color: var(--white);
@@ -242,9 +241,11 @@
                 }
 
                 .info {
+                    position: relative;
                     display: flex;
                     flex-direction: column;
                     margin-left: 24px;
+                    width: 100%;
 
                     .nickname {
                         @include textStyle(700, 20px, 30px);
@@ -466,9 +467,17 @@
 
             .edit-profile-button {
                 position: absolute;
-                top: 0;
-                right: 32px;
+                top: -24px;
+                right: 0;
             }
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .mypage .section .profile {
+        > div {
+            width: 512px;
         }
     }
 }
