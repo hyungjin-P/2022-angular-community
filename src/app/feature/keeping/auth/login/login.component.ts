@@ -248,7 +248,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (
             pattern1.test(password) &&
             pattern2.test(password) &&
-            pattern3.test(password) &&
             !pattern4.test(password) &&
             8 <= password.length &&
             password.length <= 15

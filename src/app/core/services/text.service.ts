@@ -37,7 +37,7 @@ export class TextService {
 
             'settings:change-password:001': '비밀번호에 공백을 제외하고 입력해주세요.',
             'settings:change-password:002': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
-            'settings:change-password:003': '비밀번호가 일치하지 않습니다.',
+            'settings:change-password:003': '기존 비밀번호가 일치하지 않습니다.',
             'settings:change-password:004': '비밀번호가 변경되었습니다.',
         },
         en: {
@@ -72,7 +72,7 @@ export class TextService {
 
             'settings:change-password:001': 'Spaces are not allowed.',
             'settings:change-password:002': 'Password must be at least 8 characters and contain English + numbers.',
-            'settings:change-password:003': 'Passwords do not match.',
+            'settings:change-password:003': 'Existing passwords do not match.',
             'settings:change-password:004': 'Your password has been changed.',
         },
     }
