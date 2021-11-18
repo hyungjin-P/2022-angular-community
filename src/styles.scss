@@ -236,6 +236,64 @@
     }
 }
 
+// Editor
+.editor-paragraph {
+    position: relative;
+    margin: 8px 0;
+    padding: 8px 12px;
+    border: 1px dashed var(--blue-7);
+    border-radius: 4px;
+
+    img {
+        max-width: 100%;
+    }
+
+    .mdi-image-area,
+    .mdi-cursor-move,
+    .mdi-delete-sweep-outline {
+        position: absolute;
+        display: none;
+        cursor: pointer;
+
+        font-size: 16px;
+    }
+
+    .mdi-image-area {
+        top: 0px;
+        right: 60px;
+    }
+
+    .mdi-cursor-move {
+        top: 0px;
+        right: 35px;
+    }
+
+    .mdi-delete-sweep-outline {
+        top: 0px;
+        right: 10px;
+    }
+
+    .text {
+        outline: none;
+    }
+
+    &:hover,
+    &:focus-within {
+        border: 1px dashed var(--blue-4);
+
+        .mdi-image-area,
+        .mdi-cursor-move,
+        .mdi-delete-sweep-outline {
+            display: block;
+            color: var(--blue-5);
+
+            &:hover {
+                color: var(--blue-4);
+            }
+        }
+    }
+}
+
 // KEEPING
 body {
     margin: 0px;

@@ -1,0 +1,49 @@
+.title {
+    padding-bottom: 11px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+._content {
+    .editor {
+        display: flex;
+        flex-direction: column;
+
+        .menu-box {
+            display: flex;
+
+            .menu {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 2px;
+                width: 24px;
+                height: 24px;
+                border: 1px solid var(--grey-6);
+                border-radius: 4px;
+                background-color: var(--white);
+                cursor: pointer;
+
+                .mdi {
+                    font-size: 16px;
+                }
+
+                &:hover {
+                    background-color: var(--grey-8);
+                }
+            }
+        }
+
+        .content {
+            margin-top: 5px;
+            padding: 16px 24px;
+            border: 1px solid var(--grey-6);
+            border-radius: 4px;
+            outline: none;
+        }
+    }
+}

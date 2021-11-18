@@ -1,0 +1,59 @@
+<div class="title">Input</div>
+<div class="_content">
+    <div class="editor">
+        <div class="menu-box">
+            <div class="menu" (click)="setStyle('undo')">
+                <div class="mdi mdi-undo"></div>
+            </div>
+            <div class="menu" (click)="setStyle('redo')">
+                <div class="mdi mdi-redo"></div>
+            </div>
+            <div class="menu" (click)="setStyle('bold')">
+                <div class="mdi mdi-format-bold"></div>
+            </div>
+            <div class="menu" (click)="setStyle('italic')">
+                <div class="mdi mdi-format-italic"></div>
+            </div>
+            <div class="menu" (click)="setStyle('underline')">
+                <div class="mdi mdi-format-underline"></div>
+            </div>
+            <div class="menu" (click)="setStyle('strikeThrough')">
+                <div class="mdi mdi-format-strikethrough"></div>
+            </div>
+            <div class="menu" (click)="setStyle('subscript')">
+                <div class="mdi mdi-format-subscript"></div>
+            </div>
+            <div class="menu" (click)="setStyle('superscript')">
+                <div class="mdi mdi-format-superscript"></div>
+            </div>
+            <div class="menu" (click)="setStyle('justifyLeft')">
+                <div class="mdi mdi-format-align-left"></div>
+            </div>
+            <div class="menu" (click)="setStyle('justifyCenter')">
+                <div class="mdi mdi-format-align-center"></div>
+            </div>
+            <div class="menu" (click)="setStyle('justifyRight')">
+                <div class="mdi mdi-format-align-right"></div>
+            </div>
+            <div class="menu" (click)="setStyle('justifyFull')">
+                <div class="mdi mdi-format-align-justify"></div>
+            </div>
+            <div class="menu" (click)="setStyle('indent')">
+                <div class="mdi mdi-format-indent-increase"></div>
+            </div>
+            <div class="menu" (click)="setStyle('outdent')">
+                <div class="mdi mdi-format-indent-decrease"></div>
+            </div>
+            <div class="menu" (click)="setStyle('insertOrderedList')">
+                <div class="mdi mdi-format-list-numbered"></div>
+            </div>
+            <div class="menu" (click)="setStyle('insertUnorderedList')">
+                <div class="mdi mdi-format-list-bulleted"></div>
+            </div>
+            <div class="menu" (click)="insertParagraph()">T</div>
+            <div class="menu" (click)="export()">E</div>
+            <input type="file" accept="image/*" #insertImageElement (change)="insertImage()" hidden />
+        </div>
+        <div class="content" #contentElement dragula="ITEMS"></div>
+    </div>
+</div>

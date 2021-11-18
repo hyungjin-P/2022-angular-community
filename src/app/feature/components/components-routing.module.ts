@@ -7,6 +7,7 @@ import { ButtonComponent } from './children/general/button/button.component'
 
 import { CheckboxComponent } from './children/data-entry/checkbox/checkbox.component'
 import { DatePickerComponent } from './children/data-entry/datepicker/datepicker.component'
+import { EditorComponent } from './children/data-entry/editor/editor.component'
 import { InputComponent } from './children/data-entry/input/input.component'
 import { RadioComponent } from './children/data-entry/radio/radio.component'
 import { SelectComponent } from './children/data-entry/select/select.component'
@@ -33,6 +34,7 @@ const routes: Routes = [
 
             { path: 'checkbox', component: CheckboxComponent },
             { path: 'datepicker', component: DatePickerComponent },
+            { path: 'editor', component: EditorComponent },
             { path: 'input', component: InputComponent },
             { path: 'radio', component: RadioComponent },
             { path: 'select', component: SelectComponent },
