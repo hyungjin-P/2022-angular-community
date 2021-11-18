@@ -37,6 +37,9 @@ import { numberWithCommasPipe } from './pipes/numberWithCommas.pipe'
 import { SafePipe } from './pipes/safe.pipe'
 import { TimePipe } from './pipes/time.pipe'
 
+// Dragula
+import { DragulaModule } from 'ng2-dragula'
+
 @NgModule({
     declarations: [
         // Components
@@ -77,6 +80,8 @@ import { TimePipe } from './pipes/time.pipe'
                 deps: [HttpClient],
             },
         }),
+
+        DragulaModule.forRoot(),
     ],
     exports: [
         CommonModule,
@@ -108,6 +113,9 @@ import { TimePipe } from './pipes/time.pipe'
         numberWithCommasPipe,
         SafePipe,
         TimePipe,
+
+        // Dragular
+        DragulaModule,
     ],
     providers: [],
 })

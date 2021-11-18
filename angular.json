@@ -27,9 +27,13 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/assets/styles/bootstrap-grid.min.css", "src/styles.scss"],
+                        "styles": [
+                            "src/assets/styles/bootstrap-grid.min.css",
+                            "node_modules/dragula/dist/dragula.css",
+                            "src/styles.scss"
+                        ],
                         "scripts": ["src/assets/javascripts/kakao.min.js"],
-                        "allowedCommonJsDependencies": ["dom-autoscroller", "moment-timezone"]
+                        "allowedCommonJsDependencies": ["dom-autoscroller", "moment-timezone", "dragula"]
                     },
                     "configurations": {
                         "production": {
