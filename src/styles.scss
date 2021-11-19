@@ -237,61 +237,71 @@
 }
 
 // Editor
-.editor-paragraph {
+.editor-content {
     position: relative;
     margin: 8px 0;
     padding: 8px 12px;
     border: 1px dashed var(--blue-7);
     border-radius: 4px;
 
-    img {
-        max-width: 100%;
-    }
-
-    .mdi-image-area,
-    .mdi-cursor-move,
-    .mdi-delete-sweep-outline {
+    .editor-content-menu-box {
         position: absolute;
+        top: 5px;
+        right: 3px;
         display: none;
-        cursor: pointer;
 
-        font-size: 16px;
-    }
+        .editor-content-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 2px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--grey-6);
+            border-radius: 4px;
+            background-color: var(--white);
+            cursor: pointer;
 
-    .mdi-image-area {
-        top: 0px;
-        right: 60px;
-    }
+            .mdi {
+                font-size: 16px;
+            }
 
-    .mdi-cursor-move {
-        top: 0px;
-        right: 35px;
-    }
-
-    .mdi-delete-sweep-outline {
-        top: 0px;
-        right: 10px;
-    }
-
-    .text {
-        outline: none;
+            &:hover {
+                background-color: var(--grey-8);
+            }
+        }
     }
 
     &:hover,
     &:focus-within {
-        border: 1px dashed var(--blue-4);
+        border-color: var(--blue-5);
 
-        .mdi-image-area,
-        .mdi-cursor-move,
-        .mdi-delete-sweep-outline {
-            display: block;
-            color: var(--blue-5);
-
-            &:hover {
-                color: var(--blue-4);
-            }
+        .editor-content-menu-box {
+            display: flex;
         }
     }
+}
+
+.editor-justify-content-left {
+    justify-content: left;
+}
+
+.editor-justify-content-center {
+    justify-content: center;
+}
+
+.editor-justify-content-right {
+    justify-content: right;
+}
+
+.editor-content-paragraph {
+    .editor-content-paragraph-text {
+        outline: none;
+    }
+}
+
+.editor-content-single-image {
+    display: flex;
 }
 
 // KEEPING
