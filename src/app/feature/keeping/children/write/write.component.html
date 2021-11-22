@@ -1,1 +1,56 @@
-<div></div>
+<div class="write full-absolute d-flex flex-column">
+    <div class="mobile-header d-lg-none">
+        <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
+        <div>{{ 'keeping.mobile-header.write' | translate }}</div>
+        <a class="shared-button-secondary">{{ 'keeping.write.save-button-text' | translate }}</a>
+    </div>
+
+    <div class="flex-fill" style="position: relative">
+        <div class="section full-absolute scroll-y">
+            <div class="form">
+                <div class="title">
+                    <shared-input
+                        [label]="'keeping.write.title-label' | translate"
+                        [(ngModel)]="title"
+                        maxlength="80"
+                        [placeholder]="'keeping.write.title-placeholder' | translate"
+                    ></shared-input>
+                    <div class="desc">{{ 'keeping.write.title-label-desc' | translate }}</div>
+                </div>
+
+                <div class="content">
+                    <div class="label">{{ 'keeping.write.content-label' | translate }}</div>
+                    <textarea
+                        class="scroll-y"
+                        [placeholder]="'keeping.write.content-placeholder' | translate"
+                        [(ngModel)]="content"
+                        maxlength="30"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="h-line"></div>
+            <div class="form">
+                <div class="form-header">
+                    <div class="icon">
+                        <div class="mdi mdi-camera"></div>
+                    </div>
+                    <div class="text">
+                        {{ 'keeping.write.add-picture-text' | translate }}
+                    </div>
+                    <span class="mdi mdi-chevron-down"></span>
+                </div>
+            </div>
+            <div class="h-line"></div>
+            <div class="form">
+                <div class="form-header">
+                    <div class="icon">
+                        <div class="sharp">#</div>
+                    </div>
+                    <div class="text">
+                        {{ 'keeping.write.add-tag-text' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

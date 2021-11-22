@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Location } from '@angular/common'
 
 @Component({
     selector: 'write',
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./write.component.scss'],
 })
 export class WriteComponent implements OnInit {
-    constructor() {}
+    title: string
+    content: string
 
-    ngOnInit() {}
+    constructor(private location: Location) {}
+
+    ngOnInit() {
+        this.title = ''
+        this.content = ''
+    }
+
+    goBack() {
+        this.location.back()
+    }
 }

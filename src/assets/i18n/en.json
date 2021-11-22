@@ -131,6 +131,21 @@
             "shop": "Shop"
         }
     },
+    "keeping": {
+        "mobile-header": {
+            "write": "Write"
+        },
+        "write": {
+            "add-picture-text": "Add pictures",
+            "add-tag-text": "Add tags",
+            "content-label": "Content",
+            "content-placeholder": "Please enter the text you want to share.",
+            "save-button-text": "Save",
+            "title-label": "Title",
+            "title-label-desc": "(up to 80 characters)",
+            "title-placeholder": "Please enter a title."
+        }
+    },
     "mypage": {
         "add-button-text": "Add Cover Photo",
         "choose-button-text": "Choose a photo",

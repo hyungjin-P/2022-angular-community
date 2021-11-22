@@ -131,6 +131,21 @@
             "shop": "키핑Shop"
         }
     },
+    "keeping": {
+        "mobile-header": {
+            "write": "글쓰기"
+        },
+        "write": {
+            "add-picture-text": "사진 추가",
+            "add-tag-text": "태그 추가",
+            "content-label": "내용",
+            "content-placeholder": "공유하고 싶은 글을 입력해 주세요.",
+            "save-button-text": "등록",
+            "title-label": "제목",
+            "title-label-desc": "(최대 80자 까지)",
+            "title-placeholder": "제목을 입력하세요."
+        }
+    },
     "mypage": {
         "add-button-text": "배경 이미지 추가",
         "choose-button-text": "이미지 바꾸기",
