@@ -1,5 +1,5 @@
 <div class="mypage full-absolute d-flex flex-column">
-    <header class="header d-none d-lg-block"></header>
+    <header class="d-none d-lg-block" style="z-index: 1"></header>
 
     <div class="flex-fill" style="position: relative">
         <ng-container *ngTemplateOutlet="mypage"></ng-container>
@@ -15,7 +15,7 @@
 
 <ng-template #mypage>
     <div class="full-absolute d-flex flex-column">
-        <div class="header d-lg-none">
+        <div class="mobile-header d-lg-none">
             <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
             <div>{{ user.nickname || user.email || '' }}</div>
             <a class="notification">

@@ -1,69 +1,12 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core'
-import { Subscription, fromEvent, interval } from 'rxjs'
-import { throttle } from 'rxjs/operators'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
     selector: 'keeping',
     templateUrl: './keeping.component.html',
     styleUrls: ['./keeping.component.scss'],
 })
-export class KeepingComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('keeping') keeping: ElementRef
-
-    scrollSubscription: Subscription
-    previousScrollTop: number
-    currentScrollTop: number
-    isHeaderFixedVisible: boolean
-    isBottomNavFixedVisible: boolean
-
+export class KeepingComponent implements OnInit {
     constructor() {}
 
-    ngOnInit(): void {
-        this.previousScrollTop = 0
-        this.currentScrollTop = 0
-        this.isHeaderFixedVisible = false
-        this.isBottomNavFixedVisible = false
-    }
-
-    ngAfterViewInit() {
-        this.setScrollEvent()
-    }
-
-    ngOnDestroy() {
-        this.scrollSubscription.unsubscribe()
-    }
-
-    scrollTop() {
-        this.keeping.nativeElement.scroll({
-            top: 0,
-            behavior: 'auto',
-        })
-    }
-
-    setScrollEvent() {
-        const THRESHOLD = 150
-
-        const scroll$ = fromEvent(this.keeping.nativeElement, 'scroll')
-        this.scrollSubscription = scroll$.pipe(throttle((event: any) => interval(100))).subscribe((event) => {
-            let scrollTop = event.target.scrollTop
-            this.previousScrollTop = this.currentScrollTop
-            this.currentScrollTop = scrollTop
-            let diff = this.previousScrollTop - this.currentScrollTop
-
-            if (scrollTop < THRESHOLD) {
-                this.isHeaderFixedVisible = false
-                return
-            }
-
-            if (diff < 0) {
-                // downward
-                this.isHeaderFixedVisible = true
-                this.isBottomNavFixedVisible = false
-            } else {
-                // upward
-                this.isHeaderFixedVisible = false
-                this.isBottomNavFixedVisible = true
-            }
-        })
-    }
+    ngOnInit(): void {}
 }

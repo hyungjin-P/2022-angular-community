@@ -4,7 +4,7 @@
     background-color: #f6f6f6;
     overflow-x: hidden;
 
-    .header {
+    .mobile-header {
         position: relative;
         display: flex;
         justify-content: center;
@@ -628,7 +628,7 @@
 
 @media (min-width: 768px) {
     .mypage {
-        .header {
+        .mobile-header {
             div:nth-child(2) {
                 @include textStyle(700, 16px, 24px);
             }
