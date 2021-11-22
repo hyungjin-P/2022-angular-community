@@ -1,3 +1,40 @@
 .privacy {
+    display: flex;
+    justify-content: center;
     padding: 16px;
+}
+
+@media (min-width: 576px) {
+    .privacy {
+        ::ng-deep privacy-component .privacy {
+            width: 512px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .privacy {
+        ::ng-deep privacy-component .privacy {
+            padding: 20px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .privacy {
+        ::ng-deep privacy-component .privacy {
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .privacy {
+        ::ng-deep privacy-component .privacy {
+            width: 75%;
+        }
+    }
 }
