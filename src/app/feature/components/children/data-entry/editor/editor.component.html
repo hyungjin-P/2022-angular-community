@@ -1,5 +1,28 @@
 <div class="title">Input</div>
 <div class="_content">
+    <div class="crop" *ngIf="imageUrl">
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [imageURL]="imageUrl"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="4 / 3"
+            [transform]="transform"
+            format="png"
+            [cropper]="cropper"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+        <div class="crop-menu-box">
+            <div class="crop-menu" (click)="resetImage()">초기화</div>
+            <div class="crop-menu" (click)="zoomIn()">줌인</div>
+            <div class="crop-menu" (click)="zoomOut()">줌아웃</div>
+            <div class="crop-menu" (click)="closeCrop()">취소</div>
+            <div class="crop-menu" (click)="saveCroppedImage()">저장</div>
+        </div>
+    </div>
+    <div class="export" (click)="export()">Export</div>
     <div class="editor">
         <div class="content" #contentElement dragula="ITEMS"></div>
         <div class="content-type-box">
@@ -11,7 +34,7 @@
                 <div class="mdi mdi-tooltip-image"></div>
                 <div>이미지</div>
             </div>
-            <input type="file" accept="image/*" #singleImageElement (change)="insertSingleImage()" hidden />
+            <input type="file" accept="image/*" #singleImageElement (change)="insertSingleImage($event)" hidden />
         </div>
     </div>
 </div>

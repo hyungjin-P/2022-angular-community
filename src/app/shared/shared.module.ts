@@ -40,6 +40,9 @@ import { TimePipe } from './pipes/time.pipe'
 // Dragula
 import { DragulaModule } from 'ng2-dragula'
 
+// Image Crop
+import { ImageCropperModule } from 'ngx-image-cropper'
+
 @NgModule({
     declarations: [
         // Components
@@ -82,6 +85,7 @@ import { DragulaModule } from 'ng2-dragula'
         }),
 
         DragulaModule.forRoot(),
+        ImageCropperModule,
     ],
     exports: [
         CommonModule,
@@ -116,6 +120,7 @@ import { DragulaModule } from 'ng2-dragula'
 
         // Dragular
         DragulaModule,
+        ImageCropperModule,
     ],
     providers: [],
 })

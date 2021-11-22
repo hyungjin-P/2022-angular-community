@@ -1,11 +1,14 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core'
 import { DragulaService } from 'ng2-dragula'
+import { ImageCroppedEvent, LoadedImage, ImageTransform, Dimensions } from 'ngx-image-cropper'
 import { Subscription, Subject } from 'rxjs'
+import { v4 as uuidv4 } from 'uuid'
 
 import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
 import { FileService } from '@services/file.service'
+import { HelperService } from '@services/helper.service'
 
 import { User } from '@schemas/user'
 import { File } from '@schemas/file'
@@ -24,12 +27,21 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     subscription: Subscription
 
     selectedEditorParagraphElement: HTMLElement
+    selectedImage: HTMLImageElement
+
+    imageChangedEvent: any = ''
+    imageUrl: any = ''
+    croppedImage: any = ''
+    scale = 1
+    transform: ImageTransform = {}
+    cropper: any = {}
 
     constructor(
         private dragulaService: DragulaService,
         private globalService: GlobalService,
         private storageService: StorageService,
-        private fileService: FileService
+        private fileService: FileService,
+        private helperService: HelperService
     ) {}
 
     ngOnInit() {
@@ -81,6 +93,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     insertParagraph() {
         let element = document.createElement('div')
         element.classList.add('editor-content', 'editor-content-paragraph')
+        element.spellcheck = false
 
         this.addParagraphMenuBox(element)
 
@@ -167,7 +180,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         element.appendChild(menuBox)
     }
 
-    async insertSingleImage() {
+    async insertSingleImage(event) {
         const files: FileList = this.singleImageElement.nativeElement.files
 
         if (files && files.length == 0) {
@@ -191,9 +204,33 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
             this.addSingleImageMenuBox(element)
 
+            let imgBox = document.createElement('div')
+            imgBox.classList.add('editor-content-single-image-box')
             let img = document.createElement('img')
             img.src = createdFiles[0]['url']
-            element.appendChild(img)
+            img.dataset.origin = createdFiles[0]['url']
+            imgBox.appendChild(img)
+
+            let imgMenuBox = document.createElement('div')
+            imgMenuBox.classList.add('editor-content-single-image-menu-box')
+
+            let cropMenu = document.createElement('div')
+            cropMenu.classList.add('editor-content-single-image-menu')
+            let cropIcon = document.createElement('div')
+            cropIcon.classList.add('mdi', 'mdi-crop')
+            cropMenu.addEventListener(
+                'click',
+                function () {
+                    this.selectedImage = img
+                    this.imageUrl = img.dataset.origin
+                }.bind(this)
+            )
+            cropMenu.appendChild(cropIcon)
+            imgMenuBox.appendChild(cropMenu)
+
+            imgBox.appendChild(imgMenuBox)
+
+            element.appendChild(imgBox)
 
             this.contentElement.nativeElement.appendChild(element)
         } catch (e) {}
@@ -270,5 +307,88 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     export() {
         console.log('htmlString:', this.contentElement.nativeElement.innerHTML)
+    }
+
+    // Crop Image
+    fileChangeEvent(event: any): void {
+        this.imageChangedEvent = event
+    }
+
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64
+        this.cropper.x1 = event.cropperPosition.x1
+        this.cropper.y1 = event.cropperPosition.y1
+        this.cropper.x2 = event.cropperPosition.x2
+        this.cropper.y2 = event.cropperPosition.y2
+    }
+
+    imageLoaded(image: LoadedImage) {}
+
+    cropperReady(sourceImageDimensions: Dimensions) {
+        let x1 = Number(this.selectedImage.dataset.x1)
+        if (x1) {
+            let y1 = Number(this.selectedImage.dataset.y1)
+            let x2 = Number(this.selectedImage.dataset.x2)
+            let y2 = Number(this.selectedImage.dataset.y2)
+
+            this.cropper = {
+                x1: x1,
+                y1: y1,
+                x2: x2,
+                y2: y2,
+            }
+        }
+    }
+
+    loadImageFailed() {}
+
+    zoomIn() {
+        this.scale += 0.1
+        this.transform = {
+            ...this.transform,
+            scale: this.scale,
+        }
+    }
+
+    zoomOut() {
+        this.scale -= 0.1
+        this.transform = {
+            ...this.transform,
+            scale: this.scale,
+        }
+    }
+
+    resetImage() {
+        this.scale = 1
+        this.transform = {}
+    }
+
+    closeCrop() {
+        this.imageUrl = ''
+    }
+
+    async saveCroppedImage() {
+        let file = this.helperService.dataURLtoFile(this.croppedImage, uuidv4() + '.png')
+        let files: any = [file]
+
+        try {
+            let createdFiles: Array<File> = await this.fileService
+                .createFile(
+                    {
+                        domain_name: 'public.keeping.link',
+                        path: `/users/${this.user.id}/post`,
+                        tags: ['post'],
+                    },
+                    files
+                )
+                .toPromise()
+
+            this.selectedImage.src = createdFiles[0]['url']
+            this.selectedImage.dataset.x1 = this.cropper.x1
+            this.selectedImage.dataset.y1 = this.cropper.y1
+            this.selectedImage.dataset.x2 = this.cropper.x2
+            this.selectedImage.dataset.y2 = this.cropper.y2
+            this.closeCrop()
+        } catch (e) {}
     }
 }

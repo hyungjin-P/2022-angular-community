@@ -302,6 +302,43 @@
 
 .editor-content-single-image {
     display: flex;
+
+    .editor-content-single-image-box {
+        position: relative;
+
+        img {
+            min-width: 200px;
+            min-height: 200px;
+            border-radius: 4px;
+        }
+
+        .editor-content-single-image-menu-box {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+
+            .editor-content-single-image-menu {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 2px;
+                width: 24px;
+                height: 24px;
+                border: 1px solid var(--grey-6);
+                border-radius: 4px;
+                background-color: var(--white);
+                cursor: pointer;
+
+                .mdi {
+                    font-size: 16px;
+                }
+
+                &:hover {
+                    background-color: var(--grey-8);
+                }
+            }
+        }
+    }
 }
 
 // KEEPING

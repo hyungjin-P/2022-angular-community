@@ -9,6 +9,22 @@
 }
 
 ._content {
+    .crop {
+        position: relative;
+
+        .crop-menu-box {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            cursor: pointer;
+
+            .crop-menu {
+                margin: 0 5px;
+            }
+        }
+    }
+
     .editor {
         position: relative;
 
