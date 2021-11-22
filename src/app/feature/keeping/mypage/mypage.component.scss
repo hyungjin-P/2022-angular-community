@@ -599,52 +599,54 @@
 }
 
 @media (min-width: 576px) {
-    .background {
-        height: 260px;
-
-        > div {
-            img {
+    .mypage {
+        .section {
+            .background {
                 height: 260px;
+
+                > div {
+                    img {
+                        height: 260px;
+                    }
+                }
             }
-        }
-    }
 
-    .profile {
-        > div {
-            width: 512px;
+            .profile {
+                > div {
+                    width: 512px;
 
-            .edit-profile-button {
-                position: absolute;
-                top: -24px;
-                right: 0;
+                    .edit-profile-button {
+                        position: absolute;
+                        top: -24px;
+                        right: 0;
+                    }
+                }
             }
-        }
-    }
-}
-
-@media (min-width: 576px) {
-    .mypage .section .profile {
-        > div {
-            width: 512px;
         }
     }
 }
 
 @media (min-width: 768px) {
-    .header {
-        div:nth-child(2) {
-            @include textStyle(700, 16px, 24px);
+    .mypage {
+        .header {
+            div:nth-child(2) {
+                @include textStyle(700, 16px, 24px);
+            }
         }
     }
 }
 
 @media (min-width: 992px) {
-    .background {
-        height: 280px;
-
-        > div {
-            img {
+    .mypage {
+        .section {
+            .background {
                 height: 280px;
+
+                > div {
+                    img {
+                        height: 280px;
+                    }
+                }
             }
         }
     }
