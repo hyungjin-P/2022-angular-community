@@ -24,7 +24,6 @@
                         class="scroll-y"
                         [placeholder]="'keeping.write.content-placeholder' | translate"
                         [(ngModel)]="content"
-                        maxlength="30"
                     ></textarea>
                 </div>
             </div>
@@ -44,11 +43,16 @@
                     <div class="desc">{{ 'keeping.write.add-picture-label-desc' | translate }}</div>
                     <span class="mdi mdi-chevron-down"></span>
                 </div>
-                <div class="picture-box scroll-x" *ngIf="pictureBoxVisible">
-                    <div class="add-picture">
+                <div class="picture-box scroll-x" #pictureBoxElement [class.d-flex]="pictureBoxVisible">
+                    <div class="add-picture" (click)="picture.click()">
                         <div class="mdi mdi-plus"></div>
                     </div>
                 </div>
+                <div class="carousel-view" #carousel [class.carousel-view-show]="pictureBoxVisible && panelCount != 0">
+                    <ul class="carousel-container" #container></ul>
+                </div>
+
+                <input type="file" accept="image/*" #picture (change)="addPicture(picture)" hidden />
             </div>
             <div class="h-line"></div>
             <div class="form">
