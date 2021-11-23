@@ -30,14 +30,24 @@
             </div>
             <div class="h-line"></div>
             <div class="form">
-                <div class="form-header">
+                <div
+                    class="form-header picture-header"
+                    [class.pictrue-box-open]="pictureBoxVisible"
+                    (click)="showPictureBox()"
+                >
                     <div class="icon">
                         <div class="mdi mdi-camera"></div>
                     </div>
-                    <div class="text">
-                        {{ 'keeping.write.add-picture-text' | translate }}
+                    <div class="label">
+                        {{ 'keeping.write.add-picture-label' | translate }}
                     </div>
+                    <div class="desc">{{ 'keeping.write.add-picture-label-desc' | translate }}</div>
                     <span class="mdi mdi-chevron-down"></span>
+                </div>
+                <div class="picture-box scroll-x" *ngIf="pictureBoxVisible">
+                    <div class="add-picture">
+                        <div class="mdi mdi-plus"></div>
+                    </div>
                 </div>
             </div>
             <div class="h-line"></div>
@@ -46,10 +56,26 @@
                     <div class="icon">
                         <div class="sharp">#</div>
                     </div>
-                    <div class="text">
-                        {{ 'keeping.write.add-tag-text' | translate }}
+                    <div class="label">
+                        {{ 'keeping.write.add-tag-label' | translate }}
+                    </div>
+                    <div class="desc">{{ 'keeping.write.add-tag-label-desc' | translate }}</div>
+                    <div class="count">
+                        <div>0</div>
+                        <div>/</div>
+                        <div>5</div>
                     </div>
                 </div>
+                <div class="tag-box">
+                    <div class="add-tag">
+                        <div class="mdi mdi-plus"></div>
+                        <div>{{ 'keeping.write.add-tag-text' | translate }}</div>
+                    </div>
+                </div>
+
+                <a class="write-button shared-button-primary d-none d-lg-flex">
+                    <div>{{ 'keeping.write.write-button' | translate }}</div>
+                </a>
             </div>
         </div>
     </div>

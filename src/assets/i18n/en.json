@@ -136,14 +136,18 @@
             "write": "Write"
         },
         "write": {
-            "add-picture-text": "Add pictures",
-            "add-tag-text": "Add tags",
+            "add-picture-label": "Add photos",
+            "add-picture-label-desc": "(up to 5)",
+            "add-tag-label": "Add tags",
+            "add-tag-label-desc": "(# separated, up to 5)",
+            "add-tag-text": "Add tag",
             "content-label": "Content",
             "content-placeholder": "Please enter the text you want to share.",
             "save-button-text": "Save",
             "title-label": "Title",
             "title-label-desc": "(up to 80 characters)",
-            "title-placeholder": "Please enter a title."
+            "title-placeholder": "Please enter a title.",
+            "write-button": "Write"
         }
     },
     "mypage": {
