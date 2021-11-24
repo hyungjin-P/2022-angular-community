@@ -1,0 +1,298 @@
+@import '/src/assets/styles/font';
+
+.section {
+    padding: 0 16px 30px;
+
+    .nav {
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        margin: 0 -16px;
+        height: 54px;
+        background-color: var(--white);
+        z-index: 1;
+
+        .menu {
+            padding: 0 12px;
+            height: 100%;
+            cursor: pointer;
+
+            .text {
+                position: relative;
+                top: 8px;
+
+                @include textStyle(700, 16px, 22px);
+                color: var(--grey-4);
+            }
+        }
+
+        .selected {
+            .text {
+                color: var(--text-2);
+                text-decoration: underline;
+                text-underline-offset: 22px;
+                text-decoration-thickness: 4px;
+                text-decoration-color: var(--text-2);
+            }
+        }
+    }
+
+    .tag-list {
+        position: sticky;
+        top: 54px;
+        display: flex;
+        align-items: center;
+        margin: 0 -3px 30px;
+        height: 54px;
+        background-color: var(--white);
+        box-shadow: 0px 3px 5px rgba(235, 235, 235, 0.5);
+        z-index: 1;
+
+        overflow-x: auto;
+
+        /* height */
+        &::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            border-radius: 8px;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background-clip: content-box;
+            background-color: var(--grey-6);
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: var(--grey-4);
+        }
+
+        .tag {
+            padding: 0 3px;
+            cursor: pointer;
+
+            > div {
+                padding: 6px 12px;
+                height: 32px;
+                border-radius: 30px;
+                border: 1px solid var(--grey-6);
+
+                white-space: pre;
+            }
+        }
+
+        .selected {
+            > div {
+                border: 1px solid var(--text-2);
+                background-color: var(--text-2);
+
+                color: var(--white);
+            }
+        }
+    }
+
+    .item-list {
+        margin: -15px -3px;
+
+        .item {
+            padding: 15px 3px;
+
+            > div {
+                .image-box {
+                    position: relative;
+                    width: 100%;
+                    min-height: 150px;
+                    background-color: var(--grey-8);
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 8px;
+                    }
+
+                    .count,
+                    .bookmark {
+                        position: absolute;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 24px;
+                        height: 24px;
+
+                        img {
+                            height: 16px;
+                            width: 16px;
+                            border-radius: unset;
+                        }
+                    }
+
+                    .count {
+                        top: 5px;
+                        right: 5px;
+                    }
+
+                    .bookmark {
+                        bottom: 5px;
+                        right: 5px;
+                        cursor: pointer;
+
+                        img {
+                            height: 18px;
+                        }
+                    }
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 8px;
+                    height: 20px;
+
+                    .nickname {
+                        margin-left: 4px;
+
+                        @include textStyle(400, 12px, 20px);
+                        color: var(--grey-1);
+                    }
+                }
+
+                .title {
+                    margin-top: 4px;
+
+                    @include textStyle(400, 13px, 21px);
+                }
+
+                .tags {
+                    height: 20px;
+
+                    @include textStyle(400, 12px, 20px);
+                }
+
+                .additional {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 8px;
+                    height: 20px;
+
+                    .like,
+                    .comment {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+
+                        @include textStyle(400, 13px, 21px);
+                        color: var(--grey-2);
+
+                        .text {
+                            margin-left: 2px;
+                        }
+                    }
+
+                    .comment {
+                        margin-left: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 414px) {
+    .section {
+        .item-list {
+            margin: -15px -6px;
+
+            .item {
+                padding: 15px 6px;
+            }
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .section {
+        .item-list {
+            margin: -20px -6px;
+
+            .item {
+                padding: 20px 6px;
+
+                > div {
+                    .image-box {
+                        min-height: 260px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .section {
+        .nav {
+            top: 1px;
+            margin-top: 40px !important;
+            width: 92%;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--grey-8);
+        }
+
+        .tag-list {
+            width: 92%;
+            margin: 0 auto 40px;
+            box-shadow: none;
+        }
+
+        .item-list {
+            width: 92%;
+            margin: -25px auto;
+
+            .item {
+                padding: 25px 10px;
+
+                > div {
+                    .image-box {
+                        min-height: 190px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1920px) {
+    .section {
+        .tag-list {
+            margin: 0 auto 157px;
+        }
+
+        .item-list {
+            width: 92%;
+            margin: -30px auto;
+
+            .item {
+                padding: 30px 15px;
+
+                > div {
+                    .image-box {
+                        min-height: 270px;
+                    }
+                }
+            }
+        }
+    }
+
+    .col-xxl-2-5 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}

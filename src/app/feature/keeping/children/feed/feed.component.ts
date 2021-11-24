@@ -6,7 +6,15 @@ import { Component, OnInit } from '@angular/core'
     styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit {
+    selectedMenu: string
+
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.selectedMenu = 'popularity'
+    }
+
+    changeMenu(menu: string) {
+        this.selectedMenu = menu
+    }
 }

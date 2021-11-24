@@ -29,7 +29,7 @@ const routes: Routes = [
         children: [
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'feed', component: FeedComponent },
-            { path: 'write', component: WriteComponent },
+            { path: 'write', canActivate: [AuthGuard], component: WriteComponent },
             { path: 'magazine', component: MagazineComponent },
             { path: 'notice', component: NoticeComponent },
             { path: 'event', component: EventComponent },
@@ -41,7 +41,7 @@ const routes: Routes = [
         ],
     },
 
-    { path: 'mypage', canActivate: [ServiceTermsGuard], component: MypageComponent },
+    { path: 'mypage', canActivate: [AuthGuard, ServiceTermsGuard], component: MypageComponent },
 
     { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 
@@ -52,7 +52,7 @@ const routes: Routes = [
 
     {
         path: 'settings',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, ServiceTermsGuard],
         loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule),
     },
 ]
