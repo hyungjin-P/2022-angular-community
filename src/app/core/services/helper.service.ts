@@ -13,8 +13,8 @@ export class HelperService {
         }
     }
 
-    dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','),
+    dataURLtoFile(dataUrl, fileName) {
+        var arr = dataUrl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
             bstr = atob(arr[1]),
             n = bstr.length,
@@ -24,6 +24,6 @@ export class HelperService {
             u8arr[n] = bstr.charCodeAt(n)
         }
 
-        return new File([u8arr], filename, { type: mime })
+        return new File([u8arr], fileName, { type: mime })
     }
 }
