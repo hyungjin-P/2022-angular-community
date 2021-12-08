@@ -413,6 +413,46 @@
     }
 }
 
+.nav {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 16px;
+    height: 56px;
+    background-color: var(--white);
+    z-index: 1;
+
+    .menu {
+        position: relative;
+        padding: 8px 12px;
+        height: 50px;
+        cursor: pointer;
+
+        .text {
+            @include textStyle(700, 18px, 26px);
+            color: var(--grey-4);
+        }
+
+        .selected-line {
+            display: none;
+            position: absolute;
+            right: 5px;
+            bottom: 2px;
+            left: 5px;
+            border-bottom: 3px solid var(--black);
+        }
+    }
+
+    .selected {
+        .text {
+            color: var(--black);
+        }
+
+        .selected-line {
+            display: block;
+        }
+    }
+}
+
 @media (min-width: 992px) {
     .header {
         height: 68px;

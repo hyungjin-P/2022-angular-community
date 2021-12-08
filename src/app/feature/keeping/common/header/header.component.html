@@ -213,7 +213,7 @@
                         <div class="text">{{ 'common.header.help' | translate }}</div>
                     </a>
                     <div class="user-box-h-line-2"></div> -->
-                    <a class="user-box-menu" [routerLink]="['/settings']" (click)="closeUserBox()">
+                    <a class="user-box-menu" [routerLink]="['/settings/profile']" (click)="closeUserBox()">
                         <svg
                             class="user-box-svg-icon"
                             width="18"
@@ -251,7 +251,7 @@
                 </div>
             </a>
             <div class="v-line d-none d-lg-flex"></div>
-            <a class="settings d-none d-lg-flex" [routerLink]="['/settings']">
+            <a class="settings d-none d-lg-flex" [routerLink]="['/settings/profile']">
                 <svg class="svg-icon" viewBox="-1 -1 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         class=""
@@ -270,5 +270,15 @@
                 <img src="assets/icons/header/mobile-settings.png" />
             </a>
         </ng-container>
+    </div>
+</div>
+<div class="nav d-flex d-lg-none">
+    <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
+        <div class="text">피드</div>
+        <div class="selected-line"></div>
+    </div>
+    <div class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">
+        <div class="text">매거진</div>
+        <div class="selected-line"></div>
     </div>
 </div>
