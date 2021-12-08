@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="nav">
-    <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
+    <!-- <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
         <svg
             class="svg-icon"
             width="24"
@@ -36,7 +36,7 @@
             />
         </svg>
         <div class="text">{{ 'common.drawer.home' | translate }}</div>
-    </a>
+    </a> -->
     <a class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
         <svg
             class="svg-icon"
@@ -107,7 +107,7 @@
 
         <div class="text">{{ 'common.drawer.magazine' | translate }}</div>
     </a>
-    <a class="menu menu-more" [class.menu-more-box-open]="variables.menuMoreBoxVisible" (click)="openMenuMoreBox()">
+    <!-- <a class="menu menu-more" [class.menu-more-box-open]="variables.menuMoreBoxVisible" (click)="openMenuMoreBox()">
         <svg
             class="svg-icon"
             width="24"
@@ -150,7 +150,7 @@
         <a class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
             <span>{{ 'common.drawer.help' | translate }}</span>
         </a>
-    </div>
+    </div> -->
     <a class="menu">
         <svg
             class="svg-icon"

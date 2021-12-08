@@ -107,12 +107,8 @@
             "shop": "Shop"
         },
         "header": {
-            "bookmark": "Bookmark",
-            "help": "Help",
             "myaccount": "My Account",
-            "mypage": "My Page",
-            "search-placeholder": "#Tag, Post, ...",
-            "settings": "Settings",
+            "profile": "Profile",
             "signin": "Sign In",
             "signout": "Sign Out",
             "singup": "Sign Up",

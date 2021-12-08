@@ -27,7 +27,7 @@ const routes: Routes = [
         canActivate: [ServiceTermsGuard],
         component: KeepingComponent,
         children: [
-            { path: '', component: HomeComponent, pathMatch: 'full' },
+            { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full' },
             { path: 'feed', component: FeedComponent },
             { path: 'write', canActivate: [AuthGuard], component: WriteComponent },
             { path: 'magazine', component: MagazineComponent },

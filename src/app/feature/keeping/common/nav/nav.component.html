@@ -1,6 +1,6 @@
 <div class="nav" [class.nav-open]="variables.isNavOpen">
     <div *ngIf="!variables.isNavOpen">
-        <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
+        <!-- <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
             <svg
                 class="svg-icon"
                 width="24"
@@ -25,7 +25,7 @@
                 />
             </svg>
             <div class="text">{{ 'common.nav.home' | translate }}</div>
-        </a>
+        </a> -->
         <a class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
             <svg
                 class="svg-icon"
@@ -102,7 +102,7 @@
 
             <div class="text">{{ 'common.nav.magazine' | translate }}</div>
         </a>
-        <a class="menu" [routerLink]="['/notice']" routerLinkActive="selected">
+        <!-- <a class="menu" [routerLink]="['/notice']" routerLinkActive="selected">
             <svg
                 class="svg-icon"
                 width="24"
@@ -128,8 +128,8 @@
             </svg>
 
             <div class="text">{{ 'common.nav.notice' | translate }}</div>
-        </a>
-        <a class="menu" [routerLink]="['/event']" routerLinkActive="selected">
+        </a> -->
+        <!-- <a class="menu" [routerLink]="['/event']" routerLinkActive="selected">
             <svg
                 class="svg-icon"
                 width="24"
@@ -177,8 +177,8 @@
             </svg>
 
             <div class="text">{{ 'common.nav.event' | translate }}</div>
-        </a>
-        <a class="menu" [routerLink]="['/help']" routerLinkActive="selected">
+        </a> -->
+        <!-- <a class="menu" [routerLink]="['/help']" routerLinkActive="selected">
             <svg
                 class="svg-icon"
                 width="24"
@@ -211,7 +211,7 @@
             </svg>
 
             <div class="text">{{ 'common.nav.help' | translate }}</div>
-        </a>
+        </a> -->
         <a class="menu" href="https://keepingshop.link" target="_blank">
             <svg
                 class="svg-icon"
@@ -242,7 +242,7 @@
     </div>
 
     <div *ngIf="variables.isNavOpen">
-        <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
+        <!-- <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
             <svg
                 class="svg-icon"
                 width="24"
@@ -267,7 +267,7 @@
                 />
             </svg>
             <div class="text">{{ 'common.nav.home' | translate }}</div>
-        </a>
+        </a> -->
         <a class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
             <svg
                 class="svg-icon"
@@ -344,7 +344,7 @@
 
             <div class="text">{{ 'common.nav.magazine' | translate }}</div>
         </a>
-        <a class="menu menu-more" [class.menu-more-box-open]="variables.menuMoreBoxVisible" (click)="openMenuMoreBox()">
+        <!-- <a class="menu menu-more" [class.menu-more-box-open]="variables.menuMoreBoxVisible" (click)="openMenuMoreBox()">
             <svg
                 class="svg-icon"
                 width="24"
@@ -387,7 +387,7 @@
             <a class="menu-more-box-menu" [routerLink]="['/help']" routerLinkActive="menu-more-box-menu-selected">
                 <span>{{ 'common.nav.help' | translate }}</span>
             </a>
-        </div>
+        </div> -->
         <a class="menu" href="https://keepingshop.link" target="_blank">
             <svg
                 class="svg-icon"
