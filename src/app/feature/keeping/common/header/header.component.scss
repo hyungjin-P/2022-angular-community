@@ -4,7 +4,7 @@
     display: flex;
     padding: 0 16px;
     height: 60px;
-    background-color: var(--blue-1);
+    background-color: var(--white);
     box-shadow: 0px 1px 0px var(--grey-8);
 
     .leading,
@@ -45,7 +45,7 @@
         }
 
         .logo {
-            height: 32px;
+            height: 28px;
             cursor: pointer;
         }
     }
@@ -406,12 +406,23 @@
                 opacity: 0.8;
             }
         }
+
+        .mobile-write {
+            margin-right: 16px;
+        }
     }
 }
 
 @media (min-width: 992px) {
     .header {
         height: 68px;
+        background-color: var(--blue-1);
+
+        .leading {
+            .logo {
+                height: 32px;
+            }
+        }
 
         .leading,
         .center,
