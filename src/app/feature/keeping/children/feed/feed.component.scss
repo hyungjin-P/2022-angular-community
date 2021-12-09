@@ -1,7 +1,7 @@
 @import '/src/assets/styles/font';
 
 .section {
-    padding: 0 16px 30px;
+    padding: 20px 16px;
 
     .nav {
         position: sticky;
@@ -182,11 +182,14 @@
                     margin-top: 8px;
                     height: 20px;
 
+                    .like {
+                        cursor: pointer;
+                    }
+
                     .like,
                     .comment {
                         display: flex;
                         align-items: center;
-                        cursor: pointer;
 
                         @include textStyle(400, 13px, 21px);
                         color: var(--grey-2);
@@ -237,6 +240,8 @@
 
 @media (min-width: 992px) {
     .section {
+        padding: 50px 16px;
+
         .nav {
             top: 1px;
             margin-top: 40px !important;
@@ -270,6 +275,8 @@
 
 @media (min-width: 1920px) {
     .section {
+        padding: 80px 16px;
+
         .tag-list {
             margin: 0 auto 50px;
         }
