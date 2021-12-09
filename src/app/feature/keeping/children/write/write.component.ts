@@ -303,7 +303,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
     }
 
     addTag() {
-        if (this.feed.tags.length >= 10) {
+        if (this.feed.tags.length >= 10 || !this.tagModalInput) {
             this.hideTagModal()
             return
         }
