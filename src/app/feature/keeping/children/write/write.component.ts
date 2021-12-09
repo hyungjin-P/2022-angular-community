@@ -32,8 +32,10 @@ import { StorageService } from '@services/storage.service'
 
 import { FeedService } from '@services/feed.service'
 import { FileService } from '@services/file.service'
+import { TextService } from '@services/text.service'
 
 import { Feed } from '@schemas/feed'
+import { FeedTag } from '@schemas/feed-tag'
 import { User } from '@schemas/user'
 import { File } from '@schemas/file'
 
@@ -72,12 +74,16 @@ export class WriteComponent implements OnInit, AfterViewInit {
     selectedLanguage: string
     feed: Feed
 
+    tagModalVisible: boolean
+    tagModalInput: string
+
     constructor(
         private location: Location,
         private globalService: GlobalService,
         private storageService: StorageService,
         private feedService: FeedService,
-        private fileService: FileService
+        private fileService: FileService,
+        private textService: TextService
     ) {}
 
     ngOnInit() {
@@ -91,6 +97,8 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
         this.selectedLanguage = localStorage.getItem('language')
         this.createFeed()
+
+        this.tagModalVisible = false
     }
 
     goBack() {
@@ -105,6 +113,11 @@ export class WriteComponent implements OnInit, AfterViewInit {
         const files: FileList = picture.files
 
         if (files && files.length == 0) {
+            return
+        }
+
+        let picturesLength = this.feed.pictures.length + files.length
+        if (picturesLength > 8) {
             return
         }
 
@@ -124,93 +137,19 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
             this.feed.pictures = createdFiles.concat(this.feed.pictures)
 
-            // Preview - picture-box
-            let element = document.createElement('div')
-            element.classList.add('write-added-picture')
-
-            let img = document.createElement('img')
-            img.src = createdFiles[0]['url']
-            img.dataset.origin = createdFiles[0]['url']
-
-            let deleteMenu = document.createElement('div')
-            deleteMenu.classList.add('write-added-picture-delete-menu')
-            let deleteIcon = document.createElement('div')
-            deleteIcon.classList.add('mdi', 'mdi-close')
-            deleteMenu.addEventListener(
-                'click',
-                function () {
-                    this.deletePicture(createdFiles[0]['url'])
-                    element.remove()
-                    carouselPanel.remove()
-                    this.panelCount--
-                }.bind(this)
-            )
-            deleteMenu.appendChild(deleteIcon)
-
-            element.appendChild(img)
-            element.appendChild(deleteMenu)
-
-            this.pictureBoxElement.nativeElement.appendChild(element)
-
-            // Carousel
-            let carouselPanel = document.createElement('li')
-            carouselPanel.classList.add('write-added-picture-carousel-panel')
-
-            let carouselPanelDiv = document.createElement('div')
-
-            let carouselPanelImgWrapper = document.createElement('div')
-            carouselPanelImgWrapper.classList.add('write-added-picture-carousel-panel-img-wrapper')
-
-            let carouselPanelImg = document.createElement('img')
-            carouselPanelImg.src = createdFiles[0]['url']
-            carouselPanelImg.dataset.origin = createdFiles[0]['url']
-            carouselPanelImg.draggable = false
-
-            carouselPanelImgWrapper.appendChild(carouselPanelImg)
-
-            let carouselPanelDeleteMenu = document.createElement('div')
-            carouselPanelDeleteMenu.classList.add('write-added-picture-carousel-panel-delete-menu')
-            let carouselPanelDeleteIcon = document.createElement('div')
-            carouselPanelDeleteIcon.classList.add('mdi', 'mdi-close')
-            carouselPanelDeleteMenu.addEventListener(
-                'click',
-                function () {
-                    this.deletePicture(createdFiles[0]['url'])
-                    element.remove()
-                    carouselPanel.remove()
-                    this.panelCount--
-                }.bind(this)
-            )
-            carouselPanelDeleteMenu.appendChild(carouselPanelDeleteIcon)
-
-            let carouselPanelMainPictureMenu = document.createElement('div')
-            carouselPanelMainPictureMenu.classList.add('write-added-picture-carousel-panel-main-picture-menu')
-            let carouselPanelMainPictureIcon = document.createElement('div')
-            carouselPanelMainPictureIcon.classList.add('mdi', 'mdi-check')
-            carouselPanelMainPictureMenu.addEventListener('click', function () {}.bind(this))
-            let carouselPanelMainPictureText = document.createElement('div')
-            let text = this.selectedLanguage == 'ko' ? '메인' : 'Main'
-            carouselPanelMainPictureText.innerText = text
-
-            carouselPanelMainPictureMenu.appendChild(carouselPanelMainPictureIcon)
-            carouselPanelMainPictureMenu.appendChild(carouselPanelMainPictureText)
-
-            carouselPanelDiv.appendChild(carouselPanelImgWrapper)
-            carouselPanelDiv.appendChild(carouselPanelDeleteMenu)
-            carouselPanelDiv.appendChild(carouselPanelMainPictureMenu)
-            carouselPanel.appendChild(carouselPanelDiv)
-
-            this.container.nativeElement.appendChild(carouselPanel)
-
-            this.panelCount++
             picture.value = ''
         } catch (e) {}
     }
 
-    async deletePicture(fileUrl: string) {
+    async deletePicture(index: number, fileUrl: string) {
         try {
             await this.fileService.deleteFile(fileUrl).toPromise()
             await this.feedService.deleteUserPicture(this.feed.id, fileUrl).toPromise()
+            this.feed.pictures.splice(index, 1)
+
+            if (this.feed.picture == fileUrl || this.feed.pictures.length == 0) {
+                this.checkMainPicture('')
+            }
         } catch (e) {}
     }
 
@@ -275,7 +214,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
                             tobeIndex =
                                 distance >= 0
                                     ? Math.max(tobeIndex - 1, 0)
-                                    : Math.min(tobeIndex + 1, this.panelCount - 1)
+                                    : Math.min(tobeIndex + 1, this.feed.pictures.length - 1)
                         }
                         updateStore.index = tobeIndex
                         updateStore.to = -(tobeIndex * size)
@@ -328,75 +267,78 @@ export class WriteComponent implements OnInit, AfterViewInit {
         this.feedService.createFeed({ rewrite: false }).subscribe(
             (feed: Feed) => {
                 this.feed = feed
+                this.content = feed.content
+            },
+            (e) => {}
+        )
+    }
 
-                this.feed.pictures.forEach((picture, index) => {
-                    // Preview - picture-box
-                    let element = document.createElement('div')
-                    element.classList.add('write-added-picture')
+    checkMainPicture(url: string) {
+        this.feedService.updateFeed(this.feed.id, { picture: url }).subscribe(
+            (feed: Feed) => {
+                this.feed.picture = url
+            },
+            (e) => {}
+        )
+    }
 
-                    let img = document.createElement('img')
-                    img.src = picture['url']
-                    img.dataset.origin = picture['url']
+    updateContent() {
+        this.feedService.updateFeed(this.feed.id, { content: this.content }).subscribe(
+            (v) => {},
+            (e) => {}
+        )
+    }
 
-                    let deleteMenu = document.createElement('div')
-                    deleteMenu.classList.add('write-added-picture-delete-menu')
-                    let deleteIcon = document.createElement('div')
-                    deleteIcon.classList.add('mdi', 'mdi-close')
-                    deleteMenu.addEventListener(
-                        'click',
-                        function () {
-                            this.deletePicture(picture['url'])
-                            element.remove()
-                            carouselPanel.remove()
-                            this.panelCount--
-                        }.bind(this)
-                    )
-                    deleteMenu.appendChild(deleteIcon)
+    showTagModal() {
+        this.tagModalVisible = true
+    }
 
-                    element.appendChild(img)
-                    element.appendChild(deleteMenu)
+    hideTagModal() {
+        this.clearTagModal()
+        this.tagModalVisible = false
+    }
 
-                    this.pictureBoxElement.nativeElement.appendChild(element)
+    clearTagModal() {
+        this.tagModalInput = ''
+    }
 
-                    // Carousel
-                    let carouselPanel = document.createElement('li')
-                    carouselPanel.classList.add('write-added-picture-carousel-panel')
+    addTag() {
+        if (this.feed.tags.length >= 10) {
+            this.hideTagModal()
+            return
+        }
 
-                    let carouselPanelDiv = document.createElement('div')
+        this.feedService.createFeedTag(this.feed.id, { name: this.tagModalInput }).subscribe(
+            (feedTag: FeedTag) => {
+                this.feed.tags.push(feedTag)
+                this.hideTagModal()
+            },
+            (e) => {}
+        )
+    }
 
-                    let carouselPanelImgWrapper = document.createElement('div')
-                    carouselPanelImgWrapper.classList.add('write-added-picture-carousel-panel-img-wrapper')
+    deleteTag(index: number, tagId: string) {
+        this.feedService.deleteFeedTag(this.feed.id, tagId).subscribe(
+            (v) => {
+                this.feed.tags.splice(index, 1)
+            },
+            (e) => {}
+        )
+    }
 
-                    let carouselPanelImg = document.createElement('img')
-                    carouselPanelImg.src = picture['url']
-                    carouselPanelImg.dataset.origin = picture['url']
-                    carouselPanelImg.draggable = false
+    posting() {
+        if (this.feed.pictures.length == 0 || this.content == '') {
+            let message = this.textService.getText('write:feed:001')
+            this.globalService.showToast(message)
 
-                    carouselPanelImgWrapper.appendChild(carouselPanelImg)
+            return
+        }
 
-                    let carouselPanelDeleteMenu = document.createElement('div')
-                    carouselPanelDeleteMenu.classList.add('write-added-picture-carousel-panel-delete-menu')
-                    let carouselPanelDeleteIcon = document.createElement('div')
-                    carouselPanelDeleteIcon.classList.add('mdi', 'mdi-close')
-                    carouselPanelDeleteMenu.addEventListener(
-                        'click',
-                        function () {
-                            this.deletePicture(picture['url'])
-                            element.remove()
-                            carouselPanel.remove()
-                            this.panelCount--
-                        }.bind(this)
-                    )
-                    carouselPanelDeleteMenu.appendChild(carouselPanelDeleteIcon)
-
-                    carouselPanelDiv.appendChild(carouselPanelImgWrapper)
-                    carouselPanelDiv.appendChild(carouselPanelDeleteMenu)
-                    carouselPanel.appendChild(carouselPanelDiv)
-
-                    this.container.nativeElement.appendChild(carouselPanel)
-                })
-
-                this.panelCount = this.feed.pictures.length
+        this.feedService.updateFeed(this.feed.id, { posting: true }).subscribe(
+            (v) => {
+                this.createFeed()
+                let message = this.textService.getText('write:feed:002')
+                this.globalService.showToast(message)
             },
             (e) => {}
         )

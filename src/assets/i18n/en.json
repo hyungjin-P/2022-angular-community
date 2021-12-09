@@ -95,13 +95,8 @@
             "signin": "Sign In"
         },
         "drawer": {
-            "event": "Event",
             "feed": "Feed",
-            "help": "Help",
-            "home": "Home",
             "magazine": "Magazine",
-            "more": "More",
-            "notice": "Notice",
             "privacy": "Privacy",
             "service-terms": "Service Terms",
             "shop": "Shop"
@@ -115,13 +110,8 @@
             "write": "Write"
         },
         "nav": {
-            "event": "Event",
             "feed": "Feed",
-            "help": "Help",
-            "home": "Home",
             "magazine": "Magazine",
-            "more": "More",
-            "notice": "Notice",
             "privacy": "Privacy",
             "service-terms": "Service Terms",
             "shop": "Shop"
@@ -133,17 +123,18 @@
         },
         "write": {
             "add-picture-label": "Add photos",
-            "add-picture-label-desc": "(up to 5)",
+            "add-picture-label-desc": "(up to 8)",
+            "add-picture-main-text": "Main",
             "add-tag-label": "Add tags",
-            "add-tag-label-desc": "(# separated, up to 5)",
+            "add-tag-label-desc": "(# separated, up to 10)",
             "add-tag-text": "Add tag",
             "content-label": "Content",
             "content-placeholder": "Please enter the text you want to share.",
             "save-button-text": "Upload",
-            "title-label": "Title",
-            "title-label-desc": "(up to 80 characters)",
-            "title-placeholder": "Please enter a title.",
-            "write-button": "Write"
+            "tag-modal-add-button": "Cancel",
+            "tag-modal-cancel-button": "Confrim",
+            "tag-modal-label": "Tag",
+            "write-button": "Upload"
         }
     },
     "mypage": {
@@ -202,8 +193,6 @@
             "signout": "Sign out"
         },
         "profile": {
-            "about-me-label": "About me",
-            "about-me-placeholder": "Please enter text.",
             "duplicate-check": "Verify",
             "nickname-info": "Up to 10 Korean characters and 20 English characters are allowed.",
             "nickname-label": "Nickname",

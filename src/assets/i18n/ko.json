@@ -95,13 +95,8 @@
             "signin": "로그인"
         },
         "drawer": {
-            "event": "이벤트",
             "feed": "피드",
-            "help": "고객센터",
-            "home": "홈",
             "magazine": "매거진",
-            "more": "더보기",
-            "notice": "공지사항",
             "privacy": "개인정보 처리방침",
             "service-terms": "이용약관",
             "shop": "키핑Shop"
@@ -115,13 +110,8 @@
             "write": "글쓰기"
         },
         "nav": {
-            "event": "이벤트",
             "feed": "피드",
-            "help": "고객센터",
-            "home": "홈",
             "magazine": "매거진",
-            "more": "더보기",
-            "notice": "공지사항",
             "privacy": "개인정보 처리방침",
             "service-terms": "이용약관",
             "shop": "키핑Shop"
@@ -133,17 +123,18 @@
         },
         "write": {
             "add-picture-label": "사진 추가",
-            "add-picture-label-desc": "(최대 5개)",
+            "add-picture-label-desc": "(최대 8개)",
+            "add-picture-main-text": "메인",
             "add-tag-label": "태그 추가",
-            "add-tag-label-desc": "(#으로 구분, 최대 5개)",
+            "add-tag-label-desc": "(#으로 구분, 최대 10개)",
             "add-tag-text": "태그 입력",
             "content-label": "내용",
             "content-placeholder": "공유하고 싶은 글을 입력해 주세요.",
             "save-button-text": "등록",
-            "title-label": "제목",
-            "title-label-desc": "(최대 80자 까지)",
-            "title-placeholder": "제목을 입력하세요.",
-            "write-button": "글쓰기"
+            "tag-modal-add-button": "확인",
+            "tag-modal-cancel-button": "취소",
+            "tag-modal-label": "태그 입력",
+            "write-button": "등록"
         }
     },
     "mypage": {
@@ -202,8 +193,6 @@
             "signout": "로그아웃"
         },
         "profile": {
-            "about-me-label": "자기소개",
-            "about-me-placeholder": "텍스트를 입력해주세요.",
             "duplicate-check": "중복 검사",
             "nickname-info": "한글 10자, 영문 20자까지 가능합니다.",
             "nickname-label": "닉네임 변경",
