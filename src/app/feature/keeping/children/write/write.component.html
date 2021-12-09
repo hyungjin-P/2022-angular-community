@@ -8,27 +8,6 @@
     <div class="flex-fill" style="position: relative">
         <div class="section full-absolute scroll-y">
             <div class="form">
-                <div class="title">
-                    <shared-input
-                        [label]="'keeping.write.title-label' | translate"
-                        [(ngModel)]="title"
-                        maxlength="80"
-                        [placeholder]="'keeping.write.title-placeholder' | translate"
-                    ></shared-input>
-                    <div class="desc">{{ 'keeping.write.title-label-desc' | translate }}</div>
-                </div>
-
-                <div class="content">
-                    <div class="label">{{ 'keeping.write.content-label' | translate }}</div>
-                    <textarea
-                        class="scroll-y"
-                        [placeholder]="'keeping.write.content-placeholder' | translate"
-                        [(ngModel)]="content"
-                    ></textarea>
-                </div>
-            </div>
-            <div class="h-line"></div>
-            <div class="form">
                 <div
                     class="form-header picture-header"
                     [class.pictrue-box-open]="pictureBoxVisible"
@@ -53,6 +32,17 @@
                 </div>
 
                 <input type="file" accept="image/*" #picture (change)="addPicture(picture)" hidden />
+            </div>
+            <div class="h-line"></div>
+            <div class="form">
+                <div class="content">
+                    <div class="label">{{ 'keeping.write.content-label' | translate }}</div>
+                    <textarea
+                        class="scroll-y"
+                        [placeholder]="'keeping.write.content-placeholder' | translate"
+                        [(ngModel)]="content"
+                    ></textarea>
+                </div>
             </div>
             <div class="h-line"></div>
             <div class="form">

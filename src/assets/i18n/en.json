@@ -129,7 +129,7 @@
     },
     "keeping": {
         "mobile-header": {
-            "write": "Write"
+            "write": "Feed"
         },
         "write": {
             "add-picture-label": "Add photos",
@@ -139,7 +139,7 @@
             "add-tag-text": "Add tag",
             "content-label": "Content",
             "content-placeholder": "Please enter the text you want to share.",
-            "save-button-text": "Save",
+            "save-button-text": "Upload",
             "title-label": "Title",
             "title-label-desc": "(up to 80 characters)",
             "title-placeholder": "Please enter a title.",

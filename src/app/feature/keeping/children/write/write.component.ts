@@ -30,8 +30,10 @@ import {
 import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
 
+import { FeedService } from '@services/feed.service'
 import { FileService } from '@services/file.service'
 
+import { Feed } from '@schemas/feed'
 import { User } from '@schemas/user'
 import { File } from '@schemas/file'
 
@@ -67,10 +69,14 @@ export class WriteComponent implements OnInit, AfterViewInit {
     carousel$
     panelCount: number
 
+    selectedLanguage: string
+    feed: Feed
+
     constructor(
         private location: Location,
         private globalService: GlobalService,
         private storageService: StorageService,
+        private feedService: FeedService,
         private fileService: FileService
     ) {}
 
@@ -79,9 +85,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
         this.title = ''
         this.content = ''
-        this.pictureBoxVisible = false
+        this.pictureBoxVisible = true
 
         this.panelCount = 0
+
+        this.selectedLanguage = localStorage.getItem('language')
+        this.createFeed()
     }
 
     goBack() {
@@ -110,6 +119,10 @@ export class WriteComponent implements OnInit, AfterViewInit {
                     files
                 )
                 .toPromise()
+
+            await this.feedService.createFeedPicture(this.feed.id, { files: createdFiles }).toPromise()
+
+            this.feed.pictures = createdFiles.concat(this.feed.pictures)
 
             // Preview - picture-box
             let element = document.createElement('div')
@@ -170,12 +183,21 @@ export class WriteComponent implements OnInit, AfterViewInit {
             )
             carouselPanelDeleteMenu.appendChild(carouselPanelDeleteIcon)
 
-            let carouselPanelText = document.createElement('input')
-            carouselPanelText.classList.add('write-added-picture-carousel-panel-text')
+            let carouselPanelMainPictureMenu = document.createElement('div')
+            carouselPanelMainPictureMenu.classList.add('write-added-picture-carousel-panel-main-picture-menu')
+            let carouselPanelMainPictureIcon = document.createElement('div')
+            carouselPanelMainPictureIcon.classList.add('mdi', 'mdi-check')
+            carouselPanelMainPictureMenu.addEventListener('click', function () {}.bind(this))
+            let carouselPanelMainPictureText = document.createElement('div')
+            let text = this.selectedLanguage == 'ko' ? '메인' : 'Main'
+            carouselPanelMainPictureText.innerText = text
+
+            carouselPanelMainPictureMenu.appendChild(carouselPanelMainPictureIcon)
+            carouselPanelMainPictureMenu.appendChild(carouselPanelMainPictureText)
 
             carouselPanelDiv.appendChild(carouselPanelImgWrapper)
             carouselPanelDiv.appendChild(carouselPanelDeleteMenu)
-            carouselPanelDiv.appendChild(carouselPanelText)
+            carouselPanelDiv.appendChild(carouselPanelMainPictureMenu)
             carouselPanel.appendChild(carouselPanelDiv)
 
             this.container.nativeElement.appendChild(carouselPanel)
@@ -188,6 +210,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
     async deletePicture(fileUrl: string) {
         try {
             await this.fileService.deleteFile(fileUrl).toPromise()
+            await this.feedService.deleteUserPicture(this.feed.id, fileUrl).toPromise()
         } catch (e) {}
     }
 
@@ -257,9 +280,6 @@ export class WriteComponent implements OnInit, AfterViewInit {
                         updateStore.index = tobeIndex
                         updateStore.to = -(tobeIndex * size)
                         updateStore.size = size
-
-                        console.log('updateStore', updateStore)
-                        console.log('size', size)
                     }
 
                     return {
@@ -302,5 +322,83 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
             return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
         })
+    }
+
+    createFeed() {
+        this.feedService.createFeed({ rewrite: false }).subscribe(
+            (feed: Feed) => {
+                this.feed = feed
+
+                this.feed.pictures.forEach((picture, index) => {
+                    // Preview - picture-box
+                    let element = document.createElement('div')
+                    element.classList.add('write-added-picture')
+
+                    let img = document.createElement('img')
+                    img.src = picture['url']
+                    img.dataset.origin = picture['url']
+
+                    let deleteMenu = document.createElement('div')
+                    deleteMenu.classList.add('write-added-picture-delete-menu')
+                    let deleteIcon = document.createElement('div')
+                    deleteIcon.classList.add('mdi', 'mdi-close')
+                    deleteMenu.addEventListener(
+                        'click',
+                        function () {
+                            this.deletePicture(picture['url'])
+                            element.remove()
+                            carouselPanel.remove()
+                            this.panelCount--
+                        }.bind(this)
+                    )
+                    deleteMenu.appendChild(deleteIcon)
+
+                    element.appendChild(img)
+                    element.appendChild(deleteMenu)
+
+                    this.pictureBoxElement.nativeElement.appendChild(element)
+
+                    // Carousel
+                    let carouselPanel = document.createElement('li')
+                    carouselPanel.classList.add('write-added-picture-carousel-panel')
+
+                    let carouselPanelDiv = document.createElement('div')
+
+                    let carouselPanelImgWrapper = document.createElement('div')
+                    carouselPanelImgWrapper.classList.add('write-added-picture-carousel-panel-img-wrapper')
+
+                    let carouselPanelImg = document.createElement('img')
+                    carouselPanelImg.src = picture['url']
+                    carouselPanelImg.dataset.origin = picture['url']
+                    carouselPanelImg.draggable = false
+
+                    carouselPanelImgWrapper.appendChild(carouselPanelImg)
+
+                    let carouselPanelDeleteMenu = document.createElement('div')
+                    carouselPanelDeleteMenu.classList.add('write-added-picture-carousel-panel-delete-menu')
+                    let carouselPanelDeleteIcon = document.createElement('div')
+                    carouselPanelDeleteIcon.classList.add('mdi', 'mdi-close')
+                    carouselPanelDeleteMenu.addEventListener(
+                        'click',
+                        function () {
+                            this.deletePicture(picture['url'])
+                            element.remove()
+                            carouselPanel.remove()
+                            this.panelCount--
+                        }.bind(this)
+                    )
+                    carouselPanelDeleteMenu.appendChild(carouselPanelDeleteIcon)
+
+                    carouselPanelDiv.appendChild(carouselPanelImgWrapper)
+                    carouselPanelDiv.appendChild(carouselPanelDeleteMenu)
+                    carouselPanel.appendChild(carouselPanelDiv)
+
+                    this.container.nativeElement.appendChild(carouselPanel)
+                })
+
+                this.panelCount = this.feed.pictures.length
+            },
+            (e) => {}
+        )
     }
 }

@@ -10,11 +10,12 @@ import { Response } from '@schemas/response'
 import { Feed } from '@schemas/feed'
 import { FeedTag } from '@schemas/feed-tag'
 import { FeedComment } from '@schemas/feed-comment'
+import { File } from '@schemas/file'
 
 @Injectable({
     providedIn: 'root',
 })
-export class FollowService {
+export class FeedService {
     constructor(private http: HttpClient) {}
 
     createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
@@ -301,6 +302,7 @@ class CreateFeedRequestBody {
 
 class UpdateFeedRequestBody {
     content?: string
+    picture?: string
     posting?: boolean
 }
 

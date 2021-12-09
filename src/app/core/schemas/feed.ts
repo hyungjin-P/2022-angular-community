@@ -7,6 +7,7 @@ export class Feed {
         public id: string,
         public writer: User,
         public content: string,
+        public picture: string,
         public pictures: Array<File>,
         public tags: Array<FeedTag>,
         public like: boolean,
@@ -16,6 +17,7 @@ export class Feed {
         this.id = id
         this.writer = writer
         this.content = content
+        this.picture = picture
         this.pictures = pictures
         this.tags = tags
         this.like = like

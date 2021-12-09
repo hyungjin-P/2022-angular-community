@@ -67,9 +67,7 @@ export class MypageComponent implements OnInit {
                 )
                 .toPromise()
 
-            for (let i = 0; i < createdFiles.length; i++) {
-                await this.userService.createUserBackground(this.user.id, { files: createdFiles }).toPromise()
-            }
+            await this.userService.createUserBackground(this.user.id, { files: createdFiles }).toPromise()
 
             this.user.background = createdFiles.concat(this.user.background)
             this.storageService.setUser(this.user)

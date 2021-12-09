@@ -125,9 +125,7 @@ export class ProfileComponent implements OnInit {
                 )
                 .toPromise()
 
-            for (let i = 0; i < createdFiles.length; i++) {
-                await this.userService.createUserPicture(this.user.id, { files: createdFiles }).toPromise()
-            }
+            await this.userService.createUserPicture(this.user.id, { files: createdFiles }).toPromise()
 
             this.user.picture = createdFiles.concat(this.user.picture)
             this.storageService.setUser(this.user)

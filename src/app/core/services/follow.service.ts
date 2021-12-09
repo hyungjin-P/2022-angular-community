@@ -8,7 +8,6 @@ import { environment } from '@environments/environment'
 
 import { Response } from '@schemas/response'
 import { User } from '@schemas/user'
-import { File } from '@schemas/file'
 
 @Injectable({
     providedIn: 'root',
