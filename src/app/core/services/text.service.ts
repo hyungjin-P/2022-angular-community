@@ -40,8 +40,9 @@ export class TextService {
             'settings:change-password:003': '기존 비밀번호가 일치하지 않습니다.',
             'settings:change-password:004': '비밀번호가 변경되었습니다.',
 
-            'write:feed:001': '내용을 작성하세요.',
-            'write:feed:002': '등록하였습니다.',
+            'write:feed:001': '메인 사진을 선택하세요',
+            'write:feed:002': '내용을 작성하세요.',
+            'write:feed:003': '등록하였습니다.',
         },
         en: {
             'auth:email:001': 'Invalid email address.',
@@ -78,8 +79,9 @@ export class TextService {
             'settings:change-password:003': 'Existing passwords do not match.',
             'settings:change-password:004': 'Your password has been changed.',
 
-            'write:feed:001': 'Please write your content.',
-            'write:feed:002': 'Posted.',
+            'write:feed:001': 'Choose your main picture',
+            'write:feed:002': 'Please write your content.',
+            'write:feed:003': 'Posted.',
         },
     }
 

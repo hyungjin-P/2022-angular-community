@@ -327,17 +327,22 @@ export class WriteComponent implements OnInit, AfterViewInit {
     }
 
     posting() {
-        if (this.feed.pictures.length == 0 || this.content == '') {
+        if (!this.feed.picture) {
             let message = this.textService.getText('write:feed:001')
             this.globalService.showToast(message)
+            return
+        }
 
+        if (this.content == '') {
+            let message = this.textService.getText('write:feed:002')
+            this.globalService.showToast(message)
             return
         }
 
         this.feedService.updateFeed(this.feed.id, { posting: true }).subscribe(
             (v) => {
                 this.createFeed()
-                let message = this.textService.getText('write:feed:002')
+                let message = this.textService.getText('write:feed:003')
                 this.globalService.showToast(message)
             },
             (e) => {}
