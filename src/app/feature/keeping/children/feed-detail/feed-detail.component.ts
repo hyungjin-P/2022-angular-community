@@ -265,7 +265,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.publicService.getFeed(this.selectedFeedId).subscribe(
             (feed: Feed) => {
                 this.selectedFeed = feed
-                console.log('feed_public', this.selectedFeed)
             },
             (e) => {}
         )
@@ -275,7 +274,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.getFeedList().subscribe(
             (feedList: Feed[]) => {
                 this.feedList = feedList
-                console.log('login', this.feedList)
             },
             (e) => {}
         )
@@ -285,7 +283,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.publicService.getFeedList().subscribe(
             (feedList: Feed[]) => {
                 this.feedList = feedList
-                console.log('public', this.feedList)
             },
             (e) => {}
         )
@@ -345,7 +342,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     deleteFeed(feed: Feed) {
-        console.log('deleteFeed')
         this.feedService.deleteFeed(feed.id).subscribe(
             (v) => {
                 this.router.navigateByUrl('/feed')
