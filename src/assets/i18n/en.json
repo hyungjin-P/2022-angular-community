@@ -1,217 +1,220 @@
 {
-    "auth": {
-        "email": {
-            "all-agreement": "I agree to all terms and conditions.",
-            "close": "Close",
-            "confirm-password-label": "Re-Enter Password",
-            "confirm-password-placeholder": "Re-Enter your password",
-            "confirm-terms": "View",
-            "confirm-verification-code": "Verify",
-            "email-label": "Email",
-            "email-placeholder": "abc@example.com",
-            "open": "Open",
-            "password-label": "Password",
-            "password-placeholder": "Enter your password",
-            "privacy-service-terms-agreement1": "[Required] You must be at least 14 years old.",
-            "privacy-service-terms-agreement2": "[Required] Consent to Privacy Policy",
-            "privacy-service-terms-agreement3": "[Required] Consent to Terms of Service",
-            "privacy-service-terms-agreement4": "[Optional] Consent to receive promotional emails",
-            "privacy-service-terms-all-agreement": "I agree to all below:",
-            "privacy-service-terms-confirm": "Confirm",
-            "privacy-service-terms-desc": "\"Keeping\" handles personal information safely.",
-            "privacy-service-terms-header": "Terms and conditions",
-            "registration-button": "Sign Up",
-            "resend-verification-code": "Re-Send",
-            "send-verification-code": "Send",
-            "text1": "Sign up",
-            "text2": "(Required) Consent to Terms of Service, Privacy Policy, and (Optional) receive promotional emails.",
-            "verification-code-info": "A verification code has been sent to the email you entered.",
-            "verification-code-label": "Verification Code",
-            "verification-code-placeholder": "Enter the verification code"
-        },
-        "forgot-password": {
-            "email-label": "Email",
-            "email-placeholder": "abc@example.com",
-            "send-reset-password-link-button": "Request a password reset link",
-            "text1": "Forgot password?",
-            "text2": "Please enter the email address you registered.",
-            "text3": "We will send you a password reset link where you can set a new password.",
-            "text4": "The password reset link is valid for 3 minutes."
-        },
-        "login": {
-            "email-label": "Email",
-            "email-login-button": "Sign In",
-            "email-placeholder": "abc@example.com",
-            "forgot-password": "Forgot password?",
-            "lang": "English",
-            "password-label": "Password",
-            "password-placeholder": "Enter your password",
-            "text1": "Sign in",
-            "text2-1": "Don't you have an account?",
-            "text2-2": "Sign up",
-            "text3": "Continue with"
-        },
-        "registration": {
-            "email-signup-button": "Continue with Email",
-            "text1-1": "Simply sign up for \"Keeping\"",
-            "text1-2": "and have fun.",
-            "text2": "Continue with",
-            "text3-1": "Already have an account?",
-            "text3-2": "Sign in"
-        },
-        "reset-password": {
-            "confirm-password-label": "Re-Enter Password",
-            "confirm-password-placeholder": "Re-Enter your password",
-            "password-label": "Password",
-            "password-placeholder": "Enter your password",
-            "send-reset-password-link-button": "Change password",
-            "text1": "Reset password",
-            "text2": "Please enter a new password"
-        },
-        "service-terms": {
-            "agreement-button": "Confirm",
-            "agreement1": "[Required] You must be at least 14 years old.",
-            "agreement2": "[Required] Consent to Privacy Policy",
-            "agreement3": "[Required] Consent to Terms of Service",
-            "agreement4": "[Optional] Consent to receive promotional emails",
-            "all-agreement": "I agree to all below:",
-            "privacy-service-terms-confirm": "OK",
-            "privacy-service-terms-header": "Terms and conditions",
-            "privacy-service-terms-privacy": "Privacy Policy",
-            "privacy-service-terms-service-terms": "Terms of Service",
-            "text1-1": "If you agree to the terms,",
-            "text1-2": "Sign up is complete.",
-            "text2-1": "In order to participate in community activities in Kipping, you must agree to the mandatory terms and conditions.",
-            "text2-2": "You can use the service even if you do not agree to the optional items, and you can change it on My Page.",
-            "view": "View"
-        }
-    },
-    "common": {
-        "bottom-nav": {
-            "feed": "Feed",
-            "home": "Home",
-            "magazine": "Magazine",
-            "mypage": "My Page",
-            "signin": "Sign In"
-        },
-        "drawer": {
-            "feed": "Feed",
-            "magazine": "Magazine",
-            "privacy": "Privacy",
-            "service-terms": "Service Terms",
-            "shop": "Shop"
-        },
-        "header": {
-            "myaccount": "My Account",
-            "profile": "Profile",
-            "signin": "Sign In",
-            "signout": "Sign Out",
-            "singup": "Sign Up",
-            "write": "Write"
-        },
-        "nav": {
-            "feed": "Feed",
-            "magazine": "Magazine",
-            "privacy": "Privacy",
-            "service-terms": "Service Terms",
-            "shop": "Shop"
-        }
-    },
-    "keeping": {
-        "mobile-header": {
-            "feed-detail": "Feed",
-            "write": "Feed"
-        },
-        "write": {
-            "add-picture-label": "Add photos",
-            "add-picture-label-desc": "(up to 8)",
-            "add-picture-main-text": "Main",
-            "add-tag-label": "Add tags",
-            "add-tag-label-desc": "(# separated, up to 10)",
-            "add-tag-text": "Add tag",
-            "content-label": "Content",
-            "content-placeholder": "Please enter the text you want to share.",
-            "save-button-text": "Upload",
-            "tag-modal-add-button": "Cancel",
-            "tag-modal-cancel-button": "Confrim",
-            "tag-modal-label": "Tag",
-            "write-button": "Upload"
-        }
-    },
-    "mypage": {
-        "add-button-text": "Add Cover Photo",
-        "choose-button-text": "Choose a photo",
-        "delete-button-text": "Delete",
-        "edit-button-text": "Edit Cover Photo",
-        "edit-profile-button-text": "Edit",
-        "empty-text-1": "My own collection of figures.",
-        "empty-text-2": "My personal collection of figures.",
-        "empty-text-3": "Try making it!",
-        "follower-text": "Follower",
-        "following-text": "Following",
-        "write": "Writing"
-    },
-    "settings": {
-        "account": {
-            "change-password": "Change password",
-            "login-account-text": "Login account",
-            "withdrawal": "Withdrawal",
-            "withdrawal-text": "All personal information, posts and settings saved in Keeping will be deleted."
-        },
-        "change-password": {
-            "confirm-new-password-label": "Re-Enter New Password",
-            "confirm-new-password-placeholder": "Re-Enter your new password",
-            "new-password-label": "New Password",
-            "new-password-placeholder": "Enter your new password",
-            "password-label": "Password",
-            "password-placeholder": "Enter your password",
-            "text-1": "Change Password",
-            "update-button": "Update"
-        },
-        "home": {
-            "account": "Account",
-            "language": "Language",
-            "profile": "Profile",
-            "signout": "Sign out"
-        },
-        "language": {
-            "text-1": "변경할 언어를 선택해 주세요.",
-            "text-2": "Please select a language.",
-            "update-button": "Update"
-        },
-        "mobile-header": {
-            "account": "Account",
-            "change-password": "Change password",
-            "language": "Language",
-            "profile": "Profile",
-            "settings": "Settings",
-            "withdrawal": "Withdrawal"
-        },
-        "nav": {
-            "account": "Account",
-            "language": "Language",
-            "profile": "Profile",
-            "signout": "Sign out"
-        },
-        "profile": {
-            "duplicate-check": "Verify",
-            "nickname-info": "Up to 10 Korean characters and 20 English characters are allowed.",
-            "nickname-label": "Nickname",
-            "update-button": "Update"
-        },
-        "withdrawal": {
-            "direct-input-placeholder": "",
-            "next-button": "Next",
-            "previous-button": "Previous",
-            "required": "[Required] I have read and agree to the membership cancellation notice.",
-            "text-1": "Withdrawal",
-            "text-2": "Are you sure you want to cancel your mambership?",
-            "text-3": "If you unsubscribe now, all member information and usage history will be deleted and cannot be recovered again!",
-            "text-4": "Since the author cannot be identified due to deletion of member information after membership withdrawal, editing and deletion of posts is fundamentally impossible. If you wish to delete a post, please delete the post first and then apply for withdrawal.",
-            "text-5": "You cannot re-register within 14 days with the same information after withdrawal. After that, even if you re-register with the same information, your existing posts and other information will not be linked.",
-            "text-6": "[Optional] Please select a reason for leaving Kipping",
-            "text-7": "We will return your valuable feedback with better service.",
-            "withdrawal-button": "Leave"
-        }
-    }
+	"auth": {
+		"email": {
+			"all-agreement": "I agree to all terms and conditions.",
+			"close": "Close",
+			"confirm-password-label": "Re-Enter Password",
+			"confirm-password-placeholder": "Re-Enter your password",
+			"confirm-terms": "View",
+			"confirm-verification-code": "Verify",
+			"email-label": "Email",
+			"email-placeholder": "abc@example.com",
+			"open": "Open",
+			"password-label": "Password",
+			"password-placeholder": "Enter your password",
+			"privacy-service-terms-agreement1": "[Required] You must be at least 14 years old.",
+			"privacy-service-terms-agreement2": "[Required] Consent to Privacy Policy",
+			"privacy-service-terms-agreement3": "[Required] Consent to Terms of Service",
+			"privacy-service-terms-agreement4": "[Optional] Consent to receive promotional emails",
+			"privacy-service-terms-all-agreement": "I agree to all below:",
+			"privacy-service-terms-confirm": "Confirm",
+			"privacy-service-terms-desc": "\"Keeping\" handles personal information safely.",
+			"privacy-service-terms-header": "Terms and conditions",
+			"registration-button": "Sign Up",
+			"resend-verification-code": "Re-Send",
+			"send-verification-code": "Send",
+			"text1": "Sign up",
+			"text2": "(Required) Consent to Terms of Service, Privacy Policy, and (Optional) receive promotional emails.",
+			"verification-code-info": "A verification code has been sent to the email you entered.",
+			"verification-code-label": "Verification Code",
+			"verification-code-placeholder": "Enter the verification code"
+		},
+		"forgot-password": {
+			"email-label": "Email",
+			"email-placeholder": "abc@example.com",
+			"send-reset-password-link-button": "Request a password reset link",
+			"text1": "Forgot password?",
+			"text2": "Please enter the email address you registered.",
+			"text3": "We will send you a password reset link where you can set a new password.",
+			"text4": "The password reset link is valid for 3 minutes."
+		},
+		"login": {
+			"email-label": "Email",
+			"email-login-button": "Sign In",
+			"email-placeholder": "abc@example.com",
+			"forgot-password": "Forgot password?",
+			"lang": "English",
+			"password-label": "Password",
+			"password-placeholder": "Enter your password",
+			"text1": "Sign in",
+			"text2-1": "Don't you have an account?",
+			"text2-2": "Sign up",
+			"text3": "Continue with"
+		},
+		"registration": {
+			"email-signup-button": "Continue with Email",
+			"text1-1": "Simply sign up for \"Keeping\"",
+			"text1-2": "and have fun.",
+			"text2": "Continue with",
+			"text3-1": "Already have an account?",
+			"text3-2": "Sign in"
+		},
+		"reset-password": {
+			"confirm-password-label": "Re-Enter Password",
+			"confirm-password-placeholder": "Re-Enter your password",
+			"password-label": "Password",
+			"password-placeholder": "Enter your password",
+			"send-reset-password-link-button": "Change password",
+			"text1": "Reset password",
+			"text2": "Please enter a new password"
+		},
+		"service-terms": {
+			"agreement-button": "Confirm",
+			"agreement1": "[Required] You must be at least 14 years old.",
+			"agreement2": "[Required] Consent to Privacy Policy",
+			"agreement3": "[Required] Consent to Terms of Service",
+			"agreement4": "[Optional] Consent to receive promotional emails",
+			"all-agreement": "I agree to all below:",
+			"privacy-service-terms-confirm": "OK",
+			"privacy-service-terms-header": "Terms and conditions",
+			"privacy-service-terms-privacy": "Privacy Policy",
+			"privacy-service-terms-service-terms": "Terms of Service",
+			"text1-1": "If you agree to the terms,",
+			"text1-2": "Sign up is complete.",
+			"text2-1": "In order to participate in community activities in Kipping, you must agree to the mandatory terms and conditions.",
+			"text2-2": "You can use the service even if you do not agree to the optional items, and you can change it on My Page.",
+			"view": "View"
+		}
+	},
+	"common": {
+		"bottom-nav": {
+			"feed": "Feed",
+			"home": "Home",
+			"magazine": "Magazine",
+			"mypage": "My Page",
+			"signin": "Sign In"
+		},
+		"drawer": {
+			"feed": "Feed",
+			"magazine": "Magazine",
+			"privacy": "Privacy",
+			"service-terms": "Service Terms",
+			"shop": "Shop"
+		},
+		"header": {
+			"myaccount": "My Account",
+			"profile": "Profile",
+			"signin": "Sign In",
+			"signout": "Sign Out",
+			"singup": "Sign Up",
+			"write": "Write"
+		},
+		"nav": {
+			"feed": "Feed",
+			"magazine": "Magazine",
+			"privacy": "Privacy",
+			"service-terms": "Service Terms",
+			"shop": "Shop"
+		}
+	},
+	"keeping": {
+		"feed-detail": {
+			"more-delete": "Delete"
+		},
+		"mobile-header": {
+			"feed-detail": "Feed",
+			"write": "Feed"
+		},
+		"write": {
+			"add-picture-label": "Add photos",
+			"add-picture-label-desc": "(up to 8)",
+			"add-picture-main-text": "Main",
+			"add-tag-label": "Add tags",
+			"add-tag-label-desc": "(# separated, up to 10)",
+			"add-tag-text": "Add tag",
+			"content-label": "Content",
+			"content-placeholder": "Please enter the text you want to share.",
+			"save-button-text": "Upload",
+			"tag-modal-add-button": "Cancel",
+			"tag-modal-cancel-button": "Confrim",
+			"tag-modal-label": "Tag",
+			"write-button": "Upload"
+		}
+	},
+	"mypage": {
+		"add-button-text": "Add Cover Photo",
+		"choose-button-text": "Choose a photo",
+		"delete-button-text": "Delete",
+		"edit-button-text": "Edit Cover Photo",
+		"edit-profile-button-text": "Edit",
+		"empty-text-1": "My own collection of figures.",
+		"empty-text-2": "My personal collection of figures.",
+		"empty-text-3": "Try making it!",
+		"follower-text": "Follower",
+		"following-text": "Following",
+		"write": "Writing"
+	},
+	"settings": {
+		"account": {
+			"change-password": "Change password",
+			"login-account-text": "Login account",
+			"withdrawal": "Withdrawal",
+			"withdrawal-text": "All personal information, posts and settings saved in Keeping will be deleted."
+		},
+		"change-password": {
+			"confirm-new-password-label": "Re-Enter New Password",
+			"confirm-new-password-placeholder": "Re-Enter your new password",
+			"new-password-label": "New Password",
+			"new-password-placeholder": "Enter your new password",
+			"password-label": "Password",
+			"password-placeholder": "Enter your password",
+			"text-1": "Change Password",
+			"update-button": "Update"
+		},
+		"home": {
+			"account": "Account",
+			"language": "Language",
+			"profile": "Profile",
+			"signout": "Sign out"
+		},
+		"language": {
+			"text-1": "변경할 언어를 선택해 주세요.",
+			"text-2": "Please select a language.",
+			"update-button": "Update"
+		},
+		"mobile-header": {
+			"account": "Account",
+			"change-password": "Change password",
+			"language": "Language",
+			"profile": "Profile",
+			"settings": "Settings",
+			"withdrawal": "Withdrawal"
+		},
+		"nav": {
+			"account": "Account",
+			"language": "Language",
+			"profile": "Profile",
+			"signout": "Sign out"
+		},
+		"profile": {
+			"duplicate-check": "Verify",
+			"nickname-info": "Up to 10 Korean characters and 20 English characters are allowed.",
+			"nickname-label": "Nickname",
+			"update-button": "Update"
+		},
+		"withdrawal": {
+			"direct-input-placeholder": "",
+			"next-button": "Next",
+			"previous-button": "Previous",
+			"required": "[Required] I have read and agree to the membership cancellation notice.",
+			"text-1": "Withdrawal",
+			"text-2": "Are you sure you want to cancel your mambership?",
+			"text-3": "If you unsubscribe now, all member information and usage history will be deleted and cannot be recovered again!",
+			"text-4": "Since the author cannot be identified due to deletion of member information after membership withdrawal, editing and deletion of posts is fundamentally impossible. If you wish to delete a post, please delete the post first and then apply for withdrawal.",
+			"text-5": "You cannot re-register within 14 days with the same information after withdrawal. After that, even if you re-register with the same information, your existing posts and other information will not be linked.",
+			"text-6": "[Optional] Please select a reason for leaving Kipping",
+			"text-7": "We will return your valuable feedback with better service.",
+			"withdrawal-button": "Leave"
+		}
+	}
 }

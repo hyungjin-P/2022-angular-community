@@ -12,6 +12,17 @@
                         fontSize="16"
                     ></shared-avatar>
                     <div class="nickname">{{ selectedFeed?.writer.nickname }}</div>
+                    <div class="more" *ngIf="user && user.id == selectedFeed?.writer.id">
+                        <div class="more-menu" (click)="openMoreBox($event)">
+                            <div class="mdi mdi-dots-vertical"></div>
+                        </div>
+                        <div class="more-box" *ngIf="moreBoxVisible" (sharedClickOutside)="closeMoreBox()">
+                            <a class="more-box-menu" (click)="deleteFeed(selectedFeed)">
+                                <div class="mdi mdi-delete"></div>
+                                <div class="text">{{ 'keeping.feed-detail.more-delete' | translate }}</div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="row-2">
                     <div class="carousel-view" #carousel>
@@ -63,11 +74,27 @@
                             ></shared-avatar>
                         </div>
                     </ng-container>
-                    <div class="text" *ngIf="selectedFeed?.like_count > 0 && selectedFeed?.like_count <= 3">
+                    <div
+                        class="text"
+                        *ngIf="
+                            selectedLanguage == 'ko' && selectedFeed?.like_count > 0 && selectedFeed?.like_count <= 3
+                        "
+                    >
                         님이 좋아합니다.
                     </div>
-                    <div class="text" *ngIf="selectedFeed?.like_count > 3">
+                    <div
+                        class="text"
+                        *ngIf="
+                            selectedLanguage != 'ko' && selectedFeed?.like_count > 0 && selectedFeed?.like_count <= 3
+                        "
+                    >
+                        like it.
+                    </div>
+                    <div class="text" *ngIf="selectedLanguage == 'ko' && selectedFeed?.like_count > 3">
                         외<span> {{ selectedFeed.like_count - 3 }}명</span>이 좋아합니다.
+                    </div>
+                    <div class="text" *ngIf="selectedLanguage != 'ko' && selectedFeed?.like_count > 3">
+                        and<span> {{ selectedFeed.like_count - 3 }}</span> others like it.
                     </div>
                 </div>
                 <div class="row-5">{{ selectedFeed?.content }}</div>

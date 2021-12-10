@@ -75,6 +75,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     tobeIndex: number
     refresh: boolean
 
+    moreBoxVisible: boolean
+
+    selectedLanguage: string
+
     constructor(
         private location: Location,
         private router: Router,
@@ -99,6 +103,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             (e) => {}
         )
+
+        this.selectedLanguage = localStorage.getItem('language')
     }
 
     ngAfterViewInit() {
@@ -244,9 +250,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.getFeed(this.selectedFeedId).subscribe(
             (feed: Feed) => {
                 this.selectedFeed = feed
-                console.log('feed_login', this.selectedFeed)
+
+                if (!this.selectedFeed) {
+                    this.router.navigateByUrl('/feed')
+                }
             },
-            (e) => {}
+            (e) => {
+                this.router.navigateByUrl('/feed')
+            }
         )
     }
 
@@ -317,5 +328,29 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.translateX(0)
         this.refresh = true
         this.router.navigateByUrl(`/feed/${feed.id}`)
+    }
+
+    openMoreBox(event) {
+        event.stopPropagation()
+
+        if (this.moreBoxVisible) {
+            this.closeMoreBox()
+        } else {
+            this.moreBoxVisible = true
+        }
+    }
+
+    closeMoreBox() {
+        this.moreBoxVisible = false
+    }
+
+    deleteFeed(feed: Feed) {
+        console.log('deleteFeed')
+        this.feedService.deleteFeed(feed.id).subscribe(
+            (v) => {
+                this.router.navigateByUrl('/feed')
+            },
+            (e) => {}
+        )
     }
 }
