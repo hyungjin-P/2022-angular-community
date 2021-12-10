@@ -70,8 +70,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     drag$
     drop$
 
+    updateStore
     carousel$
     tobeIndex: number
+    refresh: boolean
 
     constructor(
         private location: Location,
@@ -98,6 +100,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             (e) => {}
         )
     }
+
     ngAfterViewInit() {
         const SUPPORT_TOUCH = 'ontouchstart' in window
         const EVENTS = {
@@ -164,12 +167,22 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
                         updateStore.index = this.tobeIndex
                         updateStore.to = -(this.tobeIndex * size)
                         updateStore.size = size
-                        console.log('updateStore', updateStore)
                     }
 
-                    return {
-                        ...store,
-                        ...updateStore,
+                    if (this.refresh) {
+                        this.refresh = false
+
+                        return {
+                            from: 0,
+                            to: 0,
+                            index: 0,
+                            size: 0,
+                        }
+                    } else {
+                        return {
+                            ...store,
+                            ...updateStore,
+                        }
                     }
                 },
                 {
@@ -301,8 +314,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     goFeedDetail(feed: Feed) {
         this.tobeIndex = 0
-        // this.animation(from, to, DEFAULT_DURATION)))
-        // this.translateX(0)
+        this.translateX(0)
+        this.refresh = true
         this.router.navigateByUrl(`/feed/${feed.id}`)
     }
 }

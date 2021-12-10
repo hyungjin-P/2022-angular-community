@@ -1,9 +1,5 @@
 <div class="feed-detail full-absolute d-flex flex-column">
-    <mobile-header
-        class="d-lg-none"
-        [text]="'keeping.mobile-header.feed-detail' | translate"
-        (goBack)="goBack()"
-    ></mobile-header>
+    <mobile-header [text]="'keeping.mobile-header.feed-detail' | translate" (goBack)="goBack()"></mobile-header>
 
     <div class="flex-fill" style="position: relative">
         <div class="section full-absolute">
@@ -83,7 +79,7 @@
             </div>
             <div class="item-list d-flex flex-wrap">
                 <ng-container *ngFor="let feed of feedList">
-                    <div class="item col-6 col-lg-3 col-xxl-2-5" *ngIf="feed.id != selectedFeed.id">
+                    <div class="item col-6 col-lg-6" *ngIf="feed.id != selectedFeed.id">
                         <div class="d-flex flex-column">
                             <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
                                 <img class="picture" [src]="feed.picture" draggable="false" />
