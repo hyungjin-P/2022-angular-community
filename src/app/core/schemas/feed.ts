@@ -10,6 +10,7 @@ export class Feed {
         public picture: string,
         public pictures: Array<File>,
         public tags: Array<FeedTag>,
+        public tags_str: string,
         public like: boolean,
         public like_count: number,
         public comment_count: number
@@ -20,6 +21,7 @@ export class Feed {
         this.picture = picture
         this.pictures = pictures
         this.tags = tags
+        this.tags_str = tags_str
         this.like = like
         this.like_count = like_count
         this.comment_count = comment_count
