@@ -17,7 +17,24 @@
                     ></shared-avatar>
                     <div class="nickname">{{ selectedFeed?.writer.nickname }}</div>
                 </div>
-                <div class="row-2 b-1"></div>
+                <div class="row-2">
+                    <div class="carousel-view" #carousel>
+                        <ul class="carousel-container" #container>
+                            <li class="carousel-panel" *ngFor="let picture of selectedFeed?.pictures; let i = index">
+                                <div>
+                                    <div class="carousel-panel-img-wrapper">
+                                        <img [src]="picture.url" draggable="false" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="page">
+                            <div>{{ tobeIndex + 1 }}</div>
+                            <div>/</div>
+                            <div>{{ selectedFeed?.pictures.length }}</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row-3">
                     <div class="row-3-col-1">
                         <div class="like" (click)="feedLike(selectedFeed)">
@@ -30,7 +47,13 @@
                             <div class="text">{{ selectedFeed?.comment_count }}</div>
                         </div>
                     </div>
-                    <div class="row-3-col-2"></div>
+                    <div class="row-3-col-2">
+                        <div
+                            class="dot"
+                            [class.selected]="tobeIndex == i"
+                            *ngFor="let picture of selectedFeed?.pictures; let i = index"
+                        ></div>
+                    </div>
                     <div class="row-3-col-3"></div>
                 </div>
                 <div class="row-4">

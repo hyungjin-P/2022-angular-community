@@ -69,7 +69,6 @@ export class WriteComponent implements OnInit, AfterViewInit {
     drop$
 
     carousel$
-    panelCount: number
 
     selectedLanguage: string
     feed: Feed
@@ -92,8 +91,6 @@ export class WriteComponent implements OnInit, AfterViewInit {
         this.title = ''
         this.content = ''
         this.pictureBoxVisible = false
-
-        this.panelCount = 0
 
         this.selectedLanguage = localStorage.getItem('language')
         this.createFeed()

@@ -31,7 +31,60 @@
 
         .row-2 {
             margin: 16px -16px 0;
-            height: 525px;
+
+            .carousel-view {
+                position: relative;
+                overflow: hidden;
+
+                .carousel-container {
+                    padding: 0;
+                    list-style: none;
+
+                    font-size: 0;
+                    white-space: nowrap;
+
+                    .carousel-panel {
+                        display: inline-block;
+                        width: 100%;
+                        padding: 5px;
+
+                        > div {
+                            position: relative;
+
+                            .carousel-panel-img-wrapper {
+                                height: 290px;
+
+                                img {
+                                    width: 100%;
+                                    height: 290px;
+                                    object-fit: cover;
+                                    border-radius: 4px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .page {
+                    position: absolute;
+                    top: 16px;
+                    right: 14px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    height: 24px;
+                    border-radius: 20px;
+                    background-color: rgba(66, 76, 89, 0.8);
+
+                    @include textStyle(500, 12px, 20px);
+                    color: var(--white);
+
+                    div:nth-child(2) {
+                        margin: 0 3px;
+                    }
+                }
+            }
         }
 
         .row-3 {
@@ -74,7 +127,22 @@
 
             .row-3-col-2 {
                 flex: 6;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 height: 100%;
+
+                .dot {
+                    margin: 0 3px;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background-color: var(--blue-8);
+                }
+
+                .selected {
+                    background-color: var(--blue-3);
+                }
             }
 
             .row-3-col-3 {
