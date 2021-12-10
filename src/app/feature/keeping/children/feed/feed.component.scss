@@ -108,8 +108,9 @@
                 .image-box {
                     position: relative;
                     width: 100%;
-                    min-height: 150px;
+                    height: 150px;
                     background-color: var(--grey-8);
+                    cursor: pointer;
 
                     img {
                         width: 100%;
@@ -194,6 +195,14 @@
                         @include textStyle(400, 13px, 21px);
                         color: var(--grey-2);
 
+                        .mdi {
+                            font-size: 18px;
+                        }
+
+                        .mdi-heart {
+                            color: var(--red);
+                        }
+
                         .text {
                             margin-left: 2px;
                         }
@@ -230,7 +239,7 @@
 
                 > div {
                     .image-box {
-                        min-height: 260px;
+                        height: 260px;
                     }
                 }
             }
@@ -265,7 +274,7 @@
 
                 > div {
                     .image-box {
-                        min-height: 190px;
+                        height: 190px;
                     }
                 }
             }

@@ -91,7 +91,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
         this.title = ''
         this.content = ''
-        this.pictureBoxVisible = true
+        this.pictureBoxVisible = false
 
         this.panelCount = 0
 
