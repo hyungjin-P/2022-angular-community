@@ -9,6 +9,7 @@ import { CommonModule } from './common/common.module'
 
 import { HomeComponent } from './children/home/home.component'
 import { FeedComponent } from './children/feed/feed.component'
+import { FeedDetailComponent } from './children/feed-detail/feed-detail.component'
 import { WriteComponent } from './children/write/write.component'
 import { MagazineComponent } from './children/magazine/magazine.component'
 import { NoticeComponent } from './children/notice/notice.component'
@@ -28,6 +29,7 @@ import { SearchComponent } from './search/search.component'
 
         HomeComponent,
         FeedComponent,
+        FeedDetailComponent,
         WriteComponent,
         MagazineComponent,
         NoticeComponent,

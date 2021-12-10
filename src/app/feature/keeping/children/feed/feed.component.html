@@ -61,7 +61,7 @@
             <div class="item-list d-flex flex-wrap">
                 <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
                     <div class="d-flex flex-column">
-                        <div class="image-box flex-fill">
+                        <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
                             <img class="picture" [src]="feed.picture" draggable="false" />
                             <div class="count" *ngIf="feed.pictures.length > 1">
                                 <img src="assets/icons/feed/count.svg" />

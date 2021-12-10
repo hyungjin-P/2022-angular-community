@@ -119,6 +119,7 @@
     },
     "keeping": {
         "mobile-header": {
+            "feed-detail": "피드",
             "write": "피드에 글쓰기"
         },
         "write": {

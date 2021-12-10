@@ -119,6 +119,7 @@
     },
     "keeping": {
         "mobile-header": {
+            "feed-detail": "Feed",
             "write": "Feed"
         },
         "write": {

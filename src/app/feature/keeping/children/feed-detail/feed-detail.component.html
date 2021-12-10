@@ -1,0 +1,58 @@
+<div class="feed-detail full-absolute d-flex flex-column">
+    <mobile-header
+        class="d-lg-none"
+        [text]="'keeping.mobile-header.feed-detail' | translate"
+        (goBack)="goBack()"
+    ></mobile-header>
+
+    <div class="selected-item">
+        <div class="row-1"></div>
+        <div class="row-2"></div>
+        <div class="row-3"></div>
+        <div class="row-4"></div>
+        <div class="row-5"></div>
+        <div class="row-6"></div>
+    </div>
+
+    <div class="flex-fill" style="position: relative">
+        <div class="section full-absolute scroll-y">
+            <div class="item-list d-flex flex-wrap">
+                <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
+                    <div class="d-flex flex-column">
+                        <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
+                            <img class="picture" [src]="feed.picture" draggable="false" />
+                            <div class="count" *ngIf="feed.pictures.length > 1">
+                                <img src="assets/icons/feed/count.svg" />
+                            </div>
+                        </div>
+                        <div class="user">
+                            <shared-avatar
+                                [image]="feed.writer.picture[0].url"
+                                text="{{ feed.writer.email }}"
+                                size="20"
+                                fontSize="14"
+                                backgroundColor="red"
+                            ></shared-avatar>
+                            <div class="nickname">{{ feed.writer.nickname }}</div>
+                        </div>
+                        <div class="title ellipsis2">
+                            {{ feed.content }}
+                        </div>
+                        <div class="tags ellipsis1">{{ feed.tags_str }}</div>
+                        <div class="additional">
+                            <div class="like" (click)="feedLike(feed)">
+                                <div class="mdi mdi-heart" *ngIf="variables.isLogin && feed.like"></div>
+                                <div class="mdi mdi-heart-outline" *ngIf="!variables.isLogin || !feed.like"></div>
+                                <div class="text">{{ feed.like_count }}</div>
+                            </div>
+                            <div class="comment">
+                                <img src="assets/icons/feed/comment.svg" />
+                                <div class="text">{{ feed.comment_count }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

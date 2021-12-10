@@ -1,0 +1,217 @@
+@import '/src/assets/styles/font';
+
+::ng-deep mobile-header {
+    .header {
+        justify-content: flex-start !important;
+
+        div:nth-child(2) {
+            margin-top: 2px;
+            margin-left: 50px;
+        }
+    }
+}
+
+.selected-item {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: 1px solid black;
+}
+
+.section {
+    padding: 20px 16px;
+    .item-list {
+        margin: -15px -3px;
+
+        .item {
+            padding: 15px 3px;
+
+            > div {
+                .image-box {
+                    position: relative;
+                    width: 100%;
+                    height: 150px;
+                    background-color: var(--grey-8);
+                    cursor: pointer;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 8px;
+                    }
+
+                    .count,
+                    .bookmark {
+                        position: absolute;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 24px;
+                        height: 24px;
+
+                        img {
+                            height: 16px;
+                            width: 16px;
+                            border-radius: unset;
+                        }
+                    }
+
+                    .count {
+                        top: 5px;
+                        right: 5px;
+                    }
+
+                    .bookmark {
+                        bottom: 5px;
+                        right: 5px;
+                        cursor: pointer;
+
+                        img {
+                            height: 18px;
+                        }
+                    }
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 8px;
+                    height: 20px;
+
+                    .nickname {
+                        margin-left: 4px;
+
+                        @include textStyle(400, 12px, 20px);
+                        color: var(--grey-1);
+                    }
+                }
+
+                .title {
+                    margin-top: 4px;
+
+                    @include textStyle(400, 13px, 21px);
+                }
+
+                .tags {
+                    height: 20px;
+
+                    @include textStyle(400, 12px, 20px);
+                }
+
+                .additional {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 8px;
+                    height: 20px;
+
+                    .like {
+                        cursor: pointer;
+                    }
+
+                    .like,
+                    .comment {
+                        display: flex;
+                        align-items: center;
+
+                        @include textStyle(400, 13px, 21px);
+                        color: var(--grey-2);
+
+                        .mdi {
+                            font-size: 18px;
+                        }
+
+                        .mdi-heart {
+                            color: var(--red);
+                        }
+
+                        .text {
+                            margin-left: 2px;
+                        }
+                    }
+
+                    .comment {
+                        margin-left: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 414px) {
+    .section {
+        .item-list {
+            margin: -15px -6px;
+
+            .item {
+                padding: 15px 6px;
+            }
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .section {
+        .item-list {
+            margin: -20px -6px;
+
+            .item {
+                padding: 20px 6px;
+
+                > div {
+                    .image-box {
+                        height: 260px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .section {
+        padding: 50px 16px;
+
+        .item-list {
+            width: 92%;
+            margin: -25px auto;
+
+            .item {
+                padding: 25px 10px;
+
+                > div {
+                    .image-box {
+                        height: 190px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1920px) {
+    .section {
+        padding: 80px 16px;
+
+        .item-list {
+            width: 92%;
+            margin: -30px auto;
+
+            .item {
+                padding: 30px 15px;
+
+                > div {
+                    .image-box {
+                        min-height: 270px;
+                    }
+                }
+            }
+        }
+    }
+
+    .col-xxl-2-5 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}

@@ -9,7 +9,6 @@ import { PublicService } from '@services/public.service'
 import { TextService } from '@services/text.service'
 
 import { Feed } from '@schemas/feed'
-import { FeedTag } from '@schemas/feed-tag'
 import { User } from '@schemas/user'
 
 @Component({
@@ -85,5 +84,9 @@ export class FeedComponent implements OnInit {
         } else {
             this.router.navigateByUrl('/auth/login')
         }
+    }
+
+    goFeedDetail(feed: Feed) {
+        this.router.navigateByUrl(`/feed/${feed.id}`)
     }
 }
