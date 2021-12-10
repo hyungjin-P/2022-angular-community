@@ -12,6 +12,7 @@ export class Feed {
         public tags: Array<FeedTag>,
         public tags_str: string,
         public like: boolean,
+        public like_users: Array<User>,
         public like_count: number,
         public comment_count: number
     ) {
@@ -23,6 +24,7 @@ export class Feed {
         this.tags = tags
         this.tags_str = tags_str
         this.like = like
+        this.like_users = like_users
         this.like_count = like_count
         this.comment_count = comment_count
     }

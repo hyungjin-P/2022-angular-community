@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Location } from '@angular/common'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
+import { Subscription } from 'rxjs'
 
 import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
@@ -18,16 +19,20 @@ import { User } from '@schemas/user'
     templateUrl: './feed-detail.component.html',
     styleUrls: ['./feed-detail.component.scss'],
 })
-export class FeedDetailComponent implements OnInit {
+export class FeedDetailComponent implements OnInit, OnDestroy {
     variables: any
     user: User
 
+    selectedFeedId: string
     selectedFeed: Feed
     feedList: Array<Feed>
+
+    subscription: Subscription
 
     constructor(
         private location: Location,
         private router: Router,
+        private activatedRoute: ActivatedRoute,
         private globalService: GlobalService,
         private storageService: StorageService,
         private feedService: FeedService,
@@ -39,6 +44,20 @@ export class FeedDetailComponent implements OnInit {
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
 
+        this.subscription = this.activatedRoute.params.subscribe(
+            (v) => {
+                this.selectedFeedId = v['feed_id']
+                this.init()
+            },
+            (e) => {}
+        )
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe()
+    }
+
+    init() {
         if (this.user) {
             this.getFeed()
             this.getFeedList()
@@ -49,12 +68,28 @@ export class FeedDetailComponent implements OnInit {
     }
 
     goBack() {
-        this.location.back()
+        this.router.navigateByUrl('/feed')
     }
 
-    getFeed() {}
+    getFeed() {
+        this.feedService.getFeed(this.selectedFeedId).subscribe(
+            (feed: Feed) => {
+                this.selectedFeed = feed
+                console.log('feed_login', this.selectedFeed)
+            },
+            (e) => {}
+        )
+    }
 
-    getPublicFeed() {}
+    getPublicFeed() {
+        this.publicService.getFeed(this.selectedFeedId).subscribe(
+            (feed: Feed) => {
+                this.selectedFeed = feed
+                console.log('feed_public', this.selectedFeed)
+            },
+            (e) => {}
+        )
+    }
 
     getFeedList() {
         this.feedService.getFeedList().subscribe(
@@ -74,5 +109,41 @@ export class FeedDetailComponent implements OnInit {
             },
             (e) => {}
         )
+    }
+
+    feedLike(feed: Feed) {
+        if (this.storageService.getUser()) {
+            if (feed.like) {
+                this.feedService.deleteFeedLike(feed.id).subscribe(
+                    (v) => {
+                        feed.like = false
+                        feed.like_count -= 1
+
+                        this.selectedFeed.like_users.forEach((user, index) => {
+                            if (user.id == this.user.id) {
+                                this.selectedFeed.like_users.splice(index, 1)
+                            }
+                        })
+                    },
+                    (e) => {}
+                )
+            } else {
+                this.feedService.createFeedLike(feed.id).subscribe(
+                    (v) => {
+                        feed.like = true
+                        feed.like_count += 1
+
+                        this.selectedFeed.like_users.push(this.user)
+                    },
+                    (e) => {}
+                )
+            }
+        } else {
+            this.router.navigateByUrl('/auth/login')
+        }
+    }
+
+    goFeedDetail(feed: Feed) {
+        this.router.navigateByUrl(`/feed/${feed.id}`)
     }
 }
