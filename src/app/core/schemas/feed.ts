@@ -14,7 +14,8 @@ export class Feed {
         public like: boolean,
         public like_users: Array<User>,
         public like_count: number,
-        public comment_count: number
+        public comment_count: number,
+        public created_at: string
     ) {
         this.id = id
         this.writer = writer
@@ -27,5 +28,6 @@ export class Feed {
         this.like_users = like_users
         this.like_count = like_count
         this.comment_count = comment_count
+        this.created_at = created_at
     }
 }
