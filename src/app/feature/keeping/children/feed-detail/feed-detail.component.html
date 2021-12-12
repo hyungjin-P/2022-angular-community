@@ -106,7 +106,7 @@
             </div>
             <div class="item-list d-flex flex-wrap">
                 <ng-container *ngFor="let feed of feedList">
-                    <div class="item col-6 col-lg-6" *ngIf="feed.id != selectedFeed.id">
+                    <div class="item col-6 col-lg-6" *ngIf="feed.id != selectedFeed?.id">
                         <div class="d-flex flex-column">
                             <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
                                 <img class="picture" [src]="feed.picture" draggable="false" />
@@ -182,8 +182,8 @@
                 <div class="feed-comment-view-input">
                     <div>
                         <shared-avatar
-                            [image]="user.picture[0].url"
-                            text="{{ user.email }}"
+                            [image]="user?.picture[0].url"
+                            text="{{ user?.email }}"
                             size="24"
                             fontSize="12"
                         ></shared-avatar>

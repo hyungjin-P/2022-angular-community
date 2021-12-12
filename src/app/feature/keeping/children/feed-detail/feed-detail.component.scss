@@ -231,6 +231,7 @@
             .avatar {
                 border: 1px solid var(--white);
                 border-radius: 50%;
+                cursor: pointer;
             }
 
             .avatar:nth-child(2),
@@ -243,6 +244,7 @@
 
                 span {
                     font-weight: bold;
+                    cursor: pointer;
                 }
             }
         }

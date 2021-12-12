@@ -388,8 +388,12 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showCommentView() {
-        this.getFeedCommentList()
-        this.commentViewVisible = true
+        if (this.storageService.getUser()) {
+            this.getFeedCommentList()
+            this.commentViewVisible = true
+        } else {
+            this.router.navigateByUrl('/auth/login')
+        }
     }
 
     hideCommentView() {
@@ -475,7 +479,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     showLikedView() {
-        this.likedViewVisible = true
+        if (this.storageService.getUser()) {
+            this.likedViewVisible = true
+        } else {
+            this.router.navigateByUrl('/auth/login')
+        }
     }
 
     hideLikedView() {
