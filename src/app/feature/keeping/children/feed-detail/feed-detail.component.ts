@@ -325,7 +325,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         )
     }
 
-    feedLike(feed: Feed) {
+    selectedFeedLike(feed: Feed) {
         if (this.storageService.getUser()) {
             if (feed.like) {
                 this.feedService.deleteFeedLike(feed.id).subscribe(
@@ -348,6 +348,30 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
                         feed.like_count += 1
 
                         this.selectedFeed.like_users.push(this.user)
+                    },
+                    (e) => {}
+                )
+            }
+        } else {
+            this.router.navigateByUrl('/auth/login')
+        }
+    }
+
+    feedLike(feed: Feed) {
+        if (this.storageService.getUser()) {
+            if (feed.like) {
+                this.feedService.deleteFeedLike(feed.id).subscribe(
+                    (v) => {
+                        feed.like = false
+                        feed.like_count -= 1
+                    },
+                    (e) => {}
+                )
+            } else {
+                this.feedService.createFeedLike(feed.id).subscribe(
+                    (v) => {
+                        feed.like = true
+                        feed.like_count += 1
                     },
                     (e) => {}
                 )

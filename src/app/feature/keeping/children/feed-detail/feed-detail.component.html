@@ -44,7 +44,7 @@
                 </div>
                 <div class="row-3">
                     <div class="row-3-col-1">
-                        <div class="like" (click)="feedLike(selectedFeed)">
+                        <div class="like" (click)="selectedFeedLike(selectedFeed)">
                             <div class="mdi mdi-heart" *ngIf="variables.isLogin && selectedFeed?.like"></div>
                             <div class="mdi mdi-heart-outline" *ngIf="!variables.isLogin || !selectedFeed?.like"></div>
                             <div class="text">{{ selectedFeed?.like_count }}</div>
