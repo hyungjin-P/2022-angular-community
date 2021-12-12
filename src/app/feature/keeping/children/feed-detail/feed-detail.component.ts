@@ -28,6 +28,7 @@ import {
     takeWhile,
     mergeAll,
 } from 'rxjs/operators'
+import * as moment from 'moment-timezone'
 
 import { GlobalService } from '@services/global.service'
 import { StorageService } from '@services/storage.service'
@@ -37,7 +38,7 @@ import { PublicService } from '@services/public.service'
 import { TextService } from '@services/text.service'
 
 import { Feed } from '@schemas/feed'
-import { FeedTag } from '@schemas/feed-tag'
+import { FeedComment } from '@schemas/feed-comment'
 import { User } from '@schemas/user'
 
 @Component({
@@ -78,6 +79,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     moreBoxVisible: boolean
 
     selectedLanguage: string
+    commentViewVisible: boolean
+    feedCommentInput: string
+    feedCommentList: Array<FeedComment>
+    feedSubCommentInputViewObj: any
+    feedSubCommentInputValueObj: any
+    feedSubCommentListViewObj: any
+    feedSubCommentListObj: any
+    likedViewVisible: boolean
 
     constructor(
         private location: Location,
@@ -105,6 +114,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         )
 
         this.selectedLanguage = localStorage.getItem('language')
+        this.commentViewVisible = false
+        this.feedCommentInput = ''
+        this.feedCommentList = []
+        this.feedSubCommentInputViewObj = {}
+        this.feedSubCommentInputValueObj = {}
+        this.feedSubCommentListViewObj = {}
+        this.feedSubCommentListObj = {}
+        this.likedViewVisible = false
     }
 
     ngAfterViewInit() {
@@ -279,6 +296,26 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         )
     }
 
+    getFeedCommentList() {
+        this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
+            (feedCommentList: Array<FeedComment>) => {
+                console.log('feedCommentList', feedCommentList)
+                this.feedCommentList = feedCommentList
+            },
+            (e) => {}
+        )
+    }
+
+    getFeedSubCommentList(feedCommentId: string) {
+        this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
+            (feedCommentList: Array<FeedComment>) => {
+                console.log('feedSubCommentList', feedCommentList)
+                this.feedSubCommentListObj[feedCommentId] = feedCommentList
+            },
+            (e) => {}
+        )
+    }
+
     getPublicFeedList() {
         this.publicService.getFeedList().subscribe(
             (feedList: Feed[]) => {
@@ -348,5 +385,100 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             (e) => {}
         )
+    }
+
+    showCommentView() {
+        this.getFeedCommentList()
+        this.commentViewVisible = true
+    }
+
+    hideCommentView() {
+        this.clearCommentInput()
+        this.commentViewVisible = false
+    }
+
+    clearCommentInput() {
+        this.feedCommentInput = ''
+    }
+
+    createComment() {
+        if (!this.feedCommentInput) {
+            return
+        }
+
+        this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInput }).subscribe(
+            (feedComment: FeedComment) => {
+                this.clearCommentInput()
+                this.selectedFeed.comment_count++
+                this.feedCommentList.unshift(feedComment)
+            },
+            (e) => {}
+        )
+    }
+
+    showSubCommentInput(feedCommentId: string) {
+        this.feedSubCommentInputViewObj[feedCommentId] = true
+    }
+
+    hideSubCommentInput(feedCommentId: string) {
+        this.feedSubCommentInputViewObj[feedCommentId] = false
+        this.feedSubCommentInputValueObj[feedCommentId] = ''
+    }
+
+    showSubCommentList(feedCommentId: string) {
+        if (this.feedSubCommentListViewObj[feedCommentId]) {
+            this.hideSubCommentList(feedCommentId)
+        } else {
+            this.feedSubCommentListViewObj[feedCommentId] = true
+            this.getFeedSubCommentList(feedCommentId)
+        }
+    }
+
+    hideSubCommentList(feedCommentId: string) {
+        this.feedSubCommentListViewObj[feedCommentId] = false
+        this.feedSubCommentListObj[feedCommentId] = []
+    }
+
+    createSubComment(feedCommentId: string) {
+        if (!this.feedSubCommentInputValueObj[feedCommentId]) {
+            return
+        }
+
+        this.feedService
+            .createFeedComment(this.selectedFeed.id, {
+                parent_id: feedCommentId,
+                text: this.feedSubCommentInputValueObj[feedCommentId],
+            })
+            .subscribe(
+                (feedComment: FeedComment) => {
+                    this.hideSubCommentInput(feedCommentId)
+                    this.selectedFeed.comment_count++
+                    this.feedSubCommentListViewObj[feedCommentId] = true
+                    if (!this.feedSubCommentListObj[feedCommentId]) {
+                        this.feedSubCommentListObj[feedCommentId] = [feedComment]
+                    } else {
+                        this.feedSubCommentListObj[feedCommentId].unshift(feedComment)
+                    }
+                },
+                (e) => {}
+            )
+    }
+
+    deleteComment(feedComment: FeedComment) {
+        this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
+            (v) => {
+                this.selectedFeed.comment_count--
+                feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss')
+            },
+            (e) => {}
+        )
+    }
+
+    showLikedView() {
+        this.likedViewVisible = true
+    }
+
+    hideLikedView() {
+        this.likedViewVisible = false
     }
 }
