@@ -119,6 +119,12 @@
     },
     "keeping": {
         "feed-detail": {
+            "comment-view-add-button": "댓글",
+            "comment-view-cancel-button": "취소",
+            "comment-view-deleted-text": "삭제된 댓글입니다.",
+            "comment-view-header": "댓글",
+            "comment-view-reply": "답글",
+            "comment-view-reply-delete": "삭제",
             "more-delete": "삭제"
         },
         "mobile-header": {
