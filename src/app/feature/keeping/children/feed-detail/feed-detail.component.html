@@ -116,7 +116,7 @@
                             </div>
                             <div class="user">
                                 <shared-avatar
-                                    [image]="feed.writer.picture[0].url"
+                                    [image]="feed.writer.picture[0]?.url"
                                     text="{{ feed.writer.email }}"
                                     size="20"
                                     fontSize="14"
@@ -211,15 +211,6 @@
     </div>
 </div>
 
-<div class="liked-view-background" [class.liked-view-background-show]="likedViewVisible"></div>
-<div
-    class="liked-view-wrapper justify-content-center align-items-center"
-    [class.liked-view-wrapper-show]="likedViewVisible"
-    (click)="hideLikedView()"
->
-    <div class="liked-view" (click)="$event.stopPropagation()">dd</div>
-</div>
-
 <ng-template #CommentListTemplate let-feedCommentList="feedCommentList" let-parentFeedComment="parentFeedComment">
     <div class="feed-comment-view-item-list">
         <div class="feed-comment-view-item" *ngFor="let feedComment of feedCommentList">
@@ -308,3 +299,36 @@
         </div>
     </div>
 </ng-template>
+
+<div class="liked-view-background" [class.liked-view-background-show]="likedViewVisible"></div>
+<div
+    class="liked-view-wrapper justify-content-center align-items-center"
+    [class.liked-view-wrapper-show]="likedViewVisible"
+    (click)="hideLikedView()"
+>
+    <div class="liked-view d-flex flex-column" (click)="$event.stopPropagation()">
+        <div class="liked-view-header">
+            <div class="mdi mdi-chevron-left" (click)="hideLikedView()"></div>
+            <div>{{ 'keeping.feed-detail.liked-view-header' | translate }} ({{ likeUserList.length }})</div>
+        </div>
+        <div class="flex-fill" style="position: relative">
+            <div class="liked-view-section full-absolute">
+                <div class="liked-view-user" *ngFor="let user of likeUserList">
+                    <shared-avatar
+                        [image]="user.picture[0]?.url"
+                        text="{{ user.email }}"
+                        size="45"
+                        fontSize="18"
+                    ></shared-avatar>
+                    <div class="liked-view-user-nickname">{{ user.nickname || user.email }}</div>
+                    <div class="liked-view-user-follow-button">
+                        <div class="mdi mdi-plus"></div>
+                        <div class="liked-view-user-follow-button-text">
+                            {{ 'keeping.feed-detail.liked-view-follow-button-text' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

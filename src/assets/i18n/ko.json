@@ -125,6 +125,8 @@
             "comment-view-header": "댓글",
             "comment-view-reply": "답글",
             "comment-view-reply-delete": "삭제",
+            "liked-view-follow-button-text": "팔로우",
+            "liked-view-header": "이 글을 좋아하는 유저",
             "more-delete": "삭제"
         },
         "mobile-header": {

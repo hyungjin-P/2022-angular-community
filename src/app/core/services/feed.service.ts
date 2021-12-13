@@ -7,6 +7,7 @@ import handleError from './handleError'
 import { environment } from '@environments/environment'
 
 import { Response } from '@schemas/response'
+import { User } from '@schemas/user'
 import { Feed } from '@schemas/feed'
 import { FeedTag } from '@schemas/feed-tag'
 import { FeedComment } from '@schemas/feed-comment'
@@ -183,6 +184,23 @@ export class FeedService {
         return this.http.post<Response>(url, {}, options).pipe(
             map((res) => {
                 return res
+            }),
+            catchError(handleError)
+        )
+    }
+
+    getFeedLikeList(feedId: string, page = '', pageSize = ''): Observable<Array<User>> {
+        const url = environment['serverAddress'] + `/feed/${feedId}/like?page=${page}&pageSize=${pageSize}`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.get<Response>(url, options).pipe(
+            map((res) => {
+                return res.dataset
             }),
             catchError(handleError)
         )

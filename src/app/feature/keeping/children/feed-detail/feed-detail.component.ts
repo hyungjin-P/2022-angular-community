@@ -88,6 +88,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     feedSubCommentListObj: any
     likedViewVisible: boolean
 
+    likeUserList: Array<User>
+
     constructor(
         private location: Location,
         private router: Router,
@@ -122,6 +124,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedSubCommentListViewObj = {}
         this.feedSubCommentListObj = {}
         this.likedViewVisible = false
+
+        this.likeUserList = []
     }
 
     ngAfterViewInit() {
@@ -323,6 +327,15 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         )
     }
 
+    getFeedLikeList() {
+        this.feedService.getFeedLikeList(this.selectedFeed.id).subscribe(
+            (likeUserList: Array<User>) => {
+                this.likeUserList = likeUserList
+            },
+            (e) => {}
+        )
+    }
+
     selectedFeedLike(feed: Feed) {
         if (this.storageService.getUser()) {
             if (feed.like) {
@@ -506,6 +519,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     showLikedView() {
         if (this.storageService.getUser()) {
+            this.getFeedLikeList()
             this.likedViewVisible = true
         } else {
             this.router.navigateByUrl('/auth/login')

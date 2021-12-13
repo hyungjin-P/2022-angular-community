@@ -125,6 +125,8 @@
             "comment-view-header": "Comment",
             "comment-view-reply": "Reply",
             "comment-view-reply-delete": "Delete",
+            "liked-view-follow-button-text": "Follow",
+            "liked-view-header": "Users who like this feed.",
             "more-delete": "Delete"
         },
         "mobile-header": {

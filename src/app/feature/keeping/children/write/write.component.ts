@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import {
     animationFrameScheduler,
@@ -77,6 +78,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
     tagModalInput: string
 
     constructor(
+        private router: Router,
         private location: Location,
         private globalService: GlobalService,
         private storageService: StorageService,
@@ -338,9 +340,10 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
         this.feedService.updateFeed(this.feed.id, { posting: true }).subscribe(
             (v) => {
-                this.createFeed()
-                let message = this.textService.getText('write:feed:003')
-                this.globalService.showToast(message)
+                // this.createFeed()
+                // let message = this.textService.getText('write:feed:003')
+                // this.globalService.showToast(message)
+                this.router.navigateByUrl('/feed')
             },
             (e) => {}
         )
