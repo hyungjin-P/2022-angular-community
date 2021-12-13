@@ -23,9 +23,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.variables.isTouchScreen) {
-            this.router.navigateByUrl('/settings/profile')
-        }
+        // if (!this.variables.isTouchScreen) {
+        //     this.router.navigateByUrl('/settings/profile')
+        // }
     }
 
     goBack() {
