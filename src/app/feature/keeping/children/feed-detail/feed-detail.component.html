@@ -6,7 +6,7 @@
             <div class="selected-item">
                 <div class="row-1">
                     <shared-avatar
-                        [image]="selectedFeed?.writer.picture[0].url"
+                        [image]="selectedFeed?.writer.picture[0]?.url"
                         text="{{ selectedFeed?.writer.email }}"
                         size="32"
                         fontSize="16"
@@ -164,7 +164,7 @@
                 <div class="feed-comment-view-section-content">
                     <div class="row-1">
                         <shared-avatar
-                            [image]="selectedFeed?.writer.picture[0].url"
+                            [image]="selectedFeed?.writer.picture[0]?.url"
                             text="{{ selectedFeed?.writer.email }}"
                             size="24"
                             fontSize="12"
@@ -182,7 +182,7 @@
                 <div class="feed-comment-view-input">
                     <div>
                         <shared-avatar
-                            [image]="user?.picture[0].url"
+                            [image]="user?.picture[0]?.url"
                             text="{{ user?.email }}"
                             size="24"
                             fontSize="12"
@@ -216,7 +216,7 @@
         <div class="feed-comment-view-item" *ngFor="let feedComment of feedCommentList">
             <div>
                 <shared-avatar
-                    [image]="feedComment.writer.picture[0].url"
+                    [image]="feedComment.writer.picture[0]?.url"
                     text="{{ feedComment.writer.email }}"
                     size="32"
                     fontSize="16"
@@ -282,7 +282,7 @@
     <div class="feed-comment-view-input feed-sub-comment-view-input">
         <div>
             <shared-avatar
-                [image]="user.picture[0].url"
+                [image]="user.picture[0]?.url"
                 text="{{ user.email }}"
                 size="24"
                 fontSize="12"
