@@ -299,7 +299,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     getFeedCommentList() {
         this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
             (feedCommentList: Array<FeedComment>) => {
-                console.log('feedCommentList', feedCommentList)
                 this.feedCommentList = feedCommentList
             },
             (e) => {}
@@ -309,7 +308,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     getFeedSubCommentList(feedCommentId: string) {
         this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
             (feedCommentList: Array<FeedComment>) => {
-                console.log('feedSubCommentList', feedCommentList)
                 this.feedSubCommentListObj[feedCommentId] = feedCommentList
             },
             (e) => {}
@@ -467,35 +465,39 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedSubCommentListObj[feedCommentId] = []
     }
 
-    createSubComment(feedCommentId: string) {
-        if (!this.feedSubCommentInputValueObj[feedCommentId]) {
+    createSubComment(parentFeedComment: FeedComment) {
+        if (!this.feedSubCommentInputValueObj[parentFeedComment.id]) {
             return
         }
 
         this.feedService
             .createFeedComment(this.selectedFeed.id, {
-                parent_id: feedCommentId,
-                text: this.feedSubCommentInputValueObj[feedCommentId],
+                parent_id: parentFeedComment.id,
+                text: this.feedSubCommentInputValueObj[parentFeedComment.id],
             })
             .subscribe(
                 (feedComment: FeedComment) => {
-                    this.hideSubCommentInput(feedCommentId)
+                    this.hideSubCommentInput(parentFeedComment.id)
                     this.selectedFeed.comment_count++
-                    this.feedSubCommentListViewObj[feedCommentId] = true
-                    if (!this.feedSubCommentListObj[feedCommentId]) {
-                        this.feedSubCommentListObj[feedCommentId] = [feedComment]
+                    parentFeedComment.sub_comment_count++
+                    this.feedSubCommentListViewObj[parentFeedComment.id] = true
+                    if (!this.feedSubCommentListObj[parentFeedComment.id]) {
+                        this.feedSubCommentListObj[parentFeedComment.id] = [feedComment]
                     } else {
-                        this.feedSubCommentListObj[feedCommentId].unshift(feedComment)
+                        this.feedSubCommentListObj[parentFeedComment.id].unshift(feedComment)
                     }
                 },
                 (e) => {}
             )
     }
 
-    deleteComment(feedComment: FeedComment) {
+    deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
         this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
             (v) => {
                 this.selectedFeed.comment_count--
+                if (feedComment.parent_id) {
+                    parentFeedComment.sub_comment_count--
+                }
                 feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss')
             },
             (e) => {}

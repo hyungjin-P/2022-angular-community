@@ -220,7 +220,7 @@
     <div class="liked-view" (click)="$event.stopPropagation()">dd</div>
 </div>
 
-<ng-template #CommentListTemplate let-feedCommentList="feedCommentList">
+<ng-template #CommentListTemplate let-feedCommentList="feedCommentList" let-parentFeedComment="parentFeedComment">
     <div class="feed-comment-view-item-list">
         <div class="feed-comment-view-item" *ngFor="let feedComment of feedCommentList">
             <div>
@@ -251,7 +251,7 @@
                         </div>
                         <div
                             class="comment-view-item-menu sub-comment-delete"
-                            (click)="deleteComment(feedComment)"
+                            (click)="deleteComment(feedComment, parentFeedComment)"
                             *ngIf="!feedComment?.deleted_at && user.id == feedComment.writer.id"
                         >
                             {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
@@ -260,7 +260,7 @@
                     <ng-container
                         *ngIf="feedSubCommentInputViewObj[feedComment.id]"
                         [ngTemplateOutlet]="subCommentInputTemplate"
-                        [ngTemplateOutletContext]="{ feedCommentId: feedComment.id }"
+                        [ngTemplateOutletContext]="{ feedComment: feedComment }"
                     >
                     </ng-container>
                 </div>
@@ -276,7 +276,10 @@
                 <ng-container
                     *ngIf="feedSubCommentListObj[feedComment.id]?.length > 0"
                     [ngTemplateOutlet]="CommentListTemplate"
-                    [ngTemplateOutletContext]="{ feedCommentList: feedSubCommentListObj[feedComment.id] }"
+                    [ngTemplateOutletContext]="{
+                        feedCommentList: feedSubCommentListObj[feedComment.id],
+                        parentFeedComment: feedComment
+                    }"
                 >
                 </ng-container>
             </div>
@@ -284,7 +287,7 @@
     </div>
 </ng-template>
 
-<ng-template #subCommentInputTemplate let-feedCommentId="feedCommentId">
+<ng-template #subCommentInputTemplate let-feedComment="feedComment">
     <div class="feed-comment-view-input feed-sub-comment-view-input">
         <div>
             <shared-avatar
@@ -293,13 +296,13 @@
                 size="24"
                 fontSize="12"
             ></shared-avatar>
-            <input type="text" [(ngModel)]="feedSubCommentInputValueObj[feedCommentId]" />
+            <input type="text" [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]" />
         </div>
         <div class="button-group">
-            <div class="cancel-button" (click)="hideSubCommentInput(feedCommentId)">
+            <div class="cancel-button" (click)="hideSubCommentInput(feedComment.id)">
                 {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}
             </div>
-            <div class="add-button" (click)="createSubComment(feedCommentId)">
+            <div class="add-button" (click)="createSubComment(feedComment)">
                 {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
             </div>
         </div>
