@@ -11,7 +11,9 @@
                         size="32"
                         fontSize="16"
                     ></shared-avatar>
-                    <div class="nickname">{{ selectedFeed?.writer.nickname }}</div>
+                    <div class="nickname">
+                        {{ selectedFeed?.writer.nickname || selectedFeed?.writer.email.split('@')[0] }}
+                    </div>
                     <div class="more" *ngIf="user && user.id == selectedFeed?.writer.id">
                         <div class="more-menu" (click)="openMoreBox($event)">
                             <div class="mdi mdi-dots-vertical"></div>
@@ -122,7 +124,9 @@
                                     fontSize="14"
                                     backgroundColor="red"
                                 ></shared-avatar>
-                                <div class="nickname">{{ feed.writer.nickname }}</div>
+                                <div class="nickname">
+                                    {{ feed.writer.nickname || feed.writer.email.split('@')[0] }}
+                                </div>
                             </div>
                             <div class="title ellipsis2">
                                 {{ feed.content }}
@@ -169,7 +173,9 @@
                             size="24"
                             fontSize="12"
                         ></shared-avatar>
-                        <div class="nickname">{{ selectedFeed?.writer.nickname }}</div>
+                        <div class="nickname">
+                            {{ selectedFeed?.writer.nickname || selectedFeed?.writer.email.split('@')[0] }}
+                        </div>
                     </div>
                     <div class="row-2">{{ selectedFeed?.content }}</div>
                     <div class="row-3">
@@ -224,7 +230,7 @@
             </div>
             <div class="flex-fill">
                 <div class="comment-view-item-writer">
-                    {{ feedComment?.writer.nickname }}
+                    {{ feedComment?.writer.nickname || feedComment?.writer.email.split('@')[0] }}
                 </div>
                 <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">
                     {{ feedComment?.text }}
@@ -320,7 +326,7 @@
                         size="45"
                         fontSize="18"
                     ></shared-avatar>
-                    <div class="liked-view-user-nickname">{{ user.nickname || user.email }}</div>
+                    <div class="liked-view-user-nickname">{{ user.nickname || user.email.split('@')[0] }}</div>
                     <div class="liked-view-user-follow-button">
                         <div class="mdi mdi-plus"></div>
                         <div class="liked-view-user-follow-button-text">

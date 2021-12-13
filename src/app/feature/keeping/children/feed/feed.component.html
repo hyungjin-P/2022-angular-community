@@ -78,7 +78,7 @@
                                 fontSize="14"
                                 backgroundColor="red"
                             ></shared-avatar>
-                            <div class="nickname">{{ feed.writer.nickname }}</div>
+                            <div class="nickname">{{ feed.writer.nickname || feed.writer.email.split('@')[0] }}</div>
                         </div>
                         <div class="title ellipsis2">
                             {{ feed.content }}
