@@ -1,105 +1,105 @@
 <div class="feed full-absolute d-flex flex-column">
-    <header class="d-block d-lg-none"></header>
+  <header class="d-block d-lg-none"></header>
 
-    <div class="flex-fill" style="position: relative">
-        <div class="section full-absolute">
-            <!-- <div class="nav">
-                <div class="menu" [class.selected]="selectedMenu == 'popularity'" (click)="changeMenu('popularity')">
-                    <div class="text">인기</div>
-                </div>
-                <div class="menu" [class.selected]="selectedMenu == 'following'" (click)="changeMenu('following')">
-                    <div class="text">팔로잉</div>
-                </div>
-            </div> -->
-            <!-- <div class="tag-list">
-                <div class="tag">
-                    <div>전체</div>
-                </div>
-                <div class="tag selected">
-                    <div># 액션피규어</div>
-                </div>
-                <div class="tag">
-                    <div># 프라모델</div>
-                </div>
-                <div class="tag">
-                    <div># 커스텀</div>
-                </div>
-                <div class="tag">
-                    <div># 핫토이</div>
-                </div>
-                <div class="tag">
-                    <div># 로봇혼</div>
-                </div>
-                <div class="tag">
-                    <div># 반다이</div>
-                </div>
-                <div class="tag">
-                    <div># 건X베이스</div>
-                </div>
-                <div class="tag selected">
-                    <div># 마블</div>
-                </div>
-                <div class="tag">
-                    <div># DC</div>
-                </div>
-                <div class="tag">
-                    <div># 슈퍼로봇대전</div>
-                </div>
-                <div class="tag">
-                    <div># 최근검색어</div>
-                </div>
-                <div class="tag">
-                    <div># 인기검색어</div>
-                </div>
-                <div class="tag">
-                    <div># Gundam</div>
-                </div>
-                <div class="tag">
-                    <div># Marvel</div>
-                </div>
-            </div> -->
-            <div class="item-list d-flex flex-wrap">
-                <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
-                        <div class="d-flex flex-column">
-                            <!-- <a class="image-box flex-fill" (click)="goFeedDetail(feed)"> -->
-                            <a class="image-box flex-fill" [routerLink]="['/feed/', feed.id]">
-                                <img class="picture" [src]="feed.picture" draggable="false" />
-                                <div class="count" *ngIf="feed.pictures.length > 1">
-                                    <img src="assets/icons/feed/count.svg" />
-                                </div>
-                                <!-- <div class="bookmark">
-                                    <img src="assets/icons/feed/bookmark.svg" />
-                                </div> -->
-                            </a>
-                            <div class="user">
-                                <shared-avatar
-                                    [image]="feed.writer.picture[0]?.url"
-                                    text="{{ feed.writer.email }}"
-                                    size="20"
-                                    fontSize="14"
-                                    backgroundColor="red"
-                                ></shared-avatar>
-                                <div class="nickname">{{ feed.writer.nickname || feed.writer.email.split('@')[0] }}</div>
-                            </div>
-                            <div class="title ellipsis2">
-                                {{ feed.content }}
-                            </div>
-                            <div class="tags ellipsis1">{{ feed.tags_str }}</div>
-                            <div class="additional">
-                                <div class="like" (click)="feedLike(feed)">
-                                    <div class="mdi mdi-heart" *ngIf="variables.isLogin && feed.like"></div>
-                                    <div class="mdi mdi-heart-outline" *ngIf="!variables.isLogin || !feed.like"></div>
-                                    <div class="text">{{ feed.like_count }}</div>
-                                </div>
-                                <div class="comment">
-                                    <img src="assets/icons/feed/comment.svg" />
-                                    <div class="text">{{ feed.comment_count }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                </div>
+  <div class="flex-fill" style="position: relative">
+    <div class="section full-absolute">
+      <!-- <div class="nav">
+          <div class="menu" [class.selected]="selectedMenu == 'popularity'" (click)="changeMenu('popularity')">
+              <div class="text">인기</div>
+          </div>
+          <div class="menu" [class.selected]="selectedMenu == 'following'" (click)="changeMenu('following')">
+              <div class="text">팔로잉</div>
+          </div>
+      </div> -->
+      <!-- <div class="tag-list">
+          <div class="tag">
+              <div>전체</div>
+          </div>
+          <div class="tag selected">
+              <div># 액션피규어</div>
+          </div>
+          <div class="tag">
+              <div># 프라모델</div>
+          </div>
+          <div class="tag">
+              <div># 커스텀</div>
+          </div>
+          <div class="tag">
+              <div># 핫토이</div>
+          </div>
+          <div class="tag">
+              <div># 로봇혼</div>
+          </div>
+          <div class="tag">
+              <div># 반다이</div>
+          </div>
+          <div class="tag">
+              <div># 건X베이스</div>
+          </div>
+          <div class="tag selected">
+              <div># 마블</div>
+          </div>
+          <div class="tag">
+              <div># DC</div>
+          </div>
+          <div class="tag">
+              <div># 슈퍼로봇대전</div>
+          </div>
+          <div class="tag">
+              <div># 최근검색어</div>
+          </div>
+          <div class="tag">
+              <div># 인기검색어</div>
+          </div>
+          <div class="tag">
+              <div># Gundam</div>
+          </div>
+          <div class="tag">
+              <div># Marvel</div>
+          </div>
+      </div> -->
+      <div class="item-list d-flex flex-wrap">
+        <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
+          <div class="d-flex flex-column">
+            <!-- <a class="image-box flex-fill" (click)="goFeedDetail(feed)"> -->
+            <a class="image-box flex-fill" [routerLink]="['/feed/', feed.id]">
+              <img class="picture" [src]="feed.picture" draggable="false"/>
+              <div class="count" *ngIf="feed.pictures.length > 1">
+                <img src="assets/icons/feed/count.svg"/>
+              </div>
+              <!-- <div class="bookmark">
+                  <img src="assets/icons/feed/bookmark.svg" />
+              </div> -->
+            </a>
+            <div class="user">
+              <shared-avatar
+                [image]="feed.writer.picture[0]?.url"
+                text="{{ feed.writer.email }}"
+                size="20"
+                fontSize="14"
+                backgroundColor="red"
+              ></shared-avatar>
+              <div class="nickname">{{ feed.writer.nickname || feed.writer.email.split('@')[0] }}</div>
             </div>
+            <div class="title ellipsis2">
+              {{ feed.content }}
+            </div>
+            <div class="tags ellipsis1">{{ feed.tags_str }}</div>
+            <div class="additional">
+              <div class="like" (click)="feedLike(feed)">
+                <div class="mdi mdi-heart" *ngIf="variables.isLogin && feed.like"></div>
+                <div class="mdi mdi-heart-outline" *ngIf="!variables.isLogin || !feed.like"></div>
+                <div class="text">{{ feed.like_count }}</div>
+              </div>
+              <div class="comment">
+                <img src="assets/icons/feed/comment.svg"/>
+                <div class="text">{{ feed.comment_count }}</div>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
