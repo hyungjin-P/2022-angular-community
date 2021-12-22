@@ -92,7 +92,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
         this.title = ''
         this.content = ''
-        this.pictureBoxVisible = false
+        this.pictureBoxVisible = true
 
         this.selectedLanguage = localStorage.getItem('language')
         this.createFeed()

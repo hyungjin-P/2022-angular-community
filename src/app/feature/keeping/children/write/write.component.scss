@@ -277,12 +277,14 @@
                         position: relative;
 
                         .carousel-panel-img-wrapper {
-                            height: 290px;
+                            position: relative;
+                            height: 0;
+                            overflow: hidden;
+                            padding-bottom: 100%;
 
                             img {
                                 width: 100%;
-                                height: 285px;
-                                object-fit: cover;
+                                // margin-top: -25%; // << if height > width then style 
                                 border-radius: 4px;
                             }
                         }
@@ -345,7 +347,7 @@
         }
 
         .carousel-view-show {
-            height: 290px;
+            height: auto;
         }
 
         .tag-box {
