@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core'
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core'
 import { Location } from '@angular/common'
 import { Router, ActivatedRoute } from '@angular/router'
 import {
@@ -41,6 +41,8 @@ import { Feed } from '@schemas/feed'
 import { FeedComment } from '@schemas/feed-comment'
 import { User } from '@schemas/user'
 
+
+
 @Component({
     selector: 'feed-detail',
     templateUrl: './feed-detail.component.html',
@@ -55,6 +57,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     feedList: Array<Feed>
 
     subscription: Subscription
+
+    @ViewChild('scroll') scroll: ElementRef;
 
     @ViewChild('carousel')
     carousel
@@ -397,6 +401,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.translateX(0)
         this.refresh = true
         this.router.navigateByUrl(`/feed/${feed.id}`)
+        try{
+            this.scroll.nativeElement.scrollTop = 0;
+        }catch(err){}
     }
 
     openMoreBox(event) {
