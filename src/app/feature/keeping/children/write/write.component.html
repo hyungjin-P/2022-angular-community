@@ -27,7 +27,7 @@
                         <div class="mdi mdi-plus"></div>
                     </div>
                     <div class="added-picture" *ngFor="let picture of feed?.pictures; let i = index">
-                        <img [src]="picture.url" draggable="false" />
+                        <img [src]="picture.url" draggable="false" (click)="clickAddedPicture(i)"/>
                         <div class="added-picture-delete-menu" (click)="deletePicture(i, picture.url)">
                             <div class="mdi mdi-close"></div>
                         </div>

@@ -152,6 +152,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
         } catch (e) {}
     }
 
+    async clickAddedPicture(index: number){
+        try{
+            console.log("index : " + index + "now : " + this.feed.pictures)
+        } catch (e) {}
+    }
+
     ngAfterViewInit() {
         const SUPPORT_TOUCH = 'ontouchstart' in window
         const EVENTS = {
