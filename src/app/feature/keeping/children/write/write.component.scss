@@ -281,10 +281,12 @@
                             height: 0;
                             overflow: hidden;
                             padding-bottom: 100%;
-
+                            
                             img {
+                                position: absolute;
                                 width: 100%;
-                                // margin-top: -25%; // << if height > width then style 
+                                top: 50%;
+                                transform: translateY(-50%); 
                                 border-radius: 4px;
                             }
                         }
