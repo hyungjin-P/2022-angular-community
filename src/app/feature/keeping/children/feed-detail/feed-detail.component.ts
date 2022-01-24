@@ -146,9 +146,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             map((event: any) => this.carousel.nativeElement.clientWidth)
         )
 
-        this.start$ = fromEvent(this.carousel.nativeElement, EVENTS.start).pipe(this.toPos)
-        this.move$ = fromEvent(this.carousel.nativeElement, EVENTS.move).pipe(this.toPos)
-        this.end$ = fromEvent(this.carousel.nativeElement, EVENTS.end)
+        this.start$ = fromEvent(this.carousel.nativeElement, EVENTS.start).pipe(this.toPos);
+        this.move$ = fromEvent(this.carousel.nativeElement, EVENTS.move).pipe(this.toPos);
+        this.end$ = fromEvent(this.carousel.nativeElement, EVENTS.end);
 
         this.drag$ = this.start$.pipe(
             switchMap((start: any) =>
@@ -242,19 +242,19 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     animation(from, to, duration) {
         return defer(() => {
-            const scheduler = animationFrameScheduler
-            const start = scheduler.now()
+            const scheduler = animationFrameScheduler;
+            const start = scheduler.now();
             const interval$ = interval(0, scheduler).pipe(
                 map(() => (scheduler.now() - start) / duration),
                 takeWhile((rate) => rate < 1)
-            )
+            );
 
             return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
         })
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe()
+        this.subscription.unsubscribe();
     }
 
     init() {

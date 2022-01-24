@@ -47,7 +47,9 @@ export class FeedComponent implements OnInit {
     this.feedService.getFeedList().subscribe(
       (feedList: Feed[]) => {
         this.feedList = feedList
-        console.log(this.feedList)
+        console.log('this.feedList :  ', this.feedList);
+        console.log('this.feedList :  ', this.feedList);
+        console.log('this.feedList :  ', this.feedList);
       },
       (e) => {
       }
@@ -57,6 +59,7 @@ export class FeedComponent implements OnInit {
   getPublicFeedList() {
     this.publicService.getFeedList().subscribe(
       (feedList: Feed[]) => {
+        console.log('feedList : ', feedList);
         this.feedList = feedList
       },
       (e) => {

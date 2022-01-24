@@ -1,342 +1,347 @@
-import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable } from 'rxjs'
-import { catchError, map } from 'rxjs/operators'
+import {Injectable} from '@angular/core'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
+import {Observable} from 'rxjs'
+import {catchError, map} from 'rxjs/operators'
 import handleError from './handleError'
 
-import { environment } from '@environments/environment'
+import {environment} from '@environments/environment'
 
-import { Response } from '@schemas/response'
-import { User } from '@schemas/user'
-import { Feed } from '@schemas/feed'
-import { FeedTag } from '@schemas/feed-tag'
-import { FeedComment } from '@schemas/feed-comment'
-import { File } from '@schemas/file'
+import {Response} from '@schemas/response'
+import {User} from '@schemas/user'
+import {Feed} from '@schemas/feed'
+import {FeedTag} from '@schemas/feed-tag'
+import {FeedComment} from '@schemas/feed-comment'
+import {File} from '@schemas/file'
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class FeedService {
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-    createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
-        const url = environment['serverAddress'] + '/feed'
+  createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
+    const url = environment['serverAddress'] + '/feed'
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
-
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    getFeedList(page = '', pageSize = ''): Observable<Array<Feed>> {
-        const url = environment['serverAddress'] + `/feed?page=${page}&pageSize=${pageSize}`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        console.log('create ----------------> : ', res.dataset[0]);
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        return this.http.get<Response>(url, options).pipe(
-            map((res) => {
-                return res.dataset
-            }),
-            catchError(handleError)
-        )
+  getFeedList(page = '', pageSize = ''): Observable<Array<Feed>> {
+    const url = environment['serverAddress'] + `/feed?page=${page}&pageSize=${pageSize}`
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    getFeed(feedId: string): Observable<Feed> {
-        const url = environment['serverAddress'] + `/feed/${feedId}`
+    return this.http.get<Response>(url, options).pipe(
+      map((res) => {
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+        console.log('res.dataset : ', res.dataset);
+        return res.dataset
+      }),
+      catchError(handleError)
+    )
+  }
 
-        return this.http.get<Response>(url, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+  getFeed(feedId: string): Observable<Feed> {
+    const url = environment['serverAddress'] + `/feed/${feedId}`
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    updateFeed(feedId: string, requestBody: UpdateFeedRequestBody): Observable<Feed> {
-        const url = environment['serverAddress'] + `/feed/${feedId}`
+    return this.http.get<Response>(url, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                Accept: 'application/json',
-            }),
-        }
+  updateFeed(feedId: string, requestBody: UpdateFeedRequestBody): Observable<Feed> {
+    const url = `${environment['serverAddress']}/feed/${feedId}`
 
-        return this.http.put<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
     }
 
-    deleteFeed(feedId: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}`
+    return this.http.put<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteFeed(feedId: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    createFeedPicture(feedId: string, requestBody: CreateFeedPictureRequestBody): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/picture`
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  createFeedPicture(feedId: string, requestBody: CreateFeedPictureRequestBody): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/picture`
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    deleteUserPicture(feedId: string, fileUrl: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/picture/${encodeURIComponent(fileUrl)}`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteUserPicture(feedId: string, fileUrl: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/picture/${encodeURIComponent(fileUrl)}`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    createFeedTag(feedId: string, requestBody: CreateFeedTagRequestBody): Observable<FeedTag> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/tag`
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  createFeedTag(feedId: string, requestBody: CreateFeedTagRequestBody): Observable<FeedTag> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/tag`
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    deleteFeedTag(feedId: string, tagId: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/tag/${tagId}`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteFeedTag(feedId: string, tagId: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/tag/${tagId}`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    createFeedLike(feedId: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/like`
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  createFeedLike(feedId: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/like`
 
-        return this.http.post<Response>(url, {}, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    getFeedLikeList(feedId: string, page = '', pageSize = ''): Observable<Array<User>> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/like?page=${page}&pageSize=${pageSize}`
+    return this.http.post<Response>(url, {}, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  getFeedLikeList(feedId: string, page = '', pageSize = ''): Observable<Array<User>> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/like?page=${page}&pageSize=${pageSize}`
 
-        return this.http.get<Response>(url, options).pipe(
-            map((res) => {
-                return res.dataset
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    deleteFeedLike(feedId: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/like`
+    return this.http.get<Response>(url, options).pipe(
+      map((res) => {
+        return res.dataset
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteFeedLike(feedId: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/like`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    createFeedComment(feedId: string, requestBody: CreateFeedCommentRequestBody): Observable<FeedComment> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/comment`
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  createFeedComment(feedId: string, requestBody: CreateFeedCommentRequestBody): Observable<FeedComment> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment`
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    getFeedCommentList(feedId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/comment?page=${page}&pageSize=${pageSize}`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  getFeedCommentList(feedId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
+    const url = `${environment['serverAddress']}/feed/${feedId}/comment?page=${page}&pageSize=${pageSize}`
 
-        return this.http.get<Response>(url, options).pipe(
-            map((res) => {
-                return res.dataset
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    getFeedSubCommentList(feedId: string, commentId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-        const url =
-            environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`
+    return this.http.get<Response>(url, options).pipe(
+      map((res) => {
+        return res.dataset
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  getFeedSubCommentList(feedId: string, commentId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
+    const url =
+      environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`
 
-        return this.http.get<Response>(url, options).pipe(
-            map((res) => {
-                return res.dataset
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    updateFeedComment(
-        feedId: string,
-        commentId: string,
-        requestBody: UpdateFeedCommentRequestBody
-    ): Observable<FeedComment> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
+    return this.http.get<Response>(url, options).pipe(
+      map((res) => {
+        return res.dataset
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                Accept: 'application/json',
-            }),
-        }
+  updateFeedComment(
+    feedId: string,
+    commentId: string,
+    requestBody: UpdateFeedCommentRequestBody
+  ): Observable<FeedComment> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
 
-        return this.http.put<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
     }
 
-    deleteFeedComment(feedId: string, commentId: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
+    return this.http.put<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteFeedComment(feedId: string, commentId: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
+
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 }
 
 class CreateFeedRequestBody {
-    rewrite: boolean
+  rewrite: boolean
 }
 
 class UpdateFeedRequestBody {
-    content?: string
-    picture?: string
-    posting?: boolean
+  content?: string
+  picture?: string
+  posting?: boolean
 }
 
 class CreateFeedPictureRequestBody {
-    files: Array<File>
+  files: Array<File>
 }
 
 class CreateFeedTagRequestBody {
-    name: string
+  name: string
 }
 
 class CreateFeedCommentRequestBody {
-    parent_id?: string
-    text: string
+  parent_id?: string
+  text: string
 }
 
 class UpdateFeedCommentRequestBody {
-    text: string
+  text: string
 }

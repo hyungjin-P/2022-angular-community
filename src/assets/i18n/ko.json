@@ -107,7 +107,8 @@
             "signin": "로그인",
             "signout": "로그아웃",
             "singup": "회원가입",
-            "write": "글쓰기"
+            "write": "글쓰기",
+            "mypage": "마이페이지"
         },
         "nav": {
             "feed": "피드",

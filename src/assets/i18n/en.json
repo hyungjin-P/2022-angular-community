@@ -107,7 +107,8 @@
             "signin": "Sign In",
             "signout": "Sign Out",
             "singup": "Sign Up",
-            "write": "Write"
+            "write": "Write",
+            "mypage": "My Page"
         },
         "nav": {
             "feed": "Feed",
