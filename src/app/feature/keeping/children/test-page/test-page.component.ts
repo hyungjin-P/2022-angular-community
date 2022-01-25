@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core'
+
+declare const $
 
 @Component({
-  selector: 'app-test-page',
-  templateUrl: './test-page.component.html',
-  styleUrls: ['./test-page.component.scss']
+    selector: 'app-test-page',
+    templateUrl: './test-page.component.html',
+    styleUrls: ['./test-page.component.scss'],
 })
-export class TestPageComponent implements OnInit {
+export class TestPageComponent implements OnInit, AfterViewInit {
+    constructor() {}
 
-  constructor() { }
+    ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+    ngAfterViewInit(): void {
+        $('.carousel').carousel({
 
+        })
+    }
 }

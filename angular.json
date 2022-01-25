@@ -37,6 +37,7 @@
                         ],
                         "scripts": [
                           "src/assets/javascripts/kakao.min.js",
+                          "src/assets/javascripts/jquery.slim.min.js",
                           "src/assets/javascripts/bootstrap.bundle.min.js"
                         ],
                         "allowedCommonJsDependencies": ["dom-autoscroller", "moment-timezone", "dragula"]
