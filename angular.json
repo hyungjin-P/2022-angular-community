@@ -31,11 +31,14 @@
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": [
-                            "src/assets/styles/bootstrap-grid.min.css",
+                            "src/assets/styles/bootstrap.min.css",
                             "node_modules/dragula/dist/dragula.css",
                             "src/styles.scss"
                         ],
-                        "scripts": ["src/assets/javascripts/kakao.min.js"],
+                        "scripts": [
+                          "src/assets/javascripts/kakao.min.js",
+                          "src/assets/javascripts/bootstrap.min.js"
+                        ],
                         "allowedCommonJsDependencies": ["dom-autoscroller", "moment-timezone", "dragula"]
                     },
                     "configurations": {
