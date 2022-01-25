@@ -21,6 +21,7 @@ import { NotificationComponent } from './children/notification/notification.comp
 
 import { MypageComponent } from './mypage/mypage.component'
 import { SearchComponent } from './search/search.component'
+import {TestPageComponent} from "./children/test-page/test-page.component";
 
 const routes: Routes = [
     {
@@ -36,6 +37,7 @@ const routes: Routes = [
             { path: 'notice', component: NoticeComponent },
             { path: 'event', component: EventComponent },
             { path: 'help', component: HelpComponent },
+            { path: 'test', component: TestPageComponent },
 
             { path: 'privacy', component: PrivacyComponent },
             { path: 'service-terms', component: ServiceTermsComponent },

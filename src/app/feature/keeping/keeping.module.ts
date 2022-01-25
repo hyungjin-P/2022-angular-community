@@ -21,7 +21,8 @@ import { ServiceTermsComponent } from './children/service-terms/service-terms.co
 import { NotificationComponent } from './children/notification/notification.component'
 
 import { MypageComponent } from './mypage/mypage.component'
-import { SearchComponent } from './search/search.component'
+import { SearchComponent } from './search/search.component';
+import { TestPageComponent } from './children/test-page/test-page.component'
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { SearchComponent } from './search/search.component'
 
         MypageComponent,
         SearchComponent,
+        TestPageComponent,
     ],
     imports: [KeepingRoutingModule, SharedModule, CommonModule],
     exports: [],
