@@ -60,24 +60,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('scroll') scroll: ElementRef;
 
-    @ViewChild('carousel')
-    carousel
-
-    @ViewChild('container')
-    container
-
-    size$
-
-    start$
-    move$
-    end$
-
-    drag$
-    drop$
-
-    updateStore
-    carousel$
-    tobeIndex: number
     refresh: boolean
 
     moreBoxVisible: boolean
@@ -109,8 +91,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.variables = this.globalService.variables
         this.user = this.storageService.getUser()
 
-        this.tobeIndex = 0
-
         this.subscription = this.activatedRoute.params.subscribe(
             (v) => {
                 this.selectedFeedId = v['feed_id']
@@ -133,102 +113,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        const SUPPORT_TOUCH = 'ontouchstart' in window
-        const EVENTS = {
-            start: SUPPORT_TOUCH ? 'touchstart' : 'mousedown',
-            move: SUPPORT_TOUCH ? 'touchmove' : 'mousemove',
-            end: SUPPORT_TOUCH ? 'touchend' : 'mouseup',
-        }
-        const DEFAULT_DURATION = 300
 
-        this.size$ = fromEvent(window, 'resize').pipe(
-            startWith(0),
-            map((event: any) => this.carousel.nativeElement.clientWidth)
-        )
-
-        this.start$ = fromEvent(this.carousel.nativeElement, EVENTS.start).pipe(this.toPos);
-        this.move$ = fromEvent(this.carousel.nativeElement, EVENTS.move).pipe(this.toPos);
-        this.end$ = fromEvent(this.carousel.nativeElement, EVENTS.end);
-
-        this.drag$ = this.start$.pipe(
-            switchMap((start: any) =>
-                this.move$.pipe(
-                    map((move: number) => move - start),
-                    takeUntil(this.end$)
-                )
-            ),
-            share(),
-            map((distance) => ({
-                distance,
-            }))
-        )
-
-        this.drop$ = this.drag$.pipe(
-            switchMap((drag) =>
-                this.end$.pipe(
-                    map((event) => drag),
-                    take(1)
-                )
-            ),
-            withLatestFrom(this.size$, (drag: any, size) => {
-                return { ...drag, size }
-            })
-        )
-
-        this.carousel$ = scheduled([this.drag$, this.drop$], asapScheduler).pipe(
-            mergeAll(),
-            scan(
-                (store, { distance, size }) => {
-                    const updateStore: any = {
-                        from: -(store.index * store.size) + distance,
-                    }
-
-                    if (size == undefined) {
-                        updateStore.to = updateStore.from
-                    } else {
-                        const THRESHOLD = 30
-                        const PANEL_COUNT = 1
-                        this.tobeIndex = store.index
-                        if (Math.abs(distance) >= THRESHOLD) {
-                            this.tobeIndex =
-                                distance >= 0
-                                    ? Math.max(this.tobeIndex - 1, 0)
-                                    : Math.min(this.tobeIndex + 1, this.selectedFeed.pictures.length - 1)
-                        }
-                        updateStore.index = this.tobeIndex
-                        updateStore.to = -(this.tobeIndex * size)
-                        updateStore.size = size
-                    }
-
-                    if (this.refresh) {
-                        this.refresh = false
-
-                        return {
-                            from: 0,
-                            to: 0,
-                            index: 0,
-                            size: 0,
-                        }
-                    } else {
-                        return {
-                            ...store,
-                            ...updateStore,
-                        }
-                    }
-                },
-                {
-                    from: 0,
-                    to: 0,
-                    index: 0,
-                    size: 0,
-                }
-            ),
-            switchMap(({ from, to }) => (from == to ? of(to) : this.animation(from, to, DEFAULT_DURATION)))
-        )
-
-        this.carousel$.subscribe((pos) => {
-            this.translateX(pos)
-        })
     }
 
     toPos(obs$) {
@@ -236,22 +121,18 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)))
     }
 
-    translateX(posX) {
-        this.container.nativeElement.style.transform = `translate3d(${posX}px, 0, 0)`
-    }
-
-    animation(from, to, duration) {
-        return defer(() => {
-            const scheduler = animationFrameScheduler;
-            const start = scheduler.now();
-            const interval$ = interval(0, scheduler).pipe(
-                map(() => (scheduler.now() - start) / duration),
-                takeWhile((rate) => rate < 1)
-            );
-
-            return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
-        })
-    }
+    // animation(from, to, duration) {
+    //     return defer(() => {
+    //         const scheduler = animationFrameScheduler;
+    //         const start = scheduler.now();
+    //         const interval$ = interval(0, scheduler).pipe(
+    //             map(() => (scheduler.now() - start) / duration),
+    //             takeWhile((rate) => rate < 1)
+    //         );
+    //
+    //         return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
+    //     })
+    // }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
@@ -397,8 +278,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     goFeedDetail(feed: Feed) {
-        this.tobeIndex = 0
-        this.translateX(0)
         this.refresh = true
         this.router.navigateByUrl(`/feed/${feed.id}`)
         try{
