@@ -122,138 +122,42 @@
     
             .row-2 {
                 margin-top: 16px;
-
-                .carousel-view {
-                    position: relative;
-                    overflow: hidden;
-
-                    
-
-                    .carousel-container {
-                        padding: 0;
-                        list-style: none;
-    
-                        font-size: 0;
-                        white-space: nowrap;
-                        
-    
-                        .carousel-panel {
-                            display: inline-block;
-                            width: 100%;
-                            // padding: 5px;
-    
-                            > div {
-                                position: relative;
-    
-                                .carousel-panel-img-wrapper {
-                                    width: 100%;
-                                    height: width;
-                                    
-    
-                                    img {
-                                        width: 100%;
-                                        height: width;
-                                        top: 0;
-                                        object-fit: cover;
-                                        border-radius: 4px;
-                                    }
-                                }
-                            }
-                        }
+                .carousel-indicators {
+                    li{
+                      margin: 0 3px;
+                      width: 6px;
+                      height: 6px;
+                      border-radius: 50%;
+                      background-color: var(--blue-8);
+                      transition: opacity 0.6s ease; //animation
                     }
-
-                    .carousel-Arrow{
-                        padding: 0;
-                        object-fit: cover;
-
-                        .carousel-leftArrow{
-                            position: absolute;
-                            cursor: pointer;
-
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: center;
-                            align-items: center;
-
-                            padding: 8px;
-
-                            top: 50%;
-                            transform: translate(0, -50%);
-                            
-                            width: 48px;
-                            height: 62px;
-                            left: 0px;
-                            .carousel-leftArrow-background{
-                                width: 24px;
-                                height: 24px;
-                                
-                                background: rgba(255, 255, 255, 0.5);
-                                border-radius: 50px;
-                                img{
-                                    position: absolute;
-                                    
-                                    top : 50%;
-                                    left : 50%;
-                                    transform: translate(-50%, -50%);
-                                }
-                            }
-                            
-                        }
-                        .carousel-rightArrow{
-                            position: absolute;
-                            cursor: pointer;
-
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: center;
-                            align-items: center;
-
-                            padding: 8px;
-                            
-                            top: 50%;
-                            transform: translate(0, -50%);
-
-                            width: 48px;
-                            height: 62px;
-                            right: 0px;
-                            .carousel-rightArrow-background{
-                                width: 24px;
-                                height: 24px;
-                                
-                                background: rgba(255, 255, 255, 0.5);
-                                border-radius: 50px;
-                                transform:rotate(180deg);
-                                img{
-                                    position: absolute;
-                                    
-                                    top : 50%;
-                                    left : 50%;
-                                    transform: translate(-50%, -50%);
-                                    
-                                }
-                            }
-                        }
+                    .active{
+                      background-color: var(--blue-3);
                     }
-    
-                    .page {
-                        position: absolute;
-                        top: 16px;
-                        right: 14px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 40px;
-                        height: 24px;
-                        border-radius: 20px;
-                        background-color: rgba(66, 76, 89, 0.8);
-    
-                        @include textStyle(500, 12px, 20px);
-                        color: var(--white);
-    
-                        div:nth-child(2) {
-                            margin: 0 3px;
-                        }
-                    }
+                }
+
+                .carousel-control-prev-background,
+                .carousel-control-next-background{
+                    position: absolute;
+                    width: 28px;
+                    height: 28px;
+
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 50px;
+                    z-index: 0;
+                }
+
+                .carousel-control-next-icon,
+                .carousel-control-prev-icon {
+                    width: 16px;
+                    height: 16px;
+                    z-index: 100;
+                }
+                .carousel-control-prev-icon{
+                  background-image: url("src/assets/images/common/arrow_prev.svg");
+                }
+                .carousel-control-next-icon{
+                  background-image: url("src/assets/images/common/arrow_next.svg");
                 }
             }
     
@@ -301,18 +205,6 @@
                     justify-content: center;
                     align-items: center;
                     height: 100%;
-    
-                    .dot {
-                        margin: 0 3px;
-                        width: 6px;
-                        height: 6px;
-                        border-radius: 50%;
-                        background-color: var(--blue-8);
-                    }
-    
-                    .selected {
-                        background-color: var(--blue-3);
-                    }
                 }
     
                 .row-3-col-3 {
