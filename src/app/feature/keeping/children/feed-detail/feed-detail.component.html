@@ -32,16 +32,16 @@
           </div>
 
           <div class="row-2">
-              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
                   <ng-container *ngIf="selectedFeed.pictures.length > 1 ">
                       <ol class="carousel-indicators">
                           <ng-container *ngFor="let picture of selectedFeed?.pictures; let i = index">
                               <ng-container *ngIf="i === 0">
-                                  <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="i" class="active"></li>
+                                  <li data-target="#carouselIndicators" [attr.data-slide-to]="i" class="active"></li>
 <!--                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
                               </ng-container>
                               <ng-container *ngIf="i > 0">
-                                  <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="i"></li>
+                                  <li data-target="#carouselIndicators" [attr.data-slide-to]="i"></li>
 <!--                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
                               </ng-container>
                           </ng-container>

@@ -48,7 +48,7 @@ import { User } from '@schemas/user'
     templateUrl: './feed-detail.component.html',
     styleUrls: ['./feed-detail.component.scss'],
 })
-export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FeedDetailComponent implements OnInit, OnDestroy {
     variables: any
     user: User
 
@@ -110,10 +110,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.likedViewVisible = false
 
         this.likeUserList = []
-    }
-
-    ngAfterViewInit() {
-
     }
 
     toPos(obs$) {

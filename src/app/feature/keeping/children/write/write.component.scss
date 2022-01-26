@@ -204,6 +204,10 @@
                 }
             }
 
+            .carousel-added-picture{
+                display: flex;
+            }
+
             .added-picture {
                 position: relative;
                 min-width: 71px;
@@ -232,6 +236,7 @@
                     border-radius: 50%;
                     background-color: var(--grey-2);
                     cursor: pointer;
+                    z-index: 100;
 
                     .mdi {
                         position: relative;
@@ -258,91 +263,92 @@
 
         .carousel-view {
             margin-top: 11px;
-            height: 0px;
+            height: 0;
             overflow: hidden;
 
-            .carousel-container {
+            .carousel-inner {
                 padding: 0;
                 list-style: none;
 
                 font-size: 0;
                 white-space: nowrap;
+                  .carousel-item {
+                      display: inline-block;
+                      width: 100%;
+                      padding: 5px;
 
-                .carousel-panel {
-                    display: inline-block;
-                    width: 100%;
-                    padding: 5px;
+                    .carousel-panel-img-wrapper {
+                      position: relative;
+                      height: 0;
+                      overflow: hidden;
+                      padding-bottom: 100%;
+
+                      img {
+                        position: absolute;
+                        width: 100%;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        border-radius: 4px;
+                      }
+                    }
+
+                    .carousel-panel-main-picture-menu {
+                      position: absolute;
+                      top: 12px;
+                      left: 12px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      width: 64px;
+                      height: 29px;
+                      border-radius: 30px;
+                      background-color: var(--grey-7);
+                      cursor: pointer;
+
+                      font-weight: 500;
+                      font-size: 13px;
+                      line-height: 21px;
+                      color: var(--grey-2);
+
+                      .mdi-check {
+                        margin-right: 4px;
+                      }
+                    }
+
+                    .carousel-panel-main-picture-menu-checked {
+                      background-color: var(--blue-3);
+
+                      color: var(--white);
+                    }
+
+                    .carousel-panel-delete-menu {
+                      position: absolute;
+                      top: 10px;
+                      right: 10px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      width: 22px;
+                      height: 22px;
+                      border-radius: 50%;
+                      background-color: var(--grey-2);
+                      cursor: pointer;
+
+                      .mdi {
+                        font-size: 14px;
+                        line-height: 14px;
+                        color: var(--white);
+                      }
+
+                      &:hover {
+                        opacity: 0.8;
+                      }
+                    }
 
                     > div {
                         position: relative;
 
-                        .carousel-panel-img-wrapper {
-                            position: relative;
-                            height: 0;
-                            overflow: hidden;
-                            padding-bottom: 100%;
-                            
-                            img {
-                                position: absolute;
-                                width: 100%;
-                                top: 50%;
-                                transform: translateY(-50%); 
-                                border-radius: 4px;
-                            }
-                        }
 
-                        .carousel-panel-main-picture-menu {
-                            position: absolute;
-                            top: 12px;
-                            left: 12px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            width: 64px;
-                            height: 29px;
-                            border-radius: 30px;
-                            background-color: var(--grey-7);
-                            cursor: pointer;
-
-                            font-weight: 500;
-                            font-size: 13px;
-                            line-height: 21px;
-                            color: var(--grey-2);
-
-                            .mdi-check {
-                                margin-right: 4px;
-                            }
-                        }
-
-                        .carousel-panel-main-picture-menu-checked {
-                            background-color: var(--blue-3);
-
-                            color: var(--white);
-                        }
-
-                        .carousel-panel-delete-menu {
-                            position: absolute;
-                            top: 10px;
-                            right: 10px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            width: 22px;
-                            height: 22px;
-                            border-radius: 50%;
-                            background-color: var(--grey-2);
-                            cursor: pointer;
-
-                            .mdi {
-                                font-size: 14px;
-                                line-height: 14px;
-                                color: var(--white);
-                            }
-
-                            &:hover {
-                                opacity: 0.8;
-                            }
-                        }
                     }
                 }
             }

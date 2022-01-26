@@ -8,59 +8,83 @@
     <div class="flex-fill" style="position: relative">
         <div class="section full-absolute">
             <div class="form">
-                <div
-                    class="form-header picture-header"
-                    [class.pictrue-box-open]="pictureBoxVisible"
-                    (click)="showPictureBox()"
-                >
-                    <div class="icon">
-                        <div class="mdi mdi-camera"></div>
+                <div id = "carousel-addPicture" class = "carousel slide carousel-fade" data-ride = "carousel">
+                    <div
+                            class="form-header picture-header"
+                            [class.pictrue-box-open]="pictureBoxVisible"
+                            (click)="showPictureBox()"
+                    >
+                        <div class="icon">
+                            <div class="mdi mdi-camera"></div>
+                        </div>
+                        <div class="label">
+                            {{ 'keeping.write.add-picture-label' | translate }}
+                        </div>
+                        <div class="desc">{{ 'keeping.write.add-picture-label-desc' | translate }}</div>
+                        <span class="mdi mdi-chevron-down"></span>
                     </div>
-                    <div class="label">
-                        {{ 'keeping.write.add-picture-label' | translate }}
-                    </div>
-                    <div class="desc">{{ 'keeping.write.add-picture-label-desc' | translate }}</div>
-                    <span class="mdi mdi-chevron-down"></span>
-                </div>
-                <div class="picture-box scroll-x" #pictureBoxElement [class.d-flex]="pictureBoxVisible">
-                    <div class="add-picture" (click)="picture.click()">
-                        <div class="mdi mdi-plus"></div>
-                    </div>
-                    <div class="added-picture" *ngFor="let picture of feed?.pictures; let i = index">
-                        <img [src]="picture.url" draggable="false" (click)="clickAddedPicture(i)"/>
-                        <div class="added-picture-delete-menu" (click)="deletePicture(i, picture.url)">
-                            <div class="mdi mdi-close"></div>
+                    <div class="picture-box scroll-x" #pictureBoxElement [class.d-flex]="pictureBoxVisible">
+                        <div class="add-picture" (click)="picture.click()">
+                            <div class="mdi mdi-plus"></div>
+                        </div>
+                        <div class="carousel-added-picture">
+                            <ng-container *ngFor="let picture of feed?.pictures; let i = index">
+                                <div class="added-picture">
+                                    <img [src]="picture.url" draggable="false" data-target="#carousel-addPicture" [attr.data-slide-to]="i"/>
+                                    <div class="added-picture-delete-menu" (click)="deletePicture(i, picture.url)">
+                                        <div class="mdi mdi-close"></div>
+                                    </div>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
+                    <div
+                            class="carousel-view"
+                            [class.carousel-view-show]="pictureBoxVisible && feed?.pictures.length != 0"
+                    >
+                        <div class="carousel-inner">
+                            <ng-container *ngFor="let picture of feed?.pictures; let i = index">
+                                <ng-container *ngIf="i === 0">
+                                    <div class="carousel-item active">
+                                        <div class="carousel-panel-img-wrapper">
+                                            <img [src]="picture.url" draggable="false" />
+                                        </div>
+                                        <div
+                                                class="carousel-panel-main-picture-menu"
+                                                [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
+                                                (click)="checkMainPicture(picture.url)"
+                                        >
+                                            <div class="mdi mdi-check"></div>
+                                            <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
+                                        </div>
+                                        <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
+                                            <div class="mdi mdi-close"></div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="i > 0">
+                                    <div class="carousel-item">
+                                        <div class="carousel-panel-img-wrapper">
+                                            <img [src]="picture.url" draggable="false" />
+                                        </div>
+                                        <div
+                                                class="carousel-panel-main-picture-menu"
+                                                [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
+                                                (click)="checkMainPicture(picture.url)"
+                                        >
+                                            <div class="mdi mdi-check"></div>
+                                            <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
+                                        </div>
+                                        <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
+                                            <div class="mdi mdi-close"></div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <input type="file" accept="image/*" #picture (change)="addPicture(picture)" hidden multiple />
                 </div>
-                <div
-                    class="carousel-view"
-                    #carousel
-                    [class.carousel-view-show]="pictureBoxVisible && feed?.pictures.length != 0"
-                >
-                    <ul class="carousel-container" #container>
-                        <li class="carousel-panel" *ngFor="let picture of feed?.pictures; let i = index">
-                            <div>
-                                <div class="carousel-panel-img-wrapper">
-                                    <img [src]="picture.url" draggable="false" />
-                                </div>
-                                <div
-                                    class="carousel-panel-main-picture-menu"
-                                    [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
-                                    (click)="checkMainPicture(picture.url)"
-                                >
-                                    <div class="mdi mdi-check"></div>
-                                    <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
-                                </div>
-                                <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
-                                    <div class="mdi mdi-close"></div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <input type="file" accept="image/*" #picture (change)="addPicture(picture)" hidden multiple />
             </div>
             <div class="h-line"></div>
             <div class="form">
