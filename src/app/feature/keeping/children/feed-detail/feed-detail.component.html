@@ -38,9 +38,11 @@
                           <ng-container *ngFor="let picture of selectedFeed?.pictures; let i = index">
                               <ng-container *ngIf="i === 0">
                                   <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="i" class="active"></li>
+<!--                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
                               </ng-container>
                               <ng-container *ngIf="i > 0">
                                   <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="i"></li>
+<!--                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
                               </ng-container>
                           </ng-container>
                       </ol>
