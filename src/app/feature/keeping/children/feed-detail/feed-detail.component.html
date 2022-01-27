@@ -33,7 +33,7 @@
 
           <div class="row-2">
               <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
-                  <ng-container *ngIf="selectedFeed.pictures.length > 1 ">
+                  <ng-container *ngIf="selectedFeed?.pictures.length > 1 ">
                       <ol class="carousel-indicators">
                           <ng-container *ngFor="let picture of selectedFeed?.pictures; let i = index">
                               <ng-container *ngIf="i === 0">
@@ -63,7 +63,7 @@
                       </ng-container>
                   </div>
 
-                  <ng-container *ngIf="selectedFeed.pictures.length > 1 ">
+                  <ng-container *ngIf="selectedFeed?.pictures.length > 1 ">
                       <button class="carousel-control-prev" type="button" data-target="#carouselIndicators" data-slide="prev">
                           <span class="carousel-control-prev-background"></span>
                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>

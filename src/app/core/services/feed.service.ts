@@ -31,7 +31,7 @@ export class FeedService {
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        console.log('create ----------------> : ', res.dataset[0]);
+        // console.log('create ----------------> : ', res.dataset[0]);
 
         return res.dataset[0]
       }),
@@ -51,7 +51,7 @@ export class FeedService {
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
 
-        console.log('res.dataset : ', res.dataset);
+        // console.log('res.dataset : ', res.dataset);
         return res.dataset
       }),
       catchError(handleError)
