@@ -339,6 +339,9 @@ export class FeedDetailComponent implements OnInit, OnDestroy {
 
     showSubCommentInput(feedCommentId: string) {
         this.feedSubCommentInputViewObj[feedCommentId] = true
+        // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
+        // console.log(this.feedSubCommentListObj)
+        this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer'
     }
 
     hideSubCommentInput(feedCommentId: string) {

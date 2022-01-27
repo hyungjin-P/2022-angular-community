@@ -1,10 +1,10 @@
 <!-- <div class="feed-detail full-absolute d-flex flex-column" [class.v-visible]="selectedFeed"> -->
-<div class="feed-detail full-absolute d-flex flex-column" [class.v-visible]="selectedFeed" #scroll>
+<div class="feed-detail full-absolute d-flex flex-column" [class.v-visible]="selectedFeed" >
   <mobile-header [text]="'keeping.mobile-header.feed-detail' | translate" (goBack)="goBack()"></mobile-header>
 
   <div class="flex-fill" style="position: relative">
 
-    <div class="section full-absolute">
+    <div class="section full-absolute" #scroll>
       <div class="items">
 
         <div class="selected-item">
@@ -230,22 +230,23 @@
         <div class="h-line"></div>
         <div class="feed-comment-view-input">
           <div>
-            <shared-avatar
-              [image]="user?.picture[0]?.url"
-              text="{{ user?.email }}"
-              size="24"
-              fontSize="12"
-            ></shared-avatar>
-            <input type="text" [(ngModel)]="feedCommentInput"/>
+<!--            <shared-avatar-->
+<!--              [image]="user?.picture[0]?.url"-->
+<!--              text="{{ user?.email }}"-->
+<!--              size="24"-->
+<!--              fontSize="12"-->
+<!--            ></shared-avatar>-->
+              <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요"/>
+              <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment"/>
+              <div class="add-button" (click)="createComment()">
+                  {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
+              </div>
           </div>
-          <div class="button-group">
-            <div class="cancel-button" (click)="clearCommentInput()">
-              {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}
-            </div>
-            <div class="add-button" (click)="createComment()">
-              {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
-            </div>
-          </div>
+<!--          <div class="button-group">-->
+<!--            <div class="cancel-button" (click)="clearCommentInput()">-->
+<!--              {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <div class="feed-comment-view-item-list-wrapper">
           <ng-container
@@ -308,9 +309,11 @@
           [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
           (click)="showSubCommentList(feedComment.id)"
         >
-          <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>
-          <div *ngIf="selectedLanguage != 'ko'">Show {{ feedComment.sub_comment_count }} replies</div>
-          <div class="mdi mdi-chevron-down"></div>
+            <ng-container *ngIf="feedComment.sub_comment_count !== 0">
+                <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>
+                <div *ngIf="selectedLanguage != 'ko'">Show {{ feedComment.sub_comment_count }} replies</div>
+                <div class="mdi mdi-chevron-down"></div>
+            </ng-container>
         </div>
         <ng-container
           *ngIf="feedSubCommentListObj[feedComment.id]?.length > 0"
@@ -329,22 +332,31 @@
 <ng-template #subCommentInputTemplate let-feedComment="feedComment">
   <div class="feed-comment-view-input feed-sub-comment-view-input">
     <div>
-      <shared-avatar
-        [image]="user.picture[0]?.url"
-        text="{{ user.email }}"
-        size="24"
-        fontSize="12"
-      ></shared-avatar>
-      <input type="text" [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]"/>
+<!--      <shared-avatar-->
+<!--        [image]="user.picture[0]?.url"-->
+<!--        text="{{ user.email }}"-->
+<!--        size="24"-->
+<!--        fontSize="12"-->
+<!--      ></shared-avatar>-->
+        <input
+            type="text"
+            [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]"
+            autofocus
+        />
+
+        <div class="add-button" (click)="createSubComment(feedComment)">
+            {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
+        </div>
+<!--      <input type="text" [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]"/>-->
     </div>
-    <div class="button-group">
-      <div class="cancel-button" (click)="hideSubCommentInput(feedComment.id)">
-        {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}
-      </div>
-      <div class="add-button" (click)="createSubComment(feedComment)">
-        {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
-      </div>
-    </div>
+<!--    <div class="button-group">-->
+<!--      <div class="cancel-button" (click)="hideSubCommentInput(feedComment.id)">-->
+<!--        {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}-->
+<!--      </div>-->
+<!--      <div class="add-button" (click)="createSubComment(feedComment)">-->
+<!--        {{ 'keeping.feed-detail.comment-view-add-button' | translate }}-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </ng-template>
 
