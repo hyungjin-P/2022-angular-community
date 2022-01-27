@@ -80,12 +80,24 @@
           <div class="row-3">
             <div class="row-3-col-1">
               <div class="like" (click)="selectedFeedLike(selectedFeed)">
-                <div class="mdi mdi-heart" *ngIf="variables.isLogin && selectedFeed?.like"></div>
-                <div class="mdi mdi-heart-outline" *ngIf="!variables.isLogin || !selectedFeed?.like"></div>
+                <div class="heart" *ngIf="variables.isLogin && selectedFeed?.like">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z" fill="#FF4A57" stroke="#FF4A57" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="heart-outline" *ngIf="!variables.isLogin || !selectedFeed?.like">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
                 <div class="text">{{ selectedFeed?.like_count }}</div>
               </div>
               <div class="comment" (click)="showCommentView()">
-                <img src="assets/icons/feed/feed_detail_comment.png"/>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 21C16.9705 21 21 16.9705 21 12C21 7.02943 16.9705 3 12 3C7.02943 3 3 7.02943 3 12C3 14.3967 3.93685 16.5746 5.46431 18.1875L3.65413 20.2534C3.39925 20.5443 3.60583 21 3.99259 21H12Z" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7.5 9.30078H16.5" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7.5 12.9004H11.1" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 <div class="text">{{ selectedFeed?.comment_count }}</div>
               </div>
             </div>
@@ -152,12 +164,24 @@
                 <div class="tags ellipsis1">{{ feed.tags_str }}</div>
                 <div class="additional">
                   <div class="like" (click)="feedLike(feed)">
-                    <div class="mdi mdi-heart" *ngIf="variables.isLogin && feed.like"></div>
-                    <div class="mdi mdi-heart-outline" *ngIf="!variables.isLogin || !feed.like"></div>
+                    <div class="heart" *ngIf="variables.isLogin && feed.like">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z" fill="#FF4A57" stroke="#FF4A57" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="heart-outline" *ngIf="!variables.isLogin || !feed.like">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     <div class="text">{{ feed.like_count }}</div>
                   </div>
                   <div class="comment">
-                    <img src="assets/icons/feed/comment.svg"/>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 21C16.9705 21 21 16.9705 21 12C21 7.02943 16.9705 3 12 3C7.02943 3 3 7.02943 3 12C3 14.3967 3.93685 16.5746 5.46431 18.1875L3.65413 20.2534C3.39925 20.5443 3.60583 21 3.99259 21H12Z" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M7.5 9.30078H16.5" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M7.5 12.9004H11.1" stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
                     <div class="text">{{ feed.comment_count }}</div>
                   </div>
                 </div>

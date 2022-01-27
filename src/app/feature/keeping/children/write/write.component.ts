@@ -49,6 +49,7 @@ declare const $;
 })
 export class WriteComponent implements OnInit, AfterViewInit {
     @ViewChild('pictureBoxElement') pictureBoxElement
+    @ViewChild('tagModalInputElement') tagModalInputElement
 
     user: User
 
@@ -192,6 +193,9 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
     showTagModal() {
         this.tagModalVisible = true
+        setTimeout(()=>{ // this will make the execution after the above boolean has changed
+            this.tagModalInputElement.nativeElement.focus();
+        },0);
     }
 
     hideTagModal() {

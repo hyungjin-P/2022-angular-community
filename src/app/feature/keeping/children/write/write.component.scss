@@ -190,7 +190,7 @@
                 margin: 0 4px;
                 min-width: 71px;
                 height: 71px;
-                border: 1px solid var(--grey-3);
+                border: 1px solid var(--grey-7);
                 border-radius: 4px;
                 cursor: pointer;
 
@@ -222,6 +222,7 @@
                     height: 100%;
                     border-radius: 4px;
                     object-fit: cover;
+                    cursor: pointer;
                 }
 
                 .added-picture-delete-menu {
@@ -272,7 +273,7 @@
                 font-size: 0;
                 white-space: nowrap;
                   .carousel-item {
-                      display: inline-block;
+                      //display: inline-block;
                       width: 100%;
                       padding: 5px;
 
@@ -287,7 +288,7 @@
                         width: 100%;
                         top: 50%;
                         transform: translateY(-50%);
-                        border-radius: 4px;
+                        border-radius: 8px;
                       }
                     }
 
@@ -352,6 +353,40 @@
                 }
             }
         }
+
+      .carousel-control-prev-background,
+      .carousel-control-next-background {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50px;
+        z-index: 0;
+      }
+
+      .carousel-control-next-icon {
+        width: 16px;
+        height: 16px;
+        z-index: 100;
+        background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23282C30' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+      }
+      .carousel-control-prev-icon {
+        width: 16px;
+        height: 16px;
+        z-index: 100;
+        background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 4L6 8L10 12' stroke='%23282C30' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+      }
+
+      .carousel-control-next:focus,
+      .carousel-control-next:hover,
+      .carousel-control-prev:focus,
+      .carousel-control-prev:hover {
+        color: #fff;
+        text-decoration: none;
+        outline: 0;
+        opacity: 0.9;
+      }
 
         .carousel-view-show {
             height: auto;

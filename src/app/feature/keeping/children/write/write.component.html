@@ -8,7 +8,7 @@
     <div class="flex-fill" style="position: relative">
         <div class="section full-absolute">
             <div class="form">
-                <div id = "carousel-addPicture" class = "carousel slide carousel-fade" data-ride = "carousel">
+                <div id = "carousel-addPicture" class = "carousel slide" data-ride = "carousel">
                     <div
                             class="form-header picture-header"
                             [class.pictrue-box-open]="pictureBoxVisible"
@@ -47,7 +47,7 @@
                                 <ng-container *ngIf="i === 0">
                                     <div class="carousel-item active">
                                         <div class="carousel-panel-img-wrapper">
-                                            <img [src]="picture.url" draggable="false" />
+                                            <img [src]="picture.url" class="d-block w-100" draggable="false" />
                                         </div>
                                         <div
                                                 class="carousel-panel-main-picture-menu"
@@ -65,7 +65,7 @@
                                 <ng-container *ngIf="i > 0">
                                     <div class="carousel-item">
                                         <div class="carousel-panel-img-wrapper">
-                                            <img [src]="picture.url" draggable="false" />
+                                            <img [src]="picture.url" class="d-block w-100" draggable="false" />
                                         </div>
                                         <div
                                                 class="carousel-panel-main-picture-menu"
@@ -80,6 +80,18 @@
                                         </div>
                                     </div>
                                 </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="feed?.pictures.length > 1 ">
+                                <button class="carousel-control-prev" type="button" data-target="#carousel-addPicture" data-slide="prev">
+                                    <span class="carousel-control-prev-background"></span>
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-target="#carousel-addPicture" data-slide="next">
+                                    <span class="carousel-control-next-background"></span>
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </button>
                             </ng-container>
                         </div>
                     </div>
@@ -145,7 +157,7 @@
     <div class="add-tag-modal user-select-none" (click)="$event.stopPropagation()">
         <div class="tag-modal-label">{{ 'keeping.write.tag-modal-label' | translate }}</div>
         <div class="tag-modal-input">
-            <input type="text" [placeholder]="" [(ngModel)]="tagModalInput" />
+            <input type="text" [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement/>
             <div class="tag-modal-input-clear" (click)="clearTagModal()">
                 <div class="mdi mdi-close"></div>
             </div>
