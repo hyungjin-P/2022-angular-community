@@ -92,12 +92,6 @@ export class WriteComponent implements OnInit, AfterViewInit {
         $('#carousel-addPicture').carousel({
             interval: 0
         })
-
-        let parent = this.slideIndex;
-        $("#carousel-addPicture").on('slide.bs.carousel', function(event){
-            parent = event.to;
-            console.log('parent : ', parent);
-        });
     }
 
     goBack() {
@@ -106,6 +100,10 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
     showPictureBox() {
         this.pictureBoxVisible = !this.pictureBoxVisible
+    }
+
+    changeSlideIndex(index){
+        this.slideIndex = index;
     }
 
     async addPicture(picture) {
@@ -136,15 +134,18 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
             this.feed.pictures = createdFiles.concat(this.feed.pictures)
 
+            if (this.feed.pictures.length === 1){
+                this.checkMainPicture(this.feed.pictures[0].url)
+            }
+
             picture.value = ''
         } catch (e) {}
     }
 
     async deletePicture(index: number, fileUrl: string) {
         try {
-            alert(this.slideIndex+ "_" + this.feed.pictures.length)
-            if (this.slideIndex === this.feed.pictures.length-1){
-                alert('dep slide index and length')
+            // 현위치 확인한 후 지우기
+            if (this.slideIndex === index && this.feed.pictures.length !== 1){
                 $('#carousel-addPicture').carousel('next')
             }
 
@@ -157,12 +158,6 @@ export class WriteComponent implements OnInit, AfterViewInit {
             }
         } catch (e) {}
     }
-
-    // async clickAddedPicture(index: number){
-    //     try{
-    //         console.log("index : " , index + "now : " , this.feed.pictures)
-    //     } catch (e) {}
-    // }
 
     toPos(obs$) {
         const SUPPORT_TOUCH = 'ontouchstart' in window

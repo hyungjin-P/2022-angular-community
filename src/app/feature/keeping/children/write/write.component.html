@@ -30,7 +30,7 @@
                         <div class="carousel-added-picture">
                             <ng-container *ngFor="let picture of feed?.pictures; let i = index">
                                 <div class="added-picture">
-                                    <img [src]="picture.url" draggable="false" data-target="#carousel-addPicture" [attr.data-slide-to]="i"/>
+                                    <img [src]="picture.url" draggable="false" data-target="#carousel-addPicture" [attr.data-slide-to]="i" (click)="changeSlideIndex(i)"/>
                                     <div class="added-picture-delete-menu" (click)="deletePicture(i, picture.url)">
                                         <div class="mdi mdi-close"></div>
                                     </div>
