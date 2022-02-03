@@ -48,7 +48,7 @@ import { User } from '@schemas/user'
     templateUrl: './feed-detail.component.html',
     styleUrls: ['./feed-detail.component.scss'],
 })
-export class FeedDetailComponent implements OnInit, OnDestroy {
+export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     variables: any
     user: User
 
@@ -110,6 +110,18 @@ export class FeedDetailComponent implements OnInit, OnDestroy {
         this.likedViewVisible = false
 
         this.likeUserList = []
+    }
+
+    ngAfterViewInit(): void {
+        document.addEventListener('keyup', (e) => {
+            if (e.code !== 'Escape') return;
+
+            if(this.commentViewVisible){
+                this.hideCommentView();
+            }else if (this.likedViewVisible){
+                this.hideLikedView();
+            }
+        })
     }
 
     toPos(obs$) {
@@ -307,6 +319,7 @@ export class FeedDetailComponent implements OnInit, OnDestroy {
 
     showCommentView() {
         if (this.storageService.getUser()) {
+            // console.log(this.commentViewVisible)
             this.getFeedCommentList()
             this.commentViewVisible = true
         } else {
