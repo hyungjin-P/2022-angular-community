@@ -24,9 +24,9 @@
     </a>
     <a class="menu" [routerLink]="['/settings']" routerLinkActive="selected">
         <svg class="svg-icon">
-            <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
+            <use xlink:href="assets/icons/bottom-nav/bookmark.svg#icon" />
         </svg>
-        <div class="text">{{ 'common.bottom-nav.home' | translate }}</div>
+        <div class="text">{{ 'common.bottom-nav.bookmark' | translate }}</div>
     </a>
     <a class="menu" *ngIf="!variables.isLogin" [routerLink]="['/auth/login']" routerLinkActive="selected">
         <svg class="svg-icon">

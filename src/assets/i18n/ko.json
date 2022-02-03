@@ -92,7 +92,8 @@
             "home": "홈",
             "magazine": "매거진",
             "mypage": "마이페이지",
-            "signin": "로그인"
+            "signin": "로그인",
+            "bookmark": "북마크"
         },
         "drawer": {
             "feed": "피드",

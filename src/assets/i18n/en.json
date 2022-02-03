@@ -92,7 +92,8 @@
             "home": "Home",
             "magazine": "Magazine",
             "mypage": "My Page",
-            "signin": "Sign In"
+            "signin": "Sign In",
+            "bookmark": "Bookmark"
         },
         "drawer": {
             "feed": "Feed",
