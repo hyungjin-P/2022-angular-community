@@ -64,6 +64,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
     tagModalVisible: boolean
     tagModalInput: string
+    tagModalInputKey: boolean
 
     constructor(
         private router: Router,
@@ -87,6 +88,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
         this.createFeed()
 
         this.tagModalVisible = false
+        this.tagModalInputKey = true
     }
 
     ngAfterViewInit(): void {
@@ -253,5 +255,29 @@ export class WriteComponent implements OnInit, AfterViewInit {
             },
             (e) => {}
         )
+    }
+
+    onTagKey(key){
+        switch (key.code){
+            case 'Escape':
+                this.hideTagModal();
+                break;
+            case 'Enter':
+                 this.intervalCall(1000)(() => {
+                    this.addTag();
+                 })
+                break;
+        }
+    }
+
+    intervalCall(interval){
+        return (fn) => {
+            if(!this.tagModalInputKey){
+                return    // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
+            }
+            this.tagModalInputKey = false
+            fn()
+            setTimeout(() => {this.tagModalInputKey = true}, interval)
+        }
     }
 }

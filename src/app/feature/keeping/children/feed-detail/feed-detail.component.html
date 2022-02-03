@@ -228,26 +228,7 @@
           </div>
         </div>
         <div class="h-line"></div>
-        <div class="feed-comment-view-input">
-          <div>
-<!--            <shared-avatar-->
-<!--              [image]="user?.picture[0]?.url"-->
-<!--              text="{{ user?.email }}"-->
-<!--              size="24"-->
-<!--              fontSize="12"-->
-<!--            ></shared-avatar>-->
-              <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요"/>
-              <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment"/>
-              <div class="add-button" (click)="createComment()">
-                  {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
-              </div>
-          </div>
-<!--          <div class="button-group">-->
-<!--            <div class="cancel-button" (click)="clearCommentInput()">-->
-<!--              {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}-->
-<!--            </div>-->
-<!--          </div>-->
-        </div>
+
         <div class="feed-comment-view-item-list-wrapper">
           <ng-container
             *ngIf="feedCommentList.length > 0"
@@ -256,6 +237,26 @@
           ></ng-container>
         </div>
       </div>
+    </div>
+    <div class="feed-comment-view-input">
+      <div>
+          <!--            <shared-avatar-->
+          <!--              [image]="user?.picture[0]?.url"-->
+          <!--              text="{{ user?.email }}"-->
+          <!--              size="24"-->
+          <!--              fontSize="12"-->
+          <!--            ></shared-avatar>-->
+          <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요"/>
+          <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment"/>
+          <div class="add-button" (click)="createComment()">
+              {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
+          </div>
+      </div>
+      <!--          <div class="button-group">-->
+      <!--            <div class="cancel-button" (click)="clearCommentInput()">-->
+      <!--              {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}-->
+      <!--            </div>-->
+      <!--          </div>-->
     </div>
   </div>
 </div>

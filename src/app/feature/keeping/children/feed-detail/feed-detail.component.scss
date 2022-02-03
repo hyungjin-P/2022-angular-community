@@ -524,76 +524,6 @@
                 background-color: var(--grey-8);
             }
 
-            .feed-comment-view-input {
-                //display: flex;
-                //flex-direction: column;
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                height: 70px;
-                padding: 16px 16px;
-                box-shadow: 0px -3px 10px rgb(238 238 238 / 25%);
-
-                > div:nth-child(1) {
-                    display: flex;
-                    align-items: center;
-
-                    input {
-                        background: #F0F2F5;
-                        height: 40px;
-                        width: 90%;
-                        border: 0;
-                        border-radius: 30px;
-                        padding: 0 16px;
-
-                        @include textStyle(500, 13px, 18px);
-                        color: var(--grey-1);
-
-                        &:focus {
-                            border-bottom: 1px solid var(--grey-4);
-                        }
-                    }
-
-                    .add-button {
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      margin-left: 10px;
-                      padding: 0 6px;
-                      height: 100%;
-                      cursor: pointer;
-                      white-space: nowrap;
-
-                      &:hover {
-                        opacity: 0.8;
-                      }
-                    }
-                    .add-button {
-                      @include textStyle(400, 13px, 21px);
-                      color: var(--blue-2);
-                    }
-
-                }
-
-                .button-group {
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                    margin-top: 2px;
-
-                    .cancel-button,
-
-
-                    .cancel-button {
-                        @include textStyle(400, 13px, 21px);
-                        color: var(--grey-1);
-                    }
-
-
-                }
-            }
-
             //.feed-sub-comment-view-input {
             //    margin: 5px 0;
             //    padding: 0 !important;
@@ -687,6 +617,75 @@
                     }
                 }
             }
+        }
+        .feed-comment-view-input {
+        //display: flex;
+        //flex-direction: column;
+          position: relative;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 70px;
+          padding: 16px 16px;
+          box-shadow: 0px -3px 10px rgb(238 238 238 / 25%);
+
+          > div:nth-child(1) {
+            display: flex;
+            align-items: center;
+
+            input {
+              background: #F0F2F5;
+              height: 40px;
+              width: 90%;
+              border: 0;
+              border-radius: 30px;
+              padding: 0 16px;
+
+              @include textStyle(500, 13px, 18px);
+              color: var(--grey-1);
+
+              &:focus {
+                border-bottom: 1px solid var(--grey-4);
+              }
+            }
+
+            .add-button {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-left: 10px;
+              padding: 0 6px;
+              height: 100%;
+              cursor: pointer;
+              white-space: nowrap;
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+            .add-button {
+              @include textStyle(400, 13px, 21px);
+              color: var(--blue-2);
+            }
+
+          }
+
+          .button-group {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 2px;
+
+            .cancel-button,
+
+
+            .cancel-button {
+              @include textStyle(400, 13px, 21px);
+              color: var(--grey-1);
+            }
+
+
+          }
         }
     }
 }

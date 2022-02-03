@@ -194,6 +194,7 @@ export class FeedDetailComponent implements OnInit, OnDestroy {
         this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
             (feedCommentList: Array<FeedComment>) => {
                 this.feedSubCommentListObj[feedCommentId] = feedCommentList
+                console.log(feedCommentList)
             },
             (e) => {}
         )
@@ -340,7 +341,7 @@ export class FeedDetailComponent implements OnInit, OnDestroy {
     showSubCommentInput(feedCommentId: string) {
         this.feedSubCommentInputViewObj[feedCommentId] = true
         // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
-        // console.log(this.feedSubCommentListObj)
+        console.log(this.feedCommentList[feedCommentId])
         this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer'
     }
 

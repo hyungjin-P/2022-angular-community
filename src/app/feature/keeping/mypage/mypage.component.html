@@ -16,12 +16,12 @@
         <div class="mobile-header d-lg-none">
             <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
             <div>{{ user.nickname || user.email || '' }}</div>
-            <a class="notification">
-                <svg class="svg-icon" viewBox="-2 -2 28.5 28.5">
-                    <use xlink:href="assets/icons/header/notification.svg#icon" />
-                </svg>
-                <div class="dot"></div>
-            </a>
+<!--            <a class="notification">-->
+<!--                <svg class="svg-icon" viewBox="-2 -2 28.5 28.5">-->
+<!--                    <use xlink:href="assets/icons/header/notification.svg#icon" />-->
+<!--                </svg>-->
+<!--                <div class="dot"></div>-->
+<!--            </a>-->
             <a class="settings" [routerLink]="['/settings']">
                 <svg class="svg-icon" viewBox="-2 -2 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

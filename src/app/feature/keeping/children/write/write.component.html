@@ -157,7 +157,7 @@
     <div class="add-tag-modal user-select-none" (click)="$event.stopPropagation()">
         <div class="tag-modal-label">{{ 'keeping.write.tag-modal-label' | translate }}</div>
         <div class="tag-modal-input">
-            <input type="text" [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement/>
+            <input type="text" [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement (keyup)="onTagKey($event)"/>
             <div class="tag-modal-input-clear" (click)="clearTagModal()">
                 <div class="mdi mdi-close"></div>
             </div>

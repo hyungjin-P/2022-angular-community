@@ -1,26 +1,32 @@
 <div class="bottom-nav">
-    <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
-        <svg class="svg-icon">
-            <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
-        </svg>
-        <div class="text">{{ 'common.bottom-nav.home' | translate }}</div>
-    </a>
+<!--    <a class="menu" [routerLink]="['/']" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">-->
+<!--        <svg class="svg-icon">-->
+<!--            <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />-->
+<!--        </svg>-->
+<!--        <div class="text">{{ 'common.bottom-nav.home' | translate }}</div>-->
+<!--    </a>-->
     <a class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
         <svg class="svg-icon">
             <use xlink:href="assets/icons/bottom-nav/feed.svg#icon" />
         </svg>
         <div class="text feed-text">{{ 'common.bottom-nav.feed' | translate }}</div>
     </a>
-    <a class="menu" [routerLink]="['/write']" routerLinkActive="selected">
-        <div class="write">
-            <img src="assets/icons/bottom-nav/pencil.svg" />
-        </div>
-    </a>
     <a class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">
         <svg class="svg-icon">
             <use xlink:href="assets/icons/bottom-nav/magazine.svg#icon" />
         </svg>
         <div class="text">{{ 'common.bottom-nav.magazine' | translate }}</div>
+    </a>
+    <a class="menu" [routerLink]="['/write']" routerLinkActive="selected">
+        <div class="write">
+            <img src="assets/icons/bottom-nav/pencil.svg" />
+        </div>
+    </a>
+    <a class="menu" [routerLink]="['/settings']" routerLinkActive="selected">
+        <svg class="svg-icon">
+            <use xlink:href="assets/icons/bottom-nav/home.svg#icon" />
+        </svg>
+        <div class="text">{{ 'common.bottom-nav.home' | translate }}</div>
     </a>
     <a class="menu" *ngIf="!variables.isLogin" [routerLink]="['/auth/login']" routerLinkActive="selected">
         <svg class="svg-icon">
