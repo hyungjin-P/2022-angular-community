@@ -273,8 +273,8 @@
           <!--              size="24"-->
           <!--              fontSize="12"-->
           <!--            ></shared-avatar>-->
-          <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요"/>
-          <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment"/>
+          <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요" (keyup)="onCreateCommentKey($event)"/>
+          <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment" (keyup)="onCreateCommentKey($event)"/>
           <div class="add-button" (click)="createComment()">
               {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
           </div>
@@ -370,6 +370,8 @@
             type="text"
             [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]"
             autofocus
+            (keyup)="onCreateSubCommentKey($event, feedComment)"
+            (focusout)="hideSubCommentInput(feedComment.id)"
         />
 
         <div class="add-button" (click)="createSubComment(feedComment)">

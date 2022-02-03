@@ -88,7 +88,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
         this.createFeed()
 
         this.tagModalVisible = false
-        this.tagModalInputKey = true
+        this.tagModalInputKey = false
     }
 
     ngAfterViewInit(): void {
@@ -272,12 +272,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
     intervalCall(interval){
         return (fn) => {
-            if(!this.tagModalInputKey){
+            if(this.tagModalInputKey){
                 return    // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
             }
-            this.tagModalInputKey = false
+            this.tagModalInputKey = true
             fn()
-            setTimeout(() => {this.tagModalInputKey = true}, interval)
+            setTimeout(() => {this.tagModalInputKey = false}, interval)
         }
     }
 }

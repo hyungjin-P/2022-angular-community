@@ -76,6 +76,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     likeUserList: Array<User>
 
+    onKeyEvent: boolean
+
     constructor(
         private location: Location,
         private router: Router,
@@ -110,6 +112,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.likedViewVisible = false
 
         this.likeUserList = []
+
+        this.onKeyEvent = false;
     }
 
     ngAfterViewInit(): void {
@@ -206,7 +210,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
             (feedCommentList: Array<FeedComment>) => {
                 this.feedSubCommentListObj[feedCommentId] = feedCommentList
-                console.log(feedCommentList)
             },
             (e) => {}
         )
@@ -319,7 +322,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     showCommentView() {
         if (this.storageService.getUser()) {
-            // console.log(this.commentViewVisible)
             this.getFeedCommentList()
             this.commentViewVisible = true
         } else {
@@ -334,6 +336,15 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     clearCommentInput() {
         this.feedCommentInput = ''
+    }
+
+    onCreateCommentKey(key){
+        if (key.code === 'Enter'){
+            console.log('key')
+            this.intervalCall(1000)(() => {
+                this.createComment();
+            })
+        }
     }
 
     createComment() {
@@ -354,8 +365,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     showSubCommentInput(feedCommentId: string) {
         this.feedSubCommentInputViewObj[feedCommentId] = true
         // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
-        console.log(this.feedCommentList[feedCommentId])
-        this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer'
+        this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer '
     }
 
     hideSubCommentInput(feedCommentId: string) {
@@ -375,6 +385,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     hideSubCommentList(feedCommentId: string) {
         this.feedSubCommentListViewObj[feedCommentId] = false
         this.feedSubCommentListObj[feedCommentId] = []
+    }
+
+    onCreateSubCommentKey(key, parentFeedComment: FeedComment){
+        if (key.code === 'Enter'){
+            this.intervalCall(1000)(() => {
+                this.createSubComment(parentFeedComment);
+            })
+        }
     }
 
     createSubComment(parentFeedComment: FeedComment) {
@@ -427,5 +445,16 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     hideLikedView() {
         this.likedViewVisible = false
+    }
+
+    intervalCall(interval){
+        return (fn) => {
+            if(this.onKeyEvent){
+                return    // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
+            }
+            this.onKeyEvent = true
+            fn()
+            setTimeout(() => {this.onKeyEvent = false}, interval)
+        }
     }
 }
