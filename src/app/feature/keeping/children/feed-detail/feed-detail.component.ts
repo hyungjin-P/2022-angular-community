@@ -201,6 +201,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
             (feedCommentList: Array<FeedComment>) => {
                 this.feedCommentList = feedCommentList
+                console.log(feedCommentList);
             },
             (e) => {}
         )
@@ -340,7 +341,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     onCreateCommentKey(key){
         if (key.code === 'Enter'){
-            console.log('key')
             this.intervalCall(1000)(() => {
                 this.createComment();
             })

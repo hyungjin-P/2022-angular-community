@@ -64,8 +64,9 @@
             <!-- <a class="image-box flex-fill" (click)="goFeedDetail(feed)"> -->
             <a class="image-box flex-fill" [routerLink]="['/feed/', feed.id]">
               <img class="picture" [src]="feed.picture" draggable="false"/>
-              <div class="count" *ngIf="feed.pictures.length > 1">
-                <img src="assets/icons/feed/count.svg"/>
+              <div class="count-background" *ngIf="feed.pictures.length > 1">
+<!--                <img src="assets/icons/feed/count.svg"/>-->
+                <div class = "count">{{'+' + feed.pictures.length}}</div>
               </div>
               <!-- <div class="bookmark">
                   <img src="assets/icons/feed/bookmark.svg" />

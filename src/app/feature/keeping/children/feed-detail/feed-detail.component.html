@@ -169,8 +169,9 @@
               <div class="d-flex flex-column">
                 <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
                   <img class="picture" [src]="feed.picture" draggable="false"/>
-                  <div class="count" *ngIf="feed.pictures.length > 1">
-                    <img src="assets/icons/feed/count.svg"/>
+                  <div class="count-background" *ngIf="feed.pictures.length > 1">
+                    <!--                <img src="assets/icons/feed/count.svg"/>-->
+                    <div class = "count">{{'+' + feed.pictures.length}}</div>
                   </div>
                 </div>
                 <div class="user">
@@ -291,68 +292,73 @@
 <ng-template #CommentListTemplate let-feedCommentList="feedCommentList" let-parentFeedComment="parentFeedComment">
   <div class="feed-comment-view-item-list">
     <div class="feed-comment-view-item" *ngFor="let feedComment of feedCommentList">
-      <div>
-        <shared-avatar
-          [image]="feedComment.writer.picture[0]?.url"
-          text="{{ feedComment.writer.email }}"
-          size="32"
-          fontSize="16"
-        ></shared-avatar>
-      </div>
-      <div class="flex-fill">
-        <div class="comment-view-item-writer">
-          {{ feedComment?.writer.nickname || feedComment?.writer.email.split('@')[0] }}
+      <ng-container *ngIf="!feedComment?.deleted_at">
+        <div>
+          <shared-avatar
+            [image]="feedComment.writer.picture[0]?.url"
+            text="{{ feedComment.writer.email }}"
+            size="32"
+            fontSize="16"
+          ></shared-avatar>
         </div>
-        <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">
-          {{ feedComment?.text }}
-        </div>
-        <div class="comment-view-item-text" *ngIf="feedComment?.deleted_at">
-          {{ 'keeping.feed-detail.comment-view-deleted-text' | translate }}
-        </div>
-        <div class="comment-view-item-menu-group">
-          <div>
-            <div
-              class="comment-view-item-menu sub-comment-write"
-              (click)="showSubCommentInput(feedComment.id)"
-            >
-              {{ 'keeping.feed-detail.comment-view-reply' | translate }}
+        <div class="flex-fill">
+          <div class="comment-view-item-writer">
+            {{ feedComment?.writer.nickname || feedComment?.writer.email.split('@')[0] }}
+          </div>
+          <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">
+            {{ feedComment?.text }}
+          </div>
+          <!--              <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">-->
+          <!--                  {{ feedComment?.text }}-->
+          <!--              </div>-->
+          <!--              <div class="comment-view-item-text" *ngIf="feedComment?.deleted_at">-->
+          <!--                  {{ 'keeping.feed-detail.comment-view-deleted-text' | translate }}-->
+          <!--              </div>-->
+          <div class="comment-view-item-menu-group">
+            <div>
+              <div
+                class="comment-view-item-menu sub-comment-write"
+                (click)="showSubCommentInput(feedComment.id)"
+              >
+                {{ 'keeping.feed-detail.comment-view-reply' | translate }}
+              </div>
+              <div
+                class="comment-view-item-menu sub-comment-delete"
+                (click)="deleteComment(feedComment, parentFeedComment)"
+                *ngIf="!feedComment?.deleted_at && user.id == feedComment.writer.id"
+              >
+                {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
+              </div>
             </div>
-            <div
-              class="comment-view-item-menu sub-comment-delete"
-              (click)="deleteComment(feedComment, parentFeedComment)"
-              *ngIf="!feedComment?.deleted_at && user.id == feedComment.writer.id"
+            <ng-container
+              *ngIf="feedSubCommentInputViewObj[feedComment.id]"
+              [ngTemplateOutlet]="subCommentInputTemplate"
+              [ngTemplateOutletContext]="{ feedComment: feedComment }"
             >
-              {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
-            </div>
+            </ng-container>
+          </div>
+          <div
+            class="comment-view-item-sub-comment-list-menu"
+            [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
+            (click)="showSubCommentList(feedComment.id)"
+          >
+            <ng-container *ngIf="feedComment.sub_comment_count !== 0">
+              <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>
+              <div *ngIf="selectedLanguage != 'ko'">Show {{ feedComment.sub_comment_count }} replies</div>
+              <div class="mdi mdi-chevron-down"></div>
+            </ng-container>
           </div>
           <ng-container
-            *ngIf="feedSubCommentInputViewObj[feedComment.id]"
-            [ngTemplateOutlet]="subCommentInputTemplate"
-            [ngTemplateOutletContext]="{ feedComment: feedComment }"
-          >
-          </ng-container>
-        </div>
-        <div
-          class="comment-view-item-sub-comment-list-menu"
-          [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
-          (click)="showSubCommentList(feedComment.id)"
-        >
-            <ng-container *ngIf="feedComment.sub_comment_count !== 0">
-                <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>
-                <div *ngIf="selectedLanguage != 'ko'">Show {{ feedComment.sub_comment_count }} replies</div>
-                <div class="mdi mdi-chevron-down"></div>
-            </ng-container>
-        </div>
-        <ng-container
-          *ngIf="feedSubCommentListObj[feedComment.id]?.length > 0"
-          [ngTemplateOutlet]="CommentListTemplate"
-          [ngTemplateOutletContext]="{
+            *ngIf="feedSubCommentListObj[feedComment.id]?.length > 0"
+            [ngTemplateOutlet]="CommentListTemplate"
+            [ngTemplateOutletContext]="{
                         feedCommentList: feedSubCommentListObj[feedComment.id],
                         parentFeedComment: feedComment
                     }"
-        >
-        </ng-container>
-      </div>
+          >
+          </ng-container>
+        </div>
+      </ng-container>
     </div>
   </div>
 </ng-template>
