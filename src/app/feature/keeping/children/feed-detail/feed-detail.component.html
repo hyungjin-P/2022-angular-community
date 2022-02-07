@@ -232,7 +232,7 @@
     <div class="feed-comment-view-header">
       <div class="mdi mdi-chevron-left" (click)="hideCommentView()"></div>
       <div>{{ 'keeping.feed-detail.comment-view-header' | translate }}</div>
-      <!-- <div class="mdi mdi-close" (click)="hideCommentView()"></div> -->
+       <div class="mdi mdi-close" (click)="hideCommentView()"></div>
     </div>
     <div class="flex-fill" style="position: relative">
       <div class="feed-comment-view-section full-absolute">
@@ -276,7 +276,9 @@
           <!--            ></shared-avatar>-->
           <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요" (keyup)="onCreateCommentKey($event)"/>
           <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment" (keyup)="onCreateCommentKey($event)"/>
-          <div class="add-button" (click)="createComment()">
+          <div class="add-button" (click)="createComment()" #feedCommentAddBtn
+            [ngStyle]="{'color': feedCommentInput === '' ? 'var(--blue-5)' : 'var(--blue-2)'}"
+          >
               {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
           </div>
       </div>

@@ -2,31 +2,31 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } fr
 import { Location } from '@angular/common'
 import { Router, ActivatedRoute } from '@angular/router'
 import {
-    animationFrameScheduler,
-    defer,
-    fromEvent,
-    Observable,
-    interval,
-    concat,
-    of,
-    scheduled,
-    queueScheduler,
-    asapScheduler,
-    asyncScheduler,
-    Subscription,
+  animationFrameScheduler,
+  defer,
+  fromEvent,
+  Observable,
+  interval,
+  concat,
+  of,
+  scheduled,
+  queueScheduler,
+  asapScheduler,
+  asyncScheduler,
+  Subscription,
 } from 'rxjs'
 import {
-    map,
-    switchMap,
-    takeUntil,
-    take,
-    startWith,
-    tap,
-    withLatestFrom,
-    share,
-    scan,
-    takeWhile,
-    mergeAll,
+  map,
+  switchMap,
+  takeUntil,
+  take,
+  startWith,
+  tap,
+  withLatestFrom,
+  share,
+  scan,
+  takeWhile,
+  mergeAll,
 } from 'rxjs/operators'
 import * as moment from 'moment-timezone'
 
@@ -41,420 +41,424 @@ import { Feed } from '@schemas/feed'
 import { FeedComment } from '@schemas/feed-comment'
 import { User } from '@schemas/user'
 
-
-
 @Component({
-    selector: 'feed-detail',
-    templateUrl: './feed-detail.component.html',
-    styleUrls: ['./feed-detail.component.scss'],
+  selector: 'feed-detail',
+  templateUrl: './feed-detail.component.html',
+  styleUrls: ['./feed-detail.component.scss'],
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-    variables: any
-    user: User
+  variables: any
+  user: User
 
-    selectedFeedId: string
-    selectedFeed: Feed
-    feedList: Array<Feed>
+  selectedFeedId: string
+  selectedFeed: Feed
+  feedList: Array<Feed>
 
-    subscription: Subscription
+  subscription: Subscription
 
-    @ViewChild('scroll') scroll: ElementRef;
+  @ViewChild('scroll') scroll: ElementRef
 
-    refresh: boolean
+  refresh: boolean
 
-    moreBoxVisible: boolean
+  moreBoxVisible: boolean
 
-    selectedLanguage: string
-    commentViewVisible: boolean
-    feedCommentInput: string
-    feedCommentList: Array<FeedComment>
-    feedSubCommentInputViewObj: any
-    feedSubCommentInputValueObj: any
-    feedSubCommentListViewObj: any
-    feedSubCommentListObj: any
-    likedViewVisible: boolean
+  selectedLanguage: string
+  commentViewVisible: boolean
 
-    likeUserList: Array<User>
+  @ViewChild('feedCommentAddBtn') feedCommentAddBtn: ElementRef
+  feedCommentInput: string
+  feedCommentList: Array<FeedComment>
 
-    onKeyEvent: boolean
+  feedSubCommentInputViewObj: any
+  feedSubCommentInputValueObj: any
+  feedSubCommentListViewObj: any
+  feedSubCommentListObj: any
 
-    constructor(
-        private location: Location,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private globalService: GlobalService,
-        private storageService: StorageService,
-        private feedService: FeedService,
-        private publicService: PublicService,
-        private textService: TextService
-    ) {}
+  likedViewVisible: boolean
 
-    ngOnInit() {
-        this.variables = this.globalService.variables
-        this.user = this.storageService.getUser()
+  likeUserList: Array<User>
 
-        this.subscription = this.activatedRoute.params.subscribe(
-            (v) => {
-                this.selectedFeedId = v['feed_id']
-                this.init()
-            },
-            (e) => {}
-        )
+  onKeyEvent: boolean
 
-        this.selectedLanguage = localStorage.getItem('language')
-        this.commentViewVisible = false
-        this.feedCommentInput = ''
-        this.feedCommentList = []
-        this.feedSubCommentInputViewObj = {}
-        this.feedSubCommentInputValueObj = {}
-        this.feedSubCommentListViewObj = {}
-        this.feedSubCommentListObj = {}
-        this.likedViewVisible = false
+  constructor(
+    private location: Location,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private globalService: GlobalService,
+    private storageService: StorageService,
+    private feedService: FeedService,
+    private publicService: PublicService,
+    private textService: TextService
+  ) {}
 
-        this.likeUserList = []
+  ngOnInit() {
+    this.variables = this.globalService.variables
+    this.user = this.storageService.getUser()
 
-        this.onKeyEvent = false;
+    this.subscription = this.activatedRoute.params.subscribe(
+      (v) => {
+        this.selectedFeedId = v['feed_id']
+        this.init()
+      },
+      (e) => {}
+    )
+
+    this.selectedLanguage = localStorage.getItem('language')
+    this.commentViewVisible = false
+    this.feedCommentInput = ''
+    this.feedCommentList = []
+    this.feedSubCommentInputViewObj = {}
+    this.feedSubCommentInputValueObj = {}
+    this.feedSubCommentListViewObj = {}
+    this.feedSubCommentListObj = {}
+    this.likedViewVisible = false
+
+    this.likeUserList = []
+
+    this.onKeyEvent = false
+  }
+
+  ngAfterViewInit(): void {
+    document.addEventListener('keyup', (e) => {
+      if (e.code !== 'Escape') return
+
+      if (this.commentViewVisible) {
+        this.hideCommentView()
+      } else if (this.likedViewVisible) {
+        this.hideLikedView()
+      }
+    })
+  }
+
+  toPos(obs$) {
+    const SUPPORT_TOUCH = 'ontouchstart' in window
+    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)))
+  }
+
+  // animation(from, to, duration) {
+  //     return defer(() => {
+  //         const scheduler = animationFrameScheduler;
+  //         const start = scheduler.now();
+  //         const interval$ = interval(0, scheduler).pipe(
+  //             map(() => (scheduler.now() - start) / duration),
+  //             takeWhile((rate) => rate < 1)
+  //         );
+  //
+  //         return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
+  //     })
+  // }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
+  init() {
+    if (this.user) {
+      this.getFeed()
+      this.getFeedList()
+    } else {
+      this.getPublicFeed()
+      this.getPublicFeedList()
     }
+  }
 
-    ngAfterViewInit(): void {
-        document.addEventListener('keyup', (e) => {
-            if (e.code !== 'Escape') return;
+  goBack() {
+    this.router.navigateByUrl('/feed')
+  }
 
-            if(this.commentViewVisible){
-                this.hideCommentView();
-            }else if (this.likedViewVisible){
-                this.hideLikedView();
-            }
-        })
-    }
+  getFeed() {
+    this.feedService.getFeed(this.selectedFeedId).subscribe(
+      (feed: Feed) => {
+        this.selectedFeed = feed
 
-    toPos(obs$) {
-        const SUPPORT_TOUCH = 'ontouchstart' in window
-        return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)))
-    }
-
-    // animation(from, to, duration) {
-    //     return defer(() => {
-    //         const scheduler = animationFrameScheduler;
-    //         const start = scheduler.now();
-    //         const interval$ = interval(0, scheduler).pipe(
-    //             map(() => (scheduler.now() - start) / duration),
-    //             takeWhile((rate) => rate < 1)
-    //         );
-    //
-    //         return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
-    //     })
-    // }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
-
-    init() {
-        if (this.user) {
-            this.getFeed()
-            this.getFeedList()
-        } else {
-            this.getPublicFeed()
-            this.getPublicFeedList()
+        if (!this.selectedFeed) {
+          this.router.navigateByUrl('/feed')
         }
-    }
-
-    goBack() {
+      },
+      (e) => {
         this.router.navigateByUrl('/feed')
-    }
+      }
+    )
+  }
 
-    getFeed() {
-        this.feedService.getFeed(this.selectedFeedId).subscribe(
-            (feed: Feed) => {
-                this.selectedFeed = feed
+  getPublicFeed() {
+    this.publicService.getFeed(this.selectedFeedId).subscribe(
+      (feed: Feed) => {
+        this.selectedFeed = feed
+      },
+      (e) => {}
+    )
+  }
 
-                if (!this.selectedFeed) {
-                    this.router.navigateByUrl('/feed')
-                }
-            },
-            (e) => {
-                this.router.navigateByUrl('/feed')
-            }
+  getFeedList() {
+    this.feedService.getFeedList().subscribe(
+      (feedList: Feed[]) => {
+        this.feedList = feedList
+      },
+      (e) => {}
+    )
+  }
+
+  getFeedCommentList() {
+    this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
+      (feedCommentList: Array<FeedComment>) => {
+        this.feedCommentList = feedCommentList
+        console.log(feedCommentList)
+      },
+      (e) => {}
+    )
+  }
+
+  getFeedSubCommentList(feedCommentId: string) {
+    this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
+      (feedCommentList: Array<FeedComment>) => {
+        this.feedSubCommentListObj[feedCommentId] = feedCommentList
+      },
+      (e) => {}
+    )
+  }
+
+  getPublicFeedList() {
+    this.publicService.getFeedList().subscribe(
+      (feedList: Feed[]) => {
+        this.feedList = feedList
+      },
+      (e) => {}
+    )
+  }
+
+  getFeedLikeList() {
+    this.feedService.getFeedLikeList(this.selectedFeed.id).subscribe(
+      (likeUserList: Array<User>) => {
+        this.likeUserList = likeUserList
+      },
+      (e) => {}
+    )
+  }
+
+  selectedFeedLike(feed: Feed) {
+    if (this.storageService.getUser()) {
+      if (feed.like) {
+        this.feedService.deleteFeedLike(feed.id).subscribe(
+          (v) => {
+            feed.like = false
+            feed.like_count -= 1
+
+            this.selectedFeed.like_users.forEach((user, index) => {
+              if (user.id == this.user.id) {
+                this.selectedFeed.like_users.splice(index, 1)
+              }
+            })
+          },
+          (e) => {}
         )
-    }
+      } else {
+        this.feedService.createFeedLike(feed.id).subscribe(
+          (v) => {
+            feed.like = true
+            feed.like_count += 1
 
-    getPublicFeed() {
-        this.publicService.getFeed(this.selectedFeedId).subscribe(
-            (feed: Feed) => {
-                this.selectedFeed = feed
-            },
-            (e) => {}
+            this.selectedFeed.like_users.push(this.user)
+          },
+          (e) => {}
         )
+      }
+    } else {
+      this.router.navigateByUrl('/auth/login')
     }
+  }
 
-    getFeedList() {
-        this.feedService.getFeedList().subscribe(
-            (feedList: Feed[]) => {
-                this.feedList = feedList
-            },
-            (e) => {}
+  feedLike(feed: Feed) {
+    if (this.storageService.getUser()) {
+      if (feed.like) {
+        this.feedService.deleteFeedLike(feed.id).subscribe(
+          (v) => {
+            feed.like = false
+            feed.like_count -= 1
+          },
+          (e) => {}
         )
-    }
-
-    getFeedCommentList() {
-        this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
-            (feedCommentList: Array<FeedComment>) => {
-                this.feedCommentList = feedCommentList
-                console.log(feedCommentList);
-            },
-            (e) => {}
+      } else {
+        this.feedService.createFeedLike(feed.id).subscribe(
+          (v) => {
+            feed.like = true
+            feed.like_count += 1
+          },
+          (e) => {}
         )
+      }
+    } else {
+      this.router.navigateByUrl('/auth/login')
+    }
+  }
+
+  goFeedDetail(feed: Feed) {
+    this.refresh = true
+    this.router.navigateByUrl(`/feed/${feed.id}`)
+    try {
+      this.scroll.nativeElement.scrollTop = 0
+    } catch (err) {}
+  }
+
+  openMoreBox(event) {
+    event.stopPropagation()
+
+    if (this.moreBoxVisible) {
+      this.closeMoreBox()
+    } else {
+      this.moreBoxVisible = true
+    }
+  }
+
+  closeMoreBox() {
+    this.moreBoxVisible = false
+  }
+
+  deleteFeed(feed: Feed) {
+    this.feedService.deleteFeed(feed.id).subscribe(
+      (v) => {
+        this.router.navigateByUrl('/feed')
+      },
+      (e) => {}
+    )
+  }
+
+  showCommentView() {
+    if (this.storageService.getUser()) {
+      this.getFeedCommentList()
+      this.commentViewVisible = true
+    } else {
+      this.router.navigateByUrl('/auth/login')
+    }
+  }
+
+  hideCommentView() {
+    this.clearCommentInput()
+    this.commentViewVisible = false
+  }
+
+  clearCommentInput() {
+    this.feedCommentInput = ''
+  }
+
+  onCreateCommentKey(key) {
+    if (key.code === 'Enter') {
+      this.intervalCall(1000)(() => {
+        this.createComment()
+      })
+    }
+  }
+
+  createComment() {
+    if (!this.feedCommentInput) {
+      return
     }
 
-    getFeedSubCommentList(feedCommentId: string) {
-        this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
-            (feedCommentList: Array<FeedComment>) => {
-                this.feedSubCommentListObj[feedCommentId] = feedCommentList
-            },
-            (e) => {}
-        )
-    }
-
-    getPublicFeedList() {
-        this.publicService.getFeedList().subscribe(
-            (feedList: Feed[]) => {
-                this.feedList = feedList
-            },
-            (e) => {}
-        )
-    }
-
-    getFeedLikeList() {
-        this.feedService.getFeedLikeList(this.selectedFeed.id).subscribe(
-            (likeUserList: Array<User>) => {
-                this.likeUserList = likeUserList
-            },
-            (e) => {}
-        )
-    }
-
-    selectedFeedLike(feed: Feed) {
-        if (this.storageService.getUser()) {
-            if (feed.like) {
-                this.feedService.deleteFeedLike(feed.id).subscribe(
-                    (v) => {
-                        feed.like = false
-                        feed.like_count -= 1
-
-                        this.selectedFeed.like_users.forEach((user, index) => {
-                            if (user.id == this.user.id) {
-                                this.selectedFeed.like_users.splice(index, 1)
-                            }
-                        })
-                    },
-                    (e) => {}
-                )
-            } else {
-                this.feedService.createFeedLike(feed.id).subscribe(
-                    (v) => {
-                        feed.like = true
-                        feed.like_count += 1
-
-                        this.selectedFeed.like_users.push(this.user)
-                    },
-                    (e) => {}
-                )
-            }
-        } else {
-            this.router.navigateByUrl('/auth/login')
-        }
-    }
-
-    feedLike(feed: Feed) {
-        if (this.storageService.getUser()) {
-            if (feed.like) {
-                this.feedService.deleteFeedLike(feed.id).subscribe(
-                    (v) => {
-                        feed.like = false
-                        feed.like_count -= 1
-                    },
-                    (e) => {}
-                )
-            } else {
-                this.feedService.createFeedLike(feed.id).subscribe(
-                    (v) => {
-                        feed.like = true
-                        feed.like_count += 1
-                    },
-                    (e) => {}
-                )
-            }
-        } else {
-            this.router.navigateByUrl('/auth/login')
-        }
-    }
-
-    goFeedDetail(feed: Feed) {
-        this.refresh = true
-        this.router.navigateByUrl(`/feed/${feed.id}`)
-        try{
-            this.scroll.nativeElement.scrollTop = 0;
-        }catch(err){}
-    }
-
-    openMoreBox(event) {
-        event.stopPropagation()
-
-        if (this.moreBoxVisible) {
-            this.closeMoreBox()
-        } else {
-            this.moreBoxVisible = true
-        }
-    }
-
-    closeMoreBox() {
-        this.moreBoxVisible = false
-    }
-
-    deleteFeed(feed: Feed) {
-        this.feedService.deleteFeed(feed.id).subscribe(
-            (v) => {
-                this.router.navigateByUrl('/feed')
-            },
-            (e) => {}
-        )
-    }
-
-    showCommentView() {
-        if (this.storageService.getUser()) {
-            this.getFeedCommentList()
-            this.commentViewVisible = true
-        } else {
-            this.router.navigateByUrl('/auth/login')
-        }
-    }
-
-    hideCommentView() {
+    this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInput }).subscribe(
+      (feedComment: FeedComment) => {
         this.clearCommentInput()
-        this.commentViewVisible = false
+        this.selectedFeed.comment_count++
+        this.feedCommentList.unshift(feedComment)
+      },
+      (e) => {}
+    )
+  }
+
+  showSubCommentInput(feedCommentId: string) {
+    this.feedSubCommentInputViewObj[feedCommentId] = true
+    // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
+    this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer '
+  }
+
+  hideSubCommentInput(feedCommentId: string) {
+    this.feedSubCommentInputViewObj[feedCommentId] = false
+    this.feedSubCommentInputValueObj[feedCommentId] = ''
+  }
+
+  showSubCommentList(feedCommentId: string) {
+    if (this.feedSubCommentListViewObj[feedCommentId]) {
+      this.hideSubCommentList(feedCommentId)
+    } else {
+      this.feedSubCommentListViewObj[feedCommentId] = true
+      this.getFeedSubCommentList(feedCommentId)
+    }
+  }
+
+  hideSubCommentList(feedCommentId: string) {
+    this.feedSubCommentListViewObj[feedCommentId] = false
+    this.feedSubCommentListObj[feedCommentId] = []
+  }
+
+  onCreateSubCommentKey(key, parentFeedComment: FeedComment) {
+    if (key.code === 'Enter') {
+      this.intervalCall(1000)(() => {
+        this.createSubComment(parentFeedComment)
+      })
+    }
+  }
+
+  createSubComment(parentFeedComment: FeedComment) {
+    if (!this.feedSubCommentInputValueObj[parentFeedComment.id]) {
+      return
     }
 
-    clearCommentInput() {
-        this.feedCommentInput = ''
-    }
+    this.feedService
+      .createFeedComment(this.selectedFeed.id, {
+        parent_id: parentFeedComment.id,
+        text: this.feedSubCommentInputValueObj[parentFeedComment.id],
+      })
+      .subscribe(
+        (feedComment: FeedComment) => {
+          this.hideSubCommentInput(parentFeedComment.id)
+          this.selectedFeed.comment_count++
+          parentFeedComment.sub_comment_count++
+          this.feedSubCommentListViewObj[parentFeedComment.id] = true
+          if (!this.feedSubCommentListObj[parentFeedComment.id]) {
+            this.feedSubCommentListObj[parentFeedComment.id] = [feedComment]
+          } else {
+            this.feedSubCommentListObj[parentFeedComment.id].unshift(feedComment)
+          }
+        },
+        (e) => {}
+      )
+  }
 
-    onCreateCommentKey(key){
-        if (key.code === 'Enter'){
-            this.intervalCall(1000)(() => {
-                this.createComment();
-            })
+  deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
+    this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
+      (v) => {
+        this.selectedFeed.comment_count--
+        if (feedComment.parent_id) {
+          parentFeedComment.sub_comment_count--
         }
+        feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss')
+      },
+      (e) => {}
+    )
+  }
+
+  showLikedView() {
+    if (this.storageService.getUser()) {
+      this.getFeedLikeList()
+      this.likedViewVisible = true
+    } else {
+      this.router.navigateByUrl('/auth/login')
     }
+  }
 
-    createComment() {
-        if (!this.feedCommentInput) {
-            return
-        }
+  hideLikedView() {
+    this.likedViewVisible = false
+  }
 
-        this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInput }).subscribe(
-            (feedComment: FeedComment) => {
-                this.clearCommentInput()
-                this.selectedFeed.comment_count++
-                this.feedCommentList.unshift(feedComment)
-            },
-            (e) => {}
-        )
+  intervalCall(interval) {
+    return (fn) => {
+      if (this.onKeyEvent) {
+        return // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
+      }
+      this.onKeyEvent = true
+      fn()
+      setTimeout(() => {
+        this.onKeyEvent = false
+      }, interval)
     }
-
-    showSubCommentInput(feedCommentId: string) {
-        this.feedSubCommentInputViewObj[feedCommentId] = true
-        // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
-        this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer '
-    }
-
-    hideSubCommentInput(feedCommentId: string) {
-        this.feedSubCommentInputViewObj[feedCommentId] = false
-        this.feedSubCommentInputValueObj[feedCommentId] = ''
-    }
-
-    showSubCommentList(feedCommentId: string) {
-        if (this.feedSubCommentListViewObj[feedCommentId]) {
-            this.hideSubCommentList(feedCommentId)
-        } else {
-            this.feedSubCommentListViewObj[feedCommentId] = true
-            this.getFeedSubCommentList(feedCommentId)
-        }
-    }
-
-    hideSubCommentList(feedCommentId: string) {
-        this.feedSubCommentListViewObj[feedCommentId] = false
-        this.feedSubCommentListObj[feedCommentId] = []
-    }
-
-    onCreateSubCommentKey(key, parentFeedComment: FeedComment){
-        if (key.code === 'Enter'){
-            this.intervalCall(1000)(() => {
-                this.createSubComment(parentFeedComment);
-            })
-        }
-    }
-
-    createSubComment(parentFeedComment: FeedComment) {
-        if (!this.feedSubCommentInputValueObj[parentFeedComment.id]) {
-            return
-        }
-
-        this.feedService
-            .createFeedComment(this.selectedFeed.id, {
-                parent_id: parentFeedComment.id,
-                text: this.feedSubCommentInputValueObj[parentFeedComment.id],
-            })
-            .subscribe(
-                (feedComment: FeedComment) => {
-                    this.hideSubCommentInput(parentFeedComment.id)
-                    this.selectedFeed.comment_count++
-                    parentFeedComment.sub_comment_count++
-                    this.feedSubCommentListViewObj[parentFeedComment.id] = true
-                    if (!this.feedSubCommentListObj[parentFeedComment.id]) {
-                        this.feedSubCommentListObj[parentFeedComment.id] = [feedComment]
-                    } else {
-                        this.feedSubCommentListObj[parentFeedComment.id].unshift(feedComment)
-                    }
-                },
-                (e) => {}
-            )
-    }
-
-    deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
-        this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
-            (v) => {
-                this.selectedFeed.comment_count--
-                if (feedComment.parent_id) {
-                    parentFeedComment.sub_comment_count--
-                }
-                feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss')
-            },
-            (e) => {}
-        )
-    }
-
-    showLikedView() {
-        if (this.storageService.getUser()) {
-            this.getFeedLikeList()
-            this.likedViewVisible = true
-        } else {
-            this.router.navigateByUrl('/auth/login')
-        }
-    }
-
-    hideLikedView() {
-        this.likedViewVisible = false
-    }
-
-    intervalCall(interval){
-        return (fn) => {
-            if(this.onKeyEvent){
-                return    // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
-            }
-            this.onKeyEvent = true
-            fn()
-            setTimeout(() => {this.onKeyEvent = false}, interval)
-        }
-    }
+  }
 }
