@@ -11,8 +11,7 @@ export class ModalComponent implements OnInit {
         text: '메인 타이틀을 입력해 주세요',
         subText: `서브 텍스트를 입력해 주세요.
         서브 텍스트를 입력해 주세요.`,
-        cancelButtonText: '취소', // 선택
-        confirmButtonText: '확인', // 선택
+        confirmBtnText: '확인', // 선택
     }
 
     isConfirmModalVisible = false
@@ -20,8 +19,8 @@ export class ModalComponent implements OnInit {
         text: '메인 타이틀을 입력해 주세요',
         subText: `서브 텍스트를 입력해 주세요.
         서브 텍스트를 입력해 주세요.`,
-        cancelButtonText: '취소', // 선택
-        confirmButtonText: '확인', // 선택
+        cancelBtnText: '취소', // 선택
+        confirmBtnText: '확인', // 선택
     }
 
     constructor() {}

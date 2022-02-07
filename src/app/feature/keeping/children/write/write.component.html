@@ -172,3 +172,21 @@
         </div>
     </div>
 </div>
+
+<shared-modal
+  *ngIf="selectedLanguage == 'ko'"
+  [(visible)]="isConfirmModalVisible"
+  [data]="confirmModalData_ko"
+  type="confirm"
+  (cancel)="confirmModalCancel()"
+  (confirm)="confirmModalOk()"
+></shared-modal>
+
+<shared-modal
+  *ngIf="selectedLanguage != 'ko'"
+  [(visible)]="isConfirmModalVisible"
+  [data]="confirmModalData_en"
+  type="confirm"
+  (cancel)="confirmModalCancel()"
+  (confirm)="confirmModalOk()"
+></shared-modal>

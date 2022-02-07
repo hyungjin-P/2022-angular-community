@@ -1,24 +1,23 @@
-import {Injectable} from '@angular/core'
-import {HttpClient, HttpHeaders} from '@angular/common/http'
-import {Observable} from 'rxjs'
-import {catchError, map} from 'rxjs/operators'
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
 import handleError from './handleError'
 
-import {environment} from '@environments/environment'
+import { environment } from '@environments/environment'
 
-import {Response} from '@schemas/response'
-import {User} from '@schemas/user'
-import {Feed} from '@schemas/feed'
-import {FeedTag} from '@schemas/feed-tag'
-import {FeedComment} from '@schemas/feed-comment'
-import {File} from '@schemas/file'
+import { Response } from '@schemas/response'
+import { User } from '@schemas/user'
+import { Feed } from '@schemas/feed'
+import { FeedTag } from '@schemas/feed-tag'
+import { FeedComment } from '@schemas/feed-comment'
+import { File } from '@schemas/file'
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
     const url = environment['serverAddress'] + '/feed'
@@ -31,8 +30,7 @@ export class FeedService {
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        // console.log('create ----------------> : ', res.dataset[0]);
-
+        // console.log('create ----------------> : ', res.dataset[0])
         return res.dataset[0]
       }),
       catchError(handleError)
@@ -50,7 +48,6 @@ export class FeedService {
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-
         // console.log('res.dataset : ', res.dataset);
         return res.dataset
       }),
@@ -263,8 +260,7 @@ export class FeedService {
   }
 
   getFeedSubCommentList(feedId: string, commentId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-    const url =
-      environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`
 
     const options = {
       headers: new HttpHeaders({
