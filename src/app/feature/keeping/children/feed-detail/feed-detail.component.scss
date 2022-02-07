@@ -290,8 +290,8 @@
                 > div {
                     .image-box {
                         position: relative;
-                        width: 185px;
-                        height: 185px;
+                        width: 160px;
+                        height: 160px;
                         background-color: var(--grey-8);
                         cursor: pointer;
 
@@ -654,7 +654,7 @@
               padding: 0 16px;
               outline: none;
 
-              @include textStyle(500, 13px, 18px);
+              @include textStyle(500, 13px, 21px);
               color: var(--grey-1);
 
               &:focus {
@@ -677,7 +677,7 @@
               }
             }
             .add-button {
-              @include textStyle(400, 13px, 21px);
+              @include textStyle(500, 13px, 21px);
               color: var(--blue-5);
             }
 
@@ -819,16 +819,26 @@
     display: flex;
 }
 
-@media (min-width: 414px) {
-    .section {
-        .item-list {
-            margin: -15px -6px;
 
-            .item {
-                padding: 15px 6px;
+@media (min-width: 414px) {
+  .section {
+    .items {
+      .item-list {
+        margin: -15px -6px;
+
+        .item {
+          padding: 15px 6px;
+
+          > div {
+            .image-box {
+              width: 185px;
+              height: 185px;
             }
+          }
         }
+      }
     }
+  }
 }
 
 @media (min-width: 576px) {
