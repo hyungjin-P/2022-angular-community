@@ -101,7 +101,13 @@
                 <div class="text">{{ selectedFeed?.comment_count }}</div>
               </div>
             </div>
-            <div class="row-3-col-2"></div>
+            <div class="row-3-col-2">
+              <div class='bookmark'>
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.19868 21.1195L6.17048 21.14L6.15303 21.1553C5.99722 21.2539 5.75896 21.2871 5.51053 21.1923C5.3241 21.1125 5.25 20.9588 5.25 20.857V4.8377C5.25 4.32768 5.75889 3.75 6.59317 3.75H18.4068C19.2326 3.75 19.7464 4.32524 19.75 4.8399V20.8301C19.75 20.933 19.6742 21.089 19.4832 21.168L19.4551 21.1796L19.4281 21.1935C19.3564 21.2302 19.2653 21.25 19.193 21.25C19.0661 21.25 18.9406 21.2138 18.8363 21.1504L18.8244 21.14L18.7962 21.1195L12.9379 16.8691L12.4974 16.5496L12.057 16.8691L6.19868 21.1195Z" stroke="#647183" stroke-width="1.5"/>
+                </svg>
+              </div>
+            </div>
           </div>
           <div class="row-4" (click)="showLikedView()">
             <ng-container *ngFor="let like_user of selectedFeed?.like_users; let i = index">

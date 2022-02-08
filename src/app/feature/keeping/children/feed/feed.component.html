@@ -68,9 +68,9 @@
 <!--                <img src="assets/icons/feed/count.svg"/>-->
                 <div class = "count">{{'+' + feed.pictures.length}}</div>
               </div>
-              <!-- <div class="bookmark">
+              <div class="bookmark">
                   <img src="assets/icons/feed/bookmark.svg" />
-              </div> -->
+              </div>
             </a>
             <div class="user">
               <shared-avatar
@@ -79,6 +79,7 @@
                 size="22"
                 fontSize="14"
                 backgroundColor="red"
+                style='border: solid 1px #efefef'
               ></shared-avatar>
               <div class="nickname">{{ feed.writer.nickname || feed.writer.email.split('@')[0] }}</div>
             </div>

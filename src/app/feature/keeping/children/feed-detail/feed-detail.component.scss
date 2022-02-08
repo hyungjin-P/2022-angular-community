@@ -213,9 +213,13 @@
                 .row-3-col-2 {
                     flex: 6;
                     display: flex;
-                    justify-content: center;
+                    justify-content: right;
                     align-items: center;
                     height: 100%;
+
+                    .bookmark{
+                      color: var(--grey-1);
+                    }
                 }
 
                 .row-3-col-3 {
