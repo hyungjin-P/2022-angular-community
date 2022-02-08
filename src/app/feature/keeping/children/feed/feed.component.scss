@@ -135,6 +135,7 @@
                         }
                     }
 
+                  /* 네이밍 name-name2-name3 */
                     .count-background {
                         position: absolute;
                         top: 8px;
@@ -173,12 +174,13 @@
                         margin-left: 4px;
 
                         @include textStyle(400, 12px, 20px);
-                        color: var(--grey-1);
+                        color: var(--text-1);
                     }
                 }
 
                 .title {
                     margin-top: 4px;
+                    letter-spacing: -0.2px;
 
                     @include textStyle(400, 13px, 21px);
                 }
