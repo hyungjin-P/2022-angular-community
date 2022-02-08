@@ -65,6 +65,7 @@
                         position: absolute;
                         top: 71px;
                         left: 16px;
+                        width: 90%;
 
                         @include textStyle(700, 20px, 30px);
                         color: var(--white);
@@ -170,7 +171,7 @@
 
                 > div {
                     .image-box {
-                        height: 380px;
+                        height: 320px;
 
                         img {
                             border-radius: 8px;
@@ -192,8 +193,8 @@
     }
 
     .col-xxl-3 {
-        -ms-flex: 0 0 33.333333%;
-        flex: 0 0 33.333333%;
-        max-width: 33.333333%;
+        -ms-flex: 0 0 24.999%;
+        flex: 0 0 24.999%;
+        max-width: 24.999%;
     }
 }
