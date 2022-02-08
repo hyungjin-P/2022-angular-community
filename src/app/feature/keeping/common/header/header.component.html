@@ -85,12 +85,12 @@
 <!--            </a>-->
         </ng-container>
         <ng-container *ngIf="variables.isLogin">
-            <!-- <a class="notification">
+            <a class="notification">
                 <svg class="svg-icon" viewBox="-2 -2 26 26">
                     <use xlink:href="assets/icons/header/notification.svg#icon" />
                 </svg>
                 <div class="dot"></div>
-            </a> -->
+            </a>
             <a class="user d-none d-lg-flex" [class.user-box-open]="userBoxVisible" (click)="openUserBox($event)">
                 <div class="avatar">
                     <shared-avatar
