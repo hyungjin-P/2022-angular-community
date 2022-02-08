@@ -244,6 +244,19 @@
 
             .item {
                 padding: 15px 6px;
+
+                > div {
+                  .image-box {
+                    width: 100%;
+                    flex: 1 0 auto;
+                    height: auto;
+                  }
+                  .image-box:before {
+                    content: '';
+                    display: block;
+                    padding-top: 100%;
+                  }
+                }
             }
         }
     }
@@ -256,11 +269,15 @@
 
             .item {
                 padding: 20px 6px;
-
                 > div {
                     .image-box {
-                        width: 260px;
-                        height: 260px;
+                      flex: 1 0 auto;
+                      height: auto;
+                    }
+                    .image-box:before {
+                      content: '';
+                      display: block;
+                      padding-top: 100%;
                     }
                 }
             }
@@ -278,8 +295,13 @@
 
         > div {
           .image-box {
-            width: 360px;
-            height: 360px;
+            flex: 1 0 auto;
+            height: auto;
+          }
+          .image-box:before {
+            content: '';
+            display: block;
+            padding-top: 100%;
           }
         }
       }
@@ -316,7 +338,6 @@
 
         .nav {
             top: 1px;
-            margin-top: 40px !important;
             width: 92%;
             margin: 0 auto;
             border-bottom: 1px solid var(--grey-8);
@@ -337,26 +358,18 @@
 
                 > div {
                     .image-box {
-                        width: 180px;
-                        height: 180px;
+                      flex: 1 0 auto;
+                      height: auto;
+                    }
+                    .image-box:before {
+                      content: '';
+                      display: block;
+                      padding-top: 100%;
                     }
                 }
             }
         }
     }
-}
-
-@media (min-width: 1200px) {
-  .item-list {
-    .item {
-      > div {
-        .image-box {
-          width: 190px;
-          height: 190px;
-        }
-      }
-    }
-  }
 }
 
 @media (min-width: 1920px) {
@@ -376,11 +389,15 @@
                 padding: 30px 15px;
 
                 > div {
-                    .image-box {
-                        //min-height: 270px;
-                        width: 275px;
-                        height: 275px;
-                    }
+                  .image-box {
+                    flex: 1 0 auto;
+                    height: auto;
+                  }
+                  .image-box:before {
+                    content: '';
+                    display: block;
+                    padding-top: 100%;
+                  }
                 }
             }
         }

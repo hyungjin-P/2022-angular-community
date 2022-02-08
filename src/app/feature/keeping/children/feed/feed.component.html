@@ -60,10 +60,9 @@
       </div> -->
       <div class="item-list d-flex flex-wrap">
         <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
-          <div class="d-flex flex-column">
-            <!-- <a class="image-box flex-fill" (click)="goFeedDetail(feed)"> -->
+          <div class="d-flex flex-column flex-wrap">
             <a class="image-box flex-fill" [routerLink]="['/feed/', feed.id]">
-              <img class="picture" [src]="feed.picture" draggable="false"/>
+              <img class="picture" [src]="feed.picture" draggable="false">
               <div class="count-background" *ngIf="feed.pictures.length > 1">
 <!--                <img src="assets/icons/feed/count.svg"/>-->
                 <div class = "count">{{'+' + feed.pictures.length}}</div>
