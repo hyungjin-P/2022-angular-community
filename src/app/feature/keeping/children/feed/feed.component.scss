@@ -108,15 +108,21 @@
             > div {
                 .image-box {
                     position: relative;
-                    width: 100%;
-                    height: 150px;
+                    width: 185px;
+                    height: 185px;
                     background-color: var(--grey-8);
                     cursor: pointer;
+                    border-radius: 8px;
 
                     img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
                         width: 100%;
                         height: 100%;
+                        transform: translate(50, 50);
                         object-fit: cover;
+                        margin: auto;
                         border-radius: 8px;
                     }
 
@@ -253,12 +259,32 @@
 
                 > div {
                     .image-box {
+                        width: 260px;
                         height: 260px;
                     }
                 }
             }
         }
     }
+}
+
+@media (min-width: 768px) {
+  .section {
+    .item-list {
+      margin: -20px -6px;
+
+      .item {
+        padding: 20px 6px;
+
+        > div {
+          .image-box {
+            width: 360px;
+            height: 360px;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 992px) {
@@ -311,12 +337,26 @@
 
                 > div {
                     .image-box {
-                        height: 190px;
+                        width: 180px;
+                        height: 180px;
                     }
                 }
             }
         }
     }
+}
+
+@media (min-width: 1200px) {
+  .item-list {
+    .item {
+      > div {
+        .image-box {
+          width: 190px;
+          height: 190px;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 1920px) {
@@ -337,6 +377,8 @@
                 > div {
                     .image-box {
                         min-height: 270px;
+                        width: 275px;
+                        height: 275px;
                     }
                 }
             }
