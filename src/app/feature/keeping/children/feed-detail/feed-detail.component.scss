@@ -294,16 +294,22 @@
                 > div {
                     .image-box {
                         position: relative;
-                        width: 160px;
-                        height: 160px;
                         background-color: var(--grey-8);
                         cursor: pointer;
+                        border-radius: 8px;
+                        flex: 1 0 auto;
+                        height: auto;
 
                         img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                            border-radius: 8px;
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          width: 100%;
+                          height: 100%;
+                          transform: translate(50, 50);
+                          object-fit: cover;
+                          margin: auto;
+                          border-radius: 8px;
                         }
 
 
@@ -349,6 +355,11 @@
                             }
                         }
                     }
+                    .image-box:before {
+                      content: '';
+                      display: block;
+                      padding-top: 100%;
+                    }
 
                     .user {
                         display: flex;
@@ -366,12 +377,14 @@
 
                     .title {
                         margin-top: 4px;
+                        width: 100%;
 
                         @include textStyle(400, 13px, 21px);
                     }
 
                     .tags {
                         height: 20px;
+                        width: 100%;
 
                         @include textStyle(400, 12px, 20px);
                     }
@@ -709,6 +722,7 @@
 
 .feed-comment-view-wrapper-show {
     display: flex;
+    position: fixed;
 }
 
 .liked-view-background {
@@ -833,12 +847,12 @@
         .item {
           padding: 15px 6px;
 
-          > div {
-            .image-box {
-              width: 185px;
-              height: 185px;
-            }
-          }
+          //> div {
+          //  .image-box {
+          //    width: 185px;
+          //    height: 185px;
+          //  }
+          //}
         }
       }
     }
@@ -854,12 +868,12 @@
                 .item {
                     padding: 20px 6px;
 
-                    > div {
-                        .image-box {
-                            width: 240px;
-                            height: 240px;
-                        }
-                    }
+                    //> div {
+                    //    .image-box {
+                    //        width: 240px;
+                    //        height: 240px;
+                    //    }
+                    //}
                 }
             }
         }
@@ -868,7 +882,7 @@
     .feed-comment-view-wrapper {
         .feed-comment-view {
             width: 510px;
-            height: 80%;
+            height: 100%;
             border-radius: 20px;
 
             .feed-comment-view-section {
@@ -933,6 +947,7 @@
 }
 
 @media (min-width: 992px) {
+
     :host {
         position: absolute;
         top: 0;
@@ -963,6 +978,10 @@
             width: 510px;
         }
     }
+
+   .feed-comment-view-wrapper-show{
+     position: absolute;
+   }
 
     .liked-view-wrapper {
         .feed-comment-view {

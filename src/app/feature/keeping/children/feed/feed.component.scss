@@ -187,12 +187,14 @@
                 .title {
                     margin-top: 4px;
                     letter-spacing: -0.2px;
+                    width: 100%;
 
                     @include textStyle(400, 13px, 21px);
                 }
 
                 .tags {
                     height: 20px;
+                    width: 100%;
 
                     @include textStyle(400, 12px, 20px);
                 }
@@ -370,6 +372,7 @@
             }
         }
     }
+
 }
 
 @media (min-width: 1920px) {

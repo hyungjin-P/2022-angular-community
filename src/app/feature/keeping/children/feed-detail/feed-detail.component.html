@@ -280,10 +280,16 @@
           <!--              size="24"-->
           <!--              fontSize="12"-->
           <!--            ></shared-avatar>-->
-          <input *ngIf="selectedLanguage == 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="댓글을 남겨주세요" (keyup)="onCreateCommentKey($event)"/>
-          <input *ngIf="selectedLanguage != 'ko'" type="text" [(ngModel)]="feedCommentInput" placeholder="input comment" (keyup)="onCreateCommentKey($event)"/>
+          <input
+            type="text"
+            [(ngModel)]="feedCommentInputObj"
+            [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"
+            (keyup)="onCreateCommentKey($event)"
+            (focusout)='hideSubCommentInput()'
+            #feedCommentInput
+          />
           <div class="add-button" (click)="createComment()" #feedCommentAddBtn
-            [ngStyle]="{'color': feedCommentInput === '' ? 'var(--blue-5)' : 'var(--blue-2)'}"
+            [ngStyle]="{'color': feedCommentInputObj === '' ? 'var(--blue-5)' : 'var(--blue-2)'}"
           >
               {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
           </div>
@@ -299,8 +305,8 @@
 
 <ng-template #CommentListTemplate let-feedCommentList="feedCommentList" let-parentFeedComment="parentFeedComment">
   <div class="feed-comment-view-item-list">
-    <div class="feed-comment-view-item" *ngFor="let feedComment of feedCommentList">
-      <ng-container *ngIf="!feedComment?.deleted_at">
+    <ng-container *ngFor="let feedComment of feedCommentList">
+      <div class="feed-comment-view-item" *ngIf="!feedComment?.deleted_at">
         <div>
           <shared-avatar
             [image]="feedComment.writer.picture[0]?.url"
@@ -326,7 +332,7 @@
             <div>
               <div
                 class="comment-view-item-menu sub-comment-write"
-                (click)="showSubCommentInput(feedComment.id)"
+                (click)="showSubCommentInput(feedComment)"
               >
                 {{ 'keeping.feed-detail.comment-view-reply' | translate }}
               </div>
@@ -338,12 +344,6 @@
                 {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
               </div>
             </div>
-            <ng-container
-              *ngIf="feedSubCommentInputViewObj[feedComment.id]"
-              [ngTemplateOutlet]="subCommentInputTemplate"
-              [ngTemplateOutletContext]="{ feedComment: feedComment }"
-            >
-            </ng-container>
           </div>
           <div
             class="comment-view-item-sub-comment-list-menu"
@@ -360,47 +360,14 @@
             *ngIf="feedSubCommentListObj[feedComment.id]?.length > 0"
             [ngTemplateOutlet]="CommentListTemplate"
             [ngTemplateOutletContext]="{
-                        feedCommentList: feedSubCommentListObj[feedComment.id],
-                        parentFeedComment: feedComment
-                    }"
+                      feedCommentList: feedSubCommentListObj[feedComment.id],
+                      parentFeedComment: feedComment
+                  }"
           >
           </ng-container>
         </div>
-      </ng-container>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #subCommentInputTemplate let-feedComment="feedComment">
-  <div class="feed-comment-view-input feed-sub-comment-view-input">
-    <div>
-<!--      <shared-avatar-->
-<!--        [image]="user.picture[0]?.url"-->
-<!--        text="{{ user.email }}"-->
-<!--        size="24"-->
-<!--        fontSize="12"-->
-<!--      ></shared-avatar>-->
-        <input
-            type="text"
-            [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]"
-            autofocus
-            (keyup)="onCreateSubCommentKey($event, feedComment)"
-            (focusout)="hideSubCommentInput(feedComment.id)"
-        />
-
-        <div class="add-button" (click)="createSubComment(feedComment)">
-            {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
-        </div>
-<!--      <input type="text" [(ngModel)]="feedSubCommentInputValueObj[feedComment.id]"/>-->
-    </div>
-<!--    <div class="button-group">-->
-<!--      <div class="cancel-button" (click)="hideSubCommentInput(feedComment.id)">-->
-<!--        {{ 'keeping.feed-detail.comment-view-cancel-button' | translate }}-->
-<!--      </div>-->
-<!--      <div class="add-button" (click)="createSubComment(feedComment)">-->
-<!--        {{ 'keeping.feed-detail.comment-view-add-button' | translate }}-->
-<!--      </div>-->
-<!--    </div>-->
+      </div>
+    </ng-container>
   </div>
 </ng-template>
 

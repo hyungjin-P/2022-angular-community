@@ -65,12 +65,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedLanguage: string
   commentViewVisible: boolean
 
-  @ViewChild('feedCommentAddBtn') feedCommentAddBtn: ElementRef
-  feedCommentInput: string
+  @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef
+  @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef
+  feedCommentInputObj: any
+  feedCommentInputStatus: string
   feedCommentList: Array<FeedComment>
 
-  feedSubCommentInputViewObj: any
-  feedSubCommentInputValueObj: any
+  feedSubComment: FeedComment
+
   feedSubCommentListViewObj: any
   feedSubCommentListObj: any
 
@@ -105,10 +107,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.selectedLanguage = localStorage.getItem('language')
     this.commentViewVisible = false
-    this.feedCommentInput = ''
+    this.feedCommentInputObj = ''
+    this.feedCommentInputStatus = ''
     this.feedCommentList = []
-    this.feedSubCommentInputViewObj = {}
-    this.feedSubCommentInputValueObj = {}
+    this.feedSubComment = undefined
     this.feedSubCommentListViewObj = {}
     this.feedSubCommentListObj = {}
     this.likedViewVisible = false
@@ -338,7 +340,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearCommentInput() {
-    this.feedCommentInput = ''
+    this.feedCommentInputObj = ''
   }
 
   onCreateCommentKey(key) {
@@ -346,15 +348,25 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.intervalCall(1000)(() => {
         this.createComment()
       })
+    } else if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
+      this.hideSubCommentInput()
     }
   }
 
   createComment() {
-    if (!this.feedCommentInput) {
+    if (!this.feedCommentInputObj) {
       return
     }
 
-    this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInput }).subscribe(
+    if (this.feedCommentInputStatus === 'sub') {
+      this.createSubComment(this.feedSubComment)
+    } else {
+      this.createParentComment()
+    }
+  }
+
+  createParentComment() {
+    this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInputObj }).subscribe(
       (feedComment: FeedComment) => {
         this.clearCommentInput()
         this.selectedFeed.comment_count++
@@ -364,15 +376,20 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     )
   }
 
-  showSubCommentInput(feedCommentId: string) {
-    this.feedSubCommentInputViewObj[feedCommentId] = true
+  showSubCommentInput(feedComment: FeedComment) {
     // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
-    this.feedSubCommentInputValueObj[feedCommentId] = '@' + 'writer '
+    this.feedCommentInputStatus = 'sub'
+    this.feedSubComment = feedComment
+    this.feedCommentInputObj = '@' + 'writer '
+    this.feedCommentInputEl.nativeElement.focus()
   }
 
-  hideSubCommentInput(feedCommentId: string) {
-    this.feedSubCommentInputViewObj[feedCommentId] = false
-    this.feedSubCommentInputValueObj[feedCommentId] = ''
+  hideSubCommentInput() {
+    if (this.feedCommentInputStatus === 'sub') {
+      this.feedCommentInputStatus = ''
+      this.feedSubComment = undefined
+      this.feedCommentInputObj = ''
+    }
   }
 
   showSubCommentList(feedCommentId: string) {
@@ -389,30 +406,23 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedSubCommentListObj[feedCommentId] = []
   }
 
-  onCreateSubCommentKey(key, parentFeedComment: FeedComment) {
-    if (key.code === 'Enter') {
-      this.intervalCall(1000)(() => {
-        this.createSubComment(parentFeedComment)
-      })
-    }
-  }
-
   createSubComment(parentFeedComment: FeedComment) {
-    if (!this.feedSubCommentInputValueObj[parentFeedComment.id]) {
+    if (!this.feedCommentInputObj) {
       return
     }
 
     this.feedService
       .createFeedComment(this.selectedFeed.id, {
         parent_id: parentFeedComment.id,
-        text: this.feedSubCommentInputValueObj[parentFeedComment.id],
+        text: this.feedCommentInputObj,
       })
       .subscribe(
         (feedComment: FeedComment) => {
-          this.hideSubCommentInput(parentFeedComment.id)
+          this.hideSubCommentInput()
           this.selectedFeed.comment_count++
           parentFeedComment.sub_comment_count++
-          this.feedSubCommentListViewObj[parentFeedComment.id] = true
+          this.feedSubCommentListViewObj[parentFeedComment.id] = false
+          this.showSubCommentList(parentFeedComment.id)
           if (!this.feedSubCommentListObj[parentFeedComment.id]) {
             this.feedSubCommentListObj[parentFeedComment.id] = [feedComment]
           } else {

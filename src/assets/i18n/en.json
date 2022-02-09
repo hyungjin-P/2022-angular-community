@@ -121,6 +121,7 @@
     },
     "keeping": {
         "feed-detail": {
+            "comment-view-input-placeholder" : "Input comment",
             "comment-view-add-button": "Confirm",
             "comment-view-cancel-button": "Cancel",
             "comment-view-deleted-text": "This comment has been deleted.",
