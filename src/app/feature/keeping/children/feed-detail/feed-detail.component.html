@@ -1,5 +1,6 @@
 <!-- <div class="feed-detail full-absolute d-flex flex-column" [class.v-visible]="selectedFeed"> -->
-<div class="feed-detail full-absolute d-flex flex-column" [class.v-visible]="selectedFeed" >
+<div class='feed-detail full-absolute d-flex flex-column' [class.v-visible]='selectedFeed'
+     xmlns='http://www.w3.org/1999/html'>
   <mobile-header [text]="'keeping.mobile-header.feed-detail' | translate" (goBack)="goBack()"></mobile-header>
 
   <div class="flex-fill" style="position: relative">
@@ -18,6 +19,18 @@
             <div class="nickname">
               {{ selectedFeed?.writer.nickname || selectedFeed?.writer.email.split('@')[0] }}
             </div>
+            <div class="updated-at" [(ngModel)]="begingTime">
+              {{ begingTime }}
+            </div>
+            <a class="follow" *ngIf="user && user.id != selectedFeed?.writer.id">
+              <div class='follow-plus-icon'>
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.5 6H10.5H2.5Z" fill="#111214"/>
+                  <path d="M6.5 2V10M2.5 6H10.5" stroke="#111214"/>
+                </svg>
+              </div>
+              <div class='follow-text'>{{ 'keeping.feed-detail.follow' | translate }}</div>
+            </a>
             <div class="more" *ngIf="user && user.id == selectedFeed?.writer.id">
               <div class="more-menu" (click)="openMoreBox($event)">
                 <div class="mdi mdi-dots-vertical"></div>
@@ -280,14 +293,25 @@
           <!--              size="24"-->
           <!--              fontSize="12"-->
           <!--            ></shared-avatar>-->
-          <input
-            type="text"
-            [(ngModel)]="feedCommentInputObj"
-            [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"
-            (keyup)="onCreateCommentKey($event)"
-            (focusout)='hideSubCommentInput()'
-            #feedCommentInput
-          />
+<!--          <input-->
+<!--            type="text"-->
+<!--            [(ngModel)]="feedCommentInputObj"-->
+<!--            [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"-->
+<!--            (keyup)="onCreateCommentKey($event)"-->
+<!--            (focusout)='hideSubCommentInput()'-->
+<!--            #feedCommentInput-->
+<!--          />-->
+        <textarea
+          type="text"
+          rows='1'
+          [(ngModel)]="feedCommentInputObj"
+          [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"
+          (keyup)="onCreateCommentKey($event)"
+          (focusout)='hideSubCommentInput()'
+          maxlength='255'
+
+          #feedCommentInput></textarea>
+
           <div class="add-button" (click)="createComment()" #feedCommentAddBtn
             [ngStyle]="{'color': feedCommentInputObj === '' ? 'var(--blue-5)' : 'var(--blue-2)'}"
           >
@@ -316,9 +340,21 @@
           ></shared-avatar>
         </div>
         <div class="flex-fill">
-          <div class="comment-view-item-writer">
-            {{ feedComment?.writer.nickname || feedComment?.writer.email.split('@')[0] }}
+          <div class="comment-view-item-text-group">
+            <div class="comment-view-item-writer">
+              {{ feedComment?.writer.nickname || feedComment?.writer.email.split('@')[0] }}
+            </div>
+            <div class="comment-view-item-begin-time" >
+              {{ feedComment?.begin_time_text }}
+            </div>
+            <div class='comment-view-item-new-icon' *ngIf="feedComment?.begin_timestamp / 1000 < 60 * 60 * 24">
+              <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="6.5" cy="6" r="6" fill="#EDF3FD"/>
+                <path d="M4.02 3.496H5.628L7.82 6.464V3.496H9.252V9H7.652L5.444 6.136V9H4.02V3.496Z" fill="#0C63DE"/>
+              </svg>
+            </div>
           </div>
+
           <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">
             {{ feedComment?.text }}
           </div>
@@ -329,17 +365,43 @@
           <!--                  {{ 'keeping.feed-detail.comment-view-deleted-text' | translate }}-->
           <!--              </div>-->
           <div class="comment-view-item-menu-group">
-            <div>
+            <div class='comment-view-item-menu-group-col-1'>
+              <div class="heart" *ngIf="variables.isLogin "> <!-- && feedComment?.like -->
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.2304 14.7587L6.40511 10.7753C5.32763 9.65329 5.39548 7.81356 6.55242 6.78091C7.7002 5.75644 9.44052 5.95537 10.3475 7.21472L10.5 7.42644L10.6525 7.21472C11.5596 5.95537 13.2998 5.75644 14.4476 6.78091C15.6046 7.81356 15.6724 9.65329 14.5949 10.7753L10.7696 14.7587C10.6207 14.9137 10.3793 14.9137 10.2304 14.7587Z" fill="#FF4A57" stroke="#FF4A57" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="heart-outline" *ngIf="!variables.isLogin"> <!-- && feedComment?.like -->
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.2304 14.7587L6.40511 10.7753C5.32763 9.65329 5.39548 7.81356 6.55242 6.78091C7.7002 5.75644 9.44052 5.95537 10.3475 7.21472L10.5 7.42644L10.6525 7.21472C11.5596 5.95537 13.2998 5.75644 14.4476 6.78091C15.6046 7.81356 15.6724 9.65329 14.5949 10.7753L10.7696 14.7587C10.6207 14.9137 10.3793 14.9137 10.2304 14.7587Z" stroke="#7E8A9A" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+<!--              <div class="text">{{ feedComment?.like_count }}</div>-->
+              <div class="text">3</div>
+              <div
+                class="comment-view-item-menu sub-comment-like"
+              >
+                {{ 'keeping.feed-detail.comment-view-like' | translate }}
+              </div>
               <div
                 class="comment-view-item-menu sub-comment-write"
                 (click)="showSubCommentInput(feedComment)"
               >
                 {{ 'keeping.feed-detail.comment-view-reply' | translate }}
               </div>
+            </div>
+            <div
+              class='comment-view-item-menu-group-col-2'
+              *ngIf="!feedComment?.deleted_at && user.id == feedComment.writer.id"
+            >
+              <div
+                class="comment-view-item-menu sub-comment-edit"
+              >
+                {{ 'keeping.feed-detail.comment-view-reply-edit' | translate }}
+              </div>
               <div
                 class="comment-view-item-menu sub-comment-delete"
                 (click)="deleteComment(feedComment, parentFeedComment)"
-                *ngIf="!feedComment?.deleted_at && user.id == feedComment.writer.id"
               >
                 {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
               </div>

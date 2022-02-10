@@ -57,6 +57,41 @@
                     color: var(--text-2);
                 }
 
+                .updated-at {
+                  margin-left: 8px;
+
+                  @include textStyle(400, 13px, 21px);
+                  color: var(--grey-2);
+                }
+
+                .follow{
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  padding: 5px 8px;
+                  width: 70px;
+                  height: 32px;
+                  border: 1px solid var(--black);
+                  border-radius: 8px;
+
+                  .follow-plus-icon{
+                    position: static;
+                    width: 12px;
+                    height: 12px;
+                    left: 8px;
+                    top: 10px;
+                  }
+                  .follow-text{
+                    position: absolute;
+                    @include textStyle(500, 14px, 22px);
+                    color: var(--black);
+                    letter-spacing: -0.2px;
+                    top: 4px;
+                    left: 22px;
+                  }
+
+                }
+
                 .more {
                     position: absolute;
                     top: 0;
@@ -515,6 +550,7 @@
                         @include textStyle(700, 13px, 22px);
                         color: var(--text-2);
                     }
+
                 }
 
                 .row-2 {
@@ -554,6 +590,11 @@
                 background-color: var(--grey-8);
             }
 
+            //.feed-sub-comment-view-input {
+            //    margin: 5px 0;
+            //    padding: 0 !important;
+            //}
+
             .feed-comment-view-item-list-wrapper {
                 padding: 0 20px 20px;
 
@@ -572,44 +613,96 @@
                             flex-direction: column;
                             padding-left: 10px;
 
-                            .comment-view-item-writer {
+                            .comment-view-item-text-group{
+                              display: flex;
+                              justify-content: left;
+
+                              .comment-view-item-writer {
                                 @include textStyle(500, 13px, 22px);
+                              }
+
+                              .comment-view-item-begin-time{
+                                margin-left: 8px;
+                                @include textStyle(400, 13px, 21px);
+                                color: var(--grey-2);
+                              }
+
+                              .comment-view-item-new-icon{
+                                margin-left: 8px;
+                              }
                             }
 
+
                             .comment-view-item-text {
-                                margin-top: 5px;
+                                margin: 2px 0 4px 0;
                             }
 
                             .comment-view-item-menu-group {
+                              display: flex;
+                              //flex-direction: column;
+
+                              .comment-view-item-menu-group-col-1{
+                                flex: 4;
                                 display: flex;
-                                flex-direction: column;
+                                align-items: center;
+                                height: 100%;
 
-                                > div:nth-child(1) {
-                                    display: flex;
-                                    justify-content: space-between;
-
-                                    .sub-comment-write {
-                                        cursor: pointer;
-
-                                        @include textStyle(500, 13px, 21px);
-                                        color: var(--grey-2);
-
-                                        &:hover {
-                                            opacity: 0.8;
-                                        }
-                                    }
-
-                                    .sub-comment-delete {
-                                        cursor: pointer;
-
-                                        @include textStyle(500, 13px, 21px);
-                                        color: var(--red);
-
-                                        &:hover {
-                                            opacity: 0.8;
-                                        }
-                                    }
+                                .text {
+                                  @include textStyle(500, 13px, 21px);
+                                  color: var(--red);
                                 }
+                                .sub-comment-like{
+                                  margin-left: 4px;
+                                  cursor: pointer;
+
+                                  @include textStyle(400, 13px, 21px);
+                                  color: var(--grey-2);
+
+                                  &:hover {
+                                    opacity: 0.8;
+                                  }
+                                }
+                                .sub-comment-write {
+                                  margin-left: 12px;
+                                  cursor: pointer;
+
+                                  @include textStyle(400, 13px, 21px);
+                                  color: var(--grey-2);
+
+                                  &:hover {
+                                    opacity: 0.8;
+                                  }
+                                }
+                              }
+                              .comment-view-item-menu-group-col-2{
+                                flex: 2;
+                                display: flex;
+                                justify-content: right;
+                                align-items: center;
+                                height: 100%;
+
+                                .sub-comment-edit {
+                                  cursor: pointer;
+
+                                  @include textStyle(400, 13px, 21px);
+                                  color: var(--grey-2);
+
+                                  &:hover {
+                                    opacity: 0.8;
+                                  }
+                                }
+                                .sub-comment-delete {
+                                  cursor: pointer;
+                                  margin-left: 12px;
+
+                                  @include textStyle(400, 13px, 21px);
+                                  color: var(--grey-2);
+
+                                  &:hover {
+                                    opacity: 0.8;
+                                  }
+                                }
+                              }
                             }
 
                             .comment-view-item-sub-comment-list-menu {
@@ -658,14 +751,16 @@
             display: flex;
             align-items: center;
 
-            input {
+            textarea {
               background: var(--grey-8);
               height: 40px;
               width: 90%;
               border: 0;
               border-radius: 30px;
-              padding: 0 16px;
+              padding: 9px 16px;
               outline: none;
+              resize: none;
+              overflow-y: hidden;
 
               @include textStyle(500, 13px, 21px);
               color: var(--grey-1);

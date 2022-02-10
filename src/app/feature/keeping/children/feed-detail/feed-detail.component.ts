@@ -40,6 +40,7 @@ import { TextService } from '@services/text.service'
 import { Feed } from '@schemas/feed'
 import { FeedComment } from '@schemas/feed-comment'
 import { User } from '@schemas/user'
+import { DateUtils } from '../../../../core/utils/date.utils'
 
 @Component({
   selector: 'feed-detail',
@@ -82,6 +83,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onKeyEvent: boolean
 
+  begingTime: any
+  commentBegingTime: any
+
   constructor(
     private location: Location,
     private router: Router,
@@ -90,7 +94,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     private storageService: StorageService,
     private feedService: FeedService,
     private publicService: PublicService,
-    private textService: TextService
+    private textService: TextService,
+    private dateUtils: DateUtils
   ) {}
 
   ngOnInit() {
@@ -118,6 +123,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.likeUserList = []
 
     this.onKeyEvent = false
+
+    this.begingTime = ''
+    this.commentBegingTime = ''
   }
 
   ngAfterViewInit(): void {
@@ -175,6 +183,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed')
+        } else {
+          this.begingTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
         }
       },
       (e) => {
@@ -187,6 +197,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.publicService.getFeed(this.selectedFeedId).subscribe(
       (feed: Feed) => {
         this.selectedFeed = feed
+
+        this.begingTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
       },
       (e) => {}
     )
@@ -204,8 +216,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   getFeedCommentList() {
     this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
+        for (let i = 0; i < feedCommentList.length; i++) {
+          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at)
+          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp)
+        }
         this.feedCommentList = feedCommentList
-        console.log(feedCommentList)
       },
       (e) => {}
     )
@@ -214,6 +229,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   getFeedSubCommentList(feedCommentId: string) {
     this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
       (feedCommentList: Array<FeedComment>) => {
+        for (let i = 0; i < feedCommentList.length; i++) {
+          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at)
+          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp)
+        }
         this.feedSubCommentListObj[feedCommentId] = feedCommentList
       },
       (e) => {}
@@ -344,11 +363,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onCreateCommentKey(key) {
-    if (key.code === 'Enter') {
-      this.intervalCall(1000)(() => {
-        this.createComment()
-      })
-    } else if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
+    // [편의성] Enter시, 저장
+    // if (key.code === 'Enter') {
+    // this.intervalCall(1000)(() => {
+    //   this.createComment()
+    // })
+    // } else
+    if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
       this.hideSubCommentInput()
     }
   }

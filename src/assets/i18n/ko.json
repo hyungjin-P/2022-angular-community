@@ -1,231 +1,234 @@
 {
-    "auth": {
-        "email": {
-            "all-agreement": "키핑 가입 약관에 모두 동의합니다.",
-            "close": "닫기",
-            "confirm-password-label": "비밀번호 확인",
-            "confirm-password-placeholder": "비밀번호를 한번 더 입력해 주세요",
-            "confirm-terms": "확인하기",
-            "confirm-verification-code": "인증확인",
-            "email-label": "이메일",
-            "email-placeholder": "이메일 주소를 입력해 주세요",
-            "open": "펼치기",
-            "password-label": "비밀번호",
-            "password-placeholder": "비밀번호를 입력해 주세요",
-            "privacy-service-terms-agreement1": "[필수] 만 14세 이상입니다.",
-            "privacy-service-terms-agreement2": "[필수] 개인정보 수집 및 이용 동의",
-            "privacy-service-terms-agreement3": "[필수] 서비스 이용 약관 동의",
-            "privacy-service-terms-agreement4": "[선택] 마케팅 정보 수신 동의",
-            "privacy-service-terms-all-agreement": "모두 동의하기",
-            "privacy-service-terms-confirm": "확인",
-            "privacy-service-terms-desc": "키핑은 개인정보를 안전하게 취급합니다.",
-            "privacy-service-terms-header": "약관하기",
-            "registration-button": "가입하기",
-            "resend-verification-code": "재전송",
-            "send-verification-code": "인증하기",
-            "text1": "키핑 서비스 가입하기",
-            "text2": "(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의",
-            "verification-code-info": "입력하신 메일로 인증번호가 발송되었습니다.",
-            "verification-code-label": "인증번호",
-            "verification-code-placeholder": "인증번호를 입력해 주세요."
-        },
-        "forgot-password": {
-            "email-label": "이메일",
-            "email-placeholder": "이메일 주소를 입력해 주세요",
-            "send-reset-password-link-button": "재설정 링크 발송",
-            "text1": "비밀번호 찾기",
-            "text2": "가입 시 등록한 이메일 주소를 입력해 주세요.",
-            "text3": "새로운 비밀번호를 설정할수 있는 링크를 보내드리겠습니다.",
-            "text4": "발송된 이메일의 비밀번호 재설정은 3분 간 유효합니다."
-        },
-        "login": {
-            "email-label": "이메일",
-            "email-login-button": "로그인",
-            "email-placeholder": "이메일 주소를 입력해 주세요",
-            "forgot-password": "비밀번호 찾기",
-            "lang": "한국어",
-            "password-label": "비밀번호",
-            "password-placeholder": "비밀번호를 입력해 주세요",
-            "text1": "로그인",
-            "text2-1": "아직 키핑 회원이 아니세요?",
-            "text2-2": "회원가입",
-            "text3": "SNS 계정으로 3초만에 시작하기"
-        },
-        "registration": {
-            "email-signup-button": "이메일로 가입하기",
-            "text1-1": "간편하게 회원가입하고",
-            "text1-2": "피규어 커뮤니티 시작하세요!",
-            "text2": "SNS 계정으로 회원가입",
-            "text3-1": "이미 계정이 있나요?",
-            "text3-2": "로그인"
-        },
-        "reset-password": {
-            "confirm-password-label": "비밀번호 확인",
-            "confirm-password-placeholder": "비밀번호를 한번 더 입력해 주세요",
-            "password-label": "비밀번호",
-            "password-placeholder": "비밀번호를 입력해 주세요",
-            "send-reset-password-link-button": "설정 완료",
-            "text1": "비밀번호 재설정",
-            "text2": "새로 사용할 비밀번호를 입력해 주세요."
-        },
-        "service-terms": {
-            "agreement-button": "동의하고 가입하기",
-            "agreement1": "[필수] 만 14세 이상입니다.",
-            "agreement2": "[필수] 서비스 이용 약관 동의",
-            "agreement3": "[필수] 개인정보 수집 및 이용 동의",
-            "agreement4": "[선택] 마케팅 정보 수신 동의",
-            "all-agreement": "모두 동의하기",
-            "privacy-service-terms-confirm": "확인",
-            "privacy-service-terms-header": "약관동의",
-            "privacy-service-terms-privacy": "개인정보 처리방침",
-            "privacy-service-terms-service-terms": "서비스 이용약관",
-            "text1-1": "약관에 동의하시면",
-            "text1-2": "회원가입이 완료됩니다.",
-            "text2-1": "키핑에서 커뮤니티 활동하기 위해선, 필수약관에 동의해주셔야 합니다.",
-            "text2-2": "선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 변경 가능합니다.",
-            "view": "보기"
-        }
+  "auth": {
+    "email": {
+      "all-agreement": "키핑 가입 약관에 모두 동의합니다.",
+      "close": "닫기",
+      "confirm-password-label": "비밀번호 확인",
+      "confirm-password-placeholder": "비밀번호를 한번 더 입력해 주세요",
+      "confirm-terms": "확인하기",
+      "confirm-verification-code": "인증확인",
+      "email-label": "이메일",
+      "email-placeholder": "이메일 주소를 입력해 주세요",
+      "open": "펼치기",
+      "password-label": "비밀번호",
+      "password-placeholder": "비밀번호를 입력해 주세요",
+      "privacy-service-terms-agreement1": "[필수] 만 14세 이상입니다.",
+      "privacy-service-terms-agreement2": "[필수] 개인정보 수집 및 이용 동의",
+      "privacy-service-terms-agreement3": "[필수] 서비스 이용 약관 동의",
+      "privacy-service-terms-agreement4": "[선택] 마케팅 정보 수신 동의",
+      "privacy-service-terms-all-agreement": "모두 동의하기",
+      "privacy-service-terms-confirm": "확인",
+      "privacy-service-terms-desc": "키핑은 개인정보를 안전하게 취급합니다.",
+      "privacy-service-terms-header": "약관하기",
+      "registration-button": "가입하기",
+      "resend-verification-code": "재전송",
+      "send-verification-code": "인증하기",
+      "text1": "키핑 서비스 가입하기",
+      "text2": "(필수)키핑 이용약관, 개인정보 처리방침, (선택)마케팅 정보 수신동의",
+      "verification-code-info": "입력하신 메일로 인증번호가 발송되었습니다.",
+      "verification-code-label": "인증번호",
+      "verification-code-placeholder": "인증번호를 입력해 주세요."
     },
-    "common": {
-        "bottom-nav": {
-            "feed": "피드",
-            "home": "홈",
-            "magazine": "매거진",
-            "mypage": "마이페이지",
-            "signin": "로그인",
-            "bookmark": "북마크"
-        },
-        "drawer": {
-            "feed": "피드",
-            "magazine": "매거진",
-            "privacy": "개인정보 처리방침",
-            "service-terms": "이용약관",
-            "shop": "키핑Shop"
-        },
-        "header": {
-            "myaccount": "내 계정",
-            "profile": "프로필 변경",
-            "signin": "로그인",
-            "signout": "로그아웃",
-            "singup": "회원가입",
-            "write": "글쓰기",
-            "mypage": "마이페이지"
-        },
-        "nav": {
-            "feed": "피드",
-            "magazine": "매거진",
-            "privacy": "개인정보 처리방침",
-            "service-terms": "이용약관",
-            "shop": "키핑Shop"
-        }
+    "forgot-password": {
+      "email-label": "이메일",
+      "email-placeholder": "이메일 주소를 입력해 주세요",
+      "send-reset-password-link-button": "재설정 링크 발송",
+      "text1": "비밀번호 찾기",
+      "text2": "가입 시 등록한 이메일 주소를 입력해 주세요.",
+      "text3": "새로운 비밀번호를 설정할수 있는 링크를 보내드리겠습니다.",
+      "text4": "발송된 이메일의 비밀번호 재설정은 3분 간 유효합니다."
     },
-    "keeping": {
-        "feed-detail": {
-            "comment-view-input-placeholder" : "댓글을 남겨주세요",
-            "comment-view-add-button": "등록",
-            "comment-view-cancel-button": "취소",
-            "comment-view-deleted-text": "삭제된 댓글입니다.",
-            "comment-view-header": "댓글",
-            "comment-view-reply": "답글 쓰기",
-            "comment-view-reply-delete": "삭제",
-            "liked-view-follow-button-text": "팔로우",
-            "liked-view-header": "이 글을 좋아하는 유저",
-            "more-delete": "삭제"
-        },
-        "mobile-header": {
-            "feed-detail": "피드",
-            "write": "피드에 글쓰기"
-        },
-        "write": {
-            "add-picture-label": "사진 추가",
-            "add-picture-label-desc": "(최대 8개)",
-            "add-picture-main-text": "메인",
-            "add-tag-label": "태그 추가",
-            "add-tag-label-desc": "(#으로 구분, 최대 10개)",
-            "add-tag-text": "태그 입력",
-            "content-label": "내용",
-            "content-placeholder": "공유하고 싶은 글을 입력해 주세요.",
-            "save-button-text": "등록",
-            "tag-modal-add-button": "확인",
-            "tag-modal-cancel-button": "취소",
-            "tag-modal-label": "태그 입력",
-            "write-button": "등록"
-        }
+    "login": {
+      "email-label": "이메일",
+      "email-login-button": "로그인",
+      "email-placeholder": "이메일 주소를 입력해 주세요",
+      "forgot-password": "비밀번호 찾기",
+      "lang": "한국어",
+      "password-label": "비밀번호",
+      "password-placeholder": "비밀번호를 입력해 주세요",
+      "text1": "로그인",
+      "text2-1": "아직 키핑 회원이 아니세요?",
+      "text2-2": "회원가입",
+      "text3": "SNS 계정으로 3초만에 시작하기"
     },
-    "mypage": {
-        "add-button-text": "배경 이미지 추가",
-        "choose-button-text": "이미지 바꾸기",
-        "delete-button-text": "이미지 제거",
-        "edit-button-text": "배경 이미지 편집",
-        "edit-profile-button-text": "프로필 수정",
-        "empty-text-1": "나만의 소장 피규어 컬렉션",
-        "empty-text-2": "나만의 소장 피규어 컬렉션을",
-        "empty-text-3": "만들어 보세요!",
-        "follower-text": "팔로워",
-        "following-text": "팔로잉",
-        "write": "글쓰기"
+    "registration": {
+      "email-signup-button": "이메일로 가입하기",
+      "text1-1": "간편하게 회원가입하고",
+      "text1-2": "피규어 커뮤니티 시작하세요!",
+      "text2": "SNS 계정으로 회원가입",
+      "text3-1": "이미 계정이 있나요?",
+      "text3-2": "로그인"
     },
-    "settings": {
-        "account": {
-            "change-password": "비밀번호 변경",
-            "login-account-text": "로그인 계정",
-            "withdrawal": "계정 삭제",
-            "withdrawal-text": "개인정보, 키핑에 저장된 게시물과 설정이 모두 삭제됩니다."
-        },
-        "change-password": {
-            "confirm-new-password-label": "새 비밀번호 확인",
-            "confirm-new-password-placeholder": "새 비밀번호 입력",
-            "new-password-label": "새 비밀번호",
-            "new-password-placeholder": "새 비밀번호 입력",
-            "password-label": "기존 비밀번호",
-            "password-placeholder": "기존 비밀번호 입력",
-            "text-1": "비밀번호 변경",
-            "update-button": "비밀번호 변경"
-        },
-        "home": {
-            "account": "계정 관리",
-            "language": "언어 설정",
-            "profile": "프로필 변경",
-            "signout": "로그아웃"
-        },
-        "language": {
-            "text-1": "Please select a language.",
-            "text-2": "변경할 언어를 선택해 주세요.",
-            "update-button": "설정 완료"
-        },
-        "mobile-header": {
-            "account": "계정 관리",
-            "change-password": "비밀번호 변경",
-            "language": "언어 설정",
-            "profile": "프로필 변경",
-            "settings": "설정",
-            "withdrawal": "계정 삭제"
-        },
-        "nav": {
-            "account": "계정 관리",
-            "language": "언어 설정",
-            "profile": "프로필 변경",
-            "signout": "로그아웃"
-        },
-        "profile": {
-            "duplicate-check": "중복 검사",
-            "nickname-info": "한글 10자, 영문 20자까지 가능합니다.",
-            "nickname-label": "닉네임 변경",
-            "update-button": "프로필 수정 완료"
-        },
-        "withdrawal": {
-            "direct-input-placeholder": "",
-            "next-button": "다음",
-            "previous-button": "취소하기",
-            "required": "[필수] 회원 탈퇴 유의사항을 확인하였으며, 동의합니다.",
-            "text-1": "계정 삭제",
-            "text-2": "정말 탈퇴하시겠어요?",
-            "text-3": "지금 탈퇴하시면 회원정보 및 이용기록은 모두 삭제되며, 다시 복구 할 수 없어요!",
-            "text-4": "회원탈퇴 후 회원정보 삭제로 인해 작성자 본인을 확인할 수 없으므로, 게시물 편집 및 삭제 처리가 원천적으로 불가합니다. 게시물 삭제를 원하시는 경우에는 먼저 해당 게시물을 삭제 하신 후 탈퇴 신청을 하시기를 바랍니다.",
-            "text-5": "탈퇴 후 동일한 정보로 14일 이내 재가입이 불가합니다. 이후 동일한 정보로 재가입 하더라도 기존의 작성한 게시물 및 기타 정보는 연동되지 않습니다.",
-            "text-6": "[선택] 키핑을 떠나는 이유를 선택해 주세요",
-            "text-7": "고객님의 소중한 피드백을 담아 더 나은 서비스로 보답드리도록 하겠습니다.",
-            "withdrawal-button": "탈퇴하기"
-        }
+    "reset-password": {
+      "confirm-password-label": "비밀번호 확인",
+      "confirm-password-placeholder": "비밀번호를 한번 더 입력해 주세요",
+      "password-label": "비밀번호",
+      "password-placeholder": "비밀번호를 입력해 주세요",
+      "send-reset-password-link-button": "설정 완료",
+      "text1": "비밀번호 재설정",
+      "text2": "새로 사용할 비밀번호를 입력해 주세요."
+    },
+    "service-terms": {
+      "agreement-button": "동의하고 가입하기",
+      "agreement1": "[필수] 만 14세 이상입니다.",
+      "agreement2": "[필수] 서비스 이용 약관 동의",
+      "agreement3": "[필수] 개인정보 수집 및 이용 동의",
+      "agreement4": "[선택] 마케팅 정보 수신 동의",
+      "all-agreement": "모두 동의하기",
+      "privacy-service-terms-confirm": "확인",
+      "privacy-service-terms-header": "약관동의",
+      "privacy-service-terms-privacy": "개인정보 처리방침",
+      "privacy-service-terms-service-terms": "서비스 이용약관",
+      "text1-1": "약관에 동의하시면",
+      "text1-2": "회원가입이 완료됩니다.",
+      "text2-1": "키핑에서 커뮤니티 활동하기 위해선, 필수약관에 동의해주셔야 합니다.",
+      "text2-2": "선택항목은 동의하지 않으셔도 서비스 이용이 가능하며, 마이페이지에서 변경 가능합니다.",
+      "view": "보기"
     }
+  },
+  "common": {
+    "bottom-nav": {
+      "feed": "피드",
+      "home": "홈",
+      "magazine": "매거진",
+      "mypage": "마이페이지",
+      "signin": "로그인",
+      "bookmark": "북마크"
+    },
+    "drawer": {
+      "feed": "피드",
+      "magazine": "매거진",
+      "privacy": "개인정보 처리방침",
+      "service-terms": "이용약관",
+      "shop": "키핑Shop"
+    },
+    "header": {
+      "myaccount": "내 계정",
+      "profile": "프로필 변경",
+      "signin": "로그인",
+      "signout": "로그아웃",
+      "singup": "회원가입",
+      "write": "글쓰기",
+      "mypage": "마이페이지"
+    },
+    "nav": {
+      "feed": "피드",
+      "magazine": "매거진",
+      "privacy": "개인정보 처리방침",
+      "service-terms": "이용약관",
+      "shop": "키핑Shop"
+    }
+  },
+  "keeping": {
+    "feed-detail": {
+      "comment-view-input-placeholder": "댓글을 남겨주세요",
+      "comment-view-add-button": "등록",
+      "comment-view-cancel-button": "취소",
+      "comment-view-deleted-text": "삭제된 댓글입니다.",
+      "comment-view-header": "댓글",
+      "comment-view-like": "좋아요",
+      "comment-view-reply": "답글 쓰기",
+      "comment-view-reply-edit": "수정",
+      "comment-view-reply-delete": "삭제",
+      "liked-view-follow-button-text": "팔로우",
+      "liked-view-header": "이 글을 좋아하는 유저",
+      "more-delete": "삭제",
+      "follow": "팔로우"
+    },
+    "mobile-header": {
+      "feed-detail": "피드",
+      "write": "피드에 글쓰기"
+    },
+    "write": {
+      "add-picture-label": "사진 추가",
+      "add-picture-label-desc": "(최대 8개)",
+      "add-picture-main-text": "메인",
+      "add-tag-label": "태그 추가",
+      "add-tag-label-desc": "(#으로 구분, 최대 10개)",
+      "add-tag-text": "태그 입력",
+      "content-label": "내용",
+      "content-placeholder": "공유하고 싶은 글을 입력해 주세요.",
+      "save-button-text": "등록",
+      "tag-modal-add-button": "확인",
+      "tag-modal-cancel-button": "취소",
+      "tag-modal-label": "태그 입력",
+      "write-button": "등록"
+    }
+  },
+  "mypage": {
+    "add-button-text": "배경 이미지 추가",
+    "choose-button-text": "이미지 바꾸기",
+    "delete-button-text": "이미지 제거",
+    "edit-button-text": "배경 이미지 편집",
+    "edit-profile-button-text": "프로필 수정",
+    "empty-text-1": "나만의 소장 피규어 컬렉션",
+    "empty-text-2": "나만의 소장 피규어 컬렉션을",
+    "empty-text-3": "만들어 보세요!",
+    "follower-text": "팔로워",
+    "following-text": "팔로잉",
+    "write": "글쓰기"
+  },
+  "settings": {
+    "account": {
+      "change-password": "비밀번호 변경",
+      "login-account-text": "로그인 계정",
+      "withdrawal": "계정 삭제",
+      "withdrawal-text": "개인정보, 키핑에 저장된 게시물과 설정이 모두 삭제됩니다."
+    },
+    "change-password": {
+      "confirm-new-password-label": "새 비밀번호 확인",
+      "confirm-new-password-placeholder": "새 비밀번호 입력",
+      "new-password-label": "새 비밀번호",
+      "new-password-placeholder": "새 비밀번호 입력",
+      "password-label": "기존 비밀번호",
+      "password-placeholder": "기존 비밀번호 입력",
+      "text-1": "비밀번호 변경",
+      "update-button": "비밀번호 변경"
+    },
+    "home": {
+      "account": "계정 관리",
+      "language": "언어 설정",
+      "profile": "프로필 변경",
+      "signout": "로그아웃"
+    },
+    "language": {
+      "text-1": "Please select a language.",
+      "text-2": "변경할 언어를 선택해 주세요.",
+      "update-button": "설정 완료"
+    },
+    "mobile-header": {
+      "account": "계정 관리",
+      "change-password": "비밀번호 변경",
+      "language": "언어 설정",
+      "profile": "프로필 변경",
+      "settings": "설정",
+      "withdrawal": "계정 삭제"
+    },
+    "nav": {
+      "account": "계정 관리",
+      "language": "언어 설정",
+      "profile": "프로필 변경",
+      "signout": "로그아웃"
+    },
+    "profile": {
+      "duplicate-check": "중복 검사",
+      "nickname-info": "한글 10자, 영문 20자까지 가능합니다.",
+      "nickname-label": "닉네임 변경",
+      "update-button": "프로필 수정 완료"
+    },
+    "withdrawal": {
+      "direct-input-placeholder": "",
+      "next-button": "다음",
+      "previous-button": "취소하기",
+      "required": "[필수] 회원 탈퇴 유의사항을 확인하였으며, 동의합니다.",
+      "text-1": "계정 삭제",
+      "text-2": "정말 탈퇴하시겠어요?",
+      "text-3": "지금 탈퇴하시면 회원정보 및 이용기록은 모두 삭제되며, 다시 복구 할 수 없어요!",
+      "text-4": "회원탈퇴 후 회원정보 삭제로 인해 작성자 본인을 확인할 수 없으므로, 게시물 편집 및 삭제 처리가 원천적으로 불가합니다. 게시물 삭제를 원하시는 경우에는 먼저 해당 게시물을 삭제 하신 후 탈퇴 신청을 하시기를 바랍니다.",
+      "text-5": "탈퇴 후 동일한 정보로 14일 이내 재가입이 불가합니다. 이후 동일한 정보로 재가입 하더라도 기존의 작성한 게시물 및 기타 정보는 연동되지 않습니다.",
+      "text-6": "[선택] 키핑을 떠나는 이유를 선택해 주세요",
+      "text-7": "고객님의 소중한 피드백을 담아 더 나은 서비스로 보답드리도록 하겠습니다.",
+      "withdrawal-button": "탈퇴하기"
+    }
+  }
 }
