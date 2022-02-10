@@ -42,6 +42,8 @@ import { FeedComment } from '@schemas/feed-comment'
 import { User } from '@schemas/user'
 import { DateUtils } from '../../../../core/utils/date.utils'
 
+declare const $
+
 @Component({
   selector: 'feed-detail',
   templateUrl: './feed-detail.component.html',
@@ -50,6 +52,8 @@ import { DateUtils } from '../../../../core/utils/date.utils'
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   variables: any
   user: User
+
+  carouselIndex: any
 
   selectedFeedId: string
   selectedFeed: Feed
@@ -83,8 +87,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onKeyEvent: boolean
 
-  begingTime: any
-  commentBegingTime: any
+  beginTime: any
 
   constructor(
     private location: Location,
@@ -101,6 +104,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.variables = this.globalService.variables
     this.user = this.storageService.getUser()
+
+    this.carouselIndex = 1
 
     this.subscription = this.activatedRoute.params.subscribe(
       (v) => {
@@ -124,8 +129,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.onKeyEvent = false
 
-    this.begingTime = ''
-    this.commentBegingTime = ''
+    this.beginTime = ''
   }
 
   ngAfterViewInit(): void {
@@ -138,6 +142,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hideLikedView()
       }
     })
+
+    $('#carouselIndicators').carousel({
+      interval: 0,
+    })
+
+    $('#carouselIndicators').on('slide.bs.carousel', (e) => {
+      this.carouselIndex = e.to + 1
+    })
   }
 
   toPos(obs$) {
@@ -145,6 +157,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)))
   }
 
+  test() {
+    console.log(this.carouselIndex)
+  }
   // animation(from, to, duration) {
   //     return defer(() => {
   //         const scheduler = animationFrameScheduler;
@@ -184,7 +199,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed')
         } else {
-          this.begingTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
         }
       },
       (e) => {
@@ -198,7 +213,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       (feed: Feed) => {
         this.selectedFeed = feed
 
-        this.begingTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
+        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
       },
       (e) => {}
     )
