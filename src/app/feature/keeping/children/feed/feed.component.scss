@@ -102,6 +102,16 @@
     .item-list {
         margin: -15px -3px;
 
+        .banner{
+          padding: 12px 3px 0 3px;
+          width: 100%;
+          height: 100%;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+
         .item {
             padding: 15px 3px;
 
