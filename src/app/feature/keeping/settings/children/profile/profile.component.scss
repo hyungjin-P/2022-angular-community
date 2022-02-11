@@ -1,186 +1,186 @@
 @import '/src/assets/styles/font';
 
 .section {
-    overflow-x: hidden;
+  overflow-x: hidden;
 
-    .user-background {
+  .user-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    background-color: var(--grey-8);
+
+    .user-picture {
+      position: relative;
+
+      .camera {
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 150px;
-        background-color: var(--grey-8);
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--grey-8);
+        border-radius: 50%;
+        background-color: var(--white);
+        cursor: pointer;
 
-        .user-picture {
-            position: relative;
-
-            .camera {
-                position: absolute;
-                right: -5px;
-                bottom: -5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 30px;
-                height: 30px;
-                border: 1px solid var(--grey-8);
-                border-radius: 50%;
-                background-color: var(--white);
-                cursor: pointer;
-
-                .mdi {
-                    font-size: 18px;
-                    color: var(--grey-3);
-                }
-
-                &:hover {
-                    .mdi {
-                        opacity: 0.8;
-                    }
-                }
-            }
+        .mdi {
+          font-size: 18px;
+          color: var(--grey-3);
         }
-    }
 
-    .profile {
-        display: flex;
-        justify-content: center;
-
-        > div {
-            margin-top: 30px;
-            width: 312px;
-
-            .nickname {
-                position: relative;
-
-                .duplicate-check {
-                    position: absolute;
-                    top: 40px;
-                    right: 12px;
-                    cursor: pointer;
-
-                    @include textStyle(500, 12px, 20px);
-                    color: var(--grey-1);
-
-                    &:hover {
-                        opacity: 0.8;
-                    }
-                }
-            }
-
-            .about-me {
-                margin-top: 30px;
-
-                .label {
-                    margin-bottom: 8px;
-
-                    @include textStyle(700, 13px, 21px);
-                    color: var(--text-2);
-                }
-
-                textarea {
-                    padding: 8px 12px;
-                    width: 100%;
-                    height: 96px;
-                    border: 1px solid var(--grey-6);
-                    border-radius: 4px;
-                    outline: none;
-                    resize: none;
-
-                    @include textStyle(400, 14px, 22px);
-                    color: var(--text-1);
-
-                    &::placeholder {
-                        color: var(--grey-5);
-                    }
-
-                    &:focus {
-                        border: 1px solid var(--blue-6);
-                        box-shadow: 0px 1px 8px rgba(69, 132, 255, 0.12);
-                    }
-
-                    &:disabled {
-                        border: none;
-                        background-color: var(--grey-8);
-                        cursor: not-allowed;
-
-                        color: var(--grey-4);
-                    }
-
-                    &.textarea-error:enabled {
-                        border: 1px solid var(--red);
-                    }
-                }
-
-                .about-me-info,
-                .about-me-error {
-                    display: flex;
-                    margin-top: 6px;
-
-                    @include textStyle(400, 12px, 20px);
-
-                    .mdi {
-                        margin-right: 4px;
-
-                        font-size: 16px;
-                    }
-                }
-
-                .about-me-info {
-                    color: var(--grey-1);
-                }
-
-                .about-me-error {
-                    color: var(--red);
-                }
-            }
-
-            .update-button {
-                margin: 30px 0;
-                width: 100%;
-                height: 46px;
-            }
+        &:hover {
+          .mdi {
+            opacity: 0.8;
+          }
         }
+      }
     }
+  }
+
+  .profile {
+    display: flex;
+    justify-content: center;
+
+    > div {
+      margin-top: 30px;
+      width: 312px;
+
+      .nickname {
+        position: relative;
+
+        .duplicate-check {
+          position: absolute;
+          top: 40px;
+          right: 12px;
+          cursor: pointer;
+
+          @include textStyle(500, 12px, 20px);
+          color: var(--grey-1);
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+
+      .about-me {
+        margin-top: 30px;
+
+        .label {
+          margin-bottom: 8px;
+
+          @include textStyle(700, 13px, 21px);
+          color: var(--text-2);
+        }
+
+        textarea {
+          padding: 8px 12px;
+          width: 100%;
+          height: 96px;
+          border: 1px solid var(--grey-6);
+          border-radius: 4px;
+          outline: none;
+          resize: none;
+
+          @include textStyle(400, 14px, 22px);
+          color: var(--text-1);
+
+          &::placeholder {
+            color: var(--grey-5);
+          }
+
+          &:focus {
+            border: 1px solid var(--blue-6);
+            box-shadow: 0px 1px 8px rgba(69, 132, 255, 0.12);
+          }
+
+          &:disabled {
+            border: none;
+            background-color: var(--grey-8);
+            cursor: not-allowed;
+
+            color: var(--grey-4);
+          }
+
+          &.textarea-error:enabled {
+            border: 1px solid var(--red);
+          }
+        }
+
+        .about-me-info,
+        .about-me-error {
+          display: flex;
+          margin-top: 6px;
+
+          @include textStyle(400, 12px, 20px);
+
+          .mdi {
+            margin-right: 4px;
+
+            font-size: 16px;
+          }
+        }
+
+        .about-me-info {
+          color: var(--grey-1);
+        }
+
+        .about-me-error {
+          color: var(--red);
+        }
+      }
+
+      .update-button {
+        margin: 30px 0;
+        width: 100%;
+        height: 46px;
+      }
+    }
+  }
 }
 
 @media (min-width: 576px) {
-    .section .profile {
-        > div {
-            margin-top: 40px;
-            width: 380px;
+  .section .profile {
+    > div {
+      margin-top: 40px;
+      width: 380px;
 
-            .update-button {
-                margin-top: 39px;
-                height: 52px;
-            }
-        }
+      .update-button {
+        margin-top: 39px;
+        height: 52px;
+      }
     }
+  }
 }
 
 @media (min-width: 992px) {
-    .section .profile {
-        > div {
-            margin-top: 50px;
-            width: 420px;
+  .section .profile {
+    > div {
+      margin-top: 50px;
+      width: 420px;
 
-            .about-me {
-                margin-top: 42px;
-            }
-        }
+      .about-me {
+        margin-top: 42px;
+      }
     }
+  }
 }
 
 @media (min-width: 1200px) {
-    .section .user-background {
-        height: 160px;
-    }
+  .section .user-background {
+    height: 160px;
+  }
 }
 
 @media (min-width: 1920px) {
-    .section .profile {
-        > div {
-            margin-top: 50px;
-            width: 525px;
-        }
+  .section .profile {
+    > div {
+      margin-top: 50px;
+      width: 525px;
     }
+  }
 }

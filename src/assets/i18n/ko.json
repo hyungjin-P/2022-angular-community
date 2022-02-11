@@ -104,7 +104,7 @@
     },
     "header": {
       "myaccount": "내 계정",
-      "profile": "프로필 변경",
+      "setting": "설정",
       "signin": "로그인",
       "signout": "로그아웃",
       "singup": "회원가입",
