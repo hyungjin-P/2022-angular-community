@@ -211,7 +211,7 @@
       "signout": "로그아웃"
     },
     "profile": {
-      "duplicate-check": "중복 검사",
+      "duplicate-check": "중복확인",
       "nickname-info": "한글 10자, 영문 20자까지 가능합니다.",
       "nickname-label": "닉네임 변경",
       "update-button": "프로필 수정 완료"

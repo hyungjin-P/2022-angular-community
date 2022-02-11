@@ -57,6 +57,7 @@
           top: 40px;
           right: 12px;
           cursor: pointer;
+          text-decoration: underline;
 
           @include textStyle(500, 12px, 20px);
           color: var(--grey-1);

@@ -328,7 +328,7 @@
             border-radius: 6px;
             background: rgba(240, 242, 245, 0.7);
 
-            @include textStyle(500, 12px, 20px);
+            @include textStyle(400, 12px, 20px);
             color: var(--grey-2);
           }
         }
@@ -589,8 +589,8 @@
               border-radius: 6px;
               background: rgba(240, 242, 245, 0.7);
 
-              @include textStyle(500, 12px, 20px);
-              color: var(--grey-1);
+              @include textStyle(400, 12px, 20px);
+              color: var(--grey-2);
             }
           }
         }
@@ -614,10 +614,10 @@
           .feed-comment-view-item {
             display: flex;
             align-items: flex-start;
-            margin: 8px 0;
+            margin: 16px 0;
 
             > div:nth-child(1) {
-              margin-top: 8px;
+              margin-top: 0px;
             }
 
             > div:nth-child(2) {
@@ -630,12 +630,12 @@
                 justify-content: left;
 
                 .comment-view-item-writer {
-                  @include textStyle(500, 13px, 22px);
+                  @include textStyle(400, 13px, 22px);
                 }
 
                 .comment-view-item-begin-time {
                   margin-left: 8px;
-                  @include textStyle(400, 13px, 21px);
+                  @include textStyle(400, 12px, 21px);
                   color: var(--grey-2);
                 }
 
@@ -646,6 +646,7 @@
 
               .comment-view-item-text {
                 margin: 2px 0 4px 0;
+                letter-spacing: -0.2px;
               }
 
               .comment-view-item-menu-group {
@@ -659,14 +660,14 @@
                   height: 100%;
 
                   .text {
-                    @include textStyle(500, 13px, 21px);
+                    @include textStyle(500, 12px, 21px);
                     color: var(--red);
                   }
                   .sub-comment-like {
                     margin-left: 4px;
                     cursor: pointer;
 
-                    @include textStyle(400, 13px, 21px);
+                    @include textStyle(400, 12px, 21px);
                     color: var(--grey-2);
 
                     &:hover {
@@ -677,7 +678,7 @@
                     margin-left: 12px;
                     cursor: pointer;
 
-                    @include textStyle(400, 13px, 21px);
+                    @include textStyle(400, 12px, 21px);
                     color: var(--grey-2);
 
                     &:hover {
@@ -695,7 +696,7 @@
                   .sub-comment-edit {
                     cursor: pointer;
 
-                    @include textStyle(400, 13px, 21px);
+                    @include textStyle(400, 12px, 21px);
                     color: var(--grey-2);
 
                     &:hover {
@@ -706,7 +707,7 @@
                     cursor: pointer;
                     margin-left: 12px;
 
-                    @include textStyle(400, 13px, 21px);
+                    @include textStyle(400, 12px, 21px);
                     color: var(--grey-2);
 
                     &:hover {
@@ -721,7 +722,7 @@
                 cursor: pointer;
 
                 @include textStyle(500, 12px, 21px);
-                color: var(--blue-3);
+                color: var(--grey-3);
 
                 .mdi {
                   font-size: 16px;
