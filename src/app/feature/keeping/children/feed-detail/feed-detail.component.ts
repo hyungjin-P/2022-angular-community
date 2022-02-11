@@ -234,6 +234,12 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         for (let i = 0; i < feedCommentList.length; i++) {
           feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at)
           feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp)
+
+          if (feedCommentList[i].sub_comment_count !== 0) {
+            // 댓글 더보기 기본 동작으로 변경 22.02.11
+            this.feedSubCommentListViewObj[feedCommentList[i].id] = true
+            this.getFeedSubCommentList(feedCommentList[i].id)
+          }
         }
         this.feedCommentList = feedCommentList
       },
@@ -247,6 +253,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         for (let i = 0; i < feedCommentList.length; i++) {
           feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at)
           feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp)
+          if (feedCommentList[i].sub_comment_count !== 0) {
+            // 설
+            this.feedSubCommentListViewObj[feedCommentList[i].id] = true
+            this.getFeedSubCommentList(feedCommentList[i].id)
+          }
         }
         this.feedSubCommentListObj[feedCommentId] = feedCommentList
       },

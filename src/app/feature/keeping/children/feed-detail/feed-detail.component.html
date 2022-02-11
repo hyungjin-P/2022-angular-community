@@ -499,11 +499,12 @@
             [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
             (click)="showSubCommentList(feedComment.id)"
           >
-            <ng-container *ngIf="feedComment.sub_comment_count !== 0">
-              <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>
-              <div *ngIf="selectedLanguage != 'ko'">Show {{ feedComment.sub_comment_count }} replies</div>
-              <div class="mdi mdi-chevron-down"></div>
-            </ng-container>
+<!--       댓글 더보기 기본 동작으로 변경 22.02.11    -->
+<!--            <ng-container *ngIf="feedComment.sub_comment_count !== 0">-->
+<!--              <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>-->
+<!--              <div *ngIf="selectedLanguage != 'ko'">Show {{ feedComment.sub_comment_count }} replies</div>-->
+<!--              <div class="mdi mdi-chevron-down"></div>-->
+<!--            </ng-container>-->
           </div>
           <ng-container
             *ngIf="feedSubCommentListObj[feedComment.id]?.length > 0"
