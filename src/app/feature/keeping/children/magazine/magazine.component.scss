@@ -3,6 +3,7 @@
 .section {
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: #f6f7f9;
 
   .item-list {
     margin: -15px -3px;
@@ -11,6 +12,10 @@
       padding: 15px 3px;
 
       > div {
+        box-shadow: 0px 6px 25px rgb(24 25 31 / 12%);
+        background-color: #fff;
+        border-radius: 8px;
+
         .image-box {
           position: relative;
           width: 100%;
@@ -33,34 +38,15 @@
             background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
             transform: rotate(180deg);
           }
-
-
         }
-
+        > div {padding: 20px 16px;}
         .info {
-          /*  position: absolute;
-            top: 24px;
-            left: 16px; */
           display: flex;
 
           div {
-            padding: 5px 12px;
-            border-radius: 6px;
-
-            @include textStyle(700, 13px, 21px);
-          }
-
-          div:nth-child(1) {
-            background-color: var(--blue-2);
-
-            color: var(--white);
-          }
-
-          div:nth-child(2) {
-            margin-left: 8px;
-            background-color: var(--white);
-
+            padding: 0 2px 16px 2px;
             color: var(--blue-2);
+            @include textStyle(700, 13px, 21px);
           }
         }
 
@@ -68,30 +54,26 @@
           /*      position: absolute;
                 top: 71px;
                 left: 16px;*/
-          width: 90%;
-
-          @include textStyle(700, 20px, 30px);
-          color: var(--text-1);
+          letter-spacing: -0.2px;
+          @include textStyle(700, 18px, 26px);
+          color: var(--text-2);
         }
 
         .content {
-          margin: 12px 8px 0;
+          margin: 12px 0;
 
           @include textStyle(400, 13px, 21px);
-          color: var(--grey-3);
+          color: var(--grey-1);
         }
 
         .tags {
           display: flex;
           flex-wrap: wrap;
-          margin: 12px 6px;
+          margin-top:12px;
 
           .tag {
             margin: 3px 3px;
-            padding: 5px;
-            border-radius: 6px;
-            border: 1px solid var(--grey-8);
-
+            letter-spacing: -0.2px;
             @include textStyle(400, 13px, 20px);
             color: var(--grey-2);
           }
@@ -173,10 +155,11 @@
 
         > div {
           .image-box {
-            height: 280px;
+            height: 220px;
 
             img {
-              border-radius: 8px;
+              border-top-left-radius: 8px;
+              border-top-right-radius: 8px;
             }
 
             .gradient {
