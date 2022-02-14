@@ -260,6 +260,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
         this.feedSubCommentListObj[feedCommentId] = feedCommentList
+        this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px'
       },
       (e) => {}
     )
