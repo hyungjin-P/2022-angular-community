@@ -1,178 +1,180 @@
 <div class="full-absolute">
-    <div class="mobile d-lg-none">
-        <div class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="leading">
-                            <a class="logo" [routerLink]="['/']">
-                                <img src="assets/images/logo/mobile_header_logo.svg" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
+  <div class="mobile d-lg-none">
+    <div class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="leading">
+              <a class="logo" [routerLink]="['/']">
+                <img src="assets/images/logo/mobile_header_logo.svg"/>
+              </a>
             </div>
+          </div>
         </div>
-        <div class="login-form">
-            <ng-container *ngTemplateOutlet="loginForm"></ng-container>
-        </div>
+      </div>
     </div>
+    <div class="login-form">
+      <ng-container *ngTemplateOutlet="loginForm"></ng-container>
+    </div>
+  </div>
 
-    <div class="desktop d-none d-lg-flex">
-        <div class="left-side">
-            <div class="login-image">
-                <img
-                    src="https://public.keeping.link/assets/images/auth/login.jpg?w=768&q=10"
-                    #img
-                    (load)="onImageLoad(img)"
-                />
-            </div>
-        </div>
-        <div class="right-side d-flex justify-content-center align-items-center">
-            <div class="login-form">
-                <ng-container *ngTemplateOutlet="loginForm"></ng-container>
-            </div>
-        </div>
+  <div class="desktop d-none d-lg-flex">
+    <div class="left-side">
+      <div class="login-image">
+        <img
+          src="https://public.keeping.link/assets/images/auth/login.jpg?w=768&q=10"
+          #img
+          (load)="onImageLoad(img)"
+        />
+      </div>
     </div>
+    <div class="right-side d-flex justify-content-center align-items-center">
+      <div class="login-form">
+        <ng-container *ngTemplateOutlet="loginForm"></ng-container>
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #loginForm>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="text-1">
-                    <span>{{ 'auth.login.text1' | translate }}</span>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="text-1">
+          <span>{{ 'auth.login.text1' | translate }}</span>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="text-2">
-                    <span>{{ 'auth.login.text2-1' | translate }}</span>
-                    <a [routerLink]="['/auth/email']">{{ 'auth.login.text2-2' | translate }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="lang" [class.lang-box-open]="langBoxVisible">
-                    <a (click)="openLangBox($event)">
-                        <span>{{ 'auth.login.lang' | translate }}</span>
-                        <span class="mdi mdi-chevron-down"></span>
-                    </a>
-                    <div
-                        class="lang-box"
-                        [class.d-block]="langBoxVisible"
-                        (click)="$event.stopPropagation()"
-                        (sharedClickOutside)="closeLangBox()"
-                    >
-                        <a class="lang-box-menu" (click)="switchLanguage('ko')">
-                            <div>한국어</div>
-                            <shared-checkbox [checked]="selectedLanguage == 'ko'" shape="circle"></shared-checkbox>
-                        </a>
-                        <div class="lang-box-h-line"></div>
-                        <a class="lang-box-menu" (click)="switchLanguage('en')">
-                            <div>English</div>
-                            <shared-checkbox [checked]="selectedLanguage == 'en'" shape="circle"></shared-checkbox>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="email">
-                    <shared-input
-                        [label]="'auth.login.email-label' | translate"
-                        [placeholder]="'auth.login.email-placeholder' | translate"
-                        [(ngModel)]="email"
-                        maxlength="50"
-                        [error]="email != '' && emailErrorText"
-                        (keyup)="onKeyup($event, 'email')"
-                    ></shared-input>
-                    <div class="mdi mdi-check" *ngIf="emailValid"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="password">
-                    <shared-input
-                        type="text"
-                        [label]="'auth.login.password-label' | translate"
-                        [placeholder]="'auth.login.password-placeholder' | translate"
-                        [(ngModel)]="password"
-                        maxlength="15"
-                        *ngIf="passwordVisible"
-                        [error]="password != '' && passwordErrorText"
-                        (keyup)="onKeyup($event, 'password')"
-                    ></shared-input>
-                    <img
-                        class="password-icon-visible"
-                        src="assets/icons/etc/eye-visible.svg"
-                        (click)="changePasswordVisible()"
-                        *ngIf="passwordVisible"
-                    />
-
-                    <shared-input
-                        type="password"
-                        [label]="'auth.login.password-label' | translate"
-                        [placeholder]="'auth.login.password-placeholder' | translate"
-                        [(ngModel)]="password"
-                        maxlength="15"
-                        *ngIf="!passwordVisible"
-                        [error]="password != '' && passwordErrorText"
-                        (keyup)="onKeyup($event, 'password')"
-                    ></shared-input>
-                    <img
-                        class="password-icon-invisible"
-                        src="assets/icons/etc/eye-invisible.svg"
-                        (click)="changePasswordVisible()"
-                        *ngIf="!passwordVisible"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="forgot-password">
-                    <a [routerLink]="['/auth/forgot-password']">{{ 'auth.login.forgot-password' | translate }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <a
-                    class="email-login-button shared-button-primary"
-                    [class.shared-button-primary-disabled]="!emailValid || !passwordValid"
-                    (click)="signInWithEmail()"
-                >
-                    <div>{{ 'auth.login.email-login-button' | translate }}</div>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="text-3">
-                    <span>{{ 'auth.login.text3' | translate }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="social-button-group">
-                    <a class="social-button kakao-login-button" (click)="signInWithKakao()">
-                        <img src="assets/icons/social/kakao.png" />
-                    </a>
-                    <a class="social-button naver-login-button" (click)="signInWithNaver()">
-                        <img src="assets/icons/social/naver.png" />
-                        <div id="code" #code (click)="_signInWithNaver(code.innerText); code.innerText = ''"></div>
-                    </a>
-                    <a class="social-button google-login-button" (click)="signInWithGoogle()">
-                        <img src="assets/icons/social/google.png" />
-                    </a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <div class="text-2">
+          <span>{{ 'auth.login.text2-1' | translate }}</span>
+          <a [routerLink]="['/auth/email']">{{ 'auth.login.text2-2' | translate }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="lang" [class.lang-box-open]="langBoxVisible">
+          <a (click)="openLangBox($event)">
+            <span>{{ 'auth.login.lang' | translate }}</span>
+            <span class="mdi mdi-chevron-down"></span>
+          </a>
+          <div
+            class="lang-box"
+            [class.d-block]="langBoxVisible"
+            (click)="$event.stopPropagation()"
+            (sharedClickOutside)="closeLangBox()"
+          >
+            <a class="lang-box-menu" (click)="switchLanguage('ko')">
+              <div>한국어</div>
+              <shared-checkbox [checked]="selectedLanguage == 'ko'" shape="circle"></shared-checkbox>
+            </a>
+            <div class="lang-box-h-line"></div>
+            <a class="lang-box-menu" (click)="switchLanguage('en')">
+              <div>English</div>
+              <shared-checkbox [checked]="selectedLanguage == 'en'" shape="circle"></shared-checkbox>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="email">
+          <shared-input
+            [label]="'auth.login.email-label' | translate"
+            [placeholder]="'auth.login.email-placeholder' | translate"
+            [(ngModel)]="email"
+            maxlength="50"
+            [error]="email != '' && emailErrorText"
+            (keyup)="onKeyup($event, 'email')"
+          ></shared-input>
+          <div class="mdi mdi-check" *ngIf="emailValid"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="password">
+          <shared-input
+            type="text"
+            [label]="'auth.login.password-label' | translate"
+            [placeholder]="'auth.login.password-placeholder' | translate"
+            [(ngModel)]="password"
+            maxlength="15"
+            *ngIf="passwordVisible"
+            [error]="password != '' && passwordErrorText"
+            (keyup)="onKeyup($event, 'password')"
+          ></shared-input>
+          <img
+            class="password-icon-visible"
+            src="assets/icons/etc/eye-visible.svg"
+            (click)="changePasswordVisible()"
+            *ngIf="passwordVisible"
+          />
+
+          <shared-input
+            type="password"
+            [label]="'auth.login.password-label' | translate"
+            [placeholder]="'auth.login.password-placeholder' | translate"
+            [(ngModel)]="password"
+            maxlength="15"
+            *ngIf="!passwordVisible"
+            [error]="password != '' && passwordErrorText"
+            (keyup)="onKeyup($event, 'password')"
+          ></shared-input>
+          <img
+            class="password-icon-invisible"
+            src="assets/icons/etc/eye-invisible.svg"
+            (click)="changePasswordVisible()"
+            *ngIf="!passwordVisible"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="forgot-password">
+          <a [routerLink]="['/auth/forgot-password']">{{ 'auth.login.forgot-password' | translate }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <a
+          class="email-login-button shared-button-primary"
+          [class.shared-button-primary-disabled]="!emailValid || !passwordValid"
+          (click)="signInWithEmail()"
+        >
+          <div>{{ 'auth.login.email-login-button' | translate }}</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- SNS 로그인 -->
+<!--    <div class="row">-->
+<!--      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">-->
+<!--        <div class="text-3">-->
+<!--          <span>{{ 'auth.login.text3' | translate }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">-->
+<!--        <div class="social-button-group">-->
+<!--          <a class="social-button kakao-login-button" (click)="signInWithKakao()">-->
+<!--            <img src="assets/icons/social/kakao.png"/>-->
+<!--          </a>-->
+<!--          <a class="social-button naver-login-button" (click)="signInWithNaver()">-->
+<!--            <img src="assets/icons/social/naver.png"/>-->
+<!--            <div id="code" #code (click)="_signInWithNaver(code.innerText); code.innerText = ''"></div>-->
+<!--          </a>-->
+<!--          <a class="social-button google-login-button" (click)="signInWithGoogle()">-->
+<!--            <img src="assets/icons/social/google.png"/>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
 </ng-template>

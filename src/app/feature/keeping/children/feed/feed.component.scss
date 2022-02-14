@@ -389,7 +389,6 @@
     .section {
         padding: 80px 16px;
 
-
         .tag-list {
             margin: 0 auto 50px;
         }
@@ -402,15 +401,15 @@
                 padding: 30px 15px;
 
                 > div {
-                  .image-box {
-                    flex: 1 0 auto;
-                    height: auto;
-                  }
-                  .image-box:before {
-                    content: '';
-                    display: block;
-                    padding-top: 100%;
-                  }
+                    .image-box {
+                      flex: 1 0 auto;
+                      height: auto;
+                    }
+                    .image-box:before {
+                      content: '';
+                      display: block;
+                      padding-top: 100%;
+                    }
                 }
             }
         }
