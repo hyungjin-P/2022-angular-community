@@ -4,12 +4,13 @@
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #f6f7f9;
+  padding:20px 0;
 
   .item-list {
     margin: -15px -3px;
 
     .item {
-      padding: 15px 3px;
+      padding: 15px 16px;
 
       > div {
         box-shadow: 0px 6px 25px rgb(24 25 31 / 12%);
@@ -19,14 +20,17 @@
         .image-box {
           position: relative;
           width: 100%;
-          height: 320px;
+          height: 240px;
           background-color: var(--grey-8);
           cursor: pointer;
+          border-radius: 8px;
 
           img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
           }
 
           .gradient {
@@ -35,6 +39,7 @@
             right: 0;
             left: 0;
             bottom: 35%;
+            border-radius: 8px;
             background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
             transform: rotate(180deg);
           }
@@ -44,7 +49,7 @@
           display: flex;
 
           div {
-            padding: 0 2px 16px 2px;
+            padding: 0 2px 12px 2px;
             color: var(--blue-2);
             @include textStyle(700, 13px, 21px);
           }
@@ -60,7 +65,7 @@
         }
 
         .content {
-          margin: 12px 0;
+          margin: 8px 0 12px 0;
 
           @include textStyle(400, 13px, 21px);
           color: var(--grey-1);
@@ -69,7 +74,6 @@
         .tags {
           display: flex;
           flex-wrap: wrap;
-          margin-top:12px;
 
           .tag {
             margin: 3px 3px;
