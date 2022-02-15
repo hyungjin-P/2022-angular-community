@@ -100,17 +100,44 @@
     }
 
     .item-list {
-        margin: -15px -3px;
+      margin: -15px -3px;
 
-        .banner{
-          padding: 12px 3px 0 3px;
-          width: 100%;
-          height: 100%;
-          img{
-            width: 100%;
-            height: 100%;
+      .banner {
+        margin: 12px 3px 0 3px;
+        display: flex;
+        height: 90px;
+        background-color: #000;
+        border-radius: 8px;
+        width:100%;
+        .text-content {
+          margin: 20px 0 20px 16px;
+          display: inline-block;
+          text-align: left;
+          width: 68%;
+          div {
+          @include textStyle(600, 18px, 26px);
+          color: var(--white);
+          letter-spacing: -0.2px;
+        }
+          span {
+            @include textStyle(400, 12px, 20px);
+            color: var(--white);
+            letter-spacing: -0.2px;
           }
         }
+        .img-content {
+          display: inline-block;
+          width: 32%;
+          margin: 20px 0 0 20px;
+        }
+
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+
+    }
 
         .item {
             padding: 15px 3px;
