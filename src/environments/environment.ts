@@ -6,8 +6,8 @@ export const environment = {
     production: false,
     serverAddress: 'https://REDACTED_SERVER_ADDRESS',
     // serverAddress: 'http://localhost:3000/latest',
-    // userApiAddress: 'http://localhost:3001',
-    userApiAddress: 'https://REDACTED_USER_API_HOST',
+    userApiAddress: 'http://localhost:3001',
+    // userApiAddress: 'https://REDACTED_USER_API_HOST',
     wss: 'wss://REDACTED_WSS_ENDPOINT',
     firebase: {
         apiKey: 'REDACTED_FIREBASE_API_KEY',

@@ -16,6 +16,10 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * firebase 로그인
+   * 수정중임
+   * */
   signInWithFirebase(requestBody: SignInWithFirebaseRequestBody): Observable<User> {
     const url = environment['serverAddress'] + '/auth/firebase'
 
@@ -33,6 +37,10 @@ export class AuthService {
     )
   }
 
+  /**
+   * 카카오 로그인
+   * 수정중임
+   * */
   signInWithKakao(requestBody: SignInWithKakaoRequestBody): Observable<User> {
     const url = environment['serverAddress'] + '/auth/kakao'
 
@@ -50,6 +58,10 @@ export class AuthService {
     )
   }
 
+  /**
+   * 네이버 로그인
+   * 수정중
+   * */
   signWithNaver(requestBody: SignInWithNaverRequestBody): Observable<User> {
     const url = environment['serverAddress'] + '/auth/naver'
 
@@ -67,6 +79,10 @@ export class AuthService {
     )
   }
 
+  /**
+   * email 인증
+   * => 수정중임
+   * */
   signInWithEmail(requestBody: SignInWithEmailRequestBody): Observable<User> {
     const url = environment['serverAddress'] + '/auth/login'
 
@@ -101,8 +117,13 @@ export class AuthService {
     )
   }
 
-  checkDuplicateMail(requestBody: CheckDuplicateMailRequestBody): Observable<Response> {
-    const url = environment['serverAddress'] + '/auth/check-duplicate-mail'
+  /**
+   * 이메일 중복 체크
+   * 수정완료
+   * */
+  checkDuplicateMail(requestBody: CheckDuplicateMailRequestBody): Observable<any> {
+    // const url = environment['serverAddress'] + '/auth/check-duplicate-mail'
+    const url = environment.userApiAddress + `/user/hasProvidedIdAndDeleteAtIsNull?providedId=${requestBody.email}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -110,9 +131,10 @@ export class AuthService {
       }),
     }
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res
+        console.log('checkDuplicateMail res : ', res);
+        return res;
       }),
       catchError(handleError)
     )
@@ -120,6 +142,7 @@ export class AuthService {
 
   /**
    * 인증메일 발송
+   * 수정완료
    * */
   sendVerificationCodeMail(requestBody: SendVerificationCodeMailRequestBody): Observable<Response> {
     console.log('sendVerificationCodeMail > requestBody : ', requestBody);
@@ -143,11 +166,9 @@ export class AuthService {
   }
 
   /**
-   * 인증번호 확인
+   * 인증번호 확인 (수정 OK)
    * */
   checkVerificationCodeMail(requestBody: CheckVerificationCodeMailRequestBody): Observable<Response> {
-    // const url = environment['serverAddress'] + '/auth/check-verification-code-mail'
-
     let url = environment.userApiAddress + '/user/checkVerificationCode'
     url += `?providedId=${requestBody.email}&verifiedCode=${requestBody.verification_code}`;
 
@@ -161,8 +182,6 @@ export class AuthService {
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-        console.log('checkVerificationCodeMail res : ', res);
-
         return res
       }),
       catchError(handleError)
@@ -170,23 +189,20 @@ export class AuthService {
   }
 
   /**
-   * 회원가입
+   * 회원가입 (수정 OK)
    * */
   registration(requestBody: RegistrationRequestBody): Observable<User> {
-    // const url = environment['serverAddress'] + '/auth/registration'
     const url = environment.userApiAddress + `/user/registration`;
-
-    console.log('registration data : ', requestBody);
-
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     }
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res.dataset[0];
+    return this.http.post<any>(url, requestBody, options).pipe(
+      map((result) => {
+         console.log('resistration > res : ', result)
+        return result;
       }),
       catchError(handleError)
     )
@@ -353,12 +369,12 @@ class CheckVerificationCodeMailRequestBody {
 
 class RegistrationRequestBody {
   email: string
-  verification_code: number
+  verificationCode: number
   password: string
-  agreement_age: boolean
-  agreement_privacy: boolean
-  agreement_service_terms: boolean
-  agreement_marketing: boolean
+  agreementAge: boolean
+  agreementPrivacy: boolean
+  agreementServiceTerms: boolean
+  agreementMarketing: boolean
 }
 
 class SendResetPasswordLinkMailRequestBody {

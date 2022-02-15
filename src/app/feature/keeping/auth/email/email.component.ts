@@ -155,7 +155,7 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkDuplicateMail(key: string, email: string) {
-    if (key == 'Backspace') {
+    if (key === 'Backspace') {
       if (!this.checkEmailPattern(email)) {
         this.emailValid = false
         // 규칙에 맞는 이메일 주소를 입력해 주세요.
@@ -172,34 +172,26 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
       return
     }
 
-    this.authService.checkDuplicateMail({email: email}).subscribe(
-      (v) => {
-        this.emailValid = true
-        this.emailErrorText = ''
-
-        if (key == 'Enter') {
-          this.sendVerificationCodeMail()
-          return
-        }
-      },
-      (e) => {
-        this.emailValid = false
-
-        if (e.code == 'FUNCTION:AUTH:004') {
-          // 이미 가입된 이메일 주소 입니다.
-          this.emailErrorText = this.textService.getText('auth:email:002')
-        } else if (e.code == 'VALIDATOR:VALIDATE') {
-          // 규칙에 맞는 이메일 주소를 입력해 주세요.
-          this.emailErrorText = this.textService.getText('auth:email:001')
+    this.authService
+      .checkDuplicateMail({email: email})
+      .subscribe((v) => {
+        if (!v) {
+          this.emailValid = true
+          this.emailErrorText = ''
+          if (key === 'Enter') {
+            this.sendVerificationCodeMail()
+            return
+          }
         } else {
-          this.emailErrorText = e.message
+          this.emailValid = false;
+          this.emailErrorText = this.textService.getText('auth:email:002')
         }
       }
     )
   }
 
   /**
-   * 1. 이메일 인증
+   * 이메일 인증
    * */
   sendVerificationCodeMail() {
     if (!this.emailValid) {
@@ -237,12 +229,12 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.interval) {
           this.stopTimer()
         }
-          this.startTimer()
-        },
-        (e) => {
-          this.verificationCodeErrorText = e.message
-        });
 
+        this.startTimer()
+      },
+        (e) => {
+        this.verificationCodeErrorText = e.message
+      });
   }
 
   checkVerificationCodeMail() {
@@ -286,6 +278,8 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
    * 회원가입
    */
   registration() {
+
+    // 폼 체크
     if (!this.formCheck()) {
       return
     }
@@ -293,20 +287,21 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.authService
       .registration({
         email: this.email,
-        verification_code: Number(this.verificationCode),
+        verificationCode: Number(this.verificationCode),
         password: this.password,
-        agreement_age: this.agreementAge,
-        agreement_privacy: this.agreementPrivacy,
-        agreement_service_terms: this.agreementServiceTerms,
-        agreement_marketing: this.agreementMarketing,
+        agreementAge: this.agreementAge,
+        agreementPrivacy: this.agreementPrivacy,
+        agreementServiceTerms: this.agreementServiceTerms,
+        agreementMarketing: this.agreementMarketing,
       })
       .subscribe(
         (user: User) => {
+          console.log('user : ', user);
           this.storageService.setUser(user)
           this.router.navigateByUrl('/').then().catch();
         },
         (e) => {
-          this.globalService.showToast(e.message)
+          this.globalService.showToast(this.textService.getText('auth:email:003'));
         }
       )
   }
@@ -324,6 +319,7 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 1000)
   }
 
+
   stopTimer() {
     clearInterval(this.interval)
   }
@@ -334,12 +330,12 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.checkVerificationCodeMail()
       }
     } else {
-      if (event.key != 'Tab' && (type == 'email' || type == 'password' || type == 'confirmPassword')) {
-        if (type == 'email') {
+      if (event.key !== 'Tab' && (type === 'email' || type === 'password' || type === 'confirmPassword')) {
+        if (type === 'email') {
           this.checkEmailPattern(this.email)
-        } else if (type == 'password') {
+        } else if (type === 'password') {
           this.checkPasswordPattern(this.password)
-        } else if (type == 'confirmPassword') {
+        } else if (type === 'confirmPassword') {
           this.checkConfirmPasswordPattern(this.confirmPassword)
         }
       }
@@ -353,7 +349,7 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.emailVerified &&
       this.checkPasswordPattern(this.password) &&
       this.checkConfirmPasswordPattern(this.confirmPassword) &&
-      this.password == this.confirmPassword &&
+      this.password === this.confirmPassword &&
       this.agreementAge &&
       this.agreementPrivacy &&
       this.agreementServiceTerms
@@ -385,6 +381,9 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
     return isValid
   }
 
+  /**
+   * password 패턴 체크
+   * */
   checkPasswordPattern(password: string) {
     let isValid = false
 
@@ -471,8 +470,11 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.confirmPasswordVisible = !this.confirmPasswordVisible
   }
 
+  /**
+   * 개인정보 수집 이용동의, 마케팅 정보 수신 동의
+   * */
   checkTerms(item: string) {
-    if (item == 'all') {
+    if (item === 'all') {
       if (this.allAgreement) {
         this.allAgreement = false
         this.agreementAge = false
@@ -496,11 +498,11 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.agreementMarketing = !this.agreementMarketing
     }
 
-    if (this.agreementAge && this.agreementPrivacy && this.agreementServiceTerms && this.agreementMarketing) {
-      this.allAgreement = true
-    } else {
-      this.allAgreement = false
-    }
+    this.allAgreement =
+      this.agreementAge &&
+      this.agreementPrivacy &&
+      this.agreementServiceTerms &&
+      this.agreementMarketing;
   }
 
   showPopup(popupName: string) {

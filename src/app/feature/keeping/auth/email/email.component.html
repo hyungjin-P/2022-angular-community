@@ -1,214 +1,210 @@
 <div class="full-absolute">
-    <div class="mobile d-lg-none">
-        <div class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="leading">
-                            <a class="logo" [routerLink]="['/']">
-                                <img src="assets/images/logo/mobile_header_logo.svg" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
+  <div class="mobile d-lg-none">
+    <div class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="leading">
+              <a class="logo" [routerLink]="['/']">
+                <img src="assets/images/logo/mobile_header_logo.svg"/>
+              </a>
             </div>
+          </div>
         </div>
-        <div class="registration-form">
-            <ng-container *ngTemplateOutlet="registrationForm"></ng-container>
-        </div>
+      </div>
     </div>
+    <div class="registration-form">
+      <ng-container *ngTemplateOutlet="registrationForm"></ng-container>
+    </div>
+  </div>
 
-    <div class="desktop d-none d-lg-flex">
-        <div class="left-side">
-            <div class="registration-image">
-                <img
-                    src="https://public.keeping.link/assets/images/auth/email.jpg?w=768&q=10"
-                    #img
-                    (load)="onImageLoad(img)"
-                />
-            </div>
-        </div>
-        <div class="right-side d-flex justify-content-center align-items-center">
-            <div class="registration-form">
-                <ng-container *ngTemplateOutlet="registrationForm"></ng-container>
-            </div>
-        </div>
+  <div class="desktop d-none d-lg-flex">
+    <div class="left-side">
+      <div class="registration-image">
+        <img
+          src="https://public.keeping.link/assets/images/auth/email.jpg?w=768&q=10"
+          #img
+          (load)="onImageLoad(img)"
+        />
+      </div>
     </div>
+    <div class="right-side d-flex justify-content-center align-items-center">
+      <div class="registration-form">
+        <ng-container *ngTemplateOutlet="registrationForm"></ng-container>
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #registrationForm>
-    <div class="container">
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="text-1">
-                    <span>{{ 'auth.email.text1' | translate }}</span>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="text-1">
+          <span>{{ 'auth.email.text1' | translate }}</span>
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="email" #emailRef>
-                    <!-- email -->
-                    <shared-input
-                        [label]="'auth.email.email-label' | translate"
-                        [placeholder]="'auth.email.email-placeholder' | translate"
-                        maxlength="50"
-                        [(ngModel)]="email"
-                        [error]="email != '' && emailErrorText"
-                        [disabled]="emailVerified"
-                    ></shared-input>
-                    <div
-                        class="send-verification-code"
-                        [class.send-verification-code-enable]="emailValid"
-                        *ngIf="!emailVerified && !verificationCodeVisible"
-                        (click)="sendVerificationCodeMail()"
-                    >
-                        {{ 'auth.email.send-verification-code' | translate }}
-                    </div>
-                    <div
-                        class="resend-verification-code"
-                        *ngIf="verificationCodeVisible"
-                        (click)="sendVerificationCodeMail()"
-                    >
-                        {{ 'auth.email.resend-verification-code' | translate }}
-                    </div>
-                    <div class="mdi mdi-check" *ngIf="emailVerified"></div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="email" #emailRef>
+          <!-- email -->
+          <shared-input
+            [label]="'auth.email.email-label' | translate"
+            [placeholder]="'auth.email.email-placeholder' | translate"
+            maxlength="50"
+            [(ngModel)]="email"
+            [error]="email != '' && emailErrorText"
+            [disabled]="emailVerified"
+          ></shared-input>
+          <div
+            class="send-verification-code"
+            [class.send-verification-code-enable]="emailValid"
+            *ngIf="!emailVerified && !verificationCodeVisible"
+            (click)="sendVerificationCodeMail()"
+          >{{ 'auth.email.send-verification-code' | translate }}</div>
+          <div
+            class="resend-verification-code"
+            *ngIf="verificationCodeVisible"
+            (click)="sendVerificationCodeMail()"
+          >
+            {{ 'auth.email.resend-verification-code' | translate }}
+          </div>
+          <div class="mdi mdi-check" *ngIf="emailVerified"></div>
         </div>
-        <!-- 인증번호 입력 -->
-        <div class="row" [class.d-none]="!verificationCodeVisible">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="verification-code">
-                    <shared-input
-                        [label]="'auth.email.verification-code-label' | translate"
-                        [placeholder]="'auth.email.verification-code-placeholder' | translate"
-                        [(ngModel)]="verificationCode"
-                        maxlength="6"
-                        [info]="'auth.email.verification-code-info' | translate"
-                        [error]="verificationCodeErrorText"
-                        (keypress)="checkDigit($event)"
-                        (keyup)="onKeyup($event, 'verificationCode')"
-                    ></shared-input>
-                    <div class="time" *ngIf="timeLeft > 0">{{ timeLeft | minuteSeconds }}</div>
-                    <div
-                        class="confirm-verification-code"
-                        [class.confirm-verification-code-enable]="verificationCode.length == 6 && timeLeft > 0"
-                        (click)="checkVerificationCodeMail()"
-                    >
-                        {{ 'auth.email.confirm-verification-code' | translate }}
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <!-- 인증번호 입력 -->
+    <div class="row" [class.d-none]="!verificationCodeVisible">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="verification-code">
+          <shared-input
+            [label]="'auth.email.verification-code-label' | translate"
+            [placeholder]="'auth.email.verification-code-placeholder' | translate"
+            [(ngModel)]="verificationCode"
+            maxlength="6"
+            [info]="'auth.email.verification-code-info' | translate"
+            [error]="verificationCodeErrorText"
+            (keypress)="checkDigit($event)"
+            (keyup)="onKeyup($event, 'verificationCode')"
+          ></shared-input>
+          <div class="time" *ngIf="timeLeft > 0">{{ timeLeft | minuteSeconds }}</div>
+          <div
+            class="confirm-verification-code"
+            [class.confirm-verification-code-enable]="verificationCode.length == 6 && timeLeft > 0"
+            (click)="checkVerificationCodeMail()"
+          >{{ 'auth.email.confirm-verification-code' | translate }}</div>
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="password">
-                    <shared-input
-                        type="text"
-                        [label]="'auth.email.password-label' | translate"
-                        [placeholder]="'auth.email.password-placeholder' | translate"
-                        [(ngModel)]="password"
-                        maxlength="15"
-                        *ngIf="passwordVisible"
-                        [error]="password != '' && passwordErrorText"
-                        (keyup)="onKeyup($event, 'password')"
-                    ></shared-input>
-                    <img
-                        class="password-icon-visible"
-                        src="assets/icons/etc/eye-visible.svg"
-                        (click)="changePasswordVisible()"
-                        *ngIf="passwordVisible"
-                    />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="password">
+          <shared-input
+            type="text"
+            [label]="'auth.email.password-label' | translate"
+            [placeholder]="'auth.email.password-placeholder' | translate"
+            [(ngModel)]="password"
+            maxlength="15"
+            *ngIf="passwordVisible"
+            [error]="password != '' && passwordErrorText"
+            (keyup)="onKeyup($event, 'password')"
+          ></shared-input>
+          <img
+            class="password-icon-visible"
+            src="assets/icons/etc/eye-visible.svg"
+            (click)="changePasswordVisible()"
+            *ngIf="passwordVisible"
+          />
 
-                    <shared-input
-                        type="password"
-                        [label]="'auth.email.password-label' | translate"
-                        [placeholder]="'auth.email.password-placeholder' | translate"
-                        [(ngModel)]="password"
-                        maxlength="15"
-                        *ngIf="!passwordVisible"
-                        [error]="password != '' && passwordErrorText"
-                        (keyup)="onKeyup($event, 'password')"
-                    ></shared-input>
-                    <img
-                        class="password-icon-invisible"
-                        src="assets/icons/etc/eye-invisible.svg"
-                        (click)="changePasswordVisible()"
-                        *ngIf="!passwordVisible"
-                    />
-                </div>
-            </div>
+          <shared-input
+            type="password"
+            [label]="'auth.email.password-label' | translate"
+            [placeholder]="'auth.email.password-placeholder' | translate"
+            [(ngModel)]="password"
+            maxlength="15"
+            *ngIf="!passwordVisible"
+            [error]="password != '' && passwordErrorText"
+            (keyup)="onKeyup($event, 'password')"
+          ></shared-input>
+          <img
+            class="password-icon-invisible"
+            src="assets/icons/etc/eye-invisible.svg"
+            (click)="changePasswordVisible()"
+            *ngIf="!passwordVisible"
+          />
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="password">
-                    <shared-input
-                        type="text"
-                        [label]="'auth.email.confirm-password-label' | translate"
-                        [placeholder]="'auth.email.confirm-password-placeholder' | translate"
-                        [(ngModel)]="confirmPassword"
-                        maxlength="15"
-                        *ngIf="confirmPasswordVisible"
-                        [error]="confirmPassword != '' && confirmPasswordErrorText"
-                        (keyup)="onKeyup($event, 'confirmPassword')"
-                    ></shared-input>
-                    <img
-                        class="password-icon-visible"
-                        src="assets/icons/etc/eye-visible.svg"
-                        (click)="changeConfirmPasswordVisible()"
-                        *ngIf="confirmPasswordVisible"
-                    />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="password">
+          <shared-input
+            type="text"
+            [label]="'auth.email.confirm-password-label' | translate"
+            [placeholder]="'auth.email.confirm-password-placeholder' | translate"
+            [(ngModel)]="confirmPassword"
+            maxlength="15"
+            *ngIf="confirmPasswordVisible"
+            [error]="confirmPassword != '' && confirmPasswordErrorText"
+            (keyup)="onKeyup($event, 'confirmPassword')"
+          ></shared-input>
+          <img
+            class="password-icon-visible"
+            src="assets/icons/etc/eye-visible.svg"
+            (click)="changeConfirmPasswordVisible()"
+            *ngIf="confirmPasswordVisible"
+          />
 
-                    <shared-input
-                        type="password"
-                        [label]="'auth.email.confirm-password-label' | translate"
-                        [placeholder]="'auth.email.confirm-password-placeholder' | translate"
-                        [(ngModel)]="confirmPassword"
-                        maxlength="15"
-                        *ngIf="!confirmPasswordVisible"
-                        [error]="confirmPassword != '' && confirmPasswordErrorText"
-                        (keyup)="onKeyup($event, 'confirmPassword')"
-                    ></shared-input>
-                    <img
-                        class="password-icon-invisible"
-                        src="assets/icons/etc/eye-invisible.svg"
-                        (click)="changeConfirmPasswordVisible()"
-                        *ngIf="!confirmPasswordVisible"
-                    />
-                </div>
-            </div>
+          <shared-input
+            type="password"
+            [label]="'auth.email.confirm-password-label' | translate"
+            [placeholder]="'auth.email.confirm-password-placeholder' | translate"
+            [(ngModel)]="confirmPassword"
+            maxlength="15"
+            *ngIf="!confirmPasswordVisible"
+            [error]="confirmPassword != '' && confirmPasswordErrorText"
+            (keyup)="onKeyup($event, 'confirmPassword')"
+          ></shared-input>
+          <img
+            class="password-icon-invisible"
+            src="assets/icons/etc/eye-invisible.svg"
+            (click)="changeConfirmPasswordVisible()"
+            *ngIf="!confirmPasswordVisible"
+          />
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="agreement d-flex justify-content-between">
-                    <div>
-                        <shared-checkbox
-                            [text]="'auth.email.all-agreement' | translate"
-                            [checked]="allAgreement"
-                            (click)="checkTerms('all')"
-                            size="small"
-                            shape="circle"
-                        ></shared-checkbox>
-                    </div>
-                    <div (click)="showPopup('popup-privacy-service-terms')">
-                        {{ 'auth.email.confirm-terms' | translate }}
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="agreement d-flex justify-content-between">
+          <div>
+            <shared-checkbox
+              [text]="'auth.email.all-agreement' | translate"
+              [checked]="allAgreement"
+              (click)="checkTerms('all')"
+              size="small"
+              shape="circle"
+            ></shared-checkbox>
+          </div>
+          <div (click)="showPopup('popup-privacy-service-terms')">
+            {{ 'auth.email.confirm-terms' | translate }}
+          </div>
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <div class="text-2">
-                    <div>{{ 'auth.email.text2' | translate }}</div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="text-2">
+          <div>{{ 'auth.email.text2' | translate }}</div>
         </div>
-        <div class="row">
-            <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-                <a
-                    class="registration-button shared-button-primary"
-                    [class.shared-button-primary-disabled]="
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <a
+          class="registration-button shared-button-primary"
+          [class.shared-button-primary-disabled]="
                         !emailVerified ||
                         !passwordValid ||
                         !confirmPasswordValid ||
@@ -216,121 +212,122 @@
                         !agreementAge ||
                         !agreementPrivacy ||
                         !agreementServiceTerms"
-                    (click)="registration()">
-                    <div>{{ 'auth.email.registration-button' | translate }}</div>
-                </a>
-            </div>
-        </div>
+          (click)="registration()">
+          <div>{{ 'auth.email.registration-button' | translate }}</div>
+        </a>
+      </div>
     </div>
+  </div>
 </ng-template>
 
+<!-- 팝업 -->
 <div class="popup-privacy-service-terms" #popupPrivacyServiceTermsRef>
-    <div class="privacy-service-terms" (click)="$event.stopPropagation()">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="privacy-service-terms-header">
-                        <div>{{ 'auth.email.privacy-service-terms-header' | translate }}</div>
-                        <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
-                            <span class="mdi mdi-close"></span>
-                        </div>
-                    </div>
-                </div>
+  <div class="privacy-service-terms" (click)="$event.stopPropagation()">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="privacy-service-terms-header">
+            <div>{{ 'auth.email.privacy-service-terms-header' | translate }}</div>
+            <div class="close-icon" (click)="hidePopup('popup-privacy-service-terms')">
+              <span class="mdi mdi-close"></span>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="privacy-service-terms-desc">
-                        {{ 'auth.email.privacy-service-terms-desc' | translate }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="privacy-service-terms-all-agreement">
-                        <shared-checkbox
-                            [text]="'auth.email.privacy-service-terms-all-agreement' | translate"
-                            [checked]="allAgreement"
-                            shape="circle"
-                            (click)="checkTerms('all')"
-                        ></shared-checkbox>
-                    </div>
-                    <div class="privacy-service-terms-agreement-1">
-                        <shared-checkbox
-                            [text]="'auth.email.privacy-service-terms-agreement1' | translate"
-                            [checked]="agreementAge"
-                            shape="none"
-                            (click)="checkTerms('age')"
-                        ></shared-checkbox>
-                    </div>
-                    <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
-                        <shared-checkbox
-                            [text]="'auth.email.privacy-service-terms-agreement2' | translate"
-                            [checked]="agreementPrivacy"
-                            shape="none"
-                            (click)="checkTerms('privacy')"
-                        ></shared-checkbox>
-                        <div (click)="openContent('privacy')">
-                            {{ isPrivacyOpen ? ('auth.email.close' | translate) : ('auth.email.open' | translate) }}
-                        </div>
-                    </div>
-                    <div
-                        class="privacy-service-terms-agreement-2-content scroll-y"
-                        [class.privacy-service-terms-agreement-2-content-show]="isPrivacyOpen"
-                    >
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <service-terms-component></service-terms-component>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
-                        <shared-checkbox
-                            [text]="'auth.email.privacy-service-terms-agreement3' | translate"
-                            [checked]="agreementServiceTerms"
-                            shape="none"
-                            (click)="checkTerms('serviceTerms')"
-                        ></shared-checkbox>
-                        <div (click)="openContent('service-terms')">
-                            {{
-                                isServiceTermsOpen
-                                  ? ('auth.email.close' | translate)
-                                  : ('auth.email.open' | translate)
-                            }}
-                        </div>
-                    </div>
-                    <div
-                        class="privacy-service-terms-agreement-3-content scroll-y"
-                        [class.privacy-service-terms-agreement-3-content-show]="isServiceTermsOpen"
-                    >
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <privacy-component></privacy-component>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="privacy-service-terms-agreement-4 d-flex justify-content-between">
-                        <shared-checkbox
-                            [text]="'auth.email.privacy-service-terms-agreement4' | translate"
-                            [checked]="agreementMarketing"
-                            shape="none"
-                            (click)="checkTerms('marketing')"
-                        ></shared-checkbox>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div
-                        class="privacy-service-terms-confirm shared-button-primary"
-                        (click)="hidePopup('popup-privacy-service-terms')">
-                        <div>{{ 'auth.email.privacy-service-terms-confirm' | translate }}</div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="privacy-service-terms-desc">
+            {{ 'auth.email.privacy-service-terms-desc' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="privacy-service-terms-all-agreement">
+            <shared-checkbox
+              [text]="'auth.email.privacy-service-terms-all-agreement' | translate"
+              [checked]="allAgreement"
+              shape="circle"
+              (click)="checkTerms('all')"
+            ></shared-checkbox>
+          </div>
+          <div class="privacy-service-terms-agreement-1">
+            <shared-checkbox
+              [text]="'auth.email.privacy-service-terms-agreement1' | translate"
+              [checked]="agreementAge"
+              shape="none"
+              (click)="checkTerms('age')"
+            ></shared-checkbox>
+          </div>
+          <div class="privacy-service-terms-agreement-2 d-flex justify-content-between">
+            <shared-checkbox
+              [text]="'auth.email.privacy-service-terms-agreement2' | translate"
+              [checked]="agreementPrivacy"
+              shape="none"
+              (click)="checkTerms('privacy')"
+            ></shared-checkbox>
+            <div (click)="openContent('privacy')">
+              {{ isPrivacyOpen ? ('auth.email.close' | translate) : ('auth.email.open' | translate) }}
+            </div>
+          </div>
+          <div
+            class="privacy-service-terms-agreement-2-content scroll-y"
+            [class.privacy-service-terms-agreement-2-content-show]="isPrivacyOpen"
+          >
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <service-terms-component></service-terms-component>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="privacy-service-terms-agreement-3 d-flex justify-content-between">
+            <shared-checkbox
+              [text]="'auth.email.privacy-service-terms-agreement3' | translate"
+              [checked]="agreementServiceTerms"
+              shape="none"
+              (click)="checkTerms('serviceTerms')"
+            ></shared-checkbox>
+            <div (click)="openContent('service-terms')">
+              {{
+              isServiceTermsOpen
+                ? ('auth.email.close' | translate)
+                : ('auth.email.open' | translate)
+              }}
+            </div>
+          </div>
+          <div
+            class="privacy-service-terms-agreement-3-content scroll-y"
+            [class.privacy-service-terms-agreement-3-content-show]="isServiceTermsOpen"
+          >
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <privacy-component></privacy-component>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="privacy-service-terms-agreement-4 d-flex justify-content-between">
+            <shared-checkbox
+              [text]="'auth.email.privacy-service-terms-agreement4' | translate"
+              [checked]="agreementMarketing"
+              shape="none"
+              (click)="checkTerms('marketing')"
+            ></shared-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div
+            class="privacy-service-terms-confirm shared-button-primary"
+            (click)="hidePopup('popup-privacy-service-terms')">
+            <div>{{ 'auth.email.privacy-service-terms-confirm' | translate }}</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
