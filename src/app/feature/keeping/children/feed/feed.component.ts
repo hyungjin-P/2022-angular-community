@@ -35,6 +35,7 @@ export class FeedComponent implements OnInit {
   ngOnInit() {
     this.variables = this.globalService.variables
     this.user = this.storageService.getUser()
+    console.log('accessToken of user : ', this.user.accessToken);
 
     if (this.user) {
       this.getFeedList()
