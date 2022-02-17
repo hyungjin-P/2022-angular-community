@@ -15,11 +15,16 @@ export class AuthGuard implements CanActivate {
     const url = state.url.split('/')
     const user = this.storageService.getUser()
 
+    console.log('---------------------');
+    console.log('canActivate : ', user);
+    console.log('access url  : ', url);
+    console.log('---------------------');
+
     if (user) {
       if (url[1] === 'auth') {
         if (
           url[2] === 'service-terms' &&
-          (!user.agreement_age || !user.agreement_privacy || !user.agreement_service_terms)
+          (!user.agreementAge || !user.agreementPrivacy || !user.agreementServiceTerms)
         ) {
           return true
         } else {
@@ -33,7 +38,7 @@ export class AuthGuard implements CanActivate {
       if (url[1] === 'auth') {
         return true
       } else {
-        this.router.navigateByUrl('/auth/login')
+        this.router.navigateByUrl('/auth/login').then();
         return false
       }
     }

@@ -54,46 +54,63 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.email = ''
-    this.emailValid = false
-    this.emailErrorText = ''
+    /* form 초기화 */
+    this.email = '';
+    this.emailValid = false;
+    this.emailErrorText = '';
+    this.password = '';
+    this.passwordValid = false;
+    this.passwordErrorText = '';
+    this.passwordVisible = false;
 
-    this.password = ''
-    this.passwordValid = false
-    this.passwordErrorText = ''
-    this.passwordVisible = false
+    this.angularFireAuth
+      .setPersistence('session')
+      .then(r => {
+        console.log('persistence :', r);
+      });
 
-    this.angularFireAuth.setPersistence('session').then(r => { console.log('persistence :', r)})
-
+    /** SNS 로그인 Subscriber */
     this.subscription = this.angularFireAuth.authState.subscribe((user) => {
+      /**
+       * signInMethod 구분
+       * google, meta, apple => firebase 통해서 로그인
+       * */
+      console.log('this.signInMethod : ', this.signInMethod);
       if (user) {
-        if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
+        if (this.signInMethod === 'google'
+          || this.signInMethod === 'facebook'
+          || this.signInMethod === 'apple') {
+
           user.getIdToken().then((accessToken) => {
-            this.authService.signInWithFirebase({accessToken}).subscribe(
-              (user: User) => {
-                this.storageService.setUser(user)
-                this.router.navigateByUrl('/auth/service-terms')
-              },
-              (e) => {
-                this.globalService.showToast(e.message)
-              }
-            )
+            this.authService
+              .signInWithFirebase({accessToken})
+              .subscribe((user: User) => {
+                  this.storageService.setUser(user);
+                  this.router.navigateByUrl('/auth/service-terms').then();
+                },
+                (e) => {
+                  this.globalService.showToast(e.message);
+                });
           })
         } else {
-          if (this.signInMethod == 'kakao' || this.signInMethod == 'naver') {
-            this.router.navigateByUrl('/auth/service-terms').then();
+          if (this.signInMethod === 'kakao' || this.signInMethod === 'naver') {
+            this.router
+              .navigateByUrl('/auth/service-terms')
+              .then();
           } else {
-            this.router.navigateByUrl('/').then();
+            this.router
+              .navigateByUrl('/')
+              .then();
           }
         }
       }
-    })
+    });
 
     if (!Kakao.isInitialized()) {
-      Kakao.init(`${environment.kakao['appKey']['javascript']}`)
+      Kakao.init(`${environment.kakao.appKey.javascript}`);
     }
 
-    this.selectedLanguage = localStorage.getItem('language')
+    this.selectedLanguage = localStorage.getItem('language');
   }
 
   ngOnDestroy() {
@@ -108,19 +125,31 @@ export class LoginComponent implements OnInit, OnDestroy {
   /** 구글 로그인 */
   signInWithGoogle() {
     this.signInMethod = 'google'
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then();
+    this.angularFireAuth
+      .signInWithPopup(new firebase.default.auth.GoogleAuthProvider())
+      .then(r => {
+        console.log('google login result : ', r);
+      });
   }
 
   /** 페이스북 로그인 */
   signInWithFacebook() {
     this.signInMethod = 'facebook'
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.FacebookAuthProvider()).then();
+    this.angularFireAuth
+      .signInWithPopup(new firebase.default.auth.FacebookAuthProvider())
+      .then(r => {
+        console.log('result : ', r);
+      });
   }
 
   /** 애플 로그인 */
   signInWithApple() {
     this.signInMethod = 'apple'
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.OAuthProvider('apple.com'))
+    this.angularFireAuth
+      .signInWithPopup(new firebase.default.auth.OAuthProvider('apple.com'))
+      .then(r => {
+        console.log('apple login result : ', r);
+      })
   }
 
   /** 카카오 로그인 */
@@ -145,7 +174,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         const accessToken = user['access_token']
         this.authService.signInWithKakao({accessToken}).subscribe((user: User) => {
           this.storageService.setUser(user)
-          this.angularFireAuth.signInWithCustomToken(user.custom_token)
+          this.angularFireAuth.signInWithCustomToken(user.customToken)
         })
       },
       (e) => {
@@ -156,15 +185,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /** 네이버 로그인 */
   signInWithNaver(): void {
-    this.signInMethod = 'naver'
+    this.signInMethod = 'naver';
 
-    let width = 504
-    let height = 642
-    let top = (window.outerHeight - height) / 2 + screenY
-    let left = (window.outerWidth - width) / 2 + screenX
+    let width = 504;
+    let height = 642;
+    let top = (window.outerHeight - height) / 2 + screenY;
+    let left = (window.outerWidth - width) / 2 + screenX;
 
-    let clientId = environment.naver['clientId']
-    let redirectUri = environment.naver['redirectUri']
+    let clientId = environment.naver.clientId;
+    let redirectUri = environment.naver.redirectUri;
 
     this.naverLoginPopupWindowRef = window.open(
       `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`,
@@ -176,56 +205,63 @@ export class LoginComponent implements OnInit, OnDestroy {
   _signInWithNaver(code: string) {
     this.naverLoginPopupWindowRef.close()
 
-    this.authService.signWithNaver({code: code}).subscribe(
-      (user: User) => {
-        this.storageService.setUser(user)
-        this.angularFireAuth.signInWithCustomToken(user.custom_token)
-      },
-      (e) => {
-        this.globalService.showToast(e.message)
-      }
-    )
+    this.authService.signWithNaver({code: code})
+      .subscribe((user: User) => {
+          this.storageService.setUser(user)
+          this.angularFireAuth.signInWithCustomToken(user.customToken)
+        },
+        (e) => {
+          this.globalService.showToast(e.message)
+        }
+      )
   }
 
-  /** */
   async signInWithEmail() {
     if (!this.formCheck()) {
-      return
+      return;
     }
 
     this.signInMethod = 'email';
+
+    /** 이메일 로그인 */
     this.authService
-      .signInWithEmail({email: this.email, password: this.password})
+      .signInWithEmail({
+        providedId: this.email,
+        password: this.password
+      })
       .subscribe((user: User) => {
-        this.storageService.setUser(user)
-        this.angularFireAuth.signInWithCustomToken(user.custom_token)
+        console.log('access token : ', user.accessToken);
+        console.log('custom token : ', user.customToken);
+
+        this.storageService.setUser(user);
+        this.angularFireAuth.signInWithCustomToken(user.customToken);
       },
       (e) => {
-        this.globalService.showToast(e.message)
-      }
-    )
+        this.globalService.showToast(e.message);
+      });
   }
 
   /** enter, email, tab, password */
   onKeyup(event, type) {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       if (this.formCheck()) {
-        this.signInWithEmail().then(r => {});
+        this.signInWithEmail().then(r => {
+        });
       }
     } else {
-      if (event.key != 'Tab' && type == 'email') {
-        this.checkEmailPattern(this.email)
-      } else if (event.key != 'Tab' && type == 'password') {
-        this.checkPasswordPattern(this.password)
+      if (event.key !== 'Tab' && type === 'email') {
+        this.checkEmailPattern(this.email);
+      } else if (event.key !== 'Tab' && type === 'password') {
+        this.checkPasswordPattern(this.password);
       }
     }
   }
 
   formCheck() {
-    let isValid = false
+    let isValid = false;
 
     if (this.checkEmailPattern(this.email) && this.checkPasswordPattern(this.password)) {
-      isValid = true
+      isValid = true;
     }
 
     return isValid
@@ -235,19 +271,19 @@ export class LoginComponent implements OnInit, OnDestroy {
    * email 패턴 체크
    * */
   checkEmailPattern(email: string) {
-    let isValid = false
+    let isValid = false;
 
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
     // 이메일 규칙 체크
     if (emailRegex.test(email)) {
-      isValid = true
-      this.emailValid = true
-      this.emailErrorText = ''
+      isValid = true;
+      this.emailValid = true;
+      this.emailErrorText = '';
     } else {
-      this.emailValid = false
+      this.emailValid = false;
       // 규칙에 맞는 이메일 주소를 입력해 주세요.
-      this.emailErrorText = this.textService.getText('auth:login:001')
+      this.emailErrorText = this.textService.getText('auth:login:001');
     }
 
     return isValid
@@ -259,10 +295,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   checkPasswordPattern(password: string) {
     let isValid = false
 
-    const pattern1 = /[0-9]/
-    const pattern2 = /[a-zA-Z]/
-    const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/
-    const pattern4 = /\s/
+    const pattern1 = /[0-9]/;
+    const pattern2 = /[a-zA-Z]/;
+    const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
+    const pattern4 = /\s/;
 
     if (
       pattern1.test(password) &&
@@ -271,24 +307,24 @@ export class LoginComponent implements OnInit, OnDestroy {
       8 <= password.length &&
       password.length <= 15
     ) {
-      isValid = true
-      this.passwordValid = true
-      this.passwordErrorText = ''
+      isValid = true;
+      this.passwordValid = true;
+      this.passwordErrorText = '';
     } else if (pattern4.test(password)) {
-      this.passwordValid = false
+      this.passwordValid = false;
       // 비밀번호에 공백을 제외하고 입력해주세요.
-      this.passwordErrorText = this.textService.getText('auth:login:002')
+      this.passwordErrorText = this.textService.getText('auth:login:002');
     } else if (password.length < 8) {
-      this.passwordValid = false
+      this.passwordValid = false;
       // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
-      this.passwordErrorText = this.textService.getText('auth:login:003')
+      this.passwordErrorText = this.textService.getText('auth:login:003');
     } else if (!pattern1.test(password) || !pattern2.test(password)) {
-      this.passwordValid = false
+      this.passwordValid = false;
       // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
-      this.passwordErrorText = this.textService.getText('auth:login:003')
+      this.passwordErrorText = this.textService.getText('auth:login:003');
     }
 
-    return isValid
+    return isValid;
   }
 
   changePasswordVisible() {

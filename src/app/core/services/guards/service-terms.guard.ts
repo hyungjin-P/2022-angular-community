@@ -12,7 +12,7 @@ export class ServiceTermsGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const user = this.storageService.getUser()
 
-        if (user && (!user.agreement_age || !user.agreement_privacy || !user.agreement_service_terms)) {
+        if (user && (!user.agreementAge || !user.agreementPrivacy || !user.agreementServiceTerms)) {
             this.router.navigateByUrl('/auth/service-terms')
             return false
         } else {

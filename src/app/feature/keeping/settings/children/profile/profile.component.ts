@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
         this.currentPicture = this.user.picture?.length == 0 ? null : this.user.picture[0]['url']
         this.currentNickname = this.user.nickname
         this.checkNickname()
-        this.currentAboutMeText = this.user.about_me ? this.user.about_me : ''
+        this.currentAboutMeText = this.user.aboutMe ? this.user.aboutMe : ''
         // 최대 30자까지 간단 소개글을 입력해 주세요.
         this.aboutMeInfoText = this.textService.getText('settings:profile:001')
         this.aboutMeErrorText = ''
@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
             .subscribe(
                 (user: User) => {
                     this.user.nickname = user.nickname
-                    this.user.about_me = user.about_me
+                    this.user.aboutMe = user.aboutMe
                     this.storageService.setUser(this.user)
 
                     // 프로필이 수정되었습니다.

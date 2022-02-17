@@ -31,6 +31,7 @@ export class AuthService {
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
+        console.log('firebase login : ', res);
         return res.dataset[0]
       }),
       catchError(handleError)
@@ -80,11 +81,12 @@ export class AuthService {
   }
 
   /**
-   * email 인증
+   * email login
    * => 수정중임
    * */
   signInWithEmail(requestBody: SignInWithEmailRequestBody): Observable<User> {
-    const url = environment['serverAddress'] + '/auth/login'
+    // const url = environment['serverAddress'] + '/auth/login'
+    const url = environment.userApiAddress + '/auth/signIn';
 
     const options = {
       headers: new HttpHeaders({
@@ -92,9 +94,10 @@ export class AuthService {
       }),
     }
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res.dataset[0]
+    return this.http.post<User>(url, requestBody, options).pipe(
+      map((response) => {
+        console.log('email login res : ', response);
+        return response;
       }),
       catchError(handleError)
     )
@@ -145,11 +148,8 @@ export class AuthService {
    * 수정완료
    * */
   sendVerificationCodeMail(requestBody: SendVerificationCodeMailRequestBody): Observable<Response> {
-    console.log('sendVerificationCodeMail > requestBody : ', requestBody);
-
-    /* old source */
-    // const url = environment['serverAddress'] + '/auth/send-verification-code-mail'
-    const url = environment.userApiAddress + `/user/sendVerifiedCodeMail?emailAddress=${requestBody.email}&language=${requestBody.lang}`;
+    const url = environment.userApiAddress +
+      `/user/sendVerifiedCodeMail?emailAddress=${requestBody.email}&language=${requestBody.lang}`;
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -345,7 +345,7 @@ class SignInWithNaverRequestBody {
 }
 
 class SignInWithEmailRequestBody {
-  email: string
+  providedId: string
   password: string
 }
 
@@ -368,13 +368,13 @@ class CheckVerificationCodeMailRequestBody {
 }
 
 class RegistrationRequestBody {
-  email: string
-  verificationCode: number
-  password: string
-  agreementAge: boolean
-  agreementPrivacy: boolean
-  agreementServiceTerms: boolean
-  agreementMarketing: boolean
+  email: string;
+  verificationCode: number;
+  password: string;
+  agreementAge: boolean;
+  agreementPrivacy: boolean;
+  agreementServiceTerms: boolean;
+  agreementMarketing: boolean;
 }
 
 class SendResetPasswordLinkMailRequestBody {

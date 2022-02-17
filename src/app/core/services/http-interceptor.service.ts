@@ -16,7 +16,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             let accessToken = 'none'
             const user = this.storageService.getUser()
             if (user) {
-                accessToken = user.access_token
+                accessToken = user.accessToken
             }
 
             const request: HttpRequest<any> = req.clone({
