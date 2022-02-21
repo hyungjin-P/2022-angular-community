@@ -1,208 +1,208 @@
-import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable } from 'rxjs'
-import { catchError, map } from 'rxjs/operators'
+import {Injectable} from '@angular/core'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
+import {Observable} from 'rxjs'
+import {catchError, map} from 'rxjs/operators'
 import handleError from './handleError'
 
-import { environment } from '@environments/environment'
+import {environment} from '@environments/environment'
 
-import { Response } from '@schemas/response'
-import { User } from '@schemas/user'
-import { File } from '@schemas/file'
+import {Response} from '@schemas/response'
+import {User} from '@schemas/user'
+import {File} from '@schemas/file'
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class UserService {
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-    getUser(userId: string): Observable<User> {
-        const url = environment['serverAddress'] + `/users/${userId}`
+  getUser(userId: string): Observable<User> {
+    const url = environment['serverAddress'] + `/users/${userId}`
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
-
-        return this.http.get<Response>(url, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    updateUser(userId: string, requestBody: UpdateUserRequestBody): Observable<User> {
-        const url = environment['serverAddress'] + `/users/${userId}`
+    return this.http.get<Response>(url, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                Accept: 'application/json',
-            }),
-        }
+  updateUser(userId: string, requestBody: UpdateUserRequestBody): Observable<User> {
+    const url = environment['serverAddress'] + `/users/${userId}`
 
-        return this.http.put<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
     }
 
-    deleteUser(userId: string, reasons: DeleteUserRequestBody): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}`
+    return this.http.put<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res.dataset[0]
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-            body: reasons,
-        }
-
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+  deleteUser(userId: string, reasons: DeleteUserRequestBody): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: reasons,
     }
 
-    changePassword(userId: string, requestBody: ChangePasswordRequestBody): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/change-password`
+     return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  changePassword(userId: string, requestBody: ChangePasswordRequestBody): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}/change-password`
 
-        return this.http.put<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    checkDuplicateNickname(userId: string, requestBody: CheckDuplicateNicknameRequestBody): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/check-duplicate-nickname`
+    return this.http.put<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  checkDuplicateNickname(userId: string, requestBody: CheckDuplicateNicknameRequestBody): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}/check-duplicate-nickname`
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    createUserPicture(userId: string, requestBody: CreateUserPictureRequestBody): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/picture`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  createUserPicture(userId: string, requestBody: CreateUserPictureRequestBody): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}/picture`
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    deleteUserPicture(userId: string, fileUrl: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/picture/${encodeURIComponent(fileUrl)}`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteUserPicture(userId: string, fileUrl: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}/picture/${encodeURIComponent(fileUrl)}`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    createUserBackground(userId: string, requestBody: CreateUserBackgroundRequestBody): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/background`
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  createUserBackground(userId: string, requestBody: CreateUserBackgroundRequestBody): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}/background`
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
 
-    deleteUserBackground(userId: string, fileUrl: string): Observable<Response> {
-        const url = environment['serverAddress'] + `/users/${userId}/background/${encodeURIComponent(fileUrl)}`
+    return this.http.post<Response>(url, requestBody, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
+  deleteUserBackground(userId: string, fileUrl: string): Observable<Response> {
+    const url = environment['serverAddress'] + `/users/${userId}/background/${encodeURIComponent(fileUrl)}`
 
-        return this.http.delete<Response>(url, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     }
+
+    return this.http.delete<Response>(url, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
 }
 
 class UpdateUserRequestBody {
-    name?: string
-    nickname?: string
-    age?: number
-    sex?: string
-    birth_date?: string
-    color?: string
-    about_me?: string
-    fcm_token?: string
-    agreement_age?: boolean
-    agreement_privacy?: boolean
-    agreement_service_terms?: boolean
-    agreement_marketing?: boolean
+  name?: string
+  nickname?: string
+  age?: number
+  sex?: string
+  birth_date?: string
+  color?: string
+  about_me?: string
+  fcm_token?: string
+  agreement_age?: boolean
+  agreement_privacy?: boolean
+  agreement_service_terms?: boolean
+  agreement_marketing?: boolean
 }
 
 class DeleteUserRequestBody {
-    reasons: Array<any>
+  reasons: Array<any>
 }
 
 class ChangePasswordRequestBody {
-    password: string
-    new_password: string
+  password: string
+  new_password: string
 }
 
 class CheckDuplicateNicknameRequestBody {
-    nickname: string
+  nickname: string
 }
 
 class CreateUserPictureRequestBody {
-    files: Array<File>
+  files: Array<File>
 }
 
 class CreateUserBackgroundRequestBody {
-    files: Array<File>
+  files: Array<File>
 }

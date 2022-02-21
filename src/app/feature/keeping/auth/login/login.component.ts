@@ -65,9 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.angularFireAuth
       .setPersistence('session')
-      .then(r => {
-        console.log('persistence :', r);
-      });
+      .then(r => {});
 
     /** SNS 로그인 Subscriber */
     this.subscription = this.angularFireAuth.authState.subscribe((user) => {
@@ -75,7 +73,6 @@ export class LoginComponent implements OnInit, OnDestroy {
        * signInMethod 구분
        * google, meta, apple => firebase 통해서 로그인
        * */
-      console.log('this.signInMethod : ', this.signInMethod);
       if (user) {
         if (this.signInMethod === 'google'
           || this.signInMethod === 'facebook'

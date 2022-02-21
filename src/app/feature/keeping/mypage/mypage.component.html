@@ -1,191 +1,191 @@
 <div class="mypage full-absolute d-flex flex-column">
-    <header class="d-none d-lg-block" style="z-index: 1"></header>
+  <header class="d-none d-lg-block" style="z-index: 1"></header>
 
-    <div class="flex-fill" style="position: relative">
-        <ng-container *ngTemplateOutlet="mypage"></ng-container>
-    </div>
+  <div class="flex-fill" style="position: relative">
+    <ng-container *ngTemplateOutlet="mypage"></ng-container>
+  </div>
 </div>
 
 <div class="drawer-wrapper" [class.drawer-wrapper-open]="variables.isDrawerOpen" (click)="closeDrawer()"></div>
 <div class="drawer" [class.drawer-open]="variables.isDrawerOpen">
-    <drawer></drawer>
+  <drawer></drawer>
 </div>
 
 <ng-template #mypage>
-    <div class="full-absolute d-flex flex-column">
-        <div class="mobile-header d-lg-none">
-            <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
-            <div>{{ user.nickname || user.email || '' }}</div>
-<!--            <a class="notification">-->
-<!--                <svg class="svg-icon" viewBox="-2 -2 28.5 28.5">-->
-<!--                    <use xlink:href="assets/icons/header/notification.svg#icon" />-->
-<!--                </svg>-->
-<!--                <div class="dot"></div>-->
-<!--            </a>-->
-            <a class="settings" [routerLink]="['/settings']">
-                <svg class="svg-icon" viewBox="-2 -2 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10.7172 0C11.4735 0 12.1582 0.42 12.5363 1.04C12.7203 1.34 12.8429 1.71 12.8122 2.1C12.7918 2.4 12.8838 2.7 13.0473 2.98C13.5685 3.83 14.7233 4.15 15.6226 3.67C16.6344 3.09 17.9118 3.44 18.4943 4.43L19.179 5.61C19.7718 6.6 19.4447 7.87 18.4228 8.44C17.5541 8.95 17.2475 10.08 17.7687 10.94C17.9322 11.21 18.1162 11.44 18.4023 11.58C18.76 11.77 19.036 12.07 19.2301 12.37C19.6083 12.99 19.5776 13.75 19.2097 14.42L18.4943 15.62C18.1162 16.26 17.4111 16.66 16.6855 16.66C16.3278 16.66 15.9292 16.56 15.6022 16.36C15.3365 16.19 15.0299 16.13 14.7029 16.13C13.6911 16.13 12.8429 16.96 12.8122 17.95C12.8122 19.1 11.872 20 10.6968 20H9.30693C8.12146 20 7.18125 19.1 7.18125 17.95C7.16082 16.96 6.31259 16.13 5.30085 16.13C4.96361 16.13 4.65702 16.19 4.40153 16.36C4.0745 16.56 3.66572 16.66 3.31826 16.66C2.58245 16.66 1.8773 16.26 1.49917 15.62L0.79402 14.42C0.415896 13.77 0.395456 12.99 0.773581 12.37C0.937094 12.07 1.24368 11.77 1.59115 11.58C1.8773 11.44 2.06125 11.21 2.23498 10.94C2.74596 10.08 2.43937 8.95 1.57071 8.44C0.55897 7.87 0.231943 6.6 0.814459 5.61L1.49917 4.43C2.09191 3.44 3.35913 3.09 4.38109 3.67C5.27019 4.15 6.42501 3.83 6.9462 2.98C7.10972 2.7 7.20169 2.4 7.18125 2.1C7.16082 1.71 7.27323 1.34 7.4674 1.04C7.84553 0.42 8.53024 0.02 9.27627 0H10.7172ZM10.0121 7.18C8.4076 7.18 7.10972 8.44 7.10972 10.01C7.10972 11.58 8.4076 12.83 10.0121 12.83C11.6166 12.83 12.8838 11.58 12.8838 10.01C12.8838 8.44 11.6166 7.18 10.0121 7.18Z"
-                    />
-                </svg>
-            </a>
-        </div>
-        <div class="flex-fill" style="position: relative">
-            <div class="section full-absolute scroll-y">
-                <div class="background">
-                    <div [class.empty-background-show]="user.background.length == 0">
-                        <a class="add-button" (click)="background.click()">
-                            <div class="line-1"></div>
-                            <div class="line-2"></div>
-                        </a>
-                        <div class="add-button-text">
-                            {{ 'mypage.add-button-text' | translate }}
-                        </div>
-                        <input type="file" accept="image/*" #background (change)="onChangeFile(background)" hidden />
-                    </div>
-                    <div [class.background-show]="user.background.length > 0">
-                        <img [src]="user.background[0]?.url" />
-                        <a class="edit-button" (click)="changeBackgroundEditMode(true)">
-                            <div class="mdi mdi-camera-outline"></div>
-                            <div class="edit-button-text">{{ 'mypage.edit-button-text' | translate }}</div>
-                        </a>
-                        <div class="edit-mode" (click)="changeBackgroundEditMode(false)" *ngIf="backgroundEditMode">
-                            <div class="edit-mode-text">
-                                {{ 'mypage.edit-button-text' | translate }}
-                            </div>
-                            <div class="edit-mode-button-group" (click)="$event.stopPropagation()">
-                                <div class="edit-mode-choose-button" (click)="newBackground.click()">
-                                    {{ 'mypage.choose-button-text' | translate }}
-                                </div>
-                                <div
-                                    class="edit-mode-delete-button"
-                                    (click)="deleteBackground(user.background[0]['url'])"
-                                >
-                                    {{ 'mypage.delete-button-text' | translate }}
-                                </div>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    #newBackground
-                                    (change)="changeBackground(newBackground)"
-                                    hidden
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-lg-none">
-                    <div class="profile">
-                        <div>
-                            <div class="avatar">
-                                <shared-avatar
-                                    [image]="globalUser.picture?.url"
-                                    text="{{ user.email }}"
-                                    size="74"
-                                    fontSize="30"
-                                ></shared-avatar>
-                            </div>
-                            <div class="info">
-                                <div class="nickname">{{ user.nickname || user.email || '' }}</div>
-                                <div>
-                                    <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
-                                        <img src="assets/icons/social/kakao_2.png" />
-                                    </div>
-                                    <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
-                                        <img src="assets/icons/social/naver.png" />
-                                    </div>
-                                    <div class="social social-google" *ngIf="user.provider == 'google.com'">
-                                        <img src="assets/icons/social/google.png" />
-                                    </div>
-                                    <span class="email">{{ user.email || '' }}</span>
-                                </div>
-                                <div class="follow">
-                                    <div class="following">{{ 'mypage.following-text' | translate }}</div>
-                                    <div>999+</div>
-                                    <div class="v-line"></div>
-                                    <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
-                                    <div>999+</div>
-                                </div>
-                                <a
-                                    class="shared-button shared-button-outline edit-profile-button"
-                                    [routerLink]="['/settings/profile']"
-                                    >{{ 'mypage.edit-profile-button-text' | translate }}</a
-                                >
-                            </div>
-                        </div>
-                        <div class="about-me scroll-y">
-                            {{ user.about_me }}
-                        </div>
-                    </div>
-                    <div class="empty">
-                        <div class="empty-text-1">{{ 'mypage.empty-text-1' | translate }}</div>
-                        <div class="empty-text-2">{{ 'mypage.empty-text-2' | translate }}</div>
-                        <div class="empty-text-3">{{ 'mypage.empty-text-3' | translate }}</div>
-                        <a class="write shared-button-primary" [routerLink]="['/write']">
-                            <img src="assets/icons/header/pencil.svg" />
-                            <span>{{ 'mypage.write' | translate }}</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="d-none d-lg-block">
-                    <div class="box">
-                        <div class="left-side">
-                            <div class="avatar">
-                                <shared-avatar
-                                    [image]="globalUser.picture?.url"
-                                    text="{{ user.email }}"
-                                    size="80"
-                                    fontSize="30"
-                                ></shared-avatar>
-                            </div>
-                            <a class="settings" [routerLink]="['/settings/profile']">
-                                <svg
-                                    class="svg-icon"
-                                    viewBox="-1 -1 22 22"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M10.7172 0C11.4735 0 12.1582 0.42 12.5363 1.04C12.7203 1.34 12.8429 1.71 12.8122 2.1C12.7918 2.4 12.8838 2.7 13.0473 2.98C13.5685 3.83 14.7233 4.15 15.6226 3.67C16.6344 3.09 17.9118 3.44 18.4943 4.43L19.179 5.61C19.7718 6.6 19.4447 7.87 18.4228 8.44C17.5541 8.95 17.2475 10.08 17.7687 10.94C17.9322 11.21 18.1162 11.44 18.4023 11.58C18.76 11.77 19.036 12.07 19.2301 12.37C19.6083 12.99 19.5776 13.75 19.2097 14.42L18.4943 15.62C18.1162 16.26 17.4111 16.66 16.6855 16.66C16.3278 16.66 15.9292 16.56 15.6022 16.36C15.3365 16.19 15.0299 16.13 14.7029 16.13C13.6911 16.13 12.8429 16.96 12.8122 17.95C12.8122 19.1 11.872 20 10.6968 20H9.30693C8.12146 20 7.18125 19.1 7.18125 17.95C7.16082 16.96 6.31259 16.13 5.30085 16.13C4.96361 16.13 4.65702 16.19 4.40153 16.36C4.0745 16.56 3.66572 16.66 3.31826 16.66C2.58245 16.66 1.8773 16.26 1.49917 15.62L0.79402 14.42C0.415896 13.77 0.395456 12.99 0.773581 12.37C0.937094 12.07 1.24368 11.77 1.59115 11.58C1.8773 11.44 2.06125 11.21 2.23498 10.94C2.74596 10.08 2.43937 8.95 1.57071 8.44C0.55897 7.87 0.231943 6.6 0.814459 5.61L1.49917 4.43C2.09191 3.44 3.35913 3.09 4.38109 3.67C5.27019 4.15 6.42501 3.83 6.9462 2.98C7.10972 2.7 7.20169 2.4 7.18125 2.1C7.16082 1.71 7.27323 1.34 7.4674 1.04C7.84553 0.42 8.53024 0.02 9.27627 0H10.7172ZM10.0121 7.18C8.4076 7.18 7.10972 8.44 7.10972 10.01C7.10972 11.58 8.4076 12.83 10.0121 12.83C11.6166 12.83 12.8838 11.58 12.8838 10.01C12.8838 8.44 11.6166 7.18 10.0121 7.18Z"
-                                    />
-                                </svg>
-                            </a>
-                            <div class="nickname">{{ user.nickname || user.email || '' }}</div>
-                            <div>
-                                <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
-                                    <img src="assets/icons/social/kakao_2.png" />
-                                </div>
-                                <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
-                                    <img src="assets/icons/social/naver.png" />
-                                </div>
-                                <div class="social social-google" *ngIf="user.provider == 'google.com'">
-                                    <img src="assets/icons/social/google.png" />
-                                </div>
-                                <span class="email">{{ user.email || '' }}</span>
-                            </div>
-                            <div class="follow">
-                                <div class="following">{{ 'mypage.following-text' | translate }}</div>
-                                <div>999+</div>
-                                <div class="v-line"></div>
-                                <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
-                                <div>999+</div>
-                            </div>
-                            <div class="about-me scroll-y">
-                                {{ user.about_me }}
-                            </div>
-                            <a
-                                class="shared-button shared-button-outline edit-profile-button"
-                                [routerLink]="['/settings/profile']"
-                                >{{ 'mypage.edit-profile-button-text' | translate }}</a
-                            >
-                        </div>
-                        <div class="right-side flex-fill d-flex flex-column">
-                            <div class="write"></div>
-                            <div class="items"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="full-absolute d-flex flex-column">
+    <div class="mobile-header d-lg-none">
+      <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
+      <div>{{ user.nickname || user.email || '' }}</div>
+      <!--            <a class="notification">-->
+      <!--                <svg class="svg-icon" viewBox="-2 -2 28.5 28.5">-->
+      <!--                    <use xlink:href="assets/icons/header/notification.svg#icon" />-->
+      <!--                </svg>-->
+      <!--                <div class="dot"></div>-->
+      <!--            </a>-->
+      <a class="settings" [routerLink]="['/settings']">
+        <svg class="svg-icon" viewBox="-2 -2 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10.7172 0C11.4735 0 12.1582 0.42 12.5363 1.04C12.7203 1.34 12.8429 1.71 12.8122 2.1C12.7918 2.4 12.8838 2.7 13.0473 2.98C13.5685 3.83 14.7233 4.15 15.6226 3.67C16.6344 3.09 17.9118 3.44 18.4943 4.43L19.179 5.61C19.7718 6.6 19.4447 7.87 18.4228 8.44C17.5541 8.95 17.2475 10.08 17.7687 10.94C17.9322 11.21 18.1162 11.44 18.4023 11.58C18.76 11.77 19.036 12.07 19.2301 12.37C19.6083 12.99 19.5776 13.75 19.2097 14.42L18.4943 15.62C18.1162 16.26 17.4111 16.66 16.6855 16.66C16.3278 16.66 15.9292 16.56 15.6022 16.36C15.3365 16.19 15.0299 16.13 14.7029 16.13C13.6911 16.13 12.8429 16.96 12.8122 17.95C12.8122 19.1 11.872 20 10.6968 20H9.30693C8.12146 20 7.18125 19.1 7.18125 17.95C7.16082 16.96 6.31259 16.13 5.30085 16.13C4.96361 16.13 4.65702 16.19 4.40153 16.36C4.0745 16.56 3.66572 16.66 3.31826 16.66C2.58245 16.66 1.8773 16.26 1.49917 15.62L0.79402 14.42C0.415896 13.77 0.395456 12.99 0.773581 12.37C0.937094 12.07 1.24368 11.77 1.59115 11.58C1.8773 11.44 2.06125 11.21 2.23498 10.94C2.74596 10.08 2.43937 8.95 1.57071 8.44C0.55897 7.87 0.231943 6.6 0.814459 5.61L1.49917 4.43C2.09191 3.44 3.35913 3.09 4.38109 3.67C5.27019 4.15 6.42501 3.83 6.9462 2.98C7.10972 2.7 7.20169 2.4 7.18125 2.1C7.16082 1.71 7.27323 1.34 7.4674 1.04C7.84553 0.42 8.53024 0.02 9.27627 0H10.7172ZM10.0121 7.18C8.4076 7.18 7.10972 8.44 7.10972 10.01C7.10972 11.58 8.4076 12.83 10.0121 12.83C11.6166 12.83 12.8838 11.58 12.8838 10.01C12.8838 8.44 11.6166 7.18 10.0121 7.18Z"
+          />
+        </svg>
+      </a>
     </div>
+    <div class="flex-fill" style="position: relative">
+      <div class="section full-absolute scroll-y">
+        <div class="background">
+          <div [class.empty-background-show]="user.background.length == 0">
+            <a class="add-button" (click)="background.click()">
+              <div class="line-1"></div>
+              <div class="line-2"></div>
+            </a>
+            <div class="add-button-text">
+              {{ 'mypage.add-button-text' | translate }}
+            </div>
+            <input type="file" accept="image/*" #background (change)="onChangeFile(background)" hidden/>
+          </div>
+          <div [class.background-show]="user.background.length > 0">
+            <img [src]="user.background[0]?.url"/>
+            <a class="edit-button" (click)="changeBackgroundEditMode(true)">
+              <div class="mdi mdi-camera-outline"></div>
+              <div class="edit-button-text">{{ 'mypage.edit-button-text' | translate }}</div>
+            </a>
+            <div class="edit-mode" (click)="changeBackgroundEditMode(false)" *ngIf="backgroundEditMode">
+              <div class="edit-mode-text">
+                {{ 'mypage.edit-button-text' | translate }}
+              </div>
+              <div class="edit-mode-button-group" (click)="$event.stopPropagation()">
+                <div class="edit-mode-choose-button" (click)="newBackground.click()">
+                  {{ 'mypage.choose-button-text' | translate }}
+                </div>
+                <div
+                  class="edit-mode-delete-button"
+                  (click)="deleteBackground(user.background[0]['url'])"
+                >
+                  {{ 'mypage.delete-button-text' | translate }}
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  #newBackground
+                  (change)="changeBackground(newBackground)"
+                  hidden
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-lg-none">
+          <div class="profile">
+            <div>
+              <div class="avatar">
+                <shared-avatar
+                  [image]="globalUser.picture?.url"
+                  text="{{ user.email }}"
+                  size="74"
+                  fontSize="30"
+                ></shared-avatar>
+              </div>
+              <div class="info">
+                <div class="nickname">{{ user.nickname || user.email || '' }}</div>
+                <div>
+                  <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
+                    <img src="assets/icons/social/kakao_2.png"/>
+                  </div>
+                  <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
+                    <img src="assets/icons/social/naver.png"/>
+                  </div>
+                  <div class="social social-google" *ngIf="user.provider == 'google.com'">
+                    <img src="assets/icons/social/google.png"/>
+                  </div>
+                  <span class="email">{{ user.email || '' }}</span>
+                </div>
+                <div class="follow">
+                  <div class="following">{{ 'mypage.following-text' | translate }}</div>
+                  <div>999+</div>
+                  <div class="v-line"></div>
+                  <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
+                  <div>999+</div>
+                </div>
+                <a
+                  class="shared-button shared-button-outline edit-profile-button"
+                  [routerLink]="['/settings/profile']"
+                >{{ 'mypage.edit-profile-button-text' | translate }}</a
+                >
+              </div>
+            </div>
+            <div class="about-me scroll-y">
+              {{ user.aboutMe }}
+            </div>
+          </div>
+          <div class="empty">
+            <div class="empty-text-1">{{ 'mypage.empty-text-1' | translate }}</div>
+            <div class="empty-text-2">{{ 'mypage.empty-text-2' | translate }}</div>
+            <div class="empty-text-3">{{ 'mypage.empty-text-3' | translate }}</div>
+            <a class="write shared-button-primary" [routerLink]="['/write']">
+              <img src="assets/icons/header/pencil.svg"/>
+              <span>{{ 'mypage.write' | translate }}</span>
+            </a>
+          </div>
+        </div>
+        <div class="d-none d-lg-block">
+          <div class="box">
+            <div class="left-side">
+              <div class="avatar">
+                <shared-avatar
+                  [image]="globalUser.picture?.url"
+                  text="{{ user.email }}"
+                  size="80"
+                  fontSize="30"
+                ></shared-avatar>
+              </div>
+              <a class="settings" [routerLink]="['/settings/profile']">
+                <svg
+                  class="svg-icon"
+                  viewBox="-1 -1 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.7172 0C11.4735 0 12.1582 0.42 12.5363 1.04C12.7203 1.34 12.8429 1.71 12.8122 2.1C12.7918 2.4 12.8838 2.7 13.0473 2.98C13.5685 3.83 14.7233 4.15 15.6226 3.67C16.6344 3.09 17.9118 3.44 18.4943 4.43L19.179 5.61C19.7718 6.6 19.4447 7.87 18.4228 8.44C17.5541 8.95 17.2475 10.08 17.7687 10.94C17.9322 11.21 18.1162 11.44 18.4023 11.58C18.76 11.77 19.036 12.07 19.2301 12.37C19.6083 12.99 19.5776 13.75 19.2097 14.42L18.4943 15.62C18.1162 16.26 17.4111 16.66 16.6855 16.66C16.3278 16.66 15.9292 16.56 15.6022 16.36C15.3365 16.19 15.0299 16.13 14.7029 16.13C13.6911 16.13 12.8429 16.96 12.8122 17.95C12.8122 19.1 11.872 20 10.6968 20H9.30693C8.12146 20 7.18125 19.1 7.18125 17.95C7.16082 16.96 6.31259 16.13 5.30085 16.13C4.96361 16.13 4.65702 16.19 4.40153 16.36C4.0745 16.56 3.66572 16.66 3.31826 16.66C2.58245 16.66 1.8773 16.26 1.49917 15.62L0.79402 14.42C0.415896 13.77 0.395456 12.99 0.773581 12.37C0.937094 12.07 1.24368 11.77 1.59115 11.58C1.8773 11.44 2.06125 11.21 2.23498 10.94C2.74596 10.08 2.43937 8.95 1.57071 8.44C0.55897 7.87 0.231943 6.6 0.814459 5.61L1.49917 4.43C2.09191 3.44 3.35913 3.09 4.38109 3.67C5.27019 4.15 6.42501 3.83 6.9462 2.98C7.10972 2.7 7.20169 2.4 7.18125 2.1C7.16082 1.71 7.27323 1.34 7.4674 1.04C7.84553 0.42 8.53024 0.02 9.27627 0H10.7172ZM10.0121 7.18C8.4076 7.18 7.10972 8.44 7.10972 10.01C7.10972 11.58 8.4076 12.83 10.0121 12.83C11.6166 12.83 12.8838 11.58 12.8838 10.01C12.8838 8.44 11.6166 7.18 10.0121 7.18Z"
+                  />
+                </svg>
+              </a>
+              <div class="nickname">{{ user.nickname || user.email || '' }}</div>
+              <div>
+                <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
+                  <img src="assets/icons/social/kakao_2.png"/>
+                </div>
+                <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
+                  <img src="assets/icons/social/naver.png"/>
+                </div>
+                <div class="social social-google" *ngIf="user.provider == 'google.com'">
+                  <img src="assets/icons/social/google.png"/>
+                </div>
+                <span class="email">{{ user.email || '' }}</span>
+              </div>
+              <div class="follow">
+                <div class="following">{{ 'mypage.following-text' | translate }}</div>
+                <div>999+</div>
+                <div class="v-line"></div>
+                <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
+                <div>999+</div>
+              </div>
+              <div class="about-me scroll-y">
+                {{ user.aboutMe }}
+              </div>
+              <a
+                class="shared-button shared-button-outline edit-profile-button"
+                [routerLink]="['/settings/profile']"
+              >{{ 'mypage.edit-profile-button-text' | translate }}</a
+              >
+            </div>
+            <div class="right-side flex-fill d-flex flex-column">
+              <div class="write"></div>
+              <div class="items"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>

@@ -82,10 +82,9 @@ export class AuthService {
 
   /**
    * email login
-   * => 수정중임
+   * 수정완료
    * */
   signInWithEmail(requestBody: SignInWithEmailRequestBody): Observable<User> {
-    // const url = environment['serverAddress'] + '/auth/login'
     const url = environment.userApiAddress + '/auth/signIn';
 
     const options = {
@@ -96,7 +95,6 @@ export class AuthService {
 
     return this.http.post<User>(url, requestBody, options).pipe(
       map((response) => {
-        console.log('email login res : ', response);
         return response;
       }),
       catchError(handleError)
@@ -125,7 +123,6 @@ export class AuthService {
    * 수정완료
    * */
   checkDuplicateMail(requestBody: CheckDuplicateMailRequestBody): Observable<any> {
-    // const url = environment['serverAddress'] + '/auth/check-duplicate-mail'
     const url = environment.userApiAddress + `/user/hasProvidedIdAndDeleteAtIsNull?providedId=${requestBody.email}`;
 
     const options = {
@@ -208,6 +205,10 @@ export class AuthService {
     )
   }
 
+  /**
+   *
+   *
+   */
   sendResetPasswordLinkMail(
     requestBody: SendResetPasswordLinkMailRequestBody
   ): Observable<Response> {
