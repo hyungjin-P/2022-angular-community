@@ -110,7 +110,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 const accessToken = user['access_token']
                 this.authService.signInWithKakao({ accessToken }).subscribe((user: User) => {
                     this.storageService.setUser(user)
-                    this.angularFireAuth.signInWithCustomToken(user.custom_token)
+                    this.angularFireAuth.signInWithCustomToken(user.customToken)
                 })
             },
             (e) => {
@@ -143,7 +143,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.authService.signWithNaver({ code: code }).subscribe(
             (user: User) => {
                 this.storageService.setUser(user)
-                this.angularFireAuth.signInWithCustomToken(user.custom_token)
+                this.angularFireAuth.signInWithCustomToken(user.customToken)
             },
             (e) => {
                 this.globalService.showToast(e.message)

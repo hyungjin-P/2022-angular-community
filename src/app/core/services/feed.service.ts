@@ -17,7 +17,8 @@ import { File } from '@schemas/file'
   providedIn: 'root',
 })
 export class FeedService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient) {}
 
   createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
     const url = environment['serverAddress'] + '/feed'

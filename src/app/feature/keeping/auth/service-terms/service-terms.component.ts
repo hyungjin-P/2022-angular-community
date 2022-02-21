@@ -63,10 +63,10 @@ export class ServiceTermsComponent implements OnInit {
                 (v) => {
                     this.user = {
                         ...this.user,
-                        agreement_age: this.agreementAge,
-                        agreement_privacy: this.agreementPrivacy,
-                        agreement_service_terms: this.agreementServiceTerms,
-                        agreement_marketing: this.agreementMarketing,
+                        agreementAge: this.agreementAge,
+                        agreementPrivacy: this.agreementPrivacy,
+                        agreementServiceTerms: this.agreementServiceTerms,
+                        agreementMarketing: this.agreementMarketing,
                     }
                     this.storageService.setUser(this.user)
 
