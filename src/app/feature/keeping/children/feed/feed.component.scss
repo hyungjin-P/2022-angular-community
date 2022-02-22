@@ -149,7 +149,7 @@
                     height: 185px;
                     background-color: var(--grey-8);
                     cursor: pointer;
-                    border-radius: 8px;
+                    border-radius: 12px;
 
                     img {
                         position: absolute;
@@ -160,7 +160,7 @@
                         transform: translate(50, 50);
                         object-fit: cover;
                         margin: auto;
-                        border-radius: 8px;
+                        border-radius: 12px;
                     }
 
                     .bookmark {
@@ -210,13 +210,13 @@
                 .user {
                     display: flex;
                     align-items: center;
-                    margin-top: 8px;
+                    margin-top: 12px;
                     height: 20px;
 
                     .nickname {
                         margin-left: 4px;
 
-                        @include textStyle(400, 12px, 20px);
+                        @include textStyle(400, 14px, 20px);
                         color: var(--text-1);
                     }
                 }
@@ -276,7 +276,7 @@
     }
 }
 
-@media (min-width: 414px) {
+@media (min-width: 360px) {
     .section {
         .item-list {
             margin: -15px -6px;
@@ -326,6 +326,7 @@
 
 @media (min-width: 768px) {
   .section {
+    background-color: #f6f7f9;
     .item-list {
       margin: -20px -6px;
 
@@ -443,8 +444,8 @@
     }
 
     .col-xxl-2-5 {
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
     }
 }
