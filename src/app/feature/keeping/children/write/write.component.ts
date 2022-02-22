@@ -140,9 +140,10 @@ export class WriteComponent implements OnInit, AfterViewInit {
       let createdFiles: Array<File> = await this.fileService
         .createFile(
           {
-            domain_name: 'public.keeping.link',
+            domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/feed`,
             tags: ['feed'],
+            userId: this.user.id,
           },
           files
         )

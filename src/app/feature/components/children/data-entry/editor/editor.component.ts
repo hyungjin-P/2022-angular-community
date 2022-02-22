@@ -191,9 +191,10 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             let createdFiles: Array<File> = await this.fileService
                 .createFile(
                     {
-                        domain_name: 'public.keeping.link',
+                        domainName: 'public.keeping.link',
                         path: `/users/${this.user.id}/post`,
                         tags: ['post'],
+                        userId: this.user.id,
                     },
                     files
                 )
@@ -375,9 +376,10 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             let createdFiles: Array<File> = await this.fileService
                 .createFile(
                     {
-                        domain_name: 'public.keeping.link',
+                        domainName: 'public.keeping.link',
                         path: `/users/${this.user.id}/post`,
                         tags: ['post'],
+                        userId: this.user.id,
                     },
                     files
                 )

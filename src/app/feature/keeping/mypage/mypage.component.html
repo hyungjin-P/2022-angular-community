@@ -6,22 +6,25 @@
   </div>
 </div>
 
-<div class="drawer-wrapper" [class.drawer-wrapper-open]="variables.isDrawerOpen" (click)="closeDrawer()"></div>
-<div class="drawer" [class.drawer-open]="variables.isDrawerOpen">
+<div class="drawer-wrapper"
+     [class.drawer-wrapper-open]="variables?.isDrawerOpen"
+     (click)="closeDrawer()"></div>
+<div class="drawer" [class.drawer-open]="variables?.isDrawerOpen">
   <drawer></drawer>
 </div>
 
 <ng-template #mypage>
   <div class="full-absolute d-flex flex-column">
     <div class="mobile-header d-lg-none">
-      <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
-      <div>{{ user.nickname || user.email || '' }}</div>
-      <!--            <a class="notification">-->
-      <!--                <svg class="svg-icon" viewBox="-2 -2 28.5 28.5">-->
-      <!--                    <use xlink:href="assets/icons/header/notification.svg#icon" />-->
-      <!--                </svg>-->
-      <!--                <div class="dot"></div>-->
-      <!--            </a>-->
+      <div class="mdi mdi-chevron-left"
+           (click)="goBack()"></div>
+      <div>{{ user?.nickname || user?.email || '' }}</div>
+      <a class="notification">
+        <svg class="svg-icon" viewBox="-2 -2 28.5 28.5">
+          <use xlink:href="assets/icons/header/notification.svg#icon"/>
+        </svg>
+        <div class="dot"></div>
+      </a>
       <a class="settings" [routerLink]="['/settings']">
         <svg class="svg-icon" viewBox="-2 -2 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -32,8 +35,9 @@
     </div>
     <div class="flex-fill" style="position: relative">
       <div class="section full-absolute scroll-y">
+        <!-- 상단 Background Image-->
         <div class="background">
-          <div [class.empty-background-show]="user.background.length == 0">
+          <div [class.empty-background-show]="user?.background?.length === 0">
             <a class="add-button" (click)="background.click()">
               <div class="line-1"></div>
               <div class="line-2"></div>
@@ -41,43 +45,85 @@
             <div class="add-button-text">
               {{ 'mypage.add-button-text' | translate }}
             </div>
-            <input type="file" accept="image/*" #background (change)="onChangeFile(background)" hidden/>
+            <input type="file"
+                   accept="image/*"
+                   #background
+                   (change)="onChangeFile(background)"
+                   hidden>
           </div>
-          <div [class.background-show]="user.background.length > 0">
-            <img [src]="user.background[0]?.url"/>
-            <a class="edit-button" (click)="changeBackgroundEditMode(true)">
+          <div [class.background-show]="user?.background?.length > 0">
+
+            <img [src]="user?.background[0]?.url" alt="user custom background image">
+
+            <!-- 배경이미지 바꾸기 -->
+            <a class="edit-button"
+               (click)="changeBackgroundEditMode(true)">
               <div class="mdi mdi-camera-outline"></div>
-              <div class="edit-button-text">{{ 'mypage.edit-button-text' | translate }}</div>
+              <div class="edit-button-text">
+                {{ 'mypage.edit-button-text' | translate }}
+              </div>
             </a>
-            <div class="edit-mode" (click)="changeBackgroundEditMode(false)" *ngIf="backgroundEditMode">
+
+            <!-- 배경이미지 바꾸기-->
+            <div class="edit-mode"
+                 (click)="changeBackgroundEditMode(false)"
+                 *ngIf="backgroundEditMode">
               <div class="edit-mode-text">
                 {{ 'mypage.edit-button-text' | translate }}
               </div>
-              <div class="edit-mode-button-group" (click)="$event.stopPropagation()">
-                <div class="edit-mode-choose-button" (click)="newBackground.click()">
+
+              <div class="edit-mode-button-group"
+                   (click)="$event.stopPropagation()">
+
+                <!-- 이미지 바꾸기 버튼 -->
+                <div class="edit-mode-choose-button"
+                     (click)="newBackground.click()">
                   {{ 'mypage.choose-button-text' | translate }}
                 </div>
+
+                <!-- 이미지 제거 -->
                 <div
                   class="edit-mode-delete-button"
-                  (click)="deleteBackground(user.background[0]['url'])"
-                >
+                  (click)="deleteBackground(user?.background[0]?.url)">
                   {{ 'mypage.delete-button-text' | translate }}
                 </div>
+
+                <!-- 파일 -->
                 <input
                   type="file"
                   accept="image/*"
                   #newBackground
                   (change)="changeBackground(newBackground)"
-                  hidden
-                />
+                  hidden>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- 데스크탑 네비게이션-->
+        <div class="mypage-nav">
+          <ul>
+            <li class="active">
+              <a href="javascript: void(0);">전체</a>
+            </li>
+            <li>
+              <a href="javascript: void(0);">피드</a>
+            </li>
+            <li>
+              <a href="javascript: void(0);">게시글</a>
+            </li>
+            <li>
+              <a href="javascript: void(0);">북마크</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 모바일 헤더 -->
         <div class="d-lg-none">
           <div class="profile">
             <div>
               <div class="avatar">
+                <!-- 아바타 이미지 -->
                 <shared-avatar
                   [image]="globalUser.picture?.url"
                   text="{{ user.email }}"
@@ -86,15 +132,17 @@
                 ></shared-avatar>
               </div>
               <div class="info">
-                <div class="nickname">{{ user.nickname || user.email || '' }}</div>
+                <div class="nickname">
+                  {{ user.nickname || user.email || '' }}
+                </div>
                 <div>
-                  <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
+                  <div class="social social-kakao" *ngIf="user.provider === 'kakao.com'">
                     <img src="assets/icons/social/kakao_2.png"/>
                   </div>
-                  <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
+                  <div class="social social-naver" *ngIf="user.provider === 'naver.com'">
                     <img src="assets/icons/social/naver.png"/>
                   </div>
-                  <div class="social social-google" *ngIf="user.provider == 'google.com'">
+                  <div class="social social-google" *ngIf="user.provider === 'google.com'">
                     <img src="assets/icons/social/google.png"/>
                   </div>
                   <span class="email">{{ user.email || '' }}</span>
@@ -109,8 +157,7 @@
                 <a
                   class="shared-button shared-button-outline edit-profile-button"
                   [routerLink]="['/settings/profile']"
-                >{{ 'mypage.edit-profile-button-text' | translate }}</a
-                >
+                >{{ 'mypage.edit-profile-button-text' | translate }}</a>
               </div>
             </div>
             <div class="about-me scroll-y">
@@ -127,12 +174,14 @@
             </a>
           </div>
         </div>
+
+        <!-- 모바일 -->
         <div class="d-none d-lg-block">
           <div class="box">
             <div class="left-side">
               <div class="avatar">
                 <shared-avatar
-                  [image]="globalUser.picture?.url"
+                  [image]="globalUser?.picture?.url"
                   text="{{ user.email }}"
                   size="80"
                   fontSize="30"
@@ -150,19 +199,23 @@
                   />
                 </svg>
               </a>
-              <div class="nickname">{{ user.nickname || user.email || '' }}</div>
+              <div class="nickname">
+                {{ user.nickname || user.email || '' }}
+              </div>
               <div>
-                <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
-                  <img src="assets/icons/social/kakao_2.png"/>
+                <div class="social social-kakao" *ngIf="user.provider === 'kakao.com'">
+                  <img src="assets/icons/social/kakao_2.png">
                 </div>
-                <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
-                  <img src="assets/icons/social/naver.png"/>
+                <div class="social social-naver" *ngIf="user.provider === 'naver.com'">
+                  <img src="assets/icons/social/naver.png">
                 </div>
-                <div class="social social-google" *ngIf="user.provider == 'google.com'">
-                  <img src="assets/icons/social/google.png"/>
+                <div class="social social-google" *ngIf="user.provider === 'google.com'">
+                  <img src="assets/icons/social/google.png">
                 </div>
                 <span class="email">{{ user.email || '' }}</span>
               </div>
+
+              <!-- 내프로필 > 팔로우 -->
               <div class="follow">
                 <div class="following">{{ 'mypage.following-text' | translate }}</div>
                 <div>999+</div>
@@ -179,8 +232,8 @@
               >{{ 'mypage.edit-profile-button-text' | translate }}</a
               >
             </div>
+            <!-- 본문 -->
             <div class="right-side flex-fill d-flex flex-column">
-              <div class="write"></div>
               <div class="items"></div>
             </div>
           </div>

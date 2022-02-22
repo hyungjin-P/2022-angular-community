@@ -34,107 +34,122 @@ export class MypageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.variables = this.globalService.variables
-    this.globalUser = this.globalService.user
-    this.user = this.storageService.getUser()
+    this.variables = this.globalService.variables;
+    this.globalUser = this.globalService.user;
+    this.user = this.storageService.getUser();
 
-    this.closeDrawer()
+    this.closeDrawer();
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
   closeDrawer() {
-    this.variables.isDrawerOpen = false
+    this.variables.isDrawerOpen = false;
+    console.log('closeDrawer event');
   }
 
-  async onChangeFile(background) {
-    const files: FileList = background.files
+  /**
+   * 배경 이미지 교체
+   * @param background
+   */
+  async onChangeFile(background: any) {
+    const files: FileList = background.files;
 
-    if (files && files.length == 0) {
-      return
+    if (files && files.length === 0) {
+      return;
     }
 
     try {
       let createdFiles: Array<File> = await this.fileService
         .createFile(
           {
-            domain_name: 'public.keeping.link',
+            domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/background`,
             tags: ['user-background'],
+            userId: this.user.id
           },
           files
         )
-        .toPromise()
+        .toPromise();
 
-      await this.userService.createUserBackground(this.user.id, {files: createdFiles}).toPromise()
+      // await this.userService
+      //   .createUserBackground(this.user.id, {files: createdFiles})
+      //   .toPromise();
 
-      this.user.background = createdFiles.concat(this.user.background)
-      this.storageService.setUser(this.user)
+      console.log('createdFiles : ', createdFiles);
 
-      background.value = ''
+      this.user.background = createdFiles.concat(this.user.background);
+      this.storageService.setUser(this.user);
+
+      background.value = '';
     } catch (e) {
-      this.globalService.showToast(e.message)
+      this.globalService.showToast(e.message);
     }
   }
 
-  changeBackgroundEditMode(value: boolean) {
-    this.backgroundEditMode = value
+  changeBackgroundEditMode(value: boolean): void {
+    this.backgroundEditMode = value;
+    console.log('changeBackgroundEditMode : ', this.backgroundEditMode);
   }
 
-  async deleteBackground(url) {
+  async deleteBackground(url): Promise<void> {
     try {
-      await this.userService.deleteUserBackground(this.user.id, url).toPromise()
+      await this.userService
+        .deleteUserBackground(url)
+        .toPromise();
 
-      this.changeBackgroundEditMode(false)
-      this.user.background = []
-      this.storageService.setUser(this.user)
+      this.changeBackgroundEditMode(false);
+      this.user.background = [];
+      this.storageService.setUser(this.user);
     } catch (e) {
-      this.globalService.showToast(e.message)
+      this.globalService.showToast(e.message);
     }
   }
 
+  /** 배경사진 변경 */
   async changeBackground(background) {
-    const files: FileList = background.files
+    const files: FileList = background.files;
 
-    if (files && files.length == 0) {
-      return
+    if (files && files.length === 0) {
+      return;
     }
 
     try {
       let createdFiles: Array<File> = await this.fileService
         .createFile(
           {
-            domain_name: 'public.keeping.link',
+            domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/background`,
             tags: ['user-background'],
+            userId: this.user.id,
           },
           files
         )
-        .toPromise()
+        .toPromise();
 
-      for (let i = 0; i < createdFiles.length; i++) {
-        await this.userService.createUserBackground(this.user.id, {files: createdFiles}).toPromise()
-      }
+      let oldBackgroundUrl = this.user.background[0]['url'];
 
-      let oldBackgroundUrl = this.user.background[0]['url']
+      this.user.background = createdFiles;
+      this.storageService.setUser(this.user);
 
-      this.user.background = createdFiles
-      this.storageService.setUser(this.user)
+      background.value = '';
 
-      background.value = ''
-
-      await this.userService.deleteUserBackground(this.user.id, oldBackgroundUrl).toPromise()
+      await this.userService
+        .deleteUserBackground(oldBackgroundUrl)
+        .toPromise();
 
       this.changeBackgroundEditMode(false)
     } catch (e) {
-      this.globalService.showToast(e.message)
+      this.globalService.showToast(e.message);
     }
   }
 
   async logout() {
-    await this.storageService.removeUser()
-    this.router.navigateByUrl('/')
+    await this.storageService.removeUser();
+    this.router
+      .navigateByUrl('/')
+      .then();
   }
 }

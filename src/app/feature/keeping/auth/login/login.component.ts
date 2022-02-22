@@ -227,9 +227,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: this.password
       })
       .subscribe((user: User) => {
-        console.log('access token : ', user.accessToken);
-        console.log('custom token : ', user.customToken);
-
         this.storageService.setUser(user);
         this.angularFireAuth.signInWithCustomToken(user.customToken);
       },

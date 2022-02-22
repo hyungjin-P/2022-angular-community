@@ -117,9 +117,10 @@ export class ProfileComponent implements OnInit {
             let createdFiles: Array<File> = await this.fileService
                 .createFile(
                     {
-                        domain_name: 'public.keeping.link',
+                        domainName: 'public.keeping.link',
                         path: `/users/${this.user.id}/picture`,
                         tags: ['user-picture'],
+                        userId: this.user.id,
                     },
                     files
                 )

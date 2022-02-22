@@ -31,8 +31,8 @@ export class StorageService {
 
     /** global service */
     this.globalService.user.nickname = user.nickname;
-    // this.globalService.user.picture = user.picture.length == 0 ? null : user.picture[0];
-    // this.globalService.user.background = user.background.length == 0 ? null : user.background[0];
+    this.globalService.user.picture = user.picture.length === 0 ? null : user.picture[0];
+    this.globalService.user.background = user.background.length === 0 ? null : user.background[0];
   }
 
   async removeUser() {

@@ -16,8 +16,11 @@ export class FileService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * 수정 중
+   * */
   createFile(requestBody: CreateFileRequestBody, files: FileList): Observable<Array<File>> {
-    const url = environment['serverAddress'] + '/files'
+    const url = environment.userApiAddress + `/file`;
 
     const options = {
       headers: new HttpHeaders({
@@ -27,8 +30,9 @@ export class FileService {
 
     const formData: FormData = new FormData();
 
-    formData.append('domain_name', requestBody['domain_name'])
-    formData.append('path', requestBody['path'])
+    formData.append('domainName', requestBody.domainName);
+    formData.append('path', requestBody.path);
+    formData.append('userId', requestBody.userId);
 
     if (requestBody['tags']) {
       requestBody['tags'].forEach((tag) => {
@@ -40,9 +44,10 @@ export class FileService {
       formData.append('files', files[i])
     }
 
-    return this.http.post<Response>(url, formData, options).pipe(
+    return this.http.post<any>(url, formData, options).pipe(
       map((res) => {
-        return res.dataset
+        console.log('res : ', res);
+        return res;
       }),
       catchError(handleError)
     )
@@ -67,7 +72,8 @@ export class FileService {
 }
 
 class CreateFileRequestBody {
-  domain_name: string
+  domainName: string
   path: string
   tags?: Array<string>
+  userId: string
 }

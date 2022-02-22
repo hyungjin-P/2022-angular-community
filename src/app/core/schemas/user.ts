@@ -25,27 +25,27 @@ export class User {
         public refreshToken: string,
         public customToken: string
     ) {
-        this.id = id
-        this.provider = provider
-        this.name = name
-        this.nickname = nickname
-        this.age = age
-        this.sex = sex
-        this.birthDate = birthDate
-        this.email = email
-        this.emailVerified = emailVerified
-        this.phoneNumber = phoneNumber
-        this.phoneNumberVerified = phoneNumberVerified
-        this.color = color
-        this.aboutMe = aboutMe
-        this.agreementAge = agreementAge
-        this.agreementPrivacy = agreementPrivacy
-        this.agreementServiceTerms = agreementServiceTerms
-        this.agreementMarketing = agreementMarketing
-        this.picture = picture
-        this.background = background
-        this.accessToken = accessToken
-        this.refreshToken = refreshToken
-        this.customToken = customToken
+        this.id = id;
+        this.provider = provider;
+        this.name = name;
+        this.nickname = nickname;
+        this.age = age;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.emailVerified = emailVerified;
+        this.phoneNumber = phoneNumber;
+        this.phoneNumberVerified = phoneNumberVerified;
+        this.color = color;
+        this.aboutMe = aboutMe;
+        this.agreementAge = agreementAge;
+        this.agreementPrivacy = agreementPrivacy;
+        this.agreementServiceTerms = agreementServiceTerms;
+        this.agreementMarketing = agreementMarketing;
+        this.picture = picture;
+        this.background = background;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.customToken = customToken;
     }
 }

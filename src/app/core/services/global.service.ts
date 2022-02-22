@@ -1,44 +1,44 @@
-import { Injectable } from '@angular/core'
+import {Injectable} from '@angular/core'
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class GlobalService {
-    public variables: any = {
-        isTouchScreen: false,
-        isLogin: false,
-        isNavOpen: true,
-        isDrawerOpen: false,
-        menuMoreBoxVisible: false,
-    }
+  public variables: any = {
+    isTouchScreen: false,
+    isLogin: false,
+    isNavOpen: true,
+    isDrawerOpen: false,
+    menuMoreBoxVisible: false,
+  }
 
-    public user: any = {
-        nickname: '',
-        picture: null,
-        background: null,
-    }
+  public user: any = {
+    nickname: '',
+    picture: null,
+    background: null,
+  }
 
-    public modal: any = {
-        data: {},
-    }
+  public modal: any = {
+    data: {},
+  }
 
-    public toast: any = {
-        visible: false,
-        text: null,
-    }
+  public toast: any = {
+    visible: false,
+    text: null,
+  }
 
-    public showModal(data: any) {
-        this.modal['data'] = data
-    }
+  public showModal(data: any) {
+    this.modal['data'] = data
+  }
 
-    public hideModal() {
-        this.modal['data'] = null
-    }
+  public hideModal() {
+    this.modal['data'] = null
+  }
 
-    public showToast(text: string) {
-        this.toast.visible = true
-        this.toast.text = text
-    }
+  public showToast(text: string) {
+    this.toast.visible = true
+    this.toast.text = text
+  }
 
-    public hideToast() {
-        this.toast.visible = false
-    }
+  public hideToast() {
+    this.toast.visible = false
+  }
 }
