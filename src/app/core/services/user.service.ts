@@ -8,7 +8,6 @@ import {environment} from '@environments/environment'
 
 import {Response} from '@schemas/response'
 import {User} from '@schemas/user'
-import {File} from '@schemas/file'
 
 @Injectable({
   providedIn: 'root',
@@ -38,26 +37,6 @@ export class UserService {
   }
 
   /**
-   * 유저 수정
-   * 작업중 => 삭제 예정
-   * */
-  updateUser(userId: string, requestBody: UpdateUserDto): Observable<User> {
-    const url = environment['serverAddress'] + `/users/${userId}`
-    const options = {
-      headers: new HttpHeaders({
-        Accept: 'application/json',
-      }),
-    };
-
-    return this.httpClient.patch<any>(url, requestBody, options).pipe(
-      map((res) => {
-        return res.dataset[0];
-      }),
-      catchError(handleError)
-    );
-  }
-
-  /**
    * 개인정보, 서비스 이용약관
    * */
   updateServiceTerms(serviceTerms: ServiceTermsDto): Observable<User> {
@@ -77,6 +56,7 @@ export class UserService {
     );
 
   }
+
   /**
    * 프로필 수정
    * 작업완료
@@ -121,8 +101,12 @@ export class UserService {
     )
   }
 
-  changePassword(userId: string, requestBody: ChangePasswordDto): Observable<Response> {
-    const url = environment['serverAddress'] + `/users/${userId}/change-password`
+  /**
+   * 비밀번호 변경
+   * @param changePasswordDto
+   */
+  changePassword(changePasswordDto: ChangePasswordDto): Observable<Response> {
+    const url: string = environment.userApiAddress + `/user/changePassword`
 
     const options = {
       headers: new HttpHeaders({
@@ -130,9 +114,10 @@ export class UserService {
       }),
     }
 
-    return this.httpClient.put<Response>(url, requestBody, options).pipe(
+    return this.httpClient.patch<any>(url, changePasswordDto, options).pipe(
       map((res) => {
-        return res
+        console.log('password change res : ', res);
+        return res;
       }),
       catchError(handleError)
     )
@@ -210,6 +195,7 @@ class DeleteUserDto {
 }
 
 class ChangePasswordDto {
-  password: string
-  newPassword: string
+  userId: string;
+  oldPassword: string;
+  newPassword: string;
 }
