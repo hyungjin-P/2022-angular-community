@@ -18,45 +18,93 @@ export class UserService {
   }
 
   /**
-   * 수정 중
+   * 수정 완료
    * */
   getUser(userId: string): Observable<User> {
-    // const url = environment['serverAddress'] + `/users/${userId}`
     const url = environment.userApiAddress + `/user/findById?userId=${userId}`;
 
-    // header 설정. bearer token은
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.httpClient.get<any>(url, options).pipe(
       map((res) => {
         return res
       }),
       catchError(handleError)
-    )
+    );
   }
 
-  updateUser(userId: string, requestBody: UpdateUserRequestBody): Observable<User> {
+  /**
+   * 유저 수정
+   * 작업중 => 삭제 예정
+   * */
+  updateUser(userId: string, requestBody: UpdateUserDto): Observable<User> {
     const url = environment['serverAddress'] + `/users/${userId}`
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.httpClient.patch<any>(url, requestBody, options).pipe(
+      map((res) => {
+        return res.dataset[0];
+      }),
+      catchError(handleError)
+    );
+  }
+
+  /**
+   * 개인정보, 서비스 이용약관
+   * */
+  updateServiceTerms(serviceTerms: ServiceTermsDto): Observable<User> {
+    const url = environment.userApiAddress = '/user/serviceTerms';
 
     const options = {
       headers: new HttpHeaders({
         Accept: 'application/json',
       }),
-    }
+    };
 
-    return this.httpClient.put<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res.dataset[0]
+    return this.httpClient.patch<User>(url, serviceTerms, options).pipe(
+      map((user: User) => {
+        return user;
       }),
       catchError(handleError)
-    )
+    );
+
+  }
+  /**
+   * 프로필 수정
+   * 작업완료
+   */
+  updateUserProfile(userId: string, nickName: string, aboutMe: string): Observable<User> {
+    const url = environment.userApiAddress + '/user/modifyProfile';
+
+    const param: any = {
+      userId,
+      nickName,
+      aboutMe
+    };
+
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.httpClient.patch<User>(url, param, options).pipe(
+      map((user: User) => {
+        return user;
+      }),
+      catchError(handleError)
+    );
   }
 
-  deleteUser(userId: string, reasons: DeleteUserRequestBody): Observable<Response> {
+  deleteUser(userId: string, reasons: DeleteUserDto): Observable<Response> {
     const url = environment['serverAddress'] + `/users/${userId}`;
     const options = {
       headers: new HttpHeaders({
@@ -73,7 +121,7 @@ export class UserService {
     )
   }
 
-  changePassword(userId: string, requestBody: ChangePasswordRequestBody): Observable<Response> {
+  changePassword(userId: string, requestBody: ChangePasswordDto): Observable<Response> {
     const url = environment['serverAddress'] + `/users/${userId}/change-password`
 
     const options = {
@@ -90,8 +138,13 @@ export class UserService {
     )
   }
 
-  checkDuplicateNickname(userId: string, requestBody: CheckDuplicateNicknameRequestBody): Observable<Response> {
-    const url = environment['serverAddress'] + `/users/${userId}/check-duplicate-nickname`
+  /**
+   * 닉네임 중복확인
+   * 수정 완료
+   * */
+  checkDuplicateNickname(userId: string, nickName: string): Observable<Response> {
+    const url = environment.userApiAddress +
+      `/user/duplicateUserNickname?userId=${userId}&nickName=${nickName}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -99,70 +152,20 @@ export class UserService {
       }),
     }
 
-    return this.httpClient.post<Response>(url, requestBody, options).pipe(
+    return this.httpClient.get<any>(url, options).pipe(
       map((res) => {
+        console.log('check duplicate nickname : ', res);
         return res
       }),
       catchError(handleError)
     )
   }
 
-  createUserPicture(userId: string, requestBody: CreateUserPictureRequestBody): Observable<Response> {
-    const url = environment['serverAddress'] + `/users/${userId}/picture`
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.httpClient.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
-
-  deleteUserPicture(userId: string, fileUrl: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/users/${userId}/picture/${encodeURIComponent(fileUrl)}`
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.httpClient.delete<Response>(url, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
-
-  // /** 수정 중 */
-  // createUserBackground(userId: string, requestBody: CreateUserBackgroundRequestBody): Observable<Response> {
-  //
-  //   const url = environment['serverAddress'] + `/users/${userId}/background`
-  //
-  //   const options = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   }
-  //
-  //   return this.httpClient.post<any>(url, requestBody, options).pipe(
-  //     map((res) => {
-  //       return res
-  //     }),
-  //     catchError(handleError)
-  //   )
-  // }
-
+  /**
+   * 수정완료
+   * */
   deleteUserBackground(fileUrl: string): Observable<Response> {
     const url = environment.userApiAddress + `/file/deleteUserBackground?fileUrl=${fileUrl}`;
-
 
     const options = {
       headers: new HttpHeaders({
@@ -179,38 +182,34 @@ export class UserService {
   }
 }
 
-class UpdateUserRequestBody {
+class UpdateUserDto {
   name?: string
   nickname?: string
   age?: number
   sex?: string
-  birth_date?: string
+  birthDate?: string
   color?: string
-  about_me?: string
-  fcm_token?: string
-  agreement_age?: boolean
-  agreement_privacy?: boolean
-  agreement_service_terms?: boolean
-  agreement_marketing?: boolean
+  aboutMe?: string
+  fcmToken?: string
+  agreementAge?: boolean
+  agreementPrivacy?: boolean
+  agreementServiceTerms?: boolean
+  agreementMarketing?: boolean
 }
 
-class DeleteUserRequestBody {
+class ServiceTermsDto {
+  userId: string;
+  agreementAge: boolean;
+  agreementPrivacy: boolean;
+  agreementServiceTerms: boolean;
+  agreementMarketing: boolean;
+}
+
+class DeleteUserDto {
   reasons: Array<any>
 }
 
-class ChangePasswordRequestBody {
+class ChangePasswordDto {
   password: string
-  new_password: string
-}
-
-class CheckDuplicateNicknameRequestBody {
-  nickname: string
-}
-
-class CreateUserPictureRequestBody {
-  files: Array<File>
-}
-
-class CreateUserBackgroundRequestBody {
-  files: Array<File>
+  newPassword: string
 }

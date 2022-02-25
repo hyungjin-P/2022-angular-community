@@ -89,6 +89,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   beginTime: any
 
+  page: number = 1;
+  limit: number = 20;
+
   constructor(
     private location: Location,
     private router: Router,
@@ -160,18 +163,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   test() {
     console.log(this.carouselIndex)
   }
-  // animation(from, to, duration) {
-  //     return defer(() => {
-  //         const scheduler = animationFrameScheduler;
-  //         const start = scheduler.now();
-  //         const interval$ = interval(0, scheduler).pipe(
-  //             map(() => (scheduler.now() - start) / duration),
-  //             takeWhile((rate) => rate < 1)
-  //         );
-  //
-  //         return concat(interval$, of(1)).pipe(map((rate) => from + (to - from) * rate))
-  //     })
-  // }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
@@ -188,7 +179,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigateByUrl('/feed')
+    this.router.navigateByUrl('/feed').then();
   }
 
   getFeed() {
@@ -199,7 +190,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed')
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt))
         }
       },
       (e) => {
@@ -213,7 +204,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       (feed: Feed) => {
         this.selectedFeed = feed
 
-        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.created_at))
+        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt))
       },
       (e) => {}
     )
@@ -267,7 +258,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getPublicFeedList() {
-    this.publicService.getFeedList().subscribe(
+    this.publicService.getFeedList(this.page, this.limit).subscribe(
       (feedList: Feed[]) => {
         this.feedList = feedList
       },
@@ -290,11 +281,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.deleteFeedLike(feed.id).subscribe(
           (v) => {
             feed.like = false
-            feed.like_count -= 1
+            feed.likeCount -= 1
 
-            this.selectedFeed.like_users.forEach((user, index) => {
+            this.selectedFeed.likeUsers.forEach((user, index) => {
               if (user.id == this.user.id) {
-                this.selectedFeed.like_users.splice(index, 1)
+                this.selectedFeed.likeUsers.splice(index, 1)
               }
             })
           },
@@ -304,9 +295,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.createFeedLike(feed.id).subscribe(
           (v) => {
             feed.like = true
-            feed.like_count += 1
+            feed.likeCount += 1
 
-            this.selectedFeed.like_users.push(this.user)
+            this.selectedFeed.likeUsers.push(this.user)
           },
           (e) => {}
         )
@@ -322,7 +313,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.deleteFeedLike(feed.id).subscribe(
           (v) => {
             feed.like = false
-            feed.like_count -= 1
+            feed.likeCount -= 1
           },
           (e) => {}
         )
@@ -330,7 +321,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.feedService.createFeedLike(feed.id).subscribe(
           (v) => {
             feed.like = true
-            feed.like_count += 1
+            feed.likeCount += 1
           },
           (e) => {}
         )
@@ -417,7 +408,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInputObj }).subscribe(
       (feedComment: FeedComment) => {
         this.clearCommentInput()
-        this.selectedFeed.comment_count++
+        this.selectedFeed.commentCount++
         this.feedCommentList.unshift(feedComment)
       },
       (e) => {}
@@ -467,7 +458,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(
         (feedComment: FeedComment) => {
           this.hideSubCommentInput()
-          this.selectedFeed.comment_count++
+          this.selectedFeed.commentCount++
           parentFeedComment.sub_comment_count++
           this.feedSubCommentListViewObj[parentFeedComment.id] = false
           this.showSubCommentList(parentFeedComment.id)
@@ -484,7 +475,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
     this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
       (v) => {
-        this.selectedFeed.comment_count--
+        this.selectedFeed.commentCount--
         if (feedComment.parent_id) {
           parentFeedComment.sub_comment_count--
         }

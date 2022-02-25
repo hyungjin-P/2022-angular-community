@@ -169,7 +169,7 @@
             <div class="empty-text-2">{{ 'mypage.empty-text-2' | translate }}</div>
             <div class="empty-text-3">{{ 'mypage.empty-text-3' | translate }}</div>
             <a class="write shared-button-primary" [routerLink]="['/write']">
-              <img src="assets/icons/header/pencil.svg"/>
+              <img src="assets/icons/header/pencil.svg" alt="modify">
               <span>{{ 'mypage.write' | translate }}</span>
             </a>
           </div>
@@ -203,13 +203,16 @@
                 {{ user.nickname || user.email || '' }}
               </div>
               <div>
-                <div class="social social-kakao" *ngIf="user.provider === 'kakao.com'">
+                <div class="social social-kakao"
+                     *ngIf="user.provider === 'kakao.com'">
                   <img src="assets/icons/social/kakao_2.png">
                 </div>
-                <div class="social social-naver" *ngIf="user.provider === 'naver.com'">
+                <div class="social social-naver"
+                     *ngIf="user.provider === 'naver.com'">
                   <img src="assets/icons/social/naver.png">
                 </div>
-                <div class="social social-google" *ngIf="user.provider === 'google.com'">
+                <div class="social social-google"
+                     *ngIf="user.provider === 'google.com'">
                   <img src="assets/icons/social/google.png">
                 </div>
                 <span class="email">{{ user.email || '' }}</span>
@@ -217,20 +220,23 @@
 
               <!-- 내프로필 > 팔로우 -->
               <div class="follow">
-                <div class="following">{{ 'mypage.following-text' | translate }}</div>
+                <div class="following">
+                  {{ 'mypage.following-text' | translate }}
+                </div>
                 <div>999+</div>
                 <div class="v-line"></div>
-                <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
+                <div class="follower">
+                  {{ 'mypage.follower-text' | translate }}
+                </div>
                 <div>999+</div>
               </div>
               <div class="about-me scroll-y">
                 {{ user.aboutMe }}
               </div>
-              <a
-                class="shared-button shared-button-outline edit-profile-button"
-                [routerLink]="['/settings/profile']"
-              >{{ 'mypage.edit-profile-button-text' | translate }}</a
-              >
+              <a class="shared-button shared-button-outline edit-profile-button"
+                 [routerLink]="['/settings/profile']">
+                {{ 'mypage.edit-profile-button-text' | translate }}
+              </a>
             </div>
             <!-- 본문 -->
             <div class="right-side flex-fill d-flex flex-column">

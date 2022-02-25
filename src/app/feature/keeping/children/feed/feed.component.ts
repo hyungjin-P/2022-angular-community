@@ -18,9 +18,11 @@ import {User} from '@schemas/user'
 })
 export class FeedComponent implements OnInit {
 
-  variables: any
-  user: User
-  feedList: Array<Feed>
+  variables: any;
+  user: User;
+  feedList: Feed[];
+  page: number = 1;
+  limit: number = 20;
 
   constructor(
     private router: Router,
@@ -33,14 +35,13 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.variables = this.globalService.variables
-    this.user = this.storageService.getUser()
-    console.log('accessToken of user : ', this.user.accessToken);
+    this.variables = this.globalService.variables;
+    this.user = this.storageService.getUser();
 
     if (this.user) {
-      this.getFeedList()
+      this.getFeedList();
     } else {
-      this.getPublicFeedList()
+      this.getPublicFeedList();
     }
   }
 
@@ -55,12 +56,14 @@ export class FeedComponent implements OnInit {
   }
 
   getPublicFeedList() {
-    this.publicService.getFeedList().subscribe(
-      (feedList: Feed[]) => {
-        console.log('feedList : ', feedList);
-        this.feedList = feedList
+    this.publicService
+      .getFeedList(this.page, this.limit)
+      .subscribe((feedList: any) => {
+        this.feedList = feedList.items;
+        console.log('public feed list : ', this.feedList);
       },
-      (e) => {
+        (e) => {
+        console.log('e');
       }
     )
   }
@@ -71,7 +74,7 @@ export class FeedComponent implements OnInit {
         this.feedService.deleteFeedLike(feed.id).subscribe(
           (v) => {
             feed.like = false
-            feed.like_count -= 1
+            feed.likeCount -= 1
           },
           (e) => {
           }
@@ -80,7 +83,7 @@ export class FeedComponent implements OnInit {
         this.feedService.createFeedLike(feed.id).subscribe(
           (v) => {
             feed.like = true
-            feed.like_count += 1
+            feed.likeCount += 1
           },
           (e) => {
           }

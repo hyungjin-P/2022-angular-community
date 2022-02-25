@@ -31,7 +31,7 @@ export class TextService {
 
       'auth.registration-001': '회원가입 중 오류가 발생했습니다.',
 
-      'settings:profile:001': '최대 30자까지 간단 소개글을 입력해 주세요.',
+      'settings:profile:001': '최대 200자까지 간단 소개글을 입력해 주세요.',
       'settings:profile:002': '사용가능한 닉네임입니다.',
       'settings:profile:003': '사용중인 닉네임입니다.',
       'settings:profile:004': '닉네임을 입력해주세요.',
@@ -73,7 +73,7 @@ export class TextService {
 
       'auth.registration-001': 'Sorry. Signup failed',
 
-      'settings:profile:001': 'Please enter a brief introduction of up to 30 characters.',
+      'settings:profile:001': 'Please enter a brief introduction of up to 200 characters.',
       'settings:profile:002': 'Available nickname.',
       'settings:profile:003': 'This nickname is already using.',
       'settings:profile:004': 'Please enter your nickname.',

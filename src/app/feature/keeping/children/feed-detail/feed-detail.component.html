@@ -123,7 +123,7 @@
                     />
                   </svg>
                 </div>
-                <div class="text">{{ selectedFeed?.like_count }}</div>
+                <div class="text">{{ selectedFeed?.likeCount }}</div>
               </div>
               <div class="comment" (click)="showCommentView()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,7 +149,7 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                <div class="text">{{ selectedFeed?.comment_count }}</div>
+                <div class="text">{{ selectedFeed?.commentCount }}</div>
               </div>
             </div>
             <div class="row-3-col-2">
@@ -165,7 +165,7 @@
             </div>
           </div>
           <div class="row-4" (click)="showLikedView()">
-            <ng-container *ngFor="let like_user of selectedFeed?.like_users; let i = index">
+            <ng-container *ngFor="let like_user of selectedFeed?.likeUsers; let i = index">
               <div class="avatar" *ngIf="i < 3">
                 <shared-avatar
                   [image]="like_user.picture[0]?.url"
@@ -177,29 +177,29 @@
             </ng-container>
             <div
               class="text"
-              *ngIf="selectedLanguage === 'ko' && selectedFeed?.like_count > 0 && selectedFeed?.like_count === 1"
+              *ngIf="selectedLanguage === 'ko' && selectedFeed?.likeCount > 0 && selectedFeed?.likeCount === 1"
             >
-              <div [ngSwitch]="selectedFeed.like_users[0].nickname">
-                <div *ngSwitchCase="undefined">{{ selectedFeed.like_users[0].name }}님이 좋아합니다.</div>
-                <div *ngSwitchDefault>{{ selectedFeed.like_users[0].nickname }}님이 좋아합니다.</div>
+              <div [ngSwitch]="selectedFeed.likeUsers[0].nickname">
+                <div *ngSwitchCase="undefined">{{ selectedFeed.likeUsers[0].name }}님이 좋아합니다.</div>
+                <div *ngSwitchDefault>{{ selectedFeed.likeUsers[0].nickname }}님이 좋아합니다.</div>
               </div>
             </div>
             <div
               class="text"
-              *ngIf="selectedLanguage != 'ko' && selectedFeed?.like_count > 0 && selectedFeed?.like_count === 1"
+              *ngIf="selectedLanguage != 'ko' && selectedFeed?.likeCount > 0 && selectedFeed?.likeCount === 1"
             >
-              <div [ngSwitch]="selectedFeed.like_users[0].nickname">
-                <div *ngSwitchCase="undefined">{{ selectedFeed.like_users[0].name }} like it.</div>
-                <div *ngSwitchDefault>{{ selectedFeed.like_users[0].nickname }} like it.</div>
+              <div [ngSwitch]="selectedFeed.likeUsers[0].nickname">
+                <div *ngSwitchCase="undefined">{{ selectedFeed.likeUsers[0].name }} like it.</div>
+                <div *ngSwitchDefault>{{ selectedFeed.likeUsers[0].nickname }} like it.</div>
               </div>
             </div>
             <div
               class="text"
               *ngIf="
                 selectedLanguage === 'ko' &&
-                selectedFeed?.like_count > 0 &&
-                selectedFeed?.like_count > 1 &&
-                selectedFeed?.like_count <= 3
+                selectedFeed?.likeCount > 0 &&
+                selectedFeed?.likeCount > 1 &&
+                selectedFeed?.likeCount <= 3
               "
             >
               님이 좋아합니다.
@@ -208,18 +208,18 @@
               class="text"
               *ngIf="
                 selectedLanguage != 'ko' &&
-                selectedFeed?.like_count > 0 &&
-                selectedFeed?.like_count > 1 &&
-                selectedFeed?.like_count <= 3
+                selectedFeed?.likeCount > 0 &&
+                selectedFeed?.likeCount > 1 &&
+                selectedFeed?.likeCount <= 3
               "
             >
               like it.
             </div>
-            <div class="text" *ngIf="selectedLanguage == 'ko' && selectedFeed?.like_count > 3">
-              외<span (click)="showLikedView()"> {{ selectedFeed.like_count - 3 }}명</span>이 좋아합니다.
+            <div class="text" *ngIf="selectedLanguage == 'ko' && selectedFeed?.likeCount > 3">
+              외<span (click)="showLikedView()"> {{ selectedFeed.likeCount - 3 }}명</span>이 좋아합니다.
             </div>
-            <div class="text" *ngIf="selectedLanguage != 'ko' && selectedFeed?.like_count > 3">
-              and<span (click)="showLikedView()"> {{ selectedFeed.like_count - 3 }}</span> others like it.
+            <div class="text" *ngIf="selectedLanguage != 'ko' && selectedFeed?.likeCount > 3">
+              and<span (click)="showLikedView()"> {{ selectedFeed.likeCount - 3 }}</span> others like it.
             </div>
           </div>
           <div class="row-5">{{ selectedFeed?.content }}</div>
@@ -255,7 +255,7 @@
                 <div class="title ellipsis2">
                   {{ feed.content }}
                 </div>
-                <div class="tags ellipsis1">{{ feed.tags_str }}</div>
+                <div class="tags ellipsis1">{{ feed.tagsStr }}</div>
                 <div class="additional">
                   <div class="like" (click)="feedLike(feed)">
                     <div class="heart" *ngIf="variables.isLogin && feed.like">
@@ -281,7 +281,7 @@
                         />
                       </svg>
                     </div>
-                    <div class="text">{{ feed.like_count }}</div>
+                    <div class="text">{{ feed.likeCount }}</div>
                   </div>
                   <div class="comment">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -307,7 +307,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <div class="text">{{ feed.comment_count }}</div>
+                    <div class="text">{{ feed.commentCount }}</div>
                   </div>
                 </div>
               </div>

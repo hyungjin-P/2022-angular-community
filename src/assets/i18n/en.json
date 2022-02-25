@@ -214,7 +214,9 @@
       "duplicate-check": "Verify",
       "nickname-info": "Up to 10 Korean characters and 20 English characters are allowed.",
       "nickname-label": "Nickname",
-      "update-button": "Update"
+      "update-button": "Update",
+      "about-me-label": "Self Introduction",
+      "about-me-placeholder": "Please enter a brief introduction of up to 200 characters."
     },
     "withdrawal": {
       "direct-input-placeholder": "",

@@ -214,7 +214,9 @@
       "duplicate-check": "중복확인",
       "nickname-info": "한글 10자, 영문 20자까지 가능합니다.",
       "nickname-label": "닉네임 변경",
-      "update-button": "프로필 수정 완료"
+      "update-button": "프로필 수정 완료",
+      "about-me-label": "자기소개",
+      "about-me-placeholder": "최대 200자까지 간단 소개글을 입력해주세요"
     },
     "withdrawal": {
       "direct-input-placeholder": "",

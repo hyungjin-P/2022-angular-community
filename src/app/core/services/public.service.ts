@@ -18,8 +18,8 @@ export class PublicService {
   ) {
   }
 
-  getFeedList(page = '', pageSize = ''): Observable<Array<Feed>> {
-    const url = environment['serverAddress'] + `/public/feed?page=${page}&pageSize=${pageSize}`
+  getFeedList(page: number, limit: number): Observable<Array<Feed>> {
+    const url = environment.userApiAddress + `/public/feed?page=${page}&limit=${limit}`
 
     const options = {
       headers: new HttpHeaders({
@@ -27,9 +27,10 @@ export class PublicService {
       }),
     }
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.dataset
+        console.log('feed list : ', res);
+        return res;
       }),
       catchError(handleError)
     )

@@ -69,7 +69,7 @@ export class ChangePasswordComponent implements OnInit {
         }
 
         this.userService
-            .changePassword(this.user.id, { password: this.password, new_password: this.newPassword })
+            .changePassword(this.user.id, { password: this.password, newPassword: this.newPassword })
             .subscribe(
                 (v) => {
                     // 비밀번호가 변경되었습니다.

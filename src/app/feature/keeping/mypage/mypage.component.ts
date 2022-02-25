@@ -47,7 +47,6 @@ export class MypageComponent implements OnInit {
 
   closeDrawer() {
     this.variables.isDrawerOpen = false;
-    console.log('closeDrawer event');
   }
 
   /**
@@ -74,12 +73,6 @@ export class MypageComponent implements OnInit {
         )
         .toPromise();
 
-      // await this.userService
-      //   .createUserBackground(this.user.id, {files: createdFiles})
-      //   .toPromise();
-
-      console.log('createdFiles : ', createdFiles);
-
       this.user.background = createdFiles.concat(this.user.background);
       this.storageService.setUser(this.user);
 
@@ -91,7 +84,6 @@ export class MypageComponent implements OnInit {
 
   changeBackgroundEditMode(value: boolean): void {
     this.backgroundEditMode = value;
-    console.log('changeBackgroundEditMode : ', this.backgroundEditMode);
   }
 
   async deleteBackground(url): Promise<void> {
@@ -140,7 +132,7 @@ export class MypageComponent implements OnInit {
         .deleteUserBackground(oldBackgroundUrl)
         .toPromise();
 
-      this.changeBackgroundEditMode(false)
+      this.changeBackgroundEditMode(false);
     } catch (e) {
       this.globalService.showToast(e.message);
     }

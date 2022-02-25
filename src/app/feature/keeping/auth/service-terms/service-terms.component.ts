@@ -53,11 +53,12 @@ export class ServiceTermsComponent implements OnInit {
         }
 
         this.userService
-            .updateUser(this.user.id, {
-                agreement_age: this.agreementAge,
-                agreement_privacy: this.agreementPrivacy,
-                agreement_service_terms: this.agreementServiceTerms,
-                agreement_marketing: this.agreementMarketing,
+            .updateServiceTerms({
+                userId: this.user.id,
+                agreementAge: this.agreementAge,
+                agreementPrivacy: this.agreementPrivacy,
+                agreementServiceTerms: this.agreementServiceTerms,
+                agreementMarketing: this.agreementMarketing,
             })
             .subscribe(
                 (v) => {
@@ -70,7 +71,7 @@ export class ServiceTermsComponent implements OnInit {
                     }
                     this.storageService.setUser(this.user)
 
-                    this.router.navigateByUrl('/')
+                    this.router.navigateByUrl('/').then();
                 },
                 (e) => {
                     this.globalService.showToast(e.message)

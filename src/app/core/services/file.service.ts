@@ -17,7 +17,7 @@ export class FileService {
   }
 
   /**
-   * 수정 중
+   * 수정 완료
    * */
   createFile(requestBody: CreateFileRequestBody, files: FileList): Observable<Array<File>> {
     const url = environment.userApiAddress + `/file`;
@@ -46,7 +46,6 @@ export class FileService {
 
     return this.http.post<any>(url, formData, options).pipe(
       map((res) => {
-        console.log('res : ', res);
         return res;
       }),
       catchError(handleError)
