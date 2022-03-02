@@ -1,27 +1,33 @@
-import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable } from 'rxjs'
-import { catchError, map } from 'rxjs/operators'
+import {Injectable} from '@angular/core'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
+import {Observable} from 'rxjs'
+import {catchError, map} from 'rxjs/operators'
 import handleError from './handleError'
 
-import { environment } from '@environments/environment'
+import {environment} from '@environments/environment'
 
-import { Response } from '@schemas/response'
-import { User } from '@schemas/user'
-import { Feed } from '@schemas/feed'
-import { FeedTag } from '@schemas/feed-tag'
-import { FeedComment } from '@schemas/feed-comment'
-import { File } from '@schemas/file'
+import {Response} from '@schemas/response'
+import {User} from '@schemas/user'
+import {Feed} from '@schemas/feed'
+import {FeedTag} from '@schemas/feed-tag'
+import {FeedComment} from '@schemas/feed-comment'
+import {File} from '@schemas/file'
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedService {
   constructor(
-    private http: HttpClient) {}
+    private http: HttpClient
+  ) {
+  }
 
+  /**
+   *
+   * @param requestBody { rewrite }
+   */
   createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
-    const url = environment['serverAddress'] + '/feed'
+    const url = environment['serverAddress'] + '/feed';
 
     const options = {
       headers: new HttpHeaders({
@@ -31,15 +37,20 @@ export class FeedService {
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        // console.log('create ----------------> : ', res.dataset[0])
         return res.dataset[0]
       }),
       catchError(handleError)
     )
   }
 
-  getFeedList(page = '', pageSize = ''): Observable<Array<Feed>> {
-    const url = environment['serverAddress'] + `/feed?page=${page}&pageSize=${pageSize}`
+  /**
+   * 개인 피드 (좋아요, 북마크 표시)
+   * @param page
+   * @param limit
+   * @param userId
+   */
+  getFeedList(page: number, limit: number, userId: string): Observable<any> {
+    const url = environment.userApiAddress + `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -47,10 +58,10 @@ export class FeedService {
       }),
     }
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
         // console.log('res.dataset : ', res.dataset);
-        return res.dataset
+        return res;
       }),
       catchError(handleError)
     )
@@ -90,6 +101,10 @@ export class FeedService {
     )
   }
 
+  /**
+   * 피드삭제 작업 중
+   * @param feedId
+   */
   deleteFeed(feedId: string): Observable<Response> {
     const url = environment['serverAddress'] + `/feed/${feedId}`
 
@@ -97,11 +112,11 @@ export class FeedService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.delete<Response>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
     )
@@ -175,8 +190,33 @@ export class FeedService {
     )
   }
 
-  createFeedLike(feedId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/like`
+  /**
+   * 피드 좋아요 => 수정 완료
+   * @param feedLike
+   */
+  createFeedLike(feedLike: addFeedLike): Observable<any> {
+    const url = environment.userApiAddress + `/feed/addLike`
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+
+    return this.http.post<any>(url, feedLike, options).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError(handleError)
+    )
+  }
+
+  /**
+   * 피드 좋아요 취소 => 수정 완료
+   * @param feedLike { feedId, userId }
+   */
+  deleteFeedLike(feedLike: addFeedLike): Observable<any> {
+    const url = environment.userApiAddress +
+      `/feed/deleteLike?feedId=${feedLike.feedId}&userId=${feedLike.userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -184,7 +224,7 @@ export class FeedService {
       }),
     }
 
-    return this.http.post<Response>(url, {}, options).pipe(
+    return this.http.delete<any>(url, options).pipe(
       map((res) => {
         return res
       }),
@@ -209,22 +249,6 @@ export class FeedService {
     )
   }
 
-  deleteFeedLike(feedId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/like`
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.http.delete<Response>(url, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
 
   createFeedComment(feedId: string, requestBody: CreateFeedCommentRequestBody): Observable<FeedComment> {
     const url = environment['serverAddress'] + `/feed/${feedId}/comment`
@@ -341,4 +365,10 @@ class CreateFeedCommentRequestBody {
 
 class UpdateFeedCommentRequestBody {
   text: string
+}
+
+/** 추가 */
+class addFeedLike {
+  feedId: string;
+  userId: string;
 }

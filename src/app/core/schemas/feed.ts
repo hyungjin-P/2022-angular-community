@@ -20,22 +20,24 @@ export class Feed {
     public writerEmail: string, // join data
     public writerPictureUrl: string, // join data
     public writerNickname: string, // join data
+    public isLike: boolean,
   ) {
-    this.id = id
-    this.writer = writer
-    this.content = content
-    this.picture = picture
-    this.pictures = pictures
-    this.tags = tags
-    this.tagsStr = tagsStr
-    this.like = like
-    this.likeUsers = likeUsers
-    this.likeCount = likeCount
-    this.commentCount = commentCount
-    this.createdAt = createdAt
-    this.pictureCount = pictureCount
-    this.writerEmail = writerEmail
-    this.writerPictureUrl = writerPictureUrl
-    this.writerNickname = writerNickname
+    this.id = id;
+    this.writer = writer;
+    this.content = content;
+    this.picture = picture;
+    this.pictures = pictures;
+    this.tags = tags;
+    this.tagsStr = tagsStr;
+    this.like = like;
+    this.likeUsers = likeUsers;
+    this.likeCount = likeCount;
+    this.commentCount = commentCount;
+    this.createdAt = createdAt;
+    this.pictureCount = pictureCount;
+    this.writerEmail = writerEmail;
+    this.writerPictureUrl = writerPictureUrl;
+    this.writerNickname = writerNickname;
+    this.isLike = isLike;
   }
 }

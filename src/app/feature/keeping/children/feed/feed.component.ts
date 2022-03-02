@@ -46,55 +46,66 @@ export class FeedComponent implements OnInit {
   }
 
   getFeedList() {
-    this.feedService.getFeedList().subscribe(
-      (feedList: Feed[]) => {
-        this.feedList = feedList;
+    this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
+      (feedList: any) => {
+        this.feedList = feedList.items;
+
       },
       (e) => {
+        console.log('public feed list find failed', e);
       }
     )
   }
 
+  /** 피드 수정 완료 */
   getPublicFeedList() {
     this.publicService
       .getFeedList(this.page, this.limit)
       .subscribe((feedList: any) => {
-        this.feedList = feedList.items;
-        console.log('public feed list : ', this.feedList);
-      },
+          this.feedList = feedList.items;
+        },
         (e) => {
-        console.log('e');
-      }
-    )
+          console.log('public feed list find failed', e);
+        }
+      );
   }
 
-  feedLike(feed: Feed) {
-    if (this.storageService.getUser()) {
-      if (feed.like) {
-        this.feedService.deleteFeedLike(feed.id).subscribe(
-          (v) => {
-            feed.like = false
-            feed.likeCount -= 1
+  /** 피드 좋아요 수정 중 */
+  feedLike(feed: Feed): void {
+    if (this.user?.id) {
+      if (feed.isLike) {
+        this.feedService.deleteFeedLike({
+          feedId: feed.id,
+          userId: this.user?.id
+        }).subscribe(
+          (count) => {
+            feed.isLike = false;
+            feed.likeCount = count;
           },
           (e) => {
+            console.log('cancel like feed error : ', e);
           }
         )
       } else {
-        this.feedService.createFeedLike(feed.id).subscribe(
-          (v) => {
-            feed.like = true
-            feed.likeCount += 1
+        this.feedService.createFeedLike({
+          feedId: feed.id,
+          userId: this.user?.id
+        }).subscribe(
+          (count) => {
+            feed.isLike = true;
+            feed.likeCount = count;
           },
           (e) => {
+            console.log('like feed error : ', e);
           }
         )
       }
     } else {
-      this.router.navigateByUrl('/auth/login')
+      this.router.navigateByUrl('/auth/login').then();
     }
   }
 
-  goFeedDetail(feed: Feed) {
-    this.router.navigateByUrl(`/feed/${feed.id}`)
+  moveFeedDetail(feed: Feed) {
+    this.router.navigateByUrl(`/feed/${feed.id}`).then();
   }
 }

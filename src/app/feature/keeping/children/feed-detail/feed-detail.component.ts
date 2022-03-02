@@ -211,12 +211,12 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeedList() {
-    this.feedService.getFeedList().subscribe(
-      (feedList: Feed[]) => {
-        this.feedList = feedList
-      },
-      (e) => {}
-    )
+    // this.feedService.getFeedList().subscribe(
+    //   (feedList: Feed[]) => {
+    //     this.feedList = feedList
+    //   },
+    //   (e) => {}
+    // )
   }
 
   getFeedCommentList() {
@@ -278,7 +278,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedFeedLike(feed: Feed) {
     if (this.storageService.getUser()) {
       if (feed.like) {
-        this.feedService.deleteFeedLike(feed.id).subscribe(
+        this.feedService.deleteFeedLike({
+          feedId: feed.id,
+          userId: this.user?.id
+        }).subscribe(
           (v) => {
             feed.like = false
             feed.likeCount -= 1
@@ -292,7 +295,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           (e) => {}
         )
       } else {
-        this.feedService.createFeedLike(feed.id).subscribe(
+        this.feedService.createFeedLike({
+          feedId: feed.id,
+          userId: this.user?.id
+        }).subscribe(
           (v) => {
             feed.like = true
             feed.likeCount += 1
@@ -303,14 +309,17 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         )
       }
     } else {
-      this.router.navigateByUrl('/auth/login')
+      this.router.navigateByUrl('/auth/login').then();
     }
   }
 
   feedLike(feed: Feed) {
     if (this.storageService.getUser()) {
       if (feed.like) {
-        this.feedService.deleteFeedLike(feed.id).subscribe(
+        this.feedService.deleteFeedLike({
+          feedId: feed.id,
+          userId: this.user?.id
+        }).subscribe(
           (v) => {
             feed.like = false
             feed.likeCount -= 1
@@ -318,7 +327,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           (e) => {}
         )
       } else {
-        this.feedService.createFeedLike(feed.id).subscribe(
+        this.feedService.createFeedLike({
+          feedId: feed.id,
+          userId: this.user?.id
+        }).subscribe(
           (v) => {
             feed.like = true
             feed.likeCount += 1

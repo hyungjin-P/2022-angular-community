@@ -42,31 +42,32 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.storageService.getUser()
+    this.user = this.storageService.getUser();
 
-    this.password = ''
-    this.passwordValid = false
-    this.passwordErrorText = ''
-    this.passwordVisible = false
+    this.password = '';
+    this.passwordValid = false;
+    this.passwordErrorText = '';
+    this.passwordVisible = false;
 
-    this.newPassword = ''
-    this.newPasswordValid = false
-    this.newPasswordErrorText = ''
-    this.newPasswordVisible = false
+    this.newPassword = '';
+    this.newPasswordValid = false;
+    this.newPasswordErrorText = '';
+    this.newPasswordVisible = false;
 
-    this.confirmNewPassword = ''
-    this.confirmNewPasswordValid = false
-    this.confirmNewPasswordErrorText = ''
-    this.confirmNewPasswordVisible = false
+    this.confirmNewPassword = '';
+    this.confirmNewPasswordValid = false;
+    this.confirmNewPasswordErrorText = '';
+    this.confirmNewPasswordVisible = false;
+
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
   changePassword() {
     if (!this.formCheck()) {
-      return
+      return;
     }
 
     this.userService
@@ -147,15 +148,18 @@ export class ChangePasswordComponent implements OnInit {
     } else if (pattern4.test(password)) {
       this.passwordValid = false
       // 비밀번호에 공백을 제외하고 입력해주세요.
-      this.passwordErrorText = this.textService.getText('settings:change-password:001')
+      this.passwordErrorText =
+        this.textService.getText('settings:change-password:001')
     } else if (password.length < 8) {
       this.passwordValid = false
       // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
-      this.passwordErrorText = this.textService.getText('settings:change-password:002')
+      this.passwordErrorText =
+        this.textService.getText('settings:change-password:002')
     } else if (!pattern1.test(password) || !pattern2.test(password)) {
       this.passwordValid = false
       // 비밀번호는 8자 이상, 영문+숫자를 포함해주세요.
-      this.passwordErrorText = this.textService.getText('settings:change-password:002')
+      this.passwordErrorText =
+        this.textService.getText('settings:change-password:002')
     }
 
     return isValid
