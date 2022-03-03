@@ -21,6 +21,7 @@ export class Feed {
     public writerPictureUrl: string, // join data
     public writerNickname: string, // join data
     public isLike: boolean,
+    public isBookmark: boolean,
   ) {
     this.id = id;
     this.writer = writer;
@@ -39,5 +40,6 @@ export class Feed {
     this.writerPictureUrl = writerPictureUrl;
     this.writerNickname = writerNickname;
     this.isLike = isLike;
+    this.isBookmark = isBookmark;
   }
 }

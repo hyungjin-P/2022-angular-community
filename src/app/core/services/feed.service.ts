@@ -26,7 +26,7 @@ export class FeedService {
    *
    * @param requestBody { rewrite }
    */
-  createFeed(requestBody: CreateFeedRequestBody): Observable<Feed> {
+  createFeed(requestBody: CreateFeedDto): Observable<Feed> {
     const url = environment['serverAddress'] + '/feed';
 
     const options = {
@@ -50,7 +50,8 @@ export class FeedService {
    * @param userId
    */
   getFeedList(page: number, limit: number, userId: string): Observable<any> {
-    const url = environment.userApiAddress + `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}`;
+    const url = environment.userApiAddress +
+      `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -84,7 +85,7 @@ export class FeedService {
     )
   }
 
-  updateFeed(feedId: string, requestBody: UpdateFeedRequestBody): Observable<Feed> {
+  updateFeed(feedId: string, requestBody: UpdateFeedDto): Observable<Feed> {
     const url = `${environment['serverAddress']}/feed/${feedId}`
 
     const options = {
@@ -122,7 +123,7 @@ export class FeedService {
     )
   }
 
-  createFeedPicture(feedId: string, requestBody: CreateFeedPictureRequestBody): Observable<Response> {
+  createFeedPicture(feedId: string, requestBody: CreateFeedPictureDto): Observable<Response> {
     const url = environment['serverAddress'] + `/feed/${feedId}/picture`
 
     const options = {
@@ -156,7 +157,7 @@ export class FeedService {
     )
   }
 
-  createFeedTag(feedId: string, requestBody: CreateFeedTagRequestBody): Observable<FeedTag> {
+  createFeedTag(feedId: string, requestBody: CreateFeedTagDto): Observable<FeedTag> {
     const url = environment['serverAddress'] + `/feed/${feedId}/tag`
 
     const options = {
@@ -250,7 +251,7 @@ export class FeedService {
   }
 
 
-  createFeedComment(feedId: string, requestBody: CreateFeedCommentRequestBody): Observable<FeedComment> {
+  createFeedComment(feedId: string, requestBody: CreateFeedCommentDto): Observable<FeedComment> {
     const url = environment['serverAddress'] + `/feed/${feedId}/comment`
 
     const options = {
@@ -285,7 +286,7 @@ export class FeedService {
   }
 
   getFeedSubCommentList(feedId: string, commentId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -304,7 +305,7 @@ export class FeedService {
   updateFeedComment(
     feedId: string,
     commentId: string,
-    requestBody: UpdateFeedCommentRequestBody
+    requestBody: UpdateFeedCommentDto
   ): Observable<FeedComment> {
     const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
 
@@ -338,32 +339,81 @@ export class FeedService {
       catchError(handleError)
     )
   }
+
+  /**
+   * 북마크 추가
+   * @param feedBookmarkDto { feedId, userId }
+   */
+  addFeedBookmark(feedBookmarkDto: FeedBookmarkDto): Observable<any> {
+    const url = environment.userApiAddress + `/feed/addBookmark`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+
+    return this.http.post<any>(url, feedBookmarkDto, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  /**
+   * 북마크 삭제
+   * @param feedBookmarkDto { feedId, userId }
+   */
+  deleteFeedBookmark(feedBookmarkDto: FeedBookmarkDto): Observable<any> {
+    const url = environment.userApiAddress +
+      `/feed/deleteBookmark?feedId=${feedBookmarkDto.feedId}&userId=${feedBookmarkDto.userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+
+    return this.http.delete<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
 }
 
-class CreateFeedRequestBody {
+class FeedBookmarkDto {
+  feedId: string;
+  userId: string;
+}
+
+class CreateFeedDto {
   rewrite: boolean
 }
 
-class UpdateFeedRequestBody {
+class UpdateFeedDto {
   content?: string
   picture?: string
   posting?: boolean
 }
 
-class CreateFeedPictureRequestBody {
+class CreateFeedPictureDto {
   files: Array<File>
 }
 
-class CreateFeedTagRequestBody {
+class CreateFeedTagDto {
   name: string
 }
 
-class CreateFeedCommentRequestBody {
+class CreateFeedCommentDto {
   parent_id?: string
   text: string
 }
 
-class UpdateFeedCommentRequestBody {
+class UpdateFeedCommentDto {
   text: string
 }
 

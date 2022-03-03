@@ -105,7 +105,57 @@ export class FeedComponent implements OnInit {
     }
   }
 
+
   moveFeedDetail(feed: Feed) {
-    this.router.navigateByUrl(`/feed/${feed.id}`).then();
+    console.log('is bookmark : ', feed.isBookmark);
+    // this.router.navigateByUrl(`/feed/${feed.id}`).then();
+  }
+
+  /**
+   * 북마크 추가/삭제
+   * @param feed
+   */
+  toggleFeedBookmark(feed: Feed): void {
+    if (feed) {
+      if (feed.isBookmark) {
+        this.deleteBookmark(feed, this.user?.id);
+      } else {
+        this.addBookmark(feed, this.user?.id);
+      }
+    }
+  }
+
+  /**
+   * 북마크 추가
+   * @param feed
+   * @param userId
+   */
+  addBookmark(feed: Feed, userId: string): void {
+    if (this.user) {
+      this.feedService
+        .addFeedBookmark({feedId: feed?.id, userId})
+        .subscribe((data)=> {
+          feed.isBookmark = true;
+        }, (error) => {
+          console.log('bookmark add failed : ', error);
+        });
+    }
+  }
+
+  /**
+   * 북마크 삭제
+   * @param feed
+   * @param userId
+   */
+  deleteBookmark(feed: Feed, userId: string): void {
+    if (this.user) {
+      this.feedService
+        .deleteFeedBookmark({feedId: feed?.id, userId})
+        .subscribe((data)=> {
+          feed.isBookmark = false;
+        }, (error) => {
+          console.log('bookmark cancel failed : ', error);
+        });
+    }
   }
 }

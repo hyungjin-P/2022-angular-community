@@ -10,15 +10,15 @@ import {User} from '@schemas/user'
 @Injectable({providedIn: 'root'})
 export class StorageService {
 
-  private storage: Storage
-  private userKey: string
+  private storage: Storage;
+  private userKey: string;
 
   constructor(
     private angularFireAuth: AngularFireAuth,
     private globalService: GlobalService
   ) {
-    this.storage = sessionStorage
-    this.userKey = 'keeping:authUser'
+    this.storage = sessionStorage;
+    this.userKey = 'keeping:authUser';
   }
 
   getUser(): User {
@@ -33,13 +33,15 @@ export class StorageService {
     this.globalService.user.nickname = user.nickname;
 
     if (user.picture) {
-      this.globalService.user.picture = user.picture?.length === 0 ? null : user.picture[0];
+      this.globalService.user.picture =
+        user.picture?.length === 0 ? null : user.picture[0];
     } else {
       this.globalService.user.picture = null;
     }
 
     if (user.background) {
-      this.globalService.user.background = user.background?.length === 0 ? null : user.background[0];
+      this.globalService.user.background =
+        user.background?.length === 0 ? null : user.background[0];
     } else {
       this.globalService.user.background = null;
     }
@@ -51,16 +53,16 @@ export class StorageService {
         Kakao.Auth.logout(() => {
           resolve(null)
         })
-      })
+      });
 
       await logout
     }
-    await this.angularFireAuth.signOut()
-    this.storage.removeItem(this.userKey)
+    await this.angularFireAuth.signOut();
+    this.storage.removeItem(this.userKey);
 
-    this.globalService.variables.isLogin = false
-    this.globalService.user.nickname = ''
-    this.globalService.user.picture = null
-    this.globalService.user.background = null
+    this.globalService.variables.isLogin = false;
+    this.globalService.user.nickname = '';
+    this.globalService.user.picture = null;
+    this.globalService.user.background = null;
   }
 }

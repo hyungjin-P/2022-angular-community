@@ -186,16 +186,16 @@
         </div>
         <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
           <div class="d-flex flex-column flex-wrap">
-            <a class="image-box flex-fill" [routerLink]="['/feed/', feed.id]">
-              <img class="picture" [src]="feed.picture" draggable="false">
+            <a class="image-box flex-fill" href="javascript: void(0);">
+              <img class="picture" [src]="feed.picture" draggable="false" (click)="moveFeedDetail(feed)">
               <div class="count-background" *ngIf="feed.pictures?.length > 1">
                 <img src="assets/icons/feed/count.svg">
                 <div class="count">
                   {{ '+' + feed.pictureCount }}
                 </div>
               </div>
-              <div class="bookmark">
-                <img src="assets/icons/feed/bookmark.svg">
+              <div class="bookmark" (click)="toggleFeedBookmark(feed)">
+                <img [ngClass]="feed?.isBookmark ? 'bookmark-added' : ''" src="assets/icons/feed/bookmark.svg">
               </div>
             </a>
             <div class="user">
@@ -226,8 +226,7 @@
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
-                      fill="#FF4A57" stroke="#FF4A57" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round"/>
+                      fill="#FF4A57" stroke="#FF4A57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
 
