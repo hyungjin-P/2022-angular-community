@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+
+
         this.variables = this.globalService.variables
         this.modal = this.globalService.modal
         this.toast = this.globalService.toast

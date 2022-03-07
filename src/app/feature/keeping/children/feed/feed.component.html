@@ -178,7 +178,6 @@
               </svg>
             </div>
             <span>피규어 키덜트들의 놀이터, 키핑 커뮤니티</span>
-            <a class="" href=""></a>
           </div>
           <div class="img-content">
             <img src="assets/images/common/banner_img.png" alt="">
@@ -186,18 +185,22 @@
         </div>
         <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
           <div class="d-flex flex-column flex-wrap">
-            <a class="image-box flex-fill" href="javascript: void(0);">
-              <img class="picture" [src]="feed.picture" draggable="false" (click)="moveFeedDetail(feed)">
-              <div class="count-background" *ngIf="feed.pictures?.length > 1">
-                <img src="assets/icons/feed/count.svg">
-                <div class="count">
-                  {{ '+' + feed.pictureCount }}
+            <div class="image-box flex-fill">
+
+              <div class="image-box-hover-content" (click)="moveFeedDetail(feed)">
+                <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content">
+                <div class="image-box-hover-content-cover"></div>
+                <div class="image-box-hover-content-inner">
+                  <div> {{ feed.content }} </div>
                 </div>
               </div>
+
               <div class="bookmark" (click)="toggleFeedBookmark(feed)">
                 <img [ngClass]="feed?.isBookmark ? 'bookmark-added' : ''" src="assets/icons/feed/bookmark.svg">
               </div>
-            </a>
+
+            </div>
+
             <div class="user">
               <shared-avatar
                 [image]="feed.writerPictureUrl"

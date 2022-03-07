@@ -19,9 +19,15 @@
       </svg>
     </a>
     <a class="logo" [routerLink]="['/']">
-      <img class="d-inline d-lg-none" src="assets/images/logo/mobile_header_logo.svg" />
-      <img class="d-none d-lg-inline" src="assets/images/logo/header_logo.png" />
+      <img class="d-inline d-lg-none" src="assets/images/logo/mobile_header_logo.svg"/>
+      <img class="d-none d-lg-inline" src="assets/images/logo/header_logo.png"/>
     </a>
+
+    <div class="routing-menu d-lg-none">
+      <a class="menu-link" [routerLink]="['/feed']" routerLinkActive="selected"> 홈 피드</a>
+      <a class="menu-link" [routerLink]="['/magazine']" routerLinkActive="selected"> 매거진</a>
+    </div>
+
   </div>
   <div class="center">
     <!-- <div
@@ -84,7 +90,7 @@
           </g>
           <defs>
             <clipPath id="clip0_4278_23353">
-              <rect width="24" height="24" fill="white" />
+              <rect width="24" height="24" fill="white"/>
             </clipPath>
           </defs>
         </svg>
@@ -254,20 +260,23 @@
       <div class="v-line d-none d-lg-flex"></div>
 
       <a class="write d-none d-lg-flex" [routerLink]="['/write']">
-        <img src="assets/icons/header/pencil.svg" />
+        <img src="assets/icons/header/pencil.svg"/>
         <span>{{ 'common.header.write' | translate }}</span>
       </a>
 
     </ng-container>
   </div>
 </div>
+
 <div class="nav d-flex d-lg-none">
-  <div class="menu" [routerLink]="['/feed']" routerLinkActive="selected">
-    <div class="text">피드</div>
-    <div class="selected-line"></div>
-  </div>
-  <div class="menu" [routerLink]="['/magazine']" routerLinkActive="selected">
-    <div class="text">매거진</div>
-    <div class="selected-line"></div>
-  </div>
+  <!-- 카테고리 탭 -->
+  <ng-container *ngFor="let tab of tabMenu">
+    <div class="menu" [ngClass]="tab?.tabName === nowTab ? 'selected' : ''">
+      <a class="text" href="javascript: void(0);" (click)="moveTab(tab?.link)">
+        {{ tab?.languageCode | translate }}
+      </a>
+      <div class="selected-line"></div>
+    </div>
+  </ng-container>
+
 </div>

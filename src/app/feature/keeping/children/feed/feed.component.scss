@@ -47,9 +47,8 @@
     margin: 0 -3px 30px;
     height: 54px;
     background-color: var(--white);
-    box-shadow: 0px 3px 5px rgba(235, 235, 235, 0.5);
+    box-shadow: 0 3px 5px rgba(235, 235, 235, 0.5);
     z-index: 1;
-
     overflow-x: auto;
 
     /* height */
@@ -130,17 +129,15 @@
       }
 
       .img-content {
-        display: inline-block;
-        width: 32%;
-        margin: 20px 0 0 20px;
-      }
+        width: 40%;
+        height: 100%;
+        overflow: hidden;
 
-      img {
-        display: block;
-        width: 100%;
-        height: auto;
+        > img {
+          width: 100%;
+          transform: translate(20%, 15%);
+        }
       }
-
     }
 
     .item {
@@ -155,17 +152,95 @@
           background-color: var(--grey-8);
           border-radius: 12px;
 
-          img {
+          .image-box-hover-content {
+            cursor: pointer;
+            border-radius: 12px;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            transform: translate(50, 50);
-            object-fit: cover;
-            margin: auto;
-            border-radius: 12px;
-            cursor: pointer;
+            transition: all 0.5s;
+
+            .image-box-hover-content-cover {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
+              z-index: 2;
+              transition-duration: 0.5s;
+              border-radius: 12px;
+              opacity: 0;
+            }
+
+            .picture {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              transform: translate(50, 50);
+              object-fit: cover;
+              margin: auto;
+              border-radius: 12px;
+              cursor: pointer;
+              transition-duration: 0.5s;
+            }
+
+            .image-box-hover-content-inner {
+              width: 100%;
+              height: 0;
+              transition: all 0.5s;
+              padding: 10px;
+
+              div {
+                width: 100%;
+                height: 0;
+                font-size: 0;
+              }
+            }
+          }
+
+          .image-box-hover-content:hover {
+            display: flex;
+            flex-direction: column-reverse;
+            transition: all 0.5s;
+            z-index: 1;
+
+            .image-box-hover-content-cover {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9));
+              z-index: 2;
+              transition-duration: 0.5s;
+              border-radius: 12px;
+              opacity: 1;
+              //transform: scale(1.05, 1.05);
+            }
+
+            .image-box-hover-content-inner {
+              display: block;
+              width: 100%;
+              height: 20%;
+              padding: 10px;
+              transition: all 0.5s;
+              z-index: 3;
+
+              div {
+                display: inline;
+                font-size: 20px;
+                color: var(--white);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+
+            .picture {
+              //transform: scale(1.05, 1.05);
+              transition-duration: 0.5s;
+            }
           }
 
           .bookmark {
@@ -175,6 +250,7 @@
             align-items: center;
             width: 24px;
             height: 24px;
+            z-index: 3;
 
             img {
               height: 16px;
@@ -182,10 +258,11 @@
               border-radius: unset;
               filter: opacity(50%);
             }
+
             img.bookmark-added {
               filter: opacity(100%);
-
             }
+
             img:hover {
               filter: opacity(100%);
               transition: all 0.5s;

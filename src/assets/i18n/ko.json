@@ -113,7 +113,16 @@
     },
     "nav": {
       "feed": "피드",
+      "feed-tab": {
+        "all": "전체",
+        "popularity": "인기",
+        "following": "팔로잉"
+      },
       "magazine": "매거진",
+      "magazine-tab": {
+        "news": "뉴스",
+        "release-news": "발매 소식"
+      },
       "privacy": "개인정보 처리방침",
       "service-terms": "이용약관",
       "shop": "키핑Shop"

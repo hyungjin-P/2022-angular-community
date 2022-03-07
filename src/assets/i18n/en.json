@@ -113,7 +113,16 @@
     },
     "nav": {
       "feed": "Feed",
+      "feed-tab": {
+        "all": "전체",
+        "popularity": "Popularity",
+        "following": "Following"
+      },
       "magazine": "Magazine",
+      "magazine-tab": {
+        "news": "News",
+        "release-news": "Release News"
+      },
       "privacy": "Privacy",
       "service-terms": "Service Terms",
       "shop": "Shop"

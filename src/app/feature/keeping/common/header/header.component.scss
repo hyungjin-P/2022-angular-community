@@ -47,6 +47,25 @@
       height: 28px;
       cursor: pointer;
     }
+
+    .routing-menu {
+      display: flex;
+      width: 200px;
+      margin-left: 10px;
+
+      .menu-link {
+        padding-left: 8px;
+        padding-right: 8px;
+        color: var(--grey-4);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+
+      .menu-link.selected {
+        color: var(--black);
+      }
+    }
   }
 
   .center {

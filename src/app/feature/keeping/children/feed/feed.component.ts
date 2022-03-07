@@ -105,7 +105,6 @@ export class FeedComponent implements OnInit {
     }
   }
 
-
   moveFeedDetail(feed: Feed) {
     console.log('is bookmark : ', feed.isBookmark);
     // this.router.navigateByUrl(`/feed/${feed.id}`).then();
