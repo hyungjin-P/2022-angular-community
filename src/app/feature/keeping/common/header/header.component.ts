@@ -87,7 +87,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl(link).then(() => {
       this.changeTab(this.route.snapshot.routeConfig.path);
     });
-
   }
 
   changeTab(routingPath): void {
