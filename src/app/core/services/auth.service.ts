@@ -1,20 +1,19 @@
-import {Injectable} from '@angular/core'
-import {HttpClient, HttpHeaders} from '@angular/common/http'
-import {Observable} from 'rxjs'
-import {catchError, map} from 'rxjs/operators'
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
 import handleError from './handleError'
 
-import {environment} from '@environments/environment'
+import { environment } from '@environments/environment'
 
-import {Response} from '@schemas/response'
-import {User} from '@schemas/user'
+import { Response } from '@schemas/response'
+import { User } from '@schemas/user'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * firebase 로그인

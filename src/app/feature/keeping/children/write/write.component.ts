@@ -149,7 +149,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
         )
         .toPromise()
 
-      await this.feedService.createFeedPicture(this.feed.id, { files: createdFiles }).toPromise()
+      // await this.feedService.createFeedPicture(this.feed.id, { files: createdFiles }).toPromise()
 
       this.feed.pictures = createdFiles.concat(this.feed.pictures)
 

@@ -120,8 +120,10 @@
       },
       "magazine": "매거진",
       "magazine-tab": {
+        "all": "전체",
         "news": "뉴스",
-        "release-news": "발매 소식"
+        "release": "발매 소식",
+        "writer": "작가"
       },
       "privacy": "개인정보 처리방침",
       "service-terms": "이용약관",
@@ -143,6 +145,13 @@
       "liked-view-header": "이 글을 좋아하는 유저",
       "more-delete": "삭제",
       "follow": "팔로우"
+    },
+    "magazine": {
+      "category": {
+        "magazine_category_news": "피규어 뉴스",
+        "magazine_category_release": "피규어 발매소식",
+        "magazine_category_writer": "작가 인터뷰"
+      }
     },
     "mobile-header": {
       "feed-detail": "피드",

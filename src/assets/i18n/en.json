@@ -120,8 +120,10 @@
       },
       "magazine": "Magazine",
       "magazine-tab": {
+        "all": "All",
         "news": "News",
-        "release-news": "Release News"
+        "release": "Release News",
+        "writer": "Writer"
       },
       "privacy": "Privacy",
       "service-terms": "Service Terms",
@@ -143,6 +145,13 @@
       "liked-view-header": "Users who like this feed.",
       "more-delete": "Delete",
       "follow": "Follow"
+    },
+    "magazine": {
+      "category": {
+        "magazine_category_news": "news",
+        "magazine_category_release": "new release",
+        "magazine_category_writer": "writer interview"
+      }
     },
     "mobile-header": {
       "feed-detail": "Feed",
