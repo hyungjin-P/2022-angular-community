@@ -21,8 +21,6 @@ export class MagazineComponent implements OnInit {
   page: number = 1;
   limit: number = 20;
 
-  // 업로드 테스트
-
   tabMenu: any = [
     {
       tabName: 'all',
