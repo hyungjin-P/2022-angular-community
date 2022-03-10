@@ -23,12 +23,11 @@
           flex-direction: column;
 
           bottom: 0;
-          padding: 0 56px 35px 21px;
+          padding: 0 56px 30px 20px;
 
           .category {
             display: inline-block;
-            background: linear-gradient(143.82deg, rgba(171, 190, 255, 0.2) 13.1%, rgba(8, 32, 114, 0.2) 83.81%),
-            radial-gradient(50% 50% at 50% 50%, #567dff 0%, #446fff 100%);
+            background: rgba(86, 125, 255, 0.8);
             border-radius: 4px;
 
             padding: 3px 8px;
@@ -41,16 +40,37 @@
             color: white;
             @include textStyle(700, 20px, 30px);
           }
+          .additional{
+            margin-top: 20px;
+            color: white;
+            opacity: 0.9;
+            align-items: center;
+
+            .nickname{
+              margin-left: 4px;
+            }
+            .display{
+              .viewerObj{
+                align-items: center;
+                margin-left: 8px;
+              }
+              .heartObj{
+                align-items: center;
+                margin-left: 8px;
+              }
+            }
+          }
         }
       }
+
       .carousel-indicators {
         position: absolute;
-        right: 0;
-        bottom: 17px;
-        left: 22px;
+        left: auto;
+        right: 20px;
+        bottom: 38px;
         z-index: 15;
         display: flex;
-        justify-content: left;
+        justify-content: right;
         padding-left: 0;
         margin: 0;
         list-style: none;
@@ -123,6 +143,12 @@
 
             border: 1px solid var(--grey-8);
           }
+
+          .bookmark{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+          }
         }
         .image-box:before {
           content: '';
@@ -175,6 +201,7 @@
             padding: 0;
             display: flex;
             justify-content: right;
+            left: auto;
 
             > div {
               display: flex;

@@ -21,8 +21,6 @@ export class MagazineComponent implements OnInit {
   page: number = 1;
   limit: number = 20;
 
-  // upload test
-
   tabMenu: any = [
     {
       tabName: 'all',
