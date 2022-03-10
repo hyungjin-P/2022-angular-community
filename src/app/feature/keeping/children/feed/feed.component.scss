@@ -132,6 +132,7 @@
         width: 40%;
         height: 100%;
         overflow: hidden;
+        border-radius: 8px;
 
         > img {
           width: 100%;
@@ -193,7 +194,7 @@
               transition: all 0.5s;
               padding: 10px;
 
-              div {
+              span {
                 width: 100%;
                 height: 0;
                 font-size: 0;
@@ -227,9 +228,10 @@
               transition: all 0.5s;
               z-index: 3;
 
-              div {
+              span {
                 display: inline;
-                font-size: 20px;
+                max-width: 100%;
+                font-size: 12px;
                 color: var(--white);
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -238,7 +240,6 @@
             }
 
             .picture {
-              //transform: scale(1.05, 1.05);
               transition-duration: 0.5s;
             }
           }
@@ -248,25 +249,35 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             z-index: 3;
+            opacity: 0.7;
+            border-radius: 8px;
+            background-color: var(--white);
+            box-shadow: 0 0 2px 2px rgba(66, 76, 89, 0.15);
+            cursor: pointer;
+            top: auto;
+            bottom: 8px;
+            right: 8px;
+            transition: all 0.5s;
 
             img {
+              cursor: pointer;
               height: 16px;
               width: 16px;
               border-radius: unset;
-              filter: opacity(50%);
+              z-index: 4;
+              opacity: 1;
             }
-
-            img.bookmark-added {
-              filter: opacity(100%);
-            }
-
             img:hover {
-              filter: opacity(100%);
               transition: all 0.5s;
             }
+          }
+
+          .bookmark:hover {
+            opacity: 1;
+            transition: all 0.5s;
           }
 
           /* 네이밍 name-name2-name3 */
@@ -288,13 +299,43 @@
             }
           }
 
-          .bookmark {
-            bottom: 5px;
-            right: 5px;
-            cursor: pointer;
 
-            img {
-              height: 18px;
+        }
+
+        .feed-infos {
+          margin-bottom: 10px;
+          display: flex;
+          width: 100%;
+
+          .user-name {
+            margin-left: 5px;
+            padding-top: 1px;
+            @include textStylePoppins(700, 14px);
+            color: var(--black);
+            max-width: calc(100% - 70px);
+            overflow:hidden;
+            text-overflow: ellipsis;
+            white-space:nowrap;
+          }
+
+          .like {
+            margin-left: auto;
+            margin-bottom: auto;
+            padding-left: 15px;
+            height: 100%;
+
+            display: flex;
+            text-align: right;
+            font-weight: 300;
+            font-size: 13px;
+
+            color: var(--grey-4);
+
+            *:not(:last-child) {
+              padding-right: 0;
+            }
+            .like-count {
+              padding-top: 1px;
             }
           }
         }
@@ -308,15 +349,20 @@
           .nickname {
             margin-left: 4px;
 
-            @include textStyle(400, 14px, 20px);
+            @include textStylePoppins(700, 14px);
             color: var(--text-1);
+
           }
         }
 
         .title {
           margin-top: 4px;
           letter-spacing: -0.2px;
-          width: 100%;
+          width: calc(100% - 3px);
+
+          overflow:hidden;
+          text-overflow: ellipsis;
+          white-space:nowrap;
 
           @include textStyle(400, 13px, 21px);
         }
@@ -326,42 +372,6 @@
           width: 100%;
 
           @include textStyle(400, 12px, 20px);
-        }
-
-        .additional {
-          display: flex;
-          align-items: center;
-          margin-top: 8px;
-          height: 20px;
-
-          .like {
-            cursor: pointer;
-          }
-
-          .like,
-          .comment {
-            display: flex;
-            align-items: center;
-
-            @include textStyle(400, 13px, 21px);
-            color: var(--grey-2);
-
-            .mdi {
-              font-size: 18px;
-            }
-
-            .mdi-heart {
-              color: var(--red);
-            }
-
-            .text {
-              margin-left: 2px;
-            }
-          }
-
-          .comment {
-            margin-left: 16px;
-          }
         }
       }
     }
@@ -433,6 +443,11 @@
           .image-box {
             flex: 1 0 auto;
             height: auto;
+            .bookmark {
+              top: 16px;
+              bottom: auto;
+              right: 16px;
+            }
           }
 
           .image-box:before {
@@ -497,6 +512,12 @@
           .image-box {
             flex: 1 0 auto;
             height: auto;
+
+            .bookmark {
+              top: 16px;
+              bottom: auto;
+              right: 16px;
+            }
           }
 
           .image-box:before {
@@ -530,6 +551,12 @@
           .image-box {
             flex: 1 0 auto;
             height: auto;
+
+            .bookmark {
+              top: 16px;
+              bottom: auto;
+              right: 16px;
+            }
           }
 
           .image-box:before {

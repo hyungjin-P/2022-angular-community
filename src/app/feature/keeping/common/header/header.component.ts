@@ -105,14 +105,14 @@ export class HeaderComponent implements OnInit {
     event.stopPropagation();
 
     if (this.userBoxVisible) {
-      this.closeUserBox();
+      this.closeUserBox()
     } else {
-      this.userBoxVisible = true;
+      this.userBoxVisible = true
     }
   }
 
   closeUserBox() {
-    this.userBoxVisible = false;
+    this.userBoxVisible = false
   }
 
   async logout() {

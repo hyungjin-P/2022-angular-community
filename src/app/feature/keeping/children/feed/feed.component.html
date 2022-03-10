@@ -26,7 +26,8 @@
         <div class="banner d-lg-none">
           <div class="text-content">
             <div>키핑 KEEP & PICK!
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24"
+                   fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M18.5454 15.0677C18.311 14.6421 18.6092 14.209 19.1192 13.6727C19.9273 12.8215 20.8067 10.8471 19.9892 8.84273C19.9948 8.83148 19.8279 8.49398 19.8335 8.48273L19.4979 8.46586C19.391 8.45086 15.6992 8.44336 12.0035 8.44336C8.30792 8.44336 4.61604 8.45086 4.50917 8.46586C4.50917 8.46586 4.01229 8.83148 4.01604 8.84273C3.20042 10.8471 4.07792 12.8196 4.88604 13.6727C5.39417 14.209 5.69229 14.6421 5.45979 15.0677C5.23292 15.4821 4.55792 15.5421 4.55792 15.5421C4.55792 15.5421 4.71354 15.9659 5.08854 16.1946C5.43542 16.4065 5.86292 16.4552 6.15729 16.4627C6.15729 16.4627 7.31042 18.0584 10.3254 18.0584H13.6817C16.6967 18.0584 17.8498 16.4627 17.8498 16.4627C18.1442 16.4552 18.5717 16.4065 18.9185 16.1946C19.2935 15.9659 19.4492 15.5421 19.4492 15.5421C19.4492 15.5421 18.7723 15.4821 18.5454 15.0677Z"
                   fill="#312D2D"/>
@@ -185,23 +186,8 @@
         </div>
         <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
           <div class="d-flex flex-column flex-wrap">
-            <div class="image-box flex-fill">
 
-              <div class="image-box-hover-content" (click)="moveFeedDetail(feed)">
-                <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content">
-                <div class="image-box-hover-content-cover"></div>
-                <div class="image-box-hover-content-inner">
-                  <div> {{ feed.content }} </div>
-                </div>
-              </div>
-
-              <div class="bookmark" (click)="toggleFeedBookmark(feed)">
-                <img [ngClass]="feed?.isBookmark ? 'bookmark-added' : ''" src="assets/icons/feed/bookmark.svg">
-              </div>
-
-            </div>
-
-            <div class="user">
+            <div class="feed-infos">
               <shared-avatar
                 [image]="feed.writerPictureUrl"
                 text="{{ feed.writerEmail }}"
@@ -209,58 +195,46 @@
                 fontSize="14"
                 backgroundColor="red"
               ></shared-avatar>
-              <div class="nickname">
-                {{ feed.writerNickname || feed.writerEmail.split('@')[0] }}
+              <span class="user-name">
+                {{ feed.writerNickname || feed.writerEmail.split('@')[0] }} HAILEAEEEEE
+              </span>
+
+              <!-- 좋아요 수 -->
+              <div class="like">
+                <div class="heart-outline">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.64362 15.6121L4.94176 10.7159C3.61738 9.33677 3.70078 7.07548 5.12283 5.8062C6.53361 4.54698 8.67271 4.7915 9.78756 6.33942L9.97499 6.59965L10.1624 6.33942C11.2773 4.7915 13.4164 4.54698 14.8272 5.8062C16.2492 7.07548 16.3326 9.33677 15.0082 10.7159L10.3064 15.6121C10.1234 15.8026 9.82663 15.8026 9.64362 15.6121Z" fill="#B2BBC8"/>
+                  </svg>
+                </div>
+                <span class="like-count">
+                  {{ feed.likeCount > 99 ? '99+' : (feed.likeCount | number) }}
+                </span>
               </div>
             </div>
-            <div class="title ellipsis2">
+
+            <div class="image-box flex-fill">
+              <div class="image-box-hover-content" (click)="moveFeedDetail(feed)">
+                <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content">
+                <!-- 그라데이션 커버 -->
+                <div class="image-box-hover-content-cover d-sm-none d-md-none"></div>
+                <div class="image-box-hover-content-inner d-sm-none d-md-none">
+<!--                  <span>{{ feed.content }}</span>-->
+                </div>
+              </div>
+              <div class="bookmark" (click)="toggleFeedBookmark(feed)">
+                <ng-container *ngIf="feed?.isBookmark">
+                  <img src="assets/icons/feed/bookmark-added.svg" alt="">
+                </ng-container>
+                <ng-container *ngIf="!feed?.isBookmark">
+                  <img src="assets/icons/feed/bookmark-default.svg" alt="">
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="title">
               {{ feed.content }}
             </div>
-            <div class="tags ellipsis1">
-              {{ feed.tagsStr }}
-            </div>
-            <div class="additional">
-              <div class="like"
-                   (click)="feedLike(feed)">
 
-                <!-- 빨간 하트 -->
-                <div class="heart"
-                     *ngIf="variables.isLogin && feed.isLike">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
-                      fill="#FF4A57" stroke="#FF4A57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-
-                <!-- 빈 하트 -->
-                <div class="heart-outline"
-                     *ngIf="!variables.isLogin || !feed.isLike">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
-                      stroke="#7E8A9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div class="text">
-                  {{ feed.likeCount }}
-                </div>
-              </div>
-              <div class="comment">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 21C16.9705 21 21 16.9705 21 12C21 7.02943 16.9705 3 12 3C7.02943 3 3 7.02943 3 12C3 14.3967 3.93685 16.5746 5.46431 18.1875L3.65413 20.2534C3.39925 20.5443 3.60583 21 3.99259 21H12Z"
-                    stroke="#7E8A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M7.5 9.30078H16.5" stroke="#7E8A9A"
-                        stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                  <path d="M7.5 12.9004H11.1" stroke="#7E8A9A"
-                        stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                </svg>
-                <div class="text">{{ feed.commentCount }}</div>
-              </div>
-            </div>
           </div>
 
         </div>
