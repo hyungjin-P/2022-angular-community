@@ -16,6 +16,7 @@ export class MagazineComponent implements OnInit {
   variables: any;
   user: User;
   category: string = 'all';
+  topMagazineList: Magazine[];
   magazineList: Magazine[];
   page: number = 1;
   limit: number = 20;
@@ -30,21 +31,21 @@ export class MagazineComponent implements OnInit {
     },
     {
       tabName: 'news',
-      languageCode: 'common.nav.magazine-tab.news',
+      languageCode: 'common.nav.magazine-tab.magazine_category_news',
       link: '/magazine?tabType=news',
       description: '매거진 뉴스',
       sort: 0,
     },
     {
       tabName: 'release',
-      languageCode: 'common.nav.magazine-tab.release',
+      languageCode: 'common.nav.magazine-tab.magazine_category_release',
       link: '/magazine?tabType=release',
       description: '발매 소식',
       sort: 0,
     },
     {
       tabName: 'writer',
-      languageCode: 'common.nav.magazine-tab.writer',
+      languageCode: 'common.nav.magazine-tab.magazine_category_writer',
       link: '/magazine?tabType=writer',
       description: '작가, 작품 인터뷰',
       sort: 0,
@@ -52,7 +53,7 @@ export class MagazineComponent implements OnInit {
   ];
 
   // tabMenu: any[] = [];
-  nowTab = 'all';
+  nowTab = '';
 
   constructor(
     private router: Router,
@@ -73,6 +74,9 @@ export class MagazineComponent implements OnInit {
   getMagazineList() {
     this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id).subscribe(
       (magazineList: any) => {
+        if (this.topMagazineList === undefined) {
+          this.topMagazineList = magazineList.items;
+        }
         this.magazineList = magazineList.items;
       },
       (e) => {
