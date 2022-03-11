@@ -4,8 +4,80 @@
   <div class="flex-fill" style="position: relative">
     <div class="section full-absolute">
       <!-- 상단 슬라이드 뷰 -->
-      <div class='pc-top d-none d-lg-inline'>
+      <div class='pc-top d-none d-lg-block'>
+        <div class='top-caption'>
+          Main Title
+        </div>
+        <div class='top-banners d-flex flex-wrap'>
+          <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
+            <div class='banner' [ngClass]="i === 0 ? 'first' : ''">
+              <img [src]='magazine.picture' class='d-block w-100 h-100' alt=''>
+              <div class='gradient'></div>
+              <div class='description'>
+                <div class='category'>
+                  {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
+                </div>
+                <div class='title'>
+                  {{magazine.title}}
+                </div>
+                <div class='additional d-flex'>
+                  <div class='user d-flex'>
+                    <shared-avatar
+                      [image]="magazine.writerPictureUrl"
+                      text="{{ magazine.writerEmail }}"
+                      size="18"
+                      fontSize="11"
+                      backgroundColor="red"
+                    ></shared-avatar>
+                    <div class="nickname">
+                      {{ magazine.writerNickname || magazine.writerEmail.split('@')[0] }}
+                    </div>
+                  </div>
+                  <div class='display d-flex'>
+                    <div class='viewerObj d-flex'>
+                      <div class='view'>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_5775_19014)">
+                            <path d="M10.5002 8.33203C9.34593 8.33203 8.40808 9.24934 8.40808 10.3783C8.40808 11.5073 9.34593 12.4246 10.5002 12.4246C11.6545 12.4246 12.5923 11.5073 12.5923 10.3783C12.5923 9.24934 11.6545 8.33203 10.5002 8.33203ZM10.3413 9.77138C10.0814 9.77138 9.86502 9.98307 9.86502 10.2372H9.17234C9.18671 9.60215 9.70608 9.09416 10.341 9.09416V9.77138H10.3413Z" fill="#FFFFFF"/>
+                            <path d="M16.8488 9.95499C16.1418 9.09419 13.6168 6.28577 10.5003 6.28577C7.38382 6.28577 4.85856 9.09419 4.15179 9.95499C3.94973 10.1948 3.94973 10.5476 4.15179 10.8017C4.85884 11.6625 7.38382 14.471 10.5003 14.471C13.6168 14.471 16.1418 11.6625 16.8488 10.8017C17.0506 10.5619 17.0506 10.2091 16.8488 9.95499ZM10.5003 13.342C8.82667 13.342 7.47033 12.0153 7.47033 10.3784C7.47033 8.74138 8.82639 7.41476 10.5003 7.41476C12.1742 7.41476 13.5303 8.74138 13.5303 10.3784C13.5303 12.0153 12.174 13.342 10.5003 13.342Z" fill="#FFFFFF"/>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_5775_19014">
+                              <rect width="13" height="8.18518" fill="white" transform="translate(4 6.28577)"/>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                      <div class='text'>
+                        <!-- 추후 조회수로 변경해야함. -->
+                        {{magazine.likeCount}}+
+                      </div>
+                    </div>
+                    <div class='heartObj d-flex'>
+                      <div class='heart' *ngIf='!variables.isLogin || !magazine.isLike'>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9.27053 14.9105L4.8795 10.338C3.64268 9.05007 3.72056 6.93827 5.0486 5.7529C6.36611 4.57693 8.3638 4.80529 9.40495 6.25087L9.57999 6.4939L9.75504 6.25087C10.7962 4.80529 12.7938 4.57693 14.1114 5.7529C15.4394 6.93827 15.5173 9.05007 14.2805 10.338L9.88946 14.9105C9.71854 15.0885 9.44144 15.0885 9.27053 14.9105Z" fill="#FFFFFF"/>
+                        </svg>
+                      </div>
+                      <div class="heart-fill"
+                           *ngIf="variables.isLogin && magazine.isLike">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
+                            stroke="#7E8A9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <div class='text'>
+                        {{magazine.likeCount}}+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
 
+        </div>
       </div>
       <div class='mobile-top d-inline d-lg-none'>
         <div id="magazine-top-carousel" class="carousel slide" data-ride="carousel">
@@ -91,7 +163,7 @@
         </div>
       </div>
       <ng-container *ngIf='tabMenu.length > 0'>
-        <div class="categories d-flex d-lg-none">
+        <div class="categories d-flex">
           <!-- 카테고리 탭 -->
           <ng-container *ngFor="let tab of tabMenu">
             <div class="category" [ngClass]="tab?.tabName === nowTab ? 'selected' : ''">

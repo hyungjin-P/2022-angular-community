@@ -2,11 +2,15 @@
 
 .nav {
     position: relative;
-    padding: 14px 16px;
-    width: 84px;
-    height: 100%;
-    background: #ffffff;
-    box-shadow: 1px 10px 10px rgba(126, 126, 126, 0.1);
+    flex-direction: column;
+    width: 230px;
+    margin: 60px 0 0 60px;
+    padding: 16px 24px;
+
+    align-content: flex-end;
+
+    //background: #ffffff;
+    //box-shadow: 1px 10px 10px rgba(126, 126, 126, 0.1);
 
     .menu {
         position: relative;
@@ -14,9 +18,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 6px 0 6px 0;
-        width: 52px;
-        height: 54px;
+        margin: 10px 0 10px 0;
+        width: 64px;
+        height: 64px;
         border: 1px solid transparent;
         border-radius: 12px;
         cursor: pointer;
@@ -44,7 +48,7 @@
         }
 
         .text {
-            @include textStyle(400, 12px, 20px);
+            @include textStyle(400, 13px, 21px);
             color: var(--grey-1);
             word-break: keep-all;
         }
@@ -82,7 +86,7 @@
         }
 
         .text {
-            font-weight: 500;
+            font-weight: 700;
             color: var(--blue-2);
         }
     }
@@ -141,19 +145,20 @@
 }
 
 .nav-open {
-    width: 240px;
+    width: 230px;
     height: 100%;
+
 
     .menu {
         flex-direction: row;
         justify-content: flex-start;
-        padding: 14px 12px 14px 20px;
-        width: 192px;
+        padding: 16px 12px 16px 20px;
+        width: 100%;
 
         .text {
             margin-left: 10px;
 
-            @include textStyle(400, 14px, 22px);
+            @include textStyle(500, 15px, 22px);
         }
     }
 
@@ -181,7 +186,7 @@
             margin-top: 12px;
             cursor: pointer;
 
-            @include textStyle(500, 12px, 20px);
+            @include textStyle(700, 15px, 20px);
             color: var(--grey-1);
             text-decoration: none;
 
@@ -206,4 +211,17 @@
             color: var(--grey-3);
         }
     }
+}
+
+@media (min-width: 1400px) {
+  .nav{
+    margin: 60px 0 0 90px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .nav{
+    width: 260px;
+    margin: 60px 0 0 80px;
+  }
 }
