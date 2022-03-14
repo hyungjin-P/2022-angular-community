@@ -13,19 +13,26 @@
     }
 
     .top-banners{
-      margin: 60px 0;
+      margin: 30px 0 100px 0;
 
-      .banner.first{
-        width: 800px;
-        height: 440px;
-        margin-top: 0;
+      .banner-first{
+        display: contents;
+        .banner{
+          width: 740px;
+          height: 440px;
+          margin-top: 0;
+        }
       }
 
+      .banners{
+        display: grid;
+        grid-template-columns: 355px 355px;
+        grid-template-rows: 260px 260px;
+        grid-gap: 30px;
+        margin-top: 30px;
+      }
       .banner{
         position: relative;
-        width: 385px;
-        height: 280px;
-        margin: 30px 30px 0 0;
         padding: 0;
 
         >img {
@@ -167,10 +174,11 @@
   }
 
   .categories {
-    height: 63px;
     width: 100%;
-    padding: 16px 20px;
-    display: flex;
+    height: 65px;
+    margin-left: 20px;
+    padding: 16px 0;
+
     //color: #0c5460;
     //background-color: #1b1e21;
     .category {
@@ -200,10 +208,12 @@
   }
 
   .item-list {
-    margin: 8px 14px 0 14px;
+    margin: 0 14px 0 14px;
 
     .item {
       padding: 0 6px;
+      margin-bottom: 40px;
+
       > div {
         .image-box {
           position: relative;
@@ -355,6 +365,23 @@
 //  }
 //}
 //
+
+@media (min-width: 768px){
+  .section{
+    .categories{
+      height: 80px;
+      padding: 20px 0;
+      margin-left: 40px;
+    }
+    .item-list{
+      margin: 0 28px 0 28px;
+      .item{
+        padding: 0 12px;
+      }
+    }
+  }
+}
+
 @media (min-width: 992px) {
   .section{
     .mobile-top{
@@ -362,12 +389,61 @@
         padding: 50px;
       }
     }
+
+    .categories{
+      height: 72px;
+      padding: 16px 0;
+      margin-left: 50px;
+    }
+    .item-list{
+      margin: 20px 35px 0 35px;
+      .item{
+        padding: 0 15px;
+      }
+    }
   }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1300px) {
+  .section{
+    .pc-top{
+      .top-banners{
+        .banner-first {
+          .banner{
+            width: 940px;
+            height: 460px;
+          }
+        }
+
+        .banners{
+          grid-template-columns: 455px 455px;
+          grid-template-rows: 260px 260px;
+        }
+      }
+    }
+  }
+}
+
+
+@media (min-width: 1820px) {
   .section {
-    padding: 80px 16px;
+    .pc-top{
+      .top-banners{
+        .banner-first {
+          .banner{
+            width: 710px;
+            height: 550px;
+          }
+        }
+
+        .banners{
+          margin-top: 0;
+          margin-left: 30px;
+          grid-template-columns: 340px 340px;
+          grid-template-rows: 260px 260px;
+        }
+      }
+    }
   }
   .col-xxl-2-5 {
     -ms-flex: 0 0 25%;
@@ -375,3 +451,5 @@
     max-width: 25%;
   }
 }
+
+
