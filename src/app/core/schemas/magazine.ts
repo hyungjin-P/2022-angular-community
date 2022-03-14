@@ -8,6 +8,7 @@ export class Magazine {
     public title: string,
     public content: string,
     public picture: string,
+    public tagsStr: string,
     public createdAt: string,
     public likeCount: number,
     public writerEmail: string,
@@ -22,6 +23,7 @@ export class Magazine {
     this.title = title;
     this.content = content;
     this.picture = picture;
+    this.tagsStr = tagsStr;
     this.createdAt = createdAt;
     this.likeCount = likeCount;
     this.writerEmail = writerEmail;
