@@ -1,26 +1,23 @@
-import {Injectable} from '@angular/core'
-import {HttpClient, HttpHeaders} from '@angular/common/http'
-import {Observable} from 'rxjs'
-import {catchError, map} from 'rxjs/operators'
-import handleError from './handleError'
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import handleError from './handleError';
 
-import {environment} from '@environments/environment'
+import { environment } from '@environments/environment';
 
-import {Response} from '@schemas/response'
-import {User} from '@schemas/user'
-import {Feed} from '@schemas/feed'
-import {FeedTag} from '@schemas/feed-tag'
-import {FeedComment} from '@schemas/feed-comment'
-import {File} from '@schemas/file'
+import { Response } from '@schemas/response';
+import { User } from '@schemas/user';
+import { Feed } from '@schemas/feed';
+import { FeedTag } from '@schemas/feed-tag';
+import { FeedComment } from '@schemas/feed-comment';
+import { File } from '@schemas/file';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedService {
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -33,14 +30,14 @@ export class FeedService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res.dataset[0];
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -50,14 +47,13 @@ export class FeedService {
    * @param userId
    */
   getFeedList(page: number, limit: number, userId: string): Observable<any> {
-    const url = environment.userApiAddress +
-      `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}`;
+    const url = environment.userApiAddress + `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.get<any>(url, options).pipe(
       map((res) => {
@@ -65,41 +61,46 @@ export class FeedService {
         return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
+  /**
+   * 작업중
+   * 개인 피드 상세 조회 (좋아요, 북마크 표시)
+   * @param feedId
+   */
   getFeed(feedId: string): Observable<Feed> {
-    const url = environment['serverAddress'] + `/feed/${feedId}`
+    const url = environment['serverAddress'] + `/feed/${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res.dataset[0];
       }),
       catchError(handleError)
-    )
+    );
   }
 
   updateFeed(feedId: string, requestBody: UpdateFeedDto): Observable<Feed> {
-    const url = `${environment['serverAddress']}/feed/${feedId}`
+    const url = `${environment['serverAddress']}/feed/${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
         Accept: 'application/json',
       }),
-    }
+    };
 
     return this.http.put<Response>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res.dataset[0];
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -107,7 +108,7 @@ export class FeedService {
    * @param feedId
    */
   deleteFeed(feedId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}`
+    const url = environment['serverAddress'] + `/feed/${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -120,75 +121,75 @@ export class FeedService {
         return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   createFeedPicture(feedId: string, requestBody: CreateFeedPictureDto): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/picture`
+    const url = environment['serverAddress'] + `/feed/${feedId}/picture`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   deleteUserPicture(feedId: string, fileUrl: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/picture/${encodeURIComponent(fileUrl)}`
+    const url = environment['serverAddress'] + `/feed/${feedId}/picture/${encodeURIComponent(fileUrl)}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.delete<Response>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   createFeedTag(feedId: string, requestBody: CreateFeedTagDto): Observable<FeedTag> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/tag`
+    const url = environment['serverAddress'] + `/feed/${feedId}/tag`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res.dataset[0];
       }),
       catchError(handleError)
-    )
+    );
   }
 
   deleteFeedTag(feedId: string, tagId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/tag/${tagId}`
+    const url = environment['serverAddress'] + `/feed/${feedId}/tag/${tagId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.delete<Response>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -196,19 +197,19 @@ export class FeedService {
    * @param feedLike
    */
   createFeedLike(feedLike: addFeedLike): Observable<any> {
-    const url = environment.userApiAddress + `/feed/addLike`
+    const url = environment.userApiAddress + `/feed/addLike`;
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<any>(url, feedLike, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -216,73 +217,71 @@ export class FeedService {
    * @param feedLike { feedId, userId }
    */
   deleteFeedLike(feedLike: addFeedLike): Observable<any> {
-    const url = environment.userApiAddress +
-      `/feed/deleteLike?feedId=${feedLike.feedId}&userId=${feedLike.userId}`;
+    const url = environment.userApiAddress + `/feed/deleteLike?feedId=${feedLike.feedId}&userId=${feedLike.userId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.delete<any>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   getFeedLikeList(feedId: string, page = '', pageSize = ''): Observable<Array<User>> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/like?page=${page}&pageSize=${pageSize}`
+    const url = environment['serverAddress'] + `/feed/${feedId}/like?page=${page}&pageSize=${pageSize}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-        return res.dataset
+        return res.dataset;
       }),
       catchError(handleError)
-    )
+    );
   }
 
-
   createFeedComment(feedId: string, requestBody: CreateFeedCommentDto): Observable<FeedComment> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment`
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res.dataset[0];
       }),
       catchError(handleError)
-    )
+    );
   }
 
   getFeedCommentList(feedId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-    const url = `${environment['serverAddress']}/feed/${feedId}/comment?page=${page}&pageSize=${pageSize}`
+    const url = `${environment['serverAddress']}/feed/${feedId}/comment?page=${page}&pageSize=${pageSize}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-        return res.dataset
+        return res.dataset;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   getFeedSubCommentList(feedId: string, commentId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
@@ -292,52 +291,48 @@ export class FeedService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-        return res.dataset
+        return res.dataset;
       }),
       catchError(handleError)
-    )
+    );
   }
 
-  updateFeedComment(
-    feedId: string,
-    commentId: string,
-    requestBody: UpdateFeedCommentDto
-  ): Observable<FeedComment> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
+  updateFeedComment(feedId: string, commentId: string, requestBody: UpdateFeedCommentDto): Observable<FeedComment> {
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`;
 
     const options = {
       headers: new HttpHeaders({
         Accept: 'application/json',
       }),
-    }
+    };
 
     return this.http.put<Response>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res.dataset[0];
       }),
       catchError(handleError)
-    )
+    );
   }
 
   deleteFeedComment(feedId: string, commentId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`
+    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.delete<Response>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -351,7 +346,7 @@ export class FeedService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<any>(url, feedBookmarkDto, options).pipe(
       map((res) => {
@@ -366,14 +361,15 @@ export class FeedService {
    * @param feedBookmarkDto { feedId, userId }
    */
   deleteFeedBookmark(feedBookmarkDto: FeedBookmarkDto): Observable<any> {
-    const url = environment.userApiAddress +
+    const url =
+      environment.userApiAddress +
       `/feed/deleteBookmark?feedId=${feedBookmarkDto.feedId}&userId=${feedBookmarkDto.userId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.delete<any>(url, options).pipe(
       map((res) => {
@@ -382,7 +378,6 @@ export class FeedService {
       catchError(handleError)
     );
   }
-
 }
 
 class FeedBookmarkDto {
@@ -391,30 +386,30 @@ class FeedBookmarkDto {
 }
 
 class CreateFeedDto {
-  rewrite: boolean
+  rewrite: boolean;
 }
 
 class UpdateFeedDto {
-  content?: string
-  picture?: string
-  posting?: boolean
+  content?: string;
+  picture?: string;
+  posting?: boolean;
 }
 
 class CreateFeedPictureDto {
-  files: Array<File>
+  files: Array<File>;
 }
 
 class CreateFeedTagDto {
-  name: string
+  name: string;
 }
 
 class CreateFeedCommentDto {
-  parent_id?: string
-  text: string
+  parent_id?: string;
+  text: string;
 }
 
 class UpdateFeedCommentDto {
-  text: string
+  text: string;
 }
 
 /** 추가 */
