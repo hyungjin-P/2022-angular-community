@@ -37,6 +37,7 @@
 
         >img {
           border-radius: 12px;
+          object-fit: cover;
         }
 
         .gradient {
@@ -190,10 +191,10 @@
     //background-color: #1b1e21;
     .category {
       height: 33px;
-      padding: 6px 14px;
+      padding: 5px 14px;
       border: 1px solid #e0e0e0;
       box-sizing: border-box;
-      border-radius: 30px;
+      border-radius: 8px;
       margin-right: 10px;
       cursor: pointer;
       .text {
@@ -203,7 +204,7 @@
       }
     }
     .selected {
-      background-color: var(--blue-3);
+      background-color: var(--text-1);
       border: 0;
 
       .text {
@@ -382,7 +383,7 @@
             }
 
             .tag-str{
-              margin-bottom: 10px;
+              /*margin-bottom: 10px;*/
 
               @include textStyle(400, 13px, 21px);
               letter-spacing: -0.2px;
@@ -435,7 +436,7 @@
         .banners{
           width: 50%;
           margin-top: 0;
-          margin-left: 29px;
+          margin-left: 28px;
           //grid-template-rows: 260px 260px;
         }
       }
