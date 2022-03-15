@@ -8,8 +8,7 @@
         <div class='top-caption'>
           Main Title
         </div>
-        <div class='top-banners d-flex flex-wrap'>
-
+        <div class='top-banners'>
             <div class='banner-first'>
               <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
                 <div class='banner' *ngIf='i === 0'>
@@ -156,7 +155,7 @@
             <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
               <ng-container *ngIf='i < 5'>
                 <div class="carousel-item" [ngClass]="i === 0 ? 'active' : ''">
-                  <img [src]='magazine.picture' class="d-block w-100" alt="...">
+                  <img [src]='magazine.picture' class="d-block w-100 h-100" alt="...">
                   <div class='gradient'></div>
                   <div class='description'>
                     <div class='category'>
