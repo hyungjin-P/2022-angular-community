@@ -68,9 +68,10 @@ export class FeedService {
    * 작업중
    * 개인 피드 상세 조회 (좋아요, 북마크 표시)
    * @param feedId
+   * @param userId
    */
-  getFeed(feedId: string): Observable<Feed> {
-    const url = environment['serverAddress'] + `/feed/${feedId}`;
+  getFeed(feedId: string, userId: string): Observable<Feed> {
+    const url = environment.userApiAddress + `/feed/findById?feedId=${feedId}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -78,9 +79,9 @@ export class FeedService {
       }),
     };
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );

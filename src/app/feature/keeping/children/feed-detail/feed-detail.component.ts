@@ -183,14 +183,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeed() {
-    this.feedService.getFeed(this.selectedFeedId).subscribe(
+    this.feedService.getFeed(this.selectedFeedId, this.user?.id).subscribe(
       (feed: Feed) => {
-        this.selectedFeed = feed;
+        this.selectedFeed = feed[0];
 
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed');
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
         }
       },
       (e) => {
@@ -203,20 +203,19 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.publicService.getFeed(this.selectedFeedId).subscribe(
       (feed: Feed) => {
         this.selectedFeed = feed[0];
-        console.log(this.selectedFeed);
-        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt));
+        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
       },
       (e) => {}
     );
   }
 
   getFeedList() {
-    // this.feedService.getFeedList().subscribe(
-    //   (feedList: Feed[]) => {
-    //     this.feedList = feedList
-    //   },
-    //   (e) => {}
-    // )
+    this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
+      (feedList: any) => {
+        this.feedList = feedList.items;
+      },
+      (e) => {}
+    );
   }
 
   getFeedCommentList() {

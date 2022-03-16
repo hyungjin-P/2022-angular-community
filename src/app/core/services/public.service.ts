@@ -38,7 +38,7 @@ export class PublicService {
    * @param feedId
    */
   getFeed(feedId: string): Observable<Feed> {
-    const url = environment.userApiAddress + `/public/feed/findPageOne?feedId=${feedId}`;
+    const url = environment.userApiAddress + `/public/feed/findById?feedId=${feedId}`;
 
     const options = {
       headers: new HttpHeaders({

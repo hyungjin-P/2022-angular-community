@@ -51,18 +51,18 @@
           <div class="row-2">
             <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
               <ng-container *ngIf="selectedFeed?.pictures.length > 1">
-                <ol class="carousel-indicators">
-                  <ng-container *ngFor="let picture of selectedFeed?.pictures; let i = index">
-                    <ng-container *ngIf="i === 0">
-                      <li data-target="#carouselIndicators" [attr.data-slide-to]="i" class="active"></li>
-                      <!--                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
-                    </ng-container>
-                    <ng-container *ngIf="i > 0">
-                      <li data-target="#carouselIndicators" [attr.data-slide-to]="i"></li>
-                      <!--                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
-                    </ng-container>
-                  </ng-container>
-                </ol>
+<!--                <ol class="carousel-indicators">-->
+<!--                  <ng-container *ngFor="let picture of selectedFeed?.pictures; let i = index">-->
+<!--                    <ng-container *ngIf="i === 0">-->
+<!--                      <li data-target="#carouselIndicators" [attr.data-slide-to]="i" class="active"></li>-->
+<!--                      &lt;!&ndash;                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>&ndash;&gt;-->
+<!--                    </ng-container>-->
+<!--                    <ng-container *ngIf="i > 0">-->
+<!--                      <li data-target="#carouselIndicators" [attr.data-slide-to]="i"></li>-->
+<!--                      &lt;!&ndash;                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>&ndash;&gt;-->
+<!--                    </ng-container>-->
+<!--                  </ng-container>-->
+<!--                </ol>-->
                 <div class = 'carousel-index' [(ngModel)]="carouselIndex" ngDefaultControl>
                   {{carouselIndex}} / {{ selectedFeed.pictures.length }}
                 </div>
@@ -100,7 +100,7 @@
           <div class="row-3">
             <div class="row-3-col-1">
               <div class="like" (click)="selectedFeedLike(selectedFeed)">
-                <div class="heart" *ngIf="variables.isLogin && selectedFeed?.like">
+                <div class="heart" *ngIf="variables.isLogin && selectedFeed?.isLike">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
@@ -112,7 +112,7 @@
                     />
                   </svg>
                 </div>
-                <div class="heart-outline" *ngIf="!variables.isLogin || !selectedFeed?.like">
+                <div class="heart-outline" *ngIf="!variables.isLogin || !selectedFeed?.isLike">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
@@ -153,7 +153,16 @@
               </div>
             </div>
             <div class="row-3-col-2">
-              <div class="bookmark">
+              <div class='bookmark' *ngIf='variables.isLogin && selectedFeed?.isBookmark'>
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.19868 21.1195L6.17048 21.14L6.15303 21.1553C5.99722 21.2539 5.75896 21.2871 5.51053 21.1923C5.3241 21.1125 5.25 20.9588 5.25 20.857V4.8377C5.25 4.32768 5.75889 3.75 6.59317 3.75H18.4068C19.2326 3.75 19.7464 4.32524 19.75 4.8399V20.8301C19.75 20.933 19.6742 21.089 19.4832 21.168L19.4551 21.1796L19.4281 21.1935C19.3564 21.2302 19.2653 21.25 19.193 21.25C19.0661 21.25 18.9406 21.2138 18.8363 21.1504L18.8244 21.14L18.7962 21.1195L12.9379 16.8691L12.4974 16.5496L12.057 16.8691L6.19868 21.1195Z"
+                    stroke="#567DFF"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </div>
+              <div class="bookmark-outline" *ngIf='!variables.isLogin || !selectedFeed?.isBookmark'>
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M6.19868 21.1195L6.17048 21.14L6.15303 21.1553C5.99722 21.2539 5.75896 21.2871 5.51053 21.1923C5.3241 21.1125 5.25 20.9588 5.25 20.857V4.8377C5.25 4.32768 5.75889 3.75 6.59317 3.75H18.4068C19.2326 3.75 19.7464 4.32524 19.75 4.8399V20.8301C19.75 20.933 19.6742 21.089 19.4832 21.168L19.4551 21.1796L19.4281 21.1935C19.3564 21.2302 19.2653 21.25 19.193 21.25C19.0661 21.25 18.9406 21.2138 18.8363 21.1504L18.8244 21.14L18.7962 21.1195L12.9379 16.8691L12.4974 16.5496L12.057 16.8691L6.19868 21.1195Z"
