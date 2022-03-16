@@ -1,6 +1,7 @@
-import {User} from './user'
-import {File} from './file'
-import {FeedTag} from './feed-tag'
+import { User } from './user';
+import { File } from './file';
+import { FeedTag } from './feed-tag';
+import { FeedLike } from './feed-like';
 
 export class Feed {
   constructor(
@@ -13,7 +14,7 @@ export class Feed {
     public tagsStr: string,
     public createdAt: string,
     public like: boolean,
-    public likeUsers: Array<User>,
+    public likeUsers: Array<FeedLike>,
     public likeCount: number,
     public commentCount: number,
     public pictureCount: number,
@@ -21,7 +22,7 @@ export class Feed {
     public writerPictureUrl: string, // join data
     public writerNickname: string, // join data
     public isLike: boolean,
-    public isBookmark: boolean,
+    public isBookmark: boolean
   ) {
     this.id = id;
     this.writer = writer;

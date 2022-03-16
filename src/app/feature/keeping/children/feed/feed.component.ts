@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core'
-import {Router} from '@angular/router'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {GlobalService} from '@services/global.service'
-import {StorageService} from '@services/storage.service'
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {FeedService} from '@services/feed.service'
-import {PublicService} from '@services/public.service'
-import {TextService} from '@services/text.service'
+import { FeedService } from '@services/feed.service';
+import { PublicService } from '@services/public.service';
+import { TextService } from '@services/text.service';
 
-import {Feed} from '@schemas/feed'
-import {User} from '@schemas/user'
+import { Feed } from '@schemas/feed';
+import { User } from '@schemas/user';
 
 @Component({
   selector: 'feed',
@@ -17,7 +17,6 @@ import {User} from '@schemas/user'
   styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit {
-
   variables: any;
   user: User;
   feedList: Feed[];
@@ -31,8 +30,7 @@ export class FeedComponent implements OnInit {
     private feedService: FeedService,
     private publicService: PublicService,
     private textService: TextService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -49,56 +47,58 @@ export class FeedComponent implements OnInit {
     this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
       (feedList: any) => {
         this.feedList = feedList.items;
-
       },
       (e) => {
         console.log('public feed list find failed', e);
       }
-    )
+    );
   }
 
   /** 피드 수정 완료 */
   getPublicFeedList() {
-    this.publicService
-      .getFeedList(this.page, this.limit)
-      .subscribe((feedList: any) => {
-          this.feedList = feedList.items;
-        },
-        (e) => {
-          console.log('public feed list find failed', e);
-        }
-      );
+    this.publicService.getFeedList(this.page, this.limit).subscribe(
+      (feedList: any) => {
+        this.feedList = feedList.items;
+      },
+      (e) => {
+        console.log('public feed list find failed', e);
+      }
+    );
   }
 
   /** 피드 좋아요 수정 중 */
   feedLike(feed: Feed): void {
     if (this.user?.id) {
       if (feed.isLike) {
-        this.feedService.deleteFeedLike({
-          feedId: feed.id,
-          userId: this.user?.id
-        }).subscribe(
-          (count) => {
-            feed.isLike = false;
-            feed.likeCount = count;
-          },
-          (e) => {
-            console.log('cancel like feed error : ', e);
-          }
-        )
+        this.feedService
+          .deleteFeedLike({
+            feedId: feed.id,
+            userId: this.user?.id,
+          })
+          .subscribe(
+            (count) => {
+              feed.isLike = false;
+              feed.likeCount = count;
+            },
+            (e) => {
+              console.log('cancel like feed error : ', e);
+            }
+          );
       } else {
-        this.feedService.createFeedLike({
-          feedId: feed.id,
-          userId: this.user?.id
-        }).subscribe(
-          (count) => {
-            feed.isLike = true;
-            feed.likeCount = count;
-          },
-          (e) => {
-            console.log('like feed error : ', e);
-          }
-        )
+        this.feedService
+          .createFeedLike({
+            feedId: feed.id,
+            userId: this.user?.id,
+          })
+          .subscribe(
+            (count) => {
+              feed.isLike = true;
+              feed.likeCount = count;
+            },
+            (e) => {
+              console.log('like feed error : ', e);
+            }
+          );
       }
     } else {
       this.router.navigateByUrl('/auth/login').then();
@@ -107,7 +107,7 @@ export class FeedComponent implements OnInit {
 
   moveFeedDetail(feed: Feed) {
     console.log('is bookmark : ', feed.isBookmark);
-    // this.router.navigateByUrl(`/feed/${feed.id}`).then();
+    this.router.navigateByUrl(`/feed/${feed.id}`).then();
   }
 
   /**
@@ -131,13 +131,14 @@ export class FeedComponent implements OnInit {
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService
-        .addFeedBookmark({feedId: feed?.id, userId})
-        .subscribe((data)=> {
+      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
           feed.isBookmark = true;
-        }, (error) => {
+        },
+        (error) => {
           console.log('bookmark add failed : ', error);
-        });
+        }
+      );
     }
   }
 
@@ -148,13 +149,14 @@ export class FeedComponent implements OnInit {
    */
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService
-        .deleteFeedBookmark({feedId: feed?.id, userId})
-        .subscribe((data)=> {
+      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
           feed.isBookmark = false;
-        }, (error) => {
+        },
+        (error) => {
           console.log('bookmark cancel failed : ', error);
-        });
+        }
+      );
     }
   }
 }
