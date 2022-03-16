@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core'
-import { Location } from '@angular/common'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   animationFrameScheduler,
   defer,
@@ -14,7 +14,7 @@ import {
   asapScheduler,
   asyncScheduler,
   Subscription,
-} from 'rxjs'
+} from 'rxjs';
 import {
   map,
   switchMap,
@@ -27,22 +27,22 @@ import {
   scan,
   takeWhile,
   mergeAll,
-} from 'rxjs/operators'
-import * as moment from 'moment-timezone'
+} from 'rxjs/operators';
+import * as moment from 'moment-timezone';
 
-import { GlobalService } from '@services/global.service'
-import { StorageService } from '@services/storage.service'
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import { FeedService } from '@services/feed.service'
-import { PublicService } from '@services/public.service'
-import { TextService } from '@services/text.service'
+import { FeedService } from '@services/feed.service';
+import { PublicService } from '@services/public.service';
+import { TextService } from '@services/text.service';
 
-import { Feed } from '@schemas/feed'
-import { FeedComment } from '@schemas/feed-comment'
-import { User } from '@schemas/user'
-import { DateUtils } from '../../../../core/utils/date.utils'
+import { Feed } from '@schemas/feed';
+import { FeedComment } from '@schemas/feed-comment';
+import { User } from '@schemas/user';
+import { DateUtils } from '../../../../core/utils/date.utils';
 
-declare const $
+declare const $;
 
 @Component({
   selector: 'feed-detail',
@@ -50,44 +50,44 @@ declare const $
   styleUrls: ['./feed-detail.component.scss'],
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-  variables: any
-  user: User
+  variables: any;
+  user: User;
 
-  carouselIndex: any
+  carouselIndex: any;
 
-  selectedFeedId: string
-  selectedFeed: Feed
-  feedList: Array<Feed>
+  selectedFeedId: string;
+  selectedFeed: Feed;
+  feedList: Array<Feed>;
 
-  subscription: Subscription
+  subscription: Subscription;
 
-  @ViewChild('scroll') scroll: ElementRef
+  @ViewChild('scroll') scroll: ElementRef;
 
-  refresh: boolean
+  refresh: boolean;
 
-  moreBoxVisible: boolean
+  moreBoxVisible: boolean;
 
-  selectedLanguage: string
-  commentViewVisible: boolean
+  selectedLanguage: string;
+  commentViewVisible: boolean;
 
-  @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef
-  @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef
-  feedCommentInputObj: any
-  feedCommentInputStatus: string
-  feedCommentList: Array<FeedComment>
+  @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
+  @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef;
+  feedCommentInputObj: any;
+  feedCommentInputStatus: string;
+  feedCommentList: Array<FeedComment>;
 
-  feedSubComment: FeedComment
+  feedSubComment: FeedComment;
 
-  feedSubCommentListViewObj: any
-  feedSubCommentListObj: any
+  feedSubCommentListViewObj: any;
+  feedSubCommentListObj: any;
 
-  likedViewVisible: boolean
+  likedViewVisible: boolean;
 
-  likeUserList: Array<User>
+  likeUserList: Array<User>;
 
-  onKeyEvent: boolean
+  onKeyEvent: boolean;
 
-  beginTime: any
+  beginTime: any;
 
   page: number = 1;
   limit: number = 20;
@@ -105,76 +105,76 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.variables = this.globalService.variables
-    this.user = this.storageService.getUser()
+    this.variables = this.globalService.variables;
+    this.user = this.storageService.getUser();
 
-    this.carouselIndex = 1
+    this.carouselIndex = 1;
 
     this.subscription = this.activatedRoute.params.subscribe(
       (v) => {
-        this.selectedFeedId = v['feed_id']
-        this.init()
+        this.selectedFeedId = v['feed_id'];
+        this.init();
       },
       (e) => {}
-    )
+    );
 
-    this.selectedLanguage = localStorage.getItem('language')
-    this.commentViewVisible = false
-    this.feedCommentInputObj = ''
-    this.feedCommentInputStatus = ''
-    this.feedCommentList = []
-    this.feedSubComment = undefined
-    this.feedSubCommentListViewObj = {}
-    this.feedSubCommentListObj = {}
-    this.likedViewVisible = false
+    this.selectedLanguage = localStorage.getItem('language');
+    this.commentViewVisible = false;
+    this.feedCommentInputObj = '';
+    this.feedCommentInputStatus = '';
+    this.feedCommentList = [];
+    this.feedSubComment = undefined;
+    this.feedSubCommentListViewObj = {};
+    this.feedSubCommentListObj = {};
+    this.likedViewVisible = false;
 
-    this.likeUserList = []
+    this.likeUserList = [];
 
-    this.onKeyEvent = false
+    this.onKeyEvent = false;
 
-    this.beginTime = ''
+    this.beginTime = '';
   }
 
   ngAfterViewInit(): void {
     document.addEventListener('keyup', (e) => {
-      if (e.code !== 'Escape') return
+      if (e.code !== 'Escape') return;
 
       if (this.commentViewVisible) {
-        this.hideCommentView()
+        this.hideCommentView();
       } else if (this.likedViewVisible) {
-        this.hideLikedView()
+        this.hideLikedView();
       }
-    })
+    });
 
     $('#carouselIndicators').carousel({
       interval: 0,
-    })
+    });
 
     $('#carouselIndicators').on('slide.bs.carousel', (e) => {
-      this.carouselIndex = e.to + 1
-    })
+      this.carouselIndex = e.to + 1;
+    });
   }
 
   toPos(obs$) {
-    const SUPPORT_TOUCH = 'ontouchstart' in window
-    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)))
+    const SUPPORT_TOUCH = 'ontouchstart' in window;
+    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
   }
 
   test() {
-    console.log(this.carouselIndex)
+    console.log(this.carouselIndex);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
   init() {
     if (this.user) {
-      this.getFeed()
-      this.getFeedList()
+      this.getFeed();
+      this.getFeedList();
     } else {
-      this.getPublicFeed()
-      this.getPublicFeedList()
+      this.getPublicFeed();
+      this.getPublicFeedList();
     }
   }
 
@@ -185,29 +185,29 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   getFeed() {
     this.feedService.getFeed(this.selectedFeedId).subscribe(
       (feed: Feed) => {
-        this.selectedFeed = feed
+        this.selectedFeed = feed;
 
         if (!this.selectedFeed) {
-          this.router.navigateByUrl('/feed')
+          this.router.navigateByUrl('/feed');
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt))
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt));
         }
       },
       (e) => {
-        this.router.navigateByUrl('/feed')
+        this.router.navigateByUrl('/feed');
       }
-    )
+    );
   }
 
   getPublicFeed() {
     this.publicService.getFeed(this.selectedFeedId).subscribe(
       (feed: Feed) => {
-        this.selectedFeed = feed
-
-        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt))
+        this.selectedFeed = feed[0];
+        console.log(this.selectedFeed);
+        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(feed.createdAt));
       },
       (e) => {}
-    )
+    );
   }
 
   getFeedList() {
@@ -223,90 +223,95 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         for (let i = 0; i < feedCommentList.length; i++) {
-          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at)
-          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp)
+          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at);
+          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
 
           if (feedCommentList[i].sub_comment_count !== 0) {
             // 댓글 더보기 기본 동작으로 변경 22.02.11
-            this.feedSubCommentListViewObj[feedCommentList[i].id] = true
-            this.getFeedSubCommentList(feedCommentList[i].id)
+            this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
+            this.getFeedSubCommentList(feedCommentList[i].id);
           }
         }
-        this.feedCommentList = feedCommentList
+        this.feedCommentList = feedCommentList;
       },
       (e) => {}
-    )
+    );
   }
 
   getFeedSubCommentList(feedCommentId: string) {
     this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         for (let i = 0; i < feedCommentList.length; i++) {
-          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at)
-          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp)
+          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at);
+          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
           if (feedCommentList[i].sub_comment_count !== 0) {
             // 설
-            this.feedSubCommentListViewObj[feedCommentList[i].id] = true
-            this.getFeedSubCommentList(feedCommentList[i].id)
+            this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
+            this.getFeedSubCommentList(feedCommentList[i].id);
           }
         }
-        this.feedSubCommentListObj[feedCommentId] = feedCommentList
-        this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px'
+        this.feedSubCommentListObj[feedCommentId] = feedCommentList;
+        this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
       },
       (e) => {}
-    )
+    );
   }
 
   getPublicFeedList() {
     this.publicService.getFeedList(this.page, this.limit).subscribe(
-      (feedList: Feed[]) => {
-        this.feedList = feedList
+      (feedList: any) => {
+        this.feedList = feedList.items;
+        console.log(this.feedList);
       },
       (e) => {}
-    )
+    );
   }
 
   getFeedLikeList() {
     this.feedService.getFeedLikeList(this.selectedFeed.id).subscribe(
       (likeUserList: Array<User>) => {
-        this.likeUserList = likeUserList
+        this.likeUserList = likeUserList;
       },
       (e) => {}
-    )
+    );
   }
 
   selectedFeedLike(feed: Feed) {
     if (this.storageService.getUser()) {
       if (feed.like) {
-        this.feedService.deleteFeedLike({
-          feedId: feed.id,
-          userId: this.user?.id
-        }).subscribe(
-          (v) => {
-            feed.like = false
-            feed.likeCount -= 1
+        this.feedService
+          .deleteFeedLike({
+            feedId: feed.id,
+            userId: this.user?.id,
+          })
+          .subscribe(
+            (v) => {
+              feed.like = false;
+              feed.likeCount -= 1;
 
-            this.selectedFeed.likeUsers.forEach((user, index) => {
-              if (user.id == this.user.id) {
-                this.selectedFeed.likeUsers.splice(index, 1)
-              }
-            })
-          },
-          (e) => {}
-        )
+              this.selectedFeed.likeUsers.forEach((user, index) => {
+                if (user.user.id == this.user.id) {
+                  this.selectedFeed.likeUsers.splice(index, 1);
+                }
+              });
+            },
+            (e) => {}
+          );
       } else {
-        this.feedService.createFeedLike({
-          feedId: feed.id,
-          userId: this.user?.id
-        }).subscribe(
-          (v) => {
-            feed.like = true
-            feed.likeCount += 1
+        this.feedService
+          .createFeedLike({
+            feedId: feed.id,
+            userId: this.user?.id,
+          })
+          .subscribe(
+            (v) => {
+              feed.like = true;
+              feed.likeCount += 1;
 
-            this.selectedFeed.likeUsers.push(this.user)
-          },
-          (e) => {}
-        )
+              this.selectedFeed.likeUsers['user'].push(this.user);
+            },
+            (e) => {}
+          );
       }
     } else {
       this.router.navigateByUrl('/auth/login').then();
@@ -316,80 +321,84 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   feedLike(feed: Feed) {
     if (this.storageService.getUser()) {
       if (feed.like) {
-        this.feedService.deleteFeedLike({
-          feedId: feed.id,
-          userId: this.user?.id
-        }).subscribe(
-          (v) => {
-            feed.like = false
-            feed.likeCount -= 1
-          },
-          (e) => {}
-        )
+        this.feedService
+          .deleteFeedLike({
+            feedId: feed.id,
+            userId: this.user?.id,
+          })
+          .subscribe(
+            (v) => {
+              feed.like = false;
+              feed.likeCount -= 1;
+            },
+            (e) => {}
+          );
       } else {
-        this.feedService.createFeedLike({
-          feedId: feed.id,
-          userId: this.user?.id
-        }).subscribe(
-          (v) => {
-            feed.like = true
-            feed.likeCount += 1
-          },
-          (e) => {}
-        )
+        this.feedService
+          .createFeedLike({
+            feedId: feed.id,
+            userId: this.user?.id,
+          })
+          .subscribe(
+            (v) => {
+              feed.like = true;
+              feed.likeCount += 1;
+            },
+            (e) => {}
+          );
       }
     } else {
-      this.router.navigateByUrl('/auth/login')
+      this.router.navigateByUrl('/auth/login');
     }
   }
 
   goFeedDetail(feed: Feed) {
-    this.refresh = true
-    this.router.navigateByUrl(`/feed/${feed.id}`)
+    this.refresh = true;
+    this.router.navigateByUrl(`/feed/${feed.id}`);
     try {
-      this.scroll.nativeElement.scrollTop = 0
+      this.scroll.nativeElement.scrollTop = 0;
     } catch (err) {}
   }
 
   openMoreBox(event) {
-    event.stopPropagation()
+    event.stopPropagation();
 
     if (this.moreBoxVisible) {
-      this.closeMoreBox()
+      this.closeMoreBox();
     } else {
-      this.moreBoxVisible = true
+      this.moreBoxVisible = true;
     }
   }
 
   closeMoreBox() {
-    this.moreBoxVisible = false
+    this.moreBoxVisible = false;
   }
 
   deleteFeed(feed: Feed) {
     this.feedService.deleteFeed(feed.id).subscribe(
       (v) => {
-        this.router.navigateByUrl('/feed')
+        this.router.navigateByUrl('/feed');
       },
       (e) => {}
-    )
+    );
   }
 
   showCommentView() {
     if (this.storageService.getUser()) {
-      this.getFeedCommentList()
-      this.commentViewVisible = true
+      this.getFeedCommentList();
+      this.commentViewVisible = true;
     } else {
-      this.router.navigateByUrl('/auth/login')
+      this.router.navigateByUrl('/auth/login');
     }
   }
 
   hideCommentView() {
-    this.clearCommentInput()
-    this.commentViewVisible = false
+    this.clearCommentInput();
+    this.commentViewVisible = false;
   }
 
   clearCommentInput() {
-    this.feedCommentInputObj = ''
+    this.feedCommentInputObj = '';
   }
 
   onCreateCommentKey(key) {
@@ -400,66 +409,66 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     // })
     // } else
     if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
-      this.hideSubCommentInput()
+      this.hideSubCommentInput();
     }
   }
 
   createComment() {
     if (!this.feedCommentInputObj) {
-      return
+      return;
     }
 
     if (this.feedCommentInputStatus === 'sub') {
-      this.createSubComment(this.feedSubComment)
+      this.createSubComment(this.feedSubComment);
     } else {
-      this.createParentComment()
+      this.createParentComment();
     }
   }
 
   createParentComment() {
     this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInputObj }).subscribe(
       (feedComment: FeedComment) => {
-        this.clearCommentInput()
-        this.selectedFeed.commentCount++
-        this.feedCommentList.unshift(feedComment)
+        this.clearCommentInput();
+        this.selectedFeed.commentCount++;
+        this.feedCommentList.unshift(feedComment);
       },
       (e) => {}
-    )
+    );
   }
 
   showSubCommentInput(feedComment: FeedComment) {
     // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
-    this.feedCommentInputStatus = 'sub'
-    this.feedSubComment = feedComment
-    this.feedCommentInputObj = '@' + 'writer '
-    this.feedCommentInputEl.nativeElement.focus()
+    this.feedCommentInputStatus = 'sub';
+    this.feedSubComment = feedComment;
+    this.feedCommentInputObj = '@' + 'writer ';
+    this.feedCommentInputEl.nativeElement.focus();
   }
 
   hideSubCommentInput() {
     if (this.feedCommentInputStatus === 'sub') {
-      this.feedCommentInputStatus = ''
-      this.feedSubComment = undefined
-      this.feedCommentInputObj = ''
+      this.feedCommentInputStatus = '';
+      this.feedSubComment = undefined;
+      this.feedCommentInputObj = '';
     }
   }
 
   showSubCommentList(feedCommentId: string) {
     if (this.feedSubCommentListViewObj[feedCommentId]) {
-      this.hideSubCommentList(feedCommentId)
+      this.hideSubCommentList(feedCommentId);
     } else {
-      this.feedSubCommentListViewObj[feedCommentId] = true
-      this.getFeedSubCommentList(feedCommentId)
+      this.feedSubCommentListViewObj[feedCommentId] = true;
+      this.getFeedSubCommentList(feedCommentId);
     }
   }
 
   hideSubCommentList(feedCommentId: string) {
-    this.feedSubCommentListViewObj[feedCommentId] = false
-    this.feedSubCommentListObj[feedCommentId] = []
+    this.feedSubCommentListViewObj[feedCommentId] = false;
+    this.feedSubCommentListObj[feedCommentId] = [];
   }
 
   createSubComment(parentFeedComment: FeedComment) {
     if (!this.feedCommentInputObj) {
-      return
+      return;
     }
 
     this.feedService
@@ -469,57 +478,57 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       .subscribe(
         (feedComment: FeedComment) => {
-          this.hideSubCommentInput()
-          this.selectedFeed.commentCount++
-          parentFeedComment.sub_comment_count++
-          this.feedSubCommentListViewObj[parentFeedComment.id] = false
-          this.showSubCommentList(parentFeedComment.id)
+          this.hideSubCommentInput();
+          this.selectedFeed.commentCount++;
+          parentFeedComment.sub_comment_count++;
+          this.feedSubCommentListViewObj[parentFeedComment.id] = false;
+          this.showSubCommentList(parentFeedComment.id);
           if (!this.feedSubCommentListObj[parentFeedComment.id]) {
-            this.feedSubCommentListObj[parentFeedComment.id] = [feedComment]
+            this.feedSubCommentListObj[parentFeedComment.id] = [feedComment];
           } else {
-            this.feedSubCommentListObj[parentFeedComment.id].unshift(feedComment)
+            this.feedSubCommentListObj[parentFeedComment.id].unshift(feedComment);
           }
         },
         (e) => {}
-      )
+      );
   }
 
   deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
     this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
       (v) => {
-        this.selectedFeed.commentCount--
+        this.selectedFeed.commentCount--;
         if (feedComment.parent_id) {
-          parentFeedComment.sub_comment_count--
+          parentFeedComment.sub_comment_count--;
         }
-        feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss')
+        feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss');
       },
       (e) => {}
-    )
+    );
   }
 
   showLikedView() {
     if (this.storageService.getUser()) {
-      this.getFeedLikeList()
-      this.likedViewVisible = true
+      this.getFeedLikeList();
+      this.likedViewVisible = true;
     } else {
-      this.router.navigateByUrl('/auth/login')
+      this.router.navigateByUrl('/auth/login');
     }
   }
 
   hideLikedView() {
-    this.likedViewVisible = false
+    this.likedViewVisible = false;
   }
 
   intervalCall(interval) {
     return (fn) => {
       if (this.onKeyEvent) {
-        return // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
+        return; // 마지막 호출 후 제한된 경과시간이 지나지 않은 경우 리턴
       }
-      this.onKeyEvent = true
-      fn()
+      this.onKeyEvent = true;
+      fn();
       setTimeout(() => {
-        this.onKeyEvent = false
-      }, interval)
-    }
+        this.onKeyEvent = false;
+      }, interval);
+    };
   }
 }

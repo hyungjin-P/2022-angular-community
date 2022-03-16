@@ -168,8 +168,8 @@
             <ng-container *ngFor="let like_user of selectedFeed?.likeUsers; let i = index">
               <div class="avatar" *ngIf="i < 3">
                 <shared-avatar
-                  [image]="like_user.picture[0]?.url"
-                  text="{{ like_user.email }}"
+                  [image]="like_user.user.picture[0]?.url"
+                  text="{{ like_user.user.email }}"
                   size="18"
                   fontSize="8"
                 ></shared-avatar>
@@ -179,18 +179,18 @@
               class="text"
               *ngIf="selectedLanguage === 'ko' && selectedFeed?.likeCount > 0 && selectedFeed?.likeCount === 1"
             >
-              <div [ngSwitch]="selectedFeed.likeUsers[0].nickname">
-                <div *ngSwitchCase="undefined">{{ selectedFeed.likeUsers[0].name }}님이 좋아합니다.</div>
-                <div *ngSwitchDefault>{{ selectedFeed.likeUsers[0].nickname }}님이 좋아합니다.</div>
+              <div [ngSwitch]="selectedFeed.likeUsers[0].user.nickname">
+                <div *ngSwitchCase="undefined">{{ selectedFeed.likeUsers[0].user.name }}님이 좋아합니다.</div>
+                <div *ngSwitchDefault>{{ selectedFeed.likeUsers[0].user.nickname }}님이 좋아합니다.</div>
               </div>
             </div>
             <div
               class="text"
               *ngIf="selectedLanguage != 'ko' && selectedFeed?.likeCount > 0 && selectedFeed?.likeCount === 1"
             >
-              <div [ngSwitch]="selectedFeed.likeUsers[0].nickname">
-                <div *ngSwitchCase="undefined">{{ selectedFeed.likeUsers[0].name }} like it.</div>
-                <div *ngSwitchDefault>{{ selectedFeed.likeUsers[0].nickname }} like it.</div>
+              <div [ngSwitch]="selectedFeed.likeUsers[0].user.nickname">
+                <div *ngSwitchCase="undefined">{{ selectedFeed.likeUsers[0].user.name }} like it.</div>
+                <div *ngSwitchDefault>{{ selectedFeed.likeUsers[0].user.nickname }} like it.</div>
               </div>
             </div>
             <div
@@ -235,30 +235,30 @@
               <div class="d-flex flex-column">
                 <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
                   <img class="picture" [src]="feed.picture" draggable="false" />
-                  <div class="count-background" *ngIf="feed.pictures.length > 1">
+                  <div class="count-background" *ngIf="feed.pictureCount > 1">
                     <!--                <img src="assets/icons/feed/count.svg"/>-->
-                    <div class="count">{{ '+' + feed.pictures.length }}</div>
+                    <div class="count">{{ '+' + feed.pictureCount }}</div>
                   </div>
                 </div>
                 <div class="user">
                   <shared-avatar
-                    [image]="feed.writer.picture[0]?.url"
-                    text="{{ feed.writer.email }}"
+                    [image]="feed.writerPictureUrl"
+                    text="{{ feed.writerEmail }}"
                     size="20"
                     fontSize="14"
                     backgroundColor="red"
                   ></shared-avatar>
                   <div class="nickname">
-                    {{ feed.writer.nickname || feed.writer.email.split('@')[0] }}
+                    {{ feed.writerNickname || feed.writerEmail.split('@')[0] }}
                   </div>
                 </div>
                 <div class="title ellipsis2">
                   {{ feed.content }}
                 </div>
-                <div class="tags ellipsis1">{{ feed.tagsStr }}</div>
+                <div class="tags ellipsis1">tagStr</div>
                 <div class="additional">
                   <div class="like" (click)="feedLike(feed)">
-                    <div class="heart" *ngIf="variables.isLogin && feed.like">
+                    <div class="heart" *ngIf="variables.isLogin && feed.isLike">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"
@@ -270,7 +270,7 @@
                         />
                       </svg>
                     </div>
-                    <div class="heart-outline" *ngIf="!variables.isLogin || !feed.like">
+                    <div class="heart-outline" *ngIf="!variables.isLogin || !feed.isLike">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M11.5009 19.9847L4.41855 12.6097C2.42367 10.5324 2.5493 7.12624 4.69129 5.21436C6.81631 3.31763 10.0384 3.68595 11.7177 6.01754L12 6.40952L12.2823 6.01754C13.9616 3.68595 17.1836 3.31763 19.3087 5.21436C21.4507 7.12624 21.5763 10.5324 19.5814 12.6097L12.4991 19.9847C12.2235 20.2717 11.7765 20.2717 11.5009 19.9847Z"

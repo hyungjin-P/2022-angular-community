@@ -16,7 +16,7 @@ export class PublicService {
   constructor(private http: HttpClient) {}
 
   getFeedList(page: number, limit: number): Observable<Array<Feed>> {
-    const url = environment.userApiAddress + `/public/feed?page=${page}&limit=${limit}`;
+    const url = environment.userApiAddress + `/public/feed/findPages?page=${page}&limit=${limit}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -38,7 +38,7 @@ export class PublicService {
    * @param feedId
    */
   getFeed(feedId: string): Observable<Feed> {
-    const url = environment['serverAddress'] + `/public/feed/${feedId}`;
+    const url = environment.userApiAddress + `/public/feed/findPageOne?feedId=${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -46,9 +46,9 @@ export class PublicService {
       }),
     };
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );
