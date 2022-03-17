@@ -58,12 +58,13 @@
         padding-right: 8px;
         color: var(--grey-4);
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 24px;
       }
 
       .menu-link.selected {
         color: var(--black);
+        font-weight: 700;
       }
     }
   }
@@ -448,7 +449,7 @@
     cursor: pointer;
 
     .text {
-      @include textStyle(700, 14px, 22px);
+      @include textStyle(500, 14px, 22px);
       color: var(--grey-4);
     }
 
@@ -467,6 +468,7 @@
   .selected {
     .text {
       color: var(--black);
+      @include textStyle(600, 14px, 22px);
     }
 
     .selected-line {
