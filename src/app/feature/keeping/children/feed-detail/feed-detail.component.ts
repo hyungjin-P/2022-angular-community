@@ -41,6 +41,7 @@ import { Feed } from '@schemas/feed';
 import { FeedComment } from '@schemas/feed-comment';
 import { User } from '@schemas/user';
 import { DateUtils } from '../../../../core/utils/date.utils';
+import { FeedLike } from '@schemas/feed-like';
 
 declare const $;
 
@@ -83,7 +84,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   likedViewVisible: boolean;
 
-  likeUserList: Array<User>;
+  likeUserList: Array<FeedLike>;
 
   onKeyEvent: boolean;
 
@@ -91,6 +92,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   page: number = 1;
   limit: number = 20;
+
+  likePage: number = 1;
+  likeLimit: number = 15;
 
   constructor(
     private location: Location,
@@ -260,16 +264,24 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.publicService.getFeedList(this.page, this.limit).subscribe(
       (feedList: any) => {
         this.feedList = feedList.items;
-        console.log(this.feedList);
       },
       (e) => {}
     );
   }
 
   getFeedLikeList() {
-    this.feedService.getFeedLikeList(this.selectedFeed.id).subscribe(
-      (likeUserList: Array<User>) => {
-        this.likeUserList = likeUserList;
+    this.feedService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.user?.id).subscribe(
+      (likeUserList: any) => {
+        this.likeUserList = likeUserList.items;
+      },
+      (e) => {}
+    );
+  }
+
+  getPublicFeedLikeList() {
+    this.publicService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id).subscribe(
+      (likeUserList: any) => {
+        this.likeUserList = likeUserList.items;
       },
       (e) => {}
     );
@@ -508,10 +520,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   showLikedView() {
     if (this.storageService.getUser()) {
       this.getFeedLikeList();
-      this.likedViewVisible = true;
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.getPublicFeedLikeList();
     }
+    this.likedViewVisible = true;
   }
 
   hideLikedView() {

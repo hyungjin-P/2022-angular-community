@@ -20,7 +20,7 @@ export class MagazineService {
    * @param category
    * @param userId
    */
-  getMagazineList(page: number, limit: number, category: string = 'all', userId: string = 'null'): Observable<any> {
+  getMagazineList(page: number, limit: number, category: string = 'all', userId: string): Observable<any> {
     const url =
       environment.userApiAddress +
       `/magazine/findPages?page=${page}&limit=${limit}&category=${category}&userId=${userId}`;

@@ -544,9 +544,9 @@
     </div>
     <div class="flex-fill" style="position: relative">
       <div class="liked-view-section full-absolute">
-        <div class="liked-view-user" *ngFor="let user of likeUserList">
-          <shared-avatar [image]="user.picture[0]?.url" text="{{ user.email }}" size="45" fontSize="18"></shared-avatar>
-          <div class="liked-view-user-nickname">{{ user.nickname || user.email.split('@')[0] }}</div>
+        <div class="liked-view-user" *ngFor="let likeUser of likeUserList">
+          <shared-avatar [image]="likeUser.user.picture[0]?.url" text="{{ likeUser.user.email }}" size="45" fontSize="18"></shared-avatar>
+          <div class="liked-view-user-nickname">{{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}</div>
           <div class="liked-view-user-follow-button">
             <div class="mdi mdi-plus"></div>
             <div class="liked-view-user-follow-button-text">

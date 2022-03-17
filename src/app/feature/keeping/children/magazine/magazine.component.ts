@@ -69,10 +69,30 @@ export class MagazineComponent implements OnInit {
     this.user = this.storageService.getUser();
     this.getMagazineList();
     this.changeTab();
+
+    if (this.user) {
+      this.getMagazineList();
+    } else {
+      this.getPublicMagazineList();
+    }
   }
 
   getMagazineList() {
     this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id).subscribe(
+      (magazineList: any) => {
+        if (this.topMagazineList === undefined) {
+          this.topMagazineList = magazineList.items;
+        }
+        this.magazineList = magazineList.items;
+      },
+      (e) => {
+        console.log('magazine list find failed', e);
+      }
+    );
+  }
+
+  getPublicMagazineList() {
+    this.publicService.getMagazineList(this.page, this.limit, this.category).subscribe(
       (magazineList: any) => {
         if (this.topMagazineList === undefined) {
           this.topMagazineList = magazineList.items;

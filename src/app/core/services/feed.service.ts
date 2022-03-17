@@ -12,6 +12,7 @@ import { Feed } from '@schemas/feed';
 import { FeedTag } from '@schemas/feed-tag';
 import { FeedComment } from '@schemas/feed-comment';
 import { File } from '@schemas/file';
+import { FeedLike } from '@schemas/feed-like';
 
 @Injectable({
   providedIn: 'root',
@@ -234,8 +235,9 @@ export class FeedService {
     );
   }
 
-  getFeedLikeList(feedId: string, page = '', pageSize = ''): Observable<Array<User>> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/like?page=${page}&pageSize=${pageSize}`;
+  getFeedLikeList(page: number, limit: number, feedId, userId: string): Observable<Array<FeedLike>> {
+    const url =
+      environment.userApiAddress + `/feed/like/findPages?page=${page}&limit=${limit}&feedId=${feedId}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -243,9 +245,9 @@ export class FeedService {
       }),
     };
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.dataset;
+        return res;
       }),
       catchError(handleError)
     );
