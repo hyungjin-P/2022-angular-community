@@ -434,29 +434,33 @@
   display: flex;
   align-items: flex-end;
   padding: 0 16px;
-  height: 50px;
+  //height: 50px;
+  height: 42px;
   background-color: var(--white);
   z-index: 1;
   border-bottom: 1px solid #f0f2f5;
 
+
   .menu {
     position: relative;
     padding: 8px 12px;
-    height: 50px;
+    height: 42px;
     cursor: pointer;
 
     .text {
-      @include textStyle(700, 18px, 26px);
+      @include textStyle(700, 14px, 22px);
       color: var(--grey-4);
     }
 
     .selected-line {
       display: none;
       position: absolute;
-      right: 5px;
+      right: 6px;
       bottom: 0px;
-      left: 5px;
-      border-bottom: 3px solid var(--black);
+      left: 6px;
+      border-radius: 1.5px;
+      height:3px;
+      background-color: var(--black);
     }
   }
 
