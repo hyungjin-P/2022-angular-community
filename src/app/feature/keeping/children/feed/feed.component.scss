@@ -302,10 +302,11 @@
 
 
         }
-
+        .card_detail{
+          width:100%;
         .feed-infos {
          display: flex;
-          margin: 10px 5px 0 5px;
+          margin: 10px 0 0 4px;
 
           .user-name {
             margin-left: 5px;
@@ -317,13 +318,14 @@
             text-overflow: ellipsis;
             white-space:nowrap;
           }
-
+        }
           .like {
+
             margin-left: auto;
             margin-bottom: auto;
-            padding-left: 15px;
+            //padding-left: 15px;
             height: 100%;
-
+            padding-top:6px;
             display: flex;
             text-align: right;
             font-weight: 300;
@@ -356,7 +358,7 @@
         }
 
         .title {
-          margin: 2px 5px 0 5px;
+          margin: 2px 0 0 4px;
           letter-spacing: -0.2px;
           width: calc(100% - 3px);
           font-family: none;
@@ -570,8 +572,8 @@
   }
 
   .col-xxl-2-5 {
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
   }
 }

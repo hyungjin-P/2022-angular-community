@@ -207,7 +207,8 @@
                 </ng-container>
               </div>
             </div>
-            <div class="feed-infos">
+            <div class="card_detail">
+              <div class="feed-infos">
               <shared-avatar
                 [image]="feed.writerPictureUrl"
                 text="{{ feed.writerEmail }}"
@@ -218,7 +219,11 @@
               <span class="user-name">
                 {{ feed.writerNickname || feed.writerEmail.split('@')[0] }} HAILEAEEEEE
               </span>
+            </div>
 
+              <div class="title">
+              {{ feed.content }}
+            </div>
               <!-- 좋아요 수 -->
               <div class="like">
                 <div class="heart-outline">
@@ -230,10 +235,6 @@
                   {{ feed.likeCount > 99 ? '99+' : (feed.likeCount | number) }}
                 </span>
               </div>
-            </div>
-
-            <div class="title">
-              {{ feed.content }}
             </div>
 
           </div>

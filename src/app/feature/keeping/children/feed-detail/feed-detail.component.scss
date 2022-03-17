@@ -28,7 +28,7 @@
 }
 
 .section {
-  padding: 20px 16px;
+  padding: 30px 30px;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE, Edge */
 
@@ -157,7 +157,7 @@
       }
 
       .row-2 {
-        margin: 16px -15px 0;
+        //margin: 16px -15px 0;
         .carousel-indicators {
           li {
             margin: 0 3px;
@@ -963,7 +963,7 @@
         margin: -20px -6px;
 
         .item {
-          padding: 20px 6px;
+          padding: 15px 8px;
 
           //> div {
           //    .image-box {
@@ -1055,7 +1055,7 @@
 
   .feed-detail {
     margin: 32px auto;
-    width: 526px;
+    width: 580px;
     border-radius: 20px;
     background-color: var(--white);
     box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
