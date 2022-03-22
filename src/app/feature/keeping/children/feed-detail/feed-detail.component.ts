@@ -260,6 +260,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.publicService.getFeedSubCommentList(page, limit, feedCommentId).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
+
         // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
       },
       (e) => {}
@@ -285,6 +286,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
           this.feedCommentList = feedCommentList;
+          console.log(feedCommentList);
         },
         (e) => {}
       );
@@ -588,6 +590,30 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       (e) => {}
     );
+  }
+
+  feedCommentLike(feedComment: FeedComment) {
+    if (this.storageService.getUser()) {
+      if (feedComment.isLike) {
+        this.feedService.deleteFeedCommentLike(feedComment.id, this.user?.id).subscribe(
+          (v) => {
+            feedComment.isLike = false;
+            feedComment.likeCount = v;
+          },
+          (e) => {}
+        );
+      } else {
+        this.feedService.createFeedCommentLike(feedComment.id, this.user?.id).subscribe(
+          (v) => {
+            feedComment.isLike = true;
+            feedComment.likeCount = v;
+          },
+          (e) => {}
+        );
+      }
+    } else {
+      this.router.navigateByUrl('/auth/login');
+    }
   }
 
   showLikedView() {

@@ -9,6 +9,8 @@ export class FeedComment {
     public text: string,
     public mentions: FeedCommentMention[],
     public sub_comment_count: number,
+    public likeCount: number,
+    public isLike: boolean,
     public deletedAt: string,
     public createdAt: string,
     public updatedAt: string,
@@ -22,6 +24,8 @@ export class FeedComment {
     this.writer = writer;
     this.text = text;
     this.sub_comment_count = sub_comment_count;
+    this.likeCount = likeCount;
+    this.isLike = isLike;
     this.deletedAt = deletedAt;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

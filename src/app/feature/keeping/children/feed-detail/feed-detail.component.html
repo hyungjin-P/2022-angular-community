@@ -470,7 +470,7 @@
           <!--              </div>-->
           <div class="comment-view-item-menu-group">
             <div class="comment-view-item-menu-group-col-1">
-              <div class="heart" *ngIf="variables.isLogin">
+              <div class="heart" *ngIf="variables.isLogin && feedComment?.isLike">
                 <!-- && feedComment?.like -->
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -482,7 +482,7 @@
                   />
                 </svg>
               </div>
-              <div class="heart-outline" *ngIf="!variables.isLogin">
+              <div class="heart-outline" *ngIf="!variables.isLogin || !feedComment?.isLike">
                 <!-- && feedComment?.like -->
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -494,10 +494,17 @@
                 </svg>
               </div>
               <!--              <div class="text">{{ feedComment?.like_count }}</div>-->
-              <div class="text">3</div>
-              <div class="comment-view-item-menu sub-comment-like">
-                {{ 'keeping.feed-detail.comment-view-like' | translate }}
-              </div>
+              <div class="text" *ngIf='feedComment?.likeCount !== 0'>{{feedComment?.likeCount}}</div>
+              <ng-container *ngIf='feedComment?.isLike'>
+                <div class="comment-view-item-menu sub-comment-like" (click)='feedCommentLike(feedComment)'>
+                  {{ 'keeping.feed-detail.comment-view-unlike' | translate }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf='!feedComment?.isLike'>
+                <div class="comment-view-item-menu sub-comment-like" (click)='feedCommentLike(feedComment)'>
+                  {{ 'keeping.feed-detail.comment-view-like' | translate }}
+                </div>
+              </ng-container>
               <ng-container *ngIf='parentFeedComment'>
                 <div class="comment-view-item-menu sub-comment-write" (click)="showSubCommentInput(feedComment, parentFeedComment)">
                   {{ 'keeping.feed-detail.comment-view-reply' | translate }}

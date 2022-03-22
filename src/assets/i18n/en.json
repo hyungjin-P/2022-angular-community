@@ -138,6 +138,7 @@
       "comment-view-deleted-text": "This comment has been deleted.",
       "comment-view-header": "Comment",
       "comment-view-like": "Like",
+      "comment-view-unlike": "Unlike",
       "comment-view-reply": "Reply",
       "comment-view-reply-edit": "Edit",
       "comment-view-reply-delete": "Delete",

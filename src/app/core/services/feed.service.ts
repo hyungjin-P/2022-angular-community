@@ -407,6 +407,39 @@ export class FeedService {
       catchError(handleError)
     );
   }
+
+  createFeedCommentLike(feedCommentId: string, userId: string): Observable<any> {
+    const url = environment.userApiAddress + `/feed/comment/addLike?feedCommentId=${feedCommentId}&userId=${userId}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.post<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  deleteFeedCommentLike(feedCommentId: string, userId: string): Observable<any> {
+    const url = environment.userApiAddress + `/feed/comment/deleteLike?feedCommentId=${feedCommentId}&userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.delete<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class FeedBookmarkDto {
