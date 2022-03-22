@@ -96,6 +96,17 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   likePage: number = 1;
   likeLimit: number = 15;
 
+  commentPage: number = 1;
+  commentLimit: number = 15;
+
+  subCommentNumber: number = 0;
+
+  subCommentPages: Array<number>;
+  subCommentLimits: Array<number>;
+
+  comment_mention_info: string;
+  mentionInfoVisible: boolean;
+
   constructor(
     private location: Location,
     private router: Router,
@@ -137,6 +148,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onKeyEvent = false;
 
     this.beginTime = '';
+
+    this.mentionInfoVisible = false;
   }
 
   ngAfterViewInit(): void {
@@ -221,18 +234,20 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       (e) => {}
     );
   }
-
-  getFeedCommentList() {
-    this.feedService.getFeedCommentList(this.selectedFeed.id).subscribe(
+  getPublicFeedCommentList() {
+    this.publicService.getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         for (let i = 0; i < feedCommentList.length; i++) {
-          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at);
+          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].createdAt);
           feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
 
           if (feedCommentList[i].sub_comment_count !== 0) {
             // 댓글 더보기 기본 동작으로 변경 22.02.11
             this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
-            this.getFeedSubCommentList(feedCommentList[i].id);
+            feedCommentList[i].page = 1;
+            feedCommentList[i].limit = 15;
+
+            this.getPublicFeedSubCommentList(1, 15, feedCommentList[i].id);
           }
         }
         this.feedCommentList = feedCommentList;
@@ -241,20 +256,45 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  getFeedSubCommentList(feedCommentId: string) {
-    this.feedService.getFeedSubCommentList(this.selectedFeed.id, feedCommentId).subscribe(
+  getPublicFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
+    this.publicService.getFeedSubCommentList(page, limit, feedCommentId).subscribe(
       (feedCommentList: Array<FeedComment>) => {
-        for (let i = 0; i < feedCommentList.length; i++) {
-          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].created_at);
-          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
-          if (feedCommentList[i].sub_comment_count !== 0) {
-            // 설
-            this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
-            this.getFeedSubCommentList(feedCommentList[i].id);
-          }
-        }
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
-        this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
+        // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
+      },
+      (e) => {}
+    );
+  }
+
+  getFeedCommentList() {
+    this.feedService
+      .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.user?.id)
+      .subscribe(
+        (feedCommentList: Array<FeedComment>) => {
+          for (let i = 0; i < feedCommentList.length; i++) {
+            feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].createdAt);
+            feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
+
+            if (feedCommentList[i].sub_comment_count !== 0) {
+              // 댓글 더보기 기본 동작으로 변경 22.02.11
+              this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
+              feedCommentList[i].page = 1;
+              feedCommentList[i].limit = 15;
+
+              this.getFeedSubCommentList(1, 15, feedCommentList[i].id);
+            }
+          }
+          this.feedCommentList = feedCommentList;
+        },
+        (e) => {}
+      );
+  }
+
+  getFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
+    this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
+      (feedCommentList: Array<FeedComment>) => {
+        this.feedSubCommentListObj[feedCommentId] = feedCommentList;
+        // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
       },
       (e) => {}
     );
@@ -397,10 +437,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   showCommentView() {
     if (this.storageService.getUser()) {
       this.getFeedCommentList();
-      this.commentViewVisible = true;
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.getPublicFeedCommentList();
     }
+    this.commentViewVisible = true;
   }
 
   hideCommentView() {
@@ -419,14 +459,17 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     //   this.createComment()
     // })
     // } else
-    if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
-      this.hideSubCommentInput();
-    }
+    // if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
+    //   this.hideSubCommentInput();
+    // }
   }
 
   createComment() {
     if (!this.feedCommentInputObj) {
       return;
+    }
+    if (!this.user) {
+      this.router.navigateByUrl('/auth/login');
     }
 
     if (this.feedCommentInputStatus === 'sub') {
@@ -437,38 +480,63 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   createParentComment() {
-    this.feedService.createFeedComment(this.selectedFeed.id, { text: this.feedCommentInputObj }).subscribe(
-      (feedComment: FeedComment) => {
-        this.clearCommentInput();
-        this.selectedFeed.commentCount++;
-        this.feedCommentList.unshift(feedComment);
-      },
-      (e) => {}
-    );
+    this.feedService
+      .createFeedComment({ feedId: this.selectedFeed.id, userId: this.user.id, text: this.feedCommentInputObj })
+      .subscribe(
+        (feedComment: FeedComment) => {
+          this.clearCommentInput();
+          this.getFeedCommentList();
+        },
+        (e) => {}
+      );
   }
 
-  showSubCommentInput(feedComment: FeedComment) {
+  showSubCommentInput(feedComment: FeedComment, parentComment?: FeedComment) {
     // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
     this.feedCommentInputStatus = 'sub';
     this.feedSubComment = feedComment;
-    this.feedCommentInputObj = '@' + 'writer ';
+    if (parentComment) {
+      this.feedSubComment.parentId = parentComment.id;
+    } else {
+      this.feedSubComment.parentId = feedComment.id;
+    }
+
+    if (feedComment.writer.nickname) {
+      this.comment_mention_info = feedComment.writer.nickname + '님에게 답글 남기는 중';
+    } else {
+      this.comment_mention_info = feedComment.writer.email.split('@')[0] + '님에게 답글 남기는 중';
+    }
+    this.mentionInfoVisible = true;
     this.feedCommentInputEl.nativeElement.focus();
   }
 
   hideSubCommentInput() {
     if (this.feedCommentInputStatus === 'sub') {
       this.feedCommentInputStatus = '';
+      this.mentionInfoVisible = false;
       this.feedSubComment = undefined;
       this.feedCommentInputObj = '';
     }
   }
 
-  showSubCommentList(feedCommentId: string) {
+  showSubCommentList(feedCommentNumber: number, feedCommentId: string) {
     if (this.feedSubCommentListViewObj[feedCommentId]) {
       this.hideSubCommentList(feedCommentId);
     } else {
       this.feedSubCommentListViewObj[feedCommentId] = true;
-      this.getFeedSubCommentList(feedCommentId);
+      if (this.user) {
+        this.getFeedSubCommentList(
+          this.feedCommentList[feedCommentNumber].page,
+          this.feedCommentList[feedCommentNumber].limit,
+          feedCommentId
+        );
+      } else {
+        this.getPublicFeedSubCommentList(
+          this.feedCommentList[feedCommentNumber].page,
+          this.feedCommentList[feedCommentNumber].limit,
+          feedCommentId
+        );
+      }
     }
   }
 
@@ -483,21 +551,26 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.feedService
-      .createFeedComment(this.selectedFeed.id, {
-        parent_id: parentFeedComment.id,
+      .createFeedComment({
+        feedId: this.selectedFeed.id,
+        userId: this.user?.id,
+        parentId: this.feedSubComment.parentId,
         text: this.feedCommentInputObj,
       })
       .subscribe(
         (feedComment: FeedComment) => {
-          this.hideSubCommentInput();
-          this.selectedFeed.commentCount++;
-          parentFeedComment.sub_comment_count++;
-          this.feedSubCommentListViewObj[parentFeedComment.id] = false;
-          this.showSubCommentList(parentFeedComment.id);
-          if (!this.feedSubCommentListObj[parentFeedComment.id]) {
-            this.feedSubCommentListObj[parentFeedComment.id] = [feedComment];
-          } else {
-            this.feedSubCommentListObj[parentFeedComment.id].unshift(feedComment);
+          if (this.comment_mention_info) {
+            this.feedService
+              .addFeedCommentMention({
+                feedCommentId: feedComment.id,
+                mentionUserId: parentFeedComment.writer.id,
+              })
+              .subscribe(() => {
+                this.hideSubCommentInput();
+                this.selectedFeed.commentCount++;
+                parentFeedComment.sub_comment_count++;
+                this.getFeedCommentList();
+              });
           }
         },
         (e) => {}
@@ -505,13 +578,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
-    this.feedService.deleteFeedComment(this.selectedFeed.id, feedComment.id).subscribe(
+    this.feedService.deleteFeedComment(feedComment.id).subscribe(
       (v) => {
         this.selectedFeed.commentCount--;
-        if (feedComment.parent_id) {
-          parentFeedComment.sub_comment_count--;
-        }
-        feedComment.deleted_at = moment().utc().format('YYYY-MM-DD HH:mm:ss');
+        // if (feedComment.parent_id) {
+        //   parentFeedComment.sub_comment_count--;
+        // }
+        feedComment.deletedAt = moment().utc().format('YYYY-MM-DD HH:mm:ss');
       },
       (e) => {}
     );

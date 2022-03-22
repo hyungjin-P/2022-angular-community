@@ -645,9 +645,15 @@
               }
 
               .comment-view-item-text {
+                display: flex;
                 font-size:14px;
                 margin: 2px 0 4px 0;
                 letter-spacing: -0.2px;
+
+                .mentionUser{
+                  margin-right: 4px;
+                  color: var(--blue-2);
+                }
               }
 
               .comment-view-item-menu-group {
@@ -749,6 +755,14 @@
         }
       }
     }
+
+    .feed-comment-mention-info{
+      display: flex;
+      padding: 20px 10px;
+      background-color: var(--grey-8);
+      justify-content: space-between;
+    }
+
     .feed-comment-view-input {
       //display: flex;
       //flex-direction: column;

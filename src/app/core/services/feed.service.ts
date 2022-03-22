@@ -253,8 +253,8 @@ export class FeedService {
     );
   }
 
-  createFeedComment(feedId: string, requestBody: CreateFeedCommentDto): Observable<FeedComment> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment`;
+  createFeedComment(requestBody: CreateFeedCommentDto): Observable<FeedComment> {
+    const url = environment.userApiAddress + `/feed/comment/create`;
 
     const options = {
       headers: new HttpHeaders({
@@ -262,16 +262,18 @@ export class FeedService {
       }),
     };
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
+    return this.http.post<any>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );
   }
 
-  getFeedCommentList(feedId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-    const url = `${environment['serverAddress']}/feed/${feedId}/comment?page=${page}&pageSize=${pageSize}`;
+  getFeedCommentList(page: number, limit: number, feedId: string, userId: string): Observable<Array<FeedComment>> {
+    const url =
+      environment.userApiAddress +
+      `/feed/comment/findPages?page=${page}&limit=${limit}&feedId=${feedId}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -279,16 +281,23 @@ export class FeedService {
       }),
     };
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.dataset;
+        return res.items;
       }),
       catchError(handleError)
     );
   }
 
-  getFeedSubCommentList(feedId: string, commentId: string, page = '', pageSize = ''): Observable<Array<FeedComment>> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}?page=${page}&pageSize=${pageSize}`;
+  getFeedSubCommentList(
+    page: number,
+    limit: number,
+    feedCommentId: string,
+    userId: string
+  ): Observable<Array<FeedComment>> {
+    const url =
+      environment.userApiAddress +
+      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -296,9 +305,9 @@ export class FeedService {
       }),
     };
 
-    return this.http.get<Response>(url, options).pipe(
+    return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.dataset;
+        return res.items;
       }),
       catchError(handleError)
     );
@@ -321,8 +330,8 @@ export class FeedService {
     );
   }
 
-  deleteFeedComment(feedId: string, commentId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`;
+  deleteFeedComment(commentId: string): Observable<Response> {
+    const url = environment.userApiAddress + `/feed/comment/delete?feedCommentId=${commentId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -330,7 +339,7 @@ export class FeedService {
       }),
     };
 
-    return this.http.delete<Response>(url, options).pipe(
+    return this.http.delete<any>(url, options).pipe(
       map((res) => {
         return res;
       }),
@@ -381,6 +390,23 @@ export class FeedService {
       catchError(handleError)
     );
   }
+
+  addFeedCommentMention(addMention: addFeedCommentMention) {
+    const url = environment.userApiAddress + `/feed/comment/addMention`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.post<any>(url, addMention, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class FeedBookmarkDto {
@@ -407,7 +433,9 @@ class CreateFeedTagDto {
 }
 
 class CreateFeedCommentDto {
-  parent_id?: string;
+  feedId: string;
+  userId: string;
+  parentId?: string;
   text: string;
 }
 
@@ -419,4 +447,9 @@ class UpdateFeedCommentDto {
 class addFeedLike {
   feedId: string;
   userId: string;
+}
+
+class addFeedCommentMention {
+  feedCommentId: string;
+  mentionUserId: string;
 }

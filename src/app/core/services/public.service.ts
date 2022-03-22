@@ -10,6 +10,7 @@ import { Response } from '@schemas/response';
 import { Feed } from '@schemas/feed';
 import { User } from '@schemas/user';
 import { FeedLike } from '@schemas/feed-like';
+import { FeedComment } from '@schemas/feed-comment';
 
 @Injectable({
   providedIn: 'root',
@@ -85,6 +86,42 @@ export class PublicService {
     return this.http.get<any>(url, options).pipe(
       map((res) => {
         return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getFeedCommentList(page: number, limit: number, feedId: string): Observable<Array<FeedComment>> {
+    const url = environment.userApiAddress + `/feed/comment/findPages?page=${page}&limit=${limit}&feedId=${feedId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res.items;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getFeedSubCommentList(page: number, limit: number, feedCommentId: string): Observable<Array<FeedComment>> {
+    const url =
+      environment.userApiAddress +
+      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res.items;
       }),
       catchError(handleError)
     );

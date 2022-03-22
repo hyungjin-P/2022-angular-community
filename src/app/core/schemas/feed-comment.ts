@@ -1,25 +1,29 @@
-import { User } from './user'
+import { User } from './user';
+import { FeedCommentMention } from '@schemas/feed-comment-mention';
 
 export class FeedComment {
   constructor(
     public id: string,
-    public parent_id: string,
+    public parentId: string,
     public writer: User,
     public text: string,
+    public mentions: FeedCommentMention[],
     public sub_comment_count: number,
-    public deleted_at: string,
-    public created_at: string,
-    public updated_at: string,
+    public deletedAt: string,
+    public createdAt: string,
+    public updatedAt: string,
     public begin_timestamp: number,
-    public begin_time_text: string
+    public begin_time_text: string,
+    public page: number,
+    public limit: number
   ) {
-    this.id = id
-    this.parent_id = parent_id
-    this.writer = writer
-    this.text = text
-    this.sub_comment_count = sub_comment_count
-    this.deleted_at = deleted_at
-    this.created_at = created_at
-    this.updated_at = updated_at
+    this.id = id;
+    this.parentId = parentId;
+    this.writer = writer;
+    this.text = text;
+    this.sub_comment_count = sub_comment_count;
+    this.deletedAt = deletedAt;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }

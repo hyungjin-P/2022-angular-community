@@ -433,8 +433,6 @@
 
 @media (min-width: 768px) {
   .section {
-    background-color: #f6f7f9;
-
     .item-list {
       margin: -20px -6px;
 
@@ -465,6 +463,7 @@
 
 @media (min-width: 992px) {
   .section {
+    background-color: #f6f7f9;
     padding: 50px 16px;
 
     /* width */

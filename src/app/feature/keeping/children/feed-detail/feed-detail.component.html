@@ -372,6 +372,16 @@
         </div>
       </div>
     </div>
+    <div class='feed-comment-mention-info' *ngIf='mentionInfoVisible' >
+      <div class='text'>
+        {{comment_mention_info}}
+      </div>
+      <div class='cancel-button' (click)='hideSubCommentInput()'>
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.16699 11.8337L11.8337 5.16699M5.16699 5.16699L11.8337 11.8337L5.16699 5.16699Z" stroke="#424C59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
     <div class="feed-comment-view-input">
       <div>
         <!--            <shared-avatar-->
@@ -394,10 +404,11 @@
           [(ngModel)]="feedCommentInputObj"
           [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"
           (keyup)="onCreateCommentKey($event)"
-          (focusout)="hideSubCommentInput()"
+
           maxlength="255"
           #feedCommentInput
         ></textarea>
+        <!--(focusout)="hideSubCommentInput()"-->
 
         <div
           class="add-button"
@@ -419,8 +430,8 @@
 
 <ng-template #CommentListTemplate let-feedCommentList="feedCommentList" let-parentFeedComment="parentFeedComment">
   <div class="feed-comment-view-item-list">
-    <ng-container *ngFor="let feedComment of feedCommentList">
-      <div class="feed-comment-view-item" *ngIf="!feedComment?.deleted_at">
+    <ng-container *ngFor="let feedComment of feedCommentList; let i = index" >
+      <div class="feed-comment-view-item" *ngIf="!feedComment?.deletedAt">
         <div>
           <shared-avatar
             [image]="feedComment.writer.picture[0]?.url"
@@ -446,6 +457,9 @@
           </div>
 
           <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">
+            <div class='mentionUser' *ngIf='feedComment?.mentions.length > 0'>
+              @{{feedComment?.mentions[0].mentionUser.nickname || feedComment?.mentions[0].mentionUser.email.split('@')[0]}}
+            </div>
             {{ feedComment?.text }}
           </div>
           <!--              <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">-->
@@ -484,13 +498,20 @@
               <div class="comment-view-item-menu sub-comment-like">
                 {{ 'keeping.feed-detail.comment-view-like' | translate }}
               </div>
-              <div class="comment-view-item-menu sub-comment-write" (click)="showSubCommentInput(feedComment)">
-                {{ 'keeping.feed-detail.comment-view-reply' | translate }}
-              </div>
+              <ng-container *ngIf='parentFeedComment'>
+                <div class="comment-view-item-menu sub-comment-write" (click)="showSubCommentInput(feedComment, parentFeedComment)">
+                  {{ 'keeping.feed-detail.comment-view-reply' | translate }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf='!parentFeedComment'>
+                <div class="comment-view-item-menu sub-comment-write" (click)="showSubCommentInput(feedComment)">
+                  {{ 'keeping.feed-detail.comment-view-reply' | translate }}
+                </div>
+              </ng-container>
             </div>
             <div
               class="comment-view-item-menu-group-col-2"
-              *ngIf="!feedComment?.deleted_at && user.id == feedComment.writer.id"
+              *ngIf="!feedComment?.deleted_at && user?.id == feedComment.writer.id"
             >
               <div class="comment-view-item-menu sub-comment-edit">
                 {{ 'keeping.feed-detail.comment-view-reply-edit' | translate }}
@@ -506,7 +527,7 @@
           <div
             class="comment-view-item-sub-comment-list-menu"
             [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
-            (click)="showSubCommentList(feedComment.id)"
+            (click)="showSubCommentList(i, feedComment.id)"
           >
 <!--       댓글 더보기 기본 동작으로 변경 22.02.11    -->
 <!--            <ng-container *ngIf="feedComment.sub_comment_count !== 0">-->

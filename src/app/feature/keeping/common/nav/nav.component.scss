@@ -1,5 +1,10 @@
 @import '/src/assets/styles/font';
 
+.nav-section{
+  display: flex;
+  height: 100%;
+  background-color: #f6f7f9;
+}
 .nav {
     position: relative;
     flex-direction: column;
