@@ -50,8 +50,9 @@ export class AuthService {
       }),
     }
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
+    return this.http
+      .post<Response>(url, requestBody, options)
+      .pipe(map((res) => {
         return res.dataset[0]
       }),
       catchError(handleError)
@@ -59,10 +60,33 @@ export class AuthService {
   }
 
   /**
+   * 카카오 로그인 수정 후
+   * */
+  modifiedKakaoLogin(accessToken: string) {
+    const url = environment.userApiAddress + '/auth/kakao';
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http
+      .post<any>(url, { accessToken }, options)
+      .pipe(map((res) => {
+          return res;
+        }),
+        catchError(handleError)
+      );
+  }
+
+  /**
    * 네이버 로그인
    * 수정중
    * */
   signWithNaver(requestBody: SignInWithNaverRequestBody): Observable<User> {
+
+    console.log('signWithNaver : requestBody : ', requestBody);
+
     const url = environment['serverAddress'] + '/auth/naver'
 
     const options = {
@@ -79,6 +103,26 @@ export class AuthService {
     )
   }
 
+  modifySignWithNaver(code: string): Observable<User> {
+    console.log('sign with naver code', code);
+    const url = environment.userApiAddress + `/auth/signInNaver`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+
+    return this.http.post<any>(url, { code }, options).pipe(
+      map((res) => {
+        console.log('modifySignWithNaver : ', res);
+        return res;
+      }),
+      catchError(handleError)
+    )
+
+  }
+
   /**
    * email login
    * 수정완료
@@ -92,14 +136,16 @@ export class AuthService {
       }),
     }
 
-    return this.http.post<User>(url, requestBody, options).pipe(
-      map((response) => {
-        return response;
-      }),
-      catchError(handleError)
-    )
+    return this.http
+      .post<User>(url, requestBody, options)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(handleError));
   }
 
+  // token refresh
   refresh(requestBody: RefreshRequestBody): Observable<Response> {
     const url = environment['serverAddress'] + '/auth/refresh'
 
@@ -155,7 +201,7 @@ export class AuthService {
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
         console.log('url');
-        return res
+        return res;
       }),
       catchError(handleError)
     )
@@ -205,8 +251,7 @@ export class AuthService {
   }
 
   /**
-   *
-   *
+   * 수정 중
    */
   sendResetPasswordLinkMail(
     requestBody: SendResetPasswordLinkMailRequestBody

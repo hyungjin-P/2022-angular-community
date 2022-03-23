@@ -1,153 +1,151 @@
 <div class="full-absolute">
-    <div class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="leading">
-                        <a class="logo">
-                            <img src="assets/images/logo/mobile_header_logo.svg" />
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="leading">
+            <a class="logo">
+              <img src="assets/images/logo/mobile_header_logo.svg" alt="">
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="agreement-form">
-        <div class="container">
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="text-1">
+  </div>
+  <div class="agreement-form">
+    <div class="container">
+      <div class="row">
+        <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
+          <div class="text-1">
                         <span>{{ 'auth.service-terms.text1-1' | translate }}</span
-                        ><br /><span>{{ 'auth.service-terms.text1-2' | translate }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="text-2">
-                        <span>{{ 'auth.service-terms.text2-1' | translate }}</span>
-                        <br />
-                        <span>{{ 'auth.service-terms.text2-2' | translate }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <div class="all-agreement">
-                        <shared-checkbox
-                            [text]="'auth.service-terms.all-agreement' | translate"
-                            [checked]="allAgreement"
-                            shape="circle"
-                            (click)="checkTerms('all')"
-                        ></shared-checkbox>
-                    </div>
-                    <div class="h-line"></div>
-                    <div class="agreement-1">
-                        <shared-checkbox
-                            [text]="'auth.service-terms.agreement1' | translate"
-                            [checked]="agreementAge"
-                            shape="none"
-                            (click)="checkTerms('age')"
-                        ></shared-checkbox>
-                    </div>
-                    <div class="agreement-2 d-flex justify-content-between">
-                        <shared-checkbox
-                            [text]="'auth.service-terms.agreement2' | translate"
-                            [checked]="agreementPrivacy"
-                            shape="none"
-                            (click)="checkTerms('privacy')"
-                        ></shared-checkbox>
-                        <div (click)="showPopup('service-terms')">{{ 'auth.service-terms.view' | translate }}</div>
-                    </div>
-                    <div class="agreement-3 d-flex justify-content-between">
-                        <shared-checkbox
-                            [text]="'auth.service-terms.agreement3' | translate"
-                            [checked]="agreementServiceTerms"
-                            shape="none"
-                            (click)="checkTerms('serviceTerms')"
-                        ></shared-checkbox>
-                        <div (click)="showPopup('privacy')">{{ 'auth.service-terms.view' | translate }}</div>
-                    </div>
-                    <div class="agreement-4 d-flex justify-content-between">
-                        <shared-checkbox
-                            [text]="'auth.service-terms.agreement4' | translate"
-                            [checked]="agreementMarketing"
-                            shape="none"
-                            (click)="checkTerms('marketing')"
-                        ></shared-checkbox>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
-                    <a
-                        class="agreement-button shared-button-primary"
-                        [class.shared-button-primary-disabled]="
-                            !agreementAge || !agreementPrivacy || !agreementServiceTerms
-                        "
-                        (click)="updateUser()"
-                    >
-                        <div>{{ 'auth.service-terms.agreement-button' | translate }}</div>
-                    </a>
-                </div>
-            </div>
+                        ><br/><span>{{ 'auth.service-terms.text1-2' | translate }}</span>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
+          <div class="text-2">
+            <span>{{ 'auth.service-terms.text2-1' | translate }}</span>
+            <br/>
+            <span>{{ 'auth.service-terms.text2-2' | translate }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
+          <div class="all-agreement">
+            <shared-checkbox
+              [text]="'auth.service-terms.all-agreement' | translate"
+              [checked]="allAgreement"
+              shape="circle"
+              (click)="checkTerms('all')"
+            ></shared-checkbox>
+          </div>
+          <div class="h-line"></div>
+          <div class="agreement-1">
+            <shared-checkbox
+              [text]="'auth.service-terms.agreement1' | translate"
+              [checked]="agreementAge"
+              shape="none"
+              (click)="checkTerms('age')"
+            ></shared-checkbox>
+          </div>
+          <div class="agreement-2 d-flex justify-content-between">
+            <shared-checkbox
+              [text]="'auth.service-terms.agreement2' | translate"
+              [checked]="agreementPrivacy"
+              shape="none"
+              (click)="checkTerms('privacy')"
+            ></shared-checkbox>
+            <div (click)="showPopup('service-terms')">{{ 'auth.service-terms.view' | translate }}</div>
+          </div>
+          <div class="agreement-3 d-flex justify-content-between">
+            <shared-checkbox
+              [text]="'auth.service-terms.agreement3' | translate"
+              [checked]="agreementServiceTerms"
+              shape="none"
+              (click)="checkTerms('serviceTerms')"
+            ></shared-checkbox>
+            <div (click)="showPopup('privacy')">{{ 'auth.service-terms.view' | translate }}</div>
+          </div>
+          <div class="agreement-4 d-flex justify-content-between">
+            <shared-checkbox
+              [text]="'auth.service-terms.agreement4' | translate"
+              [checked]="agreementMarketing"
+              shape="none"
+              (click)="checkTerms('marketing')"
+            ></shared-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-8 offset-sm-2 col-lg-6 offset-lg-3">
+          <a class="agreement-button shared-button-primary"
+             [class.shared-button-primary-disabled]="
+             !agreementAge || !agreementPrivacy || !agreementServiceTerms"
+             (click)="modifyUserServiceTerm()"
+          >
+            <div>{{ 'auth.service-terms.agreement-button' | translate }}</div>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="popup-privacy-service-terms" #popupPrivacyServiceTermsRef>
-    <div class="privacy-service-terms" (click)="$event.stopPropagation()">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="privacy-service-terms-header">
-                        <div>{{ 'auth.service-terms.privacy-service-terms-header' | translate }}</div>
-                        <div class="privacy-service-terms-close-icon" (click)="hidePopup()">
-                            <span class="mdi mdi-close"></span>
-                        </div>
-                    </div>
-                </div>
+  <div class="privacy-service-terms" (click)="$event.stopPropagation()">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="privacy-service-terms-header">
+            <div>{{ 'auth.service-terms.privacy-service-terms-header' | translate }}</div>
+            <div class="privacy-service-terms-close-icon" (click)="hidePopup()">
+              <span class="mdi mdi-close"></span>
             </div>
+          </div>
         </div>
-        <div class="privacy-service-terms-nav">
-            <div
-                class="privacy-service-terms-menu"
-                [class.privacy-service-terms-selected]="selectedMenu == 'service-terms'"
-                (click)="changeMenu('service-terms')"
-            >
-                {{ 'auth.service-terms.privacy-service-terms-service-terms' | translate }}
-            </div>
-            <div class="privacy-service-terms-v-line"></div>
-            <div
-                class="privacy-service-terms-menu"
-                [class.privacy-service-terms-selected]="selectedMenu == 'privacy'"
-                (click)="changeMenu('privacy')"
-            >
-                {{ 'auth.service-terms.privacy-service-terms-privacy' | translate }}
-            </div>
-        </div>
-        <div class="privacy-service-terms-content scroll-y">
-            <div *ngIf="selectedMenu == 'service-terms'">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <service-terms-component></service-terms-component>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="selectedMenu == 'privacy'">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <privacy-component></privacy-component>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="privacy-service-terms-confirm shared-button-primary" (click)="hidePopup()">
-            <div>{{ 'auth.service-terms.privacy-service-terms-confirm' | translate }}</div>
-        </div>
+      </div>
     </div>
+    <div class="privacy-service-terms-nav">
+      <div
+        class="privacy-service-terms-menu"
+        [class.privacy-service-terms-selected]="selectedMenu == 'service-terms'"
+        (click)="changeMenu('service-terms')"
+      >
+        {{ 'auth.service-terms.privacy-service-terms-service-terms' | translate }}
+      </div>
+      <div class="privacy-service-terms-v-line"></div>
+      <div
+        class="privacy-service-terms-menu"
+        [class.privacy-service-terms-selected]="selectedMenu == 'privacy'"
+        (click)="changeMenu('privacy')"
+      >
+        {{ 'auth.service-terms.privacy-service-terms-privacy' | translate }}
+      </div>
+    </div>
+    <div class="privacy-service-terms-content scroll-y">
+      <div *ngIf="selectedMenu == 'service-terms'">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <service-terms-component></service-terms-component>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedMenu == 'privacy'">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <privacy-component></privacy-component>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="privacy-service-terms-confirm shared-button-primary" (click)="hidePopup()">
+      <div>{{ 'auth.service-terms.privacy-service-terms-confirm' | translate }}</div>
+    </div>
+  </div>
 </div>

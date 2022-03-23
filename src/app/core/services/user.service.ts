@@ -40,7 +40,7 @@ export class UserService {
    * 개인정보, 서비스 이용약관
    * */
   updateServiceTerms(serviceTerms: ServiceTermsDto): Observable<User> {
-    const url = environment.userApiAddress = '/user/serviceTerms';
+    const url = environment.userApiAddress + '/auth/modifyServiceTerm';
 
     const options = {
       headers: new HttpHeaders({
@@ -48,9 +48,9 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.patch<User>(url, serviceTerms, options).pipe(
-      map((user: User) => {
-        return user;
+    return this.httpClient.patch<any>(url, serviceTerms, options).pipe(
+      map((data: any) => {
+        return data;
       }),
       catchError(handleError)
     );
