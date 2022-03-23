@@ -4,7 +4,7 @@
         height: 34px;
         object-fit: cover;
         border-radius: 50%;
-        border: solid 1px #DEE3EA;
+        border: solid 1px var(--grey-8);
     }
 
     .text {
@@ -12,8 +12,8 @@
         width: 34px;
         height: 34px;
         border-radius: 50%;
+        border: solid 1px var(--grey-8);
         background-color: var(--grey-1);
-
         color: var(--white);
     }
 }

@@ -48,20 +48,24 @@
         position: relative;
         display: flex;
         align-items: center;
-        height: 32px;
+        height: 30px;
+        z-index: 2;
 
         .nickname {
           margin-left: 8px;
 
-          @include textStyle(500, 14px, 22px);
-          color: var(--text-2);
+          font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+          @include textStyle(700, 14px, 22px);
+          letter-spacing: -0.2px;
+          color: var(--text-1);
         }
 
         .updated-at {
           margin-left: 8px;
 
-          @include textStyle(300, 12px, 21px);
-          color: var(--grey-3);
+          @include textStyle(400, 12px, 20px);
+          letter-spacing: -0.2px;
+          color: var(--grey-1);
         }
 
         .follow {
@@ -69,8 +73,8 @@
           top: 0;
           right: 0;
           padding: 5px 8px;
-          width: 70px;
-          height: 32px;
+          width: 69px;
+          height: 29px;
           border: 1px solid var(--black);
           border-radius: 8px;
 
@@ -79,7 +83,7 @@
             width: 12px;
             height: 12px;
             left: 8px;
-            top: 10px;
+            top: 8.5px;
           }
           .follow-text {
             position: absolute;
@@ -93,7 +97,7 @@
 
         .more {
           position: absolute;
-          top: 0;
+          top: 2.5px;
           right: 0;
 
           .more-menu {
@@ -174,17 +178,28 @@
 
         .carousel-index{
           position: absolute;
-          right: 14px;
-          top: 12px;
-          width: 42px;
-          height: 26px;
+          right: 20px;
+          bottom: 20px;
+          width: 40px;
+          height: 24px;
           background: rgba(66, 76, 89, 0.8);
           border-radius: 20px;
           z-index: 1;
           color: white;
           text-align: center;
-          @include textStyle(500, 12px, 20px);
+          @include textStyle(700, 12px, 20px);
+          letter-spacing: -0.2px;
           padding-top: 2px;
+        }
+
+        .carousel-inner{
+          margin-top: 12px;
+          .carousel-item{
+            img {
+              border: 1px solid var(--grey-8);
+              border-radius: 12px;
+            }
+          }
         }
 
         .carousel-control-prev-background,
@@ -220,101 +235,117 @@
           outline: 0;
           opacity: 0.9;
         }
+
+        .user-behavior{
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          z-index: 1;
+
+          .like,
+          .bookmark
+          {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.6);
+
+            div{
+              display: flex;
+              width: 100%;
+              height: 100%;
+              svg{
+                margin: auto;
+              }
+            }
+          }
+          .bookmark{
+            margin-left: 12px;
+          }
+        }
       }
 
       .row-3 {
         display: flex;
-        margin-top: 16px;
-        height: 24px;
+        margin-top: 12px;
+        height: 28px;
 
         .row-3-col-1 {
-          flex: 3;
           display: flex;
+          cursor: pointer;
           align-items: center;
-          height: 100%;
 
-          .like,
-          .comment {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-
-            @include textStyle(400, 15px, 23px);
-            color: var(--grey-1);
-
-            .mdi {
-              font-size: 24px;
-            }
-
-            .mdi-heart {
-              color: var(--red);
-            }
-
-            .text {
-              margin-left: 2px;
-            }
+          .avatar:nth-child(2),
+          .avatar:nth-child(3) {
+            margin-left: -6px;
           }
 
-          .comment {
-            margin-left: 16px;
+          .text {
+            margin-left: 4px;
+
+            span {
+              font-weight: bold;
+              cursor: pointer;
+            }
           }
         }
 
         .row-3-col-2 {
-          flex: 6;
           display: flex;
+          flex: 6;
           justify-content: right;
-          align-items: center;
-          height: 100%;
+          .comment{
+            display: flex;
+            align-items: center;
+            height: 100%;
 
-          .bookmark {
-            color: var(--grey-1);
+            .text{
+              @include textStyle(400, 13px, 21px);
+              letter-spacing: -0.2px;
+              color: var(--grey-4);
+            }
           }
-        }
 
-        .row-3-col-3 {
-          flex: 3;
-          height: 100%;
         }
       }
 
       .row-4 {
         display: flex;
-        margin-top: 12px;
-        cursor: pointer;
+        height: 22px;
+        margin-top: 10px;
+        justify-content: space-between;
 
-        .avatar {
-          border: 1px solid var(--white);
-          border-radius: 50%;
+
+        .row-4-col-1{
+          margin-right: 2px;
+
+          @include textStyle(400, 14px, 22px);
+          letter-spacing: -0.2px;
+          color: var(--text-1);
         }
 
-        .avatar:nth-child(2),
-        .avatar:nth-child(3) {
-          margin-left: -6px;
-        }
+        .row-4-col-2{
+          width: 30%;
 
-        .text {
-          margin-left: 4px;
-
-          span {
-            font-weight: bold;
-            cursor: pointer;
-          }
+          @include textStyle(500, 14px, 22px);
+          letter-spacing: -0.2px;
+          color: var(--grey-4);
         }
       }
 
       .row-5 {
-        margin-top: 12px;
-        min-height: 46px;
+        margin-top: 10px;
 
         @include textStyle(400, 14px, 22px);
-        color: var(--black);
+        letter-spacing: -0.2px;
+        color: var(--text-1);
         white-space: pre-line;
       }
 
       .row-6 {
-        margin-top: 30px;
-        margin-bottom: 50px;
+        margin-top: 20px;
+        margin-bottom: 60px;
         min-height: 33px;
 
         > div {
@@ -453,24 +484,12 @@
               display: flex;
               align-items: center;
 
-              @include textStyle(400, 13px, 21px);
-              color: var(--grey-2);
-
-              .mdi {
-                font-size: 18px;
-              }
-
-              .mdi-heart {
-                color: var(--red);
-              }
-
-              .text {
-                margin-left: 2px;
-              }
+              @include textStyle(400, 12px, 20px);
+              color: var(--grey-4);
             }
 
             .comment {
-              margin-left: 16px;
+              margin-left: 8px;
             }
           }
         }
