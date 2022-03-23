@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import {Component, OnInit} from '@angular/core'
+import {ActivatedRoute} from '@angular/router'
 
 @Component({
-    selector: 'callback',
-    templateUrl: './callback.component.html',
-    styleUrls: ['./callback.component.scss'],
+  selector: 'callback',
+  templateUrl: './callback.component.html',
+  styleUrls: ['./callback.component.scss'],
 })
 export class CallbackComponent implements OnInit {
-    code: string
+  code: string
 
-    constructor(private activatedRoute: ActivatedRoute) {
-        this.code = this.activatedRoute.snapshot.queryParams['code']
-    }
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.code = this.activatedRoute.snapshot.queryParams['code']
+  }
 
-    ngOnInit(): void {
-        if (this.code) {
-            window.opener.document.getElementById('code').innerText = this.code
-            window.opener.document.getElementById('code').dispatchEvent(new Event('click'))
-        }
+  ngOnInit(): void {
+    if (this.code) {
+      console.log('naver login this.code : ', this.code);
+      window.opener.document.getElementById('code').innerText = this.code;
+      window.opener.document.getElementById('code').dispatchEvent(new Event('click'));
     }
+  }
 }

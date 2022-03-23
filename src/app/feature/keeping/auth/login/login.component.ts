@@ -23,6 +23,7 @@ import {User} from '@schemas/user'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
   TAG = '로그인'
 
   signInMethod: string
@@ -65,7 +66,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.angularFireAuth
       .setPersistence('session')
-      .then(r => {});
+      .then(r => {
+      });
 
     /** SNS 로그인 Subscriber */
     this.subscription = this.angularFireAuth.authState.subscribe((user) => {
@@ -83,7 +85,9 @@ export class LoginComponent implements OnInit, OnDestroy {
               .signInWithFirebase({accessToken})
               .subscribe((user: User) => {
                   this.storageService.setUser(user);
-                  this.router.navigateByUrl('/auth/service-terms').then();
+                  this.router
+                    .navigateByUrl('/auth/service-terms')
+                    .then();
                 },
                 (e) => {
                   this.globalService.showToast(e.message);
@@ -139,19 +143,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  /** 애플 로그인 */
-  signInWithApple() {
-    this.signInMethod = 'apple'
-    this.angularFireAuth
-      .signInWithPopup(new firebase.default.auth.OAuthProvider('apple.com'))
-      .then(r => {
-        console.log('apple login result : ', r);
-      })
-  }
-
   /** 카카오 로그인 */
   signInWithKakao() {
-    this.signInMethod = 'kakao'
+    this.signInMethod = 'kakao';
     const kakao$ = new Observable(function subscribe(observer) {
       Kakao.Auth.loginForm({
         success: function (response) {
@@ -164,15 +158,22 @@ export class LoginComponent implements OnInit, OnDestroy {
         persistAccessToken: false,
         persistRefreshToken: false,
       })
-    })
+    });
 
     kakao$.subscribe(
-      (user) => {
-        const accessToken = user['access_token']
-        this.authService.signInWithKakao({accessToken}).subscribe((user: User) => {
-          this.storageService.setUser(user)
-          this.angularFireAuth.signInWithCustomToken(user.customToken)
-        })
+      (user: any) => {
+        console.log('kakao user : ', user);
+        const accessToken = user.access_token;
+        console.log('accessToken : ', accessToken);
+
+        // this.authService
+        //   .signInWithKakao({accessToken})
+        //   .subscribe((user: User) => {
+        //     console.log('kakao login user : ', user);
+        //     // this.storageService.setUser(user)
+        //     // this.angularFireAuth.signInWithCustomToken(user.customToken)
+        //   });
+        this.kakaoLoginTrigger(accessToken);
       },
       (e) => {
         this.globalService.showToast(e.message)
@@ -180,11 +181,25 @@ export class LoginComponent implements OnInit, OnDestroy {
     )
   }
 
+  /**
+   * kakao로그인 창 닫힌 후 Trigger
+   * @param accessToken
+   */
+  kakaoLoginTrigger(accessToken: string): void {
+    this.authService
+      .modifiedKakaoLogin(accessToken)
+      .subscribe((user: User) => {
+        console.log('kakao login result : ', user);
+        this.storageService.setUser(user)
+        this.angularFireAuth.signInWithCustomToken(user.customToken)
+      });
+  }
+
   /** 네이버 로그인 */
   signInWithNaver(): void {
     this.signInMethod = 'naver';
 
-    let width = 504;
+    let width = 800;
     let height = 642;
     let top = (window.outerHeight - height) / 2 + screenY;
     let left = (window.outerWidth - width) / 2 + screenX;
@@ -199,18 +214,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     )
   }
 
-  _signInWithNaver(code: string) {
+  async _signInWithNaver(code: string): Promise<void> {
     this.naverLoginPopupWindowRef.close()
+    console.log('naver login code ', code);
 
-    this.authService.signWithNaver({code: code})
-      .subscribe((user: User) => {
-          this.storageService.setUser(user)
-          this.angularFireAuth.signInWithCustomToken(user.customToken)
-        },
-        (e) => {
-          this.globalService.showToast(e.message)
-        }
-      )
+    this.authService
+      .modifySignWithNaver(code)
+      .subscribe((user: any) => {
+        this.storageService.setUser(user);
+        this.angularFireAuth.signInWithCustomToken(user.customToken);
+      });
   }
 
   async signInWithEmail() {
@@ -227,20 +240,19 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: this.password
       })
       .subscribe((user: User) => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      },
-      (e) => {
-        this.globalService.showToast(e.message);
-      });
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        },
+        (e) => {
+          this.globalService.showToast(e.message);
+        });
   }
 
   /** enter, email, tab, password */
   onKeyup(event, type) {
     if (event.key === 'Enter') {
       if (this.formCheck()) {
-        this.signInWithEmail().then(r => {
-        });
+        this.signInWithEmail().then(r => {});
       }
     } else {
       if (event.key !== 'Tab' && type === 'email') {

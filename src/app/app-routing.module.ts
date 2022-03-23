@@ -3,7 +3,10 @@ import {RouterModule, Routes} from '@angular/router'
 import {NotFoundComponent} from './core/not-found/not-found.component'
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./feature/keeping/keeping.module').then((m) => m.KeepingModule) },
+  {
+    path: '',
+    loadChildren: () => import('./feature/keeping/keeping.module').then((m) => m.KeepingModule)
+  },
   {
     path: 'components',
     loadChildren: () => import('./feature/components/components.module').then((m) => m.ComponentsModule),
