@@ -42,6 +42,7 @@ import { FeedComment } from '@schemas/feed-comment';
 import { User } from '@schemas/user';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
+import { FollowService } from '@services/follow.service';
 
 declare const $;
 
@@ -118,6 +119,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     private globalService: GlobalService,
     private storageService: StorageService,
     private feedService: FeedService,
+    private followService: FollowService,
     private publicService: PublicService,
     private textService: TextService,
     private dateUtils: DateUtils
@@ -180,10 +182,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   toPos(obs$) {
     const SUPPORT_TOUCH = 'ontouchstart' in window;
     return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
-  }
-
-  test() {
-    console.log(this.carouselIndex);
   }
 
   ngOnDestroy(): void {
@@ -661,6 +659,48 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   moreContentView() {
     console.log(this.selectedFeed.content.length);
     this.contentViewVisible = true;
+  }
+
+  toggleFollow() {
+    if (this.user) {
+      if (this.selectedFeed.writer.isFollow) {
+        this.removeFollow(this.user.id, this.selectedFeed.writer);
+      } else {
+        this.addFollow(this.user.id, this.selectedFeed.writer);
+      }
+    } else {
+      this.router.navigateByUrl('/auth/login');
+    }
+  }
+
+  addFollow(fromUser: string, toUser: User) {
+    if (this.user) {
+      this.followService.addFollow(fromUser, toUser.id).subscribe(
+        (v) => {
+          toUser.isFollow = true;
+        },
+        (error) => {
+          console.log('add follow failed : ', error);
+        }
+      );
+    } else {
+      this.router.navigateByUrl('/auth/login');
+    }
+  }
+
+  removeFollow(fromUser: string, toUser: User) {
+    if (this.user) {
+      this.followService.removeFollow(fromUser, toUser.id).subscribe(
+        () => {
+          toUser.isFollow = false;
+        },
+        (error) => {
+          console.log('remove follow failed : ', error);
+        }
+      );
+    } else {
+      this.router.navigateByUrl('/auth/login');
+    }
   }
 
   /**

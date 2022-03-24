@@ -27,15 +27,25 @@
             </div>
             <a class="follow"
                *ngIf="user && user?.id != selectedFeed?.writer.id"
-               (click)='test()'
+               (click)='toggleFollow()'
             >
-              <div class="follow-plus-icon">
-                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.5 6H10.5H2.5Z" fill="#111214" />
-                  <path d="M6.5 2V10M2.5 6H10.5" stroke="#111214" />
-                </svg>
+              <div class='follow-active' *ngIf='selectedFeed?.writer.isFollow'>
+                <div class="follow-check-icon">
+                  <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
               </div>
-              <div class="follow-text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+              <div class='follow-default' *ngIf='!selectedFeed?.writer.isFollow'>
+                <div class="follow-plus-icon">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.00101H10H2Z" fill="#111214"/>
+                    <path d="M6 2.00101V10.001M2 6.00101H10" stroke="#111214"/>
+                  </svg>
+                </div>
+                <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+              </div>
             </a>
             <div class="more" *ngIf="user && user?.id == selectedFeed?.writer.id">
               <div class="more-menu" (click)="openMoreBox($event)">
@@ -531,9 +541,22 @@
           <shared-avatar [image]="likeUser.user.picture[0]?.url" text="{{ likeUser.user.email }}" size="45" fontSize="18"></shared-avatar>
           <div class="liked-view-user-nickname">{{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}</div>
           <div class="liked-view-user-follow-button">
-            <div class="mdi mdi-plus"></div>
-            <div class="liked-view-user-follow-button-text">
-              {{ 'keeping.feed-detail.liked-view-follow-button-text' | translate }}
+            <div class='follow-active' *ngIf='likeUser.user.isFollow' (click)='removeFollow(user?.id, likeUser.user)'>
+              <div class="follow-check-icon">
+                <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+            </div>
+            <div class='follow-default' *ngIf='!likeUser.user.isFollow' (click)='addFollow(user?.id, likeUser.user)'>
+              <div class="follow-plus-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 6.00101H10H2Z" fill="white"/>
+                  <path d="M6 2.00101V10.001M2 6.00101H10" stroke="white"/>
+                </svg>
+              </div>
+              <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
             </div>
           </div>
         </div>

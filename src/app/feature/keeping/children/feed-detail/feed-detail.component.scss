@@ -72,26 +72,41 @@
           position: absolute;
           top: 0;
           right: 0;
-          padding: 5px 8px;
-          width: 69px;
-          height: 29px;
-          border: 1px solid var(--black);
-          border-radius: 8px;
 
-          .follow-plus-icon {
-            position: static;
-            width: 12px;
-            height: 12px;
-            left: 8px;
-            top: 8.5px;
+          .follow-default,
+          .follow-active{
+            padding: 4px 8px;
+            width: 69px;
+            height: 29px;
+            border: 1px solid var(--black);
+            border-radius: 8px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .text {
+              @include textStyle(500, 13px, 21px);
+              letter-spacing: -0.2px;
+
+            }
           }
-          .follow-text {
-            position: absolute;
-            @include textStyle(500, 13px, 21px);
+
+          .follow-active{
+            background-color: var(--text-1);
+            color: var(--white);
+            .follow-check-icon{
+              display: inline-flex;
+              align-items: center;
+            }
+          }
+
+          .follow-default{
             color: var(--black);
-            letter-spacing: -0.2px;
-            top: 4px;
-            left: 23px;
+            .follow-plus-icon {
+              display: inline-flex;
+              align-items: center;
+            }
           }
         }
 
@@ -942,22 +957,43 @@
           position: absolute;
           top: 0;
           right: 0;
-          display: flex;
-          padding: 6px 18px;
-          border-radius: 8px;
-          background-color: #567df4;
-          cursor: pointer;
+          .follow-default,
+          .follow-active{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
 
-          color: var(--white);
+            padding: 6px 14px;
+            border-radius: 8px;
 
-          &:hover {
-            opacity: 0.8;
+            .text {
+              @include textStyle(500, 13px, 21px);
+              letter-spacing: -0.2px;
+              color: var(--white);
+
+              margin-left: 4px;
+            }
+
+            &:hover {
+              opacity: 0.8;
+            }
           }
 
-          .liked-view-user-follow-button-text {
-            margin-left: 4px;
+          .follow-active{
+            background-color: var(--text-1);
+            .follow-check-icon{
+              display: inline-flex;
+              align-items: center;
+            }
+          }
 
-            @include textStyle(500, 13px, 21px);
+          .follow-default {
+            background-color: #567df4;
+            .follow-plus-icon {
+              display: inline-flex;
+              align-items: center;
+            }
           }
         }
       }
@@ -1106,6 +1142,7 @@
   .feed-comment-view-wrapper {
     .feed-comment-view {
       width: 510px;
+      height: fit-content;
     }
   }
 
@@ -1114,9 +1151,17 @@
   }
 
   .liked-view-wrapper {
-    .feed-comment-view {
-      width: 510px;
-      height: fit-content;
+    .liked-view{
+      .liked-view-section{
+        .liked-view-user{
+          .liked-view-user-follow-button{
+            .follow-default,
+            .follow-active{
+              padding: 6px 16px;
+            }
+          }
+        }
+      }
     }
   }
 }
