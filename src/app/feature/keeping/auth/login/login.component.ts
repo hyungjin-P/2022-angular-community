@@ -71,6 +71,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     /** SNS 로그인 Subscriber */
     this.subscription = this.angularFireAuth.authState.subscribe((user) => {
+      console.log('SNS 로그인 user : ', user);
+
       /**
        * signInMethod 구분
        * google, meta, apple => firebase 통해서 로그인
@@ -82,7 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
           user.getIdToken().then((accessToken) => {
             this.authService
-              .signInWithFirebase({accessToken})
+              .modifySignWithFirebase(accessToken)
               .subscribe((user: User) => {
                   this.storageService.setUser(user);
                   this.router
@@ -90,7 +92,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                     .then();
                 },
                 (e) => {
-                  this.globalService.showToast(e.message);
+                  console.log('modifyFireAuth error : ', e);
+                  // this.globalService.showToast(e.message);
                 });
           })
         } else {
@@ -125,12 +128,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /** 구글 로그인 */
   signInWithGoogle() {
+    console.log('구글 로그인 ');
     this.signInMethod = 'google'
+
     this.angularFireAuth
       .signInWithPopup(new firebase.default.auth.GoogleAuthProvider())
-      .then(r => {
-        console.log('google login result : ', r);
-      });
+      .then(r => {});
   }
 
   /** 페이스북 로그인 */
@@ -166,13 +169,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         const accessToken = user.access_token;
         console.log('accessToken : ', accessToken);
 
-        // this.authService
-        //   .signInWithKakao({accessToken})
-        //   .subscribe((user: User) => {
-        //     console.log('kakao login user : ', user);
-        //     // this.storageService.setUser(user)
-        //     // this.angularFireAuth.signInWithCustomToken(user.customToken)
-        //   });
         this.kakaoLoginTrigger(accessToken);
       },
       (e) => {
@@ -252,7 +248,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   onKeyup(event, type) {
     if (event.key === 'Enter') {
       if (this.formCheck()) {
-        this.signInWithEmail().then(r => {});
+        this.signInWithEmail().then(r => {
+        });
       }
     } else {
       if (event.key !== 'Tab' && type === 'email') {

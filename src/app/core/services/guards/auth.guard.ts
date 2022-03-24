@@ -26,20 +26,20 @@ export class AuthGuard implements CanActivate {
           url[2] === 'service-terms' &&
           (!user.agreementAge || !user.agreementPrivacy || !user.agreementServiceTerms)
         ) {
-          return true
+          return true;
         } else {
           this.location.back()
-          return false
+          return false;
         }
       } else {
-        return true
+        return true;
       }
     } else {
       if (url[1] === 'auth') {
-        return true
+        return true;
       } else {
         this.router.navigateByUrl('/auth/login').then();
-        return false
+        return false;
       }
     }
   }

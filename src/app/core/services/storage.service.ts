@@ -15,7 +15,8 @@ export class StorageService {
 
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+
   ) {
     this.storage = sessionStorage;
     this.userKey = 'keeping:authUser';

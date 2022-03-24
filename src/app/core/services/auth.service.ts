@@ -37,12 +37,10 @@ export class AuthService {
     )
   }
 
-  /**
-   * 카카오 로그인
-   * 수정중임
-   * */
-  signInWithKakao(requestBody: SignInWithKakaoRequestBody): Observable<User> {
-    const url = environment['serverAddress'] + '/auth/kakao'
+  modifySignWithFirebase(accessToken: string): Observable<any> {
+    const url = environment.userApiAddress + '/auth/firebaseSignIn';
+
+    console.log('accessToken : ', accessToken);
 
     const options = {
       headers: new HttpHeaders({
@@ -50,13 +48,14 @@ export class AuthService {
       }),
     }
 
-    return this.http
-      .post<Response>(url, requestBody, options)
-      .pipe(map((res) => {
-        return res.dataset[0]
+    return this.http.post<any>(url, { accessToken }, options).pipe(
+      map((data) => {
+        console.log('firebase result : ', data);
+        return data;
       }),
       catchError(handleError)
     )
+
   }
 
   /**
@@ -77,30 +76,6 @@ export class AuthService {
         }),
         catchError(handleError)
       );
-  }
-
-  /**
-   * 네이버 로그인
-   * 수정중
-   * */
-  signWithNaver(requestBody: SignInWithNaverRequestBody): Observable<User> {
-
-    console.log('signWithNaver : requestBody : ', requestBody);
-
-    const url = environment['serverAddress'] + '/auth/naver'
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res.dataset[0]
-      }),
-      catchError(handleError)
-    )
   }
 
   modifySignWithNaver(code: string): Observable<User> {
