@@ -13,7 +13,6 @@ export class Feed {
     public tags: Array<FeedTag>,
     public tagsStr: string,
     public createdAt: string,
-    public like: boolean,
     public likeUsers: Array<FeedLike>,
     public likeCount: number,
     public commentCount: number,
@@ -31,7 +30,6 @@ export class Feed {
     this.pictures = pictures;
     this.tags = tags;
     this.tagsStr = tagsStr;
-    this.like = like;
     this.likeUsers = likeUsers;
     this.likeCount = likeCount;
     this.commentCount = commentCount;

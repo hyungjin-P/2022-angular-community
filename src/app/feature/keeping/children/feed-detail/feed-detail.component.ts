@@ -67,6 +67,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   refresh: boolean;
 
   moreBoxVisible: boolean;
+  contentViewVisible: boolean;
 
   selectedLanguage: string;
   commentViewVisible: boolean;
@@ -134,6 +135,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.selectedLanguage = localStorage.getItem('language');
+    this.contentViewVisible = false;
     this.commentViewVisible = false;
     this.feedCommentInputObj = '';
     this.feedCommentInputStatus = '';
@@ -331,7 +333,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectedFeedLike(feed: Feed) {
     if (this.storageService.getUser()) {
-      if (feed.like) {
+      if (feed.isLike) {
         this.feedService
           .deleteFeedLike({
             feedId: feed.id,
@@ -339,7 +341,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           })
           .subscribe(
             (v) => {
-              feed.like = false;
+              feed.isLike = false;
               feed.likeCount -= 1;
 
               this.selectedFeed.likeUsers.forEach((user, index) => {
@@ -358,10 +360,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           })
           .subscribe(
             (v) => {
-              feed.like = true;
+              feed.isLike = true;
               feed.likeCount += 1;
 
-              this.selectedFeed.likeUsers['user'].push(this.user);
+              let addLike = new FeedLike(this.selectedFeed.id, this.user.id, this.user, new Date().toString());
+
+              const newLikeUsers = [addLike].concat(this.selectedFeed.likeUsers);
+              this.selectedFeed.likeUsers = newLikeUsers;
             },
             (e) => {}
           );
@@ -371,9 +376,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // 하단 피드 목록 좋아요
   feedLike(feed: Feed) {
     if (this.storageService.getUser()) {
-      if (feed.like) {
+      if (feed.isLike) {
         this.feedService
           .deleteFeedLike({
             feedId: feed.id,
@@ -381,7 +387,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           })
           .subscribe(
             (v) => {
-              feed.like = false;
+              feed.isLike = false;
               feed.likeCount -= 1;
             },
             (e) => {}
@@ -394,7 +400,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           })
           .subscribe(
             (v) => {
-              feed.like = true;
+              feed.isLike = true;
               feed.likeCount += 1;
             },
             (e) => {}
@@ -640,5 +646,59 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.onKeyEvent = false;
       }, interval);
     };
+  }
+
+  moreContentView() {
+    this.contentViewVisible = true;
+  }
+
+  /**
+   * 북마크 추가/삭제
+   * @param feed
+   */
+  toggleFeedBookmark(feed: Feed): void {
+    if (feed) {
+      if (feed.isBookmark) {
+        this.deleteBookmark(feed, this.user?.id);
+      } else {
+        this.addBookmark(feed, this.user?.id);
+      }
+    }
+  }
+
+  /**
+   * 북마크 추가
+   * @param feed
+   * @param userId
+   */
+  addBookmark(feed: Feed, userId: string): void {
+    if (this.user) {
+      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
+          feed.isBookmark = true;
+        },
+        (error) => {
+          console.log('bookmark add failed : ', error);
+        }
+      );
+    }
+  }
+
+  /**
+   * 북마크 삭제
+   * @param feed
+   * @param userId
+   */
+  deleteBookmark(feed: Feed, userId: string): void {
+    if (this.user) {
+      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
+          feed.isBookmark = false;
+        },
+        (error) => {
+          console.log('bookmark cancel failed : ', error);
+        }
+      );
+    }
   }
 }

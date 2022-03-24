@@ -91,7 +91,10 @@ export class HeaderComponent implements OnInit {
   }
 
   changeTab(routingPath): void {
-    if (routingPath === 'feed') {
+    if (routingPath === 'feed' || routingPath === 'feed/:feed_id') {
+      if (routingPath === 'feed/:feed_id') {
+        routingPath = 'feed';
+      }
       this.tabMenu = this.tabData[routingPath];
       if (!this.route.snapshot.queryParams.tabType) {
         this.nowTab = this.tabMenu[0].tabName;
@@ -105,14 +108,14 @@ export class HeaderComponent implements OnInit {
     event.stopPropagation();
 
     if (this.userBoxVisible) {
-      this.closeUserBox()
+      this.closeUserBox();
     } else {
-      this.userBoxVisible = true
+      this.userBoxVisible = true;
     }
   }
 
   closeUserBox() {
-    this.userBoxVisible = false
+    this.userBoxVisible = false;
   }
 
   async logout() {
