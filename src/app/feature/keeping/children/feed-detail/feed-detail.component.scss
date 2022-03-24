@@ -318,7 +318,7 @@
 
 
         .row-4-col-1{
-          margin-right: 2px;
+          margin-right: 52px;
 
           @include textStyle(400, 14px, 22px);
           letter-spacing: -0.2px;
@@ -326,7 +326,8 @@
         }
 
         .row-4-col-2{
-          width: 30%;
+          position: absolute;
+          right: 32px;
 
           @include textStyle(500, 14px, 22px);
           letter-spacing: -0.2px;
@@ -472,7 +473,7 @@
           .additional {
             display: flex;
             align-items: center;
-            margin-top: 8px;
+            margin-top: 6px;
             height: 20px;
 
             .like {
@@ -875,7 +876,7 @@
 }
 
 .liked-view-wrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -1043,6 +1044,7 @@
   }
 
   .liked-view-wrapper {
+    position: absolute;
     .liked-view {
       width: 510px;
       height: 80%;

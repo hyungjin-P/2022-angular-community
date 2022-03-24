@@ -67,7 +67,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   refresh: boolean;
 
   moreBoxVisible: boolean;
+
+  @ViewChild('content') content: ElementRef;
   contentViewVisible: boolean;
+  contentTextLimit: number;
 
   selectedLanguage: string;
   commentViewVisible: boolean;
@@ -135,7 +138,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.selectedLanguage = localStorage.getItem('language');
-    this.contentViewVisible = false;
+    this.contentViewVisible = true;
     this.commentViewVisible = false;
     this.feedCommentInputObj = '';
     this.feedCommentInputStatus = '';
@@ -210,6 +213,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           this.router.navigateByUrl('/feed');
         } else {
           this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.checkContentLimit(innerWidth);
         }
       },
       (e) => {
@@ -222,7 +226,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.publicService.getFeed(this.selectedFeedId).subscribe(
       (feed: Feed) => {
         this.selectedFeed = feed[0];
-        this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+
+        if (!this.selectedFeed) {
+          this.router.navigateByUrl('/feed');
+        } else {
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.checkContentLimit(innerWidth);
+        }
       },
       (e) => {}
     );
@@ -649,6 +659,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   moreContentView() {
+    console.log(this.selectedFeed.content.length);
     this.contentViewVisible = true;
   }
 
@@ -700,5 +711,22 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
     }
+  }
+
+  checkContentLimit(screenWidth: number) {
+    const contentLength = this.selectedFeed.content.length;
+    if (screenWidth > 992) {
+      screenWidth = 600;
+    }
+
+    if (screenWidth / 13 + contentLength / 11 < contentLength) {
+      this.contentViewVisible = false;
+    } else {
+      this.contentViewVisible = true;
+    }
+  }
+
+  onResize(event: any) {
+    this.checkContentLimit(event.target.innerWidth);
   }
 }

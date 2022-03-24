@@ -3,6 +3,7 @@
   class="feed-detail full-absolute d-flex flex-column"
   [class.v-visible]="selectedFeed"
   xmlns="http://www.w3.org/1999/html"
+  (window:resize)='onResize($event)'
 >
   <header class="d-block d-lg-none"></header>
 <!--  <mobile-header [text]="'keeping.mobile-header.feed-detail' | translate" (goBack)="goBack()"></mobile-header>-->
@@ -25,7 +26,7 @@
               {{ beginTime }}
             </div>
             <a class="follow"
-               *ngIf="user && user.id != selectedFeed?.writer.id"
+               *ngIf="user && user?.id != selectedFeed?.writer.id"
                (click)='test()'
             >
               <div class="follow-plus-icon">
@@ -36,7 +37,7 @@
               </div>
               <div class="follow-text">{{ 'keeping.feed-detail.follow' | translate }}</div>
             </a>
-            <div class="more" *ngIf="user && user.id == selectedFeed?.writer.id">
+            <div class="more" *ngIf="user && user?.id == selectedFeed?.writer.id">
               <div class="more-menu" (click)="openMoreBox($event)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="11.5" cy="5.50101" r="1.5" fill="#93A0B2"/>
@@ -211,7 +212,7 @@
                 더 보기
             </a>
           </div>
-          <div class="row-5" *ngIf='contentViewVisible'>
+          <div class="row-5" *ngIf='contentViewVisible' #content>
             {{ selectedFeed?.content }}
           </div>
           <div class="row-6">
