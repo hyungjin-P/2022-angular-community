@@ -40,7 +40,7 @@
                     </div>
                     <div
                             class="carousel-view"
-                            [class.carousel-view-show]="pictureBoxVisible && feed?.pictures.length != 0"
+                            [class.carousel-view-show]="pictureBoxVisible && feed?.pictures"
                     >
                         <div class="carousel-inner">
                             <ng-container *ngFor="let picture of feed?.pictures; let i = index">

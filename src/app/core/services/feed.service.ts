@@ -22,10 +22,11 @@ export class FeedService {
 
   /**
    *
-   * @param requestBody { rewrite }
+   * @param rewrite
+   * @param userId
    */
-  createFeed(requestBody: CreateFeedDto): Observable<Feed> {
-    const url = environment['serverAddress'] + '/feed';
+  createFeed(rewrite: boolean, userId: string): Observable<Feed> {
+    const url = environment.userApiAddress + `/feed/createFeed?rewrite=${rewrite}&userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -33,9 +34,9 @@ export class FeedService {
       }),
     };
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
+    return this.http.post<any>(url, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );
