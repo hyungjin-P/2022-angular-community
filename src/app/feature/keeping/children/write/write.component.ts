@@ -142,7 +142,8 @@ export class WriteComponent implements OnInit, AfterViewInit {
           {
             domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/feed`,
-            tags: ['feed'],
+            tag: 'feed',
+            tagInId: this.feed.id,
             userId: this.user.id,
           },
           files
@@ -168,8 +169,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
         $('#carousel-addPicture').carousel('next');
       }
 
-      await this.fileService.deleteFile(fileUrl).toPromise();
-      await this.feedService.deleteUserPicture(this.feed.id, fileUrl).toPromise();
+      await this.fileService.deleteFile('feed', this.feed.id, fileUrl).toPromise();
       this.feed.pictures.splice(index, 1);
 
       if (this.feed.picture == fileUrl || this.feed.pictures.length == 0) {
@@ -198,7 +198,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
   }
 
   checkMainPicture(url: string) {
-    this.feedService.updateFeed(this.feed.id, { picture: url }).subscribe(
+    this.feedService.updateFeed({ feedId: this.feed.id, picture: url }).subscribe(
       (feed: Feed) => {
         this.feed.picture = url;
       },
@@ -207,7 +207,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
   }
 
   updateContent() {
-    this.feedService.updateFeed(this.feed.id, { content: this.content }).subscribe(
+    this.feedService.updateFeed({ feedId: this.feed.id, content: this.content }).subscribe(
       (v) => {},
       (e) => {}
     );
@@ -236,7 +236,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.feedService.createFeedTag(this.feed.id, { name: this.tagModalInput }).subscribe(
+    this.feedService.createFeedTag(this.feed.id, this.tagModalInput).subscribe(
       (feedTag: FeedTag) => {
         this.feed.tags.push(feedTag);
         this.hideTagModal();
@@ -267,7 +267,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.feedService.updateFeed(this.feed.id, { posting: true }).subscribe(
+    this.feedService.updateFeed({ feedId: this.feed.id, posting: true }).subscribe(
       (v) => {
         // this.createFeed()
         // let message = this.textService.getText('write:feed:003')

@@ -89,8 +89,8 @@ export class FeedService {
     );
   }
 
-  updateFeed(feedId: string, requestBody: UpdateFeedDto): Observable<Feed> {
-    const url = `${environment['serverAddress']}/feed/${feedId}`;
+  updateFeed(requestBody: UpdateFeedDto): Observable<Feed> {
+    const url = environment.userApiAddress + `/feed/modifyFeed`;
 
     const options = {
       headers: new HttpHeaders({
@@ -98,9 +98,10 @@ export class FeedService {
       }),
     };
 
-    return this.http.put<Response>(url, requestBody, options).pipe(
+    //기존 put방식에 대해 검토
+    return this.http.post<any>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );
@@ -111,7 +112,7 @@ export class FeedService {
    * @param feedId
    */
   deleteFeed(feedId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}`;
+    const url = environment.userApiAddress + `/feed/deleteFeed?feedId=${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -119,7 +120,7 @@ export class FeedService {
       }),
     };
 
-    return this.http.delete<Response>(url, options).pipe(
+    return this.http.delete<any>(url, options).pipe(
       map((res) => {
         return res;
       }),
@@ -161,8 +162,8 @@ export class FeedService {
     );
   }
 
-  createFeedTag(feedId: string, requestBody: CreateFeedTagDto): Observable<FeedTag> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/tag`;
+  createFeedTag(feedId: string, name: string): Observable<FeedTag> {
+    const url = environment.userApiAddress + `/feed/addFeedTag?feedId=${feedId}&name=${name}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -170,16 +171,16 @@ export class FeedService {
       }),
     };
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
+    return this.http.post<any>(url, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );
   }
 
   deleteFeedTag(feedId: string, tagId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/tag/${tagId}`;
+    const url = environment.userApiAddress + `/feed/deleteFeedTag?feedId=${feedId}&tagId=${tagId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -187,7 +188,7 @@ export class FeedService {
       }),
     };
 
-    return this.http.delete<Response>(url, options).pipe(
+    return this.http.delete<any>(url, options).pipe(
       map((res) => {
         return res;
       }),
@@ -448,11 +449,8 @@ class FeedBookmarkDto {
   userId: string;
 }
 
-class CreateFeedDto {
-  rewrite: boolean;
-}
-
 class UpdateFeedDto {
+  feedId: string;
   content?: string;
   picture?: string;
   posting?: boolean;
@@ -460,10 +458,6 @@ class UpdateFeedDto {
 
 class CreateFeedPictureDto {
   files: Array<File>;
-}
-
-class CreateFeedTagDto {
-  name: string;
 }
 
 class CreateFeedCommentDto {

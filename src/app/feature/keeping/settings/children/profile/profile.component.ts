@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core'
-import {Location} from '@angular/common'
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
-import {GlobalService} from '@services/global.service'
-import {StorageService} from '@services/storage.service'
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {UserService} from '@services/user.service'
-import {FileService} from '@services/file.service'
-import {TextService} from '@services/text.service'
+import { UserService } from '@services/user.service';
+import { FileService } from '@services/file.service';
+import { TextService } from '@services/text.service';
 
-import {User} from '@schemas/user'
-import {File} from '@schemas/file'
+import { User } from '@schemas/user';
+import { File } from '@schemas/file';
 
 @Component({
   selector: 'profile',
@@ -17,7 +17,6 @@ import {File} from '@schemas/file'
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-
   user: User;
   selectedLanguage: string;
   currentPicture: any;
@@ -34,8 +33,7 @@ export class ProfileComponent implements OnInit {
     private fileService: FileService,
     private userService: UserService,
     private textService: TextService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.user = this.storageService.getUser();
@@ -68,7 +66,7 @@ export class ProfileComponent implements OnInit {
 
     reader.onload = (event) => {
       this.currentPicture = event.target.result;
-    }
+    };
 
     reader.readAsDataURL(files[0]);
   }
@@ -79,9 +77,8 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.userService
-      .checkDuplicateNickname(this.user.id, this.currentNickname)
-      .subscribe((v) => {
+    this.userService.checkDuplicateNickname(this.user.id, this.currentNickname).subscribe(
+      (v) => {
         // 사용가능한 닉네임입니다.
         let message = this.textService.getText('settings:profile:002');
         this.globalService.showToast(message);
@@ -90,7 +87,7 @@ export class ProfileComponent implements OnInit {
         const message: string = this.textService.getText('settings:profile:003');
         this.globalService.showToast(message);
       }
-    )
+    );
   }
 
   onKeyup(event, type) {
@@ -109,10 +106,10 @@ export class ProfileComponent implements OnInit {
   /** 프로필 수정 */
   async updateUser(picture) {
     if (!this.currentNickname) {
-      return
+      return;
     }
 
-    const files: FileList = picture.files
+    const files: FileList = picture.files;
 
     // 프로필 사진 수정
     if (files && files.length > 0) {
@@ -121,7 +118,7 @@ export class ProfileComponent implements OnInit {
           {
             domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/picture`,
-            tags: ['user-picture'],
+            tag: 'user-picture',
             userId: this.user.id,
           },
           files
@@ -134,29 +131,23 @@ export class ProfileComponent implements OnInit {
 
       this.globalService.user.picture = createdFiles[0];
 
-      picture.value = ''
+      picture.value = '';
     }
 
     // 정보 업데이트
-    this.userService
-      .updateUserProfile(
-        this.user.id,
-        this.currentNickname,
-        this.currentAboutMeText
-      )
-      .subscribe(
-        (user: User) => {
-          this.user.nickname = user.nickname;
-          this.user.aboutMe = user.aboutMe;
-          this.storageService.setUser(this.user);
+    this.userService.updateUserProfile(this.user.id, this.currentNickname, this.currentAboutMeText).subscribe(
+      (user: User) => {
+        this.user.nickname = user.nickname;
+        this.user.aboutMe = user.aboutMe;
+        this.storageService.setUser(this.user);
 
-          // 프로필이 수정되었습니다.
-          let message = this.textService.getText('settings:profile:005');
-          this.globalService.showToast(message);
-        },
-        (e) => {
-          this.globalService.showToast(e.message);
-        }
-      );
+        // 프로필이 수정되었습니다.
+        let message = this.textService.getText('settings:profile:005');
+        this.globalService.showToast(message);
+      },
+      (e) => {
+        this.globalService.showToast(e.message);
+      }
+    );
   }
 }

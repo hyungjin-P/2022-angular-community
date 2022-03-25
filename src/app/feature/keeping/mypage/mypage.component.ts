@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core'
-import {Router} from '@angular/router'
-import {Location} from '@angular/common'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
-import {GlobalService} from '@services/global.service'
-import {StorageService} from '@services/storage.service'
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {UserService} from '@services/user.service'
-import {FileService} from '@services/file.service'
+import { UserService } from '@services/user.service';
+import { FileService } from '@services/file.service';
 
-import {User} from '@schemas/user'
-import {File} from '@schemas/file'
+import { User } from '@schemas/user';
+import { File } from '@schemas/file';
 
 @Component({
   selector: 'mypage',
@@ -17,11 +17,11 @@ import {File} from '@schemas/file'
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit {
-  variables: any
-  globalUser: any
-  user: User
+  variables: any;
+  globalUser: any;
+  user: User;
 
-  backgroundEditMode: boolean
+  backgroundEditMode: boolean;
 
   constructor(
     private router: Router,
@@ -30,8 +30,7 @@ export class MypageComponent implements OnInit {
     private storageService: StorageService,
     private userService: UserService,
     private fileService: FileService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -66,8 +65,8 @@ export class MypageComponent implements OnInit {
           {
             domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/background`,
-            tags: ['user-background'],
-            userId: this.user.id
+            tag: 'user-background',
+            userId: this.user.id,
           },
           files
         )
@@ -88,9 +87,7 @@ export class MypageComponent implements OnInit {
 
   async deleteBackground(url): Promise<void> {
     try {
-      await this.userService
-        .deleteUserBackground(url)
-        .toPromise();
+      await this.userService.deleteUserBackground(url).toPromise();
 
       this.changeBackgroundEditMode(false);
       this.user.background = [];
@@ -114,7 +111,7 @@ export class MypageComponent implements OnInit {
           {
             domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/background`,
-            tags: ['user-background'],
+            tag: 'user-background',
             userId: this.user.id,
           },
           files
@@ -128,9 +125,7 @@ export class MypageComponent implements OnInit {
 
       background.value = '';
 
-      await this.userService
-        .deleteUserBackground(oldBackgroundUrl)
-        .toPromise();
+      await this.userService.deleteUserBackground(oldBackgroundUrl).toPromise();
 
       this.changeBackgroundEditMode(false);
     } catch (e) {
@@ -140,8 +135,6 @@ export class MypageComponent implements OnInit {
 
   async logout() {
     await this.storageService.removeUser();
-    this.router
-      .navigateByUrl('/')
-      .then();
+    this.router.navigateByUrl('/').then();
   }
 }

@@ -1,115 +1,113 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core'
-import { DragulaService } from 'ng2-dragula'
-import { ImageCroppedEvent, LoadedImage, ImageTransform, Dimensions } from 'ngx-image-cropper'
-import { Subscription, Subject } from 'rxjs'
-import { v4 as uuidv4 } from 'uuid'
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
+import { ImageCroppedEvent, LoadedImage, ImageTransform, Dimensions } from 'ngx-image-cropper';
+import { Subscription, Subject } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 
-import { GlobalService } from '@services/global.service'
-import { StorageService } from '@services/storage.service'
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import { FileService } from '@services/file.service'
-import { HelperService } from '@services/helper.service'
+import { FileService } from '@services/file.service';
+import { HelperService } from '@services/helper.service';
 
-import { User } from '@schemas/user'
-import { File } from '@schemas/file'
+import { User } from '@schemas/user';
+import { File } from '@schemas/file';
 
 @Component({
-    selector: 'editor',
-    templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.scss'],
+  selector: 'editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('singleImageElement') singleImageElement
-    @ViewChild('contentElement') contentElement
+  @ViewChild('singleImageElement') singleImageElement;
+  @ViewChild('contentElement') contentElement;
 
-    user: User
+  user: User;
 
-    subscription: Subscription
+  subscription: Subscription;
 
-    selectedEditorParagraphElement: HTMLElement
-    selectedImage: HTMLImageElement
+  selectedEditorParagraphElement: HTMLElement;
+  selectedImage: HTMLImageElement;
 
-    imageChangedEvent: any = ''
-    imageUrl: any = ''
-    croppedImage: any = ''
-    scale = 1
-    transform: ImageTransform = {}
-    cropper: any = {}
+  imageChangedEvent: any = '';
+  imageUrl: any = '';
+  croppedImage: any = '';
+  scale = 1;
+  transform: ImageTransform = {};
+  cropper: any = {};
 
-    constructor(
-        private dragulaService: DragulaService,
-        private globalService: GlobalService,
-        private storageService: StorageService,
-        private fileService: FileService,
-        private helperService: HelperService
-    ) {}
+  constructor(
+    private dragulaService: DragulaService,
+    private globalService: GlobalService,
+    private storageService: StorageService,
+    private fileService: FileService,
+    private helperService: HelperService
+  ) {}
 
-    ngOnInit() {
-        this.user = this.storageService.getUser()
+  ngOnInit() {
+    this.user = this.storageService.getUser();
 
-        this.subscription = new Subscription()
+    this.subscription = new Subscription();
 
-        this.initDragula()
-    }
+    this.initDragula();
+  }
 
-    ngAfterViewInit() {
-        let dom = document.createElement('div')
-        dom.innerHTML = ``
+  ngAfterViewInit() {
+    let dom = document.createElement('div');
+    dom.innerHTML = ``;
 
-        let children = Array.from(dom.children)
-        children.forEach((element: HTMLElement) => {
-            let deleteIcon = element.querySelector('.mdi-delete-sweep-outline')
-            deleteIcon.addEventListener('click', this.deleteElement.bind(this, element))
+    let children = Array.from(dom.children);
+    children.forEach((element: HTMLElement) => {
+      let deleteIcon = element.querySelector('.mdi-delete-sweep-outline');
+      deleteIcon.addEventListener('click', this.deleteElement.bind(this, element));
 
-            this.contentElement.nativeElement.appendChild(element)
-        })
-    }
+      this.contentElement.nativeElement.appendChild(element);
+    });
+  }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe()
-        this.dragulaService.destroy('ITEMS')
-    }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.dragulaService.destroy('ITEMS');
+  }
 
-    initDragula() {
-        this.dragulaService.createGroup('ITEMS', {
-            moves: (el, source, handle) => {
-                return handle.className === 'mdi mdi-cursor-move'
-            },
-        })
+  initDragula() {
+    this.dragulaService.createGroup('ITEMS', {
+      moves: (el, source, handle) => {
+        return handle.className === 'mdi mdi-cursor-move';
+      },
+    });
 
-        this.subscription.add(
-            this.dragulaService
-                .dropModel('ITEMS')
-                .subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
-                    const targetItemIndex = this.getIndexInItems(el) + 1
-                })
-        )
-    }
+    this.subscription.add(
+      this.dragulaService.dropModel('ITEMS').subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
+        const targetItemIndex = this.getIndexInItems(el) + 1;
+      })
+    );
+  }
 
-    getIndexInItems(el: any) {
-        return Array.from(el.parentNode.children).indexOf(el)
-    }
+  getIndexInItems(el: any) {
+    return Array.from(el.parentNode.children).indexOf(el);
+  }
 
-    insertParagraph() {
-        let element = document.createElement('div')
-        element.classList.add('editor-content', 'editor-content-paragraph')
-        element.spellcheck = false
+  insertParagraph() {
+    let element = document.createElement('div');
+    element.classList.add('editor-content', 'editor-content-paragraph');
+    element.spellcheck = false;
 
-        this.addParagraphMenuBox(element)
+    this.addParagraphMenuBox(element);
 
-        let text = document.createElement('div')
-        text.classList.add('editor-content-paragraph-text')
-        text.contentEditable = 'true'
-        element.appendChild(text)
+    let text = document.createElement('div');
+    text.classList.add('editor-content-paragraph-text');
+    text.contentEditable = 'true';
+    element.appendChild(text);
 
-        this.contentElement.nativeElement.appendChild(element)
-    }
+    this.contentElement.nativeElement.appendChild(element);
+  }
 
-    addParagraphMenuBox(element: HTMLElement) {
-        let menuBox = document.createElement('div')
-        menuBox.classList.add('editor-content-menu-box')
+  addParagraphMenuBox(element: HTMLElement) {
+    let menuBox = document.createElement('div');
+    menuBox.classList.add('editor-content-menu-box');
 
-        let menu = `
+    let menu = `
             <div class="editor-content-menu" onclick="document.execCommand('undo')">
                 <div class="mdi mdi-undo"></div>
             </div>
@@ -158,239 +156,239 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             <div class="editor-content-menu" onclick="document.execCommand('insertUnorderedList')">
                 <div class="mdi mdi-format-list-bulleted"></div>
             </div>
-        `
+        `;
 
-        menuBox.innerHTML = menu
+    menuBox.innerHTML = menu;
 
-        let cursorMoveMenu = document.createElement('div')
-        cursorMoveMenu.classList.add('editor-content-menu')
-        let cursorMoveIcon = document.createElement('div')
-        cursorMoveIcon.classList.add('mdi', 'mdi-cursor-move')
-        cursorMoveMenu.appendChild(cursorMoveIcon)
-        menuBox.appendChild(cursorMoveMenu)
+    let cursorMoveMenu = document.createElement('div');
+    cursorMoveMenu.classList.add('editor-content-menu');
+    let cursorMoveIcon = document.createElement('div');
+    cursorMoveIcon.classList.add('mdi', 'mdi-cursor-move');
+    cursorMoveMenu.appendChild(cursorMoveIcon);
+    menuBox.appendChild(cursorMoveMenu);
 
-        let deleteMenu = document.createElement('div')
-        deleteMenu.classList.add('editor-content-menu')
-        let deleteIcon = document.createElement('div')
-        deleteIcon.classList.add('mdi', 'mdi-delete-sweep-outline')
-        deleteMenu.addEventListener('click', this.deleteElement.bind(this, element))
-        deleteMenu.appendChild(deleteIcon)
-        menuBox.appendChild(deleteMenu)
+    let deleteMenu = document.createElement('div');
+    deleteMenu.classList.add('editor-content-menu');
+    let deleteIcon = document.createElement('div');
+    deleteIcon.classList.add('mdi', 'mdi-delete-sweep-outline');
+    deleteMenu.addEventListener('click', this.deleteElement.bind(this, element));
+    deleteMenu.appendChild(deleteIcon);
+    menuBox.appendChild(deleteMenu);
 
-        element.appendChild(menuBox)
+    element.appendChild(menuBox);
+  }
+
+  async insertSingleImage(event) {
+    const files: FileList = this.singleImageElement.nativeElement.files;
+
+    if (files && files.length == 0) {
+      return;
     }
 
-    async insertSingleImage(event) {
-        const files: FileList = this.singleImageElement.nativeElement.files
-
-        if (files && files.length == 0) {
-            return
-        }
-
-        try {
-            let createdFiles: Array<File> = await this.fileService
-                .createFile(
-                    {
-                        domainName: 'public.keeping.link',
-                        path: `/users/${this.user.id}/post`,
-                        tags: ['post'],
-                        userId: this.user.id,
-                    },
-                    files
-                )
-                .toPromise()
-
-            let element = document.createElement('div')
-            element.classList.add('editor-content', 'editor-content-single-image')
-
-            this.addSingleImageMenuBox(element)
-
-            let imgBox = document.createElement('div')
-            imgBox.classList.add('editor-content-single-image-box')
-            let img = document.createElement('img')
-            img.src = createdFiles[0]['url']
-            img.dataset.origin = createdFiles[0]['url']
-            imgBox.appendChild(img)
-
-            let imgMenuBox = document.createElement('div')
-            imgMenuBox.classList.add('editor-content-single-image-menu-box')
-
-            let cropMenu = document.createElement('div')
-            cropMenu.classList.add('editor-content-single-image-menu')
-            let cropIcon = document.createElement('div')
-            cropIcon.classList.add('mdi', 'mdi-crop')
-            cropMenu.addEventListener(
-                'click',
-                function () {
-                    this.selectedImage = img
-                    this.imageUrl = img.dataset.origin
-                }.bind(this)
-            )
-            cropMenu.appendChild(cropIcon)
-            imgMenuBox.appendChild(cropMenu)
-
-            imgBox.appendChild(imgMenuBox)
-
-            element.appendChild(imgBox)
-
-            this.contentElement.nativeElement.appendChild(element)
-        } catch (e) {}
-    }
-
-    addSingleImageMenuBox(element: HTMLElement) {
-        let menuBox = document.createElement('div')
-        menuBox.classList.add('editor-content-menu-box')
-
-        let justifyContentLeftMenu = document.createElement('div')
-        justifyContentLeftMenu.classList.add('editor-content-menu')
-        let justifyContentLeft = document.createElement('div')
-        justifyContentLeft.classList.add('mdi', 'mdi-format-align-left')
-        justifyContentLeftMenu.addEventListener(
-            'click',
-            this.justifyContent.bind(this, element, 'editor-justify-content-left')
+    try {
+      let createdFiles: Array<File> = await this.fileService
+        .createFile(
+          {
+            domainName: 'public.keeping.link',
+            path: `/users/${this.user.id}/post`,
+            tag: 'post',
+            userId: this.user.id,
+          },
+          files
         )
-        justifyContentLeftMenu.appendChild(justifyContentLeft)
-        menuBox.appendChild(justifyContentLeftMenu)
+        .toPromise();
 
-        let justifyContentCenterMenu = document.createElement('div')
-        justifyContentCenterMenu.classList.add('editor-content-menu')
-        let justifyContentCenter = document.createElement('div')
-        justifyContentCenter.classList.add('mdi', 'mdi-format-align-center')
-        justifyContentCenterMenu.addEventListener(
-            'click',
-            this.justifyContent.bind(this, element, 'editor-justify-content-center')
+      let element = document.createElement('div');
+      element.classList.add('editor-content', 'editor-content-single-image');
+
+      this.addSingleImageMenuBox(element);
+
+      let imgBox = document.createElement('div');
+      imgBox.classList.add('editor-content-single-image-box');
+      let img = document.createElement('img');
+      img.src = createdFiles[0]['url'];
+      img.dataset.origin = createdFiles[0]['url'];
+      imgBox.appendChild(img);
+
+      let imgMenuBox = document.createElement('div');
+      imgMenuBox.classList.add('editor-content-single-image-menu-box');
+
+      let cropMenu = document.createElement('div');
+      cropMenu.classList.add('editor-content-single-image-menu');
+      let cropIcon = document.createElement('div');
+      cropIcon.classList.add('mdi', 'mdi-crop');
+      cropMenu.addEventListener(
+        'click',
+        function () {
+          this.selectedImage = img;
+          this.imageUrl = img.dataset.origin;
+        }.bind(this)
+      );
+      cropMenu.appendChild(cropIcon);
+      imgMenuBox.appendChild(cropMenu);
+
+      imgBox.appendChild(imgMenuBox);
+
+      element.appendChild(imgBox);
+
+      this.contentElement.nativeElement.appendChild(element);
+    } catch (e) {}
+  }
+
+  addSingleImageMenuBox(element: HTMLElement) {
+    let menuBox = document.createElement('div');
+    menuBox.classList.add('editor-content-menu-box');
+
+    let justifyContentLeftMenu = document.createElement('div');
+    justifyContentLeftMenu.classList.add('editor-content-menu');
+    let justifyContentLeft = document.createElement('div');
+    justifyContentLeft.classList.add('mdi', 'mdi-format-align-left');
+    justifyContentLeftMenu.addEventListener(
+      'click',
+      this.justifyContent.bind(this, element, 'editor-justify-content-left')
+    );
+    justifyContentLeftMenu.appendChild(justifyContentLeft);
+    menuBox.appendChild(justifyContentLeftMenu);
+
+    let justifyContentCenterMenu = document.createElement('div');
+    justifyContentCenterMenu.classList.add('editor-content-menu');
+    let justifyContentCenter = document.createElement('div');
+    justifyContentCenter.classList.add('mdi', 'mdi-format-align-center');
+    justifyContentCenterMenu.addEventListener(
+      'click',
+      this.justifyContent.bind(this, element, 'editor-justify-content-center')
+    );
+    justifyContentCenterMenu.appendChild(justifyContentCenter);
+    menuBox.appendChild(justifyContentCenterMenu);
+
+    let justifyContentRightMenu = document.createElement('div');
+    justifyContentRightMenu.classList.add('editor-content-menu');
+    let justifyContentRight = document.createElement('div');
+    justifyContentRight.classList.add('mdi', 'mdi-format-align-right');
+    justifyContentRightMenu.addEventListener(
+      'click',
+      this.justifyContent.bind(this, element, 'editor-justify-content-right')
+    );
+    justifyContentRightMenu.appendChild(justifyContentRight);
+    menuBox.appendChild(justifyContentRightMenu);
+
+    let cursorMoveMenu = document.createElement('div');
+    cursorMoveMenu.classList.add('editor-content-menu');
+    let cursorMoveIcon = document.createElement('div');
+    cursorMoveIcon.classList.add('mdi', 'mdi-cursor-move');
+    cursorMoveMenu.appendChild(cursorMoveIcon);
+    menuBox.appendChild(cursorMoveMenu);
+
+    let deleteMenu = document.createElement('div');
+    deleteMenu.classList.add('editor-content-menu');
+    let deleteIcon = document.createElement('div');
+    deleteIcon.classList.add('mdi', 'mdi-delete-sweep-outline');
+    deleteMenu.addEventListener('click', this.deleteElement.bind(this, element));
+    deleteMenu.appendChild(deleteIcon);
+    menuBox.appendChild(deleteMenu);
+
+    element.appendChild(menuBox);
+  }
+
+  justifyContent(element: HTMLElement, align: string) {
+    element.classList.remove(
+      'editor-justify-content-left',
+      'editor-justify-content-center',
+      'editor-justify-content-right'
+    );
+
+    element.classList.add(align);
+  }
+
+  deleteElement(element: HTMLElement) {
+    element.remove();
+  }
+
+  export() {
+    console.log('htmlString:', this.contentElement.nativeElement.innerHTML);
+  }
+
+  // Crop Image
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    this.cropper.x1 = event.cropperPosition.x1;
+    this.cropper.y1 = event.cropperPosition.y1;
+    this.cropper.x2 = event.cropperPosition.x2;
+    this.cropper.y2 = event.cropperPosition.y2;
+  }
+
+  imageLoaded(image: LoadedImage) {}
+
+  cropperReady(sourceImageDimensions: Dimensions) {
+    let x1 = Number(this.selectedImage.dataset.x1);
+    if (x1) {
+      let y1 = Number(this.selectedImage.dataset.y1);
+      let x2 = Number(this.selectedImage.dataset.x2);
+      let y2 = Number(this.selectedImage.dataset.y2);
+
+      this.cropper = {
+        x1: x1,
+        y1: y1,
+        x2: x2,
+        y2: y2,
+      };
+    }
+  }
+
+  loadImageFailed() {}
+
+  zoomIn() {
+    this.scale += 0.1;
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
+  zoomOut() {
+    this.scale -= 0.1;
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
+  resetImage() {
+    this.scale = 1;
+    this.transform = {};
+  }
+
+  closeCrop() {
+    this.imageUrl = '';
+  }
+
+  async saveCroppedImage() {
+    let file = this.helperService.dataURLtoFile(this.croppedImage, uuidv4() + '.png');
+    let files: any = [file];
+
+    try {
+      let createdFiles: Array<File> = await this.fileService
+        .createFile(
+          {
+            domainName: 'public.keeping.link',
+            path: `/users/${this.user.id}/post`,
+            tag: 'post',
+            userId: this.user.id,
+          },
+          files
         )
-        justifyContentCenterMenu.appendChild(justifyContentCenter)
-        menuBox.appendChild(justifyContentCenterMenu)
+        .toPromise();
 
-        let justifyContentRightMenu = document.createElement('div')
-        justifyContentRightMenu.classList.add('editor-content-menu')
-        let justifyContentRight = document.createElement('div')
-        justifyContentRight.classList.add('mdi', 'mdi-format-align-right')
-        justifyContentRightMenu.addEventListener(
-            'click',
-            this.justifyContent.bind(this, element, 'editor-justify-content-right')
-        )
-        justifyContentRightMenu.appendChild(justifyContentRight)
-        menuBox.appendChild(justifyContentRightMenu)
-
-        let cursorMoveMenu = document.createElement('div')
-        cursorMoveMenu.classList.add('editor-content-menu')
-        let cursorMoveIcon = document.createElement('div')
-        cursorMoveIcon.classList.add('mdi', 'mdi-cursor-move')
-        cursorMoveMenu.appendChild(cursorMoveIcon)
-        menuBox.appendChild(cursorMoveMenu)
-
-        let deleteMenu = document.createElement('div')
-        deleteMenu.classList.add('editor-content-menu')
-        let deleteIcon = document.createElement('div')
-        deleteIcon.classList.add('mdi', 'mdi-delete-sweep-outline')
-        deleteMenu.addEventListener('click', this.deleteElement.bind(this, element))
-        deleteMenu.appendChild(deleteIcon)
-        menuBox.appendChild(deleteMenu)
-
-        element.appendChild(menuBox)
-    }
-
-    justifyContent(element: HTMLElement, align: string) {
-        element.classList.remove(
-            'editor-justify-content-left',
-            'editor-justify-content-center',
-            'editor-justify-content-right'
-        )
-
-        element.classList.add(align)
-    }
-
-    deleteElement(element: HTMLElement) {
-        element.remove()
-    }
-
-    export() {
-        console.log('htmlString:', this.contentElement.nativeElement.innerHTML)
-    }
-
-    // Crop Image
-    fileChangeEvent(event: any): void {
-        this.imageChangedEvent = event
-    }
-
-    imageCropped(event: ImageCroppedEvent) {
-        this.croppedImage = event.base64
-        this.cropper.x1 = event.cropperPosition.x1
-        this.cropper.y1 = event.cropperPosition.y1
-        this.cropper.x2 = event.cropperPosition.x2
-        this.cropper.y2 = event.cropperPosition.y2
-    }
-
-    imageLoaded(image: LoadedImage) {}
-
-    cropperReady(sourceImageDimensions: Dimensions) {
-        let x1 = Number(this.selectedImage.dataset.x1)
-        if (x1) {
-            let y1 = Number(this.selectedImage.dataset.y1)
-            let x2 = Number(this.selectedImage.dataset.x2)
-            let y2 = Number(this.selectedImage.dataset.y2)
-
-            this.cropper = {
-                x1: x1,
-                y1: y1,
-                x2: x2,
-                y2: y2,
-            }
-        }
-    }
-
-    loadImageFailed() {}
-
-    zoomIn() {
-        this.scale += 0.1
-        this.transform = {
-            ...this.transform,
-            scale: this.scale,
-        }
-    }
-
-    zoomOut() {
-        this.scale -= 0.1
-        this.transform = {
-            ...this.transform,
-            scale: this.scale,
-        }
-    }
-
-    resetImage() {
-        this.scale = 1
-        this.transform = {}
-    }
-
-    closeCrop() {
-        this.imageUrl = ''
-    }
-
-    async saveCroppedImage() {
-        let file = this.helperService.dataURLtoFile(this.croppedImage, uuidv4() + '.png')
-        let files: any = [file]
-
-        try {
-            let createdFiles: Array<File> = await this.fileService
-                .createFile(
-                    {
-                        domainName: 'public.keeping.link',
-                        path: `/users/${this.user.id}/post`,
-                        tags: ['post'],
-                        userId: this.user.id,
-                    },
-                    files
-                )
-                .toPromise()
-
-            this.selectedImage.src = createdFiles[0]['url']
-            this.selectedImage.dataset.x1 = this.cropper.x1
-            this.selectedImage.dataset.y1 = this.cropper.y1
-            this.selectedImage.dataset.x2 = this.cropper.x2
-            this.selectedImage.dataset.y2 = this.cropper.y2
-            this.closeCrop()
-        } catch (e) {}
-    }
+      this.selectedImage.src = createdFiles[0]['url'];
+      this.selectedImage.dataset.x1 = this.cropper.x1;
+      this.selectedImage.dataset.y1 = this.cropper.y1;
+      this.selectedImage.dataset.x2 = this.cropper.x2;
+      this.selectedImage.dataset.y2 = this.cropper.y2;
+      this.closeCrop();
+    } catch (e) {}
+  }
 }
