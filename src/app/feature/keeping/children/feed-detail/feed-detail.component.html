@@ -56,10 +56,21 @@
                 </svg>
               </div>
               <div class="more-box" *ngIf="moreBoxVisible" (sharedClickOutside)="closeMoreBox()">
-                <a class="more-box-menu" (click)="deleteFeed(selectedFeed)">
-                  <div class="mdi mdi-delete"></div>
-                  <div class="text">{{ 'keeping.feed-detail.more-delete' | translate }}</div>
-                </a>
+                <div class="more-box-menu">
+                  <a class='menu-modify' (click)='modifyFeed(selectedFeed)'>
+                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13.9376 2.06066L15.4361 3.55921L16.9344 5.05757L5.23885 16.745H2.25001L2.25015 13.7479L13.9376 2.06066Z" stroke="#647183" stroke-width="1.5"/>
+                      <line x1="12.0303" y1="4.46967" x2="15.0303" y2="7.46967" stroke="#647183" stroke-width="1.5"/>
+                    </svg>
+                    <div class="text">{{ 'keeping.feed-detail.more-modify' | translate }}</div>
+                  </a>
+                  <a class='menu-delete' (click)="deleteFeed(selectedFeed)">
+                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.5 4.5V3C6.5 2.17157 7.17157 1.5 8 1.5H11C11.8284 1.5 12.5 2.17157 12.5 3V4.5M2.75 4.5H16.25H2.75ZM4.25 4.5V15C4.25 15.8284 4.92157 16.5 5.75 16.5H13.25C14.0784 16.5 14.75 15.8284 14.75 15V4.5H4.25Z" stroke="#647183" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="text">{{ 'keeping.feed-detail.more-delete' | translate }}</div>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

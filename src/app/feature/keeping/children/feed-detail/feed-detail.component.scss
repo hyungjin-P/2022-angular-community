@@ -131,8 +131,8 @@
             position: absolute;
             top: 30px;
             right: -10px;
-            padding: 0 6px;
-            width: 150px;
+            padding: 8px 12px;
+            width: 140px;
             border: 1px solid var(--grey-8);
             border-radius: 12px;
             background: var(--white);
@@ -142,32 +142,47 @@
             .more-box-menu {
               display: flex;
               align-items: center;
-              margin: 8px 3px;
-              padding: 0 12px;
-              height: 36px;
-              border-radius: 8px;
-              cursor: pointer;
 
               text-decoration: none;
+              flex-direction: column;
 
-              .mdi {
-                font-size: 16px;
-                color: var(--grey-2);
-              }
+              a {
+                display: flex;
+                padding: 10px 14px;
+                border-radius: 8px;
+                align-items: center;
+                cursor: pointer;
 
-              .text {
-                margin-left: 12px;
+                .mdi {
+                  font-size: 16px;
+                  color: var(--grey-2);
+                }
 
-                @include textStyle(500, 13px, 21px);
-                color: var(--grey-2);
-              }
-
-              &:hover {
-                background-color: var(--blue-9);
-
-                .mdi,
                 .text {
-                  color: var(--blue-3);
+                  margin-left: 12px;
+
+                  @include textStyle(500, 13px, 21px);
+                  color: var(--grey-2);
+                }
+
+                &:hover {
+                  background-color: var(--blue-9);
+                  .mdi,
+                  .text {
+                    color: var(--blue-3);
+                  }
+                }
+              }
+
+              .menu-delete{
+                .text{
+                  color: var(--red);
+                }
+
+                &:hover {
+                  .text {
+                    color: var(--red);
+                  }
                 }
               }
             }
@@ -1047,9 +1062,10 @@
   }
 
   .feed-comment-view-wrapper {
+    position: absolute;
     .feed-comment-view {
       width: 510px;
-      height: 100%;
+      height: 80%;
       border-radius: 20px;
 
       .feed-comment-view-section {
@@ -1138,18 +1154,6 @@
       width: 0px;
     }
   }
-
-  .feed-comment-view-wrapper {
-    .feed-comment-view {
-      width: 510px;
-      height: fit-content;
-    }
-  }
-
-  .feed-comment-view-wrapper-show {
-    position: absolute;
-  }
-
   .liked-view-wrapper {
     .liked-view{
       .liked-view-section{

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core'
+import { Injectable } from '@angular/core';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class TextService {
-  language: string
+  language: string;
 
   private text = {
     ko: {
@@ -46,6 +46,8 @@ export class TextService {
       'write:feed:002': '내용을 작성하세요.',
       'write:feed:003': '등록하였습니다.',
 
+      'follow:001': '팔로우 하였습니다.',
+      'follow:002': '팔로우 해제되었습니다.',
     },
     en: {
       'auth:email:001': 'Invalid email address.',
@@ -87,18 +89,21 @@ export class TextService {
       'write:feed:001': 'Choose your main picture',
       'write:feed:002': 'Please write your content.',
       'write:feed:003': 'Posted.',
+
+      'follow:001': 'Followed it.',
+      'follow:002': 'Unfollowed it.',
     },
-  }
+  };
 
   constructor() {
-    this.language = localStorage.getItem('language')
+    this.language = localStorage.getItem('language');
   }
 
   changeLanguage(language: string) {
-    this.language = language
+    this.language = language;
   }
 
   getText(code: string, defaultText?: string) {
-    return this.text[this.language][code] || defaultText
+    return this.text[this.language][code] || defaultText;
   }
 }

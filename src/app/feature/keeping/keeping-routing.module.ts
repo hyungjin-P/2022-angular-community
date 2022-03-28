@@ -1,27 +1,27 @@
-import {NgModule} from '@angular/core'
-import {Routes, RouterModule} from '@angular/router'
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AuthGuard} from '@services/guards/auth.guard'
-import {ServiceTermsGuard} from '@services/guards/service-terms.guard'
+import { AuthGuard } from '@services/guards/auth.guard';
+import { ServiceTermsGuard } from '@services/guards/service-terms.guard';
 
-import {KeepingComponent} from './keeping.component'
+import { KeepingComponent } from './keeping.component';
 
-import {HomeComponent} from './children/home/home.component'
-import {FeedComponent} from './children/feed/feed.component'
-import {FeedDetailComponent} from './children/feed-detail/feed-detail.component'
-import {WriteComponent} from './children/write/write.component'
-import {MagazineComponent} from './children/magazine/magazine.component'
-import {NoticeComponent} from './children/notice/notice.component'
-import {EventComponent} from './children/event/event.component'
-import {HelpComponent} from './children/help/help.component'
+import { HomeComponent } from './children/home/home.component';
+import { FeedComponent } from './children/feed/feed.component';
+import { FeedDetailComponent } from './children/feed-detail/feed-detail.component';
+import { WriteComponent } from './children/write/write.component';
+import { MagazineComponent } from './children/magazine/magazine.component';
+import { NoticeComponent } from './children/notice/notice.component';
+import { EventComponent } from './children/event/event.component';
+import { HelpComponent } from './children/help/help.component';
 
-import {PrivacyComponent} from './children/privacy/privacy.component'
-import {ServiceTermsComponent} from './children/service-terms/service-terms.component'
-import {NotificationComponent} from './children/notification/notification.component'
+import { PrivacyComponent } from './children/privacy/privacy.component';
+import { ServiceTermsComponent } from './children/service-terms/service-terms.component';
+import { NotificationComponent } from './children/notification/notification.component';
 
-import {MypageComponent} from './mypage/mypage.component'
-import {SearchComponent} from './search/search.component'
-import {TestPageComponent} from "./children/test-page/test-page.component";
+import { MypageComponent } from './mypage/mypage.component';
+import { SearchComponent } from './search/search.component';
+import { TestPageComponent } from './children/test-page/test-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +33,7 @@ const routes: Routes = [
       { path: 'feed', component: FeedComponent },
       { path: 'feed/:feed_id', component: FeedDetailComponent },
       { path: 'write', canActivate: [AuthGuard], component: WriteComponent },
+      { path: 'write/:feed_id', canActivate: [AuthGuard], component: WriteComponent },
       { path: 'magazine', component: MagazineComponent },
       { path: 'notice', component: NoticeComponent },
       { path: 'event', component: EventComponent },
@@ -44,9 +45,9 @@ const routes: Routes = [
     ],
   },
 
-  {path: 'mypage', canActivate: [AuthGuard, ServiceTermsGuard], component: MypageComponent},
+  { path: 'mypage', canActivate: [AuthGuard, ServiceTermsGuard], component: MypageComponent },
 
-  {path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent},
+  { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 
   {
     path: 'auth',
@@ -58,11 +59,10 @@ const routes: Routes = [
     canActivate: [AuthGuard, ServiceTermsGuard],
     loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule),
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class KeepingRoutingModule {
-}
+export class KeepingRoutingModule {}

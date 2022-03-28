@@ -441,6 +441,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.moreBoxVisible = false;
   }
 
+  modifyFeed(feed: Feed) {
+    this.router.navigateByUrl(`/write/${feed.id}`);
+  }
+
   deleteFeed(feed: Feed) {
     this.feedService.deleteFeed(feed.id).subscribe(
       (v) => {
@@ -678,6 +682,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.followService.addFollow(fromUser, toUser.id).subscribe(
         (v) => {
           toUser.isFollow = true;
+          let message = this.textService.getText('follow:001');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('add follow failed : ', error);
@@ -693,6 +699,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.followService.removeFollow(fromUser, toUser.id).subscribe(
         () => {
           toUser.isFollow = false;
+          let message = this.textService.getText('follow:002');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('remove follow failed : ', error);

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {
   animationFrameScheduler,
@@ -81,8 +81,13 @@ export class WriteComponent implements OnInit, AfterViewInit {
     cancelBtnText: 'No', // 선택
     confirmBtnText: 'Yes', // 선택
   };
+
+  selectFeedId: string;
+  isModify = false;
+
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private location: Location,
     private globalService: GlobalService,
     private storageService: StorageService,
@@ -100,7 +105,21 @@ export class WriteComponent implements OnInit, AfterViewInit {
     this.pictureBoxVisible = true;
 
     this.selectedLanguage = localStorage.getItem('language');
-    this.createFeed(false);
+
+    this.activatedRoute.params.subscribe(
+      (v) => {
+        this.selectFeedId = v['feed_id'];
+        if (this.selectFeedId) {
+          this.isModify = true;
+          this.fillModifyFeed();
+        }
+      },
+      (e) => {}
+    );
+
+    if (!this.isModify) {
+      this.createFeed(false);
+    }
 
     this.tagModalVisible = false;
     this.tagModalInputKey = false;
@@ -270,8 +289,8 @@ export class WriteComponent implements OnInit, AfterViewInit {
     this.feedService.updateFeed({ feedId: this.feed.id, posting: true }).subscribe(
       (v) => {
         // this.createFeed()
-        // let message = this.textService.getText('write:feed:003')
-        // this.globalService.showToast(message)
+        let message = this.textService.getText('write:feed:003');
+        this.globalService.showToast(message);
         this.router.navigateByUrl('/feed');
       },
       (e) => {}
@@ -315,5 +334,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
   confirmModalCancel(): void {
     this.createFeed(true);
     this.isConfirmModalVisible = false;
+  }
+
+  private fillModifyFeed() {
+    this.feedService.getFeed(this.selectFeedId, this.user.id).subscribe((feed) => {
+      this.feed = feed[0];
+      this.content = feed[0].content;
+    });
   }
 }
