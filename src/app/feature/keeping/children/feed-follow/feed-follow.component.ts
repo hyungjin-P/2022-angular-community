@@ -131,6 +131,7 @@ export class FeedFollowComponent implements OnInit {
           toUser.isFollow = false;
           let message = this.textService.getText('follow:002');
           this.globalService.showToast(message);
+          this.getFeedFollowList();
         },
         (error) => {
           console.log('remove follow failed : ', error);

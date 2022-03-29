@@ -186,16 +186,13 @@
         </div>
         <div class="item col-6 col-lg-3 col-xxl-2-5" *ngFor="let feed of feedList">
           <div class="d-flex flex-column flex-wrap">
-
-
-
-            <div class="image-box flex-fill">
-              <div class="image-box-hover-content" (click)="moveFeedDetail(feed)">
+            <div class="image-box flex-fill" (click)="moveFeedDetail(feed)">
+              <div class="image-box-hover-content" >
                 <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content">
                 <!-- 그라데이션 커버 -->
                 <div class="image-box-hover-content-cover d-sm-none d-md-none"></div>
                 <div class="image-box-hover-content-inner d-sm-none d-md-none">
-<!--                  <span>{{ feed.content }}</span>-->
+                  <span>{{ feed.content }}</span>&ndash;&gt;
                 </div>
               </div>
               <div class="bookmark" (click)="toggleFeedBookmark(feed)">

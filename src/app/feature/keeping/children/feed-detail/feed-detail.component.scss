@@ -28,7 +28,7 @@
 }
 
 .section {
-  padding: 30px 30px;
+  padding: 30px 20px 0 20px;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE, Edge */
 
@@ -75,7 +75,7 @@
           .follow-default,
           .follow-active{
             padding: 4px 8px;
-            width: 69px;
+            width: 66px;
             height: 29px;
             border: 1px solid var(--black);
             border-radius: 8px;
@@ -401,6 +401,7 @@
 
       .item {
         padding: 15px 3px;
+        margin-bottom: 60px;
 
         > div {
           .image-box {
@@ -480,8 +481,9 @@
             .nickname {
               margin-left: 4px;
 
-              @include textStyle(400, 12px, 20px);
-              color: var(--grey-1);
+              @include textStyle(700, 14px, 22px);
+              letter-spacing: -0.2px;
+              color: var(--text-1);
             }
           }
 
@@ -489,7 +491,8 @@
             margin-top: 4px;
             width: 100%;
 
-            @include textStyle(400, 13px, 21px);
+            @include textStyle(400, 14px, 22px);
+            letter-spacing: -0.2px;
           }
 
           .tags {
@@ -1044,7 +1047,7 @@
   .section {
     .items {
       .item-list {
-        margin: -20px -6px;
+        margin: -15px -8px;
 
         .item {
           padding: 15px 8px;
