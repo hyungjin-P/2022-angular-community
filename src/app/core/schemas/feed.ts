@@ -21,7 +21,13 @@ export class Feed {
     public writerPictureUrl: string, // join data
     public writerNickname: string, // join data
     public isLike: boolean,
-    public isBookmark: boolean
+    public isBookmark: boolean,
+
+    // 내부 로직 동작을 위함
+    public begin_timestamp: number,
+    public begin_time_text: string,
+    public contentViewVisible: boolean,
+    public carouselIndex: number
   ) {
     this.id = id;
     this.writer = writer;

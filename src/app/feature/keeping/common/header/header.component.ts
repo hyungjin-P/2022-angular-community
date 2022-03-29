@@ -25,14 +25,14 @@ export class HeaderComponent implements OnInit {
       {
         tabName: 'all',
         languageCode: 'common.nav.feed-tab.all',
-        link: '/feed?tabType=all',
+        link: '/feed',
         description: '피드 전체',
         sort: 0,
       },
       {
         tabName: 'follow',
         languageCode: 'common.nav.feed-tab.following',
-        link: '/feed?tabType=follow',
+        link: '/feed/follow',
         description: '피드 팔로우',
         sort: 1,
       },
@@ -91,15 +91,26 @@ export class HeaderComponent implements OnInit {
   }
 
   changeTab(routingPath): void {
-    if (routingPath === 'feed' || routingPath === 'feed/:feed_id') {
+    if (routingPath === 'feed' || routingPath === 'feed/:feed_id' || routingPath === 'feed/follow') {
       if (routingPath === 'feed/:feed_id') {
         routingPath = 'feed';
       }
-      this.tabMenu = this.tabData[routingPath];
-      if (!this.route.snapshot.queryParams.tabType) {
-        this.nowTab = this.tabMenu[0].tabName;
+
+      // 찬우님 이거 고쳐주세요.
+      // feed랑 feed-follow가 하는 일이 아예 달라서 분리하는게 좋을 것 같은데
+      // queryParams로 route에서 어떻게 분리하는지 모르겠어서 일단 이렇게 작업 해놨어요.
+      if (routingPath === 'feed/follow') {
+        this.tabMenu = this.tabData.feed;
+        this.nowTab = this.tabMenu[1].tabName;
       } else {
-        this.nowTab = this.tabMenu.filter((tab) => tab.tabName === this.route.snapshot.queryParams.tabType)[0].tabName;
+        this.tabMenu = this.tabData[routingPath];
+        if (!this.route.snapshot.queryParams.tabType) {
+          this.nowTab = this.tabMenu[0].tabName;
+        } else {
+          this.nowTab = this.tabMenu.filter(
+            (tab) => tab.tabName === this.route.snapshot.queryParams.tabType
+          )[0].tabName;
+        }
       }
     }
   }

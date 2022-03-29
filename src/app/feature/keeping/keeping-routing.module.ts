@@ -22,6 +22,7 @@ import { NotificationComponent } from './children/notification/notification.comp
 import { MypageComponent } from './mypage/mypage.component';
 import { SearchComponent } from './search/search.component';
 import { TestPageComponent } from './children/test-page/test-page.component';
+import { FeedFollowComponent } from './children/feed-follow/feed-follow.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full' },
       { path: 'feed', component: FeedComponent },
+      { path: 'feed/follow', canActivate: [AuthGuard], component: FeedFollowComponent },
       { path: 'feed/:feed_id', component: FeedDetailComponent },
       { path: 'write', canActivate: [AuthGuard], component: WriteComponent },
       { path: 'write/:feed_id', canActivate: [AuthGuard], component: WriteComponent },

@@ -169,14 +169,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hideLikedView();
       }
     });
-
-    $('#carouselIndicators').carousel({
-      interval: 0,
-    });
-
-    $('#carouselIndicators').on('slide.bs.carousel', (e) => {
-      this.carouselIndex = e.to + 1;
-    });
   }
 
   toPos(obs$) {
@@ -396,6 +388,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           .subscribe(
             (v) => {
               feed.isLike = false;
+              feed.likeUsers = feed.likeUsers.filter((feedLike) => feedLike.userId !== this.user.id);
               feed.likeCount -= 1;
             },
             (e) => {}
@@ -409,6 +402,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           .subscribe(
             (v) => {
               feed.isLike = true;
+              const feedLike = new FeedLike(feed.id, this.user.id, this.user, '');
+              feed.likeUsers.push(feedLike);
               feed.likeCount += 1;
             },
             (e) => {}
@@ -499,6 +494,38 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  createSubComment(parentFeedComment: FeedComment) {
+    if (!this.feedCommentInputObj) {
+      return;
+    }
+
+    this.feedService
+      .createFeedComment({
+        feedId: this.selectedFeed.id,
+        userId: this.user?.id,
+        parentId: this.feedSubComment.parentId,
+        text: this.feedCommentInputObj,
+      })
+      .subscribe(
+        (feedComment: FeedComment) => {
+          if (this.comment_mention_info) {
+            this.feedService
+              .addFeedCommentMention({
+                feedCommentId: feedComment.id,
+                mentionUserId: parentFeedComment.writer.id,
+              })
+              .subscribe(() => {
+                this.hideSubCommentInput();
+                this.selectedFeed.commentCount++;
+                parentFeedComment.sub_comment_count++;
+                this.getFeedCommentList();
+              });
+          }
+        },
+        (e) => {}
+      );
+  }
+
   createParentComment() {
     this.feedService
       .createFeedComment({ feedId: this.selectedFeed.id, userId: this.user.id, text: this.feedCommentInputObj })
@@ -565,38 +592,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedSubCommentListObj[feedCommentId] = [];
   }
 
-  createSubComment(parentFeedComment: FeedComment) {
-    if (!this.feedCommentInputObj) {
-      return;
-    }
-
-    this.feedService
-      .createFeedComment({
-        feedId: this.selectedFeed.id,
-        userId: this.user?.id,
-        parentId: this.feedSubComment.parentId,
-        text: this.feedCommentInputObj,
-      })
-      .subscribe(
-        (feedComment: FeedComment) => {
-          if (this.comment_mention_info) {
-            this.feedService
-              .addFeedCommentMention({
-                feedCommentId: feedComment.id,
-                mentionUserId: parentFeedComment.writer.id,
-              })
-              .subscribe(() => {
-                this.hideSubCommentInput();
-                this.selectedFeed.commentCount++;
-                parentFeedComment.sub_comment_count++;
-                this.getFeedCommentList();
-              });
-          }
-        },
-        (e) => {}
-      );
-  }
-
   deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
     this.feedService.deleteFeedComment(feedComment.id).subscribe(
       (v) => {
@@ -661,7 +656,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   moreContentView() {
-    console.log(this.selectedFeed.content.length);
     this.contentViewVisible = true;
   }
 
@@ -776,5 +770,15 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onResize(event: any) {
     this.checkContentLimit(event.target.innerWidth);
+  }
+
+  prevCarouselIndex() {
+    this.carouselIndex -= 1;
+    if (this.carouselIndex < 1) this.carouselIndex = this.selectedFeed.pictures.length;
+  }
+
+  nextCarouselIndex() {
+    this.carouselIndex += 1;
+    if (this.carouselIndex > this.selectedFeed.pictures.length) this.carouselIndex = 1;
   }
 }
