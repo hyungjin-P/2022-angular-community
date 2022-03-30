@@ -18,7 +18,7 @@
       </ng-container>
 
       <div class="item-list d-flex flex-wrap">
-        <div class="banner">
+        <div class="banner d-lg-none">
           <div class="text-content">
             <div>
               키핑 KEEP & PICK!
@@ -349,8 +349,8 @@
         </div>
       </div>
     </div>
-    <a class='writeBtn'>
-
-    </a>
   </div>
+  <a class='write d-flex d-lg-none' *ngIf='variables.isLogin' [routerLink]="['/write']" routerLinkActive="selected">
+    <img src="assets/icons/bottom-nav/pencil.svg" />
+  </a>
 </div>

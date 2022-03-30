@@ -44,8 +44,6 @@ import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
 import { FollowService } from '@services/follow.service';
 
-declare const $;
-
 @Component({
   selector: 'feed-detail',
   templateUrl: './feed-detail.component.html',
@@ -365,7 +363,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
               let addLike = new FeedLike(this.selectedFeed.id, this.user.id, this.user, new Date().toString());
 
-              const newLikeUsers = [addLike].concat(this.selectedFeed.likeUsers);
+              let newLikeUsers = [addLike].concat(this.selectedFeed.likeUsers);
               this.selectedFeed.likeUsers = newLikeUsers;
             },
             (e) => {}

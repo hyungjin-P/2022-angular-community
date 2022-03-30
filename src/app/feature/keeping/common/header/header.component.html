@@ -38,7 +38,8 @@
   <div class="action">
 
     <ng-container *ngIf="!variables.isLogin">
-      <a class="login d-none d-lg-flex" [routerLink]="['/auth/login']">
+
+      <a class="login d-flex" [routerLink]="['/auth/login']">
         <span>{{ 'common.header.signin' | translate }}</span>
       </a>
       <a class="registration d-none d-lg-flex" [routerLink]="['/auth/registration']">
