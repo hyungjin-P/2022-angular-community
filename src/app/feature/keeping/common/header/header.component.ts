@@ -131,6 +131,6 @@ export class HeaderComponent implements OnInit {
 
   async logout() {
     await this.storageService.removeUser();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/').then();
   }
 }

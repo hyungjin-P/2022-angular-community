@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 @mixin textStyle($font-weight, $font-size, $line-height) {
-    font-weight: $font-weight;
-    font-size: $font-size;
-    line-height: $line-height;
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin textStyleNotoSans($font-weight, $font-size) {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: $font-weight;
+  font-size: $font-size;
 }
 
 @mixin textStylePoppins($font-weight, $font-size) {

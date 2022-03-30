@@ -1,12 +1,12 @@
 import {
-    Component,
-    Input,
-    ElementRef,
-    Renderer2,
-    OnChanges,
-    AfterViewInit,
-    ViewChild,
-    SimpleChanges,
+  Component,
+  Input,
+  ElementRef,
+  Renderer2,
+  OnChanges,
+  AfterViewInit,
+  ViewChild,
+  SimpleChanges, AfterViewChecked,
 } from '@angular/core'
 
 @Component({
@@ -14,7 +14,7 @@ import {
     templateUrl: './avatar.component.html',
     styleUrls: ['./avatar.component.scss'],
 })
-export class AvatarComponent implements OnChanges, AfterViewInit {
+export class AvatarComponent implements OnChanges, AfterViewInit, AfterViewChecked {
     @Input() image: string
     @Input() text: string
     @Input() size: string

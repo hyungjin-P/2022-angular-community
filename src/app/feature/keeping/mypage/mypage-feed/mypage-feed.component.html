@@ -1,0 +1,303 @@
+<!-- 타이틀 -->
+<div class="items-title">
+  <div class="title">
+    <span class="title-content">피드</span>
+    <span class="content-count">{{feeds.length | number}}</span>
+  </div>
+
+  <a class="more-view">
+    전체보기
+  </a>
+</div>
+
+<!-- 등록한 피드 없을 때 -->
+<div class="items" *ngIf="feeds.length === 0">
+  <div class="item-empty">
+    <div class="item-empty-title">
+      {{ 'mypage.empty-text-1' | translate }}
+    </div>
+    <div class="item-empty-content">
+      {{('mypage.empty-text-2' | translate)}}
+    </div>
+    <div class="item-empty-btns">
+      <button type="button" (click)="goRouter('/write')">
+        <span [inlineSVG]="'assets/icons/mypage/write_port.svg'"></span>
+        <div>{{ 'mypage.write' | translate }}</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 등록한 피드 있을 때 -->
+<div class="items flex-wrap" *ngIf="feeds.length > 0">
+
+  <!-- 사진 있는 것-->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box"
+         style="background-image: url('assets/images/sample/feed_test_img_001.jpg')">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar" style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+        <div class="nickname">완다비젼_</div>
+      </div>
+      <div class="user-contents">
+        [Commission Work] Iron man Iron man Iron man Iron man
+      </div>
+      <div class="user-contents-infos">
+        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>
+        <div class="info-count">99+</div>
+        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>
+        <div class="info-count">99+</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 사진 없는 것 -->
+  <div class="item-list col-6 col-lg-3 ">
+    <div class="item-box">
+    </div>
+    <div class="item-content">
+
+      <div class="user-infos">
+        <div class="avatar"></div>
+        <div class="nickname"></div>
+      </div>
+      <div class="user-contents">
+      </div>
+      <div class="user-contents-infos">
+<!--        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+<!--        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>-->
+<!--        <div class="info-count">99+</div>-->
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+</div>

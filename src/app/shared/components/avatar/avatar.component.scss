@@ -1,10 +1,11 @@
 .shared-avatar {
+
     img {
         width: 34px;
         height: 34px;
         object-fit: cover;
         border-radius: 50%;
-        border: solid 1px var(--grey-8);
+        border: solid 3px var(--grey-6);
     }
 
     .text {

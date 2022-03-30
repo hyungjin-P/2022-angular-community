@@ -109,7 +109,8 @@
       "signout": "로그아웃",
       "singup": "회원가입",
       "write": "글쓰기",
-      "mypage": "마이페이지"
+      "mypage": "마이페이지",
+      "scrap": "스크랩"
     },
     "nav": {
       "feed": "피드",
@@ -182,8 +183,8 @@
     "edit-button-text": "배경 이미지 편집",
     "edit-profile-button-text": "프로필 수정",
     "empty-text-1": "나만의 소장 피규어 컬렉션",
-    "empty-text-2": "나만의 소장 피규어 컬렉션을",
-    "empty-text-3": "만들어 보세요!",
+    "empty-text-2": "나만의 소장 피규어 컬렉션을 만들어보세요!",
+    "empty-text-3": "",
     "follower-text": "팔로워",
     "following-text": "팔로잉",
     "write": "글쓰기"

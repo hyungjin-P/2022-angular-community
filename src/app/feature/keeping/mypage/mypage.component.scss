@@ -328,13 +328,15 @@
       }
 
       .about-me {
-        margin-top: 32px;
-        max-height: 150px;
-
-        @include textStyle(400, 14px, 22px);
-        color: var(--text-2);
-        white-space: pre-line;
-      }
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 20px;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+    }
     }
 
     .empty {
@@ -521,9 +523,16 @@
         }
 
         .about-me {
+          padding-left: 20px;
+          padding-right: 20px;
           margin: 25px 0;
           width: 289px;
-          max-height: 150px;
+
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-line-clamp: 5;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
 
           @include textStyle(400, 14px, 22px);
           color: var(--text-2);
@@ -553,12 +562,6 @@
           margin-bottom: 30px;
         }
 
-        .items {
-          height: 493px;
-          background: var(--white);
-          box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
-          border-radius: 12px;
-        }
       }
     }
   }
@@ -612,6 +615,8 @@
       }
 
       .profile {
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
         > div {
           .edit-profile-button {
             position: absolute;

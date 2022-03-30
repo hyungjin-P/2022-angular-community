@@ -52,7 +52,7 @@ import { EmailComponent } from './children/etc/email/email.component'
         EmailComponent,
     ],
     imports: [ComponentsRoutingModule, SharedModule],
-    exports: [ComponentsComponent],
+  exports: [ComponentsComponent, AvatarComponent],
     providers: [],
 })
 export class ComponentsModule {}

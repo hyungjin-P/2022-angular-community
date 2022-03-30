@@ -21,6 +21,8 @@ export class MypageComponent implements OnInit {
   globalUser: any;
   user: User;
 
+  isOtherPeople = false;
+
   backgroundEditMode: boolean;
 
   constructor(

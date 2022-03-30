@@ -109,7 +109,8 @@
       "signout": "Sign Out",
       "singup": "Sign Up",
       "write": "Write",
-      "mypage": "My Page"
+      "mypage": "My Page",
+      "scrap": "scrap"
     },
     "nav": {
       "feed": "Feed",
@@ -182,8 +183,8 @@
     "edit-button-text": "Edit Cover Photo",
     "edit-profile-button-text": "Edit",
     "empty-text-1": "My own collection of figures.",
-    "empty-text-2": "My personal collection of figures.",
-    "empty-text-3": "Try making it!",
+    "empty-text-2": "My personal collection of figures. Try making it!",
+    "empty-text-3": "",
     "follower-text": "Follower",
     "following-text": "Following",
     "write": "Writing"

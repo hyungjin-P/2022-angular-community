@@ -16,27 +16,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   /**
-   * firebase 로그인
-   * 수정중임
-   * */
-  signInWithFirebase(requestBody: SignInWithFirebaseRequestBody): Observable<User> {
-    const url = environment['serverAddress'] + '/auth/firebase'
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        console.log('firebase login : ', res);
-        return res.dataset[0]
-      }),
-      catchError(handleError)
-    )
-  }
-
+   * 구글 로그인
+   * @param accessToken
+   */
   modifySignWithFirebase(accessToken: string): Observable<any> {
     const url = environment.userApiAddress + '/auth/firebaseSignIn';
 
@@ -59,7 +41,8 @@ export class AuthService {
   }
 
   /**
-   * 카카오 로그인 수정 후
+   * 카카오 로그인
+   * @param accessToken
    * */
   modifiedKakaoLogin(accessToken: string) {
     const url = environment.userApiAddress + '/auth/kakao';
@@ -78,6 +61,10 @@ export class AuthService {
       );
   }
 
+  /**
+   * 네이버 로그인
+   * @param code
+   */
   modifySignWithNaver(code: string): Observable<User> {
     console.log('sign with naver code', code);
     const url = environment.userApiAddress + `/auth/signInNaver`;
@@ -100,9 +87,9 @@ export class AuthService {
 
   /**
    * email login
-   * 수정완료
+   * @param requestBody
    * */
-  signInWithEmail(requestBody: SignInWithEmailRequestBody): Observable<User> {
+  signInWithEmail(requestBody: signInEmailDto): Observable<User> {
     const url = environment.userApiAddress + '/auth/signIn';
 
     const options = {
@@ -352,19 +339,7 @@ export class AuthService {
   }
 }
 
-class SignInWithFirebaseRequestBody {
-  accessToken: string
-}
-
-class SignInWithKakaoRequestBody {
-  accessToken: string
-}
-
-class SignInWithNaverRequestBody {
-  code: string
-}
-
-class SignInWithEmailRequestBody {
+class signInEmailDto {
   providedId: string
   password: string
 }

@@ -1,5 +1,12 @@
 @import '/src/assets/styles/font';
 
+.visibility-visible {
+  visibility: visible;
+}
+.visibility-hidden {
+  visibility: hidden;
+}
+
 .header {
   display: flex;
   padding: 0 24px;
@@ -50,7 +57,7 @@
 
     .routing-menu {
       display: flex;
-      width: 200px;
+      width: 150px;
       margin-left: 10px;
 
       .menu-link {
@@ -247,13 +254,12 @@
         top: -1px;
         transform: rotateX(0deg);
         transition: transform 0.2s linear;
-
         font-size: 20px;
         color: var(--white);
       }
 
       .user-box {
-        display: none;
+        display: block;
         position: absolute;
         top: 45px;
         left: -55px;
@@ -263,9 +269,8 @@
         border-radius: 12px;
         background: var(--white);
         box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
-        z-index: 1;
+        z-index: 10;
         cursor: default;
-
         .user-box-label {
           @include textStyle(500, 12px, 20px);
           color: var(--grey-1);
@@ -355,6 +360,17 @@
             }
           }
         }
+      }
+    }
+
+    .user-mobile {
+      width: auto;
+      padding-right: 0;
+
+      .user-box {
+        top: 35px;
+        left: -185px;
+
       }
     }
 

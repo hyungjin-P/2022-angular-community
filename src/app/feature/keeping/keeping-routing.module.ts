@@ -19,9 +19,10 @@ import { PrivacyComponent } from './children/privacy/privacy.component';
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component';
 import { NotificationComponent } from './children/notification/notification.component';
 
-import { MypageComponent } from './mypage/mypage.component';
-import { SearchComponent } from './search/search.component';
-import { TestPageComponent } from './children/test-page/test-page.component';
+import {MypageComponent} from './mypage/mypage.component'
+import {SearchComponent} from './search/search.component'
+import {TestPageComponent} from "./children/test-page/test-page.component";
+import {MypageFeedComponent} from "./mypage/mypage-feed/mypage-feed.component";
 import { FeedFollowComponent } from './children/feed-follow/feed-follow.component';
 
 const routes: Routes = [
@@ -46,8 +47,15 @@ const routes: Routes = [
       { path: 'notification', component: NotificationComponent },
     ],
   },
-
-  { path: 'mypage', canActivate: [AuthGuard, ServiceTermsGuard], component: MypageComponent },
+  {
+    path: 'mypage',
+    canActivate: [AuthGuard, ServiceTermsGuard],
+    component: MypageComponent,
+    children: [
+      { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full'},
+      { path: 'feed', component: MypageFeedComponent }
+    ]
+  },
 
   { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
 

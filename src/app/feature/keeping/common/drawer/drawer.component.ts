@@ -13,9 +13,7 @@ export class DrawerComponent implements OnInit {
   variables: any
 
   constructor(private globalService: GlobalService) {
-    console.log('this.variables : ', this.variables);
     this.variables = this.globalService.variables
-    console.log('this.variables : ', this.variables);
   }
 
   ngOnInit() {
