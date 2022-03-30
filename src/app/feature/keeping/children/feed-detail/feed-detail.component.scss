@@ -27,7 +27,7 @@
   display: none; /* Chrome, Safari, Opera*/
 }
 
-.backToAll{
+.backToAll {
   position: absolute;
   z-index: 1;
   width: 100%;
@@ -37,7 +37,7 @@
 
   box-shadow: 0px 3px 5px rgba(235, 235, 235, 0.5);
 
-  a{
+  a {
     display: flex;
     align-items: center;
 
@@ -68,7 +68,6 @@
     //padding: 20px 16px;
 
     .selected-item {
-      margin-top: 50px;
       .row-1 {
         position: relative;
         display: flex;
@@ -98,7 +97,7 @@
           right: 0;
 
           .follow-default,
-          .follow-active{
+          .follow-active {
             padding: 4px 8px;
             width: 66px;
             height: 29px;
@@ -112,20 +111,19 @@
             .text {
               @include textStyle(500, 13px, 21px);
               letter-spacing: -0.2px;
-
             }
           }
 
-          .follow-active{
+          .follow-active {
             background-color: var(--text-1);
             color: var(--white);
-            .follow-check-icon{
+            .follow-check-icon {
               display: inline-flex;
               align-items: center;
             }
           }
 
-          .follow-default{
+          .follow-default {
             color: var(--black);
             .follow-plus-icon {
               display: inline-flex;
@@ -198,8 +196,8 @@
                 }
               }
 
-              .menu-delete{
-                .text{
+              .menu-delete {
+                .text {
                   color: var(--red);
                 }
 
@@ -230,7 +228,7 @@
           }
         }
 
-        .carousel-index{
+        .carousel-index {
           position: absolute;
           right: 20px;
           bottom: 20px;
@@ -246,9 +244,9 @@
           padding-top: 2px;
         }
 
-        .carousel-inner{
+        .carousel-inner {
           margin-top: 12px;
-          .carousel-item{
+          .carousel-item {
             img {
               border: 1px solid var(--grey-8);
               border-radius: 12px;
@@ -290,31 +288,30 @@
           opacity: 0.9;
         }
 
-        .user-behavior{
+        .user-behavior {
           position: absolute;
           top: 20px;
           right: 20px;
           z-index: 1;
 
           .like,
-          .bookmark
-          {
+          .bookmark {
             width: 32px;
             height: 32px;
             border-radius: 10px;
             background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.6);
 
-            div{
+            div {
               display: flex;
               width: 100%;
               height: 100%;
-              svg{
+              svg {
                 margin: auto;
               }
             }
           }
-          .bookmark{
+          .bookmark {
             margin-left: 12px;
           }
         }
@@ -349,18 +346,17 @@
           display: flex;
           flex: 6;
           justify-content: right;
-          .comment{
+          .comment {
             display: flex;
             align-items: center;
             height: 100%;
 
-            .text{
+            .text {
               @include textStyle(400, 13px, 21px);
               letter-spacing: -0.2px;
               color: var(--grey-4);
             }
           }
-
         }
       }
 
@@ -370,8 +366,7 @@
         margin-top: 10px;
         justify-content: space-between;
 
-
-        .row-4-col-1{
+        .row-4-col-1 {
           margin-right: 52px;
 
           @include textStyle(400, 14px, 22px);
@@ -379,7 +374,7 @@
           color: var(--text-1);
         }
 
-        .row-4-col-2{
+        .row-4-col-2 {
           position: absolute;
           right: 32px;
 
@@ -724,11 +719,11 @@
 
               .comment-view-item-text {
                 display: flex;
-                font-size:14px;
+                font-size: 14px;
                 margin: 2px 0 4px 0;
                 letter-spacing: -0.2px;
 
-                .mentionUser{
+                .mentionUser {
                   margin-right: 4px;
                   color: var(--blue-2);
                 }
@@ -834,7 +829,7 @@
       }
     }
 
-    .feed-comment-mention-info{
+    .feed-comment-mention-info {
       display: flex;
       padding: 20px 10px;
       background-color: var(--grey-8);
@@ -1001,7 +996,7 @@
           top: 0;
           right: 0;
           .follow-default,
-          .follow-active{
+          .follow-active {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1023,9 +1018,9 @@
             }
           }
 
-          .follow-active{
+          .follow-active {
             background-color: var(--text-1);
-            .follow-check-icon{
+            .follow-check-icon {
               display: inline-flex;
               align-items: center;
             }
@@ -1174,6 +1169,9 @@
     border-radius: 12px;
     background-color: var(--white);
     box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
+    .selected-item {
+      margin-top: 50px;
+    }
     //overflow-y: scroll !important;
   }
 
@@ -1183,12 +1181,12 @@
     }
   }
   .liked-view-wrapper {
-    .liked-view{
-      .liked-view-section{
-        .liked-view-user{
-          .liked-view-user-follow-button{
+    .liked-view {
+      .liked-view-section {
+        .liked-view-user {
+          .liked-view-user-follow-button {
             .follow-default,
-            .follow-active{
+            .follow-active {
               padding: 6px 16px;
             }
           }
