@@ -4,29 +4,29 @@
   padding: 20px 16px;
   overflow-y: auto;
 
-    .nav {
-        position: sticky;
-        top: 0;
-        display: flex;
-        align-items: center;
-        margin: 0 -16px;
-        height: 54px;
-        background-color: var(--white);
-        z-index: 1;
+  .nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    margin: 0 -16px;
+    height: 54px;
+    background-color: var(--white);
+    z-index: 1;
 
-        .menu {
-            padding: 0 12px;
-            height: 100%;
-            cursor: pointer;
+    .menu {
+      padding: 0 12px;
+      height: 100%;
+      cursor: pointer;
 
-            .text {
-                position: relative;
-                top: 8px;
+      .text {
+        position: relative;
+        top: 8px;
 
-                @include textStyle(700, 16px, 22px);
-                color: var(--grey-4);
-            }
-        }
+        @include textStyle(700, 16px, 22px);
+        color: var(--grey-4);
+      }
+    }
 
     .selected {
       .text {
@@ -102,7 +102,7 @@
     margin: -15px -3px;
 
     .banner {
-      margin: 12px 3px 0 3px;
+      margin: 12px 3px 15px 3px;
       display: flex;
       height: 90px;
       background-color: #000;
@@ -143,6 +143,7 @@
 
     .item {
       padding: 15px 3px;
+      margin-bottom: 10px;
 
       > div {
         .image-box {
@@ -167,7 +168,13 @@
               position: absolute;
               width: 100%;
               height: 100%;
-              background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
+              background-image: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 0.2),
+                rgba(0, 0, 0, 0.9)
+              );
               z-index: 2;
               transition-duration: 0.5s;
               border-radius: 12px;
@@ -187,6 +194,24 @@
               cursor: pointer;
               transition-duration: 0.5s;
               border: 1px solid #efefef;
+            }
+
+            .pictureCount-background {
+              position: absolute;
+              top: 8px;
+              right: 8px;
+              width: 26px;
+              height: 20px;
+              background: rgba(66, 76, 89, 0.65);
+              border-radius: 20px;
+              .text {
+                display: inherit;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: center;
+                color: #ffffff;
+              }
             }
 
             .image-box-hover-content-inner {
@@ -213,7 +238,13 @@
               position: absolute;
               width: 100%;
               height: 100%;
-              background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9));
+              background-image: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 0.3),
+                rgba(0, 0, 0, 0.9)
+              );
               z-index: 2;
               transition-duration: 0.5s;
               border-radius: 12px;
@@ -296,48 +327,48 @@
               font-size: 12px;
               line-height: 20px;
               text-align: center;
-              color: #FFFFFF;
+              color: #ffffff;
             }
           }
-
-
         }
-        .card_detail{
-          width:100%;
-        .feed-infos {
-         display: flex;
-          margin: 10px 0 0 4px;
-
-          .user-name {
-            margin-left: 5px;
-            padding-top: 1px;
-            @include textStylePoppins(700, 14px);
-            color: var(--black);
-            max-width: calc(100% - 70px);
-            overflow:hidden;
-            text-overflow: ellipsis;
-            white-space:nowrap;
-          }
-        }
-          .like {
-
-            margin-left: auto;
-            margin-bottom: auto;
-            //padding-left: 15px;
-            height: 100%;
-            padding-top:6px;
+        .card_detail {
+          width: 100%;
+          .feed-infos {
             display: flex;
-            text-align: right;
-            font-weight: 300;
-            font-size: 13px;
+            margin: 10px 0 0 4px;
 
-            color: var(--grey-4);
-
-            *:not(:last-child) {
-              padding-right: 0;
-            }
-            .like-count {
+            .user-name {
+              margin-left: 5px;
               padding-top: 1px;
+              @include textStylePoppins(700, 14px);
+              color: var(--black);
+              max-width: calc(100% - 70px);
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+          .additional {
+            display: flex;
+            align-items: center;
+            margin-top: 6px;
+            height: 20px;
+
+            .like {
+              cursor: pointer;
+            }
+
+            .like,
+            .comment {
+              display: flex;
+              align-items: center;
+
+              @include textStyle(400, 12px, 20px);
+              color: var(--grey-4);
+            }
+
+            .comment {
+              margin-left: 8px;
             }
           }
         }
@@ -353,28 +384,27 @@
 
             @include textStylePoppins(700, 14px);
             color: var(--text-1);
-
           }
         }
 
         .title {
-          margin: 2px 0 0 4px;
+          margin: 4px 0 0 4px;
           letter-spacing: -0.2px;
           width: calc(100% - 3px);
           font-family: none;
-          overflow:hidden;
+          overflow: hidden;
           text-overflow: ellipsis;
-          white-space:nowrap;
+          white-space: nowrap;
 
           @include textStyle(400, 13px, 21px);
         }
 
-                .tags {
-                    height: 20px;
-                    width: 100%;
+        .tags {
+          height: 20px;
+          width: 100%;
 
-                    @include textStyle(400, 12px, 20px);
-                }
+          @include textStyle(400, 12px, 20px);
+        }
       }
     }
   }
@@ -530,7 +560,6 @@
       }
     }
   }
-
 }
 
 @media (min-width: 1920px) {

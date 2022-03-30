@@ -248,9 +248,9 @@
               <div class="d-flex flex-column">
                 <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
                   <img class="picture" [src]="feed.picture" draggable="false" />
-                  <div class="count-background" *ngIf="feed.pictureCount > 1">
+                  <div class="pictureCount-background" *ngIf="feed.pictureCount > 1">
                     <!--                <img src="assets/icons/feed/count.svg"/>-->
-                    <div class="count">{{ '+' + feed.pictureCount }}</div>
+                    <span class="text">{{ '+' + feed.pictureCount }}</span>
                   </div>
                 </div>
                 <div class="user">
@@ -284,7 +284,7 @@
                               fill="#B2BBC8"/>
                       </svg>
                     </div>
-                    <div class="text">{{ feed.likeCount }}</div>
+                    <div class="text">{{ feed.likeCount > 999 ? '999+' : (feed.likeCount | number) }}</div>
                   </div>
                   <div class="comment">
                     <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -292,7 +292,7 @@
                       <path d="M10.8496 12.3931H18.5496" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M10.8496 15.4667H13.9296" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <div class="text">{{ feed.commentCount }}</div>
+                    <div class="text">{{ feed.commentCount > 999 ? '999+' : (feed.commentCount | number) }}</div>
                   </div>
                 </div>
               </div>
