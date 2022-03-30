@@ -3,25 +3,20 @@
 
   <div class="flex-fill" style="position: relative">
     <div class="section full-absolute">
-      <!-- <div class="nav">
-          <div class="menu" [class.selected]="selectedMenu == 'popularity'" (click)="changeMenu('popularity')">
-              <div class="text">인기</div>
-          </div>
-          <div class="menu" [class.selected]="selectedMenu == 'following'" (click)="changeMenu('following')">
-              <div class="text">팔로잉</div>
-          </div>
-      </div> -->
-      <!-- <div class="tag-list">
-           <div class="tag">
-               <div>전체</div>
-           </div>
-           <div class="tag selected">
-               <div># 액션피규어</div>
-           </div>
-           <div class="tag">
-               <div># 프라모델</div>
-           </div>
-       </div> -->
+      <!-- 카테고리 탭 -->
+      <ng-container *ngIf="tabMenu.length > 0">
+        <div class="nav d-none d-lg-flex">
+          <ng-container *ngFor="let tab of tabMenu">
+            <div class="menu" [ngClass]="tab?.tabName === nowTab ? 'selected' : ''">
+              <a class="text" href="javascript: void(0);" (click)="moveTab(tab?.link)">
+                {{ tab?.languageCode | translate }}
+              </a>
+              <div class="selected-line"></div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+
       <div class="item-list d-flex flex-wrap">
         <div class="banner">
           <div class="text-content">
@@ -354,5 +349,8 @@
         </div>
       </div>
     </div>
+    <a class='writeBtn'>
+
+    </a>
   </div>
 </div>

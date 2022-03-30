@@ -23,6 +23,24 @@ export class FeedComponent implements OnInit {
   page: number = 1;
   limit: number = 20;
 
+  tabMenu: any[] = [
+    {
+      tabName: 'all',
+      languageCode: 'common.nav.feed-tab.all',
+      link: '/feed',
+      description: '피드 전체',
+      sort: 0,
+    },
+    {
+      tabName: 'follow',
+      languageCode: 'common.nav.feed-tab.following',
+      link: '/feed/follow',
+      description: '피드 팔로우',
+      sort: 1,
+    },
+  ];
+  nowTab: '';
+
   constructor(
     private router: Router,
     private globalService: GlobalService,
@@ -35,6 +53,7 @@ export class FeedComponent implements OnInit {
   ngOnInit() {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
+    this.nowTab = this.tabMenu[0].tabName;
 
     if (this.user) {
       this.getFeedList();
@@ -158,5 +177,9 @@ export class FeedComponent implements OnInit {
         }
       );
     }
+  }
+
+  moveTab(link: string) {
+    this.router.navigateByUrl(link);
   }
 }

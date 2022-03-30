@@ -52,6 +52,24 @@ export class FeedFollowComponent implements OnInit {
   commentPage: number = 1;
   commentLimit: number = 15;
 
+  tabMenu: any[] = [
+    {
+      tabName: 'all',
+      languageCode: 'common.nav.feed-tab.all',
+      link: '/feed',
+      description: '피드 전체',
+      sort: 0,
+    },
+    {
+      tabName: 'follow',
+      languageCode: 'common.nav.feed-tab.following',
+      link: '/feed/follow',
+      description: '피드 팔로우',
+      sort: 1,
+    },
+  ];
+  nowTab: '';
+
   constructor(
     private router: Router,
     private globalService: GlobalService,
@@ -66,6 +84,8 @@ export class FeedFollowComponent implements OnInit {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
     this.selectedLanguage = localStorage.getItem('language');
+    this.nowTab = this.tabMenu[1].tabName;
+
     this.commentViewVisible = false;
     this.feedCommentInputObj = '';
     this.feedCommentInputStatus = '';
@@ -445,5 +465,9 @@ export class FeedFollowComponent implements OnInit {
   prevCarouselIndex(feed: Feed) {
     feed.carouselIndex -= 1;
     if (feed.carouselIndex < 1) feed.carouselIndex = feed.pictures.length;
+  }
+
+  moveTab(link: string) {
+    this.router.navigateByUrl(link);
   }
 }

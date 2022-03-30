@@ -5,19 +5,17 @@
   overflow-y: auto;
 
   .nav {
-    position: sticky;
-    top: 0;
     display: flex;
-    align-items: center;
-    margin: 0 -16px;
-    height: 54px;
-    background-color: var(--white);
-    z-index: 1;
+    height: 50px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #f0f2f5;
+    justify-content: center;
 
     .menu {
-      padding: 0 12px;
+      padding: 8px 12px;
       height: 100%;
       cursor: pointer;
+
 
       .text {
         position: relative;
@@ -28,13 +26,23 @@
       }
     }
 
+    .selected-line {
+      display: none;
+      position: relative;
+      top: 12px;
+      border-radius: 1.5px;
+      height:3px;
+      background-color: var(--black);
+    }
+
     .selected {
       .text {
-        color: var(--text-2);
-        text-decoration: underline;
-        text-underline-offset: 22px;
-        text-decoration-thickness: 4px;
-        text-decoration-color: var(--text-2);
+        color: var(--black);
+        @include textStyle(600, 14px, 22px);
+      }
+
+      .selected-line {
+        display: block;
       }
     }
   }
@@ -517,13 +525,6 @@
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
       background-color: #c9c9c9;
-    }
-
-    .nav {
-      top: 1px;
-      width: 92%;
-      margin: 0 auto;
-      border-bottom: 1px solid var(--grey-8);
     }
 
     .tag-list {
