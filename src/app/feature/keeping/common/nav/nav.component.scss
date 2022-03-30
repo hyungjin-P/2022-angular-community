@@ -178,20 +178,21 @@
 
     .footer {
         position: absolute;
-        bottom: 30px;
+        bottom: 90px;
         padding: 0 20px;
         width: 192px;
-
+      .logo{
+        margin-bottom:4px;
         .logo img {
             width: 61px;
         }
-
+      }
         .privacy,
         .service-terms {
-            margin-top: 12px;
+            margin-top: 4px;
             cursor: pointer;
 
-            @include textStyle(700, 15px, 20px);
+            @include textStyle(500, 12px, 20px);
             color: var(--grey-1);
             text-decoration: none;
 
@@ -210,7 +211,7 @@
         }
 
         .copyright {
-            margin-top: 20px;
+            /*margin-top: 6px;*/
 
             @include textStyle(400, 12px, 20px);
             color: var(--grey-3);
