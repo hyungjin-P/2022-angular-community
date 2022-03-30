@@ -26,9 +26,13 @@
       .text {
         position: relative;
         top: 8px;
-
-        @include textStyle(700, 16px, 22px);
+        @include textStyle(500, 18px, 26px);
         color: var(--grey-4);
+
+        &:hover {
+          color: var(--grey-1);
+          transition: all 0.15s;
+        }
       }
     }
 
@@ -44,7 +48,7 @@
     .selected {
       .text {
         color: var(--black);
-        @include textStyle(600, 14px, 22px);
+        @include textStyle(600, 18px, 26px);
       }
 
       .selected-line {
@@ -911,7 +915,7 @@
     align-items: center;
 
     background-color: #f6f7f9;
-    padding: 50px 16px;
+    padding: 80px 16px;
 
     /* width */
     &::-webkit-scrollbar {

@@ -40,6 +40,7 @@
       &:hover {
         .svg-icon {
           opacity: 0.8;
+          transition: all 0.15s;
         }
       }
 
@@ -247,8 +248,8 @@
 
       .email {
         width: 82px;
-
-        @include textStyle(700, 13px, 21px);
+        transition: all 0.15s;
+        @include textStyle(500, 13px, 21px);
         color: var(--white);
         overflow: hidden;
         text-overflow: ellipsis;
@@ -426,8 +427,9 @@
       border: 1px solid var(--white);
       border-radius: 30px;
       cursor: pointer;
-
+      opacity: 0.9;
       text-decoration: none;
+      transition: all .15s;
 
       img {
         width: 18px;
@@ -443,7 +445,7 @@
       }
 
       &:hover {
-        opacity: 0.8;
+        opacity: 1;
       }
     }
 

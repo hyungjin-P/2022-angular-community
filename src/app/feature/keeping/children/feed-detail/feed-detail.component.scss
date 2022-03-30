@@ -52,7 +52,7 @@
 }
 
 .section {
-  padding: 30px 20px 0 20px;
+  padding: 30px 30px 0 30px;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE, Edge */
 
@@ -152,9 +152,10 @@
           .more-box {
             position: absolute;
             top: 30px;
-            right: -10px;
-            padding: 8px 12px;
-            width: 140px;
+            /*right: -10px;*/
+            right:0;
+            padding: 8px 8px;
+            width: 130px;
             border: 1px solid var(--grey-8);
             border-radius: 12px;
             background: var(--white);
@@ -174,6 +175,7 @@
                 border-radius: 8px;
                 align-items: center;
                 cursor: pointer;
+
 
                 .mdi {
                   font-size: 16px;
