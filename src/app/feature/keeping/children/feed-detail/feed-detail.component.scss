@@ -298,6 +298,7 @@
 
           .like,
           .bookmark {
+            cursor: pointer;
             width: 32px;
             height: 32px;
             border-radius: 10px;
@@ -426,6 +427,7 @@
         margin-bottom: 60px;
 
         > div {
+
           .image-box {
             position: relative;
             background-color: var(--grey-8);
@@ -548,6 +550,7 @@
               margin-left: 8px;
             }
           }
+
         }
       }
     }
@@ -836,6 +839,9 @@
       padding: 20px 10px;
       background-color: var(--grey-8);
       justify-content: space-between;
+      .text{
+        color: var(--grey-2);
+      }
     }
 
     .feed-comment-view-input {
@@ -858,7 +864,7 @@
           height: 40px;
           width: 90%;
           border: 0;
-          border-radius: 30px;
+          border-radius: 12px;
           padding: 9px 16px;
           outline: none;
           resize: none;
