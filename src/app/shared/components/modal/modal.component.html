@@ -1,36 +1,36 @@
 <div class="shared-modal-background" #modalBackgroundElement></div>
 <div
-    class="shared-modal-wrapper justify-content-center align-items-center"
-    tabindex="-1"
-    (keyup.enter)="onCancel()"
-    (click)="onCancel()"
-    #modalWrapperElement
+  class="shared-modal-wrapper justify-content-center align-items-center"
+  tabindex="-1"
+  (keyup.escape)="onCancel()"
+  (click)="onCancel()"
+  #modalWrapperElement
 >
-    <div class="shared-modal user-select-none" (click)="$event.stopPropagation()">
-        <div class="d-flex justify-content-center">
-            <img src="assets/icons/etc/emoji_smail.png" />
-        </div>
-
-        <div class="text">{{ data?.text }}</div>
-
-        <div class="sub-text">{{ data?.subText }}</div>
-
-        <ng-container *ngIf="type == 'confirm'">
-            <div class="button-group">
-                <div class="shared-button-secondary" style="margin-right: 12px" (click)="onCancel()">
-                    <div>{{ data?.cancelBtnText ? data.cancelBtnText : '취소' }}</div>
-                </div>
-                <div class="shared-button-primary" (click)="onConfirm()">
-                    <div>{{ data?.confirmBtnText ? data.confirmBtnText : '확인' }}</div>
-                </div>
-            </div>
-        </ng-container>
-        <ng-container *ngIf="type == 'alert'">
-            <div class="button-group">
-                <div class="shared-button-primary" (click)="onConfirm()">
-                    <div>{{ data?.confirmBtnText ? data.confirmBtnText : '확인' }}</div>
-                </div>
-            </div>
-        </ng-container>
+  <div class="shared-modal user-select-none" (click)="$event.stopPropagation()">
+    <div class="d-flex justify-content-center">
+      <img src="assets/icons/etc/emoji_smail.png" />
     </div>
+
+    <div class="text">{{ data?.text }}</div>
+
+    <div class="sub-text">{{ data?.subText }}</div>
+
+    <ng-container *ngIf="type == 'confirm'">
+      <div class="button-group">
+        <div class="shared-button-secondary" style="margin-right: 12px" (click)="onCancel()">
+          <div>{{ data?.cancelBtnText ? data.cancelBtnText : '취소' }}</div>
+        </div>
+        <div class="shared-button-primary" (click)="onConfirm()">
+          <div>{{ data?.confirmBtnText ? data.confirmBtnText : '확인' }}</div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="type == 'alert'">
+      <div class="button-group">
+        <div class="shared-button-primary" (click)="onConfirm()">
+          <div>{{ data?.confirmBtnText ? data.confirmBtnText : '확인' }}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>

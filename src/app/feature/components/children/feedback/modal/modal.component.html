@@ -17,4 +17,13 @@
         (cancel)="confirmModalCancel()"
         (confirm)="confirmModalOk()"
     ></shared-modal>
+
+  <div class='shared-button-primary' (click)='showLoginModal()'>Login</div>
+  <shared-login-modal
+    [(visible)]='isLoginModalVisible'
+    type='login'
+    (cancel)='loginModalCancel()'
+    (confirm)='loginModalConfirm()'
+    (another)='loginModalAnother()'
+  ></shared-login-modal>
 </div>

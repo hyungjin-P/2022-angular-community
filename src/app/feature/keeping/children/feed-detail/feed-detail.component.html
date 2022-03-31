@@ -124,6 +124,7 @@
                 <div class="carousel-index" [(ngModel)]="carouselIndex" ngDefaultControl>
                   {{ carouselIndex }} / {{ selectedFeed.pictures.length }}
                 </div>
+              </ng-container>
 
                 <div class="carousel-inner">
                   <ng-container *ngFor="let picture of selectedFeed?.pictures; let i = index">
@@ -139,7 +140,7 @@
                     </ng-container>
                   </ng-container>
                 </div>
-
+                <ng-container *ngIf="selectedFeed?.pictures.length > 1">
                 <button
                   class="carousel-control-prev"
                   type="button"
@@ -205,7 +206,7 @@
             </div>
           </div>
           <div class="row-3">
-            <div class="row-3-col-1" (click)="showLikedView()">
+            <a class="row-3-col-1" (click)="showLikedView()">
               <ng-container *ngFor="let like_user of selectedFeed?.likeUsers; let i = index">
                 <div class="avatar" *ngIf="i < 3">
                   <shared-avatar
@@ -257,14 +258,14 @@
                 like it.
               </div>
               <div class="text" *ngIf="selectedLanguage == 'ko' && selectedFeed?.likeCount > 3">
-                외<span (click)="showLikedView()"> {{ selectedFeed.likeCount - 3 }}명</span>이 좋아합니다.
+                외<span> {{ selectedFeed.likeCount - 3 }}명</span>이 좋아합니다.
               </div>
               <div class="text" *ngIf="selectedLanguage != 'ko' && selectedFeed?.likeCount > 3">
-                and<span (click)="showLikedView()"> {{ selectedFeed.likeCount - 3 }}</span> others like it.
+                and<span> {{ selectedFeed.likeCount - 3 }}</span> others like it.
               </div>
-            </div>
+            </a>
             <div class="row-3-col-2">
-              <div class="comment" (click)="showCommentView()">
+              <a class="comment" (click)="showCommentView()">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M14.7 22.401C18.9526 22.401 22.4 18.9536 22.4 14.701C22.4 10.4484 18.9526 7.00101 14.7 7.00101C10.4474 7.00101 7 10.4484 7 14.701C7 16.7515 7.80152 18.6148 9.10835 19.9948L7.55964 21.7623C7.34158 22.0112 7.51832 22.401 7.84922 22.401H14.7Z"
@@ -274,7 +275,7 @@
                   <path d="M10.8496 15.4667H13.9296" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <div class="text">{{ selectedFeed?.commentCount }}</div>
-              </div>
+              </a>
             </div>
           </div>
           <div class="row-4" *ngIf="!contentViewVisible">
@@ -296,13 +297,13 @@
           <ng-container *ngFor="let feed of feedList">
             <div class="item col-6 col-lg-6" *ngIf="feed.id != selectedFeed?.id">
               <div class="d-flex flex-column">
-                <div class="image-box flex-fill" (click)="goFeedDetail(feed)">
+                <a class="image-box flex-fill" (click)="goFeedDetail(feed)">
                   <img class="picture" [src]="feed.picture" draggable="false" alt="" />
                   <div class="pictureCount-background" *ngIf="feed.pictureCount > 1">
                     <!--                <img src="assets/icons/feed/count.svg"/>-->
                     <span class="text">{{ '+' + feed.pictureCount }}</span>
                   </div>
-                </div>
+                </a>
                 <div class="user">
                   <shared-avatar
                     [image]="feed.writerPictureUrl"
@@ -451,6 +452,7 @@
           [(ngModel)]="feedCommentInputObj"
           [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"
           (keyup)="onCreateCommentKey($event)"
+          (click)='onClickCommentInput()'
           maxlength="255"
           #feedCommentInput
         ></textarea>
@@ -543,7 +545,10 @@
                 </svg>
               </div>
               <!--              <div class="text">{{ feedComment?.like_count }}</div>-->
-              <div class="text" *ngIf="feedComment?.likeCount !== 0">{{ feedComment?.likeCount }}</div>
+              <div class="text"
+                   *ngIf="feedComment?.likeCount !== 0"
+                   [ngStyle]="{ color: variables.isLogin && feedComment?.isLike ? 'var(--red)' : 'var(--grey-2)' }"
+              >{{ feedComment?.likeCount }}</div>
               <ng-container *ngIf="feedComment?.isLike">
                 <div class="comment-view-item-menu sub-comment-like" (click)="feedCommentLike(feedComment)">
                   {{ 'keeping.feed-detail.comment-view-unlike' | translate }}
@@ -631,7 +636,7 @@
             fontSize="18"
           ></shared-avatar>
           <div class="liked-view-user-nickname">{{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}</div>
-          <div class="liked-view-user-follow-button">
+          <div class="liked-view-user-follow-button" *ngIf='user && user.id !== likeUser.user.id'>
             <div class="follow-active" *ngIf="likeUser.user.isFollow" (click)="removeFollow(user?.id, likeUser.user)">
               <div class="follow-check-icon">
                 <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -644,7 +649,7 @@
               <div class="follow-plus-icon">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 6.00101H10H2Z" fill="white" />
-                  <path d="M6 2.00101V10.001M2 6.00101H10" stroke="white" />
+                  <path d="M6 2.00101V10.001M2 6.00101H10" stroke="white"/>
                 </svg>
               </div>
               <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
@@ -655,3 +660,11 @@
     </div>
   </div>
 </div>
+
+<shared-login-modal
+  [(visible)]='isLoginModalVisible'
+  type='login'
+  (cancel)='loginModalCancel()'
+  (confirm)='loginModalConfirm()'
+  (another)='loginModalAnother()'
+></shared-login-modal>

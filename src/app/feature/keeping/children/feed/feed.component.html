@@ -294,11 +294,10 @@
                   <span class="text">{{ '+' + feed.pictureCount }}</span>
                 </div>
                 <!-- 그라데이션 커버 -->
-                <div class="image-box-hover-content-cover d-sm-none d-md-none"></div>
-                <div class="image-box-hover-content-inner d-sm-none d-md-none">
-                  <span>{{ feed.content }}</span
-                  >&ndash;&gt;
-                </div>
+<!--                <div class="image-box-hover-content-cover d-sm-none d-md-none"></div>-->
+<!--                <div class="image-box-hover-content-inner d-sm-none d-md-none">-->
+<!--                  <span>{{ feed.content }}</span>-->
+<!--                </div>-->
               </div>
             </div>
             <div class="card_detail">
@@ -354,3 +353,11 @@
     <img src="assets/icons/bottom-nav/pencil.svg" />
   </a>
 </div>
+
+<shared-login-modal
+  [(visible)]='isLoginModalVisible'
+  type='login'
+  (cancel)='loginModalCancel()'
+  (confirm)='loginModalConfirm()'
+  (another)='loginModalAnother()'
+></shared-login-modal>

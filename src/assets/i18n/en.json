@@ -129,6 +129,13 @@
       "privacy": "Privacy",
       "service-terms": "Service Terms",
       "shop": "Shop"
+    },
+    "login-modal": {
+      "text": "Let's get started on the\nKEEPING community!",
+      "subText": "It is a community that shares hobbies and communicates with my figure collection.",
+      "confirmBtnText": "Go to log in",
+      "anotherText": "Aren't you member yet?",
+      "anotherBtnText": "sign up"
     }
   },
   "keeping": {

@@ -357,10 +357,14 @@ body {
   background-color: #fff;
   overflow-y: hidden;
 
+  a {
+    cursor: pointer;
+  }
+
   a:hover {
     text-decoration: none;
   }
-/*  .title{
+  /*  .title{
     font-family: "Malgun Gothic","맑은 고딕", sans-serif !important;
   }*/
 }

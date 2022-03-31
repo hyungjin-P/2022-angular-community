@@ -1,53 +1,68 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'modal',
-    templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss'],
+  selector: 'modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-    isAlertModalVisible = false
-    alertModalData = {
-        text: '메인 타이틀을 입력해 주세요',
-        subText: `서브 텍스트를 입력해 주세요.
+  isAlertModalVisible = false;
+  alertModalData = {
+    text: '메인 타이틀을 입력해 주세요',
+    subText: `서브 텍스트를 입력해 주세요.
         서브 텍스트를 입력해 주세요.`,
-        confirmBtnText: '확인', // 선택
-    }
+    confirmBtnText: '확인', // 선택
+  };
 
-    isConfirmModalVisible = false
-    confirmModalData = {
-        text: '메인 타이틀을 입력해 주세요',
-        subText: `서브 텍스트를 입력해 주세요.
+  isConfirmModalVisible = false;
+  confirmModalData = {
+    text: '메인 타이틀을 입력해 주세요',
+    subText: `서브 텍스트를 입력해 주세요.
         서브 텍스트를 입력해 주세요.`,
-        cancelBtnText: '취소', // 선택
-        confirmBtnText: '확인', // 선택
-    }
+    cancelBtnText: '취소', // 선택
+    confirmBtnText: '확인', // 선택
+  };
 
-    constructor() {}
+  isLoginModalVisible = false;
 
-    ngOnInit() {}
+  constructor() {}
 
-    showAlertModal() {
-        this.isAlertModalVisible = true
-    }
+  ngOnInit() {}
 
-    alertModalOk(): void {
-        this.isAlertModalVisible = false
-    }
+  showAlertModal() {
+    this.isAlertModalVisible = true;
+  }
 
-    alertModalCancel(): void {
-        this.isAlertModalVisible = false
-    }
+  alertModalOk(): void {
+    this.isAlertModalVisible = false;
+  }
 
-    showConfirmModal() {
-        this.isConfirmModalVisible = true
-    }
+  alertModalCancel(): void {
+    this.isAlertModalVisible = false;
+  }
 
-    confirmModalOk(): void {
-        this.isConfirmModalVisible = false
-    }
+  showConfirmModal() {
+    this.isConfirmModalVisible = true;
+  }
 
-    confirmModalCancel(): void {
-        this.isConfirmModalVisible = false
-    }
+  confirmModalOk(): void {
+    this.isConfirmModalVisible = false;
+  }
+
+  confirmModalCancel(): void {
+    this.isConfirmModalVisible = false;
+  }
+
+  showLoginModal() {
+    this.isLoginModalVisible = true;
+  }
+  loginModalConfirm() {
+    this.isLoginModalVisible = false;
+  }
+  loginModalCancel() {
+    this.isLoginModalVisible = false;
+  }
+  loginModalAnother() {
+    this.isLoginModalVisible = false;
+  }
 }

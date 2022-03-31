@@ -129,6 +129,13 @@
       "privacy": "개인정보 처리방침",
       "service-terms": "이용약관",
       "shop": "키핑Shop"
+    },
+    "login-modal": {
+      "text": "로그인하고\n키핑 커뮤니티 시작하기!",
+      "subText": "나의 피규어 소장품으로 취미를 공유하고 소통하는 커뮤니티입니다. 당신의 피규어를 공유해보세요!",
+      "confirmBtnText": "로그인 하러가기",
+      "anotherText": "아직 회원이 아닌가요?",
+      "anotherBtnText": "회원가입"
     }
   },
   "keeping": {

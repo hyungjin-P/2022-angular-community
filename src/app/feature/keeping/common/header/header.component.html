@@ -303,3 +303,13 @@
   </div>
 </ng-container>
 
+
+<shared-login-modal
+  [(visible)]='isLoginModalVisible'
+  type='login'
+  (cancel)='loginModalCancel()'
+  (confirm)='loginModalConfirm()'
+  (another)='loginModalAnother()'
+></shared-login-modal>
+
+

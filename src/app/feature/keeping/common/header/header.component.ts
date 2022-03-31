@@ -58,6 +58,8 @@ export class HeaderComponent implements OnInit {
   tabMenu: any[] = [];
   nowTab: '';
 
+  isLoginModalVisible = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -85,9 +87,19 @@ export class HeaderComponent implements OnInit {
   }
 
   moveTab(link: string): void {
-    this.router.navigateByUrl(link).then(() => {
-      this.changeTab(this.route.snapshot.routeConfig.path);
-    });
+    if (this.user) {
+      this.router.navigateByUrl(link).then(() => {
+        this.changeTab(this.route.snapshot.routeConfig.path);
+      });
+    } else {
+      if (link === '/feed/follow') {
+        this.showLoginModal();
+      } else {
+        this.router.navigateByUrl(link).then(() => {
+          this.changeTab(this.route.snapshot.routeConfig.path);
+        });
+      }
+    }
   }
 
   changeTab(routingPath): void {
@@ -132,5 +144,20 @@ export class HeaderComponent implements OnInit {
   async logout() {
     await this.storageService.removeUser();
     this.router.navigateByUrl('/').then();
+  }
+
+  showLoginModal() {
+    this.isLoginModalVisible = true;
+  }
+  loginModalConfirm() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/login');
+  }
+  loginModalCancel() {
+    this.isLoginModalVisible = false;
+  }
+  loginModalAnother() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/registration');
   }
 }

@@ -110,6 +110,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   comment_mention_info: string;
   mentionInfoVisible: boolean;
 
+  isLoginModalVisible = false;
+  isLoginModalBeforeWork = '';
+
   constructor(
     private location: Location,
     private router: Router,
@@ -261,6 +264,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
 
+        this.feedSubCommentListObj[feedCommentId].forEach((feedSubComment) => {
+          feedSubComment.begin_timestamp = this.dateUtils.getTimeStamp(feedSubComment.createdAt);
+          feedSubComment.begin_time_text = this.dateUtils.transTimeType(feedSubComment.begin_timestamp);
+        });
         // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
       },
       (e) => {}
@@ -286,7 +293,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
           this.feedCommentList = feedCommentList;
-          console.log(feedCommentList);
         },
         (e) => {}
       );
@@ -296,6 +302,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
+
+        this.feedSubCommentListObj[feedCommentId].forEach((feedSubComment) => {
+          feedSubComment.begin_timestamp = this.dateUtils.getTimeStamp(feedSubComment.createdAt);
+          feedSubComment.begin_time_text = this.dateUtils.transTimeType(feedSubComment.begin_timestamp);
+        });
         // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
       },
       (e) => {}
@@ -370,7 +381,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           );
       }
     } else {
-      this.router.navigateByUrl('/auth/login').then();
+      this.showLoginModal();
     }
   }
 
@@ -408,7 +419,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           );
       }
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.showLoginModal();
     }
   }
 
@@ -482,7 +493,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     if (!this.user) {
-      this.router.navigateByUrl('/auth/login');
+      this.showLoginModal();
     }
 
     if (this.feedCommentInputStatus === 'sub') {
@@ -623,7 +634,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       }
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.showLoginModal();
     }
   }
 
@@ -665,7 +676,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.addFollow(this.user.id, this.selectedFeed.writer);
       }
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.showLoginModal();
     }
   }
 
@@ -682,7 +693,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.showLoginModal();
     }
   }
 
@@ -699,7 +710,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.showLoginModal();
     }
   }
 
@@ -708,12 +719,16 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param feed
    */
   toggleFeedBookmark(feed: Feed): void {
-    if (feed) {
-      if (feed.isBookmark) {
-        this.deleteBookmark(feed, this.user?.id);
-      } else {
-        this.addBookmark(feed, this.user?.id);
+    if (this.user) {
+      if (feed) {
+        if (feed.isBookmark) {
+          this.deleteBookmark(feed, this.user?.id);
+        } else {
+          this.addBookmark(feed, this.user?.id);
+        }
       }
+    } else {
+      this.showLoginModal();
     }
   }
 
@@ -778,5 +793,32 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   nextCarouselIndex() {
     this.carouselIndex += 1;
     if (this.carouselIndex > this.selectedFeed.pictures.length) this.carouselIndex = 1;
+  }
+
+  showLoginModal() {
+    this.isLoginModalVisible = true;
+  }
+  loginModalConfirm() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/login');
+  }
+  loginModalCancel() {
+    this.isLoginModalVisible = false;
+    if (this.isLoginModalBeforeWork === 'comment') {
+      this.showCommentView();
+      this.isLoginModalBeforeWork = '';
+    }
+  }
+  loginModalAnother() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/registration');
+  }
+
+  onClickCommentInput() {
+    if (!this.user) {
+      this.hideCommentView();
+      this.showLoginModal();
+      this.isLoginModalBeforeWork = 'comment';
+    }
   }
 }

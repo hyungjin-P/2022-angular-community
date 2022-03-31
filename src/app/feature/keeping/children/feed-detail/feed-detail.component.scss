@@ -29,7 +29,7 @@
 
 .backToAll {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   padding: 16px 19px;
   background-color: var(--white);
@@ -104,6 +104,8 @@
             border: 1px solid var(--black);
             border-radius: 8px;
 
+            cursor: pointer;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -153,7 +155,7 @@
             position: absolute;
             top: 30px;
             /*right: -10px;*/
-            right:0;
+            right: 0;
             padding: 8px 8px;
             width: 130px;
             border: 1px solid var(--grey-8);
@@ -175,7 +177,6 @@
                 border-radius: 8px;
                 align-items: center;
                 cursor: pointer;
-
 
                 .mdi {
                   font-size: 16px;
@@ -199,6 +200,8 @@
               }
 
               .menu-delete {
+                border-top: 1px solid var(--grey-8);
+
                 .text {
                   color: var(--red);
                 }
@@ -304,6 +307,7 @@
             border-radius: 10px;
             background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
 
             div {
               display: flex;
@@ -329,6 +333,7 @@
           display: flex;
           cursor: pointer;
           align-items: center;
+          color: black;
 
           .avatar:nth-child(2),
           .avatar:nth-child(3) {
@@ -604,6 +609,7 @@
         left: 16px;
         font-size: 28px;
         cursor: pointer;
+        color: black;
       }
 
       div:nth-child(2) {
@@ -619,6 +625,7 @@
         right: 16px;
         font-size: 20px;
         cursor: pointer;
+        color: black;
       }
     }
 
@@ -746,7 +753,6 @@
 
                   .text {
                     @include textStyle(500, 12px, 21px);
-                    color: var(--red);
                   }
                   .sub-comment-like {
                     margin-left: 4px;

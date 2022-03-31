@@ -41,6 +41,8 @@ export class FeedComponent implements OnInit {
   ];
   nowTab: '';
 
+  isLoginModalVisible = false;
+
   constructor(
     private router: Router,
     private globalService: GlobalService,
@@ -120,7 +122,7 @@ export class FeedComponent implements OnInit {
           );
       }
     } else {
-      this.router.navigateByUrl('/auth/login').then();
+      this.showLoginModal();
     }
   }
 
@@ -180,6 +182,29 @@ export class FeedComponent implements OnInit {
   }
 
   moveTab(link: string) {
-    this.router.navigateByUrl(link);
+    if (this.user) {
+      this.router.navigateByUrl(link);
+    } else {
+      if (link === '/feed/follow') {
+        this.showLoginModal();
+      } else {
+        this.router.navigateByUrl(link);
+      }
+    }
+  }
+
+  showLoginModal() {
+    this.isLoginModalVisible = true;
+  }
+  loginModalConfirm() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/login');
+  }
+  loginModalCancel() {
+    this.isLoginModalVisible = false;
+  }
+  loginModalAnother() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/registration');
   }
 }

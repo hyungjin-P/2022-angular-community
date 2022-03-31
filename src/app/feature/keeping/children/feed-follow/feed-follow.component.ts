@@ -111,55 +111,42 @@ export class FeedFollowComponent implements OnInit {
         feed.contentViewVisible = true;
         feed.carouselIndex = 1;
       }
-      console.log(this.feedList);
     });
   }
 
   toggleFollow(feed: Feed) {
-    if (this.user) {
-      if (feed.writer.isFollow) {
-        this.removeFollow(this.user.id, feed.writer);
-      } else {
-        this.addFollow(this.user.id, feed.writer);
-      }
+    if (feed.writer.isFollow) {
+      this.removeFollow(this.user.id, feed.writer);
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.addFollow(this.user.id, feed.writer);
     }
   }
 
   addFollow(fromUser: string, toUser: User) {
-    if (this.user) {
-      this.followService.addFollow(fromUser, toUser.id).subscribe(
-        (v) => {
-          toUser.isFollow = true;
-          let message = this.textService.getText('follow:001');
-          this.globalService.showToast(message);
-        },
-        (error) => {
-          console.log('add follow failed : ', error);
-        }
-      );
-    } else {
-      this.router.navigateByUrl('/auth/login');
-    }
+    this.followService.addFollow(fromUser, toUser.id).subscribe(
+      (v) => {
+        toUser.isFollow = true;
+        let message = this.textService.getText('follow:001');
+        this.globalService.showToast(message);
+      },
+      (error) => {
+        console.log('add follow failed : ', error);
+      }
+    );
   }
 
   removeFollow(fromUser: string, toUser: User) {
-    if (this.user) {
-      this.followService.removeFollow(fromUser, toUser.id).subscribe(
-        () => {
-          toUser.isFollow = false;
-          let message = this.textService.getText('follow:002');
-          this.globalService.showToast(message);
-          this.getFeedFollowList();
-        },
-        (error) => {
-          console.log('remove follow failed : ', error);
-        }
-      );
-    } else {
-      this.router.navigateByUrl('/auth/login');
-    }
+    this.followService.removeFollow(fromUser, toUser.id).subscribe(
+      () => {
+        toUser.isFollow = false;
+        let message = this.textService.getText('follow:002');
+        this.globalService.showToast(message);
+        this.getFeedFollowList();
+      },
+      (error) => {
+        console.log('remove follow failed : ', error);
+      }
+    );
   }
 
   feedLike(feed: Feed) {
@@ -247,6 +234,7 @@ export class FeedFollowComponent implements OnInit {
 
   showLikedView(feed: Feed) {
     this.getFeedLikeList(feed);
+    this.likedViewVisible = true;
   }
 
   getFeedLikeList(feed: Feed) {
@@ -302,6 +290,11 @@ export class FeedFollowComponent implements OnInit {
     this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
+
+        this.feedSubCommentListObj[feedCommentId].forEach((feedSubComment) => {
+          feedSubComment.begin_timestamp = this.dateUtils.getTimeStamp(feedSubComment.createdAt);
+          feedSubComment.begin_time_text = this.dateUtils.transTimeType(feedSubComment.begin_timestamp);
+        });
         // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
       },
       (e) => {}
@@ -315,9 +308,6 @@ export class FeedFollowComponent implements OnInit {
   createComment() {
     if (!this.feedCommentInputObj) {
       return;
-    }
-    if (!this.user) {
-      this.router.navigateByUrl('/auth/login');
     }
 
     if (this.feedCommentInputStatus === 'sub') {
@@ -431,26 +421,22 @@ export class FeedFollowComponent implements OnInit {
   }
 
   feedCommentLike(feedComment: FeedComment) {
-    if (this.storageService.getUser()) {
-      if (feedComment.isLike) {
-        this.feedService.deleteFeedCommentLike(feedComment.id, this.user?.id).subscribe(
-          (v) => {
-            feedComment.isLike = false;
-            feedComment.likeCount = v;
-          },
-          (e) => {}
-        );
-      } else {
-        this.feedService.createFeedCommentLike(feedComment.id, this.user?.id).subscribe(
-          (v) => {
-            feedComment.isLike = true;
-            feedComment.likeCount = v;
-          },
-          (e) => {}
-        );
-      }
+    if (feedComment.isLike) {
+      this.feedService.deleteFeedCommentLike(feedComment.id, this.user?.id).subscribe(
+        (v) => {
+          feedComment.isLike = false;
+          feedComment.likeCount = v;
+        },
+        (e) => {}
+      );
     } else {
-      this.router.navigateByUrl('/auth/login');
+      this.feedService.createFeedCommentLike(feedComment.id, this.user?.id).subscribe(
+        (v) => {
+          feedComment.isLike = true;
+          feedComment.likeCount = v;
+        },
+        (e) => {}
+      );
     }
   }
 

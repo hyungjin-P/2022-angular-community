@@ -16,7 +16,6 @@
       height: 100%;
       cursor: pointer;
 
-
       .text {
         position: relative;
         top: 8px;
@@ -24,11 +23,10 @@
         color: var(--grey-4);
 
         &:hover {
-          color: var(--grey-1);
+          //color: var(--grey-1);
           transition: all 0.15s;
         }
       }
-
     }
 
     .selected-line {
@@ -36,7 +34,7 @@
       position: relative;
       top: 12px;
       border-radius: 1.5px;
-      height:3px;
+      height: 3px;
       background-color: var(--black);
     }
 
@@ -434,10 +432,10 @@
   height: 52px;
   border-radius: 40px;
   background: linear-gradient(143.82deg, rgba(171, 190, 255, 0.2) 13.1%, rgba(8, 32, 114, 0.2) 83.81%),
-  radial-gradient(50% 50% at 50% 50%, #567dff 0%, #446fff 100%);
+    radial-gradient(50% 50% at 50% 50%, #567dff 0%, #446fff 100%);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 
-  img{
+  img {
     width: 28px;
     height: 28px;
   }
@@ -527,7 +525,7 @@
 @media (min-width: 992px) {
   .section {
     background-color: #f6f7f9;
-    padding: 50px 16px;
+    padding: 80px 16px;
 
     /* width */
     &::-webkit-scrollbar {

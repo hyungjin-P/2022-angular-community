@@ -19,7 +19,7 @@
         </div>
       </ng-container>
 
-      <div class="item-list d-flex flex-wrap">
+      <div class="item-list d-flex">
         <div class="item" *ngFor="let feed of feedList">
           <div class="row-1">
             <shared-avatar
@@ -107,7 +107,7 @@
               </ng-container>
 
               <div class='user-behavior d-flex'>
-                <div class='like' (click)='feedLike(feed)'>
+                <a class='like' (click)='feedLike(feed)'>
                   <div class="like-active" *ngIf="variables.isLogin && feed?.isLike">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7.66723 13.323L2.9457 8.40628C1.61578 7.02142 1.69953 4.75066 3.12753 3.47608C4.54421 2.21159 6.69226 2.45714 7.81177 4.01153L7.99999 4.27285L8.18821 4.01153C9.30775 2.45714 11.4558 2.21159 12.8725 3.47608C14.3005 4.75066 14.3842 7.02142 13.0543 8.40628L8.33275 13.323C8.14897 13.5143 7.85101 13.5143 7.66723 13.323Z"
@@ -120,8 +120,8 @@
                             fill="#424C59"/>
                     </svg>
                   </div>
-                </div>
-                <div class='bookmark' (click)="toggleFeedBookmark(feed)">
+                </a>
+                <a class='bookmark' (click)="toggleFeedBookmark(feed)">
                   <div class='bookmark-active' *ngIf='variables.isLogin && feed?.isBookmark'>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3.75041 14.5658C3.41708 14.7587 3 14.5181 3 14.133V3.3C3 2.58203 3.62538 2 4.39683 2H11.381C12.1524 2 12.7778 2.58203 12.7778 3.3V14.133C12.7778 14.5181 12.3607 14.7587 12.0274 14.5658L8.1393 12.3161C7.98439 12.2264 7.79339 12.2264 7.63848 12.3161L3.75041 14.5658Z"
@@ -134,12 +134,12 @@
                             fill="#424C59"/>
                     </svg>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
           <div class="row-3">
-            <div class="row-3-col-1" (click)="showLikedView(feed)">
+            <a class="row-3-col-1" (click)="showLikedView(feed)">
               <ng-container *ngFor="let like_user of feed?.likeUsers; let i = index">
                 <div class="avatar" *ngIf="i < 3">
                   <shared-avatar
@@ -190,22 +190,22 @@
               >
                 like it.
               </div>
-              <div class="text" *ngIf="selectedLanguage == 'ko' && feed?.likeCount > 3">
+              <a class="text" *ngIf="selectedLanguage == 'ko' && feed?.likeCount > 3">
                 외<span (click)="showLikedView(feed)"> {{ feed.likeCount - 3 }}명</span>이 좋아합니다.
-              </div>
-              <div class="text" *ngIf="selectedLanguage != 'ko' && feed?.likeCount > 3">
+              </a>
+              <a class="text" *ngIf="selectedLanguage != 'ko' && feed?.likeCount > 3">
                 and<span (click)="showLikedView(feed)"> {{ feed.likeCount - 3 }}</span> others like it.
-              </div>
-            </div>
+              </a>
+            </a>
             <div class="row-3-col-2">
-              <div class="comment" (click)="showCommentView(feed)">
+              <a class="comment" (click)="showCommentView(feed)">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14.7 22.401C18.9526 22.401 22.4 18.9536 22.4 14.701C22.4 10.4484 18.9526 7.00101 14.7 7.00101C10.4474 7.00101 7 10.4484 7 14.701C7 16.7515 7.80152 18.6148 9.10835 19.9948L7.55964 21.7623C7.34158 22.0112 7.51832 22.401 7.84922 22.401H14.7Z" fill="#B2BBC8"/>
                   <path d="M10.8496 12.3931H18.5496" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M10.8496 15.4667H13.9296" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <div class="text">{{ feed?.commentCount }}</div>
-              </div>
+              </a>
             </div>
           </div>
           <div class="row-4" *ngIf='!feed?.contentViewVisible'>
@@ -311,14 +311,14 @@
         ></textarea>
         <!--(focusout)="hideSubCommentInput()"-->
 
-        <div
+        <a
           class="add-button"
           (click)="createComment()"
           #feedCommentAddBtn
           [ngStyle]="{ color: feedCommentInputObj === '' ? 'var(--blue-5)' : 'var(--blue-2)' }"
         >
           {{ 'keeping.feed-detail.comment-view-add-button' | translate }}
-        </div>
+        </a>
       </div>
       <!--          <div class="button-group">-->
       <!--            <div class="cancel-button" (click)="clearCommentInput()">-->
@@ -395,7 +395,10 @@
                 </svg>
               </div>
               <!--              <div class="text">{{ feedComment?.like_count }}</div>-->
-              <div class="text" *ngIf='feedComment?.likeCount !== 0'>{{feedComment?.likeCount}}</div>
+              <div class="text"
+                   *ngIf='feedComment?.likeCount !== 0'
+                   [ngStyle]="{ color: variables.isLogin && feedComment?.isLike ? 'var(--red)' : 'var(--grey-2)' }"
+              >{{feedComment?.likeCount}}</div>
               <ng-container *ngIf='feedComment?.isLike'>
                 <div class="comment-view-item-menu sub-comment-like" (click)='feedCommentLike(feedComment)'>
                   {{ 'keeping.feed-detail.comment-view-unlike' | translate }}
@@ -476,7 +479,7 @@
         <div class="liked-view-user" *ngFor="let likeUser of likeUserList">
           <shared-avatar [image]="likeUser.user.picture[0]?.url" text="{{ likeUser.user.email }}" size="45" fontSize="18"></shared-avatar>
           <div class="liked-view-user-nickname">{{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}</div>
-          <div class="liked-view-user-follow-button">
+          <div class="liked-view-user-follow-button" *ngIf='user && user.id !== likeUser.user.id'>
             <div class='follow-active' *ngIf='likeUser.user.isFollow' (click)='removeFollow(user?.id, likeUser.user)'>
               <div class="follow-check-icon">
                 <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
