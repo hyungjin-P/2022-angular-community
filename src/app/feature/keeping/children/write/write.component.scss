@@ -336,6 +336,7 @@
             border-radius: 50%;
             background-color: var(--grey-2);
             cursor: pointer;
+            z-index: 2;
 
             .mdi {
               font-size: 14px;

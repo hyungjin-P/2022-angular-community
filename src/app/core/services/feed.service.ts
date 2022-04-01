@@ -338,18 +338,18 @@ export class FeedService {
     );
   }
 
-  updateFeedComment(feedId: string, commentId: string, requestBody: UpdateFeedCommentDto): Observable<FeedComment> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/comment/${commentId}`;
+  modifyFeedComment(commentId: string, text: string): Observable<FeedComment> {
+    const url = environment.userApiAddress + `/feed/comment/modify?feedCommentId=${commentId}&text=${text}`;
 
     const options = {
       headers: new HttpHeaders({
-        Accept: 'application/json',
+        'Content-Type': 'application/json',
       }),
     };
 
-    return this.http.put<Response>(url, requestBody, options).pipe(
+    return this.http.post<any>(url, options).pipe(
       map((res) => {
-        return res.dataset[0];
+        return res;
       }),
       catchError(handleError)
     );
@@ -487,10 +487,6 @@ class CreateFeedCommentDto {
   feedId: string;
   userId: string;
   parentId?: string;
-  text: string;
-}
-
-class UpdateFeedCommentDto {
   text: string;
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -81,6 +81,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   feedCommentList: Array<FeedComment>;
 
   feedSubComment: FeedComment;
+  feedModifyComment: FeedComment;
 
   feedSubCommentListViewObj: any;
   feedSubCommentListObj: any;
@@ -107,8 +108,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   subCommentPages: Array<number>;
   subCommentLimits: Array<number>;
 
-  comment_mention_info: string;
-  mentionInfoVisible: boolean;
+  comment_info: string;
+  commentInfoVisible: boolean;
 
   isLoginModalVisible = false;
   isLoginModalBeforeWork = '';
@@ -157,7 +158,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.beginTime = '';
 
-    this.mentionInfoVisible = false;
+    this.commentInfoVisible = false;
   }
 
   ngAfterViewInit(): void {
@@ -476,19 +477,20 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedCommentInputObj = '';
   }
 
-  onCreateCommentKey(key) {
-    // [편의성] Enter시, 저장
-    // if (key.code === 'Enter') {
-    // this.intervalCall(1000)(() => {
-    //   this.createComment()
-    // })
-    // } else
-    // if (this.feedCommentInputObj === '' && this.feedCommentInputStatus === 'sub') {
-    //   this.hideSubCommentInput();
-    // }
+  onClickCommentInput() {
+    if (!this.user) {
+      this.hideCommentView();
+      this.showLoginModal();
+      this.isLoginModalBeforeWork = 'comment';
+    }
   }
 
-  createComment() {
+  autosizeCommentInput(event) {
+    event.target.style.height = '0px';
+    event.target.style.height = event.target.scrollHeight + 'px';
+  }
+
+  confirmComment() {
     if (!this.feedCommentInputObj) {
       return;
     }
@@ -498,6 +500,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.feedCommentInputStatus === 'sub') {
       this.createSubComment(this.feedSubComment);
+    } else if (this.feedCommentInputStatus === 'modify') {
+      this.modifyComment(this.feedModifyComment);
     } else {
       this.createParentComment();
     }
@@ -517,14 +521,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       })
       .subscribe(
         (feedComment: FeedComment) => {
-          if (this.comment_mention_info) {
+          if (this.comment_info) {
             this.feedService
               .addFeedCommentMention({
                 feedCommentId: feedComment.id,
                 mentionUserId: parentFeedComment.writer.id,
               })
               .subscribe(() => {
-                this.hideSubCommentInput();
+                this.hideCommentInput();
                 this.selectedFeed.commentCount++;
                 parentFeedComment.sub_comment_count++;
                 this.getFeedCommentList();
@@ -533,6 +537,20 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         (e) => {}
       );
+  }
+
+  modifyComment(modifyComment: FeedComment) {
+    if (!this.feedCommentInputObj || this.feedCommentInputObj === modifyComment.text) {
+      return;
+    }
+
+    this.feedService.modifyFeedComment(modifyComment.id, this.feedCommentInputObj).subscribe(
+      (feedComment: FeedComment) => {
+        this.feedModifyComment.text = feedComment.text;
+        this.hideCommentInput();
+      },
+      (e) => {}
+    );
   }
 
   createParentComment() {
@@ -557,20 +575,30 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.feedSubComment.parentId = feedComment.id;
     }
 
-    if (feedComment.writer.nickname) {
-      this.comment_mention_info = feedComment.writer.nickname + '님에게 답글 남기는 중';
+    if (this.selectedLanguage === 'ko') {
+      if (feedComment.writer.nickname) {
+        this.comment_info = feedComment.writer.nickname + '님에게 답글 남기는 중';
+      } else {
+        this.comment_info = feedComment.writer.email.split('@')[0] + '님에게 답글 남기는 중';
+      }
     } else {
-      this.comment_mention_info = feedComment.writer.email.split('@')[0] + '님에게 답글 남기는 중';
+      if (feedComment.writer.nickname) {
+        this.comment_info = 'Reply to ' + feedComment.writer.nickname;
+      } else {
+        this.comment_info = 'Reply to ' + feedComment.writer.email.split('@')[0];
+      }
     }
-    this.mentionInfoVisible = true;
+
+    this.commentInfoVisible = true;
     this.feedCommentInputEl.nativeElement.focus();
   }
 
-  hideSubCommentInput() {
-    if (this.feedCommentInputStatus === 'sub') {
+  hideCommentInput() {
+    if (this.feedCommentInputStatus === 'sub' || this.feedCommentInputStatus === 'modify') {
       this.feedCommentInputStatus = '';
-      this.mentionInfoVisible = false;
+      this.commentInfoVisible = false;
       this.feedSubComment = undefined;
+      this.feedModifyComment = undefined;
       this.feedCommentInputObj = '';
     }
   }
@@ -599,6 +627,19 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   hideSubCommentList(feedCommentId: string) {
     this.feedSubCommentListViewObj[feedCommentId] = false;
     this.feedSubCommentListObj[feedCommentId] = [];
+  }
+
+  showModifyCommentInput(feedComment: FeedComment) {
+    this.feedCommentInputStatus = 'modify';
+    if (this.selectedLanguage === 'ko') {
+      this.comment_info = '댓글을 수정하는 중';
+    } else {
+      this.comment_info = 'modify comment';
+    }
+    this.feedModifyComment = feedComment;
+    this.feedCommentInputObj = feedComment.text;
+    this.commentInfoVisible = true;
+    this.feedCommentInputEl.nativeElement.focus();
   }
 
   deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
@@ -812,13 +853,5 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   loginModalAnother() {
     this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/registration');
-  }
-
-  onClickCommentInput() {
-    if (!this.user) {
-      this.hideCommentView();
-      this.showLoginModal();
-      this.isLoginModalBeforeWork = 'comment';
-    }
   }
 }

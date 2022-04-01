@@ -274,11 +274,11 @@
         </div>
       </div>
     </div>
-    <div class='feed-comment-mention-info' *ngIf='mentionInfoVisible' >
+    <div class='feed-comment-mention-info' *ngIf='commentInfoVisible' >
       <div class='text'>
-        {{comment_mention_info}}
+        {{comment_info}}
       </div>
-      <div class='cancel-button' (click)='hideSubCommentInput()'>
+      <div class='cancel-button' (click)='hideCommentInput()'>
         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5.16699 11.8337L11.8337 5.16699M5.16699 5.16699L11.8337 11.8337L5.16699 5.16699Z" stroke="#424C59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -301,19 +301,16 @@
         <!--            #feedCommentInput-->
         <!--          />-->
         <textarea
-          type="text"
-          rows="1"
           [(ngModel)]="feedCommentInputObj"
+          (keyup)='autosizeCommentInput($event)'
           [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"
-
-          maxlength="255"
           #feedCommentInput
         ></textarea>
         <!--(focusout)="hideSubCommentInput()"-->
 
         <a
           class="add-button"
-          (click)="createComment()"
+          (click)="confirmComment()"
           #feedCommentAddBtn
           [ngStyle]="{ color: feedCommentInputObj === '' ? 'var(--blue-5)' : 'var(--blue-2)' }"
         >
@@ -424,7 +421,10 @@
               class="comment-view-item-menu-group-col-2"
               *ngIf="!feedComment?.deleted_at && user?.id == feedComment.writer.id"
             >
-              <div class="comment-view-item-menu sub-comment-edit">
+              <div
+                class="comment-view-item-menu sub-comment-edit"
+                (click)='showModifyCommentInput(feedComment)'
+              >
                 {{ 'keeping.feed-detail.comment-view-reply-edit' | translate }}
               </div>
               <div

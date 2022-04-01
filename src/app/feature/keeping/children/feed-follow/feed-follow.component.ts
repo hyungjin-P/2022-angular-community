@@ -36,12 +36,13 @@ export class FeedFollowComponent implements OnInit {
   feedCommentList: Array<FeedComment>;
 
   feedSubComment: FeedComment;
+  feedModifyComment: FeedComment;
 
   feedSubCommentListViewObj: any;
   feedSubCommentListObj: any;
 
-  comment_mention_info: string;
-  mentionInfoVisible: boolean;
+  comment_info: string;
+  commentInfoVisible: boolean;
 
   page: number = 1;
   limit: number = 20;
@@ -95,7 +96,7 @@ export class FeedFollowComponent implements OnInit {
     this.feedSubCommentListObj = {};
     this.likedViewVisible = false;
     this.likeUserList = [];
-    this.mentionInfoVisible = false;
+    this.commentInfoVisible = false;
 
     this.getFeedFollowList();
   }
@@ -305,13 +306,20 @@ export class FeedFollowComponent implements OnInit {
     feed.contentViewVisible = true;
   }
 
-  createComment() {
+  autosizeCommentInput(event) {
+    event.target.style.height = '0px';
+    event.target.style.height = event.target.scrollHeight + 'px';
+  }
+
+  confirmComment() {
     if (!this.feedCommentInputObj) {
       return;
     }
 
     if (this.feedCommentInputStatus === 'sub') {
       this.createSubComment(this.feedSubComment);
+    } else if (this.feedCommentInputStatus === 'modify') {
+      this.modifyComment(this.feedModifyComment);
     } else {
       this.createParentComment();
     }
@@ -331,14 +339,14 @@ export class FeedFollowComponent implements OnInit {
       })
       .subscribe(
         (feedComment: FeedComment) => {
-          if (this.comment_mention_info) {
+          if (this.comment_info) {
             this.feedService
               .addFeedCommentMention({
                 feedCommentId: feedComment.id,
                 mentionUserId: parentFeedComment.writer.id,
               })
               .subscribe(() => {
-                this.hideSubCommentInput();
+                this.hideCommentInput();
                 this.selectedFeed.commentCount++;
                 parentFeedComment.sub_comment_count++;
                 this.getFeedCommentList(this.selectedFeed);
@@ -347,6 +355,20 @@ export class FeedFollowComponent implements OnInit {
         },
         (e) => {}
       );
+  }
+
+  modifyComment(modifyComment: FeedComment) {
+    if (!this.feedCommentInputObj || this.feedCommentInputObj === modifyComment.text) {
+      return;
+    }
+
+    this.feedService.modifyFeedComment(modifyComment.id, this.feedCommentInputObj).subscribe(
+      (feedComment: FeedComment) => {
+        this.feedModifyComment.text = feedComment.text;
+        this.hideCommentInput();
+      },
+      (e) => {}
+    );
   }
 
   createParentComment() {
@@ -371,20 +393,29 @@ export class FeedFollowComponent implements OnInit {
       this.feedSubComment.parentId = feedComment.id;
     }
 
-    if (feedComment.writer.nickname) {
-      this.comment_mention_info = feedComment.writer.nickname + '님에게 답글 남기는 중';
+    if (this.selectedLanguage === 'ko') {
+      if (feedComment.writer.nickname) {
+        this.comment_info = feedComment.writer.nickname + '님에게 답글 남기는 중';
+      } else {
+        this.comment_info = feedComment.writer.email.split('@')[0] + '님에게 답글 남기는 중';
+      }
     } else {
-      this.comment_mention_info = feedComment.writer.email.split('@')[0] + '님에게 답글 남기는 중';
+      if (feedComment.writer.nickname) {
+        this.comment_info = 'Reply to ' + feedComment.writer.nickname;
+      } else {
+        this.comment_info = 'Reply to ' + feedComment.writer.email.split('@')[0];
+      }
     }
-    this.mentionInfoVisible = true;
+    this.commentInfoVisible = true;
     this.feedCommentInputEl.nativeElement.focus();
   }
 
-  hideSubCommentInput() {
-    if (this.feedCommentInputStatus === 'sub') {
+  hideCommentInput() {
+    if (this.feedCommentInputStatus === 'sub' || this.feedCommentInputStatus === 'modify') {
       this.feedCommentInputStatus = '';
-      this.mentionInfoVisible = false;
+      this.commentInfoVisible = false;
       this.feedSubComment = undefined;
+      this.feedModifyComment = undefined;
       this.feedCommentInputObj = '';
     }
   }
@@ -405,6 +436,19 @@ export class FeedFollowComponent implements OnInit {
   hideSubCommentList(feedCommentId: string) {
     this.feedSubCommentListViewObj[feedCommentId] = false;
     this.feedSubCommentListObj[feedCommentId] = [];
+  }
+
+  showModifyCommentInput(feedComment: FeedComment) {
+    this.feedCommentInputStatus = 'modify';
+    if (this.selectedLanguage === 'ko') {
+      this.comment_info = '댓글을 수정하는 중';
+    } else {
+      this.comment_info = 'modify comment';
+    }
+    this.feedModifyComment = feedComment;
+    this.feedCommentInputObj = feedComment.text;
+    this.commentInfoVisible = true;
+    this.feedCommentInputEl.nativeElement.focus();
   }
 
   deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {

@@ -52,7 +52,7 @@
 }
 
 .section {
-  padding: 30px 30px 0 30px;
+  padding: 30px 20px 0 20px;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE, Edge */
 
@@ -849,13 +849,10 @@
     }
 
     .feed-comment-view-input {
-      //display: flex;
-      //flex-direction: column;
       position: relative;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 70px;
       padding: 16px 16px;
       box-shadow: 0px -3px 10px rgba(168 168 168 / 25%);
 
@@ -865,18 +862,18 @@
 
         textarea {
           background: var(--grey-8);
-          height: 40px;
           width: 90%;
+          height: 40px;
+          min-height: 40px;
+          max-height: 90px;
           border: 0;
           border-radius: 12px;
           padding: 9px 16px;
           outline: none;
           resize: none;
-          overflow-y: hidden;
 
           @include textStyle(500, 13px, 21px);
           color: var(--grey-1);
-
           &:focus {
           }
         }
@@ -1188,6 +1185,7 @@
   }
 
   .section {
+    padding: 30px 30px 0 30px;
     &::-webkit-scrollbar {
       width: 0px;
     }
