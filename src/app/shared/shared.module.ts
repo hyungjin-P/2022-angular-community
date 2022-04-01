@@ -43,6 +43,7 @@ import { DragulaModule } from 'ng2-dragula';
 // Image Crop
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { LoginComponent } from '../feature/keeping/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
     CheckboxComponent,
     DatepickerComponent,
     InputComponent,
+    LoginModalComponent,
     ModalComponent,
     RadioComponent,
     SelectComponent,
