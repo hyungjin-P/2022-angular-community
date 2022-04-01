@@ -873,6 +873,7 @@
           outline: none;
           resize: none;
           overflow-y: hidden;
+          /*COLOR:NONE;*/
 
           @include textStyle(500, 13px, 21px);
           color: var(--grey-1);
