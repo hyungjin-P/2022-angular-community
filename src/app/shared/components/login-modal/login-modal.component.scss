@@ -29,7 +29,7 @@
 
   .shared-modal {
     padding: 24px;
-    width: 354px;
+    width: 320px;
     border-radius: 16px;
     background-color: var(--white);
     box-shadow: 0px 32px 32px -8px rgba(0, 0, 0, 0.08), 0px 0px 32px -8px rgba(0, 0, 0, 0.12),
@@ -65,8 +65,8 @@
       display: flex;
       justify-content: center;
       margin-top: 8px;
-
-      @include textStyle(500, 13px, 21px);
+      color:var(--grey-1);
+      @include textStyle(400, 13px, 21px);
       white-space: pre-line;
       text-align: center;
     }
@@ -87,15 +87,14 @@
       justify-content: center;
       margin-top: 20px;
 
-      @include textStyle(500, 13px, 21px);
+      @include textStyle(400, 13px, 21px);
       letter-spacing: -0.2px;
       color: var(--grey-2);
 
       .another-button {
         margin-left: 4px;
-        border-bottom: 1px solid var(--grey-1);
-
-        color: var(--grey-1);
+        border-bottom: 1px solid var(--text-2);
+        color: var(--text-2);
       }
     }
   }
