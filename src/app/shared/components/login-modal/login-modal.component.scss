@@ -59,6 +59,8 @@
       margin-top: 12px;
 
       @include textStyle(700, 15px, 22px);
+      text-align: center;
+      white-space: pre-line;
     }
 
     .sub-text {
