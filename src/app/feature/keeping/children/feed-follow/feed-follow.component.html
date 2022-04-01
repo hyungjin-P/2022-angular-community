@@ -301,6 +301,7 @@
         <!--            #feedCommentInput-->
         <!--          />-->
         <textarea
+          class='comment-textarea scroll-y'
           [(ngModel)]="feedCommentInputObj"
           (keyup)='autosizeCommentInput($event)'
           [placeholder]="'keeping.feed-detail.comment-view-input-placeholder' | translate"

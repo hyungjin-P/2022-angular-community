@@ -481,6 +481,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clearCommentInput() {
     this.feedCommentInputObj = '';
+    this.feedCommentInputEl.nativeElement.style = 'height: 40px';
   }
 
   onClickCommentInput() {
@@ -608,8 +609,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.commentInfoVisible = false;
       this.feedSubComment = undefined;
       this.feedModifyComment = undefined;
-      this.feedCommentInputObj = '';
     }
+    this.clearCommentInput();
   }
 
   showSubCommentList(feedCommentNumber: number, feedCommentId: string) {

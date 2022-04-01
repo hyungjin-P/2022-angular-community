@@ -266,6 +266,7 @@ export class FeedFollowComponent implements OnInit {
 
   clearCommentInput() {
     this.feedCommentInputObj = '';
+    this.feedCommentInputEl.nativeElement.style = 'height: 40px';
   }
 
   getFeedCommentList(feed: Feed) {
@@ -422,8 +423,8 @@ export class FeedFollowComponent implements OnInit {
       this.commentInfoVisible = false;
       this.feedSubComment = undefined;
       this.feedModifyComment = undefined;
-      this.feedCommentInputObj = '';
     }
+    this.clearCommentInput();
   }
 
   showSubCommentList(feedCommentNumber: number, feedCommentId: string) {
