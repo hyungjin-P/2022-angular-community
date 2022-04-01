@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ModalComponent implements OnInit {
   isAlertModalVisible = false;
   alertModalData = {
+    isIcon: true,
+    //iconPath : 'path'
     text: '메인 타이틀을 입력해 주세요',
     subText: `서브 텍스트를 입력해 주세요.
         서브 텍스트를 입력해 주세요.`,
@@ -16,6 +18,8 @@ export class ModalComponent implements OnInit {
 
   isConfirmModalVisible = false;
   confirmModalData = {
+    isIcon: true,
+    //iconPath : 'path'
     text: '메인 타이틀을 입력해 주세요',
     subText: `서브 텍스트를 입력해 주세요.
         서브 텍스트를 입력해 주세요.`,

@@ -80,8 +80,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   feedCommentInputStatus: string;
   feedCommentList: Array<FeedComment>;
 
+  feedDelete: Feed;
   feedSubComment: FeedComment;
   feedModifyComment: FeedComment;
+  feedDeleteComment: FeedComment;
 
   feedSubCommentListViewObj: any;
   feedSubCommentListObj: any;
@@ -112,7 +114,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   commentInfoVisible: boolean;
 
   isLoginModalVisible = false;
-  isLoginModalBeforeWork = '';
+  isConfirmModalVisible = false;
+
+  confirmModalData = {};
+  confirmModalStatus: string;
 
   constructor(
     private location: Location,
@@ -454,6 +459,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedService.deleteFeed(feed.id).subscribe(
       (v) => {
         this.router.navigateByUrl('/feed');
+        this.feedDelete = undefined;
       },
       (e) => {}
     );
@@ -479,9 +485,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickCommentInput() {
     if (!this.user) {
-      this.hideCommentView();
       this.showLoginModal();
-      this.isLoginModalBeforeWork = 'comment';
     }
   }
 
@@ -567,6 +571,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showSubCommentInput(feedComment: FeedComment, parentComment?: FeedComment) {
     // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
+    if (!this.user) {
+      this.showLoginModal();
+      return;
+    }
+
     this.feedCommentInputStatus = 'sub';
     this.feedSubComment = feedComment;
     if (parentComment) {
@@ -642,7 +651,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedCommentInputEl.nativeElement.focus();
   }
 
-  deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
+  deleteComment(feedComment: FeedComment) {
     this.feedService.deleteFeedComment(feedComment.id).subscribe(
       (v) => {
         this.selectedFeed.commentCount--;
@@ -650,6 +659,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         //   parentFeedComment.sub_comment_count--;
         // }
         feedComment.deletedAt = moment().utc().format('YYYY-MM-DD HH:mm:ss');
+        this.feedDeleteComment = undefined;
       },
       (e) => {}
     );
@@ -845,13 +855,68 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   loginModalCancel() {
     this.isLoginModalVisible = false;
-    if (this.isLoginModalBeforeWork === 'comment') {
-      this.showCommentView();
-      this.isLoginModalBeforeWork = '';
-    }
   }
   loginModalAnother() {
     this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/registration');
+  }
+
+  showDeleteFeedConfirmModal(feed: Feed) {
+    this.confirmModalStatus = 'feed';
+    this.feedDelete = feed;
+    if (this.selectedLanguage === 'ko') {
+      this.confirmModalData = {
+        isIcon: false,
+        text: '피드 삭제',
+        subText: `정말 삭제 하시겠어요?`,
+        cancelBtnText: '아니요', // 선택
+        confirmBtnText: '삭제', // 선택
+      };
+    } else {
+      this.confirmModalData = {
+        isIcon: false,
+        text: 'Delete feed',
+        subText: `Are you sure?`,
+        cancelBtnText: 'No', // 선택
+        confirmBtnText: 'Delete', // 선택
+      };
+    }
+    this.isConfirmModalVisible = true;
+  }
+
+  showDeleteCommentConfirmModal(feedComment: FeedComment) {
+    this.confirmModalStatus = 'comment';
+    this.feedDeleteComment = feedComment;
+    if (this.selectedLanguage === 'ko') {
+      this.confirmModalData = {
+        isIcon: false,
+        text: '댓글 삭제',
+        subText: `정말 삭제 하시겠어요?`,
+        cancelBtnText: '아니요', // 선택
+        confirmBtnText: '삭제', // 선택
+      };
+    } else {
+      this.confirmModalData = {
+        isIcon: false,
+        text: 'Delete comment',
+        subText: `Are you sure?`,
+        cancelBtnText: 'No', // 선택
+        confirmBtnText: 'Delete', // 선택
+      };
+    }
+    this.isConfirmModalVisible = true;
+  }
+  confirmModalConfirm() {
+    this.isConfirmModalVisible = false;
+    if (this.confirmModalStatus === 'comment' && this.feedDeleteComment) {
+      this.deleteComment(this.feedDeleteComment);
+    } else if (this.confirmModalStatus === 'feed' && this.feedDelete) {
+      this.deleteFeed(this.feedDelete);
+    }
+  }
+  confirmModalCancel() {
+    this.isConfirmModalVisible = false;
+    this.feedDeleteComment = undefined;
+    this.feedDelete = undefined;
   }
 }

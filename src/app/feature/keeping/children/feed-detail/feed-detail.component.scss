@@ -573,7 +573,7 @@
   left: 0;
   background-color: var(--black);
   opacity: 0.54;
-  z-index: 999;
+  z-index: 499;
 }
 
 .feed-comment-view-background-show {
@@ -587,7 +587,7 @@
   bottom: 0;
   left: 0;
   display: none;
-  z-index: 1000;
+  z-index: 500;
 
   .feed-comment-view {
     width: 100%;
@@ -929,7 +929,7 @@
   background-color: var(--black);
   opacity: 0;
   transition: opacity 0.1s;
-  z-index: 999;
+  z-index: 499;
 }
 
 .liked-view-background-show {
@@ -944,7 +944,7 @@
   bottom: 0;
   left: 0;
   display: none;
-  z-index: 1000;
+  z-index: 500;
 
   .liked-view {
     width: 100%;

@@ -7,9 +7,11 @@
   #modalWrapperElement
 >
   <div class="shared-modal user-select-none" (click)="$event.stopPropagation()">
-    <div class="d-flex justify-content-center">
-      <img src="assets/icons/etc/emoji_smail.png" />
-    </div>
+    <ng-container *ngIf='data?.isIcon'>
+      <div class="d-flex justify-content-center">
+        <img [src]="data?.iconPath ? data.iconPath : 'assets/icons/etc/emoji_smail.png'" />
+      </div>
+    </ng-container>
 
     <div class="text">{{ data?.text }}</div>
 

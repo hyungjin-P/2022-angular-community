@@ -89,7 +89,7 @@
                     </svg>
                     <div class="text">{{ 'keeping.feed-detail.more-modify' | translate }}</div>
                   </a>
-                  <a class="menu-delete" (click)="deleteFeed(selectedFeed)">
+                  <a class="menu-delete" (click)="showDeleteFeedConfirmModal(selectedFeed)">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M6.5 4.5V3C6.5 2.17157 7.17157 1.5 8 1.5H11C11.8284 1.5 12.5 2.17157 12.5 3V4.5M2.75 4.5H16.25H2.75ZM4.25 4.5V15C4.25 15.8284 4.92157 16.5 5.75 16.5H13.25C14.0784 16.5 14.75 15.8284 14.75 15V4.5H4.25Z"
@@ -581,7 +581,7 @@
               </div>
               <div
                 class="comment-view-item-menu sub-comment-delete"
-                (click)="deleteComment(feedComment, parentFeedComment)"
+                (click)="showDeleteCommentConfirmModal(feedComment)"
               >
                 {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
               </div>
@@ -667,3 +667,11 @@
   (confirm)='loginModalConfirm()'
   (another)='loginModalAnother()'
 ></shared-login-modal>
+
+<shared-modal
+  [(visible)]='isConfirmModalVisible'
+  [data]="confirmModalData"
+  type="confirm"
+  (cancel)="confirmModalCancel()"
+  (confirm)='confirmModalConfirm()'
+></shared-modal>

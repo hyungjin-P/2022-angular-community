@@ -429,7 +429,7 @@
               </div>
               <div
                 class="comment-view-item-menu sub-comment-delete"
-                (click)="deleteComment(feedComment, parentFeedComment)"
+                (click)="showDeleteCommentConfirmModal(feedComment)"
               >
                 {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
               </div>
@@ -503,3 +503,11 @@
     </div>
   </div>
 </div>
+
+<shared-modal
+  [(visible)]='isConfirmModalVisible'
+  [data]="confirmModalData"
+  type="confirm"
+  (cancel)="confirmModalCancel()"
+  (confirm)='confirmModalConfirm()'
+></shared-modal>

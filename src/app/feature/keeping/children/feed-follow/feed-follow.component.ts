@@ -37,6 +37,7 @@ export class FeedFollowComponent implements OnInit {
 
   feedSubComment: FeedComment;
   feedModifyComment: FeedComment;
+  feedDeleteComment: FeedComment;
 
   feedSubCommentListViewObj: any;
   feedSubCommentListObj: any;
@@ -70,6 +71,11 @@ export class FeedFollowComponent implements OnInit {
     },
   ];
   nowTab: '';
+
+  isConfirmModalVisible = false;
+
+  confirmModalData = {};
+  confirmModalStatus: string;
 
   constructor(
     private router: Router,
@@ -451,7 +457,7 @@ export class FeedFollowComponent implements OnInit {
     this.feedCommentInputEl.nativeElement.focus();
   }
 
-  deleteComment(feedComment: FeedComment, parentFeedComment: FeedComment) {
+  deleteComment(feedComment: FeedComment) {
     this.feedService.deleteFeedComment(feedComment.id).subscribe(
       (v) => {
         this.selectedFeed.commentCount--;
@@ -459,6 +465,7 @@ export class FeedFollowComponent implements OnInit {
         //   parentFeedComment.sub_comment_count--;
         // }
         feedComment.deletedAt = moment().utc().format('YYYY-MM-DD HH:mm:ss');
+        this.feedDeleteComment = undefined;
       },
       (e) => {}
     );
@@ -499,5 +506,38 @@ export class FeedFollowComponent implements OnInit {
 
   moveTab(link: string) {
     this.router.navigateByUrl(link);
+  }
+
+  showDeleteCommentConfirmModal(feedComment: FeedComment) {
+    this.confirmModalStatus = 'comment';
+    this.feedDeleteComment = feedComment;
+    if (this.selectedLanguage === 'ko') {
+      this.confirmModalData = {
+        isIcon: false,
+        text: '댓글 삭제',
+        subText: `정말 삭제 하시겠어요?`,
+        cancelBtnText: '아니요', // 선택
+        confirmBtnText: '삭제', // 선택
+      };
+    } else {
+      this.confirmModalData = {
+        isIcon: false,
+        text: 'Delete comment',
+        subText: `Are you sure?`,
+        cancelBtnText: 'No', // 선택
+        confirmBtnText: 'Delete', // 선택
+      };
+    }
+    this.isConfirmModalVisible = true;
+  }
+  confirmModalConfirm() {
+    this.isConfirmModalVisible = false;
+    if (this.confirmModalStatus === 'comment' && this.feedDeleteComment) {
+      this.deleteComment(this.feedDeleteComment);
+    }
+  }
+  confirmModalCancel() {
+    this.isConfirmModalVisible = false;
+    this.feedDeleteComment = undefined;
   }
 }
