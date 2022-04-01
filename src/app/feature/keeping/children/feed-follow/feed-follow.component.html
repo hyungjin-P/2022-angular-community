@@ -358,9 +358,9 @@
           </div>
 
           <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">
-            <div class='mentionUser' *ngIf='feedComment?.mentions.length > 0'>
+            <span class='mentionUser' *ngIf='feedComment?.mentions.length > 0'>
               @{{feedComment?.mentions[0].mentionUser.nickname || feedComment?.mentions[0].mentionUser.email.split('@')[0]}}
-            </div>
+            </span>
             {{ feedComment?.text }}
           </div>
           <!--              <div class="comment-view-item-text" *ngIf="!feedComment?.deleted_at">-->

@@ -432,7 +432,6 @@
         margin-bottom: 60px;
 
         > div {
-
           .image-box {
             position: relative;
             background-color: var(--grey-8);
@@ -555,7 +554,6 @@
               margin-left: 8px;
             }
           }
-
         }
       }
     }
@@ -730,10 +728,10 @@
               }
 
               .comment-view-item-text {
-                display: flex;
                 font-size: 14px;
                 margin: 2px 0 4px 0;
                 letter-spacing: -0.2px;
+                white-space: pre-line;
 
                 .mentionUser {
                   margin-right: 4px;
@@ -845,7 +843,7 @@
       padding: 20px 10px;
       background-color: var(--grey-8);
       justify-content: space-between;
-      .text{
+      .text {
         color: var(--grey-2);
       }
     }

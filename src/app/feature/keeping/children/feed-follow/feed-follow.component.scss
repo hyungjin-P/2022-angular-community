@@ -577,10 +577,10 @@
               }
 
               .comment-view-item-text {
-                display: flex;
                 font-size: 14px;
                 margin: 2px 0 4px 0;
                 letter-spacing: -0.2px;
+                white-space: pre-line;
 
                 .mentionUser {
                   margin-right: 4px;
