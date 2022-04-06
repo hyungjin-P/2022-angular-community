@@ -5,26 +5,26 @@
   overflow-y: auto;
   background-color: #f6f7f9;
   //padding:20px 0;
-  .pc-top{
+  .pc-top {
     margin: 60px 50px 0 50px;
-    .top-caption{
+    .top-caption {
       letter-spacing: -0.2px;
-      font-family: "Poppins", "Noto Sans KR", sans-serif;
+      font-family: 'Poppins', 'Noto Sans KR', sans-serif;
       @include textStyle(700, 40px, 52px);
     }
 
-    .top-banners{
+    .top-banners {
       margin: 30px 0 100px 0;
 
-      .banner-first{
+      .banner-first {
         display: grid;
         grid-template-columns: 1fr;
-        .banner{
+        .banner {
           margin-top: 0;
         }
       }
 
-      .banners{
+      .banners {
         display: grid;
         grid-template-columns: 1fr 1fr;
         //grid-template-rows: 260px 260px;
@@ -32,11 +32,11 @@
         margin-top: 30px;
       }
 
-      .banner{
+      .banner {
         position: relative;
         padding: 0;
 
-        >img {
+        > img {
           border-radius: 12px;
           object-fit: cover;
         }
@@ -77,21 +77,21 @@
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
           }
-          .additional{
+          .additional {
             margin-top: 20px;
             color: white;
             opacity: 0.9;
             align-items: center;
 
-            .nickname{
+            .nickname {
               margin-left: 4px;
             }
-            .display{
-              .viewerObj{
+            .display {
+              .viewerObj {
                 align-items: center;
                 margin-left: 8px;
               }
-              .heartObj{
+              .heartObj {
                 align-items: center;
                 margin-left: 8px;
               }
@@ -102,15 +102,15 @@
     }
   }
 
-  .mobile-top{
+  .mobile-top {
     .carousel {
       display: flex;
       height: 50%;
       .carousel-inner {
-        .carousel-item{
+        .carousel-item {
           width: 100%;
           height: 100%;
-          img{
+          img {
             object-fit: cover;
             object-position: 50% 50%;
           }
@@ -146,21 +146,21 @@
             color: white;
             @include textStyle(700, 20px, 30px);
           }
-          .additional{
+          .additional {
             margin-top: 20px;
             color: white;
             opacity: 0.9;
             align-items: center;
 
-            .nickname{
+            .nickname {
               margin-left: 4px;
             }
-            .display{
-              .viewerObj{
+            .display {
+              .viewerObj {
                 align-items: center;
                 margin-left: 8px;
               }
-              .heartObj{
+              .heartObj {
                 align-items: center;
                 margin-left: 8px;
               }
@@ -253,7 +253,7 @@
             border: 1px solid var(--grey-8);
           }
 
-          .bookmark{
+          .bookmark {
             position: absolute;
             right: 10px;
             bottom: 10px;
@@ -287,6 +287,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            white-space: pre-line;
           }
 
           .additional {
@@ -332,16 +333,16 @@
   }
 }
 
-@media (min-width: 768px){
-  .section{
-    .categories{
+@media (min-width: 768px) {
+  .section {
+    .categories {
       height: 80px;
       padding: 20px 0;
       margin-left: 40px;
     }
-    .item-list{
+    .item-list {
       margin: 0 28px 0 28px;
-      .item{
+      .item {
         padding: 0 12px;
       }
     }
@@ -349,50 +350,50 @@
 }
 
 @media (min-width: 992px) {
-  .section{
-    .mobile-top{
-      .carousel{
+  .section {
+    .mobile-top {
+      .carousel {
         padding: 50px;
       }
     }
 
-    .categories{
+    .categories {
       height: 72px;
       padding: 16px 0;
       margin-left: 50px;
     }
-    .item-list{
+    .item-list {
       margin: 20px 35px 0 35px;
 
-      .item{
+      .item {
         padding: 0 15px;
 
-        >div{
+        > div {
           .image-box {
-            .picture{
+            .picture {
               border-radius: 12px 12px 0 0;
             }
           }
 
-          .description{
+          .description {
             margin-top: 0;
             background-color: white;
             border-radius: 0 0 12px 12px;
             padding: 20px;
 
-            .info{
+            .info {
               margin-bottom: 0;
 
               @include textStyle(500, 13px, 21px);
             }
 
-            .title{
+            .title {
               margin: 12px 0;
 
               @include textStyle(700, 18px, 26px);
             }
 
-            .tag-str{
+            .tag-str {
               /*margin-bottom: 10px;*/
 
               @include textStyle(400, 13px, 21px);
@@ -400,7 +401,7 @@
               color: var(--grey-2);
             }
 
-            .line{
+            .line {
               width: 100%;
               border: 1px solid #f0f2f5;
               margin: 12px 0;
@@ -437,14 +438,14 @@
 
 @media (min-width: 1920px) {
   .section {
-    .pc-top{
-      .top-banners{
+    .pc-top {
+      .top-banners {
         display: flex;
         .banner-first {
           width: 48%;
         }
 
-        .banners{
+        .banners {
           width: 50%;
           margin-top: 0;
           margin-left: 28px;
@@ -459,5 +460,3 @@
     max-width: 25%;
   }
 }
-
-

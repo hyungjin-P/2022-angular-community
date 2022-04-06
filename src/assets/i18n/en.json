@@ -122,9 +122,9 @@
       "magazine": "Magazine",
       "magazine-tab": {
         "all": "All",
-        "magazine_category_news": "News",
+        "magazine_category_news": "News & Updates",
         "magazine_category_release": "Release News",
-        "magazine_category_writer": "Writer"
+        "magazine_category_artist": "Artists"
       },
       "privacy": "Privacy",
       "service-terms": "Service Terms",

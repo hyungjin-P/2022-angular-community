@@ -19,11 +19,13 @@ import { PrivacyComponent } from './children/privacy/privacy.component';
 import { ServiceTermsComponent } from './children/service-terms/service-terms.component';
 import { NotificationComponent } from './children/notification/notification.component';
 
-import {MypageComponent} from './mypage/mypage.component'
-import {SearchComponent} from './search/search.component'
-import {TestPageComponent} from "./children/test-page/test-page.component";
-import {MypageFeedComponent} from "./mypage/mypage-feed/mypage-feed.component";
+import { MypageComponent } from './mypage/mypage.component';
+import { SearchComponent } from './search/search.component';
+import { TestPageComponent } from './children/test-page/test-page.component';
+import { MypageFeedComponent } from './mypage/mypage-feed/mypage-feed.component';
 import { FeedFollowComponent } from './children/feed-follow/feed-follow.component';
+import { ScrapComponent } from './children/scrap/scrap.component';
+import { ScrapFeedComponent } from './children/scrap/scrap-feed/scrap-feed.component';
 
 const routes: Routes = [
   {
@@ -45,6 +47,15 @@ const routes: Routes = [
       { path: 'privacy', component: PrivacyComponent },
       { path: 'service-terms', component: ServiceTermsComponent },
       { path: 'notification', component: NotificationComponent },
+      {
+        path: 'scrap',
+        canActivate: [AuthGuard, ServiceTermsGuard],
+        component: ScrapComponent,
+        children: [
+          { path: '', component: ScrapFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
+          { path: 'feed', component: ScrapFeedComponent },
+        ],
+      },
     ],
   },
   {
@@ -52,9 +63,9 @@ const routes: Routes = [
     canActivate: [AuthGuard, ServiceTermsGuard],
     component: MypageComponent,
     children: [
-      { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full'},
-      { path: 'feed', component: MypageFeedComponent }
-    ]
+      { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
+      { path: 'feed', component: MypageFeedComponent },
+    ],
   },
 
   { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },

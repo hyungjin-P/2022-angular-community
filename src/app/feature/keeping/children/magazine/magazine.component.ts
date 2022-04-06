@@ -13,6 +13,7 @@ import { Magazine } from '@schemas/magazine';
   styleUrls: ['./magazine.component.scss'],
 })
 export class MagazineComponent implements OnInit {
+  language: string;
   variables: any;
   user: User;
   category: string = 'all';
@@ -45,7 +46,7 @@ export class MagazineComponent implements OnInit {
     },
     {
       tabName: 'writer',
-      languageCode: 'common.nav.magazine-tab.magazine_category_writer',
+      languageCode: 'common.nav.magazine-tab.magazine_category_artist',
       link: '/magazine?tabType=writer',
       description: '작가, 작품 인터뷰',
       sort: 0,
@@ -67,6 +68,7 @@ export class MagazineComponent implements OnInit {
   ngOnInit() {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
+    this.language = localStorage.getItem('language');
     this.getMagazineList();
     this.changeTab();
 
@@ -77,13 +79,27 @@ export class MagazineComponent implements OnInit {
     }
   }
 
+  changeBody(magazineList: Magazine[]) {
+    if (this.language === 'ko') {
+      magazineList.forEach((v) => {
+        v.body = v.ko;
+      });
+    } else {
+      magazineList.forEach((v) => {
+        v.body = v.en;
+      });
+    }
+  }
+
   getMagazineList() {
     this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id).subscribe(
       (magazineList: any) => {
         if (this.topMagazineList === undefined) {
           this.topMagazineList = magazineList.items;
+          this.changeBody(this.topMagazineList);
         }
         this.magazineList = magazineList.items;
+        this.changeBody(this.magazineList);
       },
       (e) => {
         console.log('magazine list find failed', e);
@@ -96,8 +112,10 @@ export class MagazineComponent implements OnInit {
       (magazineList: any) => {
         if (this.topMagazineList === undefined) {
           this.topMagazineList = magazineList.items;
+          this.changeBody(this.topMagazineList);
         }
         this.magazineList = magazineList.items;
+        this.changeBody(this.magazineList);
       },
       (e) => {
         console.log('magazine list find failed', e);

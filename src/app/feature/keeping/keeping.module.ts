@@ -21,6 +21,8 @@ import { TestPageComponent } from './children/test-page/test-page.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { MypageFeedComponent } from './mypage/mypage-feed/mypage-feed.component';
 import { FeedFollowComponent } from './children/feed-follow/feed-follow.component';
+import { ScrapComponent } from './children/scrap/scrap.component';
+import { ScrapFeedComponent } from './children/scrap/scrap-feed/scrap-feed.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { FeedFollowComponent } from './children/feed-follow/feed-follow.componen
     SearchComponent,
     TestPageComponent,
     MypageFeedComponent,
+    ScrapComponent,
+    ScrapFeedComponent,
   ],
   imports: [KeepingRoutingModule, SharedModule, CommonModule, InlineSVGModule.forRoot()],
   exports: [],
