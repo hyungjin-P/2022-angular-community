@@ -465,6 +465,28 @@ export class FeedService {
       catchError(handleError)
     );
   }
+
+  /**
+   * 마이페이지 피드 메인 조회
+   * @param userId
+   * @param limit
+   */
+  findMyPageFeedMain(userId: string, limit: number): Observable<any> {
+    const url = environment.userApiAddress + `/feed/findMypageFeed?userId=${userId}&limit=${limit}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    }
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class FeedBookmarkDto {

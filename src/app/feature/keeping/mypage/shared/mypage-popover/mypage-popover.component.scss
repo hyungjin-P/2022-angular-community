@@ -1,0 +1,97 @@
+@import '/src/assets/styles/font';
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    top: 60px;
+  }
+  to {
+    top: 40px;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.shared-popover {
+  &.visible {
+    visibility: visible;
+    //animation: fadein 0.2s;
+    animation: slide-in 0.2s;
+  }
+
+  &.hidden {
+    visibility: hidden;
+    transition: all 0.3s;
+    animation: fadeout 0.3s;
+  }
+
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  z-index: 2;
+  background-color: var(--white);
+  filter: drop-shadow(5px 5px 30px rgba(0, 0, 0, 0.3));
+  border-radius: 12px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px;
+    margin: 0;
+    align-items: center;
+
+    .item {
+      display: flex;
+      flex-direction: row;
+      height: 50px;
+      border-radius: 12px;
+      color: var(--grey-2);
+      @include textStyleNotoSans(500, 14px);
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0px -1px 10px rgba(168 168 168 / 25%);
+      }
+
+      & .icon-pencil {
+        background: url('~src/assets/icons/mypage/pencil-default.svg') no-repeat center;
+      }
+
+      & .icon-trash {
+        background: url('~src/assets/icons/mypage/trash-default.svg') no-repeat center;
+      }
+
+      .color-danger {
+        color: var(--red);
+      }
+
+    }
+  }
+}

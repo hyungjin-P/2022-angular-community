@@ -1,0 +1,33 @@
+<swiper class="shared-picture"
+        #swiper
+        [config]="swiperOptions">
+  <ng-template swiperSlide *ngFor="let picture of pictures;">
+    <img [src]="picture.url" alt="" (click)="onClickPictureEvent(picture)">
+  </ng-template>
+</swiper>
+
+<div class="item-counter">
+  <span class="active">
+    {{ activeNumber }}
+  </span>
+  <span>{{' / '}}</span>
+  <span>{{pictures.length}}</span>
+</div>
+
+<div class="func-buttons">
+
+  <div class="like-button"
+       *ngIf="!disabledLikeButton"
+       [ngClass]="isLike ? 'active' : ''"
+       (click)="onClickLikeEvent($event)">
+    <div class="icon"></div>
+  </div>
+
+  <div class="bookmark-button"
+       *ngIf="!disabledBookmarkButton"
+       [ngClass]="isBookmark ? 'active' : ''"
+       (click)="onClickBookmarkEvent($event)">
+    <div class="icon"></div>
+
+  </div>
+</div>

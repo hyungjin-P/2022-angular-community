@@ -1,0 +1,93 @@
+<div class="items-title">
+  <!-- breadcrumb -->
+  <div class="title">
+    <span class="title-content">피드</span>
+    <span class="title-separate">-</span>
+    <span class="title-active">피드 상세</span>
+  </div>
+</div>
+
+<div class="items flex-wrap">
+
+  <ng-container *ngFor="let item of temp">
+
+    <!-- 피드 item -->
+    <div class="item-list col-12">
+      <div class="item-title">
+        <div class="item-avatar"
+             style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+        <div class="item-nickname">차누킴 차누킴</div>
+        <div class="item-last-ago">방금전</div>
+        <div class="item-more-option">
+          <div [inlineSVG]="'assets/icons/mypage/more-option-btn.svg'"
+               tabindex="1"
+               (click)="popoverToggleTest()"
+               (blur)="closePopover()"></div>
+          <app-mypage-popover [isVisible]="popoverToggle"
+                              (onClickModify)="visibleFeedModifyModal()"
+                              (onClickDelete)="visibleFeedDeleteModal()">
+          </app-mypage-popover>
+        </div>
+      </div>
+
+      <div class="item-box" tabindex="1">
+        <div class="item-box-inner">
+          <app-mypage-slider [pictures]="pictureTemplate"
+                             [isLike]="likeToggle"
+                             [isBookmark]="bookmarkToggle"
+                             (onClickLike)="likeToggleTest()"
+                             (onClickBookmark)="bookmarkToggleTest()"
+                             (onClickPicture)="getThisPicture($event)"
+                             (onChangeSlide)="getSlides($event)"
+                             (activeIndex)="getSlideActiveIndex($event)">
+          </app-mypage-slider>
+        </div>
+      </div>
+
+      <div class="item-contents">
+        <div class="item-contents-info">
+          <div class="item-contents-like-avatar">
+            <div style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+            <div style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+            <div style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+          </div>
+          <div class="item-contents-texts">
+            외 <strong>999+명</strong> 이 좋아합니다.
+          </div>
+          <div class="item-contents-comments">
+            <i class="comment-icon"
+               [inlineSVG]="'assets/icons/mypage/mypage-comment.svg'"></i>
+            <span class="comment-count">999+</span>
+          </div>
+        </div>
+        <div class="item-contents-text">
+          <div>
+            [Item Text] Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85
+            [Item Text] Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85
+          </div>
+        </div>
+        <div class="item-contents-tags">
+          <span class="tag"># 아이언맨</span>
+          <span class="tag"># 쓰리제로</span>
+          <span class="tag"># 아이언맨 마크 43</span>
+          <span class="tag"># 마블</span>
+          <span class="tag"># Iron man</span>
+        </div>
+
+      </div>
+
+    </div>
+  </ng-container>
+</div>
+
+<shared-modal type="confirm"
+              [(visible)]="feedModifyModalVisible"
+              [data]="feedModifyMessage"
+              (cancel)="modalCancel()"
+></shared-modal>
+
+<shared-modal type="confirm"
+              [(visible)]="feedDeleteModalVisible"
+              [data]="feedDeleteMessage"
+              (cancel)="modalCancel()"
+></shared-modal>

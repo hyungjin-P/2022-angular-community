@@ -17,7 +17,7 @@
 
     <div class="sub-text">{{ data?.subText }}</div>
 
-    <ng-container *ngIf="type == 'confirm'">
+    <ng-container *ngIf="type === 'confirm'">
       <div class="button-group">
         <div class="shared-button-secondary" style="margin-right: 12px" (click)="onCancel()">
           <div>{{ data?.cancelBtnText ? data.cancelBtnText : '취소' }}</div>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </ng-container>
-    <ng-container *ngIf="type == 'alert'">
+    <ng-container *ngIf="type === 'alert'">
       <div class="button-group">
         <div class="shared-button-primary" (click)="onConfirm()">
           <div>{{ data?.confirmBtnText ? data.confirmBtnText : '확인' }}</div>

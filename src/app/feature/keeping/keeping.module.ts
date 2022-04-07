@@ -21,6 +21,10 @@ import { TestPageComponent } from './children/test-page/test-page.component';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { MypageFeedComponent } from './mypage/mypage-feed/mypage-feed.component';
 import { FeedFollowComponent } from './children/feed-follow/feed-follow.component';
+import { MypageFeedDetailComponent } from './mypage/mypage-feed-detail/mypage-feed-detail.component';
+import {SwiperModule} from "swiper/angular";
+import { MypageSlider } from './mypage/shared/mypage-slider/mypage-slider.component';
+import { MypagePopoverComponent } from './mypage/shared/mypage-popover/mypage-popover.component';
 import { ScrapComponent } from './children/scrap/scrap.component';
 import { ScrapFeedComponent } from './children/scrap/scrap-feed/scrap-feed.component';
 
@@ -46,10 +50,13 @@ import { ScrapFeedComponent } from './children/scrap/scrap-feed/scrap-feed.compo
     SearchComponent,
     TestPageComponent,
     MypageFeedComponent,
+    MypageFeedDetailComponent,
+    MypageSlider,
+    MypagePopoverComponent,
     ScrapComponent,
     ScrapFeedComponent,
   ],
-  imports: [KeepingRoutingModule, SharedModule, CommonModule, InlineSVGModule.forRoot()],
+  imports: [KeepingRoutingModule, SharedModule, CommonModule, InlineSVGModule.forRoot(), SwiperModule],
   exports: [],
   providers: [],
 })

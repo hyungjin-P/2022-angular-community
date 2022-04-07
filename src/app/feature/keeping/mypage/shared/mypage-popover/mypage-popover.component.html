@@ -1,0 +1,17 @@
+<div class="shared-popover"
+     [ngClass]="isVisible ? 'visible' : 'hidden'">
+
+  <div class="popover-content">
+
+    <div class="item" (click)="onClickModifyEvent($event)">
+      <div class="icon-pencil"></div>
+      <div>수정하기</div>
+    </div>
+
+    <div class="item" (click)="onClickDeleteEvent($event)">
+      <div class="icon-trash"></div>
+      <div class="color-danger">삭제하기</div>
+    </div>
+
+  </div>
+</div>

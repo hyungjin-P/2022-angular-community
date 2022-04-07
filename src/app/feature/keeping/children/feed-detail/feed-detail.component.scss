@@ -217,6 +217,29 @@
         }
       }
 
+      /* Slider Wrapper */
+      .item-box {
+        position: relative;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        background-color: var(--grey-8);
+        background-size: cover;
+        overflow: hidden;
+
+        &:after {
+          content: '';
+          display: block;
+          padding-bottom: 100%;
+        }
+
+        .item-box-inner {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+        }
+      }
+
       .row-2 {
         //margin: 16px -15px 0;
         .carousel-indicators {
