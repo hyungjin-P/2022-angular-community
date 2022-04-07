@@ -27,6 +27,7 @@
       .banners {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
         //grid-template-rows: 260px 260px;
         grid-gap: 30px;
         margin-top: 30px;
@@ -49,10 +50,19 @@
           background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
           border-radius: 0 0 12px 12px;
         }
+
+        .bookmark {
+          display: none;
+          position: absolute;
+          top: 20px;
+          right: 20px;
+        }
+
         .description {
           position: absolute;
           flex-direction: column;
 
+          width: 100%;
           bottom: 0;
           padding: 0 56px 30px 20px;
 
@@ -78,6 +88,7 @@
             -webkit-box-orient: vertical;
           }
           .additional {
+            display: none;
             margin-top: 20px;
             color: white;
             opacity: 0.9;
@@ -86,7 +97,12 @@
             .nickname {
               margin-left: 4px;
             }
+            .user {
+              padding: 0;
+            }
             .display {
+              justify-content: right;
+              padding: 0;
               .viewerObj {
                 align-items: center;
                 margin-left: 8px;
@@ -124,6 +140,7 @@
           height: 170px;
           background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
         }
+
         .description {
           position: sticky;
           flex-direction: column;
@@ -253,6 +270,17 @@
             border: 1px solid var(--grey-8);
           }
 
+          .gradient {
+            display: none;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 115px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+            border-radius: 0px 0px 12px 12px;
+            transform: rotate(180deg);
+          }
+
           .bookmark {
             position: absolute;
             right: 10px;
@@ -290,8 +318,13 @@
             white-space: pre-line;
           }
 
+          .hover-tag-str,
+          .tag-str {
+            display: none;
+          }
+
           .additional {
-            display: flex;
+            display: none;
             align-items: center;
             height: 20px;
             margin-top: 8px;
@@ -357,6 +390,23 @@
       }
     }
 
+    .pc-top {
+      .top-banners {
+        .banner {
+          &:hover {
+            .bookmark {
+              display: block;
+            }
+            .description {
+              .additional {
+                display: flex;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .categories {
       height: 72px;
       padding: 16px 0;
@@ -372,6 +422,12 @@
           .image-box {
             .picture {
               border-radius: 12px 12px 0 0;
+            }
+            .bookmark {
+              display: none;
+              top: 20px;
+              right: 20px;
+              bottom: 0;
             }
           }
 
@@ -392,8 +448,15 @@
 
               @include textStyle(700, 18px, 26px);
             }
+            .hover-tag-str {
+              display: none;
+              @include textStyle(400, 13px, 21px);
+              letter-spacing: -0.2px;
+              color: var(--grey-2);
+            }
 
             .tag-str {
+              display: block;
               /*margin-bottom: 10px;*/
 
               @include textStyle(400, 13px, 21px);
@@ -427,6 +490,30 @@
                 .heartObj {
                   margin-left: 8px;
                 }
+              }
+            }
+          }
+        }
+
+        &:hover {
+          > div {
+            .image-box {
+              .gradient {
+                display: block;
+              }
+              .bookmark {
+                display: block;
+              }
+            }
+            .description {
+              .hover-tag-str {
+                display: block;
+              }
+              .tag-str {
+                display: none;
+              }
+              .additional {
+                display: flex;
               }
             }
           }

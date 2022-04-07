@@ -20,7 +20,7 @@ export class MagazineComponent implements OnInit {
   topMagazineList: Magazine[];
   magazineList: Magazine[];
   page: number = 1;
-  limit: number = 20;
+  limit: number = 30;
 
   tabMenu: any = [
     {
@@ -45,9 +45,9 @@ export class MagazineComponent implements OnInit {
       sort: 0,
     },
     {
-      tabName: 'writer',
+      tabName: 'artist',
       languageCode: 'common.nav.magazine-tab.magazine_category_artist',
-      link: '/magazine?tabType=writer',
+      link: '/magazine?tabType=artist',
       description: '작가, 작품 인터뷰',
       sort: 0,
     },
@@ -69,13 +69,11 @@ export class MagazineComponent implements OnInit {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
     this.language = localStorage.getItem('language');
-    this.getMagazineList();
-    this.changeTab();
 
-    if (this.user) {
-      this.getMagazineList();
+    if (this.nowTab !== '') {
+      this.changeTab();
     } else {
-      this.getPublicMagazineList();
+      this.moveTab('/magazine?tabType=all');
     }
   }
 
@@ -95,10 +93,12 @@ export class MagazineComponent implements OnInit {
     this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id).subscribe(
       (magazineList: any) => {
         if (this.topMagazineList === undefined) {
-          this.topMagazineList = magazineList.items;
+          this.topMagazineList = magazineList.items.slice(0, 5);
           this.changeBody(this.topMagazineList);
         }
-        this.magazineList = magazineList.items;
+        this.magazineList = magazineList.items.filter((magazine, idx1) => {
+          return this.topMagazineList.findIndex((topMagazine) => magazine.id === topMagazine.id) !== idx1;
+        });
         this.changeBody(this.magazineList);
       },
       (e) => {
@@ -111,10 +111,12 @@ export class MagazineComponent implements OnInit {
     this.publicService.getMagazineList(this.page, this.limit, this.category).subscribe(
       (magazineList: any) => {
         if (this.topMagazineList === undefined) {
-          this.topMagazineList = magazineList.items;
+          this.topMagazineList = magazineList.items.slice(0, 5);
           this.changeBody(this.topMagazineList);
         }
-        this.magazineList = magazineList.items;
+        this.magazineList = magazineList.items.filter((magazine, idx1) => {
+          return this.topMagazineList.findIndex((topMagazine) => magazine.id === topMagazine.id) !== idx1;
+        });
         this.changeBody(this.magazineList);
       },
       (e) => {
@@ -139,7 +141,12 @@ export class MagazineComponent implements OnInit {
       } else {
         this.category = 'magazine_category_' + this.nowTab;
       }
-      this.getMagazineList();
+
+      if (this.user) {
+        this.getMagazineList();
+      } else {
+        this.getPublicMagazineList();
+      }
     }
   }
 }
