@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 export class DateUtils {
   public getTimeStamp(date: string): number {
     let nowDate = new Date();
-    let utcNow = nowDate.getTime() + nowDate.getTimezoneOffset() * 60 * 1000;
+    let utcNow = nowDate.getTime();
     let theDate = new Date(Date.parse(date));
-    let timeStamp = utcNow - theDate.getTime();
+    const timeStamp = utcNow - theDate.getTime();
 
     return timeStamp;
   }

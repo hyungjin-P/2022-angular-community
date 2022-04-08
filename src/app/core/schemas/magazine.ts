@@ -14,6 +14,7 @@ export class Magazine {
     public likeCount: number,
     public isLike: boolean,
     public isBookmark: boolean,
+    public viewCount: number,
     public body: MagazineBody
   ) {
     this.id = id;
@@ -27,5 +28,6 @@ export class Magazine {
     this.likeCount = likeCount;
     this.isLike = isLike;
     this.isBookmark = isBookmark;
+    this.viewCount = viewCount;
   }
 }

@@ -149,4 +149,22 @@ export class MagazineComponent implements OnInit {
       }
     }
   }
+
+  moveLink(magazine: Magazine) {
+    //조회수 증가
+    this.createMagazineView(magazine);
+    //링크 이동
+    window.location.href = magazine.body.body;
+  }
+
+  createMagazineView(magazine: Magazine) {
+    let userId = '';
+    if (!this.user) {
+      userId = localStorage.getItem('undefinedUser');
+    } else {
+      userId = this.user.id;
+    }
+
+    this.magazineService.createView(magazine.id, userId).subscribe((v) => {});
+  }
 }

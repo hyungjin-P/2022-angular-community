@@ -157,6 +157,7 @@
       "follow": "Follow"
     },
     "magazine": {
+      "top-title": "News & Updates Articles",
       "category": {
         "magazine_category_news": "news",
         "magazine_category_release": "new release",
