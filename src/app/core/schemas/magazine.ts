@@ -1,5 +1,6 @@
 import { User } from '@schemas/user';
 import { MagazineBody } from '@schemas/magazineBody';
+import { MagazineTag } from '@schemas/magazine-tag';
 
 export class Magazine {
   constructor(
@@ -9,6 +10,7 @@ export class Magazine {
     public en: MagazineBody,
     public ko: MagazineBody,
     public picture: string,
+    public tags: MagazineTag[],
     public tagsStr: string,
     public createdAt: string,
     public likeCount: number,
@@ -23,7 +25,7 @@ export class Magazine {
     this.en = en;
     this.ko = ko;
     this.picture = picture;
-    this.tagsStr = tagsStr;
+    this.tags = tags;
     this.createdAt = createdAt;
     this.likeCount = likeCount;
     this.isLike = isLike;

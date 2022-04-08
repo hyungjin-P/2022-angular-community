@@ -55,6 +55,40 @@ export class MagazineService {
       catchError(handleError)
     );
   }
+
+  createBookmark(magazineId: string, userId: string) {
+    const url = environment.userApiAddress + `/magazine/addBookmark?magazineId=${magazineId}&userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.post<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  deleteBookmark(magazineId: string, userId: string) {
+    const url = environment.userApiAddress + `/magazine/deleteBookmark?magazineId=${magazineId}&userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.delete<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class CreateMagazineDto {

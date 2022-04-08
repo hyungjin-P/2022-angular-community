@@ -11,10 +11,10 @@
         <div class='top-banners'>
             <div class='banner-first'>
               <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
-                <a class='banner' *ngIf='i === 0' (click)='moveLink(magazine)'>
+                <div class='banner' *ngIf='i === 0'>
                   <img [src]='magazine.picture' class='d-block w-100 h-100' alt=''>
                   <div class='gradient'></div>
-                  <a class='bookmark'>
+                  <a class='bookmark' (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
                       <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.63917 17.6377C4.98761 18.1792 4 17.7158 4 16.8686V3.7C4 2.76112 4.79949 2 5.78571 2H14.7143C15.7005 2 16.5 2.76112 16.5 3.7V16.8686C16.5 17.7158 15.5124 18.1792 14.8608 17.6377L10.8892 14.3368C10.5187 14.0289 9.98131 14.0289 9.61083 14.3368L5.63917 17.6377Z" fill="white" fill-opacity="0.6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -27,7 +27,7 @@
                       </svg>
                     </ng-container>
                   </a>
-                  <div class='description'>
+                  <a class='description'(click)='moveLink(magazine)'>
                     <div class='category'>
                       {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
                     </div>
@@ -66,7 +66,7 @@
                             {{magazine.viewCount}}+
                           </div>
                         </div>
-                        <div class='heartObj d-flex'>
+                        <!--<div class='heartObj d-flex'>
                           <div class='heart' *ngIf='!variables.isLogin || !magazine.isLike'>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M9.27053 14.9105L4.8795 10.338C3.64268 9.05007 3.72056 6.93827 5.0486 5.7529C6.36611 4.57693 8.3638 4.80529 9.40495 6.25087L9.57999 6.4939L9.75504 6.25087C10.7962 4.80529 12.7938 4.57693 14.1114 5.7529C15.4394 6.93827 15.5173 9.05007 14.2805 10.338L9.88946 14.9105C9.71854 15.0885 9.44144 15.0885 9.27053 14.9105Z" fill="#FFFFFF"/>
@@ -83,19 +83,19 @@
                           <div class='text'>
                             {{magazine.likeCount}}+
                           </div>
-                        </div>
+                        </div>-->
                       </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </ng-container>
             </div>
             <div class='banners'>
               <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
-                <a class='banner' *ngIf='i !== 0 && i < 5' (click)='moveLink(magazine)'>
+                <div class='banner' *ngIf='i !== 0 && i < 5'>
                   <img [src]='magazine.picture' class='d-block w-100 h-100' alt=''>
                   <div class='gradient'></div>
-                  <a class='bookmark'>
+                  <a class='bookmark' (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
                       <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.63917 17.6377C4.98761 18.1792 4 17.7158 4 16.8686V3.7C4 2.76112 4.79949 2 5.78571 2H14.7143C15.7005 2 16.5 2.76112 16.5 3.7V16.8686C16.5 17.7158 15.5124 18.1792 14.8608 17.6377L10.8892 14.3368C10.5187 14.0289 9.98131 14.0289 9.61083 14.3368L5.63917 17.6377Z" fill="white" fill-opacity="0.6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -108,7 +108,7 @@
                       </svg>
                     </ng-container>
                   </a>
-                  <div class='description'>
+                  <a class='description' (click)='moveLink(magazine)'>
                     <div class='category'>
                       {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
                     </div>
@@ -147,7 +147,7 @@
                             {{magazine.viewCount}}+
                           </div>
                         </div>
-                        <div class='heartObj d-flex'>
+                        <!--<div class='heartObj d-flex'>
                           <div class='heart' *ngIf='!variables.isLogin || !magazine.isLike'>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M9.27053 14.9105L4.8795 10.338C3.64268 9.05007 3.72056 6.93827 5.0486 5.7529C6.36611 4.57693 8.3638 4.80529 9.40495 6.25087L9.57999 6.4939L9.75504 6.25087C10.7962 4.80529 12.7938 4.57693 14.1114 5.7529C15.4394 6.93827 15.5173 9.05007 14.2805 10.338L9.88946 14.9105C9.71854 15.0885 9.44144 15.0885 9.27053 14.9105Z" fill="#FFFFFF"/>
@@ -164,11 +164,11 @@
                           <div class='text'>
                             {{magazine.likeCount}}+
                           </div>
-                        </div>
+                        </div>-->
                       </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
               </ng-container>
             </div>
         </div>
@@ -273,13 +273,12 @@
         <ng-container *ngFor='let magazine of magazineList; let i = index'>
           <div class="item col-6 col-lg-6 col-xxl-2-5">
             <div class="d-flex flex-column flex-wrap">
-              <a
+              <div
                 class="image-box flex-fill"
-                (click)='moveLink(magazine)'
               >
                 <img class="picture" [src]='magazine.picture' draggable="false">
                 <div class='gradient'></div>
-                <a class='bookmark'>
+                <a class='bookmark' (click)='toggleBookmark(magazine)'>
                   <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5.63917 17.6377C4.98761 18.1792 4 17.7158 4 16.8686V3.7C4 2.76112 4.79949 2 5.78571 2H14.7143C15.7005 2 16.5 2.76112 16.5 3.7V16.8686C16.5 17.7158 15.5124 18.1792 14.8608 17.6377L10.8892 14.3368C10.5187 14.0289 9.98131 14.0289 9.61083 14.3368L5.63917 17.6377Z" fill="white" fill-opacity="0.6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -292,13 +291,13 @@
                     </svg>
                   </ng-container>
                 </a>
-              </a>
-              <div class='description'>
+              </div>
+              <a class='description' (click)='moveLink(magazine)'>
                 <div class="info"> {{ 'keeping.magazine.category.' + magazine.category | translate }} </div>
                 <div class="title"> {{magazine.body.title}} </div>
-                <div class='hover-tag-str'> {{magazine.tagsStr}} #test </div>
+                <div class='hover-tag-str'> {{magazine.tagsStr}} </div>
                 <div class='line d-none d-lg-block'></div>
-                <div class='tag-str'> {{magazine.tagsStr}} #test </div>
+                <div class='tag-str'> {{magazine.tagsStr}} </div>
                 <div class = 'additional'>
                   <div class='user col-6'>
                     <shared-avatar
@@ -330,7 +329,7 @@
                         {{magazine.viewCount}}+
                       </div>
                     </div>
-                    <div class='heartObj'>
+                    <!--<div class='heartObj'>
                       <div class='heart' *ngIf='!variables.isLogin || !magazine.isLike'>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M9.27053 14.9105L4.8795 10.338C3.64268 9.05007 3.72056 6.93827 5.0486 5.7529C6.36611 4.57693 8.3638 4.80529 9.40495 6.25087L9.57999 6.4939L9.75504 6.25087C10.7962 4.80529 12.7938 4.57693 14.1114 5.7529C15.4394 6.93827 15.5173 9.05007 14.2805 10.338L9.88946 14.9105C9.71854 15.0885 9.44144 15.0885 9.27053 14.9105Z" fill="#B2BBC8"/>
@@ -347,10 +346,10 @@
                       <div class='text'>
                         {{magazine.likeCount}}+
                       </div>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </ng-container>
@@ -358,3 +357,12 @@
     </div>
   </div>
 </div>
+
+
+<shared-login-modal
+  [(visible)]='isLoginModalVisible'
+  type='login'
+  (cancel)='loginModalCancel()'
+  (confirm)='loginModalConfirm()'
+  (another)='loginModalAnother()'
+></shared-login-modal>
