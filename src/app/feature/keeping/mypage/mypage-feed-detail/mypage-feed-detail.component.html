@@ -9,69 +9,73 @@
 
 <div class="items flex-wrap">
 
-  <ng-container *ngFor="let item of temp">
+  <ng-container *ngFor="let feed of feedList">
 
     <!-- 피드 item -->
     <div class="item-list col-12">
       <div class="item-title">
         <div class="item-avatar"
              style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
-        <div class="item-nickname">차누킴 차누킴</div>
+        <div class="item-nickname">{{ feed?.writingUser?.nickname ? feed?.writingUser?.nickname : feed?.writingUser?.email  }}</div>
         <div class="item-last-ago">방금전</div>
         <div class="item-more-option">
           <div [inlineSVG]="'assets/icons/mypage/more-option-btn.svg'"
                tabindex="1"
-               (click)="popoverToggleTest()"
-               (blur)="closePopover()"></div>
-          <app-mypage-popover [isVisible]="popoverToggle"
+               (click)="onPopoverToggle(feed)"
+               (blur)="onClosePopover(feed)"></div>
+          <app-mypage-popover [isVisible]="feed?.onCheckPopover"
                               (onClickModify)="visibleFeedModifyModal()"
                               (onClickDelete)="visibleFeedDeleteModal()">
           </app-mypage-popover>
         </div>
       </div>
 
-      <div class="item-box" tabindex="1">
+      <div class="item-box">
         <div class="item-box-inner">
-          <app-mypage-slider [pictures]="pictureTemplate"
-                             [isLike]="likeToggle"
-                             [isBookmark]="bookmarkToggle"
+          <app-mypage-slider [pictures]="feed?.pictures"
+                             [isLike]="feed?.isLike"
+                             [isBookmark]="feed?.isBookmark"
                              (onClickLike)="likeToggleTest()"
                              (onClickBookmark)="bookmarkToggleTest()"
-                             (onClickPicture)="getThisPicture($event)"
-                             (onChangeSlide)="getSlides($event)"
-                             (activeIndex)="getSlideActiveIndex($event)">
+                             (onClickPicture)="getThisPicture($event)">
           </app-mypage-slider>
         </div>
       </div>
 
       <div class="item-contents">
         <div class="item-contents-info">
+
           <div class="item-contents-like-avatar">
-            <div style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
-            <div style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
-            <div style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+            <ng-container *ngFor="let likeUser of feed?.exposureUser">
+              <div [ngStyle]="comparisonUserPicture(likeUser)"></div>
+            </ng-container>
           </div>
+
           <div class="item-contents-texts">
-            외 <strong>999+명</strong> 이 좋아합니다.
+            <ng-container *ngIf="feed.likeCount < 4 && feed.likeCount > 0">
+              <strong>님</strong>이 좋아합니다.
+            </ng-container>
+
+            <ng-container *ngIf="feed.likeCount > 3">
+              외 <strong> {{feed.likeCount}}명</strong>이 좋아합니다.
+            </ng-container>
           </div>
+
           <div class="item-contents-comments">
             <i class="comment-icon"
                [inlineSVG]="'assets/icons/mypage/mypage-comment.svg'"></i>
-            <span class="comment-count">999+</span>
+            <span class="comment-count">
+              {{ feed?.commentCount > 999 ? '999+' : feed?.commentCount }}
+            </span>
           </div>
         </div>
         <div class="item-contents-text">
           <div>
-            [Item Text] Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85
-            [Item Text] Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85 Iron Man N.K85
+            {{ feed?.content }}
           </div>
         </div>
         <div class="item-contents-tags">
-          <span class="tag"># 아이언맨</span>
-          <span class="tag"># 쓰리제로</span>
-          <span class="tag"># 아이언맨 마크 43</span>
-          <span class="tag"># 마블</span>
-          <span class="tag"># Iron man</span>
+          <span class="tag" *ngFor="let tag of feed?.tags">{{ '# ' + tag.name }}</span>
         </div>
 
       </div>

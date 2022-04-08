@@ -104,6 +104,7 @@
         width: 100%;
         height: 100%;
         border-radius: 8px;
+        z-index: 0;
       }
 
     }
@@ -116,12 +117,10 @@
         height: 20px;
 
         .item-contents-like-avatar {
-          width: 60px;
           display: flex;
 
           div {
             flex-shrink: 0;
-            position: absolute;
             width: 20px;
             height: 20px;
             border: 1px;
@@ -131,11 +130,15 @@
           }
 
           div:nth-child(2) {
-            left: 25px;
+            margin-left: -5px;
           }
 
           div:nth-child(3) {
-            left: 40px;
+            margin-left: -5px;
+          }
+
+          div:last-child {
+            margin-right: 5px;
           }
         }
 

@@ -4,16 +4,17 @@
   <!-- breadcrumb -->
   <div class="title">
     <span class="title-content">피드</span>
-    <span class="content-count">{{feeds.length | number}}</span>
+    <span class="content-count">{{totalCount | number}}</span>
   </div>
 
-  <a class="more-view">
+  <a class="more-view" [routerLink]="'/mypage/feed-detail'">
     전체보기
   </a>
 </div>
 
 <!-- 등록한 피드 없을 때 -->
-<div class="items" *ngIf="feedList.length === 0">
+<div class="items justify-content-center"
+     *ngIf="feedList.length === 0">
   <div class="item-empty">
     <div class="item-empty-title">
       {{ 'mypage.empty-text-1' | translate }}
@@ -37,8 +38,12 @@
        *ngFor="let feed of feedList; let i = index;">
 
     <div class="item-box"
-         [style.background-image]="'url(' + feed?.picture + ')'"
+         [ngStyle]="comparisonBackgroundImage(feed)"
          (click)="goRouter('/mypage/feed-detail')">
+
+      <div class="item-box-picture-count d-lg-none" *ngIf="feed?.pictureCount > 1">
+        {{ feed?.pictureCount > 99 ? '99+' : ('+' + feed?.pictureCount) }}
+      </div>
 
       <ng-container *ngIf="otherCount > 0 && (i + 1) === limit">
         <div class="item-box-other-count">
@@ -51,11 +56,13 @@
     </div>
 
     <div class="item-content">
-
       <!-- url 넣어야 함 -->
       <div class="user-infos">
-        <div class="avatar" style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
-        <div class="nickname">{{ user.nickname ? user.nickname : user.email }}</div>
+        <div class="avatar"
+             [ngStyle]="comparisonUserPicture(user)"></div>
+        <div class="nickname">
+          {{ user?.nickname ? user.nickname : user.email }}
+        </div>
       </div>
 
       <div class="user-contents">
@@ -64,9 +71,13 @@
 
       <div class="user-contents-infos">
         <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>
-        <div class="info-count">99+</div>
+        <div class="info-count">
+          {{ feed?.likeCount > 99 ? '99+' : (feed?.likeCount)}}
+        </div>
         <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>
-        <div class="info-count">99+</div>
+        <div class="info-count">
+          {{ feed?.commentCount > 99 ? '99+' : (feed?.commentCount)}}
+        </div>
       </div>
 
     </div>

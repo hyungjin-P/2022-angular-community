@@ -23,11 +23,14 @@ export class Feed {
     public isLike: boolean,
     public isBookmark: boolean,
     public otherCount: number,
+    public exposureUser: User[],
     // 내부 로직 동작을 위함
+    public onCheckPopover: boolean = false,
     public begin_timestamp: number,
     public begin_time_text: string,
     public contentViewVisible: boolean,
-    public carouselIndex: number
+    public carouselIndex: number,
+    public writingUser: User,
   ) {
     this.id = id;
     this.writer = writer;
@@ -47,5 +50,8 @@ export class Feed {
     this.isLike = isLike;
     this.isBookmark = isBookmark;
     this.otherCount = otherCount;
+    this.onCheckPopover = onCheckPopover;
+    this.exposureUser = exposureUser;
+    this.writingUser = writingUser;
   }
 }

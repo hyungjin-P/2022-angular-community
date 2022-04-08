@@ -2,7 +2,7 @@
         #swiper
         [config]="swiperOptions">
   <ng-template swiperSlide *ngFor="let picture of pictures;">
-    <img [src]="picture.url" alt="" (click)="onClickPictureEvent(picture)">
+    <img [src]="picture?.url" alt="" (click)="onClickPictureEvent(picture)">
   </ng-template>
 </swiper>
 
@@ -11,7 +11,7 @@
     {{ activeNumber }}
   </span>
   <span>{{' / '}}</span>
-  <span>{{pictures.length}}</span>
+  <span>{{pictures?.length}}</span>
 </div>
 
 <div class="func-buttons">

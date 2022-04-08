@@ -110,6 +110,10 @@
         padding-bottom: 100%;
       }
 
+      .item-box-picture-count {
+        visibility: hidden;
+      }
+
       .item-box-other-count {
         position: absolute;
         display: flex;
@@ -153,6 +157,23 @@
       padding: 30px 15px;
 
       .item-box {
+
+        .item-box-picture-count {
+          visibility: visible;
+          position: absolute;
+          padding-top: 2px;
+          top: 20px;
+          right: 20px;
+          width: 35px;
+          height: 25px;
+          border-radius: 12px;
+          background: rgba(0, 0, 0, 0.5);
+          color: var(--white);
+          text-align: center;
+          @include textStyleNotoSans(500, 13px);
+
+        }
+
         .item-box-other-count {
           visibility: hidden;
         }
@@ -246,5 +267,3 @@
     }
   }
 }
-
-
