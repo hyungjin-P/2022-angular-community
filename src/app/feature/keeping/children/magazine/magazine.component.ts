@@ -22,6 +22,8 @@ export class MagazineComponent implements OnInit {
   page: number = 1;
   limit: number = 30;
 
+  isLoginModalVisible = false;
+
   tabMenu: any = [
     {
       tabName: 'all',
@@ -81,10 +83,26 @@ export class MagazineComponent implements OnInit {
     if (this.language === 'ko') {
       magazineList.forEach((v) => {
         v.body = v.ko;
+
+        if (v.tags.length > 0) {
+          let tagsStr = '';
+          v.tags.forEach((tag) => {
+            tagsStr += '#' + tag.nameKo + ' ';
+          });
+          v.tagsStr = tagsStr;
+        }
       });
     } else {
       magazineList.forEach((v) => {
         v.body = v.en;
+
+        if (v.tags.length > 0) {
+          let tagsStr = '';
+          v.tags.forEach((tag) => {
+            tagsStr += '#' + tag.nameEn + ' ';
+          });
+          v.tagsStr = tagsStr;
+        }
       });
     }
   }
@@ -148,5 +166,72 @@ export class MagazineComponent implements OnInit {
         this.getPublicMagazineList();
       }
     }
+  }
+
+  moveLink(magazine: Magazine) {
+    //조회수 증가
+    this.createMagazineView(magazine);
+    //링크 이동
+    window.location.href = magazine.body.body;
+  }
+
+  createMagazineView(magazine: Magazine) {
+    let userId = '';
+    if (!this.user) {
+      userId = localStorage.getItem('undefinedUser');
+    } else {
+      userId = this.user.id;
+    }
+
+    this.magazineService.createView(magazine.id, userId).subscribe((v) => {});
+  }
+
+  toggleBookmark(magazine: Magazine) {
+    if (!this.user) {
+      this.showLoginModal();
+    } else {
+      if (magazine.isBookmark) {
+        this.deleteBookmark(magazine);
+      } else {
+        this.createBookmark(magazine);
+      }
+    }
+  }
+
+  createBookmark(magazine: Magazine) {
+    this.magazineService.createBookmark(magazine.id, this.user.id).subscribe(
+      (data) => {
+        magazine.isBookmark = true;
+      },
+      (error) => {
+        console.error('bookmark add failed: ', error);
+      }
+    );
+  }
+
+  deleteBookmark(magazine: Magazine) {
+    this.magazineService.deleteBookmark(magazine.id, this.user.id).subscribe(
+      (data) => {
+        magazine.isBookmark = false;
+      },
+      (error) => {
+        console.error('bookmark cancel failed: ', error);
+      }
+    );
+  }
+
+  showLoginModal() {
+    this.isLoginModalVisible = true;
+  }
+  loginModalConfirm() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/login');
+  }
+  loginModalCancel() {
+    this.isLoginModalVisible = false;
+  }
+  loginModalAnother() {
+    this.isLoginModalVisible = false;
+    this.router.navigateByUrl('/auth/registration');
   }
 }

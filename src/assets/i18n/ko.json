@@ -157,6 +157,7 @@
       "follow": "팔로우"
     },
     "magazine": {
+      "top-title": "이번주 에디터 뉴스",
       "category": {
         "magazine_category_news": "피규어 뉴스",
         "magazine_category_release": "피규어 발매소식",
