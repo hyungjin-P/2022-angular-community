@@ -44,6 +44,8 @@ import { DragulaModule } from 'ng2-dragula';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { LoginComponent } from '../feature/keeping/auth/login/login.component';
+import { FeedSliderComponent } from './components/feed-slider/feed-slider.component';
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -73,6 +75,7 @@ import { LoginComponent } from '../feature/keeping/auth/login/login.component';
     numberWithCommasPipe,
     SafePipe,
     TimePipe,
+    FeedSliderComponent,
   ],
   imports: [
     CommonModule,
@@ -89,6 +92,7 @@ import { LoginComponent } from '../feature/keeping/auth/login/login.component';
 
     DragulaModule.forRoot(),
     ImageCropperModule,
+    SwiperModule,
   ],
   exports: [
     CommonModule,
@@ -126,6 +130,7 @@ import { LoginComponent } from '../feature/keeping/auth/login/login.component';
     DragulaModule,
     ImageCropperModule,
     LoginModalComponent,
+    FeedSliderComponent,
   ],
   providers: [],
 })

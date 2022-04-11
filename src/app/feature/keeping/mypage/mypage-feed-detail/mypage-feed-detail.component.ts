@@ -155,10 +155,8 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
       this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = true;
-          console.log('add bookmark data : ', data);
         },
         (error) => {
-          console.log('bookmark add failed : ', error);
         }
       );
     }
@@ -171,12 +169,12 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
    */
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
-        (data) => {
+      this.feedService
+        .deleteFeedBookmark({ feedId: feed?.id, userId })
+        .subscribe((data) => {
           feed.isBookmark = false;
         },
         (error) => {
-          console.log('bookmark cancel failed : ', error);
         }
       );
     }
