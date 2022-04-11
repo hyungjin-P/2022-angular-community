@@ -17,7 +17,8 @@ import {SwiperComponent} from 'swiper/angular';
 @Component({
   selector: 'app-feed-slider',
   templateUrl: './feed-slider.component.html',
-  styleUrls: ['./feed-slider.component.scss']
+  styleUrls: ['./feed-slider.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FeedSliderComponent implements OnInit, AfterViewInit  {
 

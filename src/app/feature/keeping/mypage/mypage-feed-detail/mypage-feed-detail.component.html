@@ -16,7 +16,8 @@
       <div class="item-title">
         <div class="item-avatar"
              [ngStyle]="comparisonUserPicture(feed?.writingUser)"></div>
-        <div class="item-nickname">{{ feed?.writingUser?.nickname ? feed?.writingUser?.nickname : feed?.writingUser?.email  }}</div>
+        <div
+          class="item-nickname">{{ feed?.writingUser?.nickname ? feed?.writingUser?.nickname : feed?.writingUser?.email  }}</div>
         <div class="item-last-ago">방금전</div>
         <div class="item-more-option">
           <div [inlineSVG]="'assets/icons/mypage/more-option-btn.svg'"
@@ -33,12 +34,12 @@
       <!-- 슬라이더 -->
       <div class="item-box">
         <div class="item-box-inner">
-          <app-mypage-slider [pictures]="feed?.pictures"
-                             [isLike]="feed?.isLike"
-                             [isBookmark]="feed?.isBookmark"
-                             (onClickLike)="toggleFeedLike(feed)"
-                             (onClickBookmark)="toggleFeedBookmark(feed)">
-          </app-mypage-slider>
+          <app-feed-slider [pictures]="feed?.pictures"
+                           [isLike]="feed?.isLike"
+                           [isBookmark]="feed?.isBookmark"
+                           (onClickLike)="toggleFeedLike(feed)"
+                           (onClickBookmark)="toggleFeedBookmark(feed)">
+          </app-feed-slider>
         </div>
       </div>
 
