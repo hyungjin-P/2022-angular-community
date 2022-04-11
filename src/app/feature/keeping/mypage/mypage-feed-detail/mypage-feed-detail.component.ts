@@ -4,6 +4,7 @@ import {StorageService} from "@services/storage.service";
 import {FeedService} from "@services/feed.service";
 import {User} from "@schemas/user";
 import {Feed} from "@schemas/feed";
+import {FollowService} from "@services/follow.service";
 
 
 @Component({
@@ -27,25 +28,6 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
     cancelBtnText: '취소'
   }
 
-
-  pictureTemplate: any[] = [
-    { url: 'assets/images/sample/feed_test_img_001.jpg' },
-    { url: 'assets/images/sample/feed_test_img_002.jpg' },
-    { url: 'assets/images/sample/feed_test_img_003.png' },
-  ];
-
-  temp: any[] = [
-    { title: 'title1', },
-    { title: 'title2', },
-    { title: 'title3', },
-  ];
-
-  touchCount = 0;
-
-  likeToggle: boolean = false;
-  bookmarkToggle: boolean = false;
-  popoverToggle: boolean = false;
-
   feedModifyModalVisible: boolean = false;
   feedDeleteModalVisible: boolean = false;
 
@@ -54,7 +36,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
 
   /** pagination */
   page: number = 1;
-  pageCount: number = 12;
+  pageCount: number = 6;
 
   emptyCount: number = 0;
   otherCount: number = 0;
@@ -64,8 +46,9 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
     private router: Router,
     private storageService: StorageService,
     private feedService: FeedService,
+    private followService: FollowService,
   ) {
-    this.pushEmptyFeed(this.pageCount);
+    this.pushEmptyFeed(1);
   }
 
   ngOnInit(): void {
@@ -106,28 +89,6 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getThisPicture(picture: any): void {
-    // console.log('picture : ', picture);
-  }
-
-  getSlideActiveIndex(activeIndex: any): void {
-    // console.log('activeIndex : ', activeIndex);
-  }
-
-  getSlides(data: any): void {
-    // console.log('getSlide : ', data);
-  }
-
-  likeToggleTest(): boolean {
-    this.likeToggle = !this.likeToggle;
-    return this.likeToggle;
-  }
-
-  bookmarkToggleTest(): boolean {
-    this.bookmarkToggle = !this.bookmarkToggle;
-    return this.bookmarkToggle;
-  }
-
   onPopoverToggle(feed: Feed): boolean {
     feed.onCheckPopover = !feed.onCheckPopover;
     return feed.onCheckPopover;
@@ -137,25 +98,12 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
     feed.onCheckPopover = false;
   }
 
-  popoverToggleTest(event?): boolean {
-    if (event) {
-      console.log('event : ', event);
-    }
-
-    this.popoverToggle = !this.popoverToggle;
-    return this.popoverToggle
-  }
-
   errLog(event: any): void {
     console.log('errLog : ', event);
   }
 
   feedDeleteAccess(): void {
     this.feedModifyModalVisible = false;
-  }
-
-  closePopover(): void {
-    this.popoverToggle = false;
   }
 
   modalCancel(): void {
@@ -179,6 +127,105 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
 
   comparisonUserPicture(user: User): any {
     return user?.picture ? {'background-image': 'url(' + user?.picture[0].url + ')'} : {};
+  }
+
+  /**
+   * 북마크 추가/삭제
+   * @param feed
+   */
+  toggleFeedBookmark(feed: Feed): void {
+    if (this.user) {
+      if (feed) {
+        if (feed.isBookmark) {
+          this.deleteBookmark(feed, this.user?.id);
+        } else {
+          this.addBookmark(feed, this.user?.id);
+        }
+      }
+    }
+  }
+
+  /**
+   * 북마크 추가
+   * @param feed
+   * @param userId
+   */
+  addBookmark(feed: Feed, userId: string): void {
+    if (this.user) {
+      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
+          feed.isBookmark = true;
+          console.log('add bookmark data : ', data);
+        },
+        (error) => {
+          console.log('bookmark add failed : ', error);
+        }
+      );
+    }
+  }
+
+  /**
+   * 북마크 삭제
+   * @param feed
+   * @param userId
+   */
+  deleteBookmark(feed: Feed, userId: string): void {
+    if (this.user) {
+      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
+          feed.isBookmark = false;
+        },
+        (error) => {
+          console.log('bookmark cancel failed : ', error);
+        }
+      );
+    }
+  }
+
+  toggleFeedLike(feed: Feed): void {
+    if (this.user) {
+      if (feed) {
+        if (feed.isLike) {
+          this.deleteFeedLike(feed, this.user?.id);
+        } else {
+          this.addFeedLike(feed, this.user?.id);
+        }
+      }
+    }
+  }
+
+  addFeedLike(feed: Feed, userId: string): void {
+    this.feedService
+      .createFeedLike({
+        feedId: feed.id,
+        userId
+      })
+      .subscribe((data) => {
+          feed.isLike = true;
+          feed.likeCount += 1;
+        }, (e) => {
+
+        }
+      );
+  }
+
+  deleteFeedLike(feed: Feed, userId: string): void {
+    this.feedService
+      .deleteFeedLike({
+        feedId: feed.id,
+        userId,
+      })
+      .subscribe(
+        (v) => {
+          feed.isLike = false;
+          feed.likeCount -= 1;
+        },
+        (e) => {}
+      );
+  }
+
+  refreshFeed(feed: Feed): void {
+
   }
 
 }

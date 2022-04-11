@@ -233,6 +233,7 @@ export class FeedService {
 
     return this.http.post<any>(url, feedLike, options).pipe(
       map((res) => {
+        console.log('create feed like : ', res);
         return res;
       }),
       catchError(handleError)

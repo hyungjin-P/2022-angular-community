@@ -856,6 +856,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   showLoginModal() {
     this.isLoginModalVisible = true;
   }
+
   loginModalConfirm() {
     this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/login');

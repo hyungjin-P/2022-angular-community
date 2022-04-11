@@ -15,7 +15,7 @@
     <div class="item-list col-12">
       <div class="item-title">
         <div class="item-avatar"
-             style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+             [ngStyle]="comparisonUserPicture(feed?.writingUser)"></div>
         <div class="item-nickname">{{ feed?.writingUser?.nickname ? feed?.writingUser?.nickname : feed?.writingUser?.email  }}</div>
         <div class="item-last-ago">방금전</div>
         <div class="item-more-option">
@@ -30,14 +30,14 @@
         </div>
       </div>
 
+      <!-- 슬라이더 -->
       <div class="item-box">
         <div class="item-box-inner">
           <app-mypage-slider [pictures]="feed?.pictures"
                              [isLike]="feed?.isLike"
                              [isBookmark]="feed?.isBookmark"
-                             (onClickLike)="likeToggleTest()"
-                             (onClickBookmark)="bookmarkToggleTest()"
-                             (onClickPicture)="getThisPicture($event)">
+                             (onClickLike)="toggleFeedLike(feed)"
+                             (onClickBookmark)="toggleFeedBookmark(feed)">
           </app-mypage-slider>
         </div>
       </div>
