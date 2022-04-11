@@ -206,105 +206,28 @@
 
       .row-2 {
         //margin: 16px -15px 0;
-        .carousel-indicators {
-          li {
-            margin: 0 3px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--blue-8);
-            transition: none; //animation
+        margin-top: 12px;
+
+        /* Slider Wrapper */
+        .item-box {
+          position: relative;
+          border-radius: 8px;
+          margin-bottom: 16px;
+          background-color: var(--grey-8);
+          background-size: cover;
+          overflow: hidden;
+
+          &:after {
+            content: '';
+            display: block;
+            padding-bottom: 100%;
           }
-          .active {
-            background-color: var(--blue-3);
-          }
-        }
 
-        .carousel-index {
-          position: absolute;
-          right: 20px;
-          bottom: 20px;
-          width: 40px;
-          height: 24px;
-          background: rgba(66, 76, 89, 0.8);
-          border-radius: 20px;
-          z-index: 1;
-          color: white;
-          text-align: center;
-          @include textStyle(700, 12px, 20px);
-          letter-spacing: -0.2px;
-          padding-top: 2px;
-        }
-
-        .carousel-inner {
-          margin-top: 12px;
-          .carousel-item {
-            img {
-              border: 1px solid var(--grey-8);
-              border-radius: 12px;
-            }
-          }
-        }
-
-        .carousel-control-prev-background,
-        .carousel-control-next-background {
-          position: absolute;
-          width: 28px;
-          height: 28px;
-
-          background: rgba(255, 255, 255, 0.5);
-          border-radius: 50px;
-          z-index: 0;
-        }
-
-        .carousel-control-next-icon {
-          width: 16px;
-          height: 16px;
-          z-index: 100;
-          background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23282C30' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-        }
-        .carousel-control-prev-icon {
-          width: 16px;
-          height: 16px;
-          z-index: 100;
-          background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 4L6 8L10 12' stroke='%23282C30' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-        }
-
-        .carousel-control-next:focus,
-        .carousel-control-next:hover,
-        .carousel-control-prev:focus,
-        .carousel-control-prev:hover {
-          color: #fff;
-          text-decoration: none;
-          outline: 0;
-          opacity: 0.9;
-        }
-
-        .user-behavior {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          z-index: 1;
-
-          .like,
-          .bookmark {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.6);
-
-            div {
-              display: flex;
-              width: 100%;
-              height: 100%;
-              svg {
-                margin: auto;
-              }
-            }
-          }
-          .bookmark {
-            margin-left: 12px;
+          .item-box-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
           }
         }
       }

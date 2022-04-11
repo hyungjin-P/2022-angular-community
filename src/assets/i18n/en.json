@@ -182,6 +182,12 @@
       "tag-modal-cancel-button": "Confrim",
       "tag-modal-label": "Tag",
       "write-button": "Upload"
+    },
+    "scrap": {
+      "nav": {
+        "feed-tap": "Feed",
+        "magazine-tap": "Magazine"
+      }
     }
   },
   "mypage": {

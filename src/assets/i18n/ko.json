@@ -182,6 +182,12 @@
       "tag-modal-cancel-button": "취소",
       "tag-modal-label": "태그 입력",
       "write-button": "등록"
+    },
+    "scrap": {
+      "nav": {
+        "feed-tab": "피드",
+        "magazine-tab": "매거진"
+      }
     }
   },
   "mypage": {

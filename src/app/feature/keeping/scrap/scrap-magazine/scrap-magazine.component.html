@@ -1,8 +1,8 @@
 <!-- 타이틀 -->
 <div class="items-title">
   <div class="title">
-    <span class="title-content">피드</span>
-    <span class="content-count">{{feeds.length | number}}</span>
+    <span class="title-content">매거진</span>
+    <span class="content-count">{{magazine.length | number}}</span>
   </div>
 
   <a class="more-view">
@@ -11,7 +11,7 @@
 </div>
 
 <!-- 등록한 피드 없을 때 -->
-<div class="items" *ngIf="feeds.length === 0">
+<div class="items" *ngIf="magazine.length === 0">
   <div class="item-empty">
     <div class="item-empty-title">
       {{ 'mypage.empty-text-1' | translate }}
@@ -29,17 +29,17 @@
 </div>
 
 <!-- 등록한 피드 있을 때 -->
-<div class="items flex-wrap" *ngIf="feeds.length > 0">
+<div class="items flex-wrap" *ngIf="magazine.length > 0">
 
   <!-- 사진 있는 것-->
   <div class="item-list col-6 col-lg-3 ">
     <div class="item-box"
-         style="background-image: url('assets/images/sample/feed_test_img_001.jpg')">
+         style="background-image: url('../../../../../assets/images/sample/feed_test_img_001.jpg')">
     </div>
     <div class="item-content">
 
       <div class="user-infos">
-        <div class="avatar" style="background-image: url('assets/images/sample/feed_test_img_001.jpg')"></div>
+        <div class="avatar" style="background-image: url('../../../../../assets/images/sample/feed_test_img_001.jpg')"></div>
         <div class="nickname">완다비젼_</div>
       </div>
       <div class="user-contents">

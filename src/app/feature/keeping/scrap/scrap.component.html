@@ -1,0 +1,40 @@
+<div class='scrap full-absolute d-flex flex-column'>
+  <header class="d-none d-lg-block" style="z-index: 1;"></header>
+  <mobile-header class='d-block d-lg-none' [text]='"스크랩"' (goBack)='goBack()'></mobile-header>
+
+  <div class="flex-fill" style="position: relative">
+    <ng-container *ngTemplateOutlet='scrap'></ng-container>
+  </div>
+</div>
+
+<ng-template #scrap>
+  <div class='full-absolute d-flex'>
+<!--    <nav class="d-none d-lg-block"></nav>-->
+    <div class='pc-nav d-none d-lg-block'>
+      <div class='nav-section'>
+        <div class='nav'>
+
+        </div>
+      </div>
+    </div>
+    <div class='mobile-nav d-block d-lg-none'>
+      <div class='nav-section'>
+        <ng-container *ngIf="tabMenu.length > 0">
+          <div class="nav">
+            <ng-container *ngFor="let tab of tabMenu">
+              <div class="menu" [ngClass]="tab?.tabName === nowTab ? 'selected' : ''">
+                <a class="text" href="javascript: void(0);" (click)="moveTab(tab?.link)">
+                  {{ tab?.languageCode | translate }}
+                </a>
+                <div class="selected-line"></div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class='feed-side flex-fill d-flex flex-column'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</ng-template>

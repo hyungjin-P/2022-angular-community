@@ -119,12 +119,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   confirmModalData = {};
   confirmModalStatus: string;
 
-  pictureTemplate: any[] = [
-    { url: 'assets/images/sample/feed_test_img_001.jpg' },
-    { url: 'assets/images/sample/feed_test_img_002.jpg' },
-    { url: 'assets/images/sample/feed_test_img_003.png' },
-  ];
-
   constructor(
     private location: Location,
     private router: Router,
@@ -352,7 +346,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  selectedFeedLike(feed: Feed) {
+  toggleFeedLike(feed: Feed) {
     if (this.storageService.getUser()) {
       if (feed.isLike) {
         this.feedService

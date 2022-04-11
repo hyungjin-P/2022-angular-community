@@ -29,8 +29,7 @@ export class Feed {
     public begin_timestamp: number,
     public begin_time_text: string,
     public contentViewVisible: boolean,
-    public carouselIndex: number,
-    public writingUser: User,
+    public writingUser: User
   ) {
     this.id = id;
     this.writer = writer;

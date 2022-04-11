@@ -14,17 +14,12 @@
                 <div class='banner' *ngIf='i === 0'>
                   <img [src]='magazine.picture' class='d-block w-100 h-100' alt=''>
                   <div class='gradient'></div>
-                  <a class='bookmark' (click)='toggleBookmark(magazine)'>
+                  <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
-                      <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.63917 17.6377C4.98761 18.1792 4 17.7158 4 16.8686V3.7C4 2.76112 4.79949 2 5.78571 2H14.7143C15.7005 2 16.5 2.76112 16.5 3.7V16.8686C16.5 17.7158 15.5124 18.1792 14.8608 17.6377L10.8892 14.3368C10.5187 14.0289 9.98131 14.0289 9.61083 14.3368L5.63917 17.6377Z" fill="white" fill-opacity="0.6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
                     </ng-container>
                     <ng-container *ngIf='variables.isLogin && magazine.isBookmark'>
-                      <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.38917 17.6377C4.73761 18.1792 3.75 17.7158 3.75 16.8686V3.7C3.75 2.76112 4.54949 2 5.53571 2H14.4643C15.4505 2 16.25 2.76112 16.25 3.7V16.8686C16.25 17.7158 15.2624 18.1792 14.6108 17.6377L10.6392 14.3368C10.2687 14.0289 9.73131 14.0289 9.36083 14.3368L5.38917 17.6377Z" fill="#6297FF"/>
-                        <path d="M9.36083 14.3368L8.88144 13.76L9.36083 14.3368ZM14.6108 17.6377L14.1314 18.2145L14.6108 17.6377ZM5.38917 17.6377L4.90979 17.0609L5.38917 17.6377ZM4.5 16.8686V3.7H3V16.8686H4.5ZM4.5 3.7C4.5 3.20967 4.92851 2.75 5.53571 2.75V1.25C4.17047 1.25 3 2.31256 3 3.7H4.5ZM5.53571 2.75H14.4643V1.25H5.53571V2.75ZM14.4643 2.75C15.0715 2.75 15.5 3.20966 15.5 3.7H17C17 2.31257 15.8296 1.25 14.4643 1.25V2.75ZM15.5 3.7V16.8686H17V3.7H15.5ZM15.0902 17.0609L11.1186 13.76L10.1598 14.9136L14.1314 18.2145L15.0902 17.0609ZM8.88144 13.76L4.90979 17.0609L5.86856 18.2145L9.84021 14.9136L8.88144 13.76ZM11.1186 13.76C10.4702 13.2211 9.5298 13.2211 8.88144 13.76L9.84021 14.9136C9.93283 14.8366 10.0672 14.8366 10.1598 14.9136L11.1186 13.76ZM15.5 16.8686C15.5 17.0804 15.2531 17.1962 15.0902 17.0609L14.1314 18.2145C15.2717 19.1621 17 18.3512 17 16.8686H15.5ZM3 16.8686C3 18.3512 4.72831 19.1621 5.86856 18.2145L4.90979 17.0609C4.7469 17.1963 4.5 17.0804 4.5 16.8686H3Z" fill="#6297FF"/>
-                      </svg>
+                      <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
                     </ng-container>
                   </a>
                   <a class='description'(click)='moveLink(magazine)'>
@@ -95,17 +90,12 @@
                 <div class='banner' *ngIf='i !== 0 && i < 5'>
                   <img [src]='magazine.picture' class='d-block w-100 h-100' alt=''>
                   <div class='gradient'></div>
-                  <a class='bookmark' (click)='toggleBookmark(magazine)'>
+                  <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
-                      <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.63917 17.6377C4.98761 18.1792 4 17.7158 4 16.8686V3.7C4 2.76112 4.79949 2 5.78571 2H14.7143C15.7005 2 16.5 2.76112 16.5 3.7V16.8686C16.5 17.7158 15.5124 18.1792 14.8608 17.6377L10.8892 14.3368C10.5187 14.0289 9.98131 14.0289 9.61083 14.3368L5.63917 17.6377Z" fill="white" fill-opacity="0.6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
                     </ng-container>
                     <ng-container *ngIf='variables.isLogin && magazine.isBookmark'>
-                      <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.38917 17.6377C4.73761 18.1792 3.75 17.7158 3.75 16.8686V3.7C3.75 2.76112 4.54949 2 5.53571 2H14.4643C15.4505 2 16.25 2.76112 16.25 3.7V16.8686C16.25 17.7158 15.2624 18.1792 14.6108 17.6377L10.6392 14.3368C10.2687 14.0289 9.73131 14.0289 9.36083 14.3368L5.38917 17.6377Z" fill="#6297FF"/>
-                        <path d="M9.36083 14.3368L8.88144 13.76L9.36083 14.3368ZM14.6108 17.6377L14.1314 18.2145L14.6108 17.6377ZM5.38917 17.6377L4.90979 17.0609L5.38917 17.6377ZM4.5 16.8686V3.7H3V16.8686H4.5ZM4.5 3.7C4.5 3.20967 4.92851 2.75 5.53571 2.75V1.25C4.17047 1.25 3 2.31256 3 3.7H4.5ZM5.53571 2.75H14.4643V1.25H5.53571V2.75ZM14.4643 2.75C15.0715 2.75 15.5 3.20966 15.5 3.7H17C17 2.31257 15.8296 1.25 14.4643 1.25V2.75ZM15.5 3.7V16.8686H17V3.7H15.5ZM15.0902 17.0609L11.1186 13.76L10.1598 14.9136L14.1314 18.2145L15.0902 17.0609ZM8.88144 13.76L4.90979 17.0609L5.86856 18.2145L9.84021 14.9136L8.88144 13.76ZM11.1186 13.76C10.4702 13.2211 9.5298 13.2211 8.88144 13.76L9.84021 14.9136C9.93283 14.8366 10.0672 14.8366 10.1598 14.9136L11.1186 13.76ZM15.5 16.8686C15.5 17.0804 15.2531 17.1962 15.0902 17.0609L14.1314 18.2145C15.2717 19.1621 17 18.3512 17 16.8686H15.5ZM3 16.8686C3 18.3512 4.72831 19.1621 5.86856 18.2145L4.90979 17.0609C4.7469 17.1963 4.5 17.0804 4.5 16.8686H3Z" fill="#6297FF"/>
-                      </svg>
+                      <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
                     </ng-container>
                   </a>
                   <a class='description' (click)='moveLink(magazine)'>
@@ -278,17 +268,12 @@
               >
                 <img class="picture" [src]='magazine.picture' draggable="false">
                 <div class='gradient'></div>
-                <a class='bookmark' (click)='toggleBookmark(magazine)'>
+                <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                   <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5.63917 17.6377C4.98761 18.1792 4 17.7158 4 16.8686V3.7C4 2.76112 4.79949 2 5.78571 2H14.7143C15.7005 2 16.5 2.76112 16.5 3.7V16.8686C16.5 17.7158 15.5124 18.1792 14.8608 17.6377L10.8892 14.3368C10.5187 14.0289 9.98131 14.0289 9.61083 14.3368L5.63917 17.6377Z" fill="white" fill-opacity="0.6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
                   </ng-container>
                   <ng-container *ngIf='variables.isLogin && magazine.isBookmark'>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5.38917 17.6377C4.73761 18.1792 3.75 17.7158 3.75 16.8686V3.7C3.75 2.76112 4.54949 2 5.53571 2H14.4643C15.4505 2 16.25 2.76112 16.25 3.7V16.8686C16.25 17.7158 15.2624 18.1792 14.6108 17.6377L10.6392 14.3368C10.2687 14.0289 9.73131 14.0289 9.36083 14.3368L5.38917 17.6377Z" fill="#6297FF"/>
-                      <path d="M9.36083 14.3368L8.88144 13.76L9.36083 14.3368ZM14.6108 17.6377L14.1314 18.2145L14.6108 17.6377ZM5.38917 17.6377L4.90979 17.0609L5.38917 17.6377ZM4.5 16.8686V3.7H3V16.8686H4.5ZM4.5 3.7C4.5 3.20967 4.92851 2.75 5.53571 2.75V1.25C4.17047 1.25 3 2.31256 3 3.7H4.5ZM5.53571 2.75H14.4643V1.25H5.53571V2.75ZM14.4643 2.75C15.0715 2.75 15.5 3.20966 15.5 3.7H17C17 2.31257 15.8296 1.25 14.4643 1.25V2.75ZM15.5 3.7V16.8686H17V3.7H15.5ZM15.0902 17.0609L11.1186 13.76L10.1598 14.9136L14.1314 18.2145L15.0902 17.0609ZM8.88144 13.76L4.90979 17.0609L5.86856 18.2145L9.84021 14.9136L8.88144 13.76ZM11.1186 13.76C10.4702 13.2211 9.5298 13.2211 8.88144 13.76L9.84021 14.9136C9.93283 14.8366 10.0672 14.8366 10.1598 14.9136L11.1186 13.76ZM15.5 16.8686C15.5 17.0804 15.2531 17.1962 15.0902 17.0609L14.1314 18.2145C15.2717 19.1621 17 18.3512 17 16.8686H15.5ZM3 16.8686C3 18.3512 4.72831 19.1621 5.86856 18.2145L4.90979 17.0609C4.7469 17.1963 4.5 17.0804 4.5 16.8686H3Z" fill="#6297FF"/>
-                    </svg>
+                    <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
                   </ng-container>
                 </a>
               </div>

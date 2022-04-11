@@ -116,7 +116,6 @@ export class FeedFollowComponent implements OnInit {
         feed.begin_time_text = this.dateUtils.transTimeType(feed.begin_timestamp);
         feed.writer.isFollow = true;
         feed.contentViewVisible = true;
-        feed.carouselIndex = 1;
       }
     });
   }
@@ -494,15 +493,6 @@ export class FeedFollowComponent implements OnInit {
 
   hideLikedView() {
     this.likedViewVisible = false;
-  }
-
-  nextCarouselIndex(feed: Feed) {
-    feed.carouselIndex += 1;
-    if (feed.carouselIndex > feed.pictures.length) feed.carouselIndex = 1;
-  }
-  prevCarouselIndex(feed: Feed) {
-    feed.carouselIndex -= 1;
-    if (feed.carouselIndex < 1) feed.carouselIndex = feed.pictures.length;
   }
 
   moveTab(link: string) {

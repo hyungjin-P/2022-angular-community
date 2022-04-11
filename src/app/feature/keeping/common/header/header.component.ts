@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
         languageCode: 'common.nav.magazine-tab.release-news',
         link: '/magazine?tabType=release-news',
         description: '발매소식',
-        sort: 0,
+        sort: 1,
       },
     ],
   };
@@ -69,7 +69,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.url = this.router.url;
-    this.isDrawerMenu = this.url.indexOf('/settings') !== -1 || this.url.indexOf('/mypage') !== -1;
+    this.isDrawerMenu =
+      this.url.indexOf('/settings') !== -1 || this.url.indexOf('/mypage') !== -1 || this.url.indexOf('/scrap') !== -1;
     this.variables = this.globalService.variables;
     this.globalUser = this.globalService.user;
     this.user = this.storageService.getUser();
