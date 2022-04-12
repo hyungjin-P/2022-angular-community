@@ -90,6 +90,29 @@ export class FeedService {
   }
 
   /**
+   * 피드 스크랩 리스트 조회
+   * @param page
+   * @param limit
+   * @param userId
+   */
+  getScrapFeedList(page: number, limit: number, userId: string): Observable<any> {
+    const url = environment.userApiAddress + `/feed/findPagesOverBookmark?page=${page}&limit=${limit}&userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  /**
    * 작업중
    * 개인 피드 상세 조회 (좋아요, 북마크 표시)
    * @param feedId
@@ -478,10 +501,27 @@ export class FeedService {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      })
-    }
+      }),
+    };
 
     return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  deleteBookmarkAll(userId: string) {
+    const url = environment.userApiAddress + `/feed/deleteAllBookmarkByUserId?userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.delete<any>(url, options).pipe(
       map((res) => {
         return res;
       }),

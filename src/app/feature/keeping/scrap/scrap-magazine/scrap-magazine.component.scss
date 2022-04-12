@@ -1,7 +1,11 @@
 @import '/src/assets/styles/font';
 
+.section {
+  overflow-y: auto;
+}
+
 .items-title {
-  margin-bottom: 10px;
+  margin: 40px 20px 30px 20px;
   display: flex;
 
   .title {
@@ -17,21 +21,21 @@
     }
   }
 
-  .more-view {
+  .delete-all {
+    @include textStyleNotoSans(500, 14px);
+    line-height: 22px;
+    letter-spacing: -0.2px;
+    color: var(--text-2);
+
     padding-top: 4px;
     margin-left: auto;
   }
 }
 
 .items {
-  padding: 32px;
+  margin: 10px 30px 10px 30px;
   display: flex;
-
-  margin-bottom: 10px;
   min-height: 300px;
-  background: var(--white);
-  box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
-  border-radius: 12px;
 
   .item-empty {
     display: flex;
@@ -89,18 +93,36 @@
     }
   }
 
-  .item-list {
-    padding: 8px;
+  .item {
+    padding: 10px;
 
     .item-box {
+      position: relative;
       flex: 1 0 auto;
+      width: 100%;
       height: auto;
       border-radius: 8px;
       background-color: var(--grey-8);
       background-size: cover;
 
-      a {
-        background-color: green;
+      .picture {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translate(50, 50);
+        object-fit: cover;
+        margin: auto;
+        border-radius: 8px;
+        cursor: pointer;
+        transition-duration: 0.5s;
+        border: 1px solid #efefef;
+      }
+
+      .image-box {
+        width: 100%;
+        height: 100%;
       }
     }
     .item-box:before {
@@ -120,12 +142,45 @@
   justify-content: center;
 }
 
-@media all and (min-width: 1px) and (max-width: 993px) {
-  .items-title {
-    margin: 40px 40px 30px 40px;
+.bookmark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  width: 32px;
+  height: 32px;
+
+  border-radius: 10px;
+  background-color: var(--white);
+  opacity: 0.6;
+
+  box-shadow: 0 0 20px -8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s;
+
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    opacity: 1;
+    transition: all 0.3s;
   }
 
-  .items {
+  &:hover {
+    opacity: 1;
+    transition: all 0.3s;
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media all and (min-width: 1px) and (max-width: 992px) {
+  .items-title {
+  }
+
+  .item-title .items {
     padding: 12px;
 
     .item-list {
@@ -186,5 +241,19 @@
         }
       }
     }
+  }
+}
+
+@media (min-width: 992px) {
+  .items-title {
+    .delete-all {
+      color: var(--grey-1);
+    }
+  }
+
+  .items {
+    background: var(--white);
+    box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
+    border-radius: 12px;
   }
 }

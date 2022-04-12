@@ -359,9 +359,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
               feed.isLike = false;
               feed.likeCount -= 1;
 
-              this.selectedFeed.likeUsers.forEach((user, index) => {
+              feed.likeUsers.forEach((user, index) => {
                 if (user.user.id == this.user.id) {
-                  this.selectedFeed.likeUsers.splice(index, 1);
+                  feed.likeUsers.splice(index, 1);
                 }
               });
             },
@@ -378,48 +378,12 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
               feed.isLike = true;
               feed.likeCount += 1;
 
-              let addLike = new FeedLike(this.selectedFeed.id, this.user.id, this.user, new Date().toString());
-
-              let newLikeUsers = [addLike].concat(this.selectedFeed.likeUsers);
-              this.selectedFeed.likeUsers = newLikeUsers;
-            },
-            (e) => {}
-          );
-      }
-    } else {
-      this.showLoginModal();
-    }
-  }
-
-  // 하단 피드 목록 좋아요
-  feedLike(feed: Feed) {
-    if (this.storageService.getUser()) {
-      if (feed.isLike) {
-        this.feedService
-          .deleteFeedLike({
-            feedId: feed.id,
-            userId: this.user?.id,
-          })
-          .subscribe(
-            (v) => {
-              feed.isLike = false;
-              feed.likeUsers = feed.likeUsers.filter((feedLike) => feedLike.userId !== this.user.id);
-              feed.likeCount -= 1;
-            },
-            (e) => {}
-          );
-      } else {
-        this.feedService
-          .createFeedLike({
-            feedId: feed.id,
-            userId: this.user?.id,
-          })
-          .subscribe(
-            (v) => {
-              feed.isLike = true;
               const feedLike = new FeedLike(feed.id, this.user.id, this.user, '');
-              feed.likeUsers.push(feedLike);
-              feed.likeCount += 1;
+              if (feed.likeUsers) {
+                feed.likeUsers.push(feedLike);
+              } else {
+                feed.likeUsers = new Array<FeedLike>(feedLike);
+              }
             },
             (e) => {}
           );

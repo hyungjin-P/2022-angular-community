@@ -122,7 +122,23 @@
           </div>
 
           <div class="row-3">
-            <a class="row-3-col-1" (click)="showLikedView()">
+            <div class='row-3-col-1' *ngIf='selectedFeed?.likeCount < 1'>
+              <div class="heart">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9.64362 15.6121L4.94176 10.7159C3.61738 9.33677 3.70078 7.07548 5.12283 5.8062C6.53361 4.54698 8.67271 4.7915 9.78756 6.33942L9.97499 6.59965L10.1624 6.33942C11.2773 4.7915 13.4164 4.54698 14.8272 5.8062C16.2492 7.07548 16.3326 9.33677 15.0082 10.7159L10.3064 15.6121C10.1234 15.8026 9.82663 15.8026 9.64362 15.6121Z"
+                    fill="#B2BBC8"
+                  />
+                </svg>
+              </div>
+              <div class='text' *ngIf='selectedLanguage === "ko"'>
+                가장 먼저 <span (click)='toggleFeedLike(selectedFeed)'>좋아요</span>를 눌러주세요
+              </div>
+              <div class='text' *ngIf='selectedLanguage !== "ko"'>
+                Be the first to <span (click)='toggleFeedLike(selectedFeed)'>like this</span>
+              </div>
+            </div>
+            <a class="row-3-col-1" (click)="showLikedView()" *ngIf='selectedFeed?.likeCount > 0'>
               <ng-container *ngFor="let like_user of selectedFeed?.likeUsers; let i = index">
                 <div class="avatar" *ngIf="i < 3">
                   <shared-avatar
@@ -214,7 +230,7 @@
             <div class="item col-6 col-lg-6" *ngIf="feed.id != selectedFeed?.id">
               <div class="d-flex flex-column">
                 <a class="image-box flex-fill" (click)="goFeedDetail(feed)">
-                  <img class="picture" [src]="feed.picture" draggable="false" alt="" />
+                  <img class="picture" [src]="feed.picture" draggable="false" alt="" >
                   <div class="pictureCount-background" *ngIf="feed.pictureCount > 1">
                     <!--                <img src="assets/icons/feed/count.svg"/>-->
                     <span class="text">{{ '+' + feed.pictureCount }}</span>

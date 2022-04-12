@@ -1,19 +1,59 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'mobile-header',
-    templateUrl: './mobile-header.component.html',
-    styleUrls: ['./mobile-header.component.scss'],
+  selector: 'mobile-header',
+  templateUrl: './mobile-header.component.html',
+  styleUrls: ['./mobile-header.component.scss'],
 })
 export class MobileHeaderComponent implements OnInit {
-    @Input() text: string
-    @Output() goBack = new EventEmitter<any>()
+  @Input() text: string;
+  @Output() goBack = new EventEmitter<any>();
 
-    constructor() {}
+  tabData: any = [
+    {
+      tabName: 'feed',
+      languageCode: 'common.service-name.feed',
+      link: '/scrap/feed',
+      description: '피드 스크랩',
+    },
+    {
+      tabName: 'magazine',
+      languageCode: 'common.service-name.magazine',
+      link: '/scrap/magazine',
+      description: '매거진 스크랩',
+    },
+  ];
 
-    ngOnInit(): void {}
+  tabMenu: any[] = [];
+  nowTab: '';
 
-    _goBack() {
-        this.goBack.emit({})
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.changeTab();
+  }
+
+  _goBack() {
+    this.goBack.emit({});
+  }
+
+  moveTab(link: string): void {
+    this.router.navigateByUrl(link).then(() => {
+      this.changeTab();
+    });
+  }
+
+  changeTab(): void {
+    if (this.router.routerState.snapshot.url.indexOf('scrap') > 0) {
+      this.tabMenu = this.tabData;
+      const tabName = this.router.routerState.snapshot.url.split('/')[2];
+      this.nowTab = this.tabMenu.filter((tab) => tab.tabName === tabName)[0].tabName;
     }
+  }
+
+  getBoxShadow() {
+    if (this.tabMenu.length > 0) return 0;
+    else return '0px 3px 5px rgb(235 235 235 / 50%)';
+  }
 }

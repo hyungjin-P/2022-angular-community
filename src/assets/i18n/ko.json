@@ -87,6 +87,13 @@
     }
   },
   "common": {
+    "service-name": {
+      "feed": "피드",
+      "magazine": "매거진",
+      "scrap": "스크랩",
+      "follow": "팔로우",
+      "myPage": "마이페이지"
+    },
     "bottom-nav": {
       "feed": "피드",
       "home": "홈",
@@ -103,6 +110,8 @@
       "shop": "키핑Shop"
     },
     "header": {
+      "feed": "홈 피드",
+      "magazine": "매거진",
       "myaccount": "내 계정",
       "setting": "설정",
       "signin": "로그인",
@@ -184,10 +193,9 @@
       "write-button": "등록"
     },
     "scrap": {
-      "nav": {
-        "feed-tab": "피드",
-        "magazine-tab": "매거진"
-      }
+      "delete-all" : "전체삭제",
+      "comment": "저장하고 싶은 이미지를 스크랩 해보세요.",
+      "undefined-comment": "저장하고 싶은 게시물을 스크랩 해주세요."
     }
   },
   "mypage": {

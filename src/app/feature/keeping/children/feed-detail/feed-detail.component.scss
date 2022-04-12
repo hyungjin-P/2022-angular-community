@@ -252,7 +252,6 @@
 
         .row-3-col-1 {
           display: flex;
-          cursor: pointer;
           align-items: center;
           color: black;
 
@@ -272,7 +271,7 @@
         }
 
         .row-3-col-2 {
-          display: flex;
+          display: grid;
           flex: 6;
           justify-content: right;
           .comment {

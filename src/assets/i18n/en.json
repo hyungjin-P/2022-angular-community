@@ -87,6 +87,13 @@
     }
   },
   "common": {
+    "service-name": {
+      "feed": "Feed",
+      "magazine": "Magazine",
+      "scrap": "Scrap",
+      "follow": "Follow",
+      "myPage": "My Page"
+    },
     "bottom-nav": {
       "feed": "Feed",
       "home": "Home",
@@ -103,6 +110,8 @@
       "shop": "Shop"
     },
     "header": {
+      "feed": "Feed",
+      "magazine": "Magazine",
       "myaccount": "My Account",
       "setting": "Setting",
       "signin": "Sign In",
@@ -115,7 +124,7 @@
     "nav": {
       "feed": "Feed",
       "feed-tab": {
-        "all": "전체",
+        "all": "All",
         "popularity": "Popularity",
         "following": "Following"
       },
@@ -184,10 +193,9 @@
       "write-button": "Upload"
     },
     "scrap": {
-      "nav": {
-        "feed-tap": "Feed",
-        "magazine-tap": "Magazine"
-      }
+      "delete-all" : "Delete All",
+      "comment": "Scrap the image you want to save.",
+      "undefined-comment": "Please scrap the post you want to save."
     }
   },
   "mypage": {
