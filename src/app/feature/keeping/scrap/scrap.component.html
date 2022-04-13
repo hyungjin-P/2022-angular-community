@@ -11,16 +11,31 @@
   <div class='section full-absolute d-flex flex-fill'>
 <!--    <nav class="d-none d-lg-block"></nav>-->
     <div class='pc-nav d-none d-lg-block'>
-      <div class='nav-section'>
-        <div class='nav'>
-
+      <div class='nav-section d-flex flex-column'>
+        <a class='btn-open-nav' role='button' data-toggle='collapse' href='#nav-collapse' aria-expanded='true' aria-controls='nav-collapse'>
+          <img src='/assets/icons/common/scrap_icon.png' alt=''>
+          <div class='text'>
+            {{'common.service-name.scrap' | translate}}
+          </div>
+          <img class='arrow' src='/assets/images/common/arrow_menu.png' alt=''>
+        </a>
+        <div class='nav collapse show' id='nav-collapse'>
+          <a class='menu' [routerLink]="['/scrap/feed']" routerLinkActive="selected">
+            <div class='text'>
+              {{'common.service-name.feed' | translate}}
+            </div>
+          </a>
+          <a class='menu' [routerLink]="['/scrap/magazine']" routerLinkActive="selected">
+            <div class='text'>
+              {{'common.service-name.magazine' | translate}}
+            </div>
+          </a>
         </div>
       </div>
     </div>
 
     <div class='' style='position: relative'>
       <div class='contents flex-fill d-flex flex-column'>
-
         <div class='contents-text d-none d-lg-block'>
           <div class='contents-text-title'>
             📌{{'common.service-name.scrap' | translate}}

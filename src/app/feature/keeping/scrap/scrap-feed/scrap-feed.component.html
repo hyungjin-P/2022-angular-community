@@ -31,9 +31,9 @@
   </div>
 
   <!-- 등록한 피드 있을 때 -->
-  <div class="items d-flex flex-wrap" *ngIf="feedList?.length > 0">
+  <div class="items" *ngIf="feedList?.length > 0">
     <!-- 사진 있는 것-->
-    <div class="item col-6 col-lg-3" *ngFor="let feed of feedList">
+    <div class="item" *ngFor="let feed of feedList">
       <div class="item-box d-flex flex-column flex-wrap">
         <img class="picture" [src]="feed.picture" [alt]="feed.content" (click)="moveFeedDetail(feed)">
         <a class='bookmark' [ngClass]="feed.isBookmark ? 'active' : ''" (click)='toggleBookmark(feed)'>
@@ -50,12 +50,23 @@
         </div>-->
     </div>
 
+
     <!-- 사진 없는 것 12개까지 증축하기 -->
-    <div class="item col-6 col-lg-3" *ngFor="let dummy of ' '.repeat(12 - feedList?.length).split(''); let x = index">
-      <div class="item-box"></div>
-      <!--<div class="item-content">
-        </div>-->
-    </div>
+    <ng-container *ngIf='feedList?.length <= 12'>
+      <div class="item" *ngFor="let dummy of ' '.repeat(12 - feedList.length).split(''); let x = index">
+        <div class="item-box"></div>
+        <!--<div class="item-content">
+          </div>-->
+      </div>
+    </ng-container>
+
+    <!-- 사진이 12개 이상일 때 나머지 빈칸 자동 생성 -->
+    <ng-container *ngIf='feedList?.length > 12'>
+      <div class='item' *ngFor="let dummy of ' '.repeat(4 - (feedList.length % 4)).split(''); let x = index">
+        <div class="item-box"></div>
+      </div>
+    </ng-container>
+
   </div>
 </div>
 

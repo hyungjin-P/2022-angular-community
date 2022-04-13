@@ -1,4 +1,4 @@
-<div class="section full-absolute">
+<div class="section">
   <!-- 타이틀 -->
   <div class="items-title">
     <div class="title">
@@ -25,11 +25,12 @@
   </div>
 
   <!-- 등록한 피드 있을 때 -->
-  <div class="items d-flex flex-wrap" *ngIf="magazineList?.length > 0">
+  <div class="items" *ngIf="magazineList?.length > 0">
     <!-- 사진 있는 것-->
-    <div class="item col-6 col-lg-3" *ngFor="let magazine of magazineList">
+    <div class="item" *ngFor="let magazine of magazineList">
       <div class="item-box d-flex flex-column flex-wrap">
         <img class="picture" [src]="magazine.picture" [alt]="" (click)="moveMagazineDetail(magazine)">
+        <div class='gradient'></div>
         <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
           <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
             <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
@@ -38,18 +39,35 @@
             <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
           </ng-container>
         </a>
+        <div class='description' (click)="moveMagazineDetail(magazine)">
+          <div class='category'>
+            {{'common.nav.magazine-tab.' + magazine.category | translate}}
+          </div>
+          <div class='title'>
+            {{magazine.body.title}}
+          </div>
+        </div>
       </div>
       <!--<div class="item-content">
 
         </div>-->
     </div>
 
-    <!-- 사진 없는 것 12개까지 증축하기 -->
-    <div class="item col-6 col-lg-3" *ngFor="let dummy of ' '.repeat(12 - magazineList?.length).split(''); let x = index">
-      <div class="item-box"></div>
-      <!--<div class="item-content">
-        </div>-->
-    </div>
+    <!-- 사진 없는 것 6개까지 증축하기 -->
+    <ng-container *ngIf='magazineList?.length <= 6'>
+      <div class="item" *ngFor="let dummy of ' '.repeat(6 - magazineList.length).split(''); let x = index">
+        <div class="item-box"></div>
+        <!--<div class="item-content">
+          </div>-->
+      </div>
+    </ng-container>
+
+    <!-- 사진이 6개 이상일 때 나머지 빈칸 자동 생성 -->
+    <ng-container *ngIf='magazineList?.length > 6'>
+      <div class='item' *ngFor="let dummy of ' '.repeat(2 - (magazineList.length % 2)).split(''); let x = index">
+        <div class="item-box"></div>
+      </div>
+    </ng-container>
   </div>
 </div>
 
