@@ -1,4 +1,13 @@
-import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component, ComponentRef,
+  ElementRef, EventEmitter,
+  HostListener,
+  OnInit, Output,
+  Renderer2,
+  ViewChild, ViewChildren
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -10,13 +19,14 @@ import { FileService } from '@services/file.service';
 
 import { User } from '@schemas/user';
 import { File } from '@schemas/file';
+import {MypageFeedDetailComponent} from "./mypage-feed-detail/mypage-feed-detail.component";
 
 @Component({
   selector: 'mypage',
   templateUrl: './mypage.component.html',
   styleUrls: ['./mypage.component.scss'],
 })
-export class MypageComponent implements OnInit {
+export class MypageComponent implements OnInit, AfterViewInit {
 
   variables: any;
   globalUser: any;
@@ -28,15 +38,23 @@ export class MypageComponent implements OnInit {
 
   viewType = 'desktop';
 
+  nowScroll: number;
+
+  @ViewChild('scrollEl') scrollEl: ElementRef;
+
+  mypageFeedDetail: MypageFeedDetailComponent;
+
   constructor(
     private router: Router,
     private location: Location,
     private globalService: GlobalService,
     private storageService: StorageService,
     private userService: UserService,
-    private fileService: FileService
+    private fileService: FileService,
+    private renderer2: Renderer2
   ) {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+
     let timer = null;
     window.addEventListener('resize', (data) => {
       clearTimeout(timer);
@@ -52,6 +70,42 @@ export class MypageComponent implements OnInit {
     this.user = this.storageService.getUser();
 
     this.closeDrawer();
+  }
+
+  ngAfterViewInit(): void {
+
+    let timer = null;
+    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.scrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+
+        if (this.mypageFeedDetail) {
+          if (def < 1000) {
+            this.mypageFeedDetail.findNextPage();
+          }
+        }
+
+        if (50 < per) {
+          console.log('calc : ', per);
+        }
+
+      }, 100);
+
+    });
+
+  }
+
+  onActivate(componentRef: any): void {
+    console.log('onActivate componentRef : ', componentRef);
+
+    if (componentRef.checkFeedDetail) {
+      this.mypageFeedDetail = componentRef;
+    }
   }
 
   goBack() {

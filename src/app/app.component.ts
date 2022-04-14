@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { GlobalService } from '@services/global.service';
@@ -21,9 +21,23 @@ export class AppComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private globalService: GlobalService,
-    private storageService: StorageService
-  ) {}
+    private storageService: StorageService,
+  ) {
 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+
+      console.log('onscroll() : ');
+
+
+      if (document.documentElement.scrollTop > 50) {
+      } else {
+
+      }
+    }
+
+  }
   ngOnInit(): void {
     this.variables = this.globalService.variables;
     this.modal = this.globalService.modal;
@@ -34,7 +48,7 @@ export class AppComponent implements OnInit {
     }
 
     this.user = this.storageService.getUser();
-    if (this.user && this.globalService.variables.isLogin == false) {
+    if (this.user && this.globalService.variables.isLogin === false) {
       this.storageService.setUser(this.user);
     }
 

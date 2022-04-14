@@ -25,7 +25,8 @@
              [ngStyle]="comparisonUserPicture(feed?.writer)"></div>
         <div
           class="item-nickname">
-          {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}
+<!--          {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}-->
+          {{ nowScroll }}
         </div>
         <div class="item-last-ago">
           {{ getTimeText(feed) }}

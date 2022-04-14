@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {StorageService} from "@services/storage.service";
 import {FeedService} from "@services/feed.service";
@@ -6,14 +6,14 @@ import {User} from "@schemas/user";
 import {Feed} from "@schemas/feed";
 import {FollowService} from "@services/follow.service";
 import {DateUtils} from "../../../../core/utils/date.utils";
-
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-mypage-feed-detail',
   templateUrl: './mypage-feed-detail.component.html',
   styleUrls: ['./mypage-feed-detail.component.scss']
 })
-export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
+export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   feedDeleteMessage: any = {
     text: '피드 삭제',
@@ -45,9 +45,17 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
 
   /** pagination */
   page: number = 1;
-  limit: number = 10;
+  limit: number = 2;
 
   selectedFeed: any = {};
+
+  @Input() nowScroll: any;
+
+  checkFeedDetail = true;
+
+  pageLink: any = {};
+
+  pageMeta: any = {};
 
   constructor(
     private router: Router,
@@ -59,12 +67,27 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
     this.pushEmptyFeed(1);
   }
 
+  ngOnDestroy(): void {
+
+  }
+
   ngOnInit(): void {
     this.user = this.storageService.getUser();
   }
 
+  getMomdata(data: any): void {
+    console.log('get Mom : ', data);
+  }
+
   ngAfterViewInit(): void {
     this.findMyPageFeedList(this.user.id, this.page, this.limit);
+  }
+
+  findNextPage(): void {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      this.findMyPageFeedList(this.user.id, this.page, this.limit);
+    }
   }
 
   /**
@@ -78,16 +101,14 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
       this.feedService
         .findMyPageFeedDetail(userId, page, limit)
         .subscribe((data) => {
+          this.pageMeta = data?.meta;
+          this.pageLink = data?.links;
 
-          console.log('data : ', data);
-
-          this.feedList = data?.items;
-          // this.otherCount = data?.otherCount;
-          // this.totalCount = data?.totalCount;
-          //
-          // if (this.totalCount === 0) {
-          //   this.feedList = [];
-          // }
+          if (this.page > 1) {
+            this.feedList = [ ...this.feedList, ...data?.items ];
+          } else {
+            this.feedList = data?.items;
+          }
 
         });
     }
@@ -118,16 +139,10 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
     console.log('modal cancel ', this.selectedFeed);
   }
 
-  visibleFeedModifyModal() {
-    this.feedModifyModalVisible = true;
-  }
-
   visibleFeedDeleteModal(feed: Feed) {
     this.feedDeleteModalVisible = true;
     this.selectedFeed = feed;
-    console.log('selectedFeed : ', this.selectedFeed);
   }
-
 
   pushEmptyFeed(limit: number): void {
     for (let i = 0; i < limit; i++) {

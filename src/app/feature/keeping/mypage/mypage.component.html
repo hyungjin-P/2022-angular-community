@@ -46,7 +46,7 @@
     </ng-container>
 
     <div class="flex-fill" style="position: relative">
-      <div class="section full-absolute scroll-y">
+      <div class="section full-absolute scroll-y" #scrollEl>
         <!-- 상단 Background Image-->
         <div class="background">
           <div [class.empty-background-show]="user?.background?.length === 0">
@@ -184,7 +184,7 @@
 
               <!-- 본문 -->
               <div class="right-side flex-fill d-flex flex-column">
-                <router-outlet></router-outlet>
+                <router-outlet (activate)="onActivate($event)"></router-outlet>
               </div>
 
             </div>
