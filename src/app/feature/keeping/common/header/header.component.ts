@@ -75,6 +75,7 @@ export class HeaderComponent implements OnInit {
     this.user = this.storageService.getUser();
 
     this.userBoxVisible = false;
+    console.log('this.route.snapshot.routeConfig.path ', this.route.snapshot.queryParams);
     this.changeTab(this.route.snapshot.routeConfig.path);
   }
 

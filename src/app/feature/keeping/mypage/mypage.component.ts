@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -17,6 +17,7 @@ import { File } from '@schemas/file';
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit {
+
   variables: any;
   globalUser: any;
   user: User;
@@ -25,6 +26,8 @@ export class MypageComponent implements OnInit {
 
   backgroundEditMode: boolean;
 
+  viewType = 'desktop';
+
   constructor(
     private router: Router,
     private location: Location,
@@ -32,7 +35,16 @@ export class MypageComponent implements OnInit {
     private storageService: StorageService,
     private userService: UserService,
     private fileService: FileService
-  ) {}
+  ) {
+    this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+    let timer = null;
+    window.addEventListener('resize', (data) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+      }, 200);
+    });
+  }
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -43,7 +55,7 @@ export class MypageComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    window.history.back();
   }
 
   closeDrawer() {
@@ -94,6 +106,7 @@ export class MypageComponent implements OnInit {
       this.changeBackgroundEditMode(false);
       this.user.background = [];
       this.storageService.setUser(this.user);
+
     } catch (e) {
       this.globalService.showToast(e.message);
     }

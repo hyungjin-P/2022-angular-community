@@ -7,7 +7,8 @@
     <span class="content-count">{{totalCount | number}}</span>
   </div>
 
-  <a class="more-view" [routerLink]="'/mypage/feed-detail'">
+  <a class="more-view"
+     [routerLink]="'/mypage/feed-detail'">
     전체보기
   </a>
 </div>
@@ -24,7 +25,7 @@
     </div>
     <div class="item-empty-btns">
       <button type="button" (click)="goRouter('/write')">
-        <span [inlineSVG]="'assets/icons/mypage/write_port.svg'"></span>
+        <span [inlineSVG]="'assets/icons/mypage/pensil-color.svg'"></span>
         <div>{{ 'mypage.write' | translate }}</div>
       </button>
     </div>
@@ -70,13 +71,15 @@
       </div>
 
       <div class="user-contents-infos">
-        <div class="info-icon heart" [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>
+        <div class="info-icon heart"
+             [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>
         <div class="info-count">
-          {{ feed?.likeCount > 99 ? '99+' : (feed?.likeCount)}}
+          {{ feed?.likeCount > 99 ? '99+' : (feed?.likeCount) }}
         </div>
-        <div class="info-icon" [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>
+        <div class="info-icon"
+             [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>
         <div class="info-count">
-          {{ feed?.commentCount > 99 ? '99+' : (feed?.commentCount)}}
+          {{ feed?.commentCount > 99 ? '99+' : (feed?.commentCount) }}
         </div>
       </div>
 

@@ -7,6 +7,7 @@
       <ng-container *ngIf="tabMenu.length > 0">
         <div class="nav d-none d-lg-flex">
           <ng-container *ngFor="let tab of tabMenu">
+
             <div class="menu" [ngClass]="tab?.tabName === nowTab ? 'selected' : ''">
               <a class="text" href="javascript: void(0);" (click)="moveTab(tab?.link)">
                 {{ tab?.languageCode | translate }}

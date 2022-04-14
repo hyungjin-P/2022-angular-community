@@ -1,3 +1,10 @@
+<shared-modal type="confirm"
+              [(visible)]="feedDeleteModalVisible"
+              [data]="feedDeleteMessage"
+              (confirm)="deleteRealFeed()"
+              (cancel)="modalCancel()"
+></shared-modal>
+
 <div class="items-title">
   <!-- breadcrumb -->
   <div class="title">
@@ -15,18 +22,22 @@
     <div class="item-list col-12">
       <div class="item-title">
         <div class="item-avatar"
-             [ngStyle]="comparisonUserPicture(feed?.writingUser)"></div>
+             [ngStyle]="comparisonUserPicture(feed?.writer)"></div>
         <div
-          class="item-nickname">{{ feed?.writingUser?.nickname ? feed?.writingUser?.nickname : feed?.writingUser?.email  }}</div>
-        <div class="item-last-ago">방금전</div>
+          class="item-nickname">
+          {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}
+        </div>
+        <div class="item-last-ago">
+          {{ getTimeText(feed) }}
+        </div>
         <div class="item-more-option">
           <div [inlineSVG]="'assets/icons/mypage/more-option-btn.svg'"
-               tabindex="1"
+               tabindex="0"
                (click)="onPopoverToggle(feed)"
                (blur)="onClosePopover(feed)"></div>
           <app-mypage-popover [isVisible]="feed?.onCheckPopover"
-                              (onClickModify)="visibleFeedModifyModal()"
-                              (onClickDelete)="visibleFeedDeleteModal()">
+                              (onClickModify)="moveModifyFeed(feed)"
+                              (onClickDelete)="visibleFeedDeleteModal(feed)">
           </app-mypage-popover>
         </div>
       </div>
@@ -84,15 +95,3 @@
     </div>
   </ng-container>
 </div>
-
-<shared-modal type="confirm"
-              [(visible)]="feedModifyModalVisible"
-              [data]="feedModifyMessage"
-              (cancel)="modalCancel()"
-></shared-modal>
-
-<shared-modal type="confirm"
-              [(visible)]="feedDeleteModalVisible"
-              [data]="feedDeleteMessage"
-              (cancel)="modalCancel()"
-></shared-modal>

@@ -1,27 +1,28 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import handleError from './handleError';
 
-import { environment } from '@environments/environment';
+import {environment} from '@environments/environment';
 
-import { Response } from '@schemas/response';
-import { User } from '@schemas/user';
-import { Feed } from '@schemas/feed';
-import { FeedTag } from '@schemas/feed-tag';
-import { FeedComment } from '@schemas/feed-comment';
-import { File } from '@schemas/file';
-import { FeedLike } from '@schemas/feed-like';
+import {Response} from '@schemas/response';
+import {User} from '@schemas/user';
+import {Feed} from '@schemas/feed';
+import {FeedTag} from '@schemas/feed-tag';
+import {FeedComment} from '@schemas/feed-comment';
+import {File} from '@schemas/file';
+import {FeedLike} from '@schemas/feed-like';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   /**
-   *
+   * 피드 작성
    * @param rewrite
    * @param userId
    */
@@ -167,40 +168,6 @@ export class FeedService {
     };
 
     return this.http.delete<any>(url, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
-
-  createFeedPicture(feedId: string, requestBody: CreateFeedPictureDto): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/picture`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
-
-  deleteUserPicture(feedId: string, fileUrl: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/feed/${feedId}/picture/${encodeURIComponent(fileUrl)}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.delete<Response>(url, options).pipe(
       map((res) => {
         return res;
       }),
@@ -512,6 +479,29 @@ export class FeedService {
     );
   }
 
+  /**
+   * 마이페이지 피드 상세 페이지 조회
+   * @param userId
+   * @param page
+   * @param limit
+   */
+  findMyPageFeedDetail(userId: string, page: number, limit: number): Observable<any> {
+    const url = environment.userApiAddress + `/feed/findMypageFeedDetail?userId=${userId}&page=${page}&limit=${limit}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
   deleteBookmarkAll(userId: string) {
     const url = environment.userApiAddress + `/feed/deleteAllBookmarkByUserId?userId=${userId}`;
 
@@ -528,6 +518,30 @@ export class FeedService {
       catchError(handleError)
     );
   }
+
+  /**
+   * 피드 삭제
+   * @param feedId
+   */
+  deleteRealFeed(feedId: string): Observable<any> {
+    const url = environment.userApiAddress + `/feed/realDelete?feedId=${feedId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    }
+
+    return this.http
+      .delete<any>(url, options)
+      .pipe(map((res) => {
+          return res;
+        }),
+        catchError(handleError)
+      );
+
+  }
+
 }
 
 class FeedBookmarkDto {
@@ -540,10 +554,6 @@ class UpdateFeedDto {
   content?: string;
   picture?: string;
   posting?: boolean;
-}
-
-class CreateFeedPictureDto {
-  files: Array<File>;
 }
 
 class CreateFeedCommentDto {

@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {StorageService} from "@services/storage.service";
 import {FeedService} from "@services/feed.service";
 import {User} from "@schemas/user";
 import {Feed} from "@schemas/feed";
 import {FollowService} from "@services/follow.service";
+import {DateUtils} from "../../../../core/utils/date.utils";
 
 
 @Component({
@@ -14,19 +15,27 @@ import {FollowService} from "@services/follow.service";
 })
 export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
 
-  feedModifyMessage: any = {
-    text: '피드 수정',
-    subText: '정말 수정 하시겠어요?',
-    confirmBtnText: '수정',
-    cancelBtnText: '취소'
-  }
-
   feedDeleteMessage: any = {
     text: '피드 삭제',
     subText: '정말 삭제 하시겠어요?',
     confirmBtnText: '삭제',
     cancelBtnText: '취소'
-  }
+  };
+
+  deleteModalMessage: any = {
+    en: {
+      text: 'Delete Feed',
+      subText: '정말 삭제 하시겠어요?',
+      confirmBtnText: 'Delete',
+      cancelBtnText: 'Cancel',
+    },
+    ko: {
+      text: '피드 삭제',
+      subText: '정말 삭제 하시겠어요?',
+      confirmBtnText: '삭제',
+      cancelBtnText: '취소',
+    }
+  };
 
   feedModifyModalVisible: boolean = false;
   feedDeleteModalVisible: boolean = false;
@@ -36,17 +45,16 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
 
   /** pagination */
   page: number = 1;
-  pageCount: number = 6;
+  limit: number = 10;
 
-  emptyCount: number = 0;
-  otherCount: number = 0;
-  totalCount: number = 0;
+  selectedFeed: any = {};
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private feedService: FeedService,
     private followService: FollowService,
+    private dateUtils: DateUtils,
   ) {
     this.pushEmptyFeed(1);
   }
@@ -56,35 +64,31 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.findMyPageFeedList(this.user.id, this.pageCount);
+    this.findMyPageFeedList(this.user.id, this.page, this.limit);
   }
 
   /**
    * 마이페이지 내 피드 메인 조회
    * @param userId
+   * @param page
    * @param limit
    */
-  findMyPageFeedList(userId, limit): void {
+  findMyPageFeedList(userId, page, limit): void {
     if (this.user) {
       this.feedService
-        .findMyPageFeedMain(userId, limit)
+        .findMyPageFeedDetail(userId, page, limit)
         .subscribe((data) => {
-          this.feedList = data?.feedList;
-          if (this.feedList.length < limit) {
-            let def = limit - this.feedList.length;
 
-            for (let i = 0; i < def; i++) {
-              this.feedList.push({});
-            }
-          }
-          this.otherCount = data?.otherCount;
-          this.totalCount = data?.totalCount;
+          console.log('data : ', data);
 
-          if (this.totalCount === 0) {
-            this.feedList = [];
-          }
+          this.feedList = data?.items;
+          // this.otherCount = data?.otherCount;
+          // this.totalCount = data?.totalCount;
+          //
+          // if (this.totalCount === 0) {
+          //   this.feedList = [];
+          // }
 
-          console.log('--- feed/detail feedList : ', this.feedList[0]);
         });
     }
   }
@@ -109,15 +113,21 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
   modalCancel(): void {
     this.feedModifyModalVisible = false;
     this.feedDeleteModalVisible = false;
+    this.selectedFeed = {};
+
+    console.log('modal cancel ', this.selectedFeed);
   }
 
   visibleFeedModifyModal() {
     this.feedModifyModalVisible = true;
   }
 
-  visibleFeedDeleteModal() {
+  visibleFeedDeleteModal(feed: Feed) {
     this.feedDeleteModalVisible = true;
+    this.selectedFeed = feed;
+    console.log('selectedFeed : ', this.selectedFeed);
   }
+
 
   pushEmptyFeed(limit: number): void {
     for (let i = 0; i < limit; i++) {
@@ -126,7 +136,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
   }
 
   comparisonUserPicture(user: User): any {
-    return user?.picture ? {'background-image': 'url(' + user?.picture[0].url + ')'} : {};
+    return user?.picture ? {'background-image': 'url(' + user?.picture[0]?.url + ')'} : {};
   }
 
   /**
@@ -152,13 +162,14 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
-        (data) => {
-          feed.isBookmark = true;
-        },
-        (error) => {
-        }
-      );
+      this.feedService
+        .addFeedBookmark({feedId: feed?.id, userId})
+        .subscribe((data) => {
+            feed.isBookmark = true;
+          },
+          (error) => {
+          }
+        );
     }
   }
 
@@ -170,16 +181,20 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
       this.feedService
-        .deleteFeedBookmark({ feedId: feed?.id, userId })
+        .deleteFeedBookmark({feedId: feed?.id, userId})
         .subscribe((data) => {
-          feed.isBookmark = false;
-        },
-        (error) => {
-        }
-      );
+            feed.isBookmark = false;
+          },
+          (error) => {
+          }
+        );
     }
   }
 
+  /**
+   * 피드 좋아요 추가/삭제
+   * @param feed
+   */
   toggleFeedLike(feed: Feed): void {
     if (this.user) {
       if (feed) {
@@ -202,7 +217,6 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
           feed.isLike = true;
           feed.likeCount += 1;
         }, (e) => {
-
         }
       );
   }
@@ -218,12 +232,39 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit {
           feed.isLike = false;
           feed.likeCount -= 1;
         },
-        (e) => {}
+        (e) => {
+        }
       );
   }
 
-  refreshFeed(feed: Feed): void {
+  moveModifyFeed(feed: Feed): void {
+    this.router.navigateByUrl(`/write/${feed.id}`).then();
+  }
 
+  refreshFeed(feed: Feed): void {
+  }
+
+  getTimeText(feed: Feed): string {
+    return this.translateDateTime(this.translateTimeStamp(feed.createdAt));
+  }
+
+  translateTimeStamp(date: string): number {
+    return this.dateUtils.getTimeStamp(date);
+  }
+
+  translateDateTime(timeStamp: number): string {
+    return this.dateUtils.transTimeType(timeStamp);
+  }
+
+  deleteRealFeed(): void {
+    if (this.selectedFeed) {
+      this.feedService
+        .deleteRealFeed(this.selectedFeed.id)
+        .subscribe((data) => {
+          this.modalCancel();
+          console.log('data : ', data);
+        });
+    }
   }
 
 }

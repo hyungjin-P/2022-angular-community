@@ -10,9 +10,10 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import SwiperCore from 'swiper';
 import Swiper, {Navigation, Pagination, SwiperOptions} from 'swiper';
 import {SwiperComponent} from 'swiper/angular';
+
+Swiper.use([Navigation]);
 
 @Component({
   selector: 'app-feed-slider',

@@ -5,6 +5,7 @@ import { StorageService } from '@services/storage.service';
 import { User } from '@schemas/user';
 import { Location } from '@angular/common';
 import { Navigation } from 'swiper';
+// import {window} from "rxjs/operators";
 
 @Component({
   selector: 'app-scrap',
@@ -42,7 +43,8 @@ export class ScrapComponent implements OnInit {
     this.variables.isNavOpen = !this.variables.isNavOpen;
   }
 
-  goBack() {
-    this.router.navigateByUrl('/feed');
+  goBack(): void {
+    // this.router.navigateByUrl('/feed');
+    window.history.back();
   }
 }

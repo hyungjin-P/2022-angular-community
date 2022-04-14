@@ -29,7 +29,6 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
-    console.log('this.user : ', this.user);
   }
 
   ngAfterViewInit(): void {
@@ -65,7 +64,7 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   }
 
   goRouter(path: string): void {
-    this.router.navigateByUrl(path).then();
+     this.router.navigateByUrl(path).then();
   }
 
   comparisonBackgroundImage(feed: Feed): any {
@@ -73,7 +72,7 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   }
 
   comparisonUserPicture(user: User): any {
-    return user?.picture ? {'background-image': 'url(' + user?.picture[0].url + ')'} : {};
+    return user?.picture ? {'background-image': 'url(' + user?.picture[0]?.url + ')'} : {};
   }
 
   pushEmptyFeed(limit: number): void {

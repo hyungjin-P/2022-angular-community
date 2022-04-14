@@ -49,7 +49,9 @@
             <div class="updated-at" [(ngModel)]="beginTime" ngDefaultControl>
               {{ beginTime }}
             </div>
-            <a class="follow" *ngIf="user && user?.id != selectedFeed?.writer.id" (click)="toggleFollow()">
+            <a class="follow"
+               *ngIf="user && user?.id != selectedFeed?.writer.id"
+               (click)="toggleFollow()">
               <div class="follow-active" *ngIf="selectedFeed?.writer.isFollow">
                 <div class="follow-check-icon">
                   <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,8 +116,7 @@
                                  [isLike]="selectedFeed?.isLike"
                                  [isBookmark]="selectedFeed?.isBookmark"
                                  (onClickLike)='toggleFeedLike(selectedFeed)'
-                                 (onClickBookmark)='toggleFeedBookmark(selectedFeed)'
-                >
+                                 (onClickBookmark)='toggleFeedBookmark(selectedFeed)'>
                 </app-feed-slider>
               </div>
             </div>
@@ -145,8 +146,8 @@
                     [image]="like_user.user.picture[0]?.url"
                     text="{{ like_user.user.email }}"
                     size="18"
-                    fontSize="8"
-                  ></shared-avatar>
+                    fontSize="8">
+                  </shared-avatar>
                 </div>
               </ng-container>
               <div
@@ -269,7 +270,9 @@
                         />
                       </svg>
                     </div>
-                    <div class="text">{{ feed.likeCount > 999 ? '999+' : (feed.likeCount | number) }}</div>
+                    <div class="text">
+                      {{ feed.likeCount > 999 ? '999+' : (feed.likeCount | number) }}
+                    </div>
                   </div>
                   <div class="comment">
                     <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -433,8 +436,10 @@
             </div>
           </div>
 
-          <div class="comment-view-item-text" *ngIf="!feedComment?.deletedAt">
-            <span class="mentionUser" *ngIf="feedComment?.mentions.length > 0">
+          <div class="comment-view-item-text"
+               *ngIf="!feedComment?.deletedAt">
+            <span class="mentionUser"
+                  *ngIf="feedComment?.mentions.length > 0">
               @{{
                 feedComment?.mentions[0].mentionUser.nickname ||
                   feedComment?.mentions[0].mentionUser.email.split('@')[0]
@@ -497,34 +502,27 @@
                 </div>
               </ng-container>
               <ng-container *ngIf="!parentFeedComment">
-                <div class="comment-view-item-menu sub-comment-write" (click)="showSubCommentInput(feedComment)">
+                <div class="comment-view-item-menu sub-comment-write"
+                     (click)="showSubCommentInput(feedComment)">
                   {{ 'keeping.feed-detail.comment-view-reply' | translate }}
                 </div>
               </ng-container>
             </div>
-            <div
-              class="comment-view-item-menu-group-col-2"
-              *ngIf="!feedComment?.deletedAt && user?.id == feedComment.writer.id"
-            >
-              <div
-                class="comment-view-item-menu sub-comment-edit"
-                (click)='showModifyCommentInput(feedComment)'
-              >
+            <div class="comment-view-item-menu-group-col-2"
+                 *ngIf="!feedComment?.deletedAt && user?.id == feedComment.writer.id">
+              <div class="comment-view-item-menu sub-comment-edit"
+                   (click)='showModifyCommentInput(feedComment)'>
                 {{ 'keeping.feed-detail.comment-view-reply-edit' | translate }}
               </div>
-              <div
-                class="comment-view-item-menu sub-comment-delete"
-                (click)="showDeleteCommentConfirmModal(feedComment)"
-              >
+              <div class="comment-view-item-menu sub-comment-delete"
+                   (click)="showDeleteCommentConfirmModal(feedComment)">
                 {{ 'keeping.feed-detail.comment-view-reply-delete' | translate }}
               </div>
             </div>
           </div>
-          <div
-            class="comment-view-item-sub-comment-list-menu"
-            [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
-            (click)="showSubCommentList(i, feedComment.id)"
-          >
+          <div class="comment-view-item-sub-comment-list-menu"
+               [class.comment-view-item-sub-comment-list-menu-selected]="feedSubCommentListViewObj[feedComment.id]"
+               (click)="showSubCommentList(i, feedComment.id)">
             <!--       댓글 더보기 기본 동작으로 변경 22.02.11    -->
             <!--            <ng-container *ngIf="feedComment.sub_comment_count !== 0">-->
             <!--              <div *ngIf="selectedLanguage == 'ko'">답글 {{ feedComment.sub_comment_count }}개 보기</div>-->
@@ -548,12 +546,11 @@
 </ng-template>
 
 <div class="liked-view-background" [class.liked-view-background-show]="likedViewVisible"></div>
-<div
-  class="liked-view-wrapper justify-content-center align-items-center"
-  [class.liked-view-wrapper-show]="likedViewVisible"
-  (click)="hideLikedView()"
->
-  <div class="liked-view d-flex flex-column" (click)="$event.stopPropagation()">
+<div class="liked-view-wrapper justify-content-center align-items-center"
+     [class.liked-view-wrapper-show]="likedViewVisible"
+     (click)="hideLikedView()">
+  <div class="liked-view d-flex flex-column"
+       (click)="$event.stopPropagation()">
     <div class="liked-view-header">
       <div class="mdi mdi-chevron-left" (click)="hideLikedView()"></div>
       <div>{{ 'keeping.feed-detail.liked-view-header' | translate }} ({{ likeUserList.length }})</div>
@@ -575,16 +572,22 @@
                   <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round" />
                 </svg>
               </div>
-              <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+              <div class="text">
+                {{ 'keeping.feed-detail.follow' | translate }}
+              </div>
             </div>
-            <div class="follow-default" *ngIf="!likeUser.user.isFollow" (click)="addFollow(user?.id, likeUser.user)">
+            <div class="follow-default"
+                 *ngIf="!likeUser.user.isFollow"
+                 (click)="addFollow(user?.id, likeUser.user)">
               <div class="follow-plus-icon">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 6.00101H10H2Z" fill="white" />
                   <path d="M6 2.00101V10.001M2 6.00101H10" stroke="white"/>
                 </svg>
               </div>
-              <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+              <div class="text">
+                {{ 'keeping.feed-detail.follow' | translate }}
+              </div>
             </div>
           </div>
         </div>
@@ -594,17 +597,17 @@
 </div>
 
 <shared-login-modal
-  [(visible)]='isLoginModalVisible'
   type='login'
+  [(visible)]='isLoginModalVisible'
   (cancel)='loginModalCancel()'
   (confirm)='loginModalConfirm()'
   (another)='loginModalAnother()'
 ></shared-login-modal>
 
 <shared-modal
+  type="confirm"
   [(visible)]='isConfirmModalVisible'
   [data]="confirmModalData"
-  type="confirm"
   (cancel)="confirmModalCancel()"
   (confirm)='confirmModalConfirm()'
 ></shared-modal>

@@ -12,13 +12,8 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const url = state.url.split('/')
-    const user = this.storageService.getUser()
-
-    console.log('---------------------');
-    console.log('canActivate : ', user);
-    console.log('access url  : ', url);
-    console.log('---------------------');
+    const url = state.url.split('/');
+    const user = this.storageService.getUser();
 
     if (user) {
       if (url[1] === 'auth') {

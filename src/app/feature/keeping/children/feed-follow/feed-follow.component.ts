@@ -4,7 +4,7 @@ import { Feed } from '@schemas/feed';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 import { FeedService } from '@services/feed.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FollowService } from '@services/follow.service';
 import { TextService } from '@services/text.service';
 import { FeedLike } from '@schemas/feed-like';
@@ -84,7 +84,8 @@ export class FeedFollowComponent implements OnInit {
     private feedService: FeedService,
     private followService: FollowService,
     private textService: TextService,
-    private dateUtils: DateUtils
+    private dateUtils: DateUtils,
+    private activateRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -105,6 +106,8 @@ export class FeedFollowComponent implements OnInit {
     this.commentInfoVisible = false;
 
     this.getFeedFollowList();
+
+    console.log(this.activateRoute)
   }
 
   private getFeedFollowList() {

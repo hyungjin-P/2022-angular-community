@@ -183,12 +183,13 @@ export class FeedComponent implements OnInit {
 
   moveTab(link: string) {
     if (this.user) {
-      this.router.navigateByUrl(link);
+      // this.router.navigateByUrl(link+ `/${this.user.id}?tabType=follow`).then();
+      this.router.navigateByUrl('/follow').then();
     } else {
       if (link === '/feed/follow') {
         this.showLoginModal();
       } else {
-        this.router.navigateByUrl(link);
+        this.router.navigateByUrl(link).then();
       }
     }
   }

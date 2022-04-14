@@ -416,13 +416,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   modifyFeed(feed: Feed) {
-    this.router.navigateByUrl(`/write/${feed.id}`);
+    this.router.navigateByUrl(`/write/${feed.id}`).then();
   }
 
   deleteFeed(feed: Feed) {
     this.feedService.deleteFeed(feed.id).subscribe(
       (v) => {
-        this.router.navigateByUrl('/feed');
+        this.router.navigateByUrl('/feed').then();
         this.feedDelete = undefined;
       },
       (e) => {}
@@ -880,6 +880,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.deleteFeed(this.feedDelete);
     }
   }
+
   confirmModalCancel() {
     this.isConfirmModalVisible = false;
     this.feedDeleteComment = undefined;

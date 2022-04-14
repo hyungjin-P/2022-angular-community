@@ -38,7 +38,10 @@ const routes: Routes = [
       { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full' },
       { path: 'feed', component: FeedComponent },
       { path: 'feed/follow', canActivate: [AuthGuard], component: FeedFollowComponent },
+      { path: 'follow', canActivate: [AuthGuard], component: FeedFollowComponent },
+      { path: 'feed/follow/:user_id', canActivate: [AuthGuard], component: FeedFollowComponent },
       { path: 'feed/:feed_id', component: FeedDetailComponent },
+      { path: 'feed/:feed_id/:redirect', component: FeedDetailComponent },
       { path: 'write', canActivate: [AuthGuard], component: WriteComponent },
       { path: 'write/:feed_id', canActivate: [AuthGuard], component: WriteComponent },
       { path: 'magazine', component: MagazineComponent },
@@ -51,6 +54,7 @@ const routes: Routes = [
       { path: 'notification', component: NotificationComponent },
     ],
   },
+
   {
     path: 'mypage',
     canActivate: [AuthGuard, ServiceTermsGuard],
@@ -85,6 +89,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, ServiceTermsGuard],
     loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule),
   },
+
 ];
 
 @NgModule({
