@@ -38,8 +38,6 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   viewType = 'desktop';
 
-  nowScroll: number;
-
   @ViewChild('scrollEl') scrollEl: ElementRef;
 
   mypageFeedDetail: MypageFeedDetailComponent;
@@ -75,7 +73,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     let timer = null;
-    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+    this.scrollEl.nativeElement.addEventListener('scroll', () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
@@ -83,15 +81,10 @@ export class MypageComponent implements OnInit, AfterViewInit {
         const per = (scrollTop / scrollHeight) * 100;
         const def = scrollHeight - scrollTop;
 
-
         if (this.mypageFeedDetail) {
           if (def < 1000) {
             this.mypageFeedDetail.findNextPage();
           }
-        }
-
-        if (50 < per) {
-          console.log('calc : ', per);
         }
 
       }, 100);
@@ -101,9 +94,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
   }
 
   onActivate(componentRef: any): void {
-    console.log('onActivate componentRef : ', componentRef);
-
-    if (componentRef.checkFeedDetail) {
+    if (componentRef.isFeedDetail) {
       this.mypageFeedDetail = componentRef;
     }
   }

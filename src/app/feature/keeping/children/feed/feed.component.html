@@ -282,14 +282,15 @@
             <span>피규어 키덜트들의 놀이터, 키핑 커뮤니티</span>
           </div>
           <div class="img-content">
-            <img src="assets/images/common/banner_img.png" alt="" />
+            <img src="assets/images/common/banner_img.png" alt="">
           </div>
         </div>
         <div class="item col-6 col-lg-6 col-xl-4 col-xxl-2-5" *ngFor="let feed of feedList">
           <div class="d-flex flex-column flex-wrap">
-            <div class="image-box flex-fill" (click)="moveFeedDetail(feed)">
+            <div class="image-box flex-fill"
+                 (click)="moveFeedDetail(feed)">
               <div class="image-box-hover-content">
-                <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content" />
+                <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content">
                 <div class="pictureCount-background" *ngIf="feed.pictureCount > 1">
                   <!--                <img src="assets/icons/feed/count.svg"/>-->
                   <span class="text">{{ '+' + feed.pictureCount }}</span>
@@ -339,7 +340,9 @@
                     <path d="M10.8496 12.3931H18.5496" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M10.8496 15.4667H13.9296" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <span class="text">{{ feed.commentCount > 999 ? '999+' : (feed.commentCount | number) }}</span>
+                  <span class="text">
+                    {{ feed.commentCount > 999 ? '999+' : (feed.commentCount | number) }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -348,8 +351,10 @@
       </div>
     </div>
   </div>
-  <a class='write d-flex d-lg-none' [routerLink]="['/write']" routerLinkActive="selected">
-    <img src="assets/icons/bottom-nav/pencil.svg" />
+  <a class='write d-flex d-lg-none'
+     [routerLink]="['/write']"
+     routerLinkActive="selected">
+    <img src="assets/icons/bottom-nav/pencil.svg" alt="">
   </a>
 </div>
 

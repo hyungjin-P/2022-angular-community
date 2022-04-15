@@ -1,48 +1,23 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
-import {
-  animationFrameScheduler,
-  defer,
-  fromEvent,
-  Observable,
-  interval,
-  concat,
-  of,
-  scheduled,
-  queueScheduler,
-  asapScheduler,
-  asyncScheduler,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  takeUntil,
-  take,
-  startWith,
-  tap,
-  withLatestFrom,
-  share,
-  scan,
-  takeWhile,
-  mergeAll,
-} from 'rxjs/operators';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Location} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription,} from 'rxjs';
+import {map,} from 'rxjs/operators';
 import * as moment from 'moment-timezone';
 
-import { GlobalService } from '@services/global.service';
-import { StorageService } from '@services/storage.service';
+import {GlobalService} from '@services/global.service';
+import {StorageService} from '@services/storage.service';
 
-import { FeedService } from '@services/feed.service';
-import { PublicService } from '@services/public.service';
-import { TextService } from '@services/text.service';
+import {FeedService} from '@services/feed.service';
+import {PublicService} from '@services/public.service';
+import {TextService} from '@services/text.service';
 
-import { Feed } from '@schemas/feed';
-import { FeedComment } from '@schemas/feed-comment';
-import { User } from '@schemas/user';
-import { DateUtils } from '../../../../core/utils/date.utils';
-import { FeedLike } from '@schemas/feed-like';
-import { FollowService } from '@services/follow.service';
+import {Feed} from '@schemas/feed';
+import {FeedComment} from '@schemas/feed-comment';
+import {User} from '@schemas/user';
+import {DateUtils} from '../../../../core/utils/date.utils';
+import {FeedLike} from '@schemas/feed-like';
+import {FollowService} from '@services/follow.service';
 
 @Component({
   selector: 'feed-detail',
@@ -72,6 +47,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   contentTextLimit: number;
 
   selectedLanguage: string;
+
   commentViewVisible: boolean;
 
   @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
@@ -209,7 +185,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed');
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(
+            this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -225,9 +202,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectedFeed = feed[0];
 
         if (!this.selectedFeed) {
-          this.router.navigateByUrl('/feed');
+          this.router.navigateByUrl('/feed').then();
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(
+            this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -243,12 +221,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       (e) => {}
     );
   }
+
   getPublicFeedCommentList() {
     this.publicService.getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         for (let i = 0; i < feedCommentList.length; i++) {
           feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].createdAt);
           feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
+
 
           if (feedCommentList[i].sub_comment_count !== 0) {
             // 댓글 더보기 기본 동작으로 변경 22.02.11
@@ -290,6 +270,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
             feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
 
             if (feedCommentList[i].sub_comment_count !== 0) {
+
+              console.log('feedCommentList[i].sub_comment_count : ', feedCommentList[i].sub_comment_count);
+
               // 댓글 더보기 기본 동작으로 변경 22.02.11
               this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
               feedCommentList[i].page = 1;
@@ -305,6 +288,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
+
     this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
@@ -429,6 +413,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  /** 코멘트 */
   showCommentView() {
     if (this.storageService.getUser()) {
       this.getFeedCommentList();
@@ -476,7 +461,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  createSubComment(parentFeedComment: FeedComment) {
+  createSubComment(parentFeedComment: FeedComment): void {
     if (!this.feedCommentInputObj) {
       return;
     }
@@ -819,9 +804,11 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/login');
   }
+
   loginModalCancel() {
     this.isLoginModalVisible = false;
   }
+
   loginModalAnother() {
     this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/registration');

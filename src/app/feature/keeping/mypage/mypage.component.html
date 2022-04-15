@@ -46,6 +46,14 @@
     </ng-container>
 
     <div class="flex-fill" style="position: relative">
+
+      <!-- 글쓰기 버튼 -->
+      <div class="floating-buttons">
+        <a class='write d-flex d-lg-none' [routerLink]="['/write']" routerLinkActive="selected">
+          <img src="assets/icons/bottom-nav/pencil.svg" alt="">
+        </a>
+      </div>
+
       <div class="section full-absolute scroll-y" #scrollEl>
         <!-- 상단 Background Image-->
         <div class="background">
@@ -191,10 +199,12 @@
           </div>
         </ng-container>
 
+        <!-- 모바일 -->
         <ng-container *ngIf="viewType === 'mobile'">
-          <!-- 모바일 -->
           <div class="d-lg-none">
+
             <div class="profile">
+
               <div>
                 <div class="avatar">
                   <!-- 아바타 이미지 -->
@@ -245,7 +255,7 @@
 
             <!-- 본문 -->
             <div class="right-side flex-fill d-flex flex-column mt-2">
-              <router-outlet></router-outlet>
+              <router-outlet (activate)="onActivate($event)"></router-outlet>
             </div>
 
           </div>

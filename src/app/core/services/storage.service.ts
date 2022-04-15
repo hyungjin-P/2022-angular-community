@@ -6,6 +6,7 @@ declare let Kakao: any
 import {GlobalService} from '@services/global.service'
 
 import {User} from '@schemas/user'
+import {CryptoService} from "@services/crypto.service";
 
 @Injectable({providedIn: 'root'})
 export class StorageService {
@@ -16,6 +17,7 @@ export class StorageService {
   constructor(
     private angularFireAuth: AngularFireAuth,
     private globalService: GlobalService,
+    private cryptoService: CryptoService
 
   ) {
     this.storage = sessionStorage;

@@ -25,8 +25,7 @@
              [ngStyle]="comparisonUserPicture(feed?.writer)"></div>
         <div
           class="item-nickname">
-<!--          {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}-->
-          {{ nowScroll }}
+          {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}
         </div>
         <div class="item-last-ago">
           {{ getTimeText(feed) }}
@@ -74,7 +73,7 @@
             </ng-container>
           </div>
 
-          <div class="item-contents-comments">
+          <div class="item-contents-comments" (click)="showCommentView(feed)">
             <i class="comment-icon"
                [inlineSVG]="'assets/icons/mypage/mypage-comment.svg'"></i>
             <span class="comment-count">
@@ -96,3 +95,6 @@
     </div>
   </ng-container>
 </div>
+
+
+

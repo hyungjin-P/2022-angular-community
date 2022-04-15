@@ -125,6 +125,7 @@
         top: 0;
         color: var(--white);
         border-radius: 8px;
+        z-index: 0;
 
         .other-count-num {
           @include textStyleNotoSans(500, 18px);
