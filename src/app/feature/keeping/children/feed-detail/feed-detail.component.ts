@@ -245,7 +245,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  getPublicFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
+  getPublicFeedSubCommentList(page: number, limit: number, feedCommentId: string): void {
     this.publicService.getFeedSubCommentList(page, limit, feedCommentId).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;

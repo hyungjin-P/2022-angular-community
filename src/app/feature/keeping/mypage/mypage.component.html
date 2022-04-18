@@ -172,12 +172,12 @@
                   <div class="following">
                     {{ 'mypage.following-text' | translate }}
                   </div>
-                  <div>999+</div>
+                  <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
                   <div class="v-line"></div>
                   <div class="follower">
                     {{ 'mypage.follower-text' | translate }}
                   </div>
-                  <div>999+</div>
+                  <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
                 </div>
 
                 <!-- 자기소개 -->

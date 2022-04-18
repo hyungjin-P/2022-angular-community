@@ -8,18 +8,19 @@ import {
   Renderer2,
   ViewChild, ViewChildren
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 
-import { GlobalService } from '@services/global.service';
-import { StorageService } from '@services/storage.service';
+import {GlobalService} from '@services/global.service';
+import {StorageService} from '@services/storage.service';
 
-import { UserService } from '@services/user.service';
-import { FileService } from '@services/file.service';
+import {UserService} from '@services/user.service';
+import {FileService} from '@services/file.service';
 
-import { User } from '@schemas/user';
-import { File } from '@schemas/file';
+import {User} from '@schemas/user';
+import {File} from '@schemas/file';
 import {MypageFeedDetailComponent} from "./mypage-feed-detail/mypage-feed-detail.component";
+import {FollowService} from "@services/follow.service";
 
 @Component({
   selector: 'mypage',
@@ -38,6 +39,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   viewType = 'desktop';
 
+  follow: any;
+
   @ViewChild('scrollEl') scrollEl: ElementRef;
 
   mypageFeedDetail: MypageFeedDetailComponent;
@@ -49,7 +52,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
     private storageService: StorageService,
     private userService: UserService,
     private fileService: FileService,
-    private renderer2: Renderer2
+    private followService: FollowService,
   ) {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
 
@@ -67,11 +70,12 @@ export class MypageComponent implements OnInit, AfterViewInit {
     this.globalUser = this.globalService.user;
     this.user = this.storageService.getUser();
 
+    this.countFollow(this.user.id);
+
     this.closeDrawer();
   }
 
   ngAfterViewInit(): void {
-
     let timer = null;
     this.scrollEl.nativeElement.addEventListener('scroll', () => {
       clearTimeout(timer);
@@ -91,6 +95,15 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
     });
 
+  }
+
+  countFollow(userId: string): void {
+    this.followService
+      .countFollow(userId)
+      .subscribe((follow) => {
+        console.log('follow : ', follow);
+        this.follow = follow;
+      });
   }
 
   onActivate(componentRef: any): void {

@@ -15,74 +15,6 @@ import { User } from '@schemas/user';
 export class FollowService {
   constructor(private http: HttpClient) {}
 
-  createFollow(requestBody: CreateFollowRequestBody): Observable<User> {
-    const url = environment['serverAddress'] + '/follow';
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res.dataset[0];
-      }),
-      catchError(handleError)
-    );
-  }
-
-  deleteFollow(userId: string): Observable<Response> {
-    const url = environment['serverAddress'] + `/follow/${userId}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.delete<Response>(url, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
-
-  getFollower(page = '', pageSize = ''): Observable<Array<User>> {
-    const url = environment['serverAddress'] + `/follow/follower?page=${page}&pageSize=${pageSize}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.get<Response>(url, options).pipe(
-      map((res) => {
-        return res.dataset;
-      }),
-      catchError(handleError)
-    );
-  }
-
-  getFollowing(page = '', pageSize = ''): Observable<Array<User>> {
-    const url = environment['serverAddress'] + `/follow/following?page=${page}&pageSize=${pageSize}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.get<Response>(url, options).pipe(
-      map((res) => {
-        return res.dataset;
-      }),
-      catchError(handleError)
-    );
-  }
-
   addFollow(fromUser: string, toUser: string): Observable<any> {
     const url = environment.userApiAddress + `/follow/addFollow?fromUser=${fromUser}&toUser=${toUser}`;
 
@@ -116,8 +48,24 @@ export class FollowService {
       catchError(handleError)
     );
   }
-}
 
-class CreateFollowRequestBody {
-  user_id: string;
+  countFollow(userId: string): Observable<any> {
+    const url = environment.userApiAddress + `/follow/countFollow?userId=${userId}`
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+
+  }
+
+
 }

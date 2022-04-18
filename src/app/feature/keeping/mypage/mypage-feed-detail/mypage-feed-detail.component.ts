@@ -397,7 +397,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   showCommentView(feed: Feed) {
-    console.log('showCommentView : ');
+    console.log('showCommentView : ', feed.content);
     this.selectedFeed = feed;
 
     if (this.user) {
