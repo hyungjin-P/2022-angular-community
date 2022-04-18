@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
@@ -12,15 +12,21 @@ import { Magazine } from '@schemas/magazine';
   templateUrl: './magazine.component.html',
   styleUrls: ['./magazine.component.scss'],
 })
-export class MagazineComponent implements OnInit {
+export class MagazineComponent implements OnInit, AfterViewInit {
   language: string;
   variables: any;
   user: User;
+
   category: string = 'all';
   topMagazineList: Magazine[];
   magazineList: Magazine[];
+
+  pageLink: any = {};
+  pageMeta: any = {};
   page: number = 1;
-  limit: number = 30;
+  limit: number = 20;
+
+  @ViewChild('scrollEl') scrollEl: ElementRef;
 
   isLoginModalVisible = false;
 
@@ -72,10 +78,39 @@ export class MagazineComponent implements OnInit {
     this.user = this.storageService.getUser();
     this.language = localStorage.getItem('language');
 
-    if (this.nowTab !== '') {
-      this.changeTab();
-    } else {
-      this.moveTab('/magazine?tabType=all');
+    this.nowTab = this.route.snapshot.queryParams.tabType;
+    this.getTopMagazineList();
+  }
+
+  ngAfterViewInit() {
+    let timer = null;
+    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.scrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 1000) {
+          this.findNextPage();
+        }
+
+        if (50 < per) {
+          console.log('calc : ', per);
+        }
+      }, 100);
+    });
+  }
+
+  private findNextPage() {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      if (this.user) {
+        this.getMagazineList();
+      } else {
+        this.getPublicMagazineList();
+      }
     }
   }
 
@@ -107,16 +142,43 @@ export class MagazineComponent implements OnInit {
     }
   }
 
+  getTopMagazineList() {
+    if (this.user) {
+      this.magazineService.getMagazineList(1, 5, 'all', this.user?.id).subscribe((magazineList) => {
+        this.topMagazineList = magazineList.items;
+        this.changeBody(this.topMagazineList);
+        if (this.nowTab !== undefined) {
+          this.changeTab();
+        } else {
+          this.moveTab('/magazine?tabType=all');
+        }
+      });
+    } else {
+      this.publicService.getMagazineList(1, 5, 'all').subscribe((magazineList) => {
+        this.topMagazineList = magazineList.items;
+        this.changeBody(this.topMagazineList);
+        if (this.nowTab !== undefined) {
+          this.changeTab();
+        } else {
+          this.moveTab('/magazine?tabType=all');
+        }
+      });
+    }
+  }
+
   getMagazineList() {
     this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id).subscribe(
       (magazineList: any) => {
-        if (this.topMagazineList === undefined) {
-          this.topMagazineList = magazineList.items.slice(0, 5);
-          this.changeBody(this.topMagazineList);
+        this.pageMeta = magazineList?.meta;
+        this.pageLink = magazineList?.links;
+
+        if (this.page > 1) {
+          this.magazineList = [...this.magazineList, ...magazineList?.items];
+        } else {
+          this.magazineList = magazineList.items.filter(
+            (magazine) => !this.topMagazineList.some((topMagazine) => magazine.id === topMagazine.id)
+          );
         }
-        this.magazineList = magazineList.items.filter((magazine, idx1) => {
-          return this.topMagazineList.findIndex((topMagazine) => magazine.id === topMagazine.id) !== idx1;
-        });
         this.changeBody(this.magazineList);
       },
       (e) => {
@@ -128,13 +190,17 @@ export class MagazineComponent implements OnInit {
   getPublicMagazineList() {
     this.publicService.getMagazineList(this.page, this.limit, this.category).subscribe(
       (magazineList: any) => {
-        if (this.topMagazineList === undefined) {
-          this.topMagazineList = magazineList.items.slice(0, 5);
-          this.changeBody(this.topMagazineList);
+        this.pageMeta = magazineList?.meta;
+        this.pageLink = magazineList?.links;
+
+        if (this.page > 1) {
+          this.magazineList = [...this.magazineList, ...magazineList?.items];
+        } else {
+          this.magazineList = magazineList.items.filter(
+            (magazine) => !this.topMagazineList.some((topMagazine) => magazine.id === topMagazine.id)
+          );
         }
-        this.magazineList = magazineList.items.filter((magazine, idx1) => {
-          return this.topMagazineList.findIndex((topMagazine) => magazine.id === topMagazine.id) !== idx1;
-        });
+
         this.changeBody(this.magazineList);
       },
       (e) => {
@@ -150,6 +216,7 @@ export class MagazineComponent implements OnInit {
   }
 
   changeTab(): void {
+    this.page = 1;
     if (!this.route.snapshot.queryParams.tabType) {
       this.nowTab = this.tabMenu[0].tabName;
     } else {
@@ -159,7 +226,6 @@ export class MagazineComponent implements OnInit {
       } else {
         this.category = 'magazine_category_' + this.nowTab;
       }
-
       if (this.user) {
         this.getMagazineList();
       } else {

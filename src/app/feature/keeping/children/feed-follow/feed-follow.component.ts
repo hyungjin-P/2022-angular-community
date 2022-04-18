@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from '@schemas/user';
 import { Feed } from '@schemas/feed';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 import { FeedService } from '@services/feed.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FollowService } from '@services/follow.service';
 import { TextService } from '@services/text.service';
 import { FeedLike } from '@schemas/feed-like';
@@ -17,18 +17,22 @@ import * as moment from 'moment-timezone';
   templateUrl: './feed-follow.component.html',
   styleUrls: ['./feed-follow.component.scss'],
 })
-export class FeedFollowComponent implements OnInit {
+export class FeedFollowComponent implements OnInit, AfterViewInit {
   variables: any;
   user: User;
   selectedLanguage: string;
 
+  @ViewChild('scrollEl') scrollEl: ElementRef;
   feedList: Feed[];
   selectedFeed: Feed;
 
   likedViewVisible: boolean;
+  @ViewChild('likeScrollEl') likeScrollEl: ElementRef;
   likeUserList: Array<FeedLike>;
 
   commentViewVisible: boolean;
+  @ViewChild('commentScrollEl') commentScrollEl: ElementRef;
+
   @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
   @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef;
   feedCommentInputObj: any;
@@ -46,13 +50,19 @@ export class FeedFollowComponent implements OnInit {
   commentInfoVisible: boolean;
 
   page: number = 1;
-  limit: number = 20;
+  limit: number = 5;
+  pageMeta: any = {};
+  pageLink: any = {};
 
   likePage: number = 1;
   likeLimit: number = 15;
+  likePageMeta: any = {};
+  likePageLink: any = {};
 
   commentPage: number = 1;
   commentLimit: number = 15;
+  commentPageMeta: any = {};
+  commentPageLink: any = {};
 
   tabMenu: any[] = [
     {
@@ -85,7 +95,7 @@ export class FeedFollowComponent implements OnInit {
     private followService: FollowService,
     private textService: TextService,
     private dateUtils: DateUtils,
-    private activateRoute: ActivatedRoute,
+    private activateRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -107,12 +117,83 @@ export class FeedFollowComponent implements OnInit {
 
     this.getFeedFollowList();
 
-    console.log(this.activateRoute)
+    console.log(this.activateRoute);
+  }
+
+  ngAfterViewInit(): void {
+    let timer = null;
+    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.scrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 1000) {
+          this.findNextPage();
+        }
+
+        if (50 < per) {
+          console.log('calc : ', per);
+        }
+      }, 100);
+    });
+
+    this.commentScrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.commentScrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.commentScrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 700) {
+          this.findNextCommentPage();
+        }
+
+        if (50 < per) {
+          console.log('calc comment : ', per);
+        }
+      }, 100);
+    });
+
+    this.likeScrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.likeScrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.likeScrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 700) {
+          this.findNextLikePage();
+        }
+
+        if (50 < per) {
+          console.log('calc comment : ', per);
+        }
+      }, 100);
+    });
+  }
+
+  findNextPage() {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      this.getFeedFollowList();
+    }
   }
 
   private getFeedFollowList() {
     this.feedService.getFeedFollowList(this.page, this.limit, this.user.id).subscribe((feedList) => {
-      this.feedList = feedList.items;
+      this.pageMeta = feedList.meta;
+      this.pageLink = feedList.links;
+
+      if (this.page > 1) {
+        this.feedList = [...this.feedList, ...feedList?.items];
+      } else {
+        this.feedList = feedList.items;
+      }
 
       for (let feed of this.feedList) {
         feed.begin_timestamp = this.dateUtils.getTimeStamp(feed.createdAt);
@@ -242,21 +323,37 @@ export class FeedFollowComponent implements OnInit {
   }
 
   showLikedView(feed: Feed) {
+    this.likePage = 1;
     this.getFeedLikeList(feed);
     this.likedViewVisible = true;
+  }
+
+  findNextLikePage() {
+    if (this.likePageLink?.next) {
+      this.likePage = this.likePage + 1;
+      this.getFeedLikeList(this.selectedFeed);
+    }
   }
 
   getFeedLikeList(feed: Feed) {
     this.feedService.getFeedLikeList(this.likePage, this.likeLimit, feed.id, this.user.id).subscribe(
       (likeUserList: any) => {
         this.selectedFeed = feed;
-        this.likeUserList = likeUserList.items;
+        this.likePageMeta = likeUserList.meta;
+        this.likePageLink = likeUserList.links;
+
+        if (this.likePage > 1) {
+          this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
+        } else {
+          this.likeUserList = likeUserList.items;
+        }
       },
       (e) => {}
     );
   }
 
   showCommentView(feed: Feed) {
+    this.commentPage = 1;
     this.getFeedCommentList(feed);
     this.commentViewVisible = true;
   }
@@ -271,26 +368,40 @@ export class FeedFollowComponent implements OnInit {
     this.feedCommentInputEl.nativeElement.style = 'height: 40px';
   }
 
+  findNextCommentPage() {
+    if (this.commentPageLink?.next) {
+      this.commentPage = this.commentPage + 1;
+      this.getFeedCommentList(this.selectedFeed);
+    }
+  }
+
   getFeedCommentList(feed: Feed) {
     this.feedService.getFeedCommentList(this.commentPage, this.commentLimit, feed.id, this.user?.id).subscribe(
-      (feedCommentList: Array<FeedComment>) => {
+      (feedCommentList: any) => {
         this.selectedFeed = feed;
-        for (let i = 0; i < feedCommentList.length; i++) {
-          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].createdAt);
-          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
 
-          if (feedCommentList[i].sub_comment_count !== 0) {
-            // 댓글 더보기 기본 동작으로 변경 22.02.11
+        this.commentPageMeta = feedCommentList.meta;
+        this.commentPageLink = feedCommentList.links;
 
-            this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
-            feedCommentList[i].page = 1;
-            feedCommentList[i].limit = 15;
-
-            this.getFeedSubCommentList(1, 15, feedCommentList[i].id);
-          }
+        if (this.commentPage > 1) {
+          this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
+        } else {
+          this.feedCommentList = feedCommentList.items;
         }
-        this.feedCommentList = feedCommentList;
-        console.log(feedCommentList);
+
+        this.feedCommentList.forEach((feedComment) => {
+          feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
+          feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
+
+          if (feedComment.sub_comment_count !== 0) {
+            // 댓글 더보기 기본 동작으로 변경 22.02.11
+            this.feedSubCommentListViewObj[feedComment.id] = true;
+            feedComment.page = 1;
+            feedComment.limit = 15;
+
+            this.getFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+          }
+        });
       },
       (e) => {}
     );

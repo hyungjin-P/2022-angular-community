@@ -1,25 +1,24 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import handleError from './handleError';
 
-import {environment} from '@environments/environment';
+import { environment } from '@environments/environment';
 
-import {Response} from '@schemas/response';
-import {User} from '@schemas/user';
-import {Feed} from '@schemas/feed';
-import {FeedTag} from '@schemas/feed-tag';
-import {FeedComment} from '@schemas/feed-comment';
-import {File} from '@schemas/file';
-import {FeedLike} from '@schemas/feed-like';
+import { Response } from '@schemas/response';
+import { User } from '@schemas/user';
+import { Feed } from '@schemas/feed';
+import { FeedTag } from '@schemas/feed-tag';
+import { FeedComment } from '@schemas/feed-comment';
+import { File } from '@schemas/file';
+import { FeedLike } from '@schemas/feed-like';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * 피드 작성
@@ -299,7 +298,7 @@ export class FeedService {
 
     return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.items;
+        return res;
       }),
       catchError(handleError)
     );
@@ -529,19 +528,16 @@ export class FeedService {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      })
-    }
+      }),
+    };
 
-    return this.http
-      .delete<any>(url, options)
-      .pipe(map((res) => {
-          return res;
-        }),
-        catchError(handleError)
-      );
-
+    return this.http.delete<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
   }
-
 }
 
 class FeedBookmarkDto {

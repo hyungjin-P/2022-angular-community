@@ -102,7 +102,7 @@ export class PublicService {
 
     return this.http.get<any>(url, options).pipe(
       map((res) => {
-        return res.items;
+        return res;
       }),
       catchError(handleError)
     );

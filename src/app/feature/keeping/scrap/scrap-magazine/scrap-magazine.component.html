@@ -3,7 +3,7 @@
   <div class="items-title">
     <div class="title">
       <span class="title-content">{{ 'common.service-name.magazine' | translate }}</span>
-      <span class="content-count">{{ magazineList?.length | number }}</span>
+      <span class="content-count">{{ totalCount | number }}</span>
     </div>
 
     <a class="delete-all" *ngIf="magazineList?.length > 0" (click)='showConfirmModal()'>
@@ -63,7 +63,7 @@
     </ng-container>
 
     <!-- 사진이 6개 이상일 때 나머지 빈칸 자동 생성 -->
-    <ng-container *ngIf='magazineList?.length > 6'>
+    <ng-container *ngIf='magazineList?.length > 6 && magazineList?.length % 2 !== 0'>
       <div class='item' *ngFor="let dummy of ' '.repeat(2 - (magazineList.length % 2)).split(''); let x = index">
         <div class="item-box"></div>
       </div>

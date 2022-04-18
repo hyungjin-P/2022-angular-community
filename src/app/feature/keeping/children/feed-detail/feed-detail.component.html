@@ -33,7 +33,7 @@
       </a>
     </div>
 
-    <div class="section full-absolute" #scroll>
+    <div class="section full-absolute" #scrollEl>
       <div class="items">
         <div class="selected-item">
           <div class="row-1">
@@ -239,14 +239,14 @@
                 </a>
                 <div class="user">
                   <shared-avatar
-                    [image]="feed.writerPictureUrl"
-                    text="{{ feed.writerEmail }}"
+                    [image]="feed?.writer.picture[0]?.url"
+                    text="{{ feed?.writer.email }}"
                     size="20"
                     fontSize="14"
                     backgroundColor="red"
                   ></shared-avatar>
                   <div class="nickname">
-                    {{ feed.writerNickname || feed.writerEmail.split('@')[0] }}
+                    {{ feed?.writer.nickname || feed?.writer.email.split('@')[0] }}
                   </div>
                 </div>
                 <div class="title ellipsis1">
@@ -318,7 +318,7 @@
       <div class="mdi mdi-close" (click)="hideCommentView()"></div>
     </div>
     <div class="flex-fill" style="position: relative">
-      <div class="feed-comment-view-section full-absolute">
+      <div class="feed-comment-view-section full-absolute scroll-y" #commentScrollEl>
         <div class="feed-comment-view-section-content">
           <div class="row-1">
             <shared-avatar
@@ -564,7 +564,7 @@
       <div>{{ 'keeping.feed-detail.liked-view-header' | translate }} ({{ likeUserList.length }})</div>
     </div>
     <div class="flex-fill" style="position: relative">
-      <div class="liked-view-section full-absolute">
+      <div class="liked-view-section full-absolute scroll-y" #likeScrollEl>
         <div class="liked-view-user" *ngFor="let likeUser of likeUserList">
           <shared-avatar
             [image]="likeUser.user.picture[0]?.url"

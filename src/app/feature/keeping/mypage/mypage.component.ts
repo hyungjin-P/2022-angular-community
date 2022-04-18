@@ -1,26 +1,30 @@
 import {
   AfterViewChecked,
   AfterViewInit,
-  Component, ComponentRef,
-  ElementRef, EventEmitter,
+  Component,
+  ComponentRef,
+  ElementRef,
+  EventEmitter,
   HostListener,
-  OnInit, Output,
+  OnInit,
+  Output,
   Renderer2,
-  ViewChild, ViewChildren
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
-import {Router} from '@angular/router';
-import {Location} from '@angular/common';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
-import {GlobalService} from '@services/global.service';
-import {StorageService} from '@services/storage.service';
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {UserService} from '@services/user.service';
-import {FileService} from '@services/file.service';
+import { UserService } from '@services/user.service';
+import { FileService } from '@services/file.service';
 
-import {User} from '@schemas/user';
-import {File} from '@schemas/file';
-import {MypageFeedDetailComponent} from "./mypage-feed-detail/mypage-feed-detail.component";
-import {FollowService} from "@services/follow.service";
+import { User } from '@schemas/user';
+import { File } from '@schemas/file';
+import { MypageFeedDetailComponent } from './mypage-feed-detail/mypage-feed-detail.component';
+import { FollowService } from '@services/follow.service';
 
 @Component({
   selector: 'mypage',
@@ -28,7 +32,6 @@ import {FollowService} from "@services/follow.service";
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit, AfterViewInit {
-
   variables: any;
   globalUser: any;
   user: User;
@@ -52,7 +55,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
     private storageService: StorageService,
     private userService: UserService,
     private fileService: FileService,
-    private followService: FollowService,
+    private followService: FollowService
   ) {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
 
@@ -90,20 +93,15 @@ export class MypageComponent implements OnInit, AfterViewInit {
             this.mypageFeedDetail.findNextPage();
           }
         }
-
       }, 100);
-
     });
-
   }
 
   countFollow(userId: string): void {
-    this.followService
-      .countFollow(userId)
-      .subscribe((follow) => {
-        console.log('follow : ', follow);
-        this.follow = follow;
-      });
+    this.followService.countFollow(userId).subscribe((follow) => {
+      console.log('follow : ', follow);
+      this.follow = follow;
+    });
   }
 
   onActivate(componentRef: any): void {
@@ -164,7 +162,6 @@ export class MypageComponent implements OnInit, AfterViewInit {
       this.changeBackgroundEditMode(false);
       this.user.background = [];
       this.storageService.setUser(this.user);
-
     } catch (e) {
       this.globalService.showToast(e.message);
     }

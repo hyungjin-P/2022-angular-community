@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { GlobalService } from '@services/global.service';
@@ -16,12 +16,16 @@ import { User } from '@schemas/user';
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, AfterViewInit {
   variables: any;
   user: User;
   feedList: Feed[];
+
+  pageLink: any = {};
+  pageMeta: any = {};
   page: number = 1;
-  limit: number = 20;
+  limit: number = 15;
+  @ViewChild('scrollEl') scrollEl: ElementRef;
 
   tabMenu: any[] = [
     {
@@ -64,10 +68,49 @@ export class FeedComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    let timer = null;
+    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.scrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 1000) {
+          this.findNextPage();
+        }
+
+        if (50 < per) {
+          console.log('calc : ', per);
+        }
+      }, 100);
+    });
+  }
+
+  findNextPage() {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      if (this.user) {
+        this.getFeedList();
+      } else {
+        this.getPublicFeedList();
+      }
+    }
+  }
+
   getFeedList() {
     this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
       (feedList: any) => {
-        this.feedList = feedList.items;
+        this.pageMeta = feedList.meta;
+        this.pageLink = feedList.links;
+
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...feedList?.items];
+        } else {
+          this.feedList = feedList.items;
+        }
       },
       (e) => {
         console.log('public feed list find failed', e);
@@ -79,7 +122,14 @@ export class FeedComponent implements OnInit {
   getPublicFeedList() {
     this.publicService.getFeedList(this.page, this.limit).subscribe(
       (feedList: any) => {
-        this.feedList = feedList.items;
+        this.pageMeta = feedList.meta;
+        this.pageLink = feedList.links;
+
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...feedList?.items];
+        } else {
+          this.feedList = feedList.items;
+        }
       },
       (e) => {
         console.log('public feed list find failed', e);

@@ -17,9 +17,10 @@ export class ScrapMagazineComponent implements OnInit {
   user: User;
   language: any;
   magazineList: Magazine[];
+  totalCount: number;
 
   page = 1;
-  limit = 20;
+  limit = 6;
 
   isConfirmModalVisible = false;
   confirmModalData: any;
@@ -55,6 +56,7 @@ export class ScrapMagazineComponent implements OnInit {
     this.magazineService.getScrapMagazineList(this.page, this.limit, this.user.id).subscribe(
       (magazineList) => {
         this.magazineList = magazineList.items;
+        this.totalCount = magazineList.meta.totalCount;
         this.changeBody(this.magazineList);
       },
       (e) => {

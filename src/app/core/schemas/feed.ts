@@ -17,9 +17,6 @@ export class Feed {
     public likeCount: number,
     public commentCount: number,
     public pictureCount: number,
-    public writerEmail: string, // join data
-    public writerPictureUrl: string, // join data
-    public writerNickname: string, // join data
     public isLike: boolean,
     public isBookmark: boolean,
     public otherCount: number,
@@ -43,9 +40,6 @@ export class Feed {
     this.commentCount = commentCount;
     this.createdAt = createdAt;
     this.pictureCount = pictureCount;
-    this.writerEmail = writerEmail;
-    this.writerPictureUrl = writerPictureUrl;
-    this.writerNickname = writerNickname;
     this.isLike = isLike;
     this.isBookmark = isBookmark;
     this.otherCount = otherCount;

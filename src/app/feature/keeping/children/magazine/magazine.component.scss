@@ -31,6 +31,10 @@
         //grid-template-rows: 260px 260px;
         grid-gap: 30px;
         margin-top: 30px;
+
+        .banner {
+          max-height: 500px;
+        }
       }
 
       .banner {

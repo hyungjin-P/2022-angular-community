@@ -3,7 +3,7 @@
   <div class="items-title">
     <div class="title">
       <span class="title-content">{{ 'common.service-name.feed' | translate }}</span>
-      <span class="content-count">{{ feedList?.length | number }}</span>
+      <span class="content-count">{{ totalCount | number }}</span>
     </div>
 
     <a class="delete-all" *ngIf="feedList?.length > 0" (click)='showConfirmModal()'>
@@ -50,23 +50,41 @@
         </div>-->
     </div>
 
+    <ng-container *ngIf="viewType === 'desktop'">
+      <!-- 사진 없는 것 12개까지 증축하기 -->
+      <ng-container *ngIf='feedList?.length <= 12'>
+        <div class="item" *ngFor="let dummy of ' '.repeat(12 - feedList.length).split(''); let x = index">
+          <div class="item-box"></div>
+          <!--<div class="item-content">
+            </div>-->
+        </div>
+      </ng-container>
 
-    <!-- 사진 없는 것 12개까지 증축하기 -->
-    <ng-container *ngIf='feedList?.length <= 12'>
-      <div class="item" *ngFor="let dummy of ' '.repeat(12 - feedList.length).split(''); let x = index">
-        <div class="item-box"></div>
-        <!--<div class="item-content">
-          </div>-->
-      </div>
+      <!-- 사진이 12개 이상일 때 나머지 빈칸 자동 생성 -->
+      <ng-container *ngIf='feedList?.length > 12 && feedList?.length % 4 !== 0'>
+        <div class='item' *ngFor="let dummy of ' '.repeat(4 - (feedList.length % 4)).split(''); let x = index">
+          <div class="item-box"></div>
+        </div>
+      </ng-container>
     </ng-container>
 
-    <!-- 사진이 12개 이상일 때 나머지 빈칸 자동 생성 -->
-    <ng-container *ngIf='feedList?.length > 12'>
-      <div class='item' *ngFor="let dummy of ' '.repeat(4 - (feedList.length % 4)).split(''); let x = index">
-        <div class="item-box"></div>
-      </div>
-    </ng-container>
+    <ng-container *ngIf="viewType === 'mobile'">
+      <!-- 사진 없는 것 6개까지 증축하기 -->
+      <ng-container *ngIf='feedList?.length <= 6'>
+        <div class="item" *ngFor="let dummy of ' '.repeat(6 - feedList.length).split(''); let x = index">
+          <div class="item-box"></div>
+          <!--<div class="item-content">
+            </div>-->
+        </div>
+      </ng-container>
 
+      <!-- 사진이 6개 이상일 때 나머지 빈칸 자동 생성 -->
+      <ng-container *ngIf='feedList?.length > 6 && feedList?.length % 2 !== 0'>
+        <div class='item' *ngFor="let dummy of ' '.repeat(2 - (feedList.length % 2)).split(''); let x = index">
+          <div class="item-box"></div>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
 

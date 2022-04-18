@@ -4,7 +4,7 @@
   <header class="d-block d-lg-none"></header>
 
   <div class="flex-fill" style="position: relative">
-    <div class="section full-absolute">
+    <div class="section full-absolute scroll-y" #scrollEl>
       <!-- 카테고리 탭 -->
       <ng-container *ngIf="tabMenu.length > 0">
         <div class="nav d-none d-lg-flex">
@@ -73,15 +73,31 @@
             </div>
           </div>
           <div class="row-3">
-            <a class="row-3-col-1" (click)="showLikedView(feed)">
+            <div class='row-3-col-1' *ngIf='feed?.likeCount < 1'>
+              <div class="heart">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9.64362 15.6121L4.94176 10.7159C3.61738 9.33677 3.70078 7.07548 5.12283 5.8062C6.53361 4.54698 8.67271 4.7915 9.78756 6.33942L9.97499 6.59965L10.1624 6.33942C11.2773 4.7915 13.4164 4.54698 14.8272 5.8062C16.2492 7.07548 16.3326 9.33677 15.0082 10.7159L10.3064 15.6121C10.1234 15.8026 9.82663 15.8026 9.64362 15.6121Z"
+                    fill="#B2BBC8"
+                  />
+                </svg>
+              </div>
+              <div class='text' *ngIf='selectedLanguage === "ko"'>
+                가장 먼저 <span (click)='feedLike(feed)'>좋아요</span>를 눌러주세요
+              </div>
+              <div class='text' *ngIf='selectedLanguage !== "ko"'>
+                Be the first to <span (click)='feedLike(feed)'>like this</span>
+              </div>
+            </div>
+            <a class="row-3-col-1" (click)="showLikedView(feed)" *ngIf='feed?.likeCount > 0'>
               <ng-container *ngFor="let like_user of feed?.likeUsers; let i = index">
                 <div class="avatar" *ngIf="i < 3">
                   <shared-avatar
                     [image]="like_user.user.picture[0]?.url"
                     text="{{ like_user.user.email }}"
                     size="18"
-                    fontSize="8"
-                  ></shared-avatar>
+                    fontSize="8">
+                  </shared-avatar>
                 </div>
               </ng-container>
               <div
@@ -105,31 +121,31 @@
               <div
                 class="text"
                 *ngIf="
-                selectedLanguage === 'ko' &&
-                feed?.likeCount > 0 &&
-                feed?.likeCount > 1 &&
-                feed?.likeCount <= 3
-              "
+                  selectedLanguage === 'ko' &&
+                  feed?.likeCount > 0 &&
+                  feed?.likeCount > 1 &&
+                  feed?.likeCount <= 3
+                "
               >
                 님이 좋아합니다.
               </div>
               <div
                 class="text"
                 *ngIf="
-                selectedLanguage != 'ko' &&
-                feed?.likeCount > 0 &&
-                feed?.likeCount > 1 &&
-                feed?.likeCount <= 3
-              "
+                  selectedLanguage != 'ko' &&
+                  feed?.likeCount > 0 &&
+                  feed?.likeCount > 1 &&
+                  feed?.likeCount <= 3
+                "
               >
                 like it.
               </div>
-              <a class="text" *ngIf="selectedLanguage == 'ko' && feed?.likeCount > 3">
-                외<span (click)="showLikedView(feed)"> {{ feed.likeCount - 3 }}명</span>이 좋아합니다.
-              </a>
-              <a class="text" *ngIf="selectedLanguage != 'ko' && feed?.likeCount > 3">
-                and<span (click)="showLikedView(feed)"> {{ feed.likeCount - 3 }}</span> others like it.
-              </a>
+              <div class="text" *ngIf="selectedLanguage == 'ko' && feed?.likeCount > 3">
+                외<span> {{ feed.likeCount - 3 }}명</span>이 좋아합니다.
+              </div>
+              <div class="text" *ngIf="selectedLanguage != 'ko' && feed?.likeCount > 3">
+                and<span> {{ feed.likeCount - 3 }}</span> others like it.
+              </div>
             </a>
             <div class="row-3-col-2">
               <a class="comment" (click)="showCommentView(feed)">
@@ -177,7 +193,7 @@
       <div class="mdi mdi-close" (click)="hideCommentView()"></div>
     </div>
     <div class="flex-fill" style="position: relative">
-      <div class="feed-comment-view-section full-absolute">
+      <div class="feed-comment-view-section full-absolute scroll-y" #commentScrollEl>
         <div class="feed-comment-view-section-content">
           <div class="row-1">
             <shared-avatar
@@ -410,7 +426,7 @@
       <div>{{ 'keeping.feed-detail.liked-view-header' | translate }} ({{ likeUserList.length }})</div>
     </div>
     <div class="flex-fill" style="position: relative">
-      <div class="liked-view-section full-absolute">
+      <div class="liked-view-section full-absolute scroll-y" #likeScrollEl>
         <div class="liked-view-user" *ngFor="let likeUser of likeUserList">
           <shared-avatar [image]="likeUser.user.picture[0]?.url" text="{{ likeUser.user.email }}" size="45" fontSize="18"></shared-avatar>
           <div class="liked-view-user-nickname">{{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}</div>

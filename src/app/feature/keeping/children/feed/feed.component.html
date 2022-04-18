@@ -2,7 +2,7 @@
   <header class="d-block d-lg-none"></header>
 
   <div class="flex-fill" style="position: relative">
-    <div class="section full-absolute">
+    <div class="section full-absolute scroll-y" #scrollEl>
       <!-- 카테고리 탭 -->
       <ng-container *ngIf="tabMenu.length > 0">
         <div class="nav d-none d-lg-flex">
@@ -305,14 +305,14 @@
             <div class="card_detail">
               <div class="feed-infos">
                 <shared-avatar
-                  [image]="feed.writerPictureUrl"
-                  text="{{ feed.writerEmail }}"
+                  [image]="feed?.writer.picture[0]?.url"
+                  text="{{ feed?.writer.email }}"
                   size="22"
                   fontSize="14"
                   backgroundColor="red"
                 ></shared-avatar>
                 <span class="user-name">
-                  {{ feed.writerNickname || feed.writerEmail.split('@')[0] }}
+                  {{ feed?.writer.nickname || feed?.writer.email.split('@')[0] }}
                 </span>
               </div>
 

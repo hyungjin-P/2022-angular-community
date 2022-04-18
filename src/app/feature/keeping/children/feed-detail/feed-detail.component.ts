@@ -1,23 +1,23 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Location} from '@angular/common';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription,} from 'rxjs';
-import {map,} from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as moment from 'moment-timezone';
 
-import {GlobalService} from '@services/global.service';
-import {StorageService} from '@services/storage.service';
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {FeedService} from '@services/feed.service';
-import {PublicService} from '@services/public.service';
-import {TextService} from '@services/text.service';
+import { FeedService } from '@services/feed.service';
+import { PublicService } from '@services/public.service';
+import { TextService } from '@services/text.service';
 
-import {Feed} from '@schemas/feed';
-import {FeedComment} from '@schemas/feed-comment';
-import {User} from '@schemas/user';
-import {DateUtils} from '../../../../core/utils/date.utils';
-import {FeedLike} from '@schemas/feed-like';
-import {FollowService} from '@services/follow.service';
+import { Feed } from '@schemas/feed';
+import { FeedComment } from '@schemas/feed-comment';
+import { User } from '@schemas/user';
+import { DateUtils } from '../../../../core/utils/date.utils';
+import { FeedLike } from '@schemas/feed-like';
+import { FollowService } from '@services/follow.service';
 
 @Component({
   selector: 'feed-detail',
@@ -36,7 +36,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   subscription: Subscription;
 
-  @ViewChild('scroll') scroll: ElementRef;
+  @ViewChild('scrollEl') scrollEl: ElementRef;
 
   refresh: boolean;
 
@@ -49,6 +49,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedLanguage: string;
 
   commentViewVisible: boolean;
+  @ViewChild('commentScrollEl') commentScrollEl: ElementRef;
 
   @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
   @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef;
@@ -65,6 +66,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   feedSubCommentListObj: any;
 
   likedViewVisible: boolean;
+  @ViewChild('likeScrollEl') likeScrollEl: ElementRef;
 
   likeUserList: Array<FeedLike>;
 
@@ -73,13 +75,19 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   beginTime: any;
 
   page: number = 1;
-  limit: number = 20;
+  limit: number = 15;
+  pageMeta: any = {};
+  pageLink: any = {};
 
   likePage: number = 1;
   likeLimit: number = 15;
+  likePageMeta: any = {};
+  likePageLink: any = {};
 
   commentPage: number = 1;
   commentLimit: number = 15;
+  commentPageMeta: any = {};
+  commentPageLink: any = {};
 
   subCommentNumber: number = 0;
 
@@ -152,6 +160,61 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hideLikedView();
       }
     });
+
+    let timer = null;
+    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.scrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 1000) {
+          this.findNextItemPage();
+        }
+
+        if (50 < per) {
+          console.log('calc : ', per);
+        }
+      }, 100);
+    });
+
+    this.commentScrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.commentScrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.commentScrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 700) {
+          this.findNextCommentPage();
+        }
+
+        if (50 < per) {
+          console.log('calc comment : ', per);
+        }
+      }, 100);
+    });
+
+    this.likeScrollEl.nativeElement.addEventListener('scroll', (event) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const scrollHeight = this.likeScrollEl.nativeElement.scrollHeight;
+        const scrollTop = this.likeScrollEl.nativeElement.scrollTop;
+        const per = (scrollTop / scrollHeight) * 100;
+        const def = scrollHeight - scrollTop;
+
+        if (def < 700) {
+          this.findNextLikePage();
+        }
+
+        if (50 < per) {
+          console.log('calc comment : ', per);
+        }
+      }, 100);
+    });
   }
 
   toPos(obs$) {
@@ -185,8 +248,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed');
         } else {
-          this.beginTime = this.dateUtils.transTimeType(
-            this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -204,8 +266,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed').then();
         } else {
-          this.beginTime = this.dateUtils.transTimeType(
-            this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -213,33 +274,85 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  findNextItemPage() {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      if (this.user) {
+        this.getFeedList();
+      } else {
+        this.getPublicFeedList();
+      }
+    }
+  }
+
   getFeedList() {
     this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
       (feedList: any) => {
-        this.feedList = feedList.items;
+        this.pageMeta = feedList.meta;
+        this.pageLink = feedList.links;
+
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...feedList?.items];
+        } else {
+          this.feedList = feedList.items;
+        }
       },
       (e) => {}
     );
   }
 
+  getPublicFeedList() {
+    this.publicService.getFeedList(this.page, this.limit).subscribe(
+      (feedList: any) => {
+        this.pageMeta = feedList.meta;
+        this.pageLink = feedList.links;
+
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...feedList?.items];
+        } else {
+          this.feedList = feedList.items;
+        }
+      },
+      (e) => {}
+    );
+  }
+
+  findNextCommentPage() {
+    if (this.commentPageLink?.next) {
+      this.commentPage = this.commentPage + 1;
+      if (this.user) {
+        this.getFeedCommentList();
+      } else {
+        this.getPublicFeedCommentList();
+      }
+    }
+  }
+
   getPublicFeedCommentList() {
     this.publicService.getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id).subscribe(
-      (feedCommentList: Array<FeedComment>) => {
-        for (let i = 0; i < feedCommentList.length; i++) {
-          feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].createdAt);
-          feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
+      (feedCommentList: any) => {
+        this.commentPageMeta = feedCommentList.meta;
+        this.commentPageLink = feedCommentList.links;
 
-
-          if (feedCommentList[i].sub_comment_count !== 0) {
-            // 댓글 더보기 기본 동작으로 변경 22.02.11
-            this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
-            feedCommentList[i].page = 1;
-            feedCommentList[i].limit = 15;
-
-            this.getPublicFeedSubCommentList(1, 15, feedCommentList[i].id);
-          }
+        if (this.commentPage > 1) {
+          this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
+        } else {
+          this.feedCommentList = feedCommentList.items;
         }
-        this.feedCommentList = feedCommentList;
+
+        this.feedCommentList.forEach((feedComment) => {
+          feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
+          feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
+
+          if (feedComment.sub_comment_count !== 0) {
+            // 댓글 더보기 기본 동작으로 변경 22.02.11
+            this.feedSubCommentListViewObj[feedComment.id] = true;
+            feedComment.page = 1;
+            feedComment.limit = 15;
+
+            this.getPublicFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+          }
+        });
       },
       (e) => {}
     );
@@ -264,31 +377,35 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedService
       .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.user?.id)
       .subscribe(
-        (feedCommentList: Array<FeedComment>) => {
-          for (let i = 0; i < feedCommentList.length; i++) {
-            feedCommentList[i].begin_timestamp = this.dateUtils.getTimeStamp(feedCommentList[i].createdAt);
-            feedCommentList[i].begin_time_text = this.dateUtils.transTimeType(feedCommentList[i].begin_timestamp);
+        (feedCommentList: any) => {
+          this.commentPageMeta = feedCommentList.meta;
+          this.commentPageLink = feedCommentList.links;
 
-            if (feedCommentList[i].sub_comment_count !== 0) {
-
-              console.log('feedCommentList[i].sub_comment_count : ', feedCommentList[i].sub_comment_count);
-
-              // 댓글 더보기 기본 동작으로 변경 22.02.11
-              this.feedSubCommentListViewObj[feedCommentList[i].id] = true;
-              feedCommentList[i].page = 1;
-              feedCommentList[i].limit = 15;
-
-              this.getFeedSubCommentList(1, 15, feedCommentList[i].id);
-            }
+          if (this.commentPage > 1) {
+            this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
+          } else {
+            this.feedCommentList = feedCommentList.items;
           }
-          this.feedCommentList = feedCommentList;
+
+          this.feedCommentList.forEach((feedComment) => {
+            feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
+            feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
+
+            if (feedComment.sub_comment_count !== 0) {
+              // 댓글 더보기 기본 동작으로 변경 22.02.11
+              this.feedSubCommentListViewObj[feedComment.id] = true;
+              feedComment.page = 1;
+              feedComment.limit = 15;
+
+              this.getFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+            }
+          });
         },
         (e) => {}
       );
   }
 
   getFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
-
     this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
@@ -303,19 +420,27 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  getPublicFeedList() {
-    this.publicService.getFeedList(this.page, this.limit).subscribe(
-      (feedList: any) => {
-        this.feedList = feedList.items;
-      },
-      (e) => {}
-    );
+  findNextLikePage() {
+    if (this.likePageLink?.next) {
+      this.likePage = this.likePage + 1;
+      if (this.user) {
+        this.getFeedLikeList();
+      } else {
+        this.getPublicFeedLikeList();
+      }
+    }
   }
 
   getFeedLikeList() {
     this.feedService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.user?.id).subscribe(
       (likeUserList: any) => {
-        this.likeUserList = likeUserList.items;
+        this.likePageMeta = likeUserList.meta;
+        this.likePageLink = likeUserList.links;
+        if (this.likePage > 1) {
+          this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
+        } else {
+          this.likeUserList = likeUserList.items;
+        }
       },
       (e) => {}
     );
@@ -324,7 +449,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   getPublicFeedLikeList() {
     this.publicService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id).subscribe(
       (likeUserList: any) => {
-        this.likeUserList = likeUserList.items;
+        this.likePageMeta = likeUserList.meta;
+        this.likePageLink = likeUserList.links;
+        if (this.likePage > 1) {
+          this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
+        } else {
+          this.likeUserList = likeUserList.items;
+        }
       },
       (e) => {}
     );
@@ -381,7 +512,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.refresh = true;
     this.router.navigateByUrl(`/feed/${feed.id}`);
     try {
-      this.scroll.nativeElement.scrollTop = 0;
+      this.scrollEl.nativeElement.scrollTop = 0;
     } catch (err) {}
   }
 
@@ -415,11 +546,13 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** 코멘트 */
   showCommentView() {
+    this.commentPage = 1;
     if (this.storageService.getUser()) {
       this.getFeedCommentList();
     } else {
       this.getPublicFeedCommentList();
     }
+
     this.commentViewVisible = true;
   }
 
@@ -640,6 +773,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showLikedView() {
+    this.likePage = 1;
     if (this.storageService.getUser()) {
       this.getFeedLikeList();
     } else {

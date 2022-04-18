@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Feed } from '@schemas/feed';
 import { FeedService } from '@services/feed.service';
@@ -11,14 +11,17 @@ import { GlobalService } from '@services/global.service';
   templateUrl: './scrap-feed.component.html',
   styleUrls: ['./scrap-feed.component.scss'],
 })
-export class ScrapFeedComponent implements OnInit {
+export class ScrapFeedComponent implements OnInit, AfterViewInit {
   variables: any;
   user: User;
   language: any;
   feedList: Feed[];
+  totalCount: number;
 
   page = 1;
-  limit = 20;
+  limit = 12;
+  pageMeta: any = {};
+  pageLink: any = {};
 
   isConfirmModalVisible = false;
   confirmModalData: any;
@@ -35,12 +38,24 @@ export class ScrapFeedComponent implements OnInit {
     confirmBtnText: 'Delete',
   };
 
+  viewType = 'desktop';
+
   constructor(
     private router: Router,
     private globalService: GlobalService,
     private storageService: StorageService,
     private feedService: FeedService
-  ) {}
+  ) {
+    this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+
+    let timer = null;
+    window.addEventListener('resize', (data) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+      }, 200);
+    });
+  }
 
   ngOnInit(): void {
     this.variables = this.globalService.variables;
@@ -50,10 +65,13 @@ export class ScrapFeedComponent implements OnInit {
     this.getScrapFeedList();
   }
 
+  ngAfterViewInit() {}
+
   getScrapFeedList() {
     this.feedService.getScrapFeedList(this.page, this.limit, this.user.id).subscribe(
       (feedList: any) => {
         this.feedList = feedList.items;
+        this.totalCount = feedList.meta.totalCount;
       },
       (e) => {
         // 스크랩한 게시물이 없음
