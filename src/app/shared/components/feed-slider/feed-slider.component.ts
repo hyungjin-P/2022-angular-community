@@ -7,11 +7,11 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
-import Swiper, {Navigation, Pagination, SwiperOptions} from 'swiper';
-import {SwiperComponent} from 'swiper/angular';
+import Swiper, { Navigation, Pagination, SwiperOptions } from 'swiper';
+import { SwiperComponent } from 'swiper/angular';
 
 Swiper.use([Navigation]);
 
@@ -21,8 +21,7 @@ Swiper.use([Navigation]);
   styleUrls: ['./feed-slider.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class FeedSliderComponent implements OnInit, AfterViewInit  {
-
+export class FeedSliderComponent implements OnInit, AfterViewInit {
   @Input() pictures: any[] = [];
 
   @Input() isLike: boolean = false;
@@ -43,7 +42,7 @@ export class FeedSliderComponent implements OnInit, AfterViewInit  {
 
   @Output() onClickBookmark = new EventEmitter();
 
-  @ViewChild('swiper', {static: false}) swiper?: SwiperComponent;
+  @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
 
   activeNumber: number = 1;
 
@@ -52,10 +51,7 @@ export class FeedSliderComponent implements OnInit, AfterViewInit  {
     // pagination: { clickable: true },
   };
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.swiper.swiperRef.on('slideChange', (swiper) => {
@@ -64,29 +60,27 @@ export class FeedSliderComponent implements OnInit, AfterViewInit  {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onChangeSlideEvent(swiper: Swiper): void {
-    this.onChangeSlide.emit({swiper});
+    this.onChangeSlide.emit({ swiper });
   }
 
   onClickPictureEvent(picture: any): void {
-    this.onClickPicture.emit({picture});
+    this.onClickPicture.emit({ picture });
   }
 
   setActiveNumber(indexNumber: number): void {
     this.activeNumber = indexNumber;
     this.changeDetectorRef.detectChanges();
-    this.activeIndex.emit({activeIndex: this.activeNumber});
+    this.activeIndex.emit({ activeIndex: this.activeNumber });
   }
 
   onClickLikeEvent(event: any): void {
-    this.onClickLike.emit({event});
+    this.onClickLike.emit({ event });
   }
 
   onClickBookmarkEvent(event: any): void {
-    this.onClickBookmark.emit({event});
+    this.onClickBookmark.emit({ event });
   }
-
 }

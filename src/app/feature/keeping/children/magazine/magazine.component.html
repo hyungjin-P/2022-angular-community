@@ -164,11 +164,31 @@
         </div>
       </div>
       <div class='mobile-top d-inline d-lg-none'>
-        <div id="magazine-top-carousel" class="carousel slide" data-ride="carousel">
+        <swiper
+          [config]='swiperOptions'
+          #swiper
+        >
+          <ng-template swiperSlide *ngFor='let magazine of topMagazineList; let i = index'>
+            <a class='swiper-item' (click)='moveLink(magazine)'>
+              <img [src]='magazine.picture' [alt]='magazine.id'>
+              <div class='gradient'></div>
+              <div class='description'>
+                <div class='category'>
+                  {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
+                </div>
+                <div class='title'>
+                  {{magazine.body.title}}
+                </div>
+              </div>
+            </a>
+          </ng-template>
+        </swiper>
+
+        <!--<div id="magazine-top-carousel" class="carousel slide" data-ride="carousel" data-touch='true'>
           <div class="carousel-inner">
             <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
-              <ng-container *ngIf='i < 5'>
-                <a class="carousel-item" [ngClass]="i === 0 ? 'active' : ''" (click)='moveLink(magazine)'>
+              <ng-container *ngIf='i === 0'>
+                <a class="carousel-item active" (click)='moveLink(magazine)'>
                   <img [src]='magazine.picture' class="d-block w-100 h-100" alt="...">
                   <div class='gradient'></div>
                   <div class='description'>
@@ -178,7 +198,21 @@
                     <div class='title'>
                       {{magazine.body.title}}
                     </div>
-                   <!-- <div class='additional d-flex'>
+                  </div>
+                </a>
+              </ng-container>
+              <ng-container *ngIf='i > 0 && i < 5'>
+                <a class="carousel-item" (click)='moveLink(magazine)'>
+                  <img [src]='magazine.picture' class="d-block w-100 h-100" alt="...">
+                  <div class='gradient'></div>
+                  <div class='description'>
+                    <div class='category'>
+                      {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
+                    </div>
+                    <div class='title'>
+                      {{magazine.body.title}}
+                    </div>
+                   &lt;!&ndash; <div class='additional d-flex'>
                       <div class='user d-flex'>
                         <shared-avatar
                           [image]="magazine.writerPictureUrl"
@@ -230,7 +264,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>-->
+                    </div>&ndash;&gt;
                   </div>
                 </a>
               </ng-container>
@@ -244,7 +278,7 @@
               </ng-container>
             </ng-container>
           </ol>
-        </div>
+        </div>-->
       </div>
       <ng-container *ngIf='tabMenu.length > 0'>
         <div class="categories d-flex">

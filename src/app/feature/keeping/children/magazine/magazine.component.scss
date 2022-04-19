@@ -1,3 +1,4 @@
+@import '~swiper/swiper-bundle.min.css';
 @import '/src/assets/styles/font';
 
 .section {
@@ -123,74 +124,96 @@
   }
 
   .mobile-top {
-    .carousel {
+    .swiper {
       display: flex;
       height: 50%;
-      .carousel-inner {
-        .carousel-item {
+
+      .swiper-slide {
+        text-align: left;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        .swiper-item {
           width: 100%;
           height: 100%;
+
           img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: 50% 50%;
           }
-        }
 
-        .gradient {
-          position: sticky;
-          display: flex;
-          bottom: 0;
-          width: 100%;
-          height: 170px;
-          background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
-        }
-
-        .description {
-          position: sticky;
-          flex-direction: column;
-
-          bottom: 0;
-          padding: 0 56px 30px 20px;
-
-          .category {
-            display: inline-block;
-            background: rgba(86, 125, 255, 0.8);
-            border-radius: 4px;
-
-            padding: 3px 8px;
-            @include textStyle(500, 11px, 19px);
-            letter-spacing: -0.2px;
-            color: white;
+          .gradient {
+            position: sticky;
+            display: flex;
+            bottom: 0;
+            width: 100%;
+            height: 170px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
           }
-          .title {
-            margin-top: 6px;
-            color: white;
-            @include textStyle(700, 20px, 30px);
-          }
-          .additional {
-            margin-top: 20px;
-            color: white;
-            opacity: 0.9;
-            align-items: center;
 
-            .nickname {
-              margin-left: 4px;
+          .description {
+            position: sticky;
+            flex-direction: column;
+
+            bottom: 0;
+            padding: 0 56px 30px 20px;
+
+            .category {
+              display: inline-block;
+              background: rgba(86, 125, 255, 0.8);
+              border-radius: 4px;
+
+              padding: 3px 8px;
+              @include textStyle(500, 11px, 19px);
+              letter-spacing: -0.2px;
+              color: white;
             }
-            .display {
-              .viewerObj {
-                align-items: center;
-                margin-left: 8px;
+            .title {
+              margin-top: 6px;
+              color: white;
+              @include textStyle(700, 20px, 30px);
+            }
+            .additional {
+              margin-top: 20px;
+              color: white;
+              opacity: 0.9;
+              align-items: center;
+
+              .nickname {
+                margin-left: 4px;
               }
-              .heartObj {
-                align-items: center;
-                margin-left: 8px;
+              .display {
+                .viewerObj {
+                  align-items: center;
+                  margin-left: 8px;
+                }
+                .heartObj {
+                  align-items: center;
+                  margin-left: 8px;
+                }
               }
             }
           }
         }
       }
 
-      .carousel-indicators {
+      .swiper-pagination {
         position: absolute;
         left: auto;
         right: 20px;
@@ -201,12 +224,17 @@
         padding-left: 0;
         margin: 0;
         list-style: none;
-        li {
+
+        .swiper-pagination-bullet {
           width: 6px;
           height: 6px;
           border-radius: 30px;
           border-top: 0;
           border-bottom: 0;
+          background: rgba(255, 255, 255, 0.5);
+        }
+        .swiper-pagination-bullet-active {
+          background: rgba(255, 255, 255, 1);
         }
       }
     }

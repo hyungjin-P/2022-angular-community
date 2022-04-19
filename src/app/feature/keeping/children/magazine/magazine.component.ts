@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
@@ -7,10 +7,16 @@ import { MagazineService } from '@services/magazine.service';
 import { User } from '@schemas/user';
 import { Magazine } from '@schemas/magazine';
 
+import Swiper, { Autoplay, Navigation, Pagination, SwiperOptions } from 'swiper';
+import { SwiperComponent } from 'swiper/angular';
+
+Swiper.use([Pagination, Autoplay]);
+
 @Component({
   selector: 'magazine',
   templateUrl: './magazine.component.html',
   styleUrls: ['./magazine.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MagazineComponent implements OnInit, AfterViewInit {
   language: string;
@@ -26,6 +32,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
   page: number = 1;
   limit: number = 20;
 
+  @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   @ViewChild('scrollEl') scrollEl: ElementRef;
 
   isLoginModalVisible = false;
@@ -63,6 +70,14 @@ export class MagazineComponent implements OnInit, AfterViewInit {
 
   // tabMenu: any[] = [];
   nowTab = '';
+  swiperOptions: SwiperOptions = {
+    loop: true,
+    loopedSlides: 1,
+    autoplay: { delay: 3000, disableOnInteraction: false },
+    pagination: {
+      clickable: true,
+    },
+  };
 
   constructor(
     private router: Router,
