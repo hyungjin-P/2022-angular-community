@@ -20,7 +20,9 @@ export class ScrapMagazineComponent implements OnInit {
   totalCount: number;
 
   page = 1;
-  limit = 6;
+  limit = 12;
+  pageMeta: any = {};
+  pageLink: any = {};
 
   isConfirmModalVisible = false;
   confirmModalData: any;
@@ -37,6 +39,8 @@ export class ScrapMagazineComponent implements OnInit {
     confirmBtnText: 'Delete',
   };
 
+  isScrapMagazine = true;
+
   constructor(
     private router: Router,
     private globalService: GlobalService,
@@ -49,13 +53,28 @@ export class ScrapMagazineComponent implements OnInit {
     this.user = this.storageService.getUser();
     this.language = localStorage.getItem('language');
 
+    this.page = 1;
     this.getScrapMagazineList();
+  }
+
+  findNextPage() {
+    if (this.pageLink?.next) {
+      this.page += 1;
+      this.getScrapMagazineList();
+    }
   }
 
   getScrapMagazineList() {
     this.magazineService.getScrapMagazineList(this.page, this.limit, this.user.id).subscribe(
       (magazineList) => {
-        this.magazineList = magazineList.items;
+        this.pageMeta = magazineList.meta;
+        this.pageLink = magazineList.links;
+        if (this.page > 1) {
+          this.magazineList = [...this.magazineList, ...magazineList?.items];
+        } else {
+          this.magazineList = magazineList.items;
+        }
+
         this.totalCount = magazineList.meta.totalCount;
         this.changeBody(this.magazineList);
       },

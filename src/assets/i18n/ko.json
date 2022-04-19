@@ -194,8 +194,9 @@
     },
     "scrap": {
       "delete-all" : "전체삭제",
+      "more": "더보기",
       "comment": "저장하고 싶은 이미지를 스크랩 해보세요.",
-      "undefined-comment": "저장하고 싶은 게시물을 스크랩 해주세요."
+      "undefined-comment": "저장하고 싶은 게시물을 스크랩 해주세요.",
     }
   },
   "mypage": {

@@ -194,6 +194,7 @@
     },
     "scrap": {
       "delete-all" : "Delete All",
+      "more": "More",
       "comment": "Scrap the image you want to save.",
       "undefined-comment": "Please scrap the post you want to save."
     }

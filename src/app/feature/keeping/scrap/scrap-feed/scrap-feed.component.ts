@@ -11,7 +11,7 @@ import { GlobalService } from '@services/global.service';
   templateUrl: './scrap-feed.component.html',
   styleUrls: ['./scrap-feed.component.scss'],
 })
-export class ScrapFeedComponent implements OnInit, AfterViewInit {
+export class ScrapFeedComponent implements OnInit {
   variables: any;
   user: User;
   language: any;
@@ -38,6 +38,7 @@ export class ScrapFeedComponent implements OnInit, AfterViewInit {
     confirmBtnText: 'Delete',
   };
 
+  isScrapFeed = true;
   viewType = 'desktop';
 
   constructor(
@@ -62,15 +63,28 @@ export class ScrapFeedComponent implements OnInit, AfterViewInit {
     this.user = this.storageService.getUser();
     this.language = localStorage.getItem('language');
 
+    this.page = 1;
     this.getScrapFeedList();
   }
 
-  ngAfterViewInit() {}
+  findNextPage(): void {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      this.getScrapFeedList();
+    }
+  }
 
   getScrapFeedList() {
     this.feedService.getScrapFeedList(this.page, this.limit, this.user.id).subscribe(
       (feedList: any) => {
-        this.feedList = feedList.items;
+        this.pageMeta = feedList.meta;
+        this.pageLink = feedList.links;
+
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...feedList?.items];
+        } else {
+          this.feedList = feedList.items;
+        }
         this.totalCount = feedList.meta.totalCount;
       },
       (e) => {
