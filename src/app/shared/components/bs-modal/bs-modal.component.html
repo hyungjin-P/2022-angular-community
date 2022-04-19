@@ -1,0 +1,200 @@
+<!-- Modal -->
+<div class="modal fade" id="bs-comment-modal" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- 제목 영역 -->
+      <div class="modal-header">
+
+        <!-- 제목 -->
+        <h5 class="modal-title"
+            id="staticBackdropLabel">
+          <span class="chevron-left"
+                (click)="closeModal()"
+                [inlineSVG]="'assets/icons/mypage/chevron-left-arrow.svg'"></span>
+          <span>
+             댓글 {{ '(' + ((feedComments ? feedComments.length : 0) | number) + ')' }}
+          </span>
+
+        </h5>
+
+        <!-- 닫기 버튼 -->
+        <button type="button"
+                class="close"
+                (click)="closeModal()"
+                data-dismiss="modal"
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- 내용 -->
+      <div class="modal-body scroll-y">
+
+        <!-- 본문 -->
+        <div class="feed-content">
+
+          <div class="nickname-box">
+            <shared-avatar
+              [image]="originFeed?.writer?.picture[0]?.url"
+              text="{{ originFeed?.writer?.email }}"
+              size="24"
+              fontSize="12"
+            ></shared-avatar>
+            <div class="nickname">
+              {{ originFeed?.writer?.nickname || originFeed?.writer?.email?.split('@')[0] }}
+            </div>
+            <div class="last-ago">
+              {{ originFeed ? getFeedTimeText(originFeed.createdAt) : ''}}
+            </div>
+          </div>
+
+          <div class="feed-content-inner">
+            {{ originFeed?.content }}
+          </div>
+
+          <div class="feed-content-tags">
+            <ng-container *ngFor="let tag of originFeed?.tags">
+              <div class="tag"># {{tag?.name}}</div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="h-line"></div>
+
+        <!-- 코멘트 -->
+        <div class="comments">
+
+          <!-- comment not found -->
+          <div class="comment-notfound"></div>
+
+          <ng-container *ngFor="let parent of sortedComments">
+            <!-- 1 Depth 댓글 -->
+            <div class="comment-parent">
+              <div class="user-info">
+                <shared-avatar
+                  class="avatar"
+                  [image]="parent?.writer?.picture[0]?.url"
+                  text="{{ parent?.writer?.email }}"
+                  size="24"
+                  fontSize="12"
+                ></shared-avatar>
+                <div
+                  class="nickname">
+                  {{parent?.writer?.nickname ? parent?.writer?.nickname : parent?.writer?.email}}
+                </div>
+                <div class="latest-ago">
+                  {{getTimeText(parent)}}
+                </div>
+                <div class="new-tag"
+                     *ngIf="isNewComment(parent.createdAt)"
+                     [inlineSVG]="'assets/icons/bs-modal/writing-new.svg'"
+                ></div>
+              </div>
+
+              <div class="comment-text">
+                <span class="mention"></span>
+                {{ parent.text }}
+              </div>
+
+              <div class="comment-functions">
+                <div class="heart"
+                     [ngClass]="isCommentLike(parent?.likes, loginUser?.id) ? 'active' : ''"></div>
+                <div class="like"
+                     [ngClass]="isCommentLike(parent?.likes, loginUser?.id) ? 'active' : ''">
+                  좋아요 <span *ngIf="parent?.likes.length > 0"> {{ parent?.likes.length }} </span>
+                </div>
+                <div class="writing-comment"
+                     (click)="onClickWritingComment(parent.writer, parent)">답글쓰기</div>
+              </div>
+
+            </div>
+
+            <!-- 2 Depth 대댓글 -->
+            <ng-container *ngFor="let child of parent?.children">
+              <div class="comment-child">
+                <div class="user-info">
+                  <shared-avatar
+                    class="avatar"
+                    [image]="child?.writer?.picture[0]?.url"
+                    text="{{ child?.writer?.email }}"
+                    size="24"
+                    fontSize="12"
+                  ></shared-avatar>
+                  <div class="nickname">
+                    {{ child?.writer?.nickname ? child?.writer?.nickname : child?.writer?.email }}
+                  </div>
+                  <div class="latest-ago">{{getTimeText(parent)}}</div>
+                  <div class="new-tag"
+                       *ngIf="isNewComment(parent.createdAt)"
+                       [inlineSVG]="'assets/icons/bs-modal/writing-new.svg'"></div>
+                </div>
+
+                <div class="comment-text">
+                  <span class="mention">
+                    {{
+                    '@' +
+                    (child?.mentions[0]?.mentionUser?.nickname
+                      ? child?.mentions[0]?.mentionUser?.nickname
+                      : child?.mentions[0]?.mentionUser?.email)
+                    }}
+                  </span>
+                  {{ child.text }}
+                </div>
+
+                <div class="comment-functions">
+                  <div class="heart"
+                       [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''"></div>
+                  <div class="like"
+                       [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''">
+                    좋아요 <span *ngIf="child?.likes.length > 0"> {{ child?.likes.length }} </span>
+                  </div>
+                  <div class="writing-comment"
+                       (click)="onClickWritingComment(child.writer, parent)">답글쓰기</div>
+
+                  <div class="">
+
+                  </div>
+                </div>
+              </div>
+
+            </ng-container>
+
+          </ng-container>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <div class="comment-mention"
+             [ngClass]="hasCommentingMention ? 'show' : ''">
+          <div class="comment-mention-text">
+            @{{
+            selectedMentionUser?.nickname
+              ? selectedMentionUser?.nickname
+              : selectedMentionUser?.email
+            }} 님에게 답변 남기는 중
+          </div>
+          <div class="comment-mention-close"
+               (click)="onHiddenCommentMention()">
+            &times;
+          </div>
+
+        </div>
+        <div class="write-comments">
+          <textarea class="write-comments-input"
+                    id="bs-writing-comment"
+                    [(ngModel)]="writingComment">
+          </textarea>
+          <button type="button"
+                  [disabled]="writingComment.length === 0"
+                  (click)="createComment()">등록</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

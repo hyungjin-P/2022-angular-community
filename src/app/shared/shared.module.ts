@@ -1,51 +1,52 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 // Translate
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+// Components
+import {AvatarComponent} from './components/avatar/avatar.component';
+import {CheckboxComponent} from './components/checkbox/checkbox.component';
+import {DatepickerComponent} from './components/datepicker/datepicker.component';
+import {InputComponent} from './components/input/input.component';
+import {ModalComponent} from './components/modal/modal.component';
+import {RadioComponent} from './components/radio/radio.component';
+import {SelectComponent} from './components/select/select.component';
+import {SwitchComponent} from './components/switch/switch.component';
+import {TimepickerComponent} from './components/timepicker/timepicker.component';
+import {ToastComponent} from './components/toast/toast.component';
+
+// Directives
+import {AutoScrollDirective} from './directives/auto-scroll.directive';
+import {ClickOutsideDirective} from './directives/click-outside.directive';
+import {DropzoneDirective} from './directives/dropzone.directive';
+import {HighlightDirective} from './directives/highlight.directive';
+import {TooltipDirective} from './directives/tooltip.directive';
+
+// Pipes
+import {LinkPipe} from './pipes/link.pipe';
+import {MinuteSecondsPipe} from './pipes/minuteSeconds.pipe';
+import {numberWithCommasPipe} from './pipes/numberWithCommas.pipe';
+import {SafePipe} from './pipes/safe.pipe';
+import {TimePipe} from './pipes/time.pipe';
+
+// Dragula
+import {DragulaModule} from 'ng2-dragula';
+
+// Image Crop
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {LoginModalComponent} from './components/login-modal/login-modal.component';
+import {FeedSliderComponent} from './components/feed-slider/feed-slider.component';
+import {SwiperModule} from "swiper/angular";
+import {BsModalComponent} from './components/bs-modal/bs-modal.component';
+import {InlineSVGModule} from "ng-inline-svg";
+import {ComponentsModule} from "../feature/components/components.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
-// Components
-import { AvatarComponent } from './components/avatar/avatar.component';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
-import { InputComponent } from './components/input/input.component';
-import { ModalComponent } from './components/modal/modal.component';
-import { RadioComponent } from './components/radio/radio.component';
-import { SelectComponent } from './components/select/select.component';
-import { SwitchComponent } from './components/switch/switch.component';
-import { TimepickerComponent } from './components/timepicker/timepicker.component';
-import { ToastComponent } from './components/toast/toast.component';
-
-// Directives
-import { AutoScrollDirective } from './directives/auto-scroll.directive';
-import { ClickOutsideDirective } from './directives/click-outside.directive';
-import { DropzoneDirective } from './directives/dropzone.directive';
-import { HighlightDirective } from './directives/highlight.directive';
-import { TooltipDirective } from './directives/tooltip.directive';
-
-// Pipes
-import { LinkPipe } from './pipes/link.pipe';
-import { MinuteSecondsPipe } from './pipes/minuteSeconds.pipe';
-import { numberWithCommasPipe } from './pipes/numberWithCommas.pipe';
-import { SafePipe } from './pipes/safe.pipe';
-import { TimePipe } from './pipes/time.pipe';
-
-// Dragula
-import { DragulaModule } from 'ng2-dragula';
-
-// Image Crop
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { LoginModalComponent } from './components/login-modal/login-modal.component';
-import { LoginComponent } from '../feature/keeping/auth/login/login.component';
-import { FeedSliderComponent } from './components/feed-slider/feed-slider.component';
-import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import {SwiperModule} from "swiper/angular";
     SafePipe,
     TimePipe,
     FeedSliderComponent,
+    BsModalComponent,
   ],
   imports: [
     CommonModule,
@@ -93,6 +95,7 @@ import {SwiperModule} from "swiper/angular";
     DragulaModule.forRoot(),
     ImageCropperModule,
     SwiperModule,
+    InlineSVGModule,
   ],
   exports: [
     CommonModule,
@@ -131,7 +134,9 @@ import {SwiperModule} from "swiper/angular";
     ImageCropperModule,
     LoginModalComponent,
     FeedSliderComponent,
+    BsModalComponent,
   ],
   providers: [],
 })
-export class SharedModule {}
+export class SharedModule {
+}

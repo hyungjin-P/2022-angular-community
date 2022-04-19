@@ -83,4 +83,6 @@ export class FeedSliderComponent implements OnInit, AfterViewInit {
   onClickBookmarkEvent(event: any): void {
     this.onClickBookmark.emit({ event });
   }
+
+
 }

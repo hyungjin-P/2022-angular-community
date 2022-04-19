@@ -17,7 +17,7 @@ export class FeedComment {
     public begin_timestamp: number,
     public begin_time_text: string,
     public page: number,
-    public limit: number
+    public limit: number,
   ) {
     this.id = id;
     this.parentId = parentId;
@@ -29,5 +29,6 @@ export class FeedComment {
     this.deletedAt = deletedAt;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.mentions = mentions;
   }
 }
