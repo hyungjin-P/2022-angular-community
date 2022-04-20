@@ -4,7 +4,6 @@
 .section {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #f6f7f9;
   //padding:20px 0;
   .pc-top {
     margin: 60px 50px 0 50px;
@@ -446,6 +445,7 @@
 
 @media (min-width: 992px) {
   .section {
+    background-color: #f6f7f9;
     .mobile-top {
       .carousel {
         padding: 50px;

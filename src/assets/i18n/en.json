@@ -187,8 +187,8 @@
       "content-label": "Content",
       "content-placeholder": "Please enter the text you want to share.",
       "save-button-text": "Upload",
-      "tag-modal-add-button": "Cancel",
-      "tag-modal-cancel-button": "Confrim",
+      "tag-modal-add-button": "Confirm",
+      "tag-modal-cancel-button": "Cancel",
       "tag-modal-label": "Tag",
       "write-button": "Upload"
     },
