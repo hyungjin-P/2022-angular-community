@@ -59,6 +59,22 @@
     display: flex;
     flex-direction: column;
 
+    .item-empty {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+
+      .item-empty-content {
+        margin: 100px auto;
+
+        @include textStyleNotoSans(400, 14px);
+        line-height: 22px;
+        letter-spacing: -0.2px;
+        color: var(--grey-3);
+      }
+    }
+
     .item {
       .row-1 {
         position: relative;

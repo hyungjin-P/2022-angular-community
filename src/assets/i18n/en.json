@@ -165,6 +165,9 @@
       "more-delete": "Delete",
       "follow": "Follow"
     },
+    "feed-follow":  {
+      "undefined-comment": "Follow the user you want to see."
+    },
     "magazine": {
       "top-title": "News & Updates Articles",
       "category": {

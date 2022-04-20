@@ -185,23 +185,29 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   }
 
   private getFeedFollowList() {
-    this.feedService.getFeedFollowList(this.page, this.limit, this.user.id).subscribe((feedList) => {
-      this.pageMeta = feedList.meta;
-      this.pageLink = feedList.links;
+    this.feedService.getFeedFollowList(this.page, this.limit, this.user.id).subscribe(
+      (feedList) => {
+        this.pageMeta = feedList.meta;
+        this.pageLink = feedList.links;
 
-      if (this.page > 1) {
-        this.feedList = [...this.feedList, ...feedList?.items];
-      } else {
-        this.feedList = feedList.items;
-      }
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...feedList?.items];
+        } else {
+          this.feedList = feedList.items;
+        }
 
-      for (let feed of this.feedList) {
-        feed.begin_timestamp = this.dateUtils.getTimeStamp(feed.createdAt);
-        feed.begin_time_text = this.dateUtils.transTimeType(feed.begin_timestamp);
-        feed.writer.isFollow = true;
-        feed.contentViewVisible = true;
+        for (let feed of this.feedList) {
+          feed.begin_timestamp = this.dateUtils.getTimeStamp(feed.createdAt);
+          feed.begin_time_text = this.dateUtils.transTimeType(feed.begin_timestamp);
+          feed.writer.isFollow = true;
+          feed.contentViewVisible = true;
+        }
+      },
+      (e) => {
+        console.error('get feed follow failed : ', e);
+        this.feedList = [];
       }
-    });
+    );
   }
 
   toggleFollow(feed: Feed) {

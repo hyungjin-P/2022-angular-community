@@ -3,7 +3,7 @@
   <div class="items-title">
     <div class="title">
       <span class="title-content">{{ 'common.service-name.magazine' | translate }}</span>
-      <span class="content-count">{{ totalCount | number }}</span>
+      <span class="content-count">{{ totalCount ? totalCount : 0  | number }}</span>
     </div>
 
     <a class="delete-all" *ngIf="magazineList?.length > 0" (click)='showConfirmModal()'>
@@ -12,19 +12,14 @@
     </a>
   </div>
 
-  <!-- 등록한 피드 없을 때 -->
-  <div class="items" *ngIf="magazineList?.length === 0">
-    <div class="item-empty">
-      <div class="item-empty-title">
-        {{ 'mypage.empty-text-1' | translate }}
-      </div>
+  <div class='item-section'>
+    <!-- 등록한 피드 없을 때 -->
+    <div class="item-empty" *ngIf="magazineList?.length === 0">
       <div class="item-empty-content">
-        {{ 'mypage.empty-text-2' | translate }}
+        {{ 'keeping.scrap.undefined-comment' | translate }}
       </div>
     </div>
-  </div>
 
-  <div class='item-section'>
     <!-- 등록한 피드 있을 때 -->
     <div class="items" *ngIf="magazineList?.length > 0">
       <!-- 사진 있는 것-->
@@ -71,7 +66,7 @@
       </ng-container>
     </div>
 
-    <div class='shared-button-outline d-none d-lg-flex' *ngIf='pageLink?.next' (click)='findNextPage()'>
+    <div class='shared-button-outline d-none d-lg-flex' *ngIf='pageLink?.next && magazineList?.length > 0' (click)='findNextPage()'>
       {{'keeping.scrap.more' | translate}}
     </div>
   </div>

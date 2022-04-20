@@ -20,6 +20,12 @@
       </ng-container>
 
       <div class="item-list d-flex">
+        <div class="item-empty" *ngIf="feedList?.length === 0">
+          <div class="item-empty-content">
+            {{ 'keeping.feed-follow.undefined-comment' | translate }}
+          </div>
+        </div>
+
         <div class="item" *ngFor="let feed of feedList">
           <div class="row-1">
             <shared-avatar

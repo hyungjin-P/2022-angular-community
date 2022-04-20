@@ -165,6 +165,9 @@
       "more-delete": "삭제하기",
       "follow": "팔로우"
     },
+    "feed-follow":  {
+      "undefined-comment": "보고싶은 유저를 팔로우 해보세요"
+    },
     "magazine": {
       "top-title": "이번주 에디터 뉴스",
       "category": {

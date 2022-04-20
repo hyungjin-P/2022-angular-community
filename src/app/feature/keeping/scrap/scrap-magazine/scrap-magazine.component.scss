@@ -8,7 +8,7 @@
     .title-content {
       color: var(--black);
       @include textStyleNotoSans(500, 18px);
-      margin-right: 3px;
+      margin-right: 8px;
     }
 
     .content-count {
@@ -28,67 +28,27 @@
   }
 }
 
+.item-empty {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+
+  .item-empty-content {
+    margin: 100px auto;
+
+    @include textStyleNotoSans(400, 14px);
+    line-height: 22px;
+    letter-spacing: -0.2px;
+    color: var(--grey-3);
+  }
+}
+
 .items {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr;
   padding: 20px 40px;
-
-  .item-empty {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-
-    .item-empty-title {
-      padding: 5px;
-      display: flex;
-      justify-content: center;
-      font-weight: 500;
-      font-size: 15px;
-      text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    }
-
-    .item-empty-content {
-      display: flex;
-      padding: 5px;
-      margin-bottom: 20px;
-      justify-content: center;
-      color: var(--grey-3);
-      font-weight: 400;
-      font-size: 14px;
-    }
-
-    .item-empty-btns {
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-
-      a,
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--white);
-        width: 166px;
-        height: 46px;
-        border-radius: 30px;
-        border: 1px;
-        border-color: var(--blue-2);
-        background-color: var(--blue-3);
-        font-weight: 700;
-        font-size: 14px;
-
-        div {
-          display: inline-block;
-        }
-
-        span {
-          padding-right: 10px;
-        }
-      }
-    }
-  }
 
   .item {
     .item-box {
@@ -204,7 +164,7 @@
 }
 
 .shared-button-outline {
-  margin: 0 auto;
+  margin: 40px auto 0;
 }
 
 @media all and (min-width: 1px) and (max-width: 992px) {
@@ -307,10 +267,11 @@
     background: var(--white);
     box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
     border-radius: 12px;
-    padding-bottom: 40px;
+    padding: 40px;
     margin-bottom: 90px;
+
     .items {
-      padding: 40px;
+      padding: 0;
     }
   }
 }
