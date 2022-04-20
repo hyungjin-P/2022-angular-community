@@ -423,6 +423,11 @@ export class FeedService {
     );
   }
 
+  /**
+   * 피드 댓글 좋아요
+   * @param feedCommentId
+   * @param userId
+   */
   createFeedCommentLike(feedCommentId: string, userId: string): Observable<any> {
     const url = environment.userApiAddress + `/feed/comment/addLike?feedCommentId=${feedCommentId}&userId=${userId}`;
     const options = {
@@ -439,6 +444,11 @@ export class FeedService {
     );
   }
 
+  /**
+   * 피드 댓글 좋아요 취소
+   * @param feedCommentId
+   * @param userId
+   */
   deleteFeedCommentLike(feedCommentId: string, userId: string): Observable<any> {
     const url = environment.userApiAddress + `/feed/comment/deleteLike?feedCommentId=${feedCommentId}&userId=${userId}`;
 
@@ -538,6 +548,26 @@ export class FeedService {
       catchError(handleError)
     );
   }
+
+  findFeedCommentsWithRelations(feedId: string): Observable<any> {
+    const url = environment.userApiAddress
+      + `/feed/comment/getFeedCommentsWithRelations?feedId=${feedId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http
+      .get<any>(url, options)
+      .pipe(map((res) => {
+          return res;
+        }),
+        catchError(handleError)
+      );
+  }
+
 }
 
 class FeedBookmarkDto {
