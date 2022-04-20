@@ -1,5 +1,24 @@
 @import '/src/assets/styles/font';
 
+@keyframes motion {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 10px;
+  }
+}
+
+.icon-motion {
+  position: absolute;
+  animation: motion 0.3s;
+  animation-iteration-count: 10;
+}
+
+.modal-back {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .modal-dialog {
   .modal-content {
     border-radius: 20px;
@@ -108,6 +127,7 @@
           padding-left: 32px;
           padding-right: 40px;
           margin-bottom: 4px;
+          word-break: break-all;
 
           .mention {
             @include textStyleNotoSans(500, 14px);
@@ -129,11 +149,11 @@
           display: flex;
           flex-direction: row;
           align-items: center;
-          cursor: pointer;
 
           @include textStyleNotoSans(400, 13px);
 
           .heart {
+            cursor: pointer;
             width: 20px;
             height: 20px;
             background: url('~src/assets/icons/bs-modal/unlike-heart.svg') no-repeat;
@@ -146,6 +166,7 @@
           }
 
           .like {
+            cursor: pointer;
             margin-right: 12px;
 
             &.active {
@@ -160,9 +181,29 @@
           }
 
           .writing-comment {
+            flex-grow: 1;
+            flex-shrink: 0;
 
-            &:hover {
+            span {
+              cursor: pointer;
+            }
+
+            span:hover {
               font-weight: bold;
+            }
+          }
+
+          .manage-btns {
+            display: inline-flex;
+            flex-shrink: 0;
+
+            div {
+              cursor: pointer;
+              padding-right: 10px;
+            }
+
+            div:hover {
+              font-weight: 700;
             }
           }
 
@@ -212,6 +253,7 @@
           flex-shrink: 0;
           color: var(--grey-2);
         }
+
         .comment-mention-close {
           flex-shrink: 0;
           width: 20px;
@@ -252,7 +294,9 @@
           @include textStyleNotoSans(700, 13px);
           overflow-y: hidden;
 
-          &:focus { outline: none; }
+          &:focus {
+            outline: none;
+          }
         }
 
         button {
@@ -277,5 +321,116 @@
     }
 
   }
+
 }
 
+/* 컨펌 모달 */
+.confirm-modal {
+
+  width: 400px;
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 30px 30px 30px;
+
+    .confirm-modal-title {
+      text-align: center;
+      margin-top: 12px;
+      @include textStyleNotoSans(700, 16px);
+      line-height: 22px;
+      white-space: pre-line;
+    }
+
+    .confirm-modal-sub-title {
+      text-align: center;
+      margin-top: 8px;
+      @include textStyleNotoSans(500, 14px);
+      line-height: 21px;
+      white-space: pre-line;
+      margin-bottom: 32px;
+    }
+
+    .confirm-modal-btns {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        border: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        width: 160px;
+        height: 46px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      .close {
+        background-color: var(--blue-9);
+        color: var(--blue-1);
+        font-weight: bold;
+        margin-right: 12px;
+
+        &:hover {
+          background-color: var(--blue-7);
+        }
+
+      }
+
+      .confirm {
+        background-color: var(--blue-3);
+        color: var(--white);
+
+        &:hover {
+          background-color: var(--blue-5);
+        }
+      }
+
+    }
+
+
+  }
+
+
+}
+
+@media (max-width: 993px) {
+  .modal {
+    padding: 0 !important;
+
+    .modal-dialog {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+    }
+
+    .modal-content {
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+    }
+
+    .modal-dialog-centered {
+      max-height: 100%;
+    }
+
+    .modal-dialog-scrollable {
+      max-height: 100%;
+    }
+
+  }
+
+}

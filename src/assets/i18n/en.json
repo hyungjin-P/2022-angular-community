@@ -279,5 +279,14 @@
       "text-7": "We will return your valuable feedback with better service.",
       "withdrawal-button": "Leave"
     }
+  },
+  "component": {
+    "feed-comment": {
+      "comment": "comment",
+      "reply-comment": "reply comment",
+      "like": "like",
+      "apply": "Apply",
+      "writing-comment-for": "writing a reply.."
+    }
   }
 }

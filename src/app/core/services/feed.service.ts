@@ -362,6 +362,24 @@ export class FeedService {
     );
   }
 
+  removeFeedComment(commentId: string): Observable<Response> {
+    const url = environment.userApiAddress + `/feed/comment/remove?feedCommentId=${commentId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.delete<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+
   /**
    * 북마크 추가
    * @param feedBookmarkDto { feedId, userId }
@@ -437,6 +455,27 @@ export class FeedService {
     };
 
     return this.http.post<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  /**
+   * 피드 댓글 좋아요
+   * @param feedCommentId
+   * @param userId
+   */
+  createFeedCommentLikeAndGetComment(feedCommentId: string, userId: string): Observable<any> {
+    const url = environment.userApiAddress + `/feed/comment/addLikeAndGetComment`;
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    const param = { feedCommentId, userId };
+    return this.http.post<any>(url, param, options).pipe(
       map((res) => {
         return res;
       }),

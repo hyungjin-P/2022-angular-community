@@ -1,8 +1,8 @@
-<!-- Modal -->
+<!-- Comment Modal -->
 <div class="modal fade" id="bs-comment-modal" data-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize">
+    <div class="modal-content modal-fullsize">
 
       <!-- 제목 영역 -->
       <div class="modal-header">
@@ -14,7 +14,9 @@
                 (click)="closeModal()"
                 [inlineSVG]="'assets/icons/mypage/chevron-left-arrow.svg'"></span>
           <span>
-             댓글 {{ '(' + ((feedComments ? feedComments.length : 0) | number) + ')' }}
+            <!-- 댓글 -->
+            {{ 'component.feed-comment.comment' | translate }}
+            {{ '(' + ((feedComments ? feedComments.length : 0) | number) + ')' }}
           </span>
 
         </h5>
@@ -31,6 +33,37 @@
 
       <!-- 내용 -->
       <div class="modal-body scroll-y">
+
+        <!-- Confirm Modal -->
+        <div class="modal modal-back" id="confirm-modal" data-backdrop="static"
+             data-keyboard="false" tabindex="-1" aria-labelledby="confirm-modal"
+             aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered confirm-modal">
+            <div class="modal-content">
+              <div class="modal-body">
+
+                <div class="confirm-modal-title">
+                  {{confirmTitleText}}
+                </div>
+
+                <div class="confirm-modal-sub-title">
+                  {{confirmSubTitleText}}
+                </div>
+
+                <div class="confirm-modal-btns">
+                  <button type="button"
+                          class="close"
+                          (click)="closeConfirmModal()">아니오</button>
+                  <button type="button"
+                          class="confirm"
+                          (click)="onConfirmModalConfirm()">예</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- 본문 -->
         <div class="feed-content">
@@ -101,13 +134,25 @@
 
               <div class="comment-functions">
                 <div class="heart"
+                     (click)="toggleLike(parent, loginUser?.id)"
                      [ngClass]="isCommentLike(parent?.likes, loginUser?.id) ? 'active' : ''"></div>
                 <div class="like"
+                     (click)="toggleLike(parent, loginUser?.id)"
                      [ngClass]="isCommentLike(parent?.likes, loginUser?.id) ? 'active' : ''">
-                  좋아요 <span *ngIf="parent?.likes.length > 0"> {{ parent?.likes.length }} </span>
+                  {{ 'component.feed-comment.like' | translate }}
+                  &nbsp;
+                  <span *ngIf="parent?.likes.length > 0"> {{ parent?.likes.length }} </span>
                 </div>
-                <div class="writing-comment"
-                     (click)="onClickWritingComment(parent.writer, parent)">답글쓰기</div>
+                <div class="writing-comment">
+                  <span
+                    (click)="onClickWritingComment(parent?.writer, parent)">{{ 'component.feed-comment.reply-comment' | translate }}</span>
+                </div>
+
+                <div class="manage-btns" *ngIf="isMyComment(parent?.writer.id, loginUser.id)">
+                  <div class="modify" (click)="onClickModifyComment(parent, loginUser.id)">수정</div>
+                  <div class="remove" (click)="onConfirmModalShow(parent, 'delete')">삭제</div>
+                </div>
+
               </div>
 
             </div>
@@ -133,7 +178,7 @@
                 </div>
 
                 <div class="comment-text">
-                  <span class="mention">
+                  <span class="mention cursor-pointer">
                     {{
                     '@' +
                     (child?.mentions[0]?.mentionUser?.nickname
@@ -146,17 +191,27 @@
 
                 <div class="comment-functions">
                   <div class="heart"
+                       (click)="toggleLike(child, loginUser?.id)"
                        [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''"></div>
                   <div class="like"
+                       (click)="toggleLike(child, loginUser?.id)"
                        [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''">
-                    좋아요 <span *ngIf="child?.likes.length > 0"> {{ child?.likes.length }} </span>
+                    {{ 'component.feed-comment.like' | translate }}
+                    &nbsp;
+                    <span *ngIf="child?.likes.length > 0"> {{ child?.likes.length }} </span>
                   </div>
-                  <div class="writing-comment"
-                       (click)="onClickWritingComment(child.writer, parent)">답글쓰기</div>
-
-                  <div class="">
-
+                  <!-- 답글 쓰기 -->
+                  <div class="writing-comment">
+                    <span (click)="onClickWritingComment(child.writer, parent)">
+                      {{ 'component.feed-comment.reply-comment' | translate }}
+                    </span>
                   </div>
+
+                  <div class="manage-btns" *ngIf="isMyComment(child?.writer.id, loginUser.id)">
+                    <div class="modify" (click)="onClickModifyComment(child, loginUser.id)">수정</div>
+                    <div class="remove" (click)="onConfirmModalShow(child, 'delete')">삭제</div>
+                  </div>
+
                 </div>
               </div>
 
@@ -170,31 +225,53 @@
 
       <div class="modal-footer">
         <div class="comment-mention"
-             [ngClass]="hasCommentingMention ? 'show' : ''">
-          <div class="comment-mention-text">
-            @{{
-            selectedMentionUser?.nickname
-              ? selectedMentionUser?.nickname
-              : selectedMentionUser?.email
-            }} 님에게 답변 남기는 중
-          </div>
-          <div class="comment-mention-close"
-               (click)="onHiddenCommentMention()">
-            &times;
-          </div>
+             [ngClass]="hasBottomWritingMessage ? 'show' : ''">
 
+          <ng-container *ngIf="hasBottomWritingMessageType === 'mention'">
+            <div class="comment-mention-text">
+              @{{
+              selectedMentionUser?.nickname
+                ? selectedMentionUser?.nickname
+                : selectedMentionUser?.email
+              }}
+              {{ 'component.feed-comment.writing-comment-for' | translate}}
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="hasBottomWritingMessageType === 'modify'">
+            <div class="comment-mention-text">
+              {{ modifyWritingMessage }}
+            </div>
+          </ng-container>
+
+          <div class="comment-mention-close"
+               (click)="onHiddenBottomMessage()">&times;
+          </div>
         </div>
         <div class="write-comments">
           <textarea class="write-comments-input"
                     id="bs-writing-comment"
+                    maxlength="250"
                     [(ngModel)]="writingComment">
           </textarea>
           <button type="button"
                   [disabled]="writingComment.length === 0"
-                  (click)="createComment()">등록</button>
+                  (click)="createCommentAndModify()">
+            {{ 'component.feed-comment.apply' | translate }}
+          </button>
+
         </div>
       </div>
 
     </div>
   </div>
 </div>
+
+<shared-login-modal
+  type='login'
+  class="z-index-2000"
+  [(visible)]='isLoginModalVisible'
+  (cancel)='loginModalCancel()'
+  (confirm)='loginModalConfirm()'
+  (another)='loginModalAnother()'
+></shared-login-modal>

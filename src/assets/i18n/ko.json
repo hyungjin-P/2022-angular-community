@@ -161,7 +161,7 @@
       "comment-view-reply-delete": "삭제",
       "liked-view-follow-button-text": "팔로우",
       "liked-view-header": "이 글을 좋아하는 유저",
-      "more-modify":  "수정하기",
+      "more-modify": "수정하기",
       "more-delete": "삭제하기",
       "follow": "팔로우"
     },
@@ -196,7 +196,7 @@
       "write-button": "등록"
     },
     "scrap": {
-      "delete-all" : "전체삭제",
+      "delete-all": "전체삭제",
       "more": "더보기",
       "comment": "저장하고 싶은 이미지를 스크랩 해보세요.",
       "undefined-comment": "저장하고 싶은 게시물을 스크랩 해주세요."
@@ -278,6 +278,15 @@
       "text-6": "[선택] 키핑을 떠나는 이유를 선택해 주세요",
       "text-7": "고객님의 소중한 피드백을 담아 더 나은 서비스로 보답드리도록 하겠습니다.",
       "withdrawal-button": "탈퇴하기"
+    }
+  },
+  "component": {
+    "feed-comment": {
+      "comment": "댓글",
+      "reply-comment": "답글 쓰기",
+      "like": "좋아요",
+      "apply": "등록",
+      "writing-comment-for": "님에게 답글 남기는 중.."
     }
   }
 }

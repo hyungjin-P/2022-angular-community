@@ -148,6 +148,7 @@
   }
 }
 
+
 .shared-button-primary-disabled {
   background-color: var(--blue-3);
   opacity: 0.4;
@@ -556,4 +557,8 @@ body {
     max-width: 1080px;
     padding: 0;
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
