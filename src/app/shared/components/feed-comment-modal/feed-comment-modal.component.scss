@@ -9,6 +9,12 @@
   }
 }
 
+@keyframes pulse {
+  25% { opacity: 0.2; }
+  100% { transform: scale(1); }
+}
+
+
 .icon-motion {
   position: absolute;
   animation: motion 0.3s;
@@ -157,12 +163,47 @@
             width: 20px;
             height: 20px;
             background: url('~src/assets/icons/bs-modal/unlike-heart.svg') no-repeat;
-            transition: all 0.3s;
+
+            .heart-wrap {
+              padding-top: 50%;
+              padding-left: 50%;
+              width: 60px;
+            }
+
+            .pulse {
+              visibility: hidden;
+            }
+
+            &.show {
+              .pulse {
+                visibility: visible;
+                z-index: 1;
+                transform: translate(-50%, -50%);
+                max-width: 60px;
+
+                circle {
+                  fill: #ff5154;
+                  transform: scale(0);
+                  opacity: 0;
+                  transform-origin: 50% 50%;
+                  animation: pulse 1.5s cubic-bezier(.5,.5,0,1);
+
+                  &:nth-child(2) {
+                    fill: #ff5154;
+                    animation: pulse 1.5s 0.3s cubic-bezier(.3,.3, 0,1);
+                  }
+
+                }
+
+              }
+            }
 
             &.active {
               background: url('~src/assets/icons/bs-modal/like-heart.svg') no-repeat;
               transition: all 0.3s;
             }
+
+            text-align: center;
           }
 
           .like {
@@ -204,6 +245,10 @@
 
             div:hover {
               font-weight: 700;
+            }
+
+            &:last-child {
+              margin-right: 30px;
             }
           }
 
@@ -434,3 +479,4 @@
   }
 
 }
+

@@ -118,7 +118,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     this.modalShow.emit();
   }
 
-  findFeedComments(feedId: string): void {
+  findFeedComments(feedId: string, tagId?: string): void {
     console.log('feedId', feedId);
 
     this.feedService
@@ -126,12 +126,12 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       .subscribe((feedComments) => {
         if (feedComments) {
           this.feedComments = feedComments;
-          this.setSortedComments(feedComments);
+          this.setSortedComments(feedComments, tagId);
         }
       });
   }
 
-  setSortedComments(feedComments: any[]): void {
+  setSortedComments(feedComments: any[], tagId?: string): void {
     // 1 depth
     this.sortedComments =
       feedComments.filter(feedComment => feedComment.parentId === null);
@@ -141,6 +141,12 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       parent.children = feedComments
         .filter(feedComment => feedComment.parentId === parent.id);
     });
+
+    if (tagId) {
+      setTimeout(() => {
+        $('#' + tagId).addClass('show');
+      }, 0);
+    }
   }
 
   getFeedTimeText(createdAt: any): string {
@@ -259,8 +265,10 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
    * 좋아요 추가/수정
    * @param feedComment
    * @param userId
+   * @param tagId
    */
-  toggleLike(feedComment: any, userId: string): void {
+  toggleLike(feedComment: any, userId: string, tagId?: string): void {
+
     if (!feedComment || !userId) {
       this.loginModalVisible();
       return;
@@ -269,27 +277,27 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     const isLike = this.isCommentLike(feedComment?.likes, userId);
 
     if (!isLike) {
-      this.addLikeComment(feedComment, userId);
+      this.addLikeComment(feedComment, userId, tagId);
     } else {
-      this.cancelLikeComment(feedComment, userId);
+      this.cancelLikeComment(feedComment, userId, tagId);
     }
 
   }
 
   /* 댓글 좋아요 */
-  addLikeComment(feedComment, userId: string): void {
+  addLikeComment(feedComment, userId: string, tagId?: string): void {
     this.feedService.createFeedCommentLike(feedComment.id, userId)
       .subscribe((data) => {
-        this.findFeedComments(this.originFeed.id);
+        this.findFeedComments(this.originFeed.id, tagId);
       });
   }
 
   /* 댓글 좋아요 취소 */
-  cancelLikeComment(feedComment, userId: string): void {
+  cancelLikeComment(feedComment, userId: string, tagId?: string): void {
     this.feedService
       .deleteFeedCommentLike(feedComment.id, userId)
       .subscribe((data) => {
-        this.findFeedComments(this.originFeed.id);
+        this.findFeedComments(this.originFeed.id, tagId);
       });
   }
 
@@ -359,6 +367,8 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   loginModalConfirm() {
     this.isLoginModalVisible = false;
+    this.closeConfirmModal();
+    this.closeModal();
     this.router.navigateByUrl('/auth/login').then();
   }
 
@@ -368,6 +378,8 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   loginModalAnother() {
     this.isLoginModalVisible = false;
+    this.closeConfirmModal();
+    this.closeModal();
     this.router.navigateByUrl('/auth/registration').then();
   }
 
