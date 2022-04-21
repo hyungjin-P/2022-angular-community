@@ -262,6 +262,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
    */
   toggleLike(feedComment: any, userId: string): void {
     if (!feedComment || !userId) {
+      this.loginModalVisible();
       return;
     }
 

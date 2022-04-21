@@ -207,8 +207,8 @@
                     </span>
                   </div>
 
-                  <div class="manage-btns" *ngIf="isMyComment(child?.writer.id, loginUser.id)">
-                    <div class="modify" (click)="onClickModifyComment(child, loginUser.id)">수정</div>
+                  <div class="manage-btns" *ngIf="isMyComment(child?.writer.id, loginUser?.id)">
+                    <div class="modify" (click)="onClickModifyComment(child, loginUser?.id)">수정</div>
                     <div class="remove" (click)="onConfirmModalShow(child, 'delete')">삭제</div>
                   </div>
 
