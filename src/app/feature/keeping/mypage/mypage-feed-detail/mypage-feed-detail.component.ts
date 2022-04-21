@@ -26,21 +26,6 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     cancelBtnText: '취소'
   };
 
-  deleteModalMessage: any = {
-    en: {
-      text: 'Delete Feed',
-      subText: '정말 삭제 하시겠어요?',
-      confirmBtnText: 'Delete',
-      cancelBtnText: 'Cancel',
-    },
-    ko: {
-      text: '피드 삭제',
-      subText: '정말 삭제 하시겠어요?',
-      confirmBtnText: '삭제',
-      cancelBtnText: '취소',
-    }
-  };
-
   feedModifyModalVisible: boolean = false;
   feedDeleteModalVisible: boolean = false;
 
@@ -60,32 +45,9 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
   feedPageLink: any = {};
   feedPageMeta: any = {};
 
-  /** comment pagination */
-  commentPage: number = 1;
-  commentLimit: number = 15;
-
-  commentViewVisible: boolean;
-
-  @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
-  @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef;
-  feedCommentInputObj: any;
-  feedCommentInputStatus: string;
-  feedCommentList: Array<FeedComment>;
-
   feedDelete: Feed;
-  feedSubComment: FeedComment;
-  feedModifyComment: FeedComment;
-  feedDeleteComment: FeedComment;
-
-  feedSubCommentListViewObj: any;
-  feedSubCommentListObj: any;
-
-  comment_info: string;
-  commentInfoVisible: boolean;
 
   selectedLanguage: string;
-
-  variables: any;
 
   @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
 

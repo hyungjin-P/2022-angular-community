@@ -148,8 +148,8 @@
                     (click)="onClickWritingComment(parent?.writer, parent)">{{ 'component.feed-comment.reply-comment' | translate }}</span>
                 </div>
 
-                <div class="manage-btns" *ngIf="isMyComment(parent?.writer.id, loginUser.id)">
-                  <div class="modify" (click)="onClickModifyComment(parent, loginUser.id)">수정</div>
+                <div class="manage-btns" *ngIf="isMyComment(parent?.writer.id, loginUser?.id)">
+                  <div class="modify" (click)="onClickModifyComment(parent, loginUser?.id)">수정</div>
                   <div class="remove" (click)="onConfirmModalShow(parent, 'delete')">삭제</div>
                 </div>
 

@@ -7,7 +7,7 @@ import {
   Output,
   Renderer2,
   ViewEncapsulation
-} from '@angular/core';
+} from "@angular/core";
 import {Feed} from "@schemas/feed";
 import {FeedService} from "@services/feed.service";
 import {DateUtils} from "../../../core/utils/date.utils";
@@ -19,7 +19,7 @@ import {GlobalService} from "@services/global.service";
 declare const $;
 
 @Component({
-  selector: 'app-bs-modal',
+  selector: 'app-feed-comment-modal',
   templateUrl: './feed-comment-modal.component.html',
   styleUrls: ['./feed-comment-modal.component.scss'],
   encapsulation: ViewEncapsulation.None,

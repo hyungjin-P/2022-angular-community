@@ -18,6 +18,7 @@ import { User } from '@schemas/user';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
 import { FollowService } from '@services/follow.service';
+import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/feed-comment-modal.component";
 
 @Component({
   selector: 'feed-detail',
@@ -25,13 +26,16 @@ import { FollowService } from '@services/follow.service';
   styleUrls: ['./feed-detail.component.scss'],
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+
   variables: any;
+
   user: User;
 
   carouselIndex: any;
 
   selectedFeedId: string;
   selectedFeed: Feed;
+
   feedList: Array<Feed>;
 
   subscription: Subscription;
@@ -43,16 +47,18 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   moreBoxVisible: boolean;
 
   @ViewChild('content') content: ElementRef;
+
   contentViewVisible: boolean;
   contentTextLimit: number;
 
   selectedLanguage: string;
 
   commentViewVisible: boolean;
-  @ViewChild('commentScrollEl') commentScrollEl: ElementRef;
 
+  @ViewChild('commentScrollEl') commentScrollEl: ElementRef;
   @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
   @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef;
+
   feedCommentInputObj: any;
   feedCommentInputStatus: string;
   feedCommentList: Array<FeedComment>;
@@ -65,9 +71,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   feedSubCommentListViewObj: any;
   feedSubCommentListObj: any;
 
-  likedViewVisible: boolean;
   @ViewChild('likeScrollEl') likeScrollEl: ElementRef;
-
+  likedViewVisible: boolean;
   likeUserList: Array<FeedLike>;
 
   onKeyEvent: boolean;
@@ -91,17 +96,17 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   subCommentNumber: number = 0;
 
-  subCommentPages: Array<number>;
-  subCommentLimits: Array<number>;
-
   comment_info: string;
   commentInfoVisible: boolean;
 
   isLoginModalVisible = false;
   isConfirmModalVisible = false;
 
-  confirmModalData = {};
+  confirmModalData: any = {};
   confirmModalStatus: string;
+
+  /* 댓글 컴포넌트 */
+  @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
 
   constructor(
     private location: Location,
@@ -302,8 +307,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getPublicFeedList() {
-    this.publicService.getFeedList(this.page, this.limit).subscribe(
-      (feedList: any) => {
+    this.publicService
+      .getFeedList(this.page, this.limit)
+      .subscribe((feedList: any) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
 
@@ -314,7 +320,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       },
       (e) => {}
-    );
+      );
   }
 
   findNextCommentPage() {
@@ -1007,4 +1013,14 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedDeleteComment = undefined;
     this.feedDelete = undefined;
   }
+
+
+  /**
+   * 피드 댓글 컴포넌트
+   * @param feed
+   */
+  commentModalShow(feed: Feed): void {
+    this.commentModal.onModalShow(feed);
+  }
+
 }
