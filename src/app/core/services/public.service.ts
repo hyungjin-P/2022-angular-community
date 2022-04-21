@@ -11,6 +11,7 @@ import { Feed } from '@schemas/feed';
 import { User } from '@schemas/user';
 import { FeedLike } from '@schemas/feed-like';
 import { FeedComment } from '@schemas/feed-comment';
+import { FeedTag } from '@schemas/feed-tag';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,24 @@ export class PublicService {
    */
   getFeed(feedId: string): Observable<Feed> {
     const url = environment.userApiAddress + `/public/feed/findById?feedId=${feedId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getFeedListUnderDate(page: number, limit: number, feedId: string): Observable<Array<Feed>> {
+    const url =
+      environment.userApiAddress + `/public/feed/findPagesUnderDate?page=${page}&limit=${limit}&feedId=${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -122,6 +141,23 @@ export class PublicService {
     return this.http.get<any>(url, options).pipe(
       map((res) => {
         return res.items;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getTagList(text: string): Observable<any> {
+    const url = environment.userApiAddress + `/public/feed/findTagList?name=${text}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
       }),
       catchError(handleError)
     );

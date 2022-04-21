@@ -6,7 +6,7 @@
       <span class="content-count">{{ totalCount ? totalCount : 0 | number }}</span>
     </div>
 
-    <a class="delete-all" *ngIf="feedList?.length > 0" (click)='showConfirmModal()'>
+    <a class="delete-all" *ngIf="feedBookmarkList?.length > 0" (click)='showConfirmModal()'>
       <img src="assets/icons/etc/trash-delete.svg" alt="" />
       {{ 'keeping.scrap.delete-all' | translate }}
     </a>
@@ -14,23 +14,23 @@
 
   <div class='item-section'>
     <!-- 등록한 피드 없을 때 -->
-    <div class="item-empty" *ngIf="feedList?.length === 0">
+    <div class="item-empty" *ngIf="feedBookmarkList?.length === 0">
     <div class="item-empty-content">
       {{ 'keeping.scrap.undefined-comment' | translate }}
     </div>
   </div>
 
     <!-- 등록한 피드 있을 때 -->
-    <div class="items" *ngIf="feedList?.length > 0">
+    <div class="items" *ngIf="feedBookmarkList?.length > 0">
       <!-- 사진 있는 것-->
-      <div class="item" *ngFor="let feed of feedList">
+      <div class="item" *ngFor="let feedBookmark of feedBookmarkList">
         <div class="item-box d-flex flex-column flex-wrap">
-          <img class="picture" [src]="feed.picture" [alt]="feed.content" (click)="moveFeedDetail(feed)">
-          <a class='bookmark' [ngClass]="feed.isBookmark ? 'active' : ''" (click)='toggleBookmark(feed)'>
-            <ng-container *ngIf='!variables.isLogin || !feed.isBookmark'>
+          <img class="picture" [src]="feedBookmark.feed.picture" [alt]="feedBookmark.feed.content" (click)="moveFeedDetail(feedBookmark)">
+          <a class='bookmark' [ngClass]="feedBookmark.feed.isBookmark ? 'active' : ''" (click)='toggleBookmark(feedBookmark)'>
+            <ng-container *ngIf='!variables.isLogin || !feedBookmark.feed.isBookmark'>
               <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
             </ng-container>
-            <ng-container *ngIf='variables.isLogin && feed.isBookmark'>
+            <ng-container *ngIf='variables.isLogin && feedBookmark.feed.isBookmark'>
               <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
             </ng-container>
           </a>
@@ -42,8 +42,8 @@
 
       <ng-container *ngIf="viewType === 'desktop'">
         <!-- 사진 없는 것 12개까지 증축하기 -->
-        <ng-container *ngIf='feedList?.length <= 12'>
-          <div class="item" *ngFor="let dummy of ' '.repeat(12 - feedList.length).split(''); let x = index">
+        <ng-container *ngIf='feedBookmarkList?.length <= 12'>
+          <div class="item" *ngFor="let dummy of ' '.repeat(12 - feedBookmarkList.length).split(''); let x = index">
             <div class="item-box"></div>
             <!--<div class="item-content">
               </div>-->
@@ -51,8 +51,8 @@
         </ng-container>
 
         <!-- 사진이 12개 이상일 때 나머지 빈칸 자동 생성 -->
-        <ng-container *ngIf='feedList?.length > 12 && feedList?.length % 4 !== 0'>
-          <div class='item' *ngFor="let dummy of ' '.repeat(4 - (feedList.length % 4)).split(''); let x = index">
+        <ng-container *ngIf='feedBookmarkList?.length > 12 && feedBookmarkList?.length % 4 !== 0'>
+          <div class='item' *ngFor="let dummy of ' '.repeat(4 - (feedBookmarkList.length % 4)).split(''); let x = index">
             <div class="item-box"></div>
           </div>
         </ng-container>
@@ -60,8 +60,8 @@
 
       <ng-container *ngIf="viewType === 'mobile'">
         <!-- 사진 없는 것 6개까지 증축하기 -->
-        <ng-container *ngIf='feedList?.length <= 6'>
-          <div class="item" *ngFor="let dummy of ' '.repeat(6 - feedList.length).split(''); let x = index">
+        <ng-container *ngIf='feedBookmarkList?.length <= 6'>
+          <div class="item" *ngFor="let dummy of ' '.repeat(6 - feedBookmarkList.length).split(''); let x = index">
             <div class="item-box"></div>
             <!--<div class="item-content">
               </div>-->
@@ -69,8 +69,8 @@
         </ng-container>
 
         <!-- 사진이 6개 이상일 때 나머지 빈칸 자동 생성 -->
-        <ng-container *ngIf='feedList?.length > 6 && feedList?.length % 2 !== 0'>
-          <div class='item' *ngFor="let dummy of ' '.repeat(2 - (feedList.length % 2)).split(''); let x = index">
+        <ng-container *ngIf='feedBookmarkList?.length > 6 && feedBookmarkList?.length % 2 !== 0'>
+          <div class='item' *ngFor="let dummy of ' '.repeat(2 - (feedBookmarkList.length % 2)).split(''); let x = index">
             <div class="item-box"></div>
           </div>
         </ng-container>

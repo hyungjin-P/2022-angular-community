@@ -27,36 +27,37 @@
   display: none; /* Chrome, Safari, Opera*/
 }
 
-.backToAll {
-  position: absolute;
-  z-index: 2;
-  width: 100%;
-  padding: 16px 19px;
-  background-color: var(--white);
-  border-radius: 12px 12px 0 0;
-
-  box-shadow: 0px 3px 5px rgba(235, 235, 235, 0.5);
-
-  a {
-    display: flex;
-    align-items: center;
-
-    span {
-      margin-left: 16px;
-
-      @include textStyle(700, 16px, 24px);
-      letter-spacing: -0.2px;
-      color: var(--text-1);
-    }
-  }
-}
-
 .section {
-  padding: 30px 20px 0 20px;
-  overflow-y: auto;
   -ms-overflow-style: none; /* IE, Edge */
 
+  .backToAll {
+    position: fixed;
+    z-index: 2;
+
+    width: 600px;
+    margin-top: -5px;
+    padding: 16px 19px;
+    background-color: var(--white);
+    border-radius: 12px 12px 0 0;
+
+    box-shadow: 0px 3px 5px rgba(235, 235, 235, 0.5);
+
+    a {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 16px;
+
+        @include textStyle(700, 16px, 24px);
+        letter-spacing: -0.2px;
+        color: var(--text-1);
+      }
+    }
+  }
+
   .items {
+    padding: 30px 20px 0 20px;
     //scrollbar-width: none;
     //position: absolute;
     //background-color: var(--white);
@@ -99,15 +100,15 @@
           .follow-default,
           .follow-active {
             padding: 4px 8px;
-            width: 66px;
-            height: 29px;
+            width: 100px;
+            height: 33px;
             border: 1px solid var(--black);
             border-radius: 8px;
 
             cursor: pointer;
 
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
 
             .text {
@@ -356,7 +357,7 @@
             position: relative;
             background-color: var(--grey-8);
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 12px;
             flex: 1 0 auto;
             height: auto;
             border: solid 1px #efefef;
@@ -370,7 +371,7 @@
               transform: translate(50, 50);
               object-fit: cover;
               margin: auto;
-              border-radius: 8px;
+              border-radius: 12px;
             }
 
             .bookmark {
@@ -928,7 +929,9 @@
           .follow-default,
           .follow-active {
             display: flex;
-            justify-content: space-between;
+            width: 100px;
+            height: 33px;
+            justify-content: center;
             align-items: center;
             cursor: pointer;
 
@@ -1080,11 +1083,6 @@
   }
 
   .feed-detail {
-    margin: 32px auto;
-    width: 600px;
-    border-radius: 12px;
-    background-color: var(--white);
-    box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
     .selected-item {
       margin-top: 50px;
     }
@@ -1092,9 +1090,21 @@
   }
 
   .section {
-    padding: 30px 30px 0 30px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+
     &::-webkit-scrollbar {
       width: 0px;
+    }
+
+    .items {
+      position: inherit;
+      width: 600px;
+      border-radius: 12px;
+      background-color: var(--white);
+      box-shadow: 0 5px 10px rgba(207, 207, 207, 0.2);
+      padding: 30px 30px 0 30px;
     }
   }
   .liked-view-wrapper {

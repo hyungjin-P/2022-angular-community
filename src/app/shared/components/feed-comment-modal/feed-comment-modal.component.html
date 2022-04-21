@@ -78,7 +78,7 @@
               {{ originFeed?.writer?.nickname || originFeed?.writer?.email?.split('@')[0] }}
             </div>
             <div class="last-ago">
-              {{ originFeed ? getFeedTimeText(originFeed.createdAt) : ''}}
+              {{ originFeed ? getFeedTimeText(originFeed.uploadedAt) : ''}}
             </div>
           </div>
 

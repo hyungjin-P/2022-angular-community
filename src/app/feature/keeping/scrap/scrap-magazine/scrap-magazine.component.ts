@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { User } from '@schemas/user';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
-import { FeedService } from '@services/feed.service';
 import { MagazineService } from '@services/magazine.service';
 import { Magazine } from '@schemas/magazine';
+import { MagazineBookmark } from '@schemas/magazine-bookmark';
 
 @Component({
   selector: 'app-scrap-magazine',
@@ -16,7 +16,7 @@ export class ScrapMagazineComponent implements OnInit {
   variables: any;
   user: User;
   language: any;
-  magazineList: Magazine[];
+  magazineBookmarkList: MagazineBookmark[];
   totalCount: number;
 
   page = 1;
@@ -70,45 +70,45 @@ export class ScrapMagazineComponent implements OnInit {
         this.pageMeta = magazineList.meta;
         this.pageLink = magazineList.links;
         if (this.page > 1) {
-          this.magazineList = [...this.magazineList, ...magazineList?.items];
+          this.magazineBookmarkList = [...this.magazineBookmarkList, ...magazineList?.items];
         } else {
-          this.magazineList = magazineList.items;
+          this.magazineBookmarkList = magazineList.items;
         }
 
         this.totalCount = magazineList.meta.totalCount;
-        this.changeBody(this.magazineList);
+        this.changeBody(this.magazineBookmarkList);
       },
       (e) => {
         // 스크랩 게시물이 없음
-        this.magazineList = [];
+        this.magazineBookmarkList = [];
         console.log('Scrap magazine list find failed', e);
       }
     );
   }
 
-  changeBody(magazineList: Magazine[]) {
+  changeBody(magazineList: MagazineBookmark[]) {
     if (this.language === 'ko') {
       magazineList.forEach((v) => {
-        v.body = v.ko;
+        v.magazine.body = v.magazine.ko;
 
-        if (v.tags.length > 0) {
+        if (v.magazine.tags.length > 0) {
           let tagsStr = '';
-          v.tags.forEach((tag) => {
+          v.magazine.tags.forEach((tag) => {
             tagsStr += '#' + tag.nameKo + ' ';
           });
-          v.tagsStr = tagsStr;
+          v.magazine.tagsStr = tagsStr;
         }
       });
     } else {
       magazineList.forEach((v) => {
-        v.body = v.en;
+        v.magazine.body = v.magazine.en;
 
-        if (v.tags.length > 0) {
+        if (v.magazine.tags.length > 0) {
           let tagsStr = '';
-          v.tags.forEach((tag) => {
+          v.magazine.tags.forEach((tag) => {
             tagsStr += '#' + tag.nameEn + ' ';
           });
-          v.tagsStr = tagsStr;
+          v.magazine.tagsStr = tagsStr;
         }
       });
     }
@@ -174,7 +174,7 @@ export class ScrapMagazineComponent implements OnInit {
 
   confirmModalOk() {
     this.magazineService.deleteBookmarkAll(this.user.id).subscribe((v) => {});
-    this.magazineList = [];
+    this.magazineBookmarkList = [];
     this.isConfirmModalVisible = false;
   }
 }

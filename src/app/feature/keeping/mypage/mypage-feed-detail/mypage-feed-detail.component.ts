@@ -1,29 +1,28 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
-import {StorageService} from "@services/storage.service";
-import {FeedService} from "@services/feed.service";
-import {User} from "@schemas/user";
-import {Feed} from "@schemas/feed";
-import {FollowService} from "@services/follow.service";
-import {DateUtils} from "../../../../core/utils/date.utils";
-import {HostListener} from '@angular/core';
-import {FeedComment} from "@schemas/feed-comment";
-import {PublicService} from "@services/public.service";
-import * as moment from "moment-timezone";
-import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/feed-comment-modal.component";
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { StorageService } from '@services/storage.service';
+import { FeedService } from '@services/feed.service';
+import { User } from '@schemas/user';
+import { Feed } from '@schemas/feed';
+import { FollowService } from '@services/follow.service';
+import { DateUtils } from '../../../../core/utils/date.utils';
+import { HostListener } from '@angular/core';
+import { FeedComment } from '@schemas/feed-comment';
+import { PublicService } from '@services/public.service';
+import * as moment from 'moment-timezone';
+import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 
 @Component({
   selector: 'app-mypage-feed-detail',
   templateUrl: './mypage-feed-detail.component.html',
-  styleUrls: ['./mypage-feed-detail.component.scss']
+  styleUrls: ['./mypage-feed-detail.component.scss'],
 })
 export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-
   feedDeleteMessage: any = {
     text: '피드 삭제',
     subText: '정말 삭제 하시겠어요?',
     confirmBtnText: '삭제',
-    cancelBtnText: '취소'
+    cancelBtnText: '취소',
   };
 
   feedModifyModalVisible: boolean = false;
@@ -57,13 +56,12 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     private feedService: FeedService,
     private followService: FollowService,
     private dateUtils: DateUtils,
-    private publicService: PublicService,
+    private publicService: PublicService
   ) {
     this.pushEmptyFeed(1);
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
@@ -90,19 +88,16 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    */
   findMyPageFeedList(userId, page, limit): void {
     if (this.user) {
-      this.feedService
-        .findMyPageFeedDetail(userId, page, limit)
-        .subscribe((data) => {
-          this.feedPageMeta = data?.meta;
-          this.feedPageLink = data?.links;
+      this.feedService.findMyPageFeedDetail(userId, page, limit).subscribe((data) => {
+        this.feedPageMeta = data?.meta;
+        this.feedPageLink = data?.links;
 
-          if (this.feedPage > 1) {
-            this.feedList = [...this.feedList, ...data?.items];
-          } else {
-            this.feedList = data?.items;
-          }
-
-        });
+        if (this.feedPage > 1) {
+          this.feedList = [...this.feedList, ...data?.items];
+        } else {
+          this.feedList = data?.items;
+        }
+      });
     }
   }
 
@@ -141,7 +136,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   comparisonUserPicture(user: User): any {
-    return user?.picture ? {'background-image': 'url(' + user?.picture[0]?.url + ')'} : {};
+    return user?.picture ? { 'background-image': 'url(' + user?.picture[0]?.url + ')' } : {};
   }
 
   /**
@@ -167,14 +162,12 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService
-        .addFeedBookmark({feedId: feed?.id, userId})
-        .subscribe((data) => {
-            feed.isBookmark = true;
-          },
-          (error) => {
-          }
-        );
+      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
+          feed.isBookmark = true;
+        },
+        (error) => {}
+      );
     }
   }
 
@@ -185,14 +178,12 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    */
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService
-        .deleteFeedBookmark({feedId: feed?.id, userId})
-        .subscribe((data) => {
-            feed.isBookmark = false;
-          },
-          (error) => {
-          }
-        );
+      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
+          feed.isBookmark = false;
+        },
+        (error) => {}
+      );
     }
   }
 
@@ -216,13 +207,14 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     this.feedService
       .createFeedLike({
         feedId: feed.id,
-        userId
+        userId,
       })
-      .subscribe((data) => {
+      .subscribe(
+        (data) => {
           feed.isLike = true;
           feed.likeCount += 1;
-        }, (e) => {
-        }
+        },
+        (e) => {}
       );
   }
 
@@ -237,8 +229,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
           feed.isLike = false;
           feed.likeCount -= 1;
         },
-        (e) => {
-        }
+        (e) => {}
       );
   }
 
@@ -246,11 +237,10 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     this.router.navigateByUrl(`/write/${feed.id}`).then();
   }
 
-  refreshFeed(feed: Feed): void {
-  }
+  refreshFeed(feed: Feed): void {}
 
   getTimeText(feed: Feed): string {
-    return this.translateDateTime(this.translateTimeStamp(feed.createdAt));
+    return this.translateDateTime(this.translateTimeStamp(feed.uploadedAt));
   }
 
   translateTimeStamp(date: string): number {
@@ -263,17 +253,14 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   deleteRealFeed(): void {
     if (this.selectedFeed) {
-      this.feedService
-        .deleteRealFeed(this.selectedFeed.id)
-        .subscribe((data) => {
-          this.modalCancel();
-          console.log('data : ', data);
-        });
+      this.feedService.deleteRealFeed(this.selectedFeed.id).subscribe((data) => {
+        this.modalCancel();
+        console.log('data : ', data);
+      });
     }
   }
 
   commentModalShow(feed: Feed): void {
     this.commentModal.onModalShow(feed);
   }
-
 }

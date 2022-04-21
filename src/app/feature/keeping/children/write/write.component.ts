@@ -286,7 +286,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.feedService.updateFeed({ feedId: this.feed.id, posting: true }).subscribe(
+    let posting = true;
+    if (this.isModify) {
+      posting = false;
+    }
+
+    this.feedService.updateFeed({ feedId: this.feed.id, posting }).subscribe(
       (v) => {
         // this.createFeed()
         let message = this.textService.getText('write:feed:003');

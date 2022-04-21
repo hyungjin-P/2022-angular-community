@@ -5,6 +5,7 @@ import { FeedService } from '@services/feed.service';
 import { User } from '@schemas/user';
 import { StorageService } from '@services/storage.service';
 import { GlobalService } from '@services/global.service';
+import { FeedBookmark } from '@schemas/feed-bookmark';
 
 @Component({
   selector: 'app-scrap-feed',
@@ -15,7 +16,7 @@ export class ScrapFeedComponent implements OnInit {
   variables: any;
   user: User;
   language: any;
-  feedList: Feed[];
+  feedBookmarkList: FeedBookmark[];
   totalCount: number;
 
   page = 1;
@@ -76,20 +77,20 @@ export class ScrapFeedComponent implements OnInit {
 
   getScrapFeedList() {
     this.feedService.getScrapFeedList(this.page, this.limit, this.user.id).subscribe(
-      (feedList: any) => {
-        this.pageMeta = feedList.meta;
-        this.pageLink = feedList.links;
+      (feedBookmarkList: any) => {
+        this.pageMeta = feedBookmarkList.meta;
+        this.pageLink = feedBookmarkList.links;
 
         if (this.page > 1) {
-          this.feedList = [...this.feedList, ...feedList?.items];
+          this.feedBookmarkList = [...this.feedBookmarkList, ...feedBookmarkList?.items];
         } else {
-          this.feedList = feedList.items;
+          this.feedBookmarkList = feedBookmarkList.items;
         }
-        this.totalCount = feedList.meta.totalCount;
+        this.totalCount = feedBookmarkList.meta.totalCount;
       },
       (e) => {
         // 스크랩한 게시물이 없음
-        this.feedList = [];
+        this.feedBookmarkList = [];
         console.log('Scrap feed list find failed', e);
       }
     );
@@ -168,7 +169,7 @@ export class ScrapFeedComponent implements OnInit {
 
   confirmModalOk() {
     this.feedService.deleteBookmarkAll(this.user.id).subscribe((v) => {});
-    this.feedList = [];
+    this.feedBookmarkList = [];
     this.isConfirmModalVisible = false;
   }
 }

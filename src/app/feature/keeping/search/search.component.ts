@@ -1,17 +1,29 @@
-import { Component, OnInit } from '@angular/core'
-import { Location } from '@angular/common'
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { FeedTag } from '@schemas/feed-tag';
+import { PublicService } from '@services/public.service';
 
 @Component({
-    selector: 'search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss'],
+  selector: 'search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-    constructor(private location: Location) {}
+  text: string;
+  tagList: FeedTag[];
 
-    ngOnInit() {}
+  constructor(private location: Location, private publicService: PublicService) {}
 
-    back() {
-        this.location.back()
-    }
+  ngOnInit() {}
+
+  getTagList() {
+    this.publicService.getTagList(this.text).subscribe((data) => {
+      this.tagList = data;
+      console.log(this.tagList);
+    });
+  }
+
+  back() {
+    this.location.back();
+  }
 }

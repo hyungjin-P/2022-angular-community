@@ -201,7 +201,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
         }
 
         for (let feed of this.feedList) {
-          feed.begin_timestamp = this.dateUtils.getTimeStamp(feed.createdAt);
+          feed.begin_timestamp = this.dateUtils.getTimeStamp(feed.uploadedAt);
           feed.begin_time_text = this.dateUtils.transTimeType(feed.begin_timestamp);
           feed.writer.isFollow = true;
           feed.contentViewVisible = true;

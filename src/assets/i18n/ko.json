@@ -163,7 +163,8 @@
       "liked-view-header": "이 글을 좋아하는 유저",
       "more-modify": "수정하기",
       "more-delete": "삭제하기",
-      "follow": "팔로우"
+      "follow": "팔로우",
+      "following": "팔로잉"
     },
     "feed-follow":  {
       "undefined-comment": "보고싶은 유저를 팔로우 해보세요"

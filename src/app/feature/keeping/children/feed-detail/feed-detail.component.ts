@@ -18,7 +18,7 @@ import { User } from '@schemas/user';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
 import { FollowService } from '@services/follow.service';
-import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/feed-comment-modal.component";
+import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 
 @Component({
   selector: 'feed-detail',
@@ -26,7 +26,6 @@ import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/f
   styleUrls: ['./feed-detail.component.scss'],
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-
   variables: any;
 
   user: User;
@@ -222,10 +221,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  toPos(obs$) {
-    const SUPPORT_TOUCH = 'ontouchstart' in window;
-    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
-  }
+  // toPos(obs$) {
+  //   const SUPPORT_TOUCH = 'ontouchstart' in window;
+  //   return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
+  // }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -234,11 +233,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   init() {
     if (this.user) {
       this.getFeed();
-      this.getFeedList();
     } else {
       this.getPublicFeed();
-      this.getPublicFeedList();
     }
+    this.getFeedListUnderDate();
   }
 
   goBack() {
@@ -253,7 +251,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed');
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.uploadedAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -271,7 +269,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.selectedFeed) {
           this.router.navigateByUrl('/feed').then();
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.createdAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.selectedFeed.uploadedAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -282,16 +280,12 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   findNextItemPage() {
     if (this.pageLink?.next) {
       this.page = this.page + 1;
-      if (this.user) {
-        this.getFeedList();
-      } else {
-        this.getPublicFeedList();
-      }
+      this.getFeedListUnderDate();
     }
   }
 
-  getFeedList() {
-    this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
+  getFeedListUnderDate() {
+    this.publicService.getFeedListUnderDate(this.page, this.limit, this.selectedFeedId).subscribe(
       (feedList: any) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
@@ -304,23 +298,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       (e) => {}
     );
-  }
-
-  getPublicFeedList() {
-    this.publicService
-      .getFeedList(this.page, this.limit)
-      .subscribe((feedList: any) => {
-        this.pageMeta = feedList.meta;
-        this.pageLink = feedList.links;
-
-        if (this.page > 1) {
-          this.feedList = [...this.feedList, ...feedList?.items];
-        } else {
-          this.feedList = feedList.items;
-        }
-      },
-      (e) => {}
-      );
   }
 
   findNextCommentPage() {
@@ -1014,7 +991,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.feedDelete = undefined;
   }
 
-
   /**
    * 피드 댓글 컴포넌트
    * @param feed
@@ -1022,5 +998,4 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   commentModalShow(feed: Feed): void {
     this.commentModal.onModalShow(feed);
   }
-
 }

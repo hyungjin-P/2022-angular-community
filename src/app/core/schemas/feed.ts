@@ -2,7 +2,7 @@ import { User } from './user';
 import { File } from './file';
 import { FeedTag } from './feed-tag';
 import { FeedLike } from './feed-like';
-import {FeedComment} from "@schemas/feed-comment";
+import { FeedComment } from '@schemas/feed-comment';
 
 export class Feed {
   constructor(
@@ -13,6 +13,7 @@ export class Feed {
     public pictures: Array<File>,
     public tags: Array<FeedTag>,
     public tagsStr: string,
+    public uploadedAt: string,
     public createdAt: string,
     public likeUsers: Array<FeedLike>,
     public likeCount: number,
@@ -28,7 +29,7 @@ export class Feed {
     public begin_time_text: string,
     public contentViewVisible: boolean,
     public writingUser: User,
-    public comments: FeedComment[],
+    public comments: FeedComment[]
   ) {
     this.id = id;
     this.writer = writer;
@@ -40,6 +41,7 @@ export class Feed {
     this.likeUsers = likeUsers;
     this.likeCount = likeCount;
     this.commentCount = commentCount;
+    this.uploadedAt = uploadedAt;
     this.createdAt = createdAt;
     this.pictureCount = pictureCount;
     this.isLike = isLike;

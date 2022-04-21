@@ -48,6 +48,8 @@ export class FeedSliderComponent implements OnInit, AfterViewInit {
 
   swiperOptions: SwiperOptions = {
     navigation: true,
+    loop: true,
+    loopedSlides: 1,
     // pagination: { clickable: true },
   };
 
@@ -83,6 +85,4 @@ export class FeedSliderComponent implements OnInit, AfterViewInit {
   onClickBookmarkEvent(event: any): void {
     this.onClickBookmark.emit({ event });
   }
-
-
 }

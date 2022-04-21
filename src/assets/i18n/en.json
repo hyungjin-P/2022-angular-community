@@ -163,7 +163,8 @@
       "liked-view-header": "Users who like this feed.",
       "more-modify":  "Modify",
       "more-delete": "Delete",
-      "follow": "Follow"
+      "follow": "Follow",
+      "following": "Following"
     },
     "feed-follow":  {
       "undefined-comment": "Follow the user you want to see."
