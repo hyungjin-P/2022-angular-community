@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 
 import { GlobalService } from '@services/global.service';
@@ -55,7 +55,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
     private storageService: StorageService,
     private userService: UserService,
     private fileService: FileService,
-    private followService: FollowService
+    private followService: FollowService,
+    private activateRoute: ActivatedRoute,
   ) {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
 
@@ -76,6 +77,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
     this.countFollow(this.user.id);
 
     this.closeDrawer();
+
+    console.log('activateRoute : ',  this.activateRoute.data);
   }
 
   ngAfterViewInit(): void {

@@ -62,6 +62,7 @@ const routes: Routes = [
     children: [
       { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
       { path: 'feed', component: MypageFeedComponent },
+      { path: 'feed/:userId', component: MypageFeedComponent },
       { path: 'feed-detail', component: MypageFeedDetailComponent },
     ],
   },

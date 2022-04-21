@@ -11,6 +11,7 @@ import { FeedLike } from '@schemas/feed-like';
 import { FeedComment } from '@schemas/feed-comment';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import * as moment from 'moment-timezone';
+import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/feed-comment-modal.component";
 
 @Component({
   selector: 'app-feed-follow',
@@ -86,6 +87,9 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
 
   confirmModalData = {};
   confirmModalStatus: string;
+
+  /* 댓글 컴포넌트 */
+  @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
 
   constructor(
     private router: Router,
@@ -650,5 +654,13 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   confirmModalCancel() {
     this.isConfirmModalVisible = false;
     this.feedDeleteComment = undefined;
+  }
+
+  /**
+   * 피드 댓글 컴포넌트
+   * @param feed
+   */
+  commentModalShow(feed: Feed): void {
+    this.commentModal.onModalShow(feed);
   }
 }

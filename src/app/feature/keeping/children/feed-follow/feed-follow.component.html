@@ -26,6 +26,9 @@
           </div>
         </div>
 
+        <!-- 댓글 모달 -->
+        <app-feed-comment-modal #commentModal></app-feed-comment-modal>
+
         <div class="item" *ngFor="let feed of feedList">
           <div class="row-1">
             <shared-avatar
@@ -154,7 +157,7 @@
               </div>
             </a>
             <div class="row-3-col-2">
-              <a class="comment" (click)="showCommentView(feed)">
+              <a class="comment" (click)="commentModalShow(feed)">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14.7 22.401C18.9526 22.401 22.4 18.9536 22.4 14.701C22.4 10.4484 18.9526 7.00101 14.7 7.00101C10.4474 7.00101 7 10.4484 7 14.701C7 16.7515 7.80152 18.6148 9.10835 19.9948L7.55964 21.7623C7.34158 22.0112 7.51832 22.401 7.84922 22.401H14.7Z" fill="#B2BBC8"/>
                   <path d="M10.8496 12.3931H18.5496" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
@@ -186,6 +189,8 @@
   </div>
 </div>
 
+
+<!-- 댓글 영역 삭제 예정 2022-04-21 (컴포넌트로 수정 ) -->
 <div class="feed-comment-view-background" [class.feed-comment-view-background-show]="commentViewVisible"></div>
 <div
   class="feed-comment-view-wrapper justify-content-center align-items-center"
