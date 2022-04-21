@@ -169,7 +169,7 @@
             </div>
 
             <!-- 2 Depth 대댓글 -->
-            <ng-container *ngFor="let child of parent?.children; let i = index">
+            <ng-container *ngFor="let child of parent?.children; let j = index">
               <div class="comment-child">
                 <div class="user-info">
                   <shared-avatar
@@ -202,11 +202,22 @@
 
                 <div class="comment-functions">
                   <div class="heart"
-                       [id]="'heart-child-' + i"
-                       (click)="toggleLike(child, loginUser?.id, 'heart-child-' + i)"
-                       [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''"></div>
+                       [id]="'heart-child-' + j"
+                       (click)="toggleLike(child, loginUser?.id, 'heart-child-' + j)"
+                       [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''">
+
+                    <div class="heart-wrap">
+                      <svg class="pulse" viewBox="0 0 1024 1024" version="1.1"
+                           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <circle id="Oval" cx="512" cy="512" r="512"></circle>
+                        <circle id="Oval" cx="512" cy="512" r="512"></circle>
+                        <circle id="Oval" cx="512" cy="512" r="512"></circle>
+                      </svg>
+                    </div>
+
+                  </div>
                   <div class="like"
-                       (click)="toggleLike(child, loginUser?.id, 'heart-child-' + i)"
+                       (click)="toggleLike(child, loginUser?.id, 'heart-child-' + j)"
                        [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''">
                     {{ 'component.feed-comment.like' | translate }}
                     &nbsp;
