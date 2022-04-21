@@ -261,17 +261,19 @@
           </button>
 
         </div>
+
       </div>
+
+      <!-- 로그인 모달 -->
+      <shared-login-modal
+        type="login"
+        class="z-index-2000"
+        [(visible)]="isLoginModalVisible"
+        (cancel)="loginModalCancel()"
+        (confirm)="loginModalConfirm()"
+        (another)="loginModalAnother()"
+      ></shared-login-modal>
 
     </div>
   </div>
 </div>
-
-<shared-login-modal
-  type='login'
-  class="z-index-2000"
-  [(visible)]='isLoginModalVisible'
-  (cancel)='loginModalCancel()'
-  (confirm)='loginModalConfirm()'
-  (another)='loginModalAnother()'
-></shared-login-modal>

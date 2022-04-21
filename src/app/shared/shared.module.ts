@@ -40,7 +40,7 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import {LoginModalComponent} from './components/login-modal/login-modal.component';
 import {FeedSliderComponent} from './components/feed-slider/feed-slider.component';
 import {SwiperModule} from "swiper/angular";
-import {BsModalComponent} from './components/bs-modal/bs-modal.component';
+import {FeedCommentModalComponent} from './components/feed-comment-modal/feed-comment-modal.component';
 import {InlineSVGModule} from "ng-inline-svg";
 import {ComponentsModule} from "../feature/components/components.module";
 
@@ -77,7 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
     SafePipe,
     TimePipe,
     FeedSliderComponent,
-    BsModalComponent,
+    FeedCommentModalComponent,
   ],
   imports: [
     CommonModule,
@@ -134,7 +134,7 @@ export function createTranslateLoader(http: HttpClient) {
     ImageCropperModule,
     LoginModalComponent,
     FeedSliderComponent,
-    BsModalComponent,
+    FeedCommentModalComponent,
   ],
   providers: [],
 })

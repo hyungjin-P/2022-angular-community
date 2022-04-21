@@ -20,16 +20,16 @@ declare const $;
 
 @Component({
   selector: 'app-bs-modal',
-  templateUrl: './bs-modal.component.html',
-  styleUrls: ['./bs-modal.component.scss'],
+  templateUrl: './feed-comment-modal.component.html',
+  styleUrls: ['./feed-comment-modal.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class BsModalComponent implements OnInit, AfterViewInit {
+export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   /* 기준 피드 */
   @Input() originFeed: Feed;
 
-  /* 이번트 */
+  /* 이벤트 */
   @Output() modalShow = new EventEmitter();
 
   /* ↓ Components Status */
@@ -94,12 +94,12 @@ export class BsModalComponent implements OnInit, AfterViewInit {
     $('#bs-comment-modal').modal('hide');
   }
 
-  showConfirmModal(): void {
-    $('#confirm-modal').modal('show');
-  }
-
   closeConfirmModal(): void {
     $('#confirm-modal').modal('hide');
+  }
+
+  loginModalVisible(): void {
+    this.isLoginModalVisible = true;
   }
 
   clearData(): void {
@@ -200,14 +200,19 @@ export class BsModalComponent implements OnInit, AfterViewInit {
 
   createCommentAndModify(): void {
 
+    if (!this.loginUser) {
+      this.loginModalVisible();
+      return;
+    }
+
+    // 수정
     if (this.hasBottomWritingMessageType === 'modify') {
       if (this.confirmComment) {
         this.modifyComment(this.confirmComment, this.writingComment);
       }
-    } else {
+    } else { // 삭제
       this.createComment();
     }
-
 
   }
 
@@ -305,6 +310,7 @@ export class BsModalComponent implements OnInit, AfterViewInit {
         this.findFeedComments(this.originFeed.id);
         this.onHiddenBottomMessage();
         this.writingComment = '';
+        this.globalService.showToast('수정 되었습니다.');
       });
   }
 

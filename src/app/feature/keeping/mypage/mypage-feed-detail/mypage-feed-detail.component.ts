@@ -10,7 +10,7 @@ import {HostListener} from '@angular/core';
 import {FeedComment} from "@schemas/feed-comment";
 import {PublicService} from "@services/public.service";
 import * as moment from "moment-timezone";
-import {BsModalComponent} from "@shared/components/bs-modal/bs-modal.component";
+import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/feed-comment-modal.component";
 
 @Component({
   selector: 'app-mypage-feed-detail',
@@ -87,7 +87,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   variables: any;
 
-  @ViewChild('commentModal') commentModal: BsModalComponent;
+  @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
 
   constructor(
     private router: Router,
