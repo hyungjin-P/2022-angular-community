@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "@schemas/user";
 import {StorageService} from "@services/storage.service";
 import {FeedService} from "@services/feed.service";
 import {Feed} from "@schemas/feed";
+import {UserService} from "@services/user.service";
 
 @Component({
   selector: 'app-mypage-feed',
@@ -17,23 +18,44 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   emptyCount: number = 0;
   otherCount: number = 0;
   totalCount: number = 0;
-  limit: number = 12; // 출력 개수
+  limit: number = 12; // 메인 출력 개수
+
+  otherUserId: string;
+
+  isFeed = true;
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private feedService: FeedService,
+    private userService: UserService,
+    private activateRoute: ActivatedRoute,
   ) {
     this.pushEmptyFeed(this.limit);
   }
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
+
+    // 라우팅 구분
+    this.activateRoute.params.subscribe(params => {
+      if (params?.userId) {
+        this.otherUserId = params.userId;
+        console.log('mypage-feed.params : ', this.otherUserId);
+        this.userService
+          .getUser(this.otherUserId)
+          .subscribe((user) => {
+            this.user = user;
+            this.findMyPageFeedList(this.user.id, this.limit);
+          });
+      } else {
+        this.findMyPageFeedList(this.user.id, this.limit);
+      }
+    });
+
   }
 
-  ngAfterViewInit(): void {
-    this.findMyPageFeedList(this.user.id, this.limit);
-  }
+  ngAfterViewInit(): void {}
 
   /**
    * 마이페이지 내 피드 메인 조회
@@ -63,8 +85,16 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
     }
   }
 
+  goFeedDetail(): void {
+    const path = this.otherUserId
+      ? `/mypage/feed-detail/${this.otherUserId}`
+      : '/mypage/feed-detail'
+
+    this.router.navigateByUrl(path).then();
+  }
+
   goRouter(path: string): void {
-     this.router.navigateByUrl(path).then();
+    this.router.navigateByUrl(path).then();
   }
 
   comparisonBackgroundImage(feed: Feed): any {

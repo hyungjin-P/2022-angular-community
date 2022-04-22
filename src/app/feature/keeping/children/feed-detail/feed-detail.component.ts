@@ -26,6 +26,7 @@ import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal
   styleUrls: ['./feed-detail.component.scss'],
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+
   variables: any;
 
   user: User;

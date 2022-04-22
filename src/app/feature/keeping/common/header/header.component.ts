@@ -75,7 +75,6 @@ export class HeaderComponent implements OnInit {
     this.user = this.storageService.getUser();
 
     this.userBoxVisible = false;
-    console.log('this.route.snapshot.routeConfig.path ', this.route.snapshot.queryParams);
     this.changeTab(this.route.snapshot.routeConfig.path);
   }
 
@@ -112,6 +111,7 @@ export class HeaderComponent implements OnInit {
       // 찬우님 이거 고쳐주세요.
       // feed랑 feed-follow가 하는 일이 아예 달라서 분리하는게 좋을 것 같은데
       // queryParams로 route에서 어떻게 분리하는지 모르겠어서 일단 이렇게 작업 해놨어요.
+
       if (routingPath === 'feed/follow') {
         this.tabMenu = this.tabData.feed;
         this.nowTab = this.tabMenu[1].tabName;

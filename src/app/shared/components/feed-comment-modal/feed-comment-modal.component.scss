@@ -1,19 +1,16 @@
 @import '/src/assets/styles/font';
 
-@keyframes motion {
-  0% {
-    margin-top: 0;
-  }
-  100% {
-    margin-top: 10px;
-  }
-}
+
 
 @keyframes pulse {
   25% { opacity: 0.2; }
   100% { transform: scale(1); }
 }
 
+@keyframes motion {
+  0% { margin-top: 0; }
+  100% {  margin-top: 10px; }
+}
 
 .icon-motion {
   position: absolute;
@@ -186,11 +183,11 @@
                   transform: scale(0);
                   opacity: 0;
                   transform-origin: 50% 50%;
-                  animation: pulse 1.5s cubic-bezier(.5,.5,0,1);
+                  animation: pulse 1.3s cubic-bezier(.5,.5,0,1);
 
                   &:nth-child(2) {
                     fill: #ff5154;
-                    animation: pulse 1.5s 0.35s cubic-bezier(.3,.3, 0,1);
+                    animation: pulse 1.3s 0.35s cubic-bezier(.3,.3, 0,1);
                   }
 
                 }

@@ -7,29 +7,55 @@
     <span class="content-count">{{totalCount | number}}</span>
   </div>
 
-  <a class="more-view"
-     [routerLink]="'/mypage/feed-detail'">
-    전체보기
-  </a>
+  <!-- 본인 것 -->
+  <ng-container *ngIf="!otherUserId">
+    <a class="more-view"
+       [routerLink]="'/mypage/feed-detail'">
+      {{ 'mypage.more' | translate}}
+    </a>
+  </ng-container>
+
+  <!-- 다른 유저 것 -->
+  <ng-container *ngIf="otherUserId">
+    <a class="more-view"
+       [routerLink]="'/mypage/feed-detail/' + otherUserId">
+      {{ 'mypage.more' | translate}}
+    </a>
+  </ng-container>
+
 </div>
 
 <!-- 등록한 피드 없을 때 -->
 <div class="items justify-content-center"
      *ngIf="feedList.length === 0">
-  <div class="item-empty">
-    <div class="item-empty-title">
-      {{ 'mypage.empty-text-1' | translate }}
+
+  <!-- 본인 것 -->
+  <ng-container *ngIf="!otherUserId">
+    <div class="item-empty">
+      <div class="item-empty-title">
+        {{ 'mypage.empty-text-1' | translate }}
+      </div>
+      <div class="item-empty-content">
+        {{('mypage.empty-text-2' | translate)}}
+      </div>
+      <div class="item-empty-btns">
+        <button type="button" (click)="goRouter('/write')">
+          <span [inlineSVG]="'assets/icons/mypage/pensil-color.svg'"></span>
+          <div>{{ 'mypage.write' | translate }}</div>
+        </button>
+      </div>
     </div>
-    <div class="item-empty-content">
-      {{('mypage.empty-text-2' | translate)}}
+  </ng-container>
+
+  <!-- 다른 유저 것 -->
+  <ng-container *ngIf="otherUserId">
+    <div class="item-empty">
+      <div class="item-empty-content">
+        {{('mypage.empty-text-3' | translate)}}
+      </div>
     </div>
-    <div class="item-empty-btns">
-      <button type="button" (click)="goRouter('/write')">
-        <span [inlineSVG]="'assets/icons/mypage/pensil-color.svg'"></span>
-        <div>{{ 'mypage.write' | translate }}</div>
-      </button>
-    </div>
-  </div>
+  </ng-container>
+
 </div>
 
 <!-- 등록한 피드 있을 때 -->
@@ -40,7 +66,7 @@
 
     <div class="item-box"
          [ngStyle]="comparisonBackgroundImage(feed)"
-         (click)="goRouter('/mypage/feed-detail')">
+         (click)="goFeedDetail()">
 
       <div class="item-box-picture-count d-lg-none" *ngIf="feed?.pictureCount > 1">
         {{ feed?.pictureCount > 99 ? '99+' : ('+' + feed?.pictureCount) }}

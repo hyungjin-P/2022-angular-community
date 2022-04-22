@@ -43,20 +43,24 @@
               <div class="modal-body">
 
                 <div class="confirm-modal-title">
-                  {{confirmTitleText}}
+                  {{ 'component.feed-comment.delete-confirm-title' | translate }}
                 </div>
 
                 <div class="confirm-modal-sub-title">
-                  {{confirmSubTitleText}}
+                  {{ 'component.feed-comment.delete-confirm-sub-title' | translate }}
                 </div>
 
                 <div class="confirm-modal-btns">
                   <button type="button"
                           class="close"
-                          (click)="closeConfirmModal()">아니오</button>
+                          (click)="closeConfirmModal()">
+                    {{ 'component.feed-comment.cancel' | translate }}
+                  </button>
                   <button type="button"
                           class="confirm"
-                          (click)="onConfirmModalConfirm()">예</button>
+                          (click)="onConfirmModalConfirm()">
+                    {{ 'component.feed-comment.delete' | translate }}
+                  </button>
                 </div>
 
               </div>
@@ -156,12 +160,18 @@
                 </div>
                 <div class="writing-comment">
                   <span
-                    (click)="onClickWritingComment(parent?.writer, parent)">{{ 'component.feed-comment.reply-comment' | translate }}</span>
+                    (click)="onClickWritingComment(parent?.writer, parent)">
+                    {{ 'component.feed-comment.reply-comment' | translate }}
+                  </span>
                 </div>
 
                 <div class="manage-btns" *ngIf="isMyComment(parent?.writer.id, loginUser?.id)">
-                  <div class="modify" (click)="onClickModifyComment(parent, loginUser?.id)">수정</div>
-                  <div class="remove" (click)="onConfirmModalShow(parent, 'delete')">삭제</div>
+                  <div class="modify" (click)="onClickModifyComment(parent, loginUser?.id)">
+                    {{'component.feed-comment.modify' | translate}}
+                  </div>
+                  <div class="remove" (click)="onConfirmModalShow(parent, 'delete')">
+                    {{'component.feed-comment.delete' | translate}}
+                  </div>
                 </div>
 
               </div>
@@ -231,8 +241,12 @@
                   </div>
 
                   <div class="manage-btns" *ngIf="isMyComment(child?.writer.id, loginUser?.id)">
-                    <div class="modify" (click)="onClickModifyComment(child, loginUser?.id)">수정</div>
-                    <div class="remove" (click)="onConfirmModalShow(child, 'delete')">삭제</div>
+                    <div class="modify" (click)="onClickModifyComment(child, loginUser?.id)">
+                      {{'component.feed-comment.modify' | translate}}
+                    </div>
+                    <div class="remove" (click)="onConfirmModalShow(child, 'delete')">
+                      {{'component.feed-comment.cancel' | translate}}
+                    </div>
                   </div>
 
                 </div>

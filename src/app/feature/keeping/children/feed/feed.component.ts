@@ -1,15 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { GlobalService } from '@services/global.service';
-import { StorageService } from '@services/storage.service';
+import {GlobalService} from '@services/global.service';
+import {StorageService} from '@services/storage.service';
 
-import { FeedService } from '@services/feed.service';
-import { PublicService } from '@services/public.service';
-import { TextService } from '@services/text.service';
+import {FeedService} from '@services/feed.service';
+import {PublicService} from '@services/public.service';
+import {TextService} from '@services/text.service';
 
-import { Feed } from '@schemas/feed';
-import { User } from '@schemas/user';
+import {Feed} from '@schemas/feed';
+import {User} from '@schemas/user';
+import {OtherUserUtil} from "../../../../core/utils/other-user.util";
 
 @Component({
   selector: 'feed',
@@ -53,8 +54,10 @@ export class FeedComponent implements OnInit, AfterViewInit {
     private storageService: StorageService,
     private feedService: FeedService,
     private publicService: PublicService,
-    private textService: TextService
-  ) {}
+    private textService: TextService,
+    public otherUserUtil: OtherUserUtil,
+  ) {
+  }
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -110,6 +113,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.feedList = [...this.feedList, ...feedList?.items];
         } else {
           this.feedList = feedList.items;
+          console.log('feed !! : ', this.feedList[0].writer.id);
+
+
         }
       },
       (e) => {
@@ -172,7 +178,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           );
       }
     } else {
-      this.showLoginModal();
+      this.loginModalShow();
     }
   }
 
@@ -202,7 +208,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+      this.feedService.addFeedBookmark({feedId: feed?.id, userId}).subscribe(
         (data) => {
           feed.isBookmark = true;
         },
@@ -220,7 +226,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
    */
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+      this.feedService.deleteFeedBookmark({feedId: feed?.id, userId}).subscribe(
         (data) => {
           feed.isBookmark = false;
         },
@@ -237,25 +243,50 @@ export class FeedComponent implements OnInit, AfterViewInit {
       this.router.navigateByUrl('/follow').then();
     } else {
       if (link === '/feed/follow') {
-        this.showLoginModal();
+        this.loginModalShow();
       } else {
         this.router.navigateByUrl(link).then();
       }
     }
   }
 
-  showLoginModal() {
+
+
+
+
+  /** 로그인 모달 */
+  loginModalShow() {
     this.isLoginModalVisible = true;
   }
+
+  /** 로그인 모달 */
   loginModalConfirm() {
     this.isLoginModalVisible = false;
-    this.router.navigateByUrl('/auth/login');
+    this.router.navigateByUrl('/auth/login').then();
   }
+
+  /** 로그인 모달 */
   loginModalCancel() {
     this.isLoginModalVisible = false;
   }
+
+  /** 로그인 모달 */
   loginModalAnother() {
     this.isLoginModalVisible = false;
-    this.router.navigateByUrl('/auth/registration');
+    this.router.navigateByUrl('/auth/registration').then();
   }
+
+  /** 다른 유저 마이페이지 이동 시 로직 */
+  moveOtherUserMyPage(user: User, targetUserId): void {
+    if (!this.user) {
+      this.loginModalShow();
+    } else {
+      if (this.otherUserUtil.isOtherWriter(user, targetUserId)) {
+        this.otherUserUtil.moveOtherUserMyPage(user, targetUserId);
+      } else {
+        this.otherUserUtil.moveMyPage();
+      }
+    }
+  }
+
 }

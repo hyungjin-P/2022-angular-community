@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core'
 
 @Injectable({providedIn: 'root'})
 export class HelperService {
+
+  /* 외부에서 이미지 불러 올 때 퀄리티 */
   ImproveImageQuality(element: HTMLImageElement) {
     let splitedSrc = element.src.split('?')
     const qs = new URLSearchParams(splitedSrc[1])

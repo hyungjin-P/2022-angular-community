@@ -58,10 +58,11 @@
 
       .item-avatar {
         flex-shrink: 0;
-        width: 30px;
+        width: 25px;
         height: 30px;
+        padding-top: 2px;
         border-radius: 50%;
-        margin-right: 8px;
+        margin-right: 5px;
         background-size: cover;
       }
 
@@ -118,6 +119,7 @@
 
         .item-contents-like-avatar {
           display: flex;
+          margin-right: 5px;
 
           div {
             flex-shrink: 0;
@@ -129,16 +131,8 @@
             background-size: cover;
           }
 
-          div:nth-child(2) {
+          .exposureUser-avatar {
             margin-left: -5px;
-          }
-
-          div:nth-child(3) {
-            margin-left: -5px;
-          }
-
-          div:last-child {
-            margin-right: 5px;
           }
         }
 

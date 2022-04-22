@@ -211,10 +211,11 @@
     "edit-profile-button-text": "Edit",
     "empty-text-1": "My own collection of figures.",
     "empty-text-2": "My personal collection of figures. Try making it!",
-    "empty-text-3": "",
+    "empty-text-3": "There are no posts yet",
     "follower-text": "Follower",
     "following-text": "Following",
-    "write": "Writing"
+    "write": "Writing",
+    "more": "more"
   },
   "settings": {
     "account": {
@@ -283,11 +284,16 @@
   },
   "component": {
     "feed-comment": {
-      "comment": "comment",
+      "comment": "Comment",
       "reply-comment": "reply comment",
       "like": "like",
       "apply": "Apply",
-      "writing-comment-for": "writing a reply.."
+      "writing-comment-for": "writing a reply..",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "modify": "Modify",
+      "delete-confirm-title": "Delete Comment",
+      "delete-confirm-sub-title": "Are you sure you want to delete it?"
     }
   }
 }

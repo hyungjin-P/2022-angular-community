@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { StorageService } from '@services/storage.service';
 import { FeedService } from '@services/feed.service';
 import { User } from '@schemas/user';
@@ -11,6 +11,8 @@ import { FeedComment } from '@schemas/feed-comment';
 import { PublicService } from '@services/public.service';
 import * as moment from 'moment-timezone';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
+import {OtherUserUtil} from "../../../../core/utils/other-user.util";
+import {UserService} from "@services/user.service";
 
 @Component({
   selector: 'app-mypage-feed-detail',
@@ -18,6 +20,7 @@ import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal
   styleUrls: ['./mypage-feed-detail.component.scss'],
 })
 export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+
   feedDeleteMessage: any = {
     text: '피드 삭제',
     subText: '정말 삭제 하시겠어요?',
@@ -39,8 +42,10 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   @Input() nowScroll: any;
 
+  /* ComponentRef 구분 용도 */
   isFeedDetail = true;
 
+  /* 페이지네이션 정보 */
   feedPageLink: any = {};
   feedPageMeta: any = {};
 
@@ -48,6 +53,9 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   selectedLanguage: string;
 
+  otherUserId: string;
+
+  /** 피드 댓글 컴포넌트 */
   @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
 
   constructor(
@@ -56,7 +64,9 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     private feedService: FeedService,
     private followService: FollowService,
     private dateUtils: DateUtils,
-    private publicService: PublicService
+    private otherUserUtil: OtherUserUtil,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
   ) {
     this.pushEmptyFeed(1);
   }
@@ -67,10 +77,28 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     this.user = this.storageService.getUser();
 
     this.selectedLanguage = localStorage.getItem('language');
+
+    this.activatedRoute.params.subscribe(params => {
+      if (params.userId) {
+        this.otherUserId = params.userId;
+        this.userService
+          .getUser(this.otherUserId)
+          .subscribe((user) => {
+            this.user = user;
+            this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
+          });
+
+      }
+    });
+
+    if (!this.otherUserId) {
+      this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
+    }
+
   }
 
   ngAfterViewInit(): void {
-    this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
+
   }
 
   findNextPage(): void {

@@ -292,18 +292,13 @@
               <div class="image-box-hover-content">
                 <img class="picture" [src]="feed.picture" draggable="false" [alt]="feed.content">
                 <div class="pictureCount-background" *ngIf="feed.pictureCount > 1">
-                  <!--                <img src="assets/icons/feed/count.svg"/>-->
                   <span class="text">{{ '+' + feed.pictureCount }}</span>
                 </div>
-                <!-- 그라데이션 커버 -->
-<!--                <div class="image-box-hover-content-cover d-sm-none d-md-none"></div>-->
-<!--                <div class="image-box-hover-content-inner d-sm-none d-md-none">-->
-<!--                  <span>{{ feed.content }}</span>-->
-<!--                </div>-->
               </div>
             </div>
             <div class="card_detail">
-              <div class="feed-infos">
+              <div class="feed-infos cursor-pointer"
+                   (click)="moveOtherUserMyPage(user, feed?.writer?.id)">
                 <shared-avatar
                   [image]="feed?.writer.picture[0]?.url"
                   text="{{ feed?.writer.email }}"

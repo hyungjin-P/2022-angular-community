@@ -52,7 +52,7 @@
     <div class="flex-fill" style="position: relative">
 
       <!-- 글쓰기 버튼 -->
-      <div class="floating-buttons">
+      <div class="floating-buttons" *ngIf="!isOtherUser">
         <a class="write d-flex d-lg-none" [routerLink]="['/write']" routerLinkActive="selected">
           <img src="assets/icons/bottom-nav/pencil.svg" alt="">
         </a>
@@ -62,11 +62,11 @@
         <!-- 상단 Background Image-->
         <div class="background">
           <div [class.empty-background-show]="user?.background?.length === 0">
-            <a class="add-button" (click)="background.click()">
+            <a class="add-button" (click)="background.click()" *ngIf="!isOtherUser">
               <div class="line-1"></div>
               <div class="line-2"></div>
             </a>
-            <div class="add-button-text">
+            <div class="add-button-text" *ngIf="!isOtherUser">
               {{ 'mypage.add-button-text' | translate }}
             </div>
             <input type="file"
@@ -81,10 +81,10 @@
               <img [src]="user?.background[0]?.url" alt="user custom background image">
             </ng-container>
 
-
             <!-- 배경이미지 바꾸기 -->
             <a class="edit-button"
-               (click)="changeBackgroundEditMode(true)">
+               (click)="changeBackgroundEditMode(true)"
+               *ngIf="!isOtherUser">
               <div class="mdi mdi-camera-outline"></div>
               <div class="edit-button-text">
                 {{ 'mypage.edit-button-text' | translate }}
@@ -134,7 +134,7 @@
               <div class="left-side">
                 <div class="avatar">
                   <shared-avatar
-                    [image]="globalUser?.picture?.url"
+                    [image]="user?.picture[0]?.url"
                     text="{{ user.email }}"
                     size="80"
                     fontSize="30"
@@ -188,10 +188,17 @@
                 <div class="about-me">
                   {{ user.aboutMe }}
                 </div>
-                <a class="shared-button shared-button-outline edit-profile-button"
-                   [routerLink]="['/settings/profile']">
-                  {{ 'mypage.edit-profile-button-text' | translate }}
-                </a>
+
+                <!-- 프로필 수정 -->
+                <ng-container *ngIf="!isOtherUser">
+                  <a class="shared-button shared-button-outline edit-profile-button"
+                     [routerLink]="['/settings/profile']">
+                    {{ 'mypage.edit-profile-button-text' | translate }}
+                  </a>
+                </ng-container>
+
+                <!-- 팔로우 버튼 -->
+
               </div>
 
               <!-- 본문 -->
@@ -212,7 +219,7 @@
                 <div class="avatar">
                   <!-- 아바타 이미지 -->
                   <shared-avatar
-                    [image]="globalUser?.picture?.url"
+                    [image]="user?.picture[0]?.url"
                     text="{{ user.email }}"
                     size="74"
                     fontSize="30"
@@ -237,15 +244,22 @@
 
                   <div class="follow">
                     <div class="following">{{ 'mypage.following-text' | translate }}</div>
-                    <div>999+</div>
+                    <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
                     <div class="v-line"></div>
                     <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
-                    <div>999+</div>
+                    <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
                   </div>
-                  <a
-                    class="shared-button shared-button-outline edit-profile-button"
-                    [routerLink]="['/settings/profile']"
-                  >{{ 'mypage.edit-profile-button-text' | translate }}</a>
+
+                  <!-- 프로핑 수정 본인 것 -->
+                  <ng-container *ngIf="!isOtherUser">
+                    <a class="shared-button shared-button-outline edit-profile-button"
+                       [routerLink]="['/settings/profile']">
+                      {{ 'mypage.edit-profile-button-text' | translate }}
+                    </a>
+                  </ng-container>
+
+
+
                 </div>
               </div>
 

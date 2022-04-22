@@ -64,6 +64,7 @@ const routes: Routes = [
       { path: 'feed', component: MypageFeedComponent },
       { path: 'feed/:userId', component: MypageFeedComponent },
       { path: 'feed-detail', component: MypageFeedDetailComponent },
+      { path: 'feed-detail/:userId', component: MypageFeedDetailComponent },
     ],
   },
 

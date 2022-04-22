@@ -211,10 +211,11 @@
     "edit-profile-button-text": "프로필 수정",
     "empty-text-1": "나만의 소장 피규어 컬렉션",
     "empty-text-2": "나만의 소장 피규어 컬렉션을 만들어보세요!",
-    "empty-text-3": "",
+    "empty-text-3": "아직 게시한 포스트가 없습니다.",
     "follower-text": "팔로워",
     "following-text": "팔로잉",
-    "write": "글쓰기"
+    "write": "글쓰기",
+    "more": "전체보기"
   },
   "settings": {
     "account": {
@@ -287,7 +288,12 @@
       "reply-comment": "답글 쓰기",
       "like": "좋아요",
       "apply": "등록",
-      "writing-comment-for": "님에게 답글 남기는 중.."
+      "writing-comment-for": "님에게 답글 남기는 중..",
+      "delete": "삭제",
+      "cancel": "아니오",
+      "modify": "수정",
+      "delete-confirm-title": "댓글 삭제",
+      "delete-confirm-sub-title": "정말 삭제 하시겠어요?"
     }
   }
 }

@@ -20,7 +20,7 @@ export class UserService {
    * 수정 완료
    * */
   getUser(userId: string): Observable<User> {
-    const url = environment.userApiAddress + `/user/findById?userId=${userId}`;
+    const url = environment.userApiAddress + `/user/findById?id=${userId}`;
 
     const options = {
       headers: new HttpHeaders({

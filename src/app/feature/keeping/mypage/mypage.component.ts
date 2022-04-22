@@ -32,8 +32,9 @@ import { FollowService } from '@services/follow.service';
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit, AfterViewInit {
+
   variables: any;
-  globalUser: any;
+
   user: User;
 
   isOtherPeople = false;
@@ -48,6 +49,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   mypageFeedDetail: MypageFeedDetailComponent;
 
+  isOtherUser: boolean = false;
+
   constructor(
     private router: Router,
     private location: Location,
@@ -61,24 +64,21 @@ export class MypageComponent implements OnInit, AfterViewInit {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
 
     let timer = null;
+
     window.addEventListener('resize', (data) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
       }, 200);
     });
+
   }
 
   ngOnInit() {
     this.variables = this.globalService.variables;
-    this.globalUser = this.globalService.user;
     this.user = this.storageService.getUser();
-
     this.countFollow(this.user.id);
-
     this.closeDrawer();
-
-    console.log('activateRoute : ',  this.activateRoute.data);
   }
 
   ngAfterViewInit(): void {
@@ -102,14 +102,29 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   countFollow(userId: string): void {
     this.followService.countFollow(userId).subscribe((follow) => {
-      console.log('follow : ', follow);
       this.follow = follow;
     });
   }
 
   onActivate(componentRef: any): void {
-    if (componentRef.isFeedDetail) {
+    if (componentRef?.isFeedDetail) {
       this.mypageFeedDetail = componentRef;
+    }
+
+    // 다른 유저 구분 첫 페이지에 접근하는 것으로 판단
+    if (componentRef?.isFeed) {
+      setTimeout(() => {
+        if (componentRef.otherUserId) {
+          this.isOtherUser = true;
+          this.userService
+            .getUser(componentRef.otherUserId)
+            .subscribe((user) => {
+              this.user = user;
+              this.countFollow(this.user.id);
+            });
+        }
+
+      }, 0);
     }
   }
 
@@ -138,7 +153,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
           {
             domainName: 'public.keeping.link',
             path: `/users/${this.user.id}/background`,
-            tag: 'user-background',
+            tag: 'user-backgrounds',
             userId: this.user.id,
           },
           files

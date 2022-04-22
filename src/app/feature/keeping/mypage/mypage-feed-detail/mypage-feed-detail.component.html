@@ -23,8 +23,13 @@
     <!-- 피드 item -->
     <div class="item-list col-12">
       <div class="item-title">
-        <div class="item-avatar"
-             [ngStyle]="comparisonUserPicture(feed?.writer)"></div>
+
+<!--        <div class="item-avatar"-->
+<!--             [ngStyle]="comparisonUserPicture(feed?.writer?.picture[0]?.url)"></div>-->
+        <div class="item-avatar">
+          <shared-avatar [image]="feed?.writer?.picture[0]?.url" text="AVATAR" size="25" fontSize="15"></shared-avatar>
+        </div>
+
         <div
           class="item-nickname">
           {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}
@@ -61,12 +66,25 @@
 
           <div class="item-contents-like-avatar">
             <ng-container *ngFor="let likeUser of feed?.exposureUser">
-              <div [ngStyle]="comparisonUserPicture(likeUser)"></div>
+              <shared-avatar class="exposureUser-avatar"
+                             [image]="likeUser?.picture[0]?.url"
+                             text="AVATAR" size="20" fontSize="11">
+              </shared-avatar>
             </ng-container>
           </div>
 
           <div class="item-contents-texts">
-            <ng-container *ngIf="feed.likeCount < 4 && feed.likeCount > 0">
+
+            <ng-container *ngIf="feed.likeCount === 1">
+              <strong>
+                {{
+                feed?.exposureUser[0].nickname
+                  ? feed?.exposureUser[0].nickname
+                  : feed?.exposureUser[0].email }}님
+              </strong>이 좋아합니다.
+            </ng-container>
+
+            <ng-container *ngIf="feed.likeCount < 4 && feed.likeCount > 1">
               <strong>님</strong>이 좋아합니다.
             </ng-container>
 
