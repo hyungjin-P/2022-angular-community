@@ -530,7 +530,7 @@
             }
 
             .tag-str {
-              display: block;
+              display: block !important;
               /*margin-bottom: 10px;*/
 
               @include textStyle(400, 13px, 21px);

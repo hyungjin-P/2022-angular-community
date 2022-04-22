@@ -252,6 +252,9 @@ export class WriteComponent implements OnInit, AfterViewInit {
   addTag() {
     if (this.feed.tags.length >= 10 || !this.tagModalInput) {
       this.hideTagModal();
+      if (this.feed.tags.length >= 10) {
+        this.globalService.showToast('태그는 최대 10개까지 등록 가능해요');
+      }
       return;
     }
 
