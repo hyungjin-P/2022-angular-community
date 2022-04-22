@@ -13,6 +13,23 @@ import { Response } from '@schemas/response';
 export class MagazineService {
   constructor(private http: HttpClient) {}
 
+  getMagazineTopList(userId: string) {
+    const url = environment.userApiAddress + `/magazine/findTopMagazineList?userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
   /**
    * 매거진 (북마크 표시)
    * @param page

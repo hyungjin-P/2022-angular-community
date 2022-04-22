@@ -92,6 +92,23 @@ export class PublicService {
     );
   }
 
+  getMagazineTopList() {
+    const url = environment.userApiAddress + `/public/magazine/findTopMagazineList`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
   getMagazineList(page: number, limit: number, category: string = 'all'): Observable<any> {
     const url =
       environment.userApiAddress + `/public/magazine/findPages?page=${page}&limit=${limit}&category=${category}`;

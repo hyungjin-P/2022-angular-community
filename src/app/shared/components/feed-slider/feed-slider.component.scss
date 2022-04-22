@@ -1,11 +1,12 @@
-@import "~swiper/swiper-bundle.min.css";
+@import '~swiper/swiper-bundle.min.css';
 @import '/src/assets/styles/font';
 
 .shared-picture {
-
+  border-radius: 8px;
   img {
     cursor: pointer;
     border-radius: 8px;
+    border: 1px solid var(--grey-8);
   }
 
   .swiper-button-prev {
@@ -30,7 +31,6 @@
       transition: all 0.3s;
       background: url('~src/assets/icons/mypage/arrow-right-black.svg') no-repeat center;
     }
-
   }
 
   .swiper-button-next::after,
@@ -98,7 +98,6 @@
   top: 30px;
   right: 30px;
 
-
   & div {
     margin-right: 10px;
     border-radius: 10px;
@@ -115,7 +114,6 @@
   & div:last-child {
     margin-right: 0;
   }
-
 
   & div:hover {
     opacity: 1;

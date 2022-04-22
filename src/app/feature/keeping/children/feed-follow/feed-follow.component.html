@@ -53,7 +53,7 @@
                     <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round"/>
                   </svg>
                 </div>
-                <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+                <div class="text">{{ 'keeping.feed-detail.following' | translate }}</div>
               </div>
               <div class='follow-default' *ngIf='!feed?.writer.isFollow'>
                 <div class="follow-plus-icon">
@@ -448,7 +448,7 @@
                   <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+              <div class="text">{{ 'keeping.feed-detail.following' | translate }}</div>
             </div>
             <div class='follow-default' *ngIf='!likeUser.user.isFollow' (click)='addFollow(user?.id, likeUser.user)'>
               <div class="follow-plus-icon">

@@ -125,7 +125,7 @@
           </div>
 
           <div class="row-3">
-            <div class='row-3-col-1' *ngIf='selectedFeed?.likeCount < 1'>
+            <a class='row-3-col-1' *ngIf='selectedFeed?.likeCount < 1' (click)='toggleFeedLike(selectedFeed)'>
               <div class="heart">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -135,12 +135,12 @@
                 </svg>
               </div>
               <div class='text' *ngIf='selectedLanguage === "ko"'>
-                가장 먼저 <span (click)='toggleFeedLike(selectedFeed)'>좋아요</span>를 눌러주세요
+                가장 먼저 <span>좋아요</span>를 눌러주세요
               </div>
               <div class='text' *ngIf='selectedLanguage !== "ko"'>
-                Be the first to <span (click)='toggleFeedLike(selectedFeed)'>like this</span>
+                Be the first to <span>like this</span>
               </div>
-            </div>
+            </a>
             <a class="row-3-col-1" (click)="showLikedView()" *ngIf='selectedFeed?.likeCount > 0'>
               <ng-container *ngFor="let like_user of selectedFeed?.likeUsers; let i = index">
                 <div class="avatar" *ngIf="i < 3">

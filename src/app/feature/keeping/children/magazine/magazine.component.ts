@@ -159,8 +159,8 @@ export class MagazineComponent implements OnInit, AfterViewInit {
 
   getTopMagazineList() {
     if (this.user) {
-      this.magazineService.getMagazineList(1, 5, 'all', this.user?.id).subscribe((magazineList) => {
-        this.topMagazineList = magazineList.items;
+      this.magazineService.getMagazineTopList(this.user?.id).subscribe((magazineList) => {
+        this.topMagazineList = magazineList;
         this.changeBody(this.topMagazineList);
         if (this.nowTab !== undefined) {
           this.changeTab();
@@ -169,8 +169,8 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         }
       });
     } else {
-      this.publicService.getMagazineList(1, 5, 'all').subscribe((magazineList) => {
-        this.topMagazineList = magazineList.items;
+      this.publicService.getMagazineTopList().subscribe((magazineList) => {
+        this.topMagazineList = magazineList;
         this.changeBody(this.topMagazineList);
         if (this.nowTab !== undefined) {
           this.changeTab();
