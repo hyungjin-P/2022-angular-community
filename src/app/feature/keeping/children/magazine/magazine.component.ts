@@ -190,9 +190,10 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         if (this.page > 1) {
           this.magazineList = [...this.magazineList, ...magazineList?.items];
         } else {
-          this.magazineList = magazineList.items.filter(
+          /*this.magazineList = magazineList.items.filter(
             (magazine) => !this.topMagazineList.some((topMagazine) => magazine.id === topMagazine.id)
-          );
+          );*/
+          this.magazineList = magazineList.items;
         }
         this.changeBody(this.magazineList);
       },
@@ -211,9 +212,10 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         if (this.page > 1) {
           this.magazineList = [...this.magazineList, ...magazineList?.items];
         } else {
-          this.magazineList = magazineList.items.filter(
+          /*this.magazineList = magazineList.items.filter(
             (magazine) => !this.topMagazineList.some((topMagazine) => magazine.id === topMagazine.id)
-          );
+          );*/
+          this.magazineList = magazineList.items;
         }
 
         this.changeBody(this.magazineList);
