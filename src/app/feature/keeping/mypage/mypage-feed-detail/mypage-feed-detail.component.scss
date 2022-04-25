@@ -569,10 +569,7 @@
 
 /* ~ 768px */
 @media all and (min-width: 1px) and (max-width: 768px) {
-
-}
-
-/* ~ 414px */
-@media all and (min-width: 1px) and (max-width: 414px) {
-
+  .items {
+    padding: 12px 12px;
+  }
 }

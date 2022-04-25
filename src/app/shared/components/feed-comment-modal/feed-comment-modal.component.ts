@@ -1,5 +1,6 @@
 import {
-  AfterViewInit, ChangeDetectorRef,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -90,6 +91,17 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
+  textAreaAutoHeight(): void {
+    $('#bs-writing-comment').height(
+      $('#bs-writing-comment').prop('scrollHeight') - 40
+    );
+
+    setTimeout(() => {
+      const outerHeight = $('.write-comments').outerHeight();
+      $('.comment-mention').css('bottom', (outerHeight - 4) + 'px')
+    }, 100);
+  }
+
   closeModal(): void {
     $('#bs-comment-modal').modal('hide');
   }
@@ -112,6 +124,8 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   onModalShow(feed: Feed): void {
+    $('body').css('overflow', 'hidden');
+    $('#bs-writing-comment').height(0);
     $('#bs-comment-modal').modal('show');
     this.originFeed = feed;
     this.findFeedComments(feed.id);
@@ -169,7 +183,14 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     this.selectedMentionUser = writer;
     this.selectedComment = feedComment;
     this.writingComment = '';
+
     this.onShowCommentMention();
+
+    $('#bs-writing-comment').height(0);
+
+    setTimeout(() => {
+      this.textAreaAutoHeight();
+    }, 100);
 
     this.renderer.selectRootElement('#bs-writing-comment').focus();
   }
@@ -187,6 +208,12 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     this.confirmComment = {};
     this.hasBottomWritingMessage = false;
     this.hasBottomWritingMessageType = 'mention';
+    this.writingComment = '';
+
+    setTimeout(() => {
+      $('#bs-writing-comment').height(0);
+      $('.comment-mention').css('bottom', '68px');
+    }, 100);
   }
 
   // 최근에 남긴 게시물인지 여부
@@ -308,6 +335,10 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       this.hasBottomWritingMessageType = 'modify';
       this.hasBottomWritingMessage = true;
       this.renderer.selectRootElement('#bs-writing-comment').focus();
+
+      setTimeout(() => {
+        this.textAreaAutoHeight();
+      }, 200);
     }
   }
 
@@ -345,6 +376,8 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   onConfirmModalConfirm(): void {
+    console.log('this.confirmComment : ', this.confirmComment);
+
     if (this.confirmComment) {
       this.removeComment(this.confirmComment);
     }
@@ -352,7 +385,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   /* 댓글 삭제 */
   removeComment(feedComment: any): void {
-    if (this.loginUser?.id === this.originFeed?.writer.id) {
+    if (this.loginUser?.id === feedComment.userId) {
       this.feedService
         .removeFeedComment(feedComment.id)
         .subscribe(data => {
@@ -360,8 +393,6 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
           this.closeConfirmModal();
           this.globalService.showToast('삭제되었습니다.')
         });
-    } else {
-      // 로그인 요구
     }
   }
 
@@ -381,6 +412,10 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     this.closeConfirmModal();
     this.closeModal();
     this.router.navigateByUrl('/auth/registration').then();
+  }
+
+  textAreaResize(textareaId: string): void {
+
   }
 
 }

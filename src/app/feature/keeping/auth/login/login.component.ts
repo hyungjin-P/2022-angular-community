@@ -165,10 +165,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     kakao$.subscribe(
       (user: any) => {
-        console.log('kakao user : ', user);
         const accessToken = user.access_token;
-        console.log('accessToken : ', accessToken);
-
         this.kakaoLoginTrigger(accessToken);
       },
       (e) => {
@@ -185,9 +182,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService
       .modifiedKakaoLogin(accessToken)
       .subscribe((user: User) => {
-        console.log('kakao login result : ', user);
-        this.storageService.setUser(user)
-        this.angularFireAuth.signInWithCustomToken(user.customToken)
+        this.router.navigateByUrl('feed').then(() => {
+          this.storageService.setUser(user)
+          this.angularFireAuth.signInWithCustomToken(user.customToken)
+        });
       });
   }
 
@@ -212,13 +210,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async _signInWithNaver(code: string): Promise<void> {
     this.naverLoginPopupWindowRef.close()
-    console.log('naver login code ', code);
-
     this.authService
       .modifySignWithNaver(code)
       .subscribe((user: any) => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
+        this.router.navigateByUrl('feed').then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
       });
   }
 
@@ -236,12 +234,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: this.password
       })
       .subscribe((user: User) => {
+        this.router.navigateByUrl('feed').then(() => {
           this.storageService.setUser(user);
           this.angularFireAuth.signInWithCustomToken(user.customToken);
-        },
-        (e) => {
-          this.globalService.showToast(e.message);
         });
+      },
+      (e) => {
+        this.globalService.showToast('로그인 실패');
+      });
   }
 
   /** enter, email, tab, password */

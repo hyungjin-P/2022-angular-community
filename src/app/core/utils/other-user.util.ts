@@ -17,12 +17,8 @@ export class OtherUserUtil {
     this.user = storageService.getUser();
   }
 
-  public moveOtherUserMyPage(user: User, routingTargetId: string): void {
-    if (this.user) {
-      if (this.isOtherWriter(user, routingTargetId)) {
-        this.router.navigateByUrl(`mypage/feed/${routingTargetId}`).then();
-      }
-    }
+  public moveOtherUserMyPage(routingTargetId: string): void {
+    this.router.navigateByUrl(`mypage/feed/${routingTargetId}`).then();
   }
 
   public isOtherWriter(user: User, routingTargetId): boolean {

@@ -1,4 +1,4 @@
-import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, Inject, OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { GlobalService } from '@services/global.service';
@@ -6,12 +6,14 @@ import { StorageService } from '@services/storage.service';
 
 import { User } from '@schemas/user';
 
+declare const $;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   variables: any;
   modal: any;
   toast: any;
@@ -23,20 +25,6 @@ export class AppComponent implements OnInit {
     private globalService: GlobalService,
     private storageService: StorageService,
   ) {
-
-    window.onscroll = function() {myFunction()};
-
-    function myFunction() {
-
-      console.log('onscroll() : ');
-
-
-      if (document.documentElement.scrollTop > 50) {
-      } else {
-
-      }
-    }
-
   }
   ngOnInit(): void {
     this.variables = this.globalService.variables;
@@ -72,6 +60,18 @@ export class AppComponent implements OnInit {
       localStorage.setItem('language', language);
       this.translate.use(language);
     }
+  }
+
+  ngAfterViewInit(): void {
+    // bootstrap modal
+    $(".modal").on("shown.bs.modal", function()  {
+      const urlReplace = "#" + $(this).attr('id');
+      history.pushState(null, null, urlReplace);
+    });
+
+    $(window).on('popstate', function() {
+      $(".modal").modal('hide');
+    });
   }
 
   hideModal() {

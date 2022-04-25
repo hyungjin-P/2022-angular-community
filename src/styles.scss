@@ -446,7 +446,12 @@ body {
   &::-webkit-scrollbar-thumb:hover {
     background-color: #c9c9c9;
   }
+
+  &.scroll-hide {
+    width: 0;
+  }
 }
+
 
 .scroll-xy {
   overflow: auto;
@@ -557,4 +562,13 @@ body {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+input, textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+body.modal-open {
+  overflow: hidden;
 }

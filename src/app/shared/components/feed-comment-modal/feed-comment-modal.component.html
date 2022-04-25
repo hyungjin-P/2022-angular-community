@@ -1,8 +1,8 @@
 <!-- Comment Modal -->
 <div class="modal fade" id="bs-comment-modal" data-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize">
-    <div class="modal-content modal-fullsize">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize" id="bs-comment-modal-dialog">
+    <div class="modal-content modal-fullsize animate-bottom" id="bs-comment-modal-content">
 
       <!-- 제목 영역 -->
       <div class="modal-header">
@@ -24,9 +24,7 @@
         <!-- 닫기 버튼 -->
         <button type="button"
                 class="close"
-                (click)="closeModal()"
-                data-dismiss="modal"
-                aria-label="Close">
+                (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -155,7 +153,6 @@
                      (click)="toggleLike(parent, loginUser?.id, 'heart-parent-' + i)"
                      [ngClass]="isCommentLike(parent?.likes, loginUser?.id) ? 'active' : ''">
                   {{ 'component.feed-comment.like' | translate }}
-                  &nbsp;
                   <span *ngIf="parent?.likes.length > 0"> {{ parent?.likes.length }} </span>
                 </div>
                 <div class="writing-comment">
@@ -169,6 +166,7 @@
                   <div class="modify" (click)="onClickModifyComment(parent, loginUser?.id)">
                     {{'component.feed-comment.modify' | translate}}
                   </div>
+
                   <div class="remove" (click)="onConfirmModalShow(parent, 'delete')">
                     {{'component.feed-comment.delete' | translate}}
                   </div>
@@ -230,7 +228,6 @@
                        (click)="toggleLike(child, loginUser?.id, 'heart-child-' + j)"
                        [ngClass]="isCommentLike(child?.likes, loginUser?.id) ? 'active' : ''">
                     {{ 'component.feed-comment.like' | translate }}
-                    &nbsp;
                     <span *ngIf="child?.likes.length > 0"> {{ child?.likes.length }} </span>
                   </div>
                   <!-- 답글 쓰기 -->
@@ -245,7 +242,7 @@
                       {{'component.feed-comment.modify' | translate}}
                     </div>
                     <div class="remove" (click)="onConfirmModalShow(child, 'delete')">
-                      {{'component.feed-comment.cancel' | translate}}
+                      {{'component.feed-comment.delete' | translate}}
                     </div>
                   </div>
 
@@ -285,12 +282,15 @@
                (click)="onHiddenBottomMessage()">&times;
           </div>
         </div>
-        <div class="write-comments">
-          <textarea class="write-comments-input"
+        <div class="write-comments" style="">
+          <textarea class="write-comments-input scroll-y"
                     id="bs-writing-comment"
                     maxlength="250"
-                    [(ngModel)]="writingComment">
-          </textarea>
+                    spellcheck="false"
+                    (keydown)="textAreaAutoHeight()"
+                    placeholder="주제와 무관한 댓글 및 악플은 삭제될 수 있습니다."
+                    [(ngModel)]="writingComment"></textarea>
+
           <button type="button"
                   [disabled]="writingComment.length === 0"
                   (click)="createCommentAndModify()">

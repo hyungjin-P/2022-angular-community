@@ -25,7 +25,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   pageLink: any = {};
   pageMeta: any = {};
   page: number = 1;
-  limit: number = 15;
+  limit: number = 10;
   @ViewChild('scrollEl') scrollEl: ElementRef;
 
   tabMenu: any[] = [
@@ -46,6 +46,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   ];
   nowTab: '';
 
+  /** 로그인 모달 */
   isLoginModalVisible = false;
 
   constructor(
@@ -73,7 +74,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let timer = null;
-    this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
+    this.scrollEl.nativeElement.addEventListener('scroll', () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
@@ -85,9 +86,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.findNextPage();
         }
 
-        if (50 < per) {
-          console.log('calc : ', per);
-        }
+        if (50 < per) {}
+
       }, 100);
     });
   }
@@ -104,8 +104,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   getFeedList() {
-    this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
-      (feedList: any) => {
+    this.feedService
+      .getFeedList(this.page, this.limit, this.user?.id)
+      .subscribe((feedList: any) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
 
@@ -113,15 +114,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.feedList = [...this.feedList, ...feedList?.items];
         } else {
           this.feedList = feedList.items;
-          console.log('feed !! : ', this.feedList[0].writer.id);
-
-
         }
-      },
-      (e) => {
-        console.log('public feed list find failed', e);
-      }
-    );
+      },(e) => {});
   }
 
   /** 피드 수정 완료 */
@@ -136,11 +130,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
         } else {
           this.feedList = feedList.items;
         }
-      },
-      (e) => {
-        console.log('public feed list find failed', e);
-      }
-    );
+      },(e) => {});
   }
 
   /** 피드 좋아요 수정 중 */
@@ -212,9 +202,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
         (data) => {
           feed.isBookmark = true;
         },
-        (error) => {
-          console.log('bookmark add failed : ', error);
-        }
+        (error) => {}
       );
     }
   }
@@ -230,9 +218,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
         (data) => {
           feed.isBookmark = false;
         },
-        (error) => {
-          console.log('bookmark cancel failed : ', error);
-        }
+        (error) => {}
       );
     }
   }
@@ -249,10 +235,6 @@ export class FeedComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
-
-
-
 
   /** 로그인 모달 */
   loginModalShow() {
@@ -280,11 +262,14 @@ export class FeedComponent implements OnInit, AfterViewInit {
   moveOtherUserMyPage(user: User, targetUserId): void {
     if (!this.user) {
       this.loginModalShow();
+      return;
     } else {
-      if (this.otherUserUtil.isOtherWriter(user, targetUserId)) {
-        this.otherUserUtil.moveOtherUserMyPage(user, targetUserId);
+      if (user?.id !== targetUserId) {
+        this.otherUserUtil.moveOtherUserMyPage(targetUserId);
+        return;
       } else {
         this.otherUserUtil.moveMyPage();
+        return;
       }
     }
   }
