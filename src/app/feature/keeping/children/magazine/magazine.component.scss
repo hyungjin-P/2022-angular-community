@@ -222,7 +222,8 @@
           right: 20px;
           bottom: 38px;
           z-index: 15;
-          display: flex;
+          display: grid;
+          grid-auto-flow: column;
           justify-content: right;
           padding-left: 0;
           margin: 0;
@@ -609,7 +610,7 @@
 
         .banners {
           width: 50%;
-          margin-top: 0;
+          margin-top: 0 !important;
           margin-left: 28px;
           //grid-template-rows: 260px 260px;
         }

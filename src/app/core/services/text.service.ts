@@ -45,6 +45,7 @@ export class TextService {
       'write:feed:001': '메인 사진을 선택하세요',
       'write:feed:002': '내용을 작성하세요.',
       'write:feed:003': '등록하였습니다.',
+      'write:feed:004': '태그는 최대 10개까지 등록 가능해요',
 
       'follow:001': '팔로우 하였습니다.',
       'follow:002': '팔로우 해제되었습니다.',
@@ -89,6 +90,7 @@ export class TextService {
       'write:feed:001': 'Choose your main picture',
       'write:feed:002': 'Please write your content.',
       'write:feed:003': 'Posted.',
+      'write:feed:004': 'You can register up to 10 tags.',
 
       'follow:001': 'Followed it.',
       'follow:002': 'Unfollowed it.',

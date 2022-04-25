@@ -13,7 +13,7 @@
               <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
                 <div class='banner' *ngIf='i === 0'>
                   <img [src]='magazine.picture' class='d-block w-100 h-100' alt='' (click)='moveLink(magazine)'>
-                  <div class='gradient'></div>
+                  <a class='gradient' (click)='moveLink(magazine)'></a>
                   <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
                       <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
@@ -22,7 +22,7 @@
                       <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
                     </ng-container>
                   </a>
-                  <a class='description' (click)='moveLink(magazine)'>
+                  <div class='description'>
                     <div class='category'>
                       {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
                     </div>
@@ -81,7 +81,7 @@
                         </div>-->
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </ng-container>
             </div>
@@ -89,7 +89,7 @@
               <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
                 <div class='banner' *ngIf='i !== 0 && i < 5'>
                   <img [src]='magazine.picture' class='d-block w-100 h-100' alt='' (click)='moveLink(magazine)'>
-                  <div class='gradient'></div>
+                  <a class='gradient' (click)='moveLink(magazine)'></a>
                   <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
                       <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
@@ -98,7 +98,7 @@
                       <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
                     </ng-container>
                   </a>
-                  <a class='description' (click)='moveLink(magazine)'>
+                  <div class='description'>
                     <div class='category '>
                       {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
                     </div>
@@ -157,7 +157,7 @@
                         </div>-->
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </ng-container>
             </div>
@@ -301,7 +301,7 @@
                 class="image-box flex-fill"
               >
                 <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)'>
-                <div class='gradient'></div>
+                <div class='gradient' (click)='moveLink(magazine)'></div>
                 <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                   <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
                     <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
