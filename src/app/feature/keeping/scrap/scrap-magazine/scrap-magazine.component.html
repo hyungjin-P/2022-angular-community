@@ -25,9 +25,9 @@
       <!-- 사진 있는 것-->
       <div class="item" *ngFor="let magazineBookmark of magazineBookmarkList">
         <div class="item-box d-flex flex-column flex-wrap">
-          <img class="picture" [src]="magazineBookmark.magazine.picture" [alt]="" (click)="moveMagazineDetail(magazineBookmark)">
+          <img class="picture" [src]="magazineBookmark.magazine.picture" [alt]="" (click)="moveMagazineDetail(magazineBookmark.magazine)">
           <div class='gradient'></div>
-          <a class='bookmark' [ngClass]="magazineBookmark.magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazineBookmark)'>
+          <a class='bookmark' [ngClass]="magazineBookmark.magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazineBookmark.magazine)'>
             <ng-container *ngIf='!variables.isLogin || !magazineBookmark.magazine.isBookmark'>
               <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
             </ng-container>
@@ -35,7 +35,7 @@
               <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
             </ng-container>
           </a>
-          <div class='description' (click)="moveMagazineDetail(magazineBookmark)">
+          <div class='description' (click)="moveMagazineDetail(magazineBookmark.magazine)">
             <div class='category'>
               {{'common.nav.magazine-tab.' + magazineBookmark.magazine.category | translate}}
             </div>
