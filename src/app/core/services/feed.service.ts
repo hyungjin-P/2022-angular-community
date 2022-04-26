@@ -136,7 +136,7 @@ export class FeedService {
   }
 
   updateFeed(requestBody: UpdateFeedDto): Observable<Feed> {
-    const url = environment.userApiAddress + `/feed/modifyFeed`;
+    const url = environment.userApiAddress + `/feed/updateFeed`;
 
     const options = {
       headers: new HttpHeaders({
@@ -145,6 +145,40 @@ export class FeedService {
     };
 
     //기존 put방식에 대해 검토
+    return this.http.post<any>(url, requestBody, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  modifyFeed(requestBody: Feed): Observable<Feed> {
+    const url = environment.userApiAddress + `/feed/modifyFeed`;
+
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http.post<any>(url, requestBody, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  modifyFeedPicture(requestBody: Feed) {
+    const url = environment.userApiAddress + `/feed/modifyFeedPicture`;
+
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+      }),
+    };
+
     return this.http.post<any>(url, requestBody, options).pipe(
       map((res) => {
         return res;
@@ -379,7 +413,6 @@ export class FeedService {
     );
   }
 
-
   /**
    * 북마크 추가
    * @param feedBookmarkDto { feedId, userId }
@@ -589,24 +622,21 @@ export class FeedService {
   }
 
   findFeedCommentsWithRelations(feedId: string): Observable<any> {
-    const url = environment.userApiAddress
-      + `/feed/comment/getFeedCommentsWithRelations?feedId=${feedId}`;
+    const url = environment.userApiAddress + `/feed/comment/getFeedCommentsWithRelations?feedId=${feedId}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      })
+      }),
     };
 
-    return this.http
-      .get<any>(url, options)
-      .pipe(map((res) => {
-          return res;
-        }),
-        catchError(handleError)
-      );
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
   }
-
 }
 
 class FeedBookmarkDto {

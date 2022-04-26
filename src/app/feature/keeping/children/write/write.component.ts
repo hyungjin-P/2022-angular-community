@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {
@@ -39,6 +39,7 @@ import { Feed } from '@schemas/feed';
 import { FeedTag } from '@schemas/feed-tag';
 import { User } from '@schemas/user';
 import { File } from '@schemas/file';
+import { newArray } from '@angular/compiler/src/util';
 
 declare const $;
 
@@ -47,7 +48,7 @@ declare const $;
   templateUrl: './write.component.html',
   styleUrls: ['./write.component.scss'],
 })
-export class WriteComponent implements OnInit, AfterViewInit {
+export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('pictureBoxElement') pictureBoxElement;
   @ViewChild('tagModalInputElement') tagModalInputElement;
 
@@ -60,6 +61,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
   pictureBoxVisible: boolean;
 
   selectedLanguage: string;
+  modifyBeforePictures: Array<File>;
   feed: Feed;
 
   tagModalVisible: boolean;
@@ -83,7 +85,8 @@ export class WriteComponent implements OnInit, AfterViewInit {
   };
 
   selectFeedId: string;
-  isModify = false;
+  isModifyState = false;
+  isModified = false;
 
   constructor(
     private router: Router,
@@ -95,6 +98,11 @@ export class WriteComponent implements OnInit, AfterViewInit {
     private fileService: FileService,
     private textService: TextService
   ) {}
+  // 이동감지 하려다 실패
+  /*window.addEventListener('beforeunload', (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+  });*/
 
   ngOnInit() {
     this.user = this.storageService.getUser();
@@ -110,14 +118,14 @@ export class WriteComponent implements OnInit, AfterViewInit {
       (v) => {
         this.selectFeedId = v['feed_id'];
         if (this.selectFeedId) {
-          this.isModify = true;
+          this.isModifyState = true;
           this.fillModifyFeed();
         }
       },
       (e) => {}
     );
 
-    if (!this.isModify) {
+    if (!this.isModifyState) {
       this.createFeed(false);
     }
 
@@ -129,6 +137,41 @@ export class WriteComponent implements OnInit, AfterViewInit {
     $('#carousel-addPicture').carousel({
       interval: 0,
     });
+
+    window.onbeforeunload = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+  }
+
+  ngOnDestroy() {
+    window.onbeforeunload = null;
+    if (this.isModified && this.isModifyState) {
+      const beforeFeed = this.feed;
+      beforeFeed.pictures = this.modifyBeforePictures;
+
+      this.feedService.modifyFeedPicture(beforeFeed).subscribe((v) => {
+        window.location.reload();
+      });
+    }
+  }
+
+  toPos(obs$) {
+    const SUPPORT_TOUCH = 'ontouchstart' in window;
+    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
+  }
+
+  createFeed(isRewrite: boolean) {
+    this.feedService.createFeed(isRewrite, this.user.id).subscribe(
+      (feed: Feed) => {
+        this.feed = feed;
+        this.content = feed.content;
+        if (!isRewrite) {
+          if (feed.pictures.length !== 0 || feed.content !== '' || feed.tags.length !== 0) this.showConfirmModal();
+        }
+      },
+      (e) => {}
+    );
   }
 
   goBack() {
@@ -152,6 +195,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
     let picturesLength = this.feed.pictures.length + files.length;
     if (picturesLength > 8) {
+      // 사진 최대 장 수 관련 토스트 메세지 출력
       return;
     }
 
@@ -168,8 +212,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
           files
         )
         .toPromise();
-
+      // 파일서비스에서 자체적으로 업로드 되는 프로세스로 변경 22.03.08
       // await this.feedService.createFeedPicture(this.feed.id, { files: createdFiles }).toPromise()
+
+      if (this.isModifyState) {
+        this.isModified = true;
+      }
 
       this.feed.pictures = createdFiles.concat(this.feed.pictures);
 
@@ -182,6 +230,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
   }
 
   async deletePicture(index: number, fileUrl: string) {
+    if (this.isModifyState) {
+      this.isModified = true;
+      this.feed.pictures.splice(index, 1);
+      return;
+    }
+
     try {
       // 현위치 확인한 후 지우기
       if (this.slideIndex === index && this.feed.pictures.length !== 1) {
@@ -197,26 +251,13 @@ export class WriteComponent implements OnInit, AfterViewInit {
     } catch (e) {}
   }
 
-  toPos(obs$) {
-    const SUPPORT_TOUCH = 'ontouchstart' in window;
-    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
-  }
-
-  createFeed(isRewrite: boolean) {
-    this.feedService.createFeed(isRewrite, this.user.id).subscribe(
-      (feed: Feed) => {
-        console.log('feed', feed);
-        this.feed = feed;
-        this.content = feed.content;
-        if (!isRewrite) {
-          if (feed.pictures.length !== 0 || feed.content !== '' || feed.tags.length !== 0) this.showConfirmModal();
-        }
-      },
-      (e) => {}
-    );
-  }
-
   checkMainPicture(url: string) {
+    if (this.isModifyState) {
+      this.isModified = true;
+      this.feed.picture = url;
+      return;
+    }
+
     this.feedService.updateFeed({ feedId: this.feed.id, picture: url }).subscribe(
       (feed: Feed) => {
         this.feed.picture = url;
@@ -226,6 +267,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
   }
 
   updateContent() {
+    if (this.isModifyState) {
+      this.isModified = true;
+      this.feed.content = this.content;
+      return;
+    }
+
     this.feedService.updateFeed({ feedId: this.feed.id, content: this.content }).subscribe(
       (v) => {},
       (e) => {}
@@ -253,8 +300,17 @@ export class WriteComponent implements OnInit, AfterViewInit {
     if (this.feed.tags.length >= 10 || !this.tagModalInput) {
       this.hideTagModal();
       if (this.feed.tags.length >= 10) {
-        this.globalService.showToast('태그는 최대 10개까지 등록 가능해요');
+        let message = this.textService.getText('write:feed:001');
+        this.globalService.showToast(message);
       }
+      return;
+    }
+
+    if (this.isModifyState) {
+      this.isModified = true;
+      const feedTag: FeedTag = new FeedTag('', this.tagModalInput, 0);
+      this.feed.tags.push(feedTag);
+      this.hideTagModal();
       return;
     }
 
@@ -268,6 +324,12 @@ export class WriteComponent implements OnInit, AfterViewInit {
   }
 
   deleteTag(index: number, tagId: string) {
+    if (this.isModifyState) {
+      this.isModified = true;
+      this.feed.tags.splice(index, 1);
+      return;
+    }
+
     this.feedService.deleteFeedTag(this.feed.id, tagId).subscribe(
       (v) => {
         this.feed.tags.splice(index, 1);
@@ -289,12 +351,15 @@ export class WriteComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    let posting = true;
-    if (this.isModify) {
-      posting = false;
+    if (this.isModifyState) {
+      this.modify();
+    } else {
+      this.writing();
     }
+  }
 
-    this.feedService.updateFeed({ feedId: this.feed.id, posting }).subscribe(
+  writing() {
+    this.feedService.updateFeed({ feedId: this.feed.id, posting: true }).subscribe(
       (v) => {
         // this.createFeed()
         let message = this.textService.getText('write:feed:003');
@@ -303,6 +368,20 @@ export class WriteComponent implements OnInit, AfterViewInit {
       },
       (e) => {}
     );
+  }
+
+  modify() {
+    if (this.isModified) {
+      this.feedService.modifyFeed(this.feed).subscribe(
+        (v) => {
+          let message = this.textService.getText('write:feed:005');
+          this.globalService.showToast(message);
+          this.isModified = false;
+          this.router.navigateByUrl(`/feed/${this.feed.id}`);
+        },
+        (e) => {}
+      );
+    }
   }
 
   onTagKey(key) {
@@ -346,6 +425,7 @@ export class WriteComponent implements OnInit, AfterViewInit {
 
   private fillModifyFeed() {
     this.feedService.getFeed(this.selectFeedId, this.user.id).subscribe((feed) => {
+      this.modifyBeforePictures = feed[0].pictures.slice();
       this.feed = feed[0];
       this.content = feed[0].content;
     });
