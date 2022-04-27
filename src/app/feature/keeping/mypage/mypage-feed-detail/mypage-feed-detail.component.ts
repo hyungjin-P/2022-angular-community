@@ -190,11 +190,11 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
-        (data) => {
+      this.feedService
+        .addFeedBookmark({ feedId: feed?.id, userId })
+        .subscribe((data) => {
           feed.isBookmark = true;
-        },
-        (error) => {}
+        },(error) => {}
       );
     }
   }

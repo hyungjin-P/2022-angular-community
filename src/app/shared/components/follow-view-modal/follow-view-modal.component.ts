@@ -17,8 +17,8 @@ declare const $;
 export class FollowViewModalComponent implements OnInit, AfterViewInit {
 
   @Input() userId: string;
-
   user: User;
+  loginUser: User;
 
   /** 팔로잉 페이지 */
   followingPage: number = 1;
@@ -41,7 +41,8 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private globalService: GlobalService,
   ) {
-    this.user = this.storageService.getUser();
+    /* 실제 로그인 유저 */
+    this.loginUser = this.storageService.getUser();
   }
 
   ngOnInit(): void {
@@ -103,9 +104,6 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
         this.followingMeta = data.metaInfo.meta;
         this.followingLink = data.metaInfo.links;
         this.followingList = [...this.followingList, ...data?.users];
-
-        console.log('following meta : ', this.followingMeta);
-        console.log('following link : ', this.followingLink);
       });
   }
 

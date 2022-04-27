@@ -47,8 +47,10 @@
                     <div class="nickname">
                       <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
                     </div>
+
                     <button type="button"
                             class="follow"
+                            *ngIf="loginUser?.id === userId"
                             [ngClass]="item?.isFollow ? 'checked' : ''"
                             (click)="toggleFollow(item, userId, item.id, 'follower')">
                       <span class="button-icon"></span>
@@ -95,6 +97,7 @@
                     </div>
                     <button type="button"
                             class="follow"
+                            *ngIf="loginUser?.id === userId"
                             [ngClass]="item?.isFollow ? 'checked' : ''"
                             (click)="toggleFollow(item, userId, item.id, 'following')">
                       <span class="button-icon"></span>
@@ -121,8 +124,6 @@
         </div>
 
       </div>
-
-      <!--      <div class="modal-footer"></div>-->
 
     </div>
 
