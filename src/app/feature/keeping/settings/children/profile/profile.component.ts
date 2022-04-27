@@ -142,6 +142,7 @@ export class ProfileComponent implements OnInit {
         this.storageService.setUser(this.user);
 
         // 프로필이 수정되었습니다.
+        this.location.back();
         let message = this.textService.getText('settings:profile:005');
         this.globalService.showToast(message);
       },

@@ -1,21 +1,21 @@
-import {Component, OnInit, OnDestroy} from '@angular/core'
-import {Router} from '@angular/router'
-import {AngularFireAuth} from '@angular/fire/auth'
-import {TranslateService} from '@ngx-translate/core'
-import * as firebase from 'firebase/app'
-import {Observable, Subscription} from 'rxjs'
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { TranslateService } from '@ngx-translate/core';
+import * as firebase from 'firebase/app';
+import { Observable, Subscription } from 'rxjs';
 
-declare let Kakao: any
+declare let Kakao: any;
 
-import {environment} from '@environments/environment'
-import {GlobalService} from '@services/global.service'
-import {StorageService} from '@services/storage.service'
+import { environment } from '@environments/environment';
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {AuthService} from '@services/auth.service'
-import {HelperService} from '@services/helper.service'
-import {TextService} from '@services/text.service'
+import { AuthService } from '@services/auth.service';
+import { HelperService } from '@services/helper.service';
+import { TextService } from '@services/text.service';
 
-import {User} from '@schemas/user'
+import { User } from '@schemas/user';
 
 @Component({
   selector: 'login',
@@ -23,24 +23,23 @@ import {User} from '@schemas/user'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  TAG = '로그인';
 
-  TAG = '로그인'
+  signInMethod: string;
+  subscription: Subscription;
+  naverLoginPopupWindowRef: Window;
 
-  signInMethod: string
-  subscription: Subscription
-  naverLoginPopupWindowRef: Window
+  email: string;
+  emailValid: boolean;
+  emailErrorText: string;
 
-  email: string
-  emailValid: boolean
-  emailErrorText: string
+  password: string;
+  passwordValid: boolean;
+  passwordErrorText: string;
+  passwordVisible: boolean;
 
-  password: string
-  passwordValid: boolean
-  passwordErrorText: string
-  passwordVisible: boolean
-
-  langBoxVisible: boolean
-  selectedLanguage: string
+  langBoxVisible: boolean;
+  selectedLanguage: string;
 
   constructor(
     private router: Router,
@@ -51,8 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private helperService: HelperService,
     private textService: TextService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     /* form 초기화 */
@@ -64,10 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.passwordErrorText = '';
     this.passwordVisible = false;
 
-    this.angularFireAuth
-      .setPersistence('session')
-      .then(r => {
-      });
+    this.angularFireAuth.setPersistence('session').then((r) => {});
 
     /** SNS 로그인 Subscriber */
     this.subscription = this.angularFireAuth.authState.subscribe((user) => {
@@ -78,33 +73,24 @@ export class LoginComponent implements OnInit, OnDestroy {
        * google, meta, apple => firebase 통해서 로그인
        * */
       if (user) {
-        if (this.signInMethod === 'google'
-          || this.signInMethod === 'facebook'
-          || this.signInMethod === 'apple') {
-
+        if (this.signInMethod === 'google' || this.signInMethod === 'facebook' || this.signInMethod === 'apple') {
           user.getIdToken().then((accessToken) => {
-            this.authService
-              .modifySignWithFirebase(accessToken)
-              .subscribe((user: User) => {
-                  this.storageService.setUser(user);
-                  this.router
-                    .navigateByUrl('/auth/service-terms')
-                    .then();
-                },
-                (e) => {
-                  console.log('modifyFireAuth error : ', e);
-                  // this.globalService.showToast(e.message);
-                });
-          })
+            this.authService.modifySignWithFirebase(accessToken).subscribe(
+              (user: User) => {
+                this.storageService.setUser(user);
+                this.router.navigateByUrl('/auth/service-terms').then();
+              },
+              (e) => {
+                console.log('modifyFireAuth error : ', e);
+                // this.globalService.showToast(e.message);
+              }
+            );
+          });
         } else {
           if (this.signInMethod === 'kakao' || this.signInMethod === 'naver') {
-            this.router
-              .navigateByUrl('/auth/service-terms')
-              .then();
+            this.router.navigateByUrl('/auth/service-terms').then();
           } else {
-            this.router
-              .navigateByUrl('/')
-              .then();
+            this.router.navigateByUrl('/').then();
           }
         }
       }
@@ -118,32 +104,28 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
   /** ImageLoad */
   onImageLoad(element: HTMLImageElement) {
-    this.helperService.ImproveImageQuality(element)
+    this.helperService.ImproveImageQuality(element);
   }
 
   /** 구글 로그인 */
   signInWithGoogle() {
     console.log('구글 로그인 ');
-    this.signInMethod = 'google'
+    this.signInMethod = 'google';
 
-    this.angularFireAuth
-      .signInWithPopup(new firebase.default.auth.GoogleAuthProvider())
-      .then(r => {});
+    this.angularFireAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then((r) => {});
   }
 
   /** 페이스북 로그인 */
   signInWithFacebook() {
-    this.signInMethod = 'facebook'
-    this.angularFireAuth
-      .signInWithPopup(new firebase.default.auth.FacebookAuthProvider())
-      .then(r => {
-        console.log('result : ', r);
-      });
+    this.signInMethod = 'facebook';
+    this.angularFireAuth.signInWithPopup(new firebase.default.auth.FacebookAuthProvider()).then((r) => {
+      console.log('result : ', r);
+    });
   }
 
   /** 카카오 로그인 */
@@ -152,15 +134,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     const kakao$ = new Observable(function subscribe(observer) {
       Kakao.Auth.loginForm({
         success: function (response) {
-          observer.next(response)
-          observer.complete()
+          observer.next(response);
+          observer.complete();
         },
         fail: function (error) {
-          observer.error(error)
+          observer.error(error);
         },
         persistAccessToken: false,
         persistRefreshToken: false,
-      })
+      });
     });
 
     kakao$.subscribe(
@@ -169,9 +151,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.kakaoLoginTrigger(accessToken);
       },
       (e) => {
-        this.globalService.showToast(e.message)
+        this.globalService.showToast(e.message);
       }
-    )
+    );
   }
 
   /**
@@ -179,14 +161,12 @@ export class LoginComponent implements OnInit, OnDestroy {
    * @param accessToken
    */
   kakaoLoginTrigger(accessToken: string): void {
-    this.authService
-      .modifiedKakaoLogin(accessToken)
-      .subscribe((user: User) => {
-        this.router.navigateByUrl('feed').then(() => {
-          this.storageService.setUser(user)
-          this.angularFireAuth.signInWithCustomToken(user.customToken)
-        });
+    this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
+      this.router.navigateByUrl('feed').then(() => {
+        this.storageService.setUser(user);
+        this.angularFireAuth.signInWithCustomToken(user.customToken);
       });
+    });
   }
 
   /** 네이버 로그인 */
@@ -205,19 +185,17 @@ export class LoginComponent implements OnInit, OnDestroy {
       `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`,
       '_blank',
       `width=${width},height=${height},top=${top},left=${left},scrollbars=no`
-    )
+    );
   }
 
   async _signInWithNaver(code: string): Promise<void> {
-    this.naverLoginPopupWindowRef.close()
-    this.authService
-      .modifySignWithNaver(code)
-      .subscribe((user: any) => {
-        this.router.navigateByUrl('feed').then(() => {
-          this.storageService.setUser(user);
-          this.angularFireAuth.signInWithCustomToken(user.customToken);
-        });
+    this.naverLoginPopupWindowRef.close();
+    this.authService.modifySignWithNaver(code).subscribe((user: any) => {
+      this.router.navigateByUrl('feed').then(() => {
+        this.storageService.setUser(user);
+        this.angularFireAuth.signInWithCustomToken(user.customToken);
       });
+    });
   }
 
   async signInWithEmail() {
@@ -231,25 +209,27 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService
       .signInWithEmail({
         providedId: this.email,
-        password: this.password
+        password: this.password,
       })
-      .subscribe((user: User) => {
-        this.router.navigateByUrl('feed').then(() => {
-          this.storageService.setUser(user);
-          this.angularFireAuth.signInWithCustomToken(user.customToken);
-        });
-      },
-      (e) => {
-        this.globalService.showToast('로그인 실패');
-      });
+      .subscribe(
+        (user: User) => {
+          this.router.navigateByUrl('feed').then(() => {
+            this.storageService.setUser(user);
+            this.angularFireAuth.signInWithCustomToken(user.customToken);
+          });
+        },
+        (e) => {
+          let message = this.textService.getText('auth:email:008');
+          this.globalService.showToast(message);
+        }
+      );
   }
 
   /** enter, email, tab, password */
   onKeyup(event, type) {
     if (event.key === 'Enter') {
       if (this.formCheck()) {
-        this.signInWithEmail().then(r => {
-        });
+        this.signInWithEmail().then((r) => {});
       }
     } else {
       if (event.key !== 'Tab' && type === 'email') {
@@ -267,7 +247,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       isValid = true;
     }
 
-    return isValid
+    return isValid;
   }
 
   /**
@@ -289,14 +269,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.emailErrorText = this.textService.getText('auth:login:001');
     }
 
-    return isValid
+    return isValid;
   }
 
   /**
    * password 패턴 체크
    * */
   checkPasswordPattern(password: string) {
-    let isValid = false
+    let isValid = false;
 
     const pattern1 = /[0-9]/;
     const pattern2 = /[a-zA-Z]/;
@@ -335,7 +315,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   openLangBox(event) {
-    event.stopPropagation()
+    event.stopPropagation();
 
     if (this.langBoxVisible) {
       this.closeLangBox();

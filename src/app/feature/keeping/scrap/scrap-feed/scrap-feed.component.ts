@@ -87,6 +87,7 @@ export class ScrapFeedComponent implements OnInit {
           this.feedBookmarkList = feedBookmarkList.items;
         }
         this.totalCount = feedBookmarkList.meta.totalCount;
+        console.log(this.feedBookmarkList);
       },
       (e) => {
         // 스크랩한 게시물이 없음

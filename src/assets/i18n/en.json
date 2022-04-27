@@ -167,7 +167,7 @@
       "following": "Following"
     },
     "feed-follow":  {
-      "undefined-comment": "Follow the user you want to see."
+      "undefined-comment": "You don't have a following user yet.\nStart community activities on the feed!"
     },
     "magazine": {
       "top-title": "News & Updates Articles",
@@ -284,6 +284,7 @@
   },
   "component": {
     "feed-comment": {
+      "undefined-comment": "Please write comments first",
       "comment": "Comment",
       "reply-comment": "reply comment",
       "like": "like",

@@ -5,6 +5,7 @@ import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 
 import { User } from '@schemas/user';
+import { TextService } from '@services/text.service';
 
 @Component({
   selector: 'header',
@@ -64,7 +65,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private globalService: GlobalService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private textService: TextService
   ) {}
 
   ngOnInit() {
@@ -144,7 +146,10 @@ export class HeaderComponent implements OnInit {
 
   async logout() {
     await this.storageService.removeUser();
-    this.router.navigateByUrl('/').then();
+    this.router.navigateByUrl('/').then(() => {
+      let message = this.textService.getText('auth:logout:001');
+      this.globalService.showToast(message);
+    });
   }
 
   showLoginModal() {

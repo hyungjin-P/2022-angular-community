@@ -38,7 +38,7 @@
       <div class="item-empty-content">
         {{('mypage.empty-text-2' | translate)}}
       </div>
-      <div class="item-empty-btns">
+      <div class="item-empty-btns d-none d-lg-flex">
         <button type="button" (click)="goRouter('/write')">
           <span [inlineSVG]="'assets/icons/mypage/pensil-color.svg'"></span>
           <div>{{ 'mypage.write' | translate }}</div>
@@ -79,7 +79,6 @@
           </div>
         </div>
       </ng-container>
-
     </div>
 
     <div class="item-content">

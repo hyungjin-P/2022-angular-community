@@ -98,12 +98,14 @@
 
         <div class="h-line"></div>
 
+
+        <!-- comment not found -->
+        <div class="comment-notfound" *ngIf='sortedComments.length === 0'>
+          {{ 'component.feed-comment.undefined-comment' | translate }}
+        </div>
+
         <!-- 코멘트 -->
-        <div class="comments">
-
-          <!-- comment not found -->
-          <div class="comment-notfound"></div>
-
+        <div class="comments" *ngIf='sortedComments.length > 0'>
           <ng-container *ngFor="let parent of sortedComments; let i = index">
             <!-- 1 Depth 댓글 -->
             <div class="comment-parent">
@@ -171,9 +173,7 @@
                     {{'component.feed-comment.delete' | translate}}
                   </div>
                 </div>
-
               </div>
-
             </div>
 
             <!-- 2 Depth 대댓글 -->

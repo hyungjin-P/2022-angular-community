@@ -13,6 +13,7 @@ export class TextService {
       'auth:email:005': '비밀번호에 공백을 제외하고 입력해주세요.',
       'auth:email:006': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
       'auth:email:007': '비밀번호가 일치하지 않습니다.',
+      'auth:email:008': '사용자가 존재하지 않습니다.',
 
       'auth:forgot-password:001': '비밀번호 재설정 링크를 발송하였습니다.',
       'auth:forgot-password:002': '확인',
@@ -31,6 +32,8 @@ export class TextService {
 
       'auth.registration-001': '회원가입 중 오류가 발생했습니다.',
 
+      'auth:logout:001': '로그아웃 되었습니다.',
+
       'settings:profile:001': '최대 200자까지 간단 소개글을 입력해 주세요.',
       'settings:profile:002': '사용가능한 닉네임입니다.',
       'settings:profile:003': '사용중인 닉네임입니다.',
@@ -46,10 +49,16 @@ export class TextService {
       'write:feed:002': '내용을 작성하세요.',
       'write:feed:003': '등록하였습니다.',
       'write:feed:004': '태그는 최대 10개까지 등록 가능해요',
-      'write:feed:005': '수정되었습니다.',
+      'write:feed:005': '수정이 완료되었습니다.',
 
       'follow:001': '팔로우 하였습니다.',
       'follow:002': '팔로우 해제되었습니다.',
+
+      'comment:001': '삭제 완료되었습니다.',
+      'comment:002': '댓글이 수정되었습니다.',
+
+      'myPage:001': '배경 이미지가 등록되었습니다.',
+      'myPage:002': '배경 이미지가 삭제되었습니다.',
     },
     en: {
       'auth:email:001': 'Invalid email address.',
@@ -59,6 +68,7 @@ export class TextService {
       'auth:email:005': 'Spaces are not allowed.',
       'auth:email:006': 'Password must be at least 8 characters and contain English + numbers.',
       'auth:email:007': 'Passwords do not match.',
+      'auth:email:008': '사용자가 존재하지 않습니다.',
 
       'auth:forgot-password:001': 'We have sent you a password reset link.',
       'auth:forgot-password:002': 'Confirm',
@@ -77,6 +87,8 @@ export class TextService {
 
       'auth.registration-001': 'Sorry. Signup failed',
 
+      'auth:logout:001': 'You have been logged out.',
+
       'settings:profile:001': 'Please enter a brief introduction of up to 200 characters.',
       'settings:profile:002': 'Available nickname.',
       'settings:profile:003': 'This nickname is already using.',
@@ -92,10 +104,16 @@ export class TextService {
       'write:feed:002': 'Please write your content.',
       'write:feed:003': 'Posted.',
       'write:feed:004': 'You can register up to 10 tags.',
-      'write:feed:005': 'Update Complete.',
+      'write:feed:005': 'Modified Complete.',
 
       'follow:001': 'Followed it.',
       'follow:002': 'Unfollowed it.',
+
+      'comment:001': 'Deleted complete.',
+      'comment:002': 'Comment have been modified.',
+
+      'myPage:001': 'The background image has been saved.',
+      'myPage:002': 'The background image has been deleted.',
     },
   };
 

@@ -28,10 +28,11 @@
   padding-top: 40px;
 }
 
-
 /* default ~  */
 .items {
   display: flex;
+  align-items: center;
+
   padding: 32px;
   margin-bottom: 10px;
   min-height: 300px;
@@ -62,7 +63,6 @@
       color: var(--grey-3);
       font-weight: 400;
       font-size: 14px;
-
     }
 
     .item-empty-btns {
@@ -70,7 +70,8 @@
       justify-content: center;
       padding: 10px;
 
-      a, button {
+      a,
+      button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -163,7 +164,6 @@
       padding: 30px 15px;
 
       .item-box {
-
         .item-box-picture-count {
           visibility: visible;
           position: absolute;
@@ -177,7 +177,6 @@
           color: var(--white);
           text-align: center;
           @include textStyleNotoSans(500, 13px);
-
         }
 
         .item-box-other-count {
@@ -243,9 +242,7 @@
             color: var(--grey-4);
             @include textStyleNotoSans(400, 12);
           }
-
         }
-
       }
     }
   }
@@ -269,7 +266,6 @@
 
     .item-list {
       padding: 20px 6px;
-
     }
   }
 }

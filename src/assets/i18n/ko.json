@@ -167,7 +167,7 @@
       "following": "팔로잉"
     },
     "feed-follow":  {
-      "undefined-comment": "보고싶은 유저를 팔로우 해보세요"
+      "undefined-comment": "아직 팔로잉한 유저가 없네요.\n피드에서 커뮤니티 활동을 시작 해보세요!"
     },
     "magazine": {
       "top-title": "이번주 에디터 뉴스",
@@ -284,6 +284,7 @@
   },
   "component": {
     "feed-comment": {
+      "undefined-comment": "가장 먼저 댓글을 남겨 보세요",
       "comment": "댓글",
       "reply-comment": "답글 쓰기",
       "like": "좋아요",

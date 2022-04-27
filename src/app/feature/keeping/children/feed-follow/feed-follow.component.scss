@@ -66,6 +66,8 @@
       justify-content: center;
 
       .item-empty-content {
+        text-align: center;
+        white-space: pre-line;
         margin: 100px auto;
 
         @include textStyleNotoSans(400, 14px);
@@ -836,6 +838,27 @@
 
 .liked-view-wrapper-show {
   display: flex;
+}
+
+.write {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+  bottom: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 40px;
+  background: linear-gradient(143.82deg, rgba(171, 190, 255, 0.2) 13.1%, rgba(8, 32, 114, 0.2) 83.81%),
+    radial-gradient(50% 50% at 50% 50%, #567dff 0%, #446fff 100%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 @media (min-width: 576px) {

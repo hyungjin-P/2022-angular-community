@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { GlobalService } from '@services/global.service';
@@ -25,6 +25,7 @@ import { User } from '@schemas/user';
 import { File } from '@schemas/file';
 import { MypageFeedDetailComponent } from './mypage-feed-detail/mypage-feed-detail.component';
 import { FollowService } from '@services/follow.service';
+import { TextService } from '@services/text.service';
 
 @Component({
   selector: 'mypage',
@@ -32,7 +33,6 @@ import { FollowService } from '@services/follow.service';
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit, AfterViewInit {
-
   variables: any;
 
   user: User;
@@ -60,6 +60,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
     private fileService: FileService,
     private followService: FollowService,
     private activateRoute: ActivatedRoute,
+    private textService: TextService
   ) {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
 
@@ -71,7 +72,6 @@ export class MypageComponent implements OnInit, AfterViewInit {
         this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
       }, 200);
     });
-
   }
 
   ngOnInit() {
@@ -116,14 +116,11 @@ export class MypageComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         if (componentRef.otherUserId) {
           this.isOtherUser = true;
-          this.userService
-            .getUser(componentRef.otherUserId)
-            .subscribe((user) => {
-              this.user = user;
-              this.countFollow(this.user.id);
-            });
+          this.userService.getUser(componentRef.otherUserId).subscribe((user) => {
+            this.user = user;
+            this.countFollow(this.user.id);
+          });
         }
-
       }, 0);
     }
   }
@@ -163,6 +160,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
       this.user.background = createdFiles.concat(this.user.background);
       this.storageService.setUser(this.user);
 
+      let message = this.textService.getText('myPage:001');
+      this.globalService.showToast(message);
       background.value = '';
     } catch (e) {
       this.globalService.showToast(e.message);
@@ -180,6 +179,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
       this.changeBackgroundEditMode(false);
       this.user.background = [];
       this.storageService.setUser(this.user);
+      let message = this.textService.getText('myPage:002');
+      this.globalService.showToast(message);
     } catch (e) {
       this.globalService.showToast(e.message);
     }
@@ -216,6 +217,9 @@ export class MypageComponent implements OnInit, AfterViewInit {
       await this.userService.deleteUserBackground(oldBackgroundUrl).toPromise();
 
       this.changeBackgroundEditMode(false);
+
+      let message = this.textService.getText('myPage:001');
+      this.globalService.showToast(message);
     } catch (e) {
       this.globalService.showToast(e.message);
     }
@@ -223,6 +227,9 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   async logout() {
     await this.storageService.removeUser();
-    this.router.navigateByUrl('/').then();
+    this.router.navigateByUrl('/').then(() => {
+      let message = this.textService.getText('auth:logout:001');
+      this.globalService.showToast(message);
+    });
   }
 }
