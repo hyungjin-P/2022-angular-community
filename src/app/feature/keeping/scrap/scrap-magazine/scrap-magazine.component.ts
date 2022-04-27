@@ -77,7 +77,6 @@ export class ScrapMagazineComponent implements OnInit {
 
         this.totalCount = magazineList.meta.totalCount;
         this.changeBody(this.magazineBookmarkList);
-        console.log(this.magazineBookmarkList);
       },
       (e) => {
         // 스크랩 게시물이 없음

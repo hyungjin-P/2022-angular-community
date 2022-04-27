@@ -41,6 +41,33 @@
   <div class="container">
     <div class="row">
       <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
+        <div class="lang" [class.lang-box-open]="langBoxVisible">
+          <a (click)="openLangBox($event)">
+            <span>{{ 'auth.login.lang' | translate }}</span>
+            <span class="mdi mdi-chevron-down"></span>
+          </a>
+          <div
+            class="lang-box"
+            [class.d-block]="langBoxVisible"
+            (click)="$event.stopPropagation()"
+            (sharedClickOutside)="closeLangBox()"
+          >
+            <a class="lang-box-menu" (click)="switchLanguage('ko')">
+              <div>한국어</div>
+              <shared-checkbox [checked]="selectedLanguage == 'ko'" shape="circle"></shared-checkbox>
+            </a>
+            <div class="lang-box-h-line"></div>
+            <a class="lang-box-menu" (click)="switchLanguage('en')">
+              <div>English</div>
+              <shared-checkbox [checked]="selectedLanguage == 'en'" shape="circle"></shared-checkbox>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
         <div class="text-1">
           <div>{{ 'auth.registration.text1-1' | translate }}</div>
           <div>{{ 'auth.registration.text1-2' | translate }}</div>
@@ -82,6 +109,8 @@
         </a>
       </div>
     </div>
+
+    <!-- 로그인 페이지로 이동 -->
     <div class="row">
       <div class="col">
         <div class="text-3">

@@ -196,6 +196,8 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     let picturesLength = this.feed.pictures.length + files.length;
     if (picturesLength > 8) {
       // 사진 최대 장 수 관련 토스트 메세지 출력
+      let message = this.textService.getText('write:feed:001');
+      this.globalService.showToast(message);
       return;
     }
 
