@@ -214,12 +214,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
    */
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.deleteFeedBookmark({feedId: feed?.id, userId}).subscribe(
-        (data) => {
+      this.feedService
+        .deleteFeedBookmark({feedId: feed?.id, userId})
+        .subscribe((data) => {
           feed.isBookmark = false;
-        },
-        (error) => {}
-      );
+          },() => {});
     }
   }
 

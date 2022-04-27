@@ -67,5 +67,45 @@ export class FollowService {
 
   }
 
+  findFollowingList(followPageDto: FollowPageDto): Observable<any> {
+    const url = environment.userApiAddress +
+      `/follow/findFollowing?userId=${followPageDto.userId}&page=${followPageDto.page}&limit=${followPageDto.limit}`
 
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  findFollowerList(followPageDto: FollowPageDto): Observable<any> {
+    const url = environment.userApiAddress +
+      `/follow/findFollower?userId=${followPageDto.userId}&page=${followPageDto.page}&limit=${followPageDto.limit}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+}
+
+class FollowPageDto {
+  userId: string;
+  page: number;
+  limit: number;
 }

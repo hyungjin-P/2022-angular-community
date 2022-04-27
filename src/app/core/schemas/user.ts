@@ -24,7 +24,8 @@ export class User {
     public accessToken: string,
     public refreshToken: string,
     public customToken: string,
-    public isFollow: boolean
+    public isFollow: boolean,
+    public metaInfo: any,
   ) {
     this.id = id;
     this.provider = provider;
@@ -49,5 +50,6 @@ export class User {
     this.refreshToken = refreshToken;
     this.customToken = customToken;
     this.isFollow = isFollow;
+    this.metaInfo = metaInfo;
   }
 }

@@ -14,10 +14,13 @@ import {UserService} from "@services/user.service";
 export class MypageFeedComponent implements OnInit, AfterViewInit {
 
   user: User;
+
   feedList: any[] = [];
+
   emptyCount: number = 0;
   otherCount: number = 0;
   totalCount: number = 0;
+
   limit: number = 12; // 메인 출력 개수
 
   otherUserId: string;
@@ -38,16 +41,16 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
     this.user = this.storageService.getUser();
 
     // 라우팅 구분
-    this.activateRoute.params.subscribe(params => {
-      if (params?.userId) {
-        this.otherUserId = params.userId;
-        console.log('mypage-feed.params : ', this.otherUserId);
-        this.userService
-          .getUser(this.otherUserId)
-          .subscribe((user) => {
-            this.user = user;
-            this.findMyPageFeedList(this.user.id, this.limit);
-          });
+    this.activateRoute.params
+      .subscribe(params => {
+        if (params?.userId) {
+          this.otherUserId = params.userId;
+          this.userService
+            .getUser(this.otherUserId)
+            .subscribe((user) => {
+              this.user = user;
+              this.findMyPageFeedList(this.user.id, this.limit);
+            });
       } else {
         this.findMyPageFeedList(this.user.id, this.limit);
       }
@@ -81,6 +84,7 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
           if (this.totalCount === 0) {
             this.feedList = [];
           }
+
         });
     }
   }

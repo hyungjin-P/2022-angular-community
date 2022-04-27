@@ -59,7 +59,8 @@
 </div>
 
 <!-- 등록한 피드 있을 때 -->
-<div class="items flex-wrap" *ngIf="feedList.length > 0">
+<div class="items flex-wrap"
+     *ngIf="feedList.length > 0">
 
   <div class="item-list col-6 col-lg-3"
        *ngFor="let feed of feedList; let i = index;">
@@ -68,7 +69,8 @@
          [ngStyle]="comparisonBackgroundImage(feed)"
          (click)="goFeedDetail()">
 
-      <div class="item-box-picture-count d-lg-none" *ngIf="feed?.pictureCount > 1">
+      <div class="item-box-picture-count d-lg-none"
+           *ngIf="feed?.pictureCount > 1">
         {{ feed?.pictureCount > 99 ? '99+' : ('+' + feed?.pictureCount) }}
       </div>
 
@@ -82,20 +84,19 @@
     </div>
 
     <div class="item-content">
-      <!-- url 넣어야 함 -->
-      <div class="user-infos">
+      <div class="user-infos" *ngIf="feed?.id">
         <div class="avatar"
              [ngStyle]="comparisonUserPicture(user)"></div>
         <div class="nickname">
-          {{ user?.nickname ? user.nickname : user.email }}
+            {{ user?.nickname ? user.nickname : user.email }}
         </div>
       </div>
 
-      <div class="user-contents">
+      <div class="user-contents" *ngIf="feed?.id">
         {{ feed.content }}
       </div>
 
-      <div class="user-contents-infos">
+      <div class="user-contents-infos" *ngIf="feed?.id">
         <div class="info-icon heart"
              [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>
         <div class="info-count">

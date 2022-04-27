@@ -56,25 +56,28 @@
     </div>-->
     <div class="row">
       <div class="col col-sm-8 offset-sm-2 col-lg-12 offset-lg-0">
-        <div class="lang" [class.lang-box-open]="langBoxVisible">
+        <div class="lang"
+             [class.lang-box-open]="langBoxVisible">
           <a (click)="openLangBox($event)">
             <span>{{ 'auth.login.lang' | translate }}</span>
             <span class="mdi mdi-chevron-down"></span>
           </a>
-          <div
-            class="lang-box"
-            [class.d-block]="langBoxVisible"
-            (click)="$event.stopPropagation()"
-            (sharedClickOutside)="closeLangBox()"
-          >
-            <a class="lang-box-menu" (click)="switchLanguage('ko')">
+          <div class="lang-box"
+               [class.d-block]="langBoxVisible"
+               (click)="$event.stopPropagation()"
+               (sharedClickOutside)="closeLangBox()">
+            <a class="lang-box-menu"
+               (click)="switchLanguage('ko')">
               <div>한국어</div>
-              <shared-checkbox [checked]="selectedLanguage == 'ko'" shape="circle"></shared-checkbox>
+              <shared-checkbox [checked]="selectedLanguage === 'ko'"
+                               shape="circle"></shared-checkbox>
             </a>
             <div class="lang-box-h-line"></div>
-            <a class="lang-box-menu" (click)="switchLanguage('en')">
+            <a class="lang-box-menu"
+               (click)="switchLanguage('en')">
               <div>English</div>
-              <shared-checkbox [checked]="selectedLanguage == 'en'" shape="circle"></shared-checkbox>
+              <shared-checkbox [checked]="selectedLanguage === 'en'"
+                               shape="circle"></shared-checkbox>
             </a>
           </div>
         </div>
@@ -113,7 +116,7 @@
             src="assets/icons/etc/eye-visible.svg"
             (click)="changePasswordVisible()"
             *ngIf="passwordVisible"
-          />
+            alt="">
 
           <shared-input
             type="password"
@@ -130,7 +133,7 @@
             src="assets/icons/etc/eye-invisible.svg"
             (click)="changePasswordVisible()"
             *ngIf="!passwordVisible"
-          />
+            alt="">
         </div>
       </div>
     </div>

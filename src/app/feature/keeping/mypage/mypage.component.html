@@ -16,6 +16,10 @@
 <ng-template #mypage>
   <div class="full-absolute d-flex flex-column">
 
+    <!-- modal show -->
+    <app-follow-view-modal #followView></app-follow-view-modal>
+
+
     <ng-container *ngIf="!isOtherPeople">
       <header class="d-lg-none"></header>
     </ng-container>
@@ -172,7 +176,7 @@
                 </div>
 
                 <!-- 내프로필 > 팔로우 -->
-                <div class="follow">
+                <div class="follow cursor-pointer" (click)="openFollowView()">
                   <div class="following">
                     {{ 'mypage.following-text' | translate }}
                   </div>

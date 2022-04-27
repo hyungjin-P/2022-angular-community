@@ -26,6 +26,7 @@ import { File } from '@schemas/file';
 import { MypageFeedDetailComponent } from './mypage-feed-detail/mypage-feed-detail.component';
 import { FollowService } from '@services/follow.service';
 import { TextService } from '@services/text.service';
+import {FollowViewModalComponent} from "@shared/components/follow-view-modal/follow-view-modal.component";
 
 @Component({
   selector: 'mypage',
@@ -50,6 +51,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
   mypageFeedDetail: MypageFeedDetailComponent;
 
   isOtherUser: boolean = false;
+
+  @ViewChild('followView') followView: FollowViewModalComponent;
 
   constructor(
     private router: Router,
@@ -231,5 +234,10 @@ export class MypageComponent implements OnInit, AfterViewInit {
       let message = this.textService.getText('auth:logout:001');
       this.globalService.showToast(message);
     });
+  }
+
+  openFollowView(): void {
+    this.followView.userId = this.user.id;
+    this.followView.onFollowViewModalShow();
   }
 }

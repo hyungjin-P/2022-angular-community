@@ -43,6 +43,7 @@ import {SwiperModule} from "swiper/angular";
 import {FeedCommentModalComponent} from './components/feed-comment-modal/feed-comment-modal.component';
 import {InlineSVGModule} from "ng-inline-svg";
 import {ComponentsModule} from "../feature/components/components.module";
+import { FollowViewModalComponent } from './components/follow-view-modal/follow-view-modal.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -78,6 +79,7 @@ export function createTranslateLoader(http: HttpClient) {
     TimePipe,
     FeedSliderComponent,
     FeedCommentModalComponent,
+    FollowViewModalComponent,
   ],
   imports: [
     CommonModule,
@@ -135,6 +137,7 @@ export function createTranslateLoader(http: HttpClient) {
     LoginModalComponent,
     FeedSliderComponent,
     FeedCommentModalComponent,
+    FollowViewModalComponent,
   ],
   providers: [],
 })

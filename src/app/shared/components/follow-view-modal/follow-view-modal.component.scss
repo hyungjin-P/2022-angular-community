@@ -1,0 +1,286 @@
+@import '/src/assets/styles/font';
+
+.modal.follow-view-modal {
+  .modal-content {
+    border-radius: 20px;
+    border: 0;
+    width: 420px;
+    height: 600px;
+
+    .modal-header {
+      border: 0;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+
+      .modal-title {
+        @include textStyleNotoSans(700, 20px);
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .close {
+        margin-left: 0;
+        padding-top: 17px;
+      }
+
+    }
+
+    .modal-body {
+      padding: 0;
+      overflow-y: hidden;
+
+      .slider-wrapper {
+        height: calc(100% - 40px);
+
+        .details-slider {
+          height: calc(100% - 40px);
+
+          .details {
+            display: flex;
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: scroll;
+
+            .details-content {
+              width: 100%;
+
+              .summary {
+                @include textStyleNotoSans(400, 13px);
+                margin-bottom: 12px;
+              }
+
+              .data-list {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .data-item {
+                  width: 100%;
+                  padding-top: 12px;
+                  padding-bottom: 12px;
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+
+                  .avatar {
+                    margin-right: 8px;
+                  }
+
+                  .nickname {
+                    flex-grow: 1;
+
+                    span {
+                      color: var(--black-2);
+                      @include textStyleNotoSans(400, 13px);
+                    }
+                  }
+
+                  .follow {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 92px;
+                    height: 33px;
+                    border: 1px solid var(--blue-3);
+                    border-radius: 8px;
+                    background-color: var(--white);
+                    @include textStyleNotoSans(500, 13px);
+                    color: var(--blue-3);
+                    transition: ease 0.3s;
+
+                    .button-icon {
+                      transition: ease 0.3s;
+                      margin-right: 4px;
+                      width: 14px;
+                      height: 14px;
+                      display: block;
+                      background: url('~src/assets/icons/follow-view/plus-icon.svg') no-repeat;
+                    }
+
+                    &:hover {
+                      transition: ease 0.3s;
+                      background-color: var(--blue-3);
+                      color: var(--white);
+
+                      .button-icon {
+                        transition: ease 0.3s;
+                        background: url('~src/assets/icons/follow-view/plus-icon-active.svg') no-repeat;
+                      }
+                    }
+
+                    &.checked {
+                      background-color: var(--blue-3);
+                      color: var(--white);
+
+                      .button-icon {
+                        background: url('~src/assets/icons/follow-view/plus-icon-checked-active.svg') no-repeat;
+                      }
+                    }
+
+                    &.checked:hover {
+                      background-color: var(--white);
+                      color: var(--blue-3);
+
+                      .button-icon {
+                        background: url('~src/assets/icons/follow-view/plus-icon-checked.svg') no-repeat;
+                      }
+                    }
+
+                  }
+
+                }
+
+              }
+
+              .empty {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+
+                .empty-inner {
+                  padding-top: calc(50% - 40px);
+                  height: 100%;
+                  text-align: center;
+
+                  .empty-title {
+                    @include textStyleNotoSans(700, 14px);
+                    color: var(--grey-2);
+                    margin-bottom: 10px;
+                  }
+
+                  .empty-text {
+                    color: var(--grey-3);
+                    @include textStyleNotoSans(400, 13px);
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+
+  }
+
+  /***********************/
+  /* sliding tab default */
+  /***********************/
+
+  $tabs: "follower", "following";
+
+  .nav {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+
+    label {
+      flex-grow: 1;
+      padding: 16px;
+      text-align: center;
+      @include textStyleNotoSans(500, 14px);
+      text-transform: uppercase;
+      color: var(--grey-3);
+      transition: var(--bounce);
+      cursor: pointer;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: calc(100% / var(--length));
+      height: 100%;
+      border-bottom: 3px solid var(--primary);
+      transform: translateX(calc(100% * var(--i)));
+      transition: var(--bounce);
+    }
+  }
+
+  .slider-wrapper {
+    overflow: hidden;
+
+    .details-slider {
+      display: flex;
+      width: calc(100% * var(--length));
+      will-change: transform;
+      transform: translateX(calc((-100% / var(--length)) * var(--i)));
+      transition: var(--bounce);
+    }
+
+    .details {
+      width: 100%;
+    }
+  }
+
+  @each $tab in $tabs {
+    ##{$tab}:checked,
+    ##{$tab}:focus {
+      & ~ .nav,
+      & ~ .slider-wrapper {
+        --i: #{index($tabs, $tab) - 1};
+
+        label[for="#{$tab}"] {
+          color: var(--primary);
+          font-weight: 700;
+          transition: all 0.3s;
+        }
+      }
+    }
+  }
+  /***********************/
+  /* sliding tab default */
+  /***********************/
+
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  display: none;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.display-none {
+  display: none;
+}
+
+$tabs: "follower", "following";
+
+:root {
+  font-size: calc(10px + 1vmin);
+  --primary: var(--blue-3);
+  --darkGrey: #333344;
+  --mediumGrey: #557777;
+  --softGrey: #9a97a8;
+  --softTint: rgba(0, 0, 0, 0.2);
+  --bounce: 0.3s cubic-bezier(0.1, -0.5, 0.1, 1.4);
+  --ease: 0.5s cubic-bezier(0.3, 0.1, 0.3, 1);
+  --length: #{length($tabs)};
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  line-height: inherit;
+  text-decoration: none;
+  list-style-type: none;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+

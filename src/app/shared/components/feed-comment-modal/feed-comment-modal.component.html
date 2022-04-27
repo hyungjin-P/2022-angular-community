@@ -164,12 +164,15 @@
                   </span>
                 </div>
 
-                <div class="manage-btns" *ngIf="isMyComment(parent?.writer.id, loginUser?.id)">
-                  <div class="modify" (click)="onClickModifyComment(parent, loginUser?.id)">
+                <div class="manage-btns"
+                     *ngIf="isMyComment(parent?.writer.id, loginUser?.id)">
+                  <div class="modify"
+                       (click)="onClickModifyComment(parent, loginUser?.id)">
                     {{'component.feed-comment.modify' | translate}}
                   </div>
 
-                  <div class="remove" (click)="onConfirmModalShow(parent, 'delete')">
+                  <div class="remove"
+                       (click)="onConfirmModalShow(parent, 'delete')">
                     {{'component.feed-comment.delete' | translate}}
                   </div>
                 </div>

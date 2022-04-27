@@ -13,7 +13,8 @@
     <div class="section full-absolute scroll-y" #scrollEl>
       <div class="backToAll d-none d-lg-flex">
         <a [routerLink]="['/feed']">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="18" height="18" viewBox="0 0 18 18"
+               fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_6250_30206)">
               <path
                 d="M12 3L6 9L12 15"
@@ -38,16 +39,21 @@
       <div class="items">
         <div class="selected-item">
           <div class="row-1">
+            <!-- 상단 표시 -->
             <shared-avatar
-              [image]="selectedFeed?.writer.picture[0]?.url"
+              [image]="selectedFeed?.writer?.picture[0]?.url"
               text="{{ selectedFeed?.writer.email }}"
               size="30"
-              fontSize="16"
-            ></shared-avatar>
+              fontSize="16">
+            </shared-avatar>
+
             <div class="nickname">
               {{ selectedFeed?.writer.nickname || selectedFeed?.writer.email.split('@')[0] }}
             </div>
-            <div class="updated-at" [(ngModel)]="beginTime" ngDefaultControl>
+
+            <div class="updated-at"
+                 [(ngModel)]="beginTime"
+                 ngDefaultControl>
               {{ beginTime }}
             </div>
             <a class="follow"
@@ -68,20 +74,27 @@
                     <path d="M6 2.00101V10.001M2 6.00101H10" stroke="#111214" />
                   </svg>
                 </div>
-                <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>
+                <div class="text">
+                  {{ 'keeping.feed-detail.follow' | translate }}
+                </div>
               </div>
             </a>
-            <div class="more" *ngIf="user && user?.id == selectedFeed?.writer.id">
-              <div class="more-menu" (click)="openMoreBox($event)">
+            <div class="more"
+                 *ngIf="user && user?.id == selectedFeed?.writer.id">
+              <div class="more-menu"
+                   (click)="openMoreBox($event)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="11.5" cy="5.50101" r="1.5" fill="#93A0B2" />
                   <circle cx="11.5" cy="12.501" r="1.5" fill="#93A0B2" />
                   <circle cx="11.5" cy="19.501" r="1.5" fill="#93A0B2" />
                 </svg>
               </div>
-              <div class="more-box" *ngIf="moreBoxVisible" (sharedClickOutside)="closeMoreBox()">
+              <div class="more-box"
+                   *ngIf="moreBoxVisible"
+                   (sharedClickOutside)="closeMoreBox()">
                 <div class="more-box-menu">
-                  <a class="menu-modify" (click)="modifyFeed(selectedFeed)">
+                  <a class="menu-modify"
+                     (click)="modifyFeed(selectedFeed)">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M13.9376 2.06066L15.4361 3.55921L16.9344 5.05757L5.23885 16.745H2.25001L2.25015 13.7479L13.9376 2.06066Z"
@@ -90,7 +103,9 @@
                       />
                       <line x1="12.0303" y1="4.46967" x2="15.0303" y2="7.46967" stroke="#647183" stroke-width="1.5" />
                     </svg>
-                    <div class="text">{{ 'keeping.feed-detail.more-modify' | translate }}</div>
+                    <div class="text">
+                      {{ 'keeping.feed-detail.more-modify' | translate }}
+                    </div>
                   </a>
                   <a class="menu-delete" (click)="showDeleteFeedConfirmModal(selectedFeed)">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +117,9 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <div class="text">{{ 'keeping.feed-detail.more-delete' | translate }}</div>
+                    <div class="text">
+                      {{ 'keeping.feed-detail.more-delete' | translate }}
+                    </div>
                   </a>
                 </div>
               </div>
@@ -340,7 +357,7 @@
           <div class="row-2">{{ selectedFeed?.content }}</div>
           <div class="row-3">
             <div>
-              <div class="tag" *ngFor="let tag of selectedFeed?.tags"># {{ tag.name }}</div>
+              <div class="tag" *ngFor="let tag of selectedFeed?.tags">#&nbsp;{{ tag.name }}</div>
             </div>
           </div>
         </div>
@@ -551,15 +568,8 @@
   </div>
 </ng-template>
 
-
-
-
-
-
-
-
-
 <div class="liked-view-background" [class.liked-view-background-show]="likedViewVisible"></div>
+
 <div class="liked-view-wrapper justify-content-center align-items-center"
      [class.liked-view-wrapper-show]="likedViewVisible"
      (click)="hideLikedView()">

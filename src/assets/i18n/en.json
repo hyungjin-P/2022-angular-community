@@ -286,7 +286,7 @@
     "feed-comment": {
       "undefined-comment": "Please write comments first",
       "comment": "Comment",
-      "reply-comment": "reply comment",
+      "reply-comment": "reply",
       "like": "like",
       "apply": "Apply",
       "writing-comment-for": "writing a reply..",

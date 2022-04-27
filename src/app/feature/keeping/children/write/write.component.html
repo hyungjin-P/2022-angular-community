@@ -1,178 +1,194 @@
-<div class="write full-absolute d-flex flex-column">
-    <div class="mobile-header d-lg-none">
-        <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
-        <div>{{ 'keeping.mobile-header.write' | translate }}</div>
-        <a class="shared-button-secondary" (click)="posting()">{{ 'keeping.write.save-button-text' | translate }}</a>
-    </div>
+<div class="write full-absolute d-flex flex-column" id="write-feed">
+  <div class="mobile-header d-lg-none">
+    <div class="mdi mdi-chevron-left" (click)="goBack()"></div>
+    <div>{{ 'keeping.mobile-header.write' | translate }}</div>
+    <!-- write-feed-button class => 구글 애널리틱스 감지용 -->
+    <a class="shared-button-secondary write-feed-button" (click)="posting()">{{ 'keeping.write.save-button-text' | translate }}</a>
+  </div>
 
-    <div class="flex-fill" style="position: relative">
-        <div class="section full-absolute">
-          <div class='item'>
-            <div class="form">
-                <div id = "carousel-addPicture" class = "carousel slide" data-ride = "false">
-                    <div
-                            class="form-header picture-header"
-                            [class.pictrue-box-open]="pictureBoxVisible"
-                            (click)="showPictureBox()"
-                    >
-                        <div class="icon">
-                            <div class="mdi mdi-camera"></div>
-                        </div>
-                        <div class="label">
-                            {{ 'keeping.write.add-picture-label' | translate }}
-                        </div>
-                        <div class="desc">{{ 'keeping.write.add-picture-label-desc' | translate }}</div>
-                        <span class="mdi mdi-chevron-down"></span>
-                    </div>
-                    <div class="picture-box scroll-x" #pictureBoxElement [class.d-flex]="pictureBoxVisible">
-                        <div class="add-picture" (click)="picture.click()">
-                            <div class="mdi mdi-plus"></div>
-                        </div>
-                        <div class="carousel-added-picture">
-                            <ng-container *ngFor="let picture of feed?.pictures; let i = index">
-                                <div class="added-picture">
-                                    <img [src]="picture.url" draggable="false" data-target="#carousel-addPicture" [attr.data-slide-to]="i" (click)="changeSlideIndex(i)"/>
-                                    <div class="added-picture-delete-menu" (click)="deletePicture(i, picture.url)">
-                                        <div class="mdi mdi-close"></div>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <div
-                            class="carousel-view"
-                            [class.carousel-view-show]="pictureBoxVisible && feed?.pictures"
-                    >
-                        <div class="carousel-inner">
-                            <ng-container *ngFor="let picture of feed?.pictures; let i = index">
-                                <ng-container *ngIf="i === 0">
-                                    <div class="carousel-item active">
-                                        <div class="carousel-panel-img-wrapper">
-                                            <img [src]="picture.url" class="d-block w-100" draggable="false" />
-                                        </div>
-                                        <div
-                                                class="carousel-panel-main-picture-menu"
-                                                [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
-                                                (click)="checkMainPicture(picture.url)"
-                                        >
-                                            <div class="mdi mdi-check"></div>
-                                            <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
-                                        </div>
-                                        <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
-                                            <div class="mdi mdi-close"></div>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                                <ng-container *ngIf="i > 0">
-                                    <div class="carousel-item">
-                                        <div class="carousel-panel-img-wrapper">
-                                            <img [src]="picture.url" class="d-block w-100" draggable="false" />
-                                        </div>
-                                        <div
-                                                class="carousel-panel-main-picture-menu"
-                                                [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
-                                                (click)="checkMainPicture(picture.url)"
-                                        >
-                                            <div class="mdi mdi-check"></div>
-                                            <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
-                                        </div>
-                                        <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
-                                            <div class="mdi mdi-close"></div>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                            </ng-container>
-                            <ng-container *ngIf="feed?.pictures?.length > 1 ">
-                                <button class="carousel-control-prev" type="button" data-target="#carousel-addPicture" data-slide="prev">
-                                    <span class="carousel-control-prev-background"></span>
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-target="#carousel-addPicture" data-slide="next">
-                                    <span class="carousel-control-next-background"></span>
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </button>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <input type="file" accept="image/*" #picture (change)="addPicture(picture)" hidden multiple />
-                </div>
+  <div class="flex-fill" style="position: relative">
+    <div class="section full-absolute">
+      <div class='item'>
+        <div class="form">
+          <div id="carousel-addPicture"
+               class="carousel slide"
+               data-ride="false">
+            <div
+              class="form-header picture-header"
+              [class.pictrue-box-open]="pictureBoxVisible"
+              (click)="showPictureBox()">
+              <div class="icon">
+                <div class="mdi mdi-camera"></div>
+              </div>
+              <div class="label">
+                {{ 'keeping.write.add-picture-label' | translate }}
+              </div>
+              <div class="desc">
+                {{ 'keeping.write.add-picture-label-desc' | translate }}
+              </div>
+              <span class="mdi mdi-chevron-down"></span>
             </div>
-            <div class="h-line"></div>
-            <div class="form">
-                <div class="content">
-                    <div class="label">{{ 'keeping.write.content-label' | translate }}</div>
-                    <textarea
-                        class="scroll-y"
-                        [placeholder]="'keeping.write.content-placeholder' | translate"
-                        [(ngModel)]="content"
-                        (blur)="updateContent()"
-                    ></textarea>
-                </div>
+            <div class="picture-box scroll-x"
+                 #pictureBoxElement
+                 [class.d-flex]="pictureBoxVisible">
+              <div class="add-picture" (click)="picture.click()">
+                <div class="mdi mdi-plus"></div>
+              </div>
+              <div class="carousel-added-picture">
+                <ng-container *ngFor="let picture of feed?.pictures; let i = index">
+                  <div class="added-picture">
+                    <img [src]="picture.url"
+                         draggable="false"
+                         data-target="#carousel-addPicture"
+                         [attr.data-slide-to]="i"
+                         (click)="changeSlideIndex(i)"
+                         alt="">
+                    <div class="added-picture-delete-menu" (click)="deletePicture(i, picture.url)">
+                      <div class="mdi mdi-close"></div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
             </div>
-            <div class="h-line"></div>
-            <div class="form">
-                <div class="form-header">
-                    <div class="icon">
-                        <div class="sharp">#</div>
+            <div
+              class="carousel-view"
+              [class.carousel-view-show]="pictureBoxVisible && feed?.pictures"
+            >
+              <div class="carousel-inner">
+                <ng-container *ngFor="let picture of feed?.pictures; let i = index">
+                  <ng-container *ngIf="i === 0">
+                    <div class="carousel-item active">
+                      <div class="carousel-panel-img-wrapper">
+                        <img [src]="picture.url" class="d-block w-100" draggable="false"/>
+                      </div>
+                      <div
+                        class="carousel-panel-main-picture-menu"
+                        [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
+                        (click)="checkMainPicture(picture.url)"
+                      >
+                        <div class="mdi mdi-check"></div>
+                        <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
+                      </div>
+                      <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
+                        <div class="mdi mdi-close"></div>
+                      </div>
                     </div>
-                    <div class="label">
-                        {{ 'keeping.write.add-tag-label' | translate }}
+                  </ng-container>
+                  <ng-container *ngIf="i > 0">
+                    <div class="carousel-item">
+                      <div class="carousel-panel-img-wrapper">
+                        <img [src]="picture.url" class="d-block w-100" draggable="false"/>
+                      </div>
+                      <div
+                        class="carousel-panel-main-picture-menu"
+                        [class.carousel-panel-main-picture-menu-checked]="feed.picture == picture.url"
+                        (click)="checkMainPicture(picture.url)"
+                      >
+                        <div class="mdi mdi-check"></div>
+                        <div>{{ 'keeping.write.add-picture-main-text' | translate }}</div>
+                      </div>
+                      <div class="carousel-panel-delete-menu" (click)="deletePicture(i, picture.url)">
+                        <div class="mdi mdi-close"></div>
+                      </div>
                     </div>
-                    <div class="desc">{{ 'keeping.write.add-tag-label-desc' | translate }}</div>
-                    <div class="count">
-                        <div>{{ feed?.tags?.length }}</div>
-                        <div>/</div>
-                        <div>10</div>
-                    </div>
-                </div>
-                <div class="tag-box">
-                    <div class="add-tag" (click)="showTagModal()">
-                        <div class="mdi mdi-plus"></div>
-                        <div>{{ 'keeping.write.add-tag-text' | translate }}</div>
-                    </div>
-                    <div class="tag" *ngFor="let tag of feed?.tags; let i = index">
-                        <div>#</div>
-                        <div class="tag-name">{{ tag.name }}</div>
-                        <div class="delete-tag" (click)="deleteTag(i, tag.id)">
-                            <div class="mdi mdi-close"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <a class="write-button shared-button-primary d-none d-lg-flex" (click)="posting()">
-                    <div>{{ 'keeping.write.write-button' | translate }}</div>
-                </a>
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngIf="feed?.pictures?.length > 1 ">
+                  <button class="carousel-control-prev" type="button" data-target="#carousel-addPicture"
+                          data-slide="prev">
+                    <span class="carousel-control-prev-background"></span>
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-target="#carousel-addPicture"
+                          data-slide="next">
+                    <span class="carousel-control-next-background"></span>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </button>
+                </ng-container>
+              </div>
             </div>
+            <input type="file" accept="image/*" #picture (change)="addPicture(picture)" hidden multiple/>
           </div>
         </div>
+        <div class="h-line"></div>
+        <div class="form">
+          <div class="content">
+            <div class="label">{{ 'keeping.write.content-label' | translate }}</div>
+            <textarea
+              class="scroll-y"
+              [placeholder]="'keeping.write.content-placeholder' | translate"
+              [(ngModel)]="content"
+              (blur)="updateContent()"
+            ></textarea>
+          </div>
+        </div>
+        <div class="h-line"></div>
+        <div class="form">
+          <div class="form-header">
+            <div class="icon">
+              <div class="sharp">#</div>
+            </div>
+            <div class="label">
+              {{ 'keeping.write.add-tag-label' | translate }}
+            </div>
+            <div class="desc">{{ 'keeping.write.add-tag-label-desc' | translate }}</div>
+            <div class="count">
+              <div>{{ feed?.tags?.length }}</div>
+              <div>/</div>
+              <div>10</div>
+            </div>
+          </div>
+          <div class="tag-box">
+            <div class="add-tag" (click)="showTagModal()">
+              <div class="mdi mdi-plus"></div>
+              <div>{{ 'keeping.write.add-tag-text' | translate }}</div>
+            </div>
+            <div class="tag" *ngFor="let tag of feed?.tags; let i = index">
+              <div>#</div>
+              <div class="tag-name">{{ tag.name }}</div>
+              <div class="delete-tag" (click)="deleteTag(i, tag.id)">
+                <div class="mdi mdi-close"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- write-feed-button class => 구글 애널리틱스 감지용 -->
+          <a class="write-button shared-button-primary d-none d-lg-flex write-feed-button"
+             (click)="posting()">
+            <div>{{ 'keeping.write.write-button' | translate }}</div>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="add-tag-modal-background" [class.add-tag-modal-background-show]="tagModalVisible"></div>
 <div
-    class="add-tag-modal-wrapper justify-content-center align-items-center"
-    [class.add-tag-modal-wrapper-show]="tagModalVisible"
-    (click)="hideTagModal()"
+  class="add-tag-modal-wrapper justify-content-center align-items-center"
+  [class.add-tag-modal-wrapper-show]="tagModalVisible"
+  (click)="hideTagModal()"
 >
-    <div class="add-tag-modal user-select-none" (click)="$event.stopPropagation()">
-        <div class="tag-modal-label">{{ 'keeping.write.tag-modal-label' | translate }}</div>
-        <div class="tag-modal-input">
-            <input type="text" maxlength='20' [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement (keyup)="onTagKey($event)"/>
-            <div class="tag-modal-input-clear" (click)="clearTagModal()">
-                <div class="mdi mdi-close"></div>
-            </div>
-        </div>
-        <div class="tag-modal-button-groups">
-            <div class="cancel-button" (click)="hideTagModal()">
-                {{ 'keeping.write.tag-modal-cancel-button' | translate }}
-            </div>
-            <div class="add-button" (click)="addTag()">
-                {{ 'keeping.write.tag-modal-add-button' | translate }}
-            </div>
-        </div>
+  <div class="add-tag-modal user-select-none" (click)="$event.stopPropagation()">
+    <div class="tag-modal-label">{{ 'keeping.write.tag-modal-label' | translate }}</div>
+    <div class="tag-modal-input">
+      <input type="text" maxlength='20' [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement
+             (keyup)="onTagKey($event)"/>
+      <div class="tag-modal-input-clear" (click)="clearTagModal()">
+        <div class="mdi mdi-close"></div>
+      </div>
     </div>
+    <div class="tag-modal-button-groups">
+      <div class="cancel-button" (click)="hideTagModal()">
+        {{ 'keeping.write.tag-modal-cancel-button' | translate }}
+      </div>
+      <div class="add-button" (click)="addTag()">
+        {{ 'keeping.write.tag-modal-add-button' | translate }}
+      </div>
+    </div>
+  </div>
 </div>
 
 <shared-modal
