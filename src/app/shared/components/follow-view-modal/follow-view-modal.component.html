@@ -88,104 +88,30 @@
                 <div class="summary">전체 <strong>{{ followingMeta.totalItems | number }}</strong></div>
 
                 <!-- 팔로워 목록-->
-<!--                <div class="data-list" *ngIf="followingList?.length > 0 ">-->
+                <div class="data-list" *ngIf="followingList?.length > 0 ">
 
-<!--                  <div class="data-item" *ngFor="let item of followingList;">-->
-<!--                    <shared-avatar class="avatar"-->
-<!--                                   [image]="item?.picture[0]?.url"-->
-<!--                                   text="{{ item?.email }}"-->
-<!--                                   size="36"-->
-<!--                                   fontSize="15">-->
-<!--                    </shared-avatar>-->
-<!--                    <div class="nickname">-->
-<!--                      <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>-->
-<!--                    </div>-->
-<!--                    <button type="button"-->
-<!--                            class="follow"-->
-<!--                            *ngIf="loginUser?.id === userId"-->
-<!--                            [ngClass]="item?.isFollow ? 'checked' : ''"-->
-<!--                            (click)="toggleFollow(item, userId, item.id, 'following')">-->
-<!--                      <span class="button-icon"></span>-->
-<!--                      <span>팔로우</span>-->
-<!--                    </button>-->
-<!--                  </div>-->
-
-<!--                </div>-->
-
-
-                <div class="data-list">
-
-                  <div class="data-item">
+                  <div class="data-item" *ngFor="let item of followingList;">
                     <shared-avatar class="avatar"
-                                   [image]="user?.picture[0]?.url"
-                                   text="111"
+                                   [image]="item?.picture[0]?.url"
+                                   text="{{ item?.email }}"
                                    size="36"
                                    fontSize="15">
                     </shared-avatar>
                     <div class="nickname">
-                      <span>asdasd</span>
+                      <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
                     </div>
                     <button type="button"
-                            class="follow">
+                            class="follow"
+                            *ngIf="loginUser?.id === userId"
+                            [ngClass]="item?.isFollow ? 'checked' : ''"
+                            (click)="toggleFollow(item, userId, item.id, 'following')">
                       <span class="button-icon"></span>
                       <span>팔로우</span>
                     </button>
                   </div>
-
-                  <div class="data-item">
-                    <shared-avatar class="avatar"
-                                   [image]="user?.picture[0]?.url"
-                                   text="111"
-                                   size="36"
-                                   fontSize="15">
-                    </shared-avatar>
-                    <div class="nickname">
-                      <span>asdasd</span>
-                    </div>
-                    <button type="button"
-                            class="follow">
-                      <span class="button-icon"></span>
-                      <span>팔로우</span>
-                    </button>
-                  </div>
-
-                  <div class="data-item">
-                    <shared-avatar class="avatar"
-                                   [image]="user?.picture[0]?.url"
-                                   text="111"
-                                   size="36"
-                                   fontSize="15">
-                    </shared-avatar>
-                    <div class="nickname">
-                      <span>asdasd</span>
-                    </div>
-                    <button type="button"
-                            class="follow">
-                      <span class="button-icon"></span>
-                      <span>팔로우</span>
-                    </button>
-                  </div>
-
-                  <div class="data-item">
-                    <shared-avatar class="avatar"
-                                   [image]="user?.picture[0]?.url"
-                                   text="111"
-                                   size="36"
-                                   fontSize="15">
-                    </shared-avatar>
-                    <div class="nickname">
-                      <span>asdasd</span>
-                    </div>
-                    <button type="button"
-                            class="follow">
-                      <span class="button-icon"></span>
-                      <span>팔로우</span>
-                    </button>
-                  </div>
-
                 </div>
 
-                <div class="empty">
+                <div class="empty" *ngIf="followerList?.length === 0;">
                   <div class="empty-inner">
                     <div class="empty-title">팔로잉</div>
                     <div class="empty-text">
