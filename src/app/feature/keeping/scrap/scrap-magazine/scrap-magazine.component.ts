@@ -6,6 +6,7 @@ import { StorageService } from '@services/storage.service';
 import { MagazineService } from '@services/magazine.service';
 import { Magazine } from '@schemas/magazine';
 import { MagazineBookmark } from '@schemas/magazine-bookmark';
+import { TextService } from '@services/text.service';
 
 @Component({
   selector: 'app-scrap-magazine',
@@ -45,6 +46,7 @@ export class ScrapMagazineComponent implements OnInit {
     private router: Router,
     private globalService: GlobalService,
     private storageService: StorageService,
+    private textService: TextService,
     private magazineService: MagazineService
   ) {}
 
@@ -130,6 +132,8 @@ export class ScrapMagazineComponent implements OnInit {
     this.magazineService.createBookmark(magazine.id, this.user.id).subscribe(
       (data) => {
         magazine.isBookmark = true;
+        let message = this.textService.getText('scrap:001');
+        this.globalService.showToast(message);
       },
       (error) => {
         console.error('bookmark add failed: ', error);
@@ -141,6 +145,8 @@ export class ScrapMagazineComponent implements OnInit {
     this.magazineService.deleteBookmark(magazine.id, this.user.id).subscribe(
       (data) => {
         magazine.isBookmark = false;
+        let message = this.textService.getText('scrap:002');
+        this.globalService.showToast(message);
       },
       (error) => {
         console.error('bookmark cancel failed: ', error);

@@ -102,7 +102,7 @@
             padding: 4px 8px;
             width: 100px;
             height: 33px;
-            border: 1px solid var(--black);
+            border: 1px solid var(--blue-3);
             border-radius: 8px;
 
             cursor: pointer;
@@ -112,13 +112,15 @@
             align-items: center;
 
             .text {
+              margin-left: 4px;
+
               @include textStyle(500, 13px, 21px);
               letter-spacing: -0.2px;
             }
           }
 
           .follow-active {
-            background-color: var(--text-1);
+            background-color: var(--blue-3);
             color: var(--white);
             .follow-check-icon {
               display: inline-flex;
@@ -127,7 +129,7 @@
           }
 
           .follow-default {
-            color: var(--black);
+            color: var(--blue-3);
             .follow-plus-icon {
               display: inline-flex;
               align-items: center;
@@ -929,16 +931,16 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            border: 1px solid var(--blue-3);
 
             padding: 6px 14px;
             border-radius: 8px;
 
             .text {
+              margin-left: 4px;
+
               @include textStyle(500, 13px, 21px);
               letter-spacing: -0.2px;
-              color: var(--white);
-
-              margin-left: 4px;
             }
 
             &:hover {
@@ -947,7 +949,8 @@
           }
 
           .follow-active {
-            background-color: var(--text-1);
+            background-color: var(--blue-3);
+            color: var(--white);
             .follow-check-icon {
               display: inline-flex;
               align-items: center;
@@ -955,7 +958,7 @@
           }
 
           .follow-default {
-            background-color: #567df4;
+            color: var(--blue-3);
             .follow-plus-icon {
               display: inline-flex;
               align-items: center;

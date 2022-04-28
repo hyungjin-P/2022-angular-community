@@ -1,16 +1,16 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {GlobalService} from '@services/global.service';
-import {StorageService} from '@services/storage.service';
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {FeedService} from '@services/feed.service';
-import {PublicService} from '@services/public.service';
-import {TextService} from '@services/text.service';
+import { FeedService } from '@services/feed.service';
+import { PublicService } from '@services/public.service';
+import { TextService } from '@services/text.service';
 
-import {Feed} from '@schemas/feed';
-import {User} from '@schemas/user';
-import {OtherUserUtil} from "../../../../core/utils/other-user.util";
+import { Feed } from '@schemas/feed';
+import { User } from '@schemas/user';
+import { OtherUserUtil } from '../../../../core/utils/other-user.util';
 
 @Component({
   selector: 'feed',
@@ -56,9 +56,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
     private feedService: FeedService,
     private publicService: PublicService,
     private textService: TextService,
-    public otherUserUtil: OtherUserUtil,
-  ) {
-  }
+    public otherUserUtil: OtherUserUtil
+  ) {}
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -86,8 +85,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.findNextPage();
         }
 
-        if (50 < per) {}
-
+        if (50 < per) {
+        }
       }, 100);
     });
   }
@@ -104,9 +103,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   getFeedList() {
-    this.feedService
-      .getFeedList(this.page, this.limit, this.user?.id)
-      .subscribe((feedList: any) => {
+    this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
+      (feedList: any) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
 
@@ -115,7 +113,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
         } else {
           this.feedList = feedList.items;
         }
-      },(e) => {});
+      },
+      (e) => {}
+    );
   }
 
   /** 피드 수정 완료 */
@@ -130,10 +130,12 @@ export class FeedComponent implements OnInit, AfterViewInit {
         } else {
           this.feedList = feedList.items;
         }
-      },(e) => {});
+      },
+      (e) => {}
+    );
   }
 
-  /** 피드 좋아요 수정 중 */
+  /** 피드 좋아요 수정 완료 */
   feedLike(feed: Feed): void {
     if (this.user?.id) {
       if (feed.isLike) {
@@ -198,9 +200,11 @@ export class FeedComponent implements OnInit, AfterViewInit {
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService.addFeedBookmark({feedId: feed?.id, userId}).subscribe(
+      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = true;
+          let message = this.textService.getText('scrap:001');
+          this.globalService.showToast(message);
         },
         (error) => {}
       );
@@ -214,11 +218,14 @@ export class FeedComponent implements OnInit, AfterViewInit {
    */
   deleteBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService
-        .deleteFeedBookmark({feedId: feed?.id, userId})
-        .subscribe((data) => {
+      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
           feed.isBookmark = false;
-          },() => {});
+          let message = this.textService.getText('scrap:002');
+          this.globalService.showToast(message);
+        },
+        () => {}
+      );
     }
   }
 
@@ -272,5 +279,4 @@ export class FeedComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
 }

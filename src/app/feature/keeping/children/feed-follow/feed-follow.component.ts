@@ -11,7 +11,7 @@ import { FeedLike } from '@schemas/feed-like';
 import { FeedComment } from '@schemas/feed-comment';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import * as moment from 'moment-timezone';
-import {FeedCommentModalComponent} from "@shared/components/feed-comment-modal/feed-comment-modal.component";
+import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 
 @Component({
   selector: 'app-feed-follow',
@@ -306,6 +306,8 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
       this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = true;
+          let message = this.textService.getText('scrap:001');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('bookmark add failed : ', error);
@@ -324,6 +326,8 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
       this.feedService.deleteFeedBookmark({ feedId: feed.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = false;
+          let message = this.textService.getText('scrap:002');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('bookmark cancel failed : ', error);

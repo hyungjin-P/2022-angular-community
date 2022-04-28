@@ -459,8 +459,8 @@
             <div class='follow-default' *ngIf='!likeUser.user.isFollow' (click)='addFollow(user?.id, likeUser.user)'>
               <div class="follow-plus-icon">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 6.00101H10H2Z" fill="white"/>
-                  <path d="M6 2.00101V10.001M2 6.00101H10" stroke="white"/>
+                  <path d="M2 6H10Z" fill="#567DFF"/>
+                  <path d="M6 2V10M2 6H10" stroke="#567DFF"/>
                 </svg>
               </div>
               <div class="text">{{ 'keeping.feed-detail.follow' | translate }}</div>

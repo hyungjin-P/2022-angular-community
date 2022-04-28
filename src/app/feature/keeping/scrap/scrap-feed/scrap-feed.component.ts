@@ -6,6 +6,7 @@ import { User } from '@schemas/user';
 import { StorageService } from '@services/storage.service';
 import { GlobalService } from '@services/global.service';
 import { FeedBookmark } from '@schemas/feed-bookmark';
+import { TextService } from '@services/text.service';
 
 @Component({
   selector: 'app-scrap-feed',
@@ -46,6 +47,7 @@ export class ScrapFeedComponent implements OnInit {
     private router: Router,
     private globalService: GlobalService,
     private storageService: StorageService,
+    private textService: TextService,
     private feedService: FeedService
   ) {
     this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
@@ -120,6 +122,8 @@ export class ScrapFeedComponent implements OnInit {
       this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = true;
+          let message = this.textService.getText('scrap:001');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('bookmark add failed : ', error);
@@ -138,6 +142,8 @@ export class ScrapFeedComponent implements OnInit {
       this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = false;
+          let message = this.textService.getText('scrap:002');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('bookmark cancel failed : ', error);

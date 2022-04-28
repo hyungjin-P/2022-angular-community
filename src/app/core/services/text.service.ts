@@ -60,6 +60,9 @@ export class TextService {
 
       'myPage:001': '배경 이미지가 등록되었습니다.',
       'myPage:002': '배경 이미지가 삭제되었습니다.',
+
+      'scrap:001': '스크랩 되었습니다.',
+      'scrap:002': '스크랩 해제되었습니다.',
     },
     en: {
       'auth:email:001': 'Invalid email address.',
@@ -116,6 +119,9 @@ export class TextService {
 
       'myPage:001': 'The background image has been saved.',
       'myPage:002': 'The background image has been deleted.',
+
+      'scrap:001': 'Scraped it.',
+      'scrap:002': 'Scrap cancelled.',
     },
   };
 

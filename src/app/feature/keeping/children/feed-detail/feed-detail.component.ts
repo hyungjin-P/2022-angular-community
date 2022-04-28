@@ -26,7 +26,6 @@ import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal
   styleUrls: ['./feed-detail.component.scss'],
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-
   variables: any;
 
   user: User;
@@ -861,6 +860,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = true;
+          let message = this.textService.getText('scrap:001');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('bookmark add failed : ', error);
@@ -879,6 +880,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = false;
+          let message = this.textService.getText('scrap:002');
+          this.globalService.showToast(message);
         },
         (error) => {
           console.log('bookmark cancel failed : ', error);

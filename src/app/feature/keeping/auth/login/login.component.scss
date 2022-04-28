@@ -263,6 +263,23 @@
   .desktop {
     height: 100%;
 
+    .header {
+      height: 60px;
+      background-color: var(--white);
+      box-shadow: 0px 1px 0px #f0f2f5;
+
+      .leading {
+        display: flex;
+        align-items: center;
+        height: 60px;
+
+        .logo {
+          height: 28px;
+          cursor: pointer;
+        }
+      }
+    }
+
     .left-side {
       width: 40%;
 

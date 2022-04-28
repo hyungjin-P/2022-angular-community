@@ -73,8 +73,8 @@
 .item-counter {
   position: absolute;
   z-index: 1;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   width: 60px;
   height: 30px;
   text-align: center;
@@ -95,8 +95,8 @@
   justify-content: space-between;
   z-index: 1;
   height: 32px;
-  top: 30px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
 
   & div {
     margin-right: 10px;
@@ -107,7 +107,7 @@
     cursor: pointer;
     width: 32px;
     height: 32px;
-    box-shadow: 0 0 20px -8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 20px -8px rgba(0, 0, 0, 0.7);
     transition: all 0.3s;
   }
 

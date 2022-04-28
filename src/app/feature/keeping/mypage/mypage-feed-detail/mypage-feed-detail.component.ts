@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '@services/storage.service';
 import { FeedService } from '@services/feed.service';
 import { User } from '@schemas/user';
@@ -11,8 +11,10 @@ import { FeedComment } from '@schemas/feed-comment';
 import { PublicService } from '@services/public.service';
 import * as moment from 'moment-timezone';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
-import {OtherUserUtil} from "../../../../core/utils/other-user.util";
-import {UserService} from "@services/user.service";
+import { OtherUserUtil } from '../../../../core/utils/other-user.util';
+import { UserService } from '@services/user.service';
+import { GlobalService } from '@services/global.service';
+import { TextService } from '@services/text.service';
 
 @Component({
   selector: 'app-mypage-feed-detail',
@@ -20,7 +22,6 @@ import {UserService} from "@services/user.service";
   styleUrls: ['./mypage-feed-detail.component.scss'],
 })
 export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-
   feedDeleteMessage: any = {
     text: '피드 삭제',
     subText: '정말 삭제 하시겠어요?',
@@ -61,12 +62,14 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
   constructor(
     private router: Router,
     private storageService: StorageService,
+    private globalService: GlobalService,
+    private textService: TextService,
     private feedService: FeedService,
     private followService: FollowService,
     private dateUtils: DateUtils,
     private otherUserUtil: OtherUserUtil,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService,
+    private userService: UserService
   ) {
     this.pushEmptyFeed(1);
   }
@@ -78,28 +81,22 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
     this.selectedLanguage = localStorage.getItem('language');
 
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params) => {
       if (params.userId) {
         this.otherUserId = params.userId;
-        this.userService
-          .getUser(this.otherUserId)
-          .subscribe((user) => {
-            this.user = user;
-            this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
-          });
-
+        this.userService.getUser(this.otherUserId).subscribe((user) => {
+          this.user = user;
+          this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
+        });
       }
     });
 
     if (!this.otherUserId) {
       this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
     }
-
   }
 
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
 
   findNextPage(): void {
     if (this.feedPageLink?.next) {
@@ -190,11 +187,13 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    */
   addBookmark(feed: Feed, userId: string): void {
     if (this.user) {
-      this.feedService
-        .addFeedBookmark({ feedId: feed?.id, userId })
-        .subscribe((data) => {
+      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
+        (data) => {
           feed.isBookmark = true;
-        },(error) => {}
+          let message = this.textService.getText('scrap:001');
+          this.globalService.showToast(message);
+        },
+        (error) => {}
       );
     }
   }
@@ -209,6 +208,8 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
       this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
         (data) => {
           feed.isBookmark = false;
+          let message = this.textService.getText('scrap:002');
+          this.globalService.showToast(message);
         },
         (error) => {}
       );

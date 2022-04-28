@@ -19,7 +19,7 @@
   // Secondary
   --blue-1: #1c4fcd;
   --blue-2: #396ae6;
-  --blue-3: #304066;
+  --blue-3: #567dff;
   --blue-4: #6297ff;
   --blue-5: #7baeff;
   --blue-6: #9cc2ff;
@@ -148,7 +148,6 @@
     background-color: var(--blue-2);
   }
 }
-
 
 .shared-button-primary-disabled {
   background-color: var(--blue-3);
@@ -453,7 +452,6 @@ body {
   }
 }
 
-
 .scroll-xy {
   overflow: auto;
 
@@ -565,7 +563,8 @@ body {
   cursor: pointer;
 }
 
-input, textarea {
+input,
+textarea {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
 }
