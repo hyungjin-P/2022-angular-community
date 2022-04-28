@@ -2,9 +2,9 @@
 <div class="modal fade follow-view-modal" id="bs-follow-view-modal" tabindex="-1"
      aria-labelledby="bs-follow-view-modal-label" aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable animate-bottom" id="bs-follow-view-modal-dialog">
 
-    <div class="modal-content">
+    <div class="modal-content" id="bs-follow-view-modal-content">
 
       <div class="modal-header">
         <h5 class="modal-title">{{ user?.nickname ? user.nickname : user?.email }}</h5>
@@ -15,10 +15,15 @@
 
       <div class="modal-body">
 
-        <input type="radio" class="display-none"
-               name="follow-tabs" id="follower" checked>
-        <input type="radio" class="display-none"
-               name="follow-tabs" id="following">
+        <input type="radio"
+               class="display-none"
+               name="follow-tabs"
+               id="follower"
+               checked>
+        <input type="radio"
+               class="display-none"
+               name="follow-tabs"
+               id="following">
 
         <ul class="nav" role="navigation">
           <label role="listitem" for="follower">팔로워</label>

@@ -66,7 +66,9 @@
         <!-- 상단 Background Image-->
         <div class="background">
           <div [class.empty-background-show]="user?.background?.length === 0">
-            <a class="add-button" (click)="background.click()" *ngIf="!isOtherUser">
+            <a class="add-button"
+               (click)="background.click()"
+               *ngIf="!isOtherUser">
               <div class="line-1"></div>
               <div class="line-2"></div>
             </a>
@@ -246,7 +248,7 @@
                     <span class="email">{{ user.email || '' }}</span>
                   </div>
 
-                  <div class="follow">
+                  <div class="follow cursor-pointer" (click)="openFollowView()">
                     <div class="following">{{ 'mypage.following-text' | translate }}</div>
                     <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
                     <div class="v-line"></div>
