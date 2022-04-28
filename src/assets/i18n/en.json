@@ -294,7 +294,8 @@
       "cancel": "Cancel",
       "modify": "Modify",
       "delete-confirm-title": "Delete Comment",
-      "delete-confirm-sub-title": "Are you sure you want to delete it?"
+      "delete-confirm-sub-title": "Are you sure you want to delete it?",
+      "write-comment-placeholder": "Add a comment... What are you thoughts?"
     }
   }
 }

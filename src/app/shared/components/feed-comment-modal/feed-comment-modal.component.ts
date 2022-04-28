@@ -242,6 +242,14 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /* 댓글창 클릭 (댓글 입력 시도) */
+  onClickCommentInput() {
+    if (!this.loginUser) {
+      this.loginModalVisible();
+      return;
+    }
+  }
+
   /* 댓글 작성 */
   createComment(): void {
     const params: any = {
