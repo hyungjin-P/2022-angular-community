@@ -16,9 +16,8 @@
 <ng-template #mypage>
   <div class="full-absolute d-flex flex-column">
 
-    <!-- modal show -->
+    <!-- 팔로우 모달 컴포넌트 -->
     <app-follow-view-modal #followView></app-follow-view-modal>
-
 
     <ng-container *ngIf="!isOtherPeople">
       <header class="d-lg-none"></header>
@@ -236,14 +235,20 @@
                     {{ user.nickname || user.email || '' }}
                   </div>
                   <div>
-                    <div class="social social-kakao" *ngIf="user.provider === 'kakao.com'">
-                      <img src="assets/icons/social/kakao_2.png" alt="kakao social icon">
+                    <div class="social social-kakao"
+                         *ngIf="user.provider === 'kakao.com'">
+                      <img src="assets/icons/social/kakao_2.png"
+                           alt="kakao social icon">
                     </div>
-                    <div class="social social-naver" *ngIf="user.provider === 'naver.com'">
-                      <img src="assets/icons/social/naver.png" alt="naver social icon">
+                    <div class="social social-naver"
+                         *ngIf="user.provider === 'naver.com'">
+                      <img src="assets/icons/social/naver.png"
+                           alt="naver social icon">
                     </div>
-                    <div class="social social-google" *ngIf="user.provider === 'google.com'">
-                      <img src="assets/icons/social/google.png" alt="google social icon">
+                    <div class="social social-google"
+                         *ngIf="user.provider === 'google.com'">
+                      <img src="assets/icons/social/google.png"
+                           alt="google social icon">
                     </div>
                     <span class="email">{{ user.email || '' }}</span>
                   </div>
@@ -256,15 +261,13 @@
                     <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
                   </div>
 
-                  <!-- 프로핑 수정 본인 것 -->
+                  <!-- 프로필 수정 본인 것 -->
                   <ng-container *ngIf="!isOtherUser">
                     <a class="shared-button shared-button-outline edit-profile-button"
                        [routerLink]="['/settings/profile']">
                       {{ 'mypage.edit-profile-button-text' | translate }}
                     </a>
                   </ng-container>
-
-
 
                 </div>
               </div>

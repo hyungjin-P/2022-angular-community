@@ -99,7 +99,7 @@
                     </ng-container>
                   </a>
                   <div class='description'>
-                    <div class='category '>
+                    <div class='category'>
                       {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
                     </div>
                     <div class='title'>
@@ -297,9 +297,7 @@
         <ng-container *ngFor='let magazine of magazineList; let i = index'>
           <div class="item col-6 col-lg-6 col-xxl-2-5">
             <div class="d-flex flex-column flex-wrap">
-              <div
-                class="image-box flex-fill"
-              >
+              <a class="image-box flex-fill" href="javascript: void(0)">
                 <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)'>
                 <div class='gradient' (click)='moveLink(magazine)'></div>
                 <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
@@ -310,7 +308,7 @@
                     <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
                   </ng-container>
                 </a>
-              </div>
+              </a>
               <a class='description' (click)='moveLink(magazine)'>
                 <div class="info"> {{ 'keeping.magazine.category.' + magazine.category | translate }} </div>
                 <div class="title"> {{magazine.body.title}} </div>

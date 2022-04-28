@@ -48,8 +48,8 @@ export class FeedSliderComponent implements OnInit, AfterViewInit {
 
   swiperOptions: SwiperOptions = {
     navigation: true,
-    loop: true,
-    loopedSlides: 1,
+    // loop: true,
+    // loopedSlides: 1,
     // pagination: { clickable: true },
   };
 

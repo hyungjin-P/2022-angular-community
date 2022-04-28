@@ -1,103 +1,103 @@
-import { Component, OnInit } from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 
-import { GlobalService } from '@services/global.service'
+import {GlobalService} from '@services/global.service'
 
-import { AuthService } from '@services/auth.service'
-import { TextService } from '@services/text.service'
+import {AuthService} from '@services/auth.service'
+import {TextService} from '@services/text.service'
 
 @Component({
-    selector: 'forgot-password',
-    templateUrl: './forgot-password.component.html',
-    styleUrls: ['./forgot-password.component.scss'],
+  selector: 'forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
-    TAG = '비밀번호 찾기'
+  TAG = '비밀번호 찾기'
 
-    email: string
-    emailValid: boolean
-    emailErrorText: string
+  email: string
+  emailValid: boolean
+  emailErrorText: string
 
-    selectedLanguage: string
+  selectedLanguage: string
 
-    constructor(
-        private globalService: GlobalService,
-        private authService: AuthService,
-        private textService: TextService
-    ) {}
+  constructor(
+    private globalService: GlobalService,
+    private authService: AuthService,
+    private textService: TextService
+  ) {
+  }
 
-    ngOnInit() {
-        this.email = ''
-        this.emailValid = false
-        this.emailErrorText = ''
+  ngOnInit() {
+    this.email = '';
+    this.emailValid = false;
+    this.emailErrorText = '';
+    this.selectedLanguage = localStorage.getItem('language');
+  }
 
-        this.selectedLanguage = localStorage.getItem('language')
+  sendResetPasswordLinkMail() {
+    if (!this.formCheck()) {
+      return
     }
 
-    sendResetPasswordLinkMail() {
-        if (!this.formCheck()) {
-            return
+    this.authService
+      .sendResetPasswordLinkMail({email: this.email, lang: this.selectedLanguage || 'ko'})
+      .subscribe(
+        (v) => {
+          this.email = ''
+          this.emailValid = false
+
+          // 비밀번호 재설정 링크를 발송하였습니다.
+          let text = this.textService.getText('auth:forgot-password:001')
+          // 확인
+          let confirmBtnText = this.textService.getText('auth:forgot-password:002')
+
+          this.globalService.showModal({
+            text: text,
+            confirmBtnText: confirmBtnText,
+          })
+        },
+        (e) => {
+          this.globalService.showToast(e.message)
         }
+      )
+  }
 
-        this.authService
-            .sendResetPasswordLinkMail({ email: this.email, lang: this.selectedLanguage || 'ko' })
-            .subscribe(
-                (v) => {
-                    this.email = ''
-                    this.emailValid = false
+  onKeyup(event, type) {
+    if (event.key == 'Enter') {
+      if (this.formCheck()) {
+        this.sendResetPasswordLinkMail()
+      }
+    } else {
+      if (event.key != 'Tab' && type == 'email') {
+        this.checkEmailPattern(this.email)
+      }
+    }
+  }
 
-                    // 비밀번호 재설정 링크를 발송하였습니다.
-                    let text = this.textService.getText('auth:forgot-password:001')
-                    // 확인
-                    let confirmBtnText = this.textService.getText('auth:forgot-password:002')
+  formCheck() {
+    let isValid = false
 
-                    this.globalService.showModal({
-                        text: text,
-                        confirmBtnText: confirmBtnText,
-                    })
-                },
-                (e) => {
-                    this.globalService.showToast(e.message)
-                }
-            )
+    if (this.checkEmailPattern(this.email)) {
+      isValid = true
     }
 
-    onKeyup(event, type) {
-        if (event.key == 'Enter') {
-            if (this.formCheck()) {
-                this.sendResetPasswordLinkMail()
-            }
-        } else {
-            if (event.key != 'Tab' && type == 'email') {
-                this.checkEmailPattern(this.email)
-            }
-        }
+    return isValid
+  }
+
+  checkEmailPattern(email: string) {
+    let isValid = false
+
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
+
+    if (emailRegex.test(email)) {
+      isValid = true
+      this.emailValid = true
+      this.emailErrorText = ''
+    } else {
+      this.emailValid = false
+      // 규칙에 맞는 이메일 주소를 입력해 주세요.
+      this.emailErrorText = this.textService.getText('auth:forgot-password:003')
     }
 
-    formCheck() {
-        let isValid = false
-
-        if (this.checkEmailPattern(this.email)) {
-            isValid = true
-        }
-
-        return isValid
-    }
-
-    checkEmailPattern(email: string) {
-        let isValid = false
-
-        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
-
-        if (emailRegex.test(email)) {
-            isValid = true
-            this.emailValid = true
-            this.emailErrorText = ''
-        } else {
-            this.emailValid = false
-            // 규칙에 맞는 이메일 주소를 입력해 주세요.
-            this.emailErrorText = this.textService.getText('auth:forgot-password:003')
-        }
-
-        return isValid
-    }
+    return isValid
+  }
 }

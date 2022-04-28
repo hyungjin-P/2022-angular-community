@@ -16,6 +16,10 @@
   animation: animateBottom ease 0.25s;
 }
 
+.modal {
+  overflow-y: hidden !important;
+}
+
 .modal.follow-view-modal {
   .modal-content {
     border-radius: 20px;

@@ -300,7 +300,8 @@
               height: 100%;
               object-fit: cover;
               margin: auto;
-              border-radius: 12px;
+              border-top-left-radius: 12px;
+              border-top-right-radius: 12px;
 
               border: 1px solid var(--grey-8);
               cursor: pointer;
