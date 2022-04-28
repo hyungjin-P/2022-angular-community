@@ -261,7 +261,7 @@
     },
     "profile": {
       "duplicate-check": "Verify",
-      "nickname-info": "Up to 10 Korean characters and 20 English characters are allowed.",
+      "nickname-info": "Nicknames can be up to 20 characters long.",
       "nickname-label": "Nickname",
       "update-button": "Update",
       "about-me-label": "Self Introduction",
@@ -296,6 +296,12 @@
       "delete-confirm-title": "Delete Comment",
       "delete-confirm-sub-title": "Are you sure you want to delete it?",
       "write-comment-placeholder": "Add a comment... What are you thoughts?"
+    }
+  },
+  "event": {
+    "banner": {
+      "text-1": "KEEP & PICK! BETA OPEN!",
+      "text-2": "Going to open event"
     }
   }
 }

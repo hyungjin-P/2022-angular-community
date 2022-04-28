@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit {
   /** 닉네임 중복 확인 */
   checkDuplicateNickname() {
     if (!this.currentNickname) {
+      this.nicknameErrorText = this.textService.getText('settings:profile:004');
       return;
     }
 

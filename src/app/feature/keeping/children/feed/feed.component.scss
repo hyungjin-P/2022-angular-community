@@ -109,48 +109,45 @@
     }
   }
 
-  .item-list {
-    margin: -15px -3px;
+  .banner {
+    display: flex;
+    margin: -20px -16px 0;
+    align-items: center;
+    justify-content: center;
 
-    .banner {
-      margin: 12px 3px 15px 3px;
-      display: flex;
-      height: 90px;
-      background-color: #000;
-      border-radius: 8px;
-      width: 100%;
+    height: 110px;
+    background: linear-gradient(256.32deg, #1d30dc 6.63%, #357ae1 100%);
 
-      .text-content {
-        margin: 20px 0 20px 16px;
-        display: inline-block;
-        text-align: left;
-        width: 68%;
+    .text-content {
+      display: inline-flex;
+      flex-direction: column;
+      text-align: left;
 
-        div {
-          @include textStyle(600, 18px, 26px);
-          color: var(--white);
-          letter-spacing: -0.2px;
-        }
-
-        span {
-          @include textStyle(400, 12px, 20px);
-          color: var(--white);
-          letter-spacing: -0.2px;
-        }
+      .text-1 {
+        @include textStyle(500, 16px, 22px);
+        color: var(--white);
       }
 
-      .img-content {
-        width: 40%;
-        height: 100%;
-        overflow: hidden;
-        border-radius: 8px;
-
-        > img {
-          width: 100%;
-          transform: translate(20%, 15%);
-        }
+      .text-2 {
+        @include textStyle(700, 16px, 22px);
+        color: yellow;
       }
     }
+
+    .img-content {
+      margin-left: 20px;
+      height: 100%;
+
+      > img {
+        width: 100%;
+        height: 100%;
+        //transform: translate(20%, 15%);
+      }
+    }
+  }
+
+  .item-list {
+    margin: 30px -3px;
 
     .item {
       padding: 15px 3px;
@@ -441,7 +438,7 @@
 @media (min-width: 360px) {
   .section {
     .item-list {
-      margin: -15px -6px;
+      margin: 30px -6px;
 
       .item {
         padding: 15px 6px;
@@ -467,7 +464,7 @@
 @media (min-width: 576px) {
   .section {
     .item-list {
-      margin: -20px -6px;
+      margin: 30px -6px;
 
       .item {
         padding: 20px 6px;
@@ -491,8 +488,13 @@
 
 @media (min-width: 768px) {
   .section {
+    .banner {
+      margin: 0;
+      border-radius: 8px;
+    }
+
     .item-list {
-      margin: -20px -6px;
+      margin: 30px -6px;
 
       .item {
         padding: 20px 6px;
@@ -553,9 +555,18 @@
       box-shadow: none;
     }
 
+    .banner {
+      width: 90%;
+      margin: 0 auto;
+
+      .img-content {
+        margin-left: 60px;
+      }
+    }
+
     .item-list {
       width: 92%;
-      margin: -25px auto;
+      margin: 40px auto;
 
       .item {
         padding: 25px 10px;
@@ -583,6 +594,19 @@
   }
 }
 
+@media (min-width: 1400px) {
+  .section {
+    .banner {
+      .text-content {
+        flex-direction: row;
+        .text-1 {
+          margin-right: 12px;
+        }
+      }
+    }
+  }
+}
+
 @media (min-width: 1920px) {
   .section {
     padding: 80px 16px;
@@ -593,7 +617,7 @@
 
     .item-list {
       width: 92%;
-      margin: -30px auto;
+      margin: 40px auto;
 
       .item {
         padding: 30px 15px;
