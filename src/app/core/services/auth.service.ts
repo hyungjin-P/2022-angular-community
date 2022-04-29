@@ -108,22 +108,22 @@ export class AuthService {
   }
 
   // token refresh
-  refresh(requestBody: RefreshRequestBody): Observable<Response> {
-    const url = environment['serverAddress'] + '/auth/refresh'
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
+  // refresh(requestBody: RefreshRequestBody): Observable<Response> {
+  //   const url = environment['serverAddress'] + '/auth/refresh'
+  //
+  //   const options = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //     }),
+  //   }
+  //
+  //   return this.http.post<Response>(url, requestBody, options).pipe(
+  //     map((res) => {
+  //       return res
+  //     }),
+  //     catchError(handleError)
+  //   )
+  // }
 
   /**
    * 이메일 중복 체크
@@ -205,7 +205,6 @@ export class AuthService {
 
     return this.http.post<any>(url, requestBody, options).pipe(
       map((result) => {
-         console.log('resistration > res : ', result)
         return result;
       }),
       catchError(handleError)
@@ -213,12 +212,12 @@ export class AuthService {
   }
 
   /**
-   * 수정 중
+   * 수정 완료
    */
   sendResetPasswordLinkMail(
     requestBody: SendResetPasswordLinkMailRequestBody
   ): Observable<Response> {
-    const url = environment['serverAddress'] + '/auth/send-reset-password-link-mail'
+    const url = environment.userApiAddress + '/user/resetPasswordLinkMail'
 
     const options = {
       headers: new HttpHeaders({
@@ -234,10 +233,15 @@ export class AuthService {
     )
   }
 
-  checkResetPasswordLinkMail(
+  /**
+   * 비밀번호 변경 링크 검증
+   * @param requestBody
+   */
+  passwordChangeEmailVerified(
     requestBody: CheckResetPasswordLinkMailRequestBody
   ): Observable<Response> {
-    const url = environment['serverAddress'] + '/auth/check-reset-password-link-mail'
+    // const url = environment['serverAddress'] + '/auth/check-reset-password-link-mail'
+    const url = environment.userApiAddress + `/user/passwordChangeEmailVerified`;
 
     const options = {
       headers: new HttpHeaders({
@@ -254,7 +258,7 @@ export class AuthService {
   }
 
   changePassword(requestBody: ChangePasswordRequestBody): Observable<User> {
-    const url = environment['serverAddress'] + '/auth/change-password'
+    const url = environment.userApiAddress + '/user/passwordChangeWithVerificationCheckOk';
 
     const options = {
       headers: new HttpHeaders({
@@ -262,9 +266,9 @@ export class AuthService {
       }),
     }
 
-    return this.http.post<Response>(url, requestBody, options).pipe(
+    return this.http.post<any>(url, requestBody, options).pipe(
       map((res) => {
-        return res.dataset[0]
+        return res;
       }),
       catchError(handleError)
     )
@@ -272,40 +276,6 @@ export class AuthService {
 
   sendVerificationCodeMailChange(requestBody: SendVerificationCodeMailChangeRequestBody): Observable<Response> {
     const url = environment['serverAddress'] + '/auth/send-verification-code-mail-change'
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
-
-  checkVerificationCodeMailChange(requestBody: CheckVerificationCodeMailChangeRequestBody): Observable<Response> {
-    const url = environment['serverAddress'] + '/auth/check-verification-code-mail-change'
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }
-
-    return this.http.post<Response>(url, requestBody, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
-
-  sendVerificationCodeSMSChange(requestBody: SendVerificationCodeSMSChangeRequestBody): Observable<Response> {
-    const url = environment['serverAddress'] + '/auth/send-verification-code-sms-change'
 
     const options = {
       headers: new HttpHeaders({
@@ -383,20 +353,11 @@ class CheckResetPasswordLinkMailRequestBody {
 
 class ChangePasswordRequestBody {
   token: string
-  new_password: string
+  password: string
 }
 
 class SendVerificationCodeMailChangeRequestBody {
   email: string
-}
-
-class CheckVerificationCodeMailChangeRequestBody {
-  verification_code: number
-}
-
-class SendVerificationCodeSMSChangeRequestBody {
-  phone_number: string
-  is_test?: number
 }
 
 class CheckVerificationCodeSMSChangeRequestBody {

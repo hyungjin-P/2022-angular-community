@@ -7,7 +7,9 @@
     <div class="modal-content" id="bs-follow-view-modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">{{ user?.nickname ? user.nickname : user?.email }}</h5>
+        <h5 class="modal-title">
+          {{ user?.nickname ? user.nickname : user?.email }}
+        </h5>
         <button type="button"
                 class="close"
                 (click)="onCloseFollowViewModal()">&times;</button>
@@ -49,6 +51,7 @@
                                    size="36"
                                    fontSize="15">
                     </shared-avatar>
+
                     <div class="nickname">
                       <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
                     </div>

@@ -22,7 +22,7 @@
     </a>
 
     <a class="logo" [routerLink]="['/']">
-      <img class="d-inline d-lg-none" src="assets/images/logo/mobile_header_logo.svg" alt="">
+      <img class="d-inline d-lg-none" src="assets/icons/common/mobile-header-logo.svg" alt="">
       <img class="d-none d-lg-inline" src="assets/images/logo/header_logo.png" alt="">
     </a>
 
@@ -52,7 +52,8 @@
 <!--      <a class="notification"></a>-->
 
       <!-- Mobile Size Avatar -->
-      <a class="user user-mobile d-lg-none" (click)="openUserBox($event)">
+      <a class="user user-mobile d-lg-none"
+         (click)="openUserBox($event)">
         <div class="avatar">
           <shared-avatar
             [image]="globalUser.picture?.url"

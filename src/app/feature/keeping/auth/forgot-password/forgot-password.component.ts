@@ -42,62 +42,67 @@ export class ForgotPasswordComponent implements OnInit {
       .sendResetPasswordLinkMail({email: this.email, lang: this.selectedLanguage || 'ko'})
       .subscribe(
         (v) => {
-          this.email = ''
-          this.emailValid = false
+          this.email = '';
+          this.emailValid = false;
 
           // 비밀번호 재설정 링크를 발송하였습니다.
-          let text = this.textService.getText('auth:forgot-password:001')
+          let text = this.textService.getText('auth:forgot-password:001');
+
           // 확인
-          let confirmBtnText = this.textService.getText('auth:forgot-password:002')
+          let confirmBtnText = this.textService.getText('auth:forgot-password:002');
 
           this.globalService.showModal({
-            text: text,
-            confirmBtnText: confirmBtnText,
-          })
+            text,
+            confirmBtnText,
+          });
         },
-        (e) => {
-          this.globalService.showToast(e.message)
+        () => {
+          this.globalService
+            .showToast(this.textService
+              .getText(
+                'auth:forgot-password:004',
+                this.selectedLanguage || 'ko'));
         }
       )
   }
 
   onKeyup(event, type) {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       if (this.formCheck()) {
         this.sendResetPasswordLinkMail()
       }
     } else {
-      if (event.key != 'Tab' && type == 'email') {
+      if (event.key !== 'Tab' && type === 'email') {
         this.checkEmailPattern(this.email)
       }
     }
   }
 
   formCheck() {
-    let isValid = false
+    let isValid = false;
 
     if (this.checkEmailPattern(this.email)) {
-      isValid = true
+      isValid = true;
     }
 
-    return isValid
+    return isValid;
   }
 
   checkEmailPattern(email: string) {
-    let isValid = false
+    let isValid = false;
 
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
     if (emailRegex.test(email)) {
-      isValid = true
-      this.emailValid = true
-      this.emailErrorText = ''
+      isValid = true;
+      this.emailValid = true;
+      this.emailErrorText = '';
     } else {
-      this.emailValid = false
-      // 규칙에 맞는 이메일 주소를 입력해 주세요.
-      this.emailErrorText = this.textService.getText('auth:forgot-password:003')
+      this.emailValid = false;
+      // 규칙에 맞는 이메일 주 소를 입력해 주세요.
+      this.emailErrorText = this.textService.getText('auth:forgot-password:003');
     }
 
-    return isValid
+    return isValid;
   }
 }

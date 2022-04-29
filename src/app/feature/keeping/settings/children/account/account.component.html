@@ -1,45 +1,47 @@
 <div class="full-absolute d-flex flex-column">
-    <mobile-header
-        class="d-lg-none"
-        [text]="'settings.mobile-header.account' | translate"
-        (goBack)="goBack()"
-    ></mobile-header>
+  <mobile-header
+    class="d-lg-none"
+    [text]="'settings.mobile-header.account' | translate"
+    (goBack)="goBack()"
+  ></mobile-header>
 
-    <div class="flex-fill" style="position: relative">
-        <div class="section full-absolute scroll-y">
-            <div class="account">
-                <div>
-                    <div class="login-account">
-                        <span>{{ 'settings.account.login-account-text' | translate }}</span>
-                        <div>
-                            <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
-                                <img src="assets/icons/social/kakao_2.png" />
-                            </div>
-                            <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
-                                <img src="assets/icons/social/naver.png" />
-                            </div>
-                            <div class="social social-google" *ngIf="user.provider == 'google.com'">
-                                <img src="assets/icons/social/google.png" />
-                            </div>
-                            <span class="email">{{ user.email || '' }}</span>
-                        </div>
-                    </div>
-                    <div class="h-line"></div>
-                    <a
-                        class="change-password"
-                        [routerLink]="['/settings/change-password']"
-                        *ngIf="user.provider == 'keeping.link'"
-                    >
-                        <div>{{ 'settings.account.change-password' | translate }}</div>
-                        <div class="mdi mdi-chevron-right"></div>
-                    </a>
-                    <a class="withdrawal" [routerLink]="['/settings/withdrawal']">
-                        <div>{{ 'settings.account.withdrawal' | translate }}</div>
-                        <div class="mdi mdi-chevron-right"></div>
-                    </a>
-                    <div class="withdrawal-text">{{ 'settings.account.withdrawal-text' | translate }}</div>
-                </div>
+  <div class="flex-fill" style="position: relative">
+    <div class="section full-absolute scroll-y">
+      <div class="account">
+        <div>
+          <div class="login-account">
+            <span>{{ 'settings.account.login-account-text' | translate }}</span>
+            <div>
+              <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
+                <img src="assets/icons/social/kakao_2.png"/>
+              </div>
+              <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
+                <img src="assets/icons/social/naver.png"/>
+              </div>
+              <div class="social social-google" *ngIf="user.provider == 'google.com'">
+                <img src="assets/icons/social/google.png"/>
+              </div>
+              <span class="email">{{ user.email || '' }}</span>
             </div>
+          </div>
+          <div class="h-line"></div>
+          <a
+            class="change-password"
+            [routerLink]="['/settings/change-password']"
+            *ngIf="user.provider == 'keeping.link'"
+          >
+            <div>{{ 'settings.account.change-password' | translate }}</div>
+            <div class="mdi mdi-chevron-right"></div>
+          </a>
+
+<!--          <a class="withdrawal" [routerLink]="['/settings/withdrawal']">-->
+<!--            <div>{{ 'settings.account.withdrawal' | translate }}</div>-->
+<!--            <div class="mdi mdi-chevron-right"></div>-->
+<!--          </a>-->
+<!--          <div class="withdrawal-text">{{ 'settings.account.withdrawal-text' | translate }}</div>-->
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
