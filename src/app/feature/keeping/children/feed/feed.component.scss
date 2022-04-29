@@ -112,10 +112,11 @@
   .banner {
     display: flex;
     margin: -20px -16px 0;
+    padding: 0 20px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
-    height: 110px;
+    height: 100px;
     background: linear-gradient(256.32deg, #1d30dc 6.63%, #357ae1 100%);
 
     .text-content {
@@ -124,23 +125,26 @@
       text-align: left;
 
       .text-1 {
-        @include textStyle(500, 16px, 22px);
+        @include textStyleGmarketSans_medium(16px);
+        //@include textStyle(500, 16px, 22px);
         color: var(--white);
       }
 
       .text-2 {
-        @include textStyle(700, 16px, 22px);
+        @include textStyleGmarketSans_bold(16px);
+        //@include textStyle(700, 16px, 22px);
         color: yellow;
       }
     }
 
     .img-content {
-      margin-left: 20px;
-      height: 100%;
+      display: flex;
+
+      align-items: center;
 
       > img {
-        width: 100%;
-        height: 100%;
+        width: 90px;
+        height: auto;
         //transform: translate(20%, 15%);
       }
     }
@@ -438,7 +442,7 @@
 @media (min-width: 360px) {
   .section {
     .item-list {
-      margin: 30px -6px;
+      margin: 10px -6px;
 
       .item {
         padding: 15px 6px;
@@ -489,8 +493,13 @@
 @media (min-width: 768px) {
   .section {
     .banner {
+      height: 110px;
+      justify-content: center;
       margin: 0;
       border-radius: 8px;
+      .img-content {
+        margin-left: 120px;
+      }
     }
 
     .item-list {
@@ -558,10 +567,6 @@
     .banner {
       width: 90%;
       margin: 0 auto;
-
-      .img-content {
-        margin-left: 60px;
-      }
     }
 
     .item-list {

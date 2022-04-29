@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@noonnu/gmarketsanslight@0.0.1/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@noonnu/gmarketsansmedium@0.0.1/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@noonnu/gmarketsansbold@0.0.1/index.css');
 
 @mixin textStyle($font-weight, $font-size, $line-height) {
   font-weight: $font-weight;
@@ -15,5 +18,18 @@
 @mixin textStylePoppins($font-weight, $font-size) {
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   font-weight: $font-weight;
+  font-size: $font-size;
+}
+
+@mixin textStyleGmarketSans_light($font-size) {
+  font-family: 'GmarketSansLight', 'Noto Sans KR', sans-serif;
+  font-size: $font-size;
+}
+@mixin textStyleGmarketSans_medium($font-size) {
+  font-family: 'GmarketSansMedium', 'Noto Sans KR', sans-serif;
+  font-size: $font-size;
+}
+@mixin textStyleGmarketSans_bold($font-size) {
+  font-family: 'GmarketSansBold', 'Noto Sans KR', sans-serif;
   font-size: $font-size;
 }

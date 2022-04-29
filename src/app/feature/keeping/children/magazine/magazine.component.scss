@@ -299,6 +299,7 @@
               width: 100%;
               height: 100%;
               object-fit: cover;
+              object-position: top;
               margin: auto;
               border-radius: 12px;
 
@@ -437,16 +438,18 @@
 }
 
 @media (min-width: 768px) {
-  .section {
-    .categories {
-      height: 80px;
-      padding: 20px 0;
-      margin-left: 40px;
-    }
-    .item-list {
-      margin: 0 28px 0 28px;
-      .item {
-        padding: 0 12px;
+  .magazine {
+    .section {
+      .categories {
+        height: 80px;
+        padding: 20px 0;
+        margin-left: 40px;
+      }
+      .item-list {
+        margin: 0 28px 0 28px;
+        .item {
+          padding: 0 12px;
+        }
       }
     }
   }
@@ -456,141 +459,141 @@
   .magazine {
     .section {
       background-color: #f6f7f9;
-    }
-  }
-  .section {
-    .mobile-top {
-      .carousel {
-        padding: 50px;
-      }
-    }
 
-    .pc-top {
-      .top-banners {
-        .banner {
-          &:hover {
-            .bookmark {
-              display: flex;
-            }
-            .description {
-              .additional {
-                //display: flex;
+      .mobile-top {
+        .carousel {
+          padding: 50px;
+        }
+      }
+
+      .pc-top {
+        .top-banners {
+          .banner {
+            &:hover {
+              .bookmark {
+                display: flex;
+              }
+              .description {
+                .additional {
+                  //display: flex;
+                }
               }
             }
           }
         }
       }
-    }
 
-    .categories {
-      height: 72px;
-      padding: 16px 0;
-      margin-left: 50px;
-    }
-    .item-list {
-      margin: 20px 35px 0 35px;
+      .categories {
+        height: 72px;
+        padding: 16px 0;
+        margin-left: 50px;
+      }
+      .item-list {
+        margin: 20px 34px 0 34px;
 
-      .item {
-        padding: 0 15px;
+        .item {
+          padding: 0 15px;
 
-        > div {
-          .image-box {
-            .picture {
-              border-radius: 12px 12px 0 0 !important;
-            }
-            .bookmark {
-              display: none;
-              top: 20px;
-              right: 20px;
-              bottom: 0;
-            }
-          }
-
-          .description {
-            margin-top: 0;
-            background-color: white;
-            border-radius: 0 0 12px 12px;
-            padding: 20px;
-
-            .info {
-              margin-bottom: 0;
-
-              @include textStyle(500, 13px, 21px);
+          > div {
+            .image-box {
+              .picture {
+                border-radius: 12px 12px 0 0 !important;
+              }
+              .bookmark {
+                display: none;
+                top: 20px;
+                right: 20px;
+                bottom: 0;
+              }
             }
 
-            .title {
-              margin: 12px 0;
-
-              @include textStyle(700, 18px, 26px);
-            }
-            .hover-tag-str {
-              display: none;
-              @include textStyle(400, 13px, 21px);
-              letter-spacing: -0.2px;
-              color: var(--grey-2);
-            }
-
-            .tag-str {
-              display: block !important;
-              /*margin-bottom: 10px;*/
-
-              @include textStyle(400, 13px, 21px);
-              letter-spacing: -0.2px;
-              color: var(--grey-2);
-            }
-
-            .line {
-              width: 100%;
-              border: 1px solid #f0f2f5;
-              margin: 12px 0;
-            }
-
-            .additional {
+            .description {
               margin-top: 0;
+              background-color: white;
+              border-radius: 0 0 12px 12px;
+              padding: 20px;
+              width: 100%;
 
-              .user {
-                .nickname {
-                  @include textStyle(400, 12px, 20px);
-                  letter-spacing: -0.2px;
-                }
+              .info {
+                margin-bottom: 0;
+
+                @include textStyle(500, 13px, 21px);
               }
 
-              .display {
-                > div {
-                  .text {
+              .title {
+                margin: 12px 0;
+
+                @include textStyle(700, 18px, 26px);
+              }
+              .hover-tag-str {
+                display: none;
+                @include textStyle(400, 13px, 21px);
+                letter-spacing: -0.2px;
+                color: var(--grey-2);
+              }
+
+              .tag-str {
+                display: block !important;
+                /*margin-bottom: 10px;*/
+
+                @include textStyle(400, 13px, 21px);
+                letter-spacing: -0.2px;
+                color: var(--grey-2);
+              }
+
+              .line {
+                width: 100%;
+                border: 1px solid #f0f2f5;
+                margin: 12px 0;
+              }
+
+              .additional {
+                margin-top: 0;
+
+                .user {
+                  .nickname {
                     @include textStyle(400, 12px, 20px);
                     letter-spacing: -0.2px;
                   }
                 }
-                .heartObj {
-                  margin-left: 8px;
+
+                .display {
+                  > div {
+                    .text {
+                      @include textStyle(400, 12px, 20px);
+                      letter-spacing: -0.2px;
+                    }
+                  }
+                  .heartObj {
+                    margin-left: 8px;
+                  }
                 }
               }
             }
           }
-        }
 
-        &:hover {
-          filter: drop-shadow(8px 15px 25px rgba(0, 0, 0, 0.12));
-          > div {
-            .image-box {
-              .gradient {
-                display: block;
+          &:hover {
+            filter: drop-shadow(8px 15px 25px rgba(0, 0, 0, 0.12));
+            > div {
+              .image-box {
+                .gradient {
+                  display: block;
+                }
+                .bookmark {
+                  display: flex;
+                }
               }
-              .bookmark {
-                display: flex;
+              .description {
+                //.hover-tag-str {
+                //  display: block;
+                //}
+                //.tag-str {
+                //  display: none;
+                //}
+                //.additional {
+                //  display: flex;
+                //}
               }
-            }
-            .description {
-              //.hover-tag-str {
-              //  display: block;
-              //}
-              //.tag-str {
-              //  display: none;
-              //}
-              //.additional {
-              //  display: flex;
-              //}
             }
           }
         }
@@ -600,23 +603,26 @@
 }
 
 @media (min-width: 1920px) {
-  .section {
-    .pc-top {
-      .top-banners {
-        display: flex;
-        .banner-first {
-          width: 48%;
-        }
+  .magazine {
+    .section {
+      .pc-top {
+        .top-banners {
+          display: flex;
+          .banner-first {
+            width: 48%;
+          }
 
-        .banners {
-          width: 50%;
-          margin-top: 0 !important;
-          margin-left: 28px;
-          //grid-template-rows: 260px 260px;
+          .banners {
+            width: 50%;
+            margin-top: 0 !important;
+            margin-left: 28px;
+            //grid-template-rows: 260px 260px;
+          }
         }
       }
     }
   }
+
   .col-xxl-2-5 {
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
