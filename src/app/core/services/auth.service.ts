@@ -22,8 +22,6 @@ export class AuthService {
   modifySignWithFirebase(accessToken: string): Observable<any> {
     const url = environment.userApiAddress + '/auth/firebaseSignIn';
 
-    console.log('accessToken : ', accessToken);
-
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -32,7 +30,6 @@ export class AuthService {
 
     return this.http.post<any>(url, { accessToken }, options).pipe(
       map((data) => {
-        console.log('firebase result : ', data);
         return data;
       }),
       catchError(handleError)
@@ -66,7 +63,6 @@ export class AuthService {
    * @param code
    */
   modifySignWithNaver(code: string): Observable<User> {
-    console.log('sign with naver code', code);
     const url = environment.userApiAddress + `/auth/signInNaver`;
 
     const options = {
@@ -77,7 +73,6 @@ export class AuthService {
 
     return this.http.post<any>(url, { code }, options).pipe(
       map((res) => {
-        console.log('modifySignWithNaver : ', res);
         return res;
       }),
       catchError(handleError)
@@ -140,7 +135,6 @@ export class AuthService {
 
     return this.http.get<any>(url, options).pipe(
       map((res) => {
-        console.log('checkDuplicateMail res : ', res);
         return res;
       }),
       catchError(handleError)
@@ -162,7 +156,6 @@ export class AuthService {
 
     return this.http.get<Response>(url, options).pipe(
       map((res) => {
-        console.log('url');
         return res;
       }),
       catchError(handleError)
@@ -175,8 +168,6 @@ export class AuthService {
   checkVerificationCodeMail(requestBody: CheckVerificationCodeMailRequestBody): Observable<Response> {
     let url = environment.userApiAddress + '/user/checkVerificationCode'
     url += `?providedId=${requestBody.email}&verifiedCode=${requestBody.verification_code}`;
-
-    console.log('url : ', url);
 
     const options = {
       headers: new HttpHeaders({

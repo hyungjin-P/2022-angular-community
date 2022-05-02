@@ -20,6 +20,16 @@ export class CryptoService {
     );
   }
 
+  encodeBase64(encodeTarget: string): string {
+    const textArray = CryptoJS.enc.Utf8.parse(encodeTarget);
+    return CryptoJS.enc.Base64url.stringify(textArray);
+  }
+
+  decodeBase64(encodingText: string): string {
+    const parseTextArray = CryptoJS.enc.Base64url.parse(encodingText);
+    return parseTextArray.toString(CryptoJS.enc.Utf8);
+  }
+
   _utf8_encode(str: string): string {
     str = str.replace(/\r\n/g, '\n');
     let resultText = '';

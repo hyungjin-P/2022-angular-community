@@ -11,25 +11,33 @@ import {CryptoService} from "@services/crypto.service";
 @Injectable({providedIn: 'root'})
 export class StorageService {
 
-  private storage: Storage;
-  private userKey: string;
+  private storage: Storage = sessionStorage;
+  private userKey: string = 'authAccess';
 
   constructor(
     private angularFireAuth: AngularFireAuth,
     private globalService: GlobalService,
     private cryptoService: CryptoService
 
-  ) {
-    this.storage = sessionStorage;
-    this.userKey = 'keeping:authUser';
-  }
+  ) {}
 
   getUser(): User {
-    return JSON.parse(this.storage.getItem(this.userKey));
+    const encryptText: string = this.storage.getItem(this.userKey);
+
+    let decryptObj: any = null;
+
+    if (encryptText) {
+      decryptObj = this.cryptoService.decrypt(encryptText);
+    }
+
+    return decryptObj;
   }
 
   setUser(user: User): void {
-    this.storage.setItem(this.userKey, JSON.stringify(user));
+    const encryptText = this.cryptoService.encrypt(user);
+
+    this.storage.setItem('authAccess' , encryptText);
+
     this.globalService.variables.isLogin = true;
 
     /** global service */
@@ -62,7 +70,6 @@ export class StorageService {
     }
     await this.angularFireAuth.signOut();
     this.storage.removeItem(this.userKey);
-
     this.globalService.variables.isLogin = false;
     this.globalService.user.nickname = '';
     this.globalService.user.picture = null;

@@ -33,8 +33,7 @@ export class ServiceTermsComponent implements OnInit {
     private globalService: GlobalService,
     private storageService: StorageService,
     private userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.user = this.storageService.getUser()
@@ -48,9 +47,7 @@ export class ServiceTermsComponent implements OnInit {
     this.agreementMarketing = false
   }
 
-  /**
-   * 이용약관 업데이트
-   */
+  /** 이용약관 업데이트 */
   modifyUserServiceTerm() {
     if (!this.agreementAge || !this.agreementPrivacy || !this.agreementServiceTerms) {
       return

@@ -66,24 +66,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     /** SNS 로그인 Subscriber */
     this.subscription = this.angularFireAuth.authState.subscribe((user) => {
-      console.log('SNS 로그인 user : ', user);
-
       /**
        * signInMethod 구분
        * google, meta, apple => firebase 통해서 로그인
-       * */
+       **/
       if (user) {
         if (this.signInMethod === 'google' || this.signInMethod === 'facebook' || this.signInMethod === 'apple') {
           user.getIdToken().then((accessToken) => {
             this.authService.modifySignWithFirebase(accessToken).subscribe(
               (user: User) => {
+
+                const viaPath = 'auth/login-success/google';
+
                 this.storageService.setUser(user);
-                this.router.navigateByUrl('/auth/service-terms').then();
+                this.router.navigateByUrl(viaPath).then(() => {});
               },
-              (e) => {
-                console.log('modifyFireAuth error : ', e);
-                // this.globalService.showToast(e.message);
-              }
+              (e) => {}
             );
           });
         } else {
@@ -114,18 +112,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /** 구글 로그인 */
   signInWithGoogle() {
-    console.log('구글 로그인 ');
     this.signInMethod = 'google';
-
     this.angularFireAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider()).then((r) => {});
   }
 
   /** 페이스북 로그인 */
   signInWithFacebook() {
     this.signInMethod = 'facebook';
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.FacebookAuthProvider()).then((r) => {
-      console.log('result : ', r);
-    });
+    this.angularFireAuth.signInWithPopup(new firebase.default.auth.FacebookAuthProvider()).then((r) => {});
   }
 
   /** 카카오 로그인 */
@@ -162,7 +156,9 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   kakaoLoginTrigger(accessToken: string): void {
     this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
-      this.router.navigateByUrl('feed').then(() => {
+      const viaPath = 'auth/login-success/kakao';
+
+      this.router.navigateByUrl(viaPath).then(() => {
         this.storageService.setUser(user);
         this.angularFireAuth.signInWithCustomToken(user.customToken);
       });
@@ -191,7 +187,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   async _signInWithNaver(code: string): Promise<void> {
     this.naverLoginPopupWindowRef.close();
     this.authService.modifySignWithNaver(code).subscribe((user: any) => {
-      this.router.navigateByUrl('feed').then(() => {
+
+      const viaPath = 'auth/login-success/naver';
+
+      this.router.navigateByUrl(viaPath).then(() => {
         this.storageService.setUser(user);
         this.angularFireAuth.signInWithCustomToken(user.customToken);
       });
@@ -213,7 +212,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
       .subscribe(
         (user: User) => {
-          this.router.navigateByUrl('feed').then(() => {
+          const viaPath = 'auth/login-success/email';
+
+          this.router.navigateByUrl(viaPath).then(() => {
             this.storageService.setUser(user);
             this.angularFireAuth.signInWithCustomToken(user.customToken);
           });

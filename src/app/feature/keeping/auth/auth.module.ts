@@ -12,7 +12,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component'
 import { RegistrationComponent } from './registration/registration.component'
 import { ResetPasswordComponent } from './reset-password/reset-password.component'
-import { ServiceTermsComponent } from './service-terms/service-terms.component'
+import { ServiceTermsComponent } from './service-terms/service-terms.component';
+import { ViaLoginSuccessComponent } from './via-login-success/via-login-success.component';
+import { ViaSignupSuccessComponent } from './via-signup-success/via-signup-success.component'
 
 @NgModule({
     declarations: [
@@ -23,6 +25,8 @@ import { ServiceTermsComponent } from './service-terms/service-terms.component'
         RegistrationComponent,
         ResetPasswordComponent,
         ServiceTermsComponent,
+        ViaLoginSuccessComponent,
+        ViaSignupSuccessComponent,
     ],
     imports: [AuthRoutingModule, SharedModule, CommonModule],
     exports: [],
