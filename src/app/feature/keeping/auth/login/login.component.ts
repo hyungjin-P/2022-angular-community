@@ -78,8 +78,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
                 const viaPath = 'auth/login-success/google';
 
+                console.log('is newUser : ', user?.signUpType);
+
                 this.storageService.setUser(user);
-                this.router.navigateByUrl(viaPath).then(() => {});
+                // this.router.navigateByUrl(viaPath).then(() => {});
+                this.router.navigateByUrl(viaPath).then();
               },
               (e) => {}
             );

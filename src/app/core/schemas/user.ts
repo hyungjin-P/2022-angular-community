@@ -26,6 +26,7 @@ export class User {
     public customToken: string,
     public isFollow: boolean,
     public metaInfo: any,
+    public signUpType: string,
   ) {
     this.id = id;
     this.provider = provider;
@@ -51,5 +52,6 @@ export class User {
     this.customToken = customToken;
     this.isFollow = isFollow;
     this.metaInfo = metaInfo;
+    this.signUpType = signUpType;
   }
 }
