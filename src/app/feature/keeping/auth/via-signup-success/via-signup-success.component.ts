@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {StorageService} from "@services/storage.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-via-signup-success',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViaSignupSuccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private storageService: StorageService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.activatedRoute.params.subscribe(data => {
+      setTimeout( () => {
+        this.router.navigateByUrl('feed').then()
+      }, 100);
+    });
+  }
 
   ngOnInit(): void {
   }

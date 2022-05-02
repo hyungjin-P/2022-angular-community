@@ -51,13 +51,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           user.getIdToken().then((accessToken) => {
             this.authService.modifySignWithFirebase(accessToken).subscribe(
               (user: User) => {
+                let viaPath = 'auth/login-success/google';
+
+                if (user?.signUpType === 'google') {
+                  viaPath = 'auth/signup-success/google';
+                }
+
                 this.storageService.setUser(user);
-                this.router.navigateByUrl('/auth/service-terms').then();
+                this.router.navigateByUrl(viaPath).then();
               },
-              (e) => {
-                console.log('modifyFireAuth error : ', e);
-                // this.globalService.showToast(e.message);
-              }
+              (e) => {}
             );
           });
         } else {
@@ -133,8 +136,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    */
   kakaoLoginTrigger(accessToken: string): void {
     this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
-      this.storageService.setUser(user);
-      this.angularFireAuth.signInWithCustomToken(user.customToken);
+      let viaPath = 'auth/login-success/kakao';
+
+      if (user?.signUpType === 'kakao') {
+        viaPath = 'auth/signup-success/kakao';
+      }
+
+      this.router.navigateByUrl(viaPath).then(() => {
+        this.storageService.setUser(user);
+        this.angularFireAuth.signInWithCustomToken(user.customToken);
+      });
+
     });
   }
 
@@ -159,8 +171,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.naverLoginPopupWindowRef.close();
 
     this.authService.modifySignWithNaver(code).subscribe((user: User) => {
-      this.storageService.setUser(user);
-      this.angularFireAuth.signInWithCustomToken(user.customToken);
+      let viaPath = 'auth/login-success/naver';
+
+      if (user?.signUpType === 'naver') {
+        viaPath = 'auth/signup-success/naver';
+      }
+
+      this.router.navigateByUrl(viaPath).then(() => {
+        this.storageService.setUser(user);
+        this.angularFireAuth.signInWithCustomToken(user.customToken);
+      });
     });
   }
 

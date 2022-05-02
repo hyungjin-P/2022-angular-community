@@ -76,9 +76,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.authService.modifySignWithFirebase(accessToken).subscribe(
               (user: User) => {
 
-                const viaPath = 'auth/login-success/google';
+                let viaPath = 'auth/login-success/google';
 
-                console.log('is newUser : ', user?.signUpType);
+                if (user?.signUpType === 'google') {
+                  viaPath = 'auth/signup-success/google';
+                }
 
                 this.storageService.setUser(user);
                 // this.router.navigateByUrl(viaPath).then(() => {});
@@ -159,7 +161,11 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   kakaoLoginTrigger(accessToken: string): void {
     this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
-      const viaPath = 'auth/login-success/kakao';
+      let viaPath = 'auth/login-success/kakao';
+
+      if (user?.signUpType === 'kakao') {
+        viaPath = 'auth/signup-success/kakao';
+      }
 
       this.router.navigateByUrl(viaPath).then(() => {
         this.storageService.setUser(user);
@@ -191,7 +197,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.naverLoginPopupWindowRef.close();
     this.authService.modifySignWithNaver(code).subscribe((user: any) => {
 
-      const viaPath = 'auth/login-success/naver';
+      let viaPath = 'auth/login-success/naver';
+
+      if (user?.signUpType === 'naver') {
+        viaPath = 'auth/signup-success/naver';
+      }
 
       this.router.navigateByUrl(viaPath).then(() => {
         this.storageService.setUser(user);

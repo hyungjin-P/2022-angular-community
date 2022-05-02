@@ -20,7 +20,7 @@ export class ViaLoginSuccessComponent implements OnInit {
     this.activatedRoute.params.subscribe(data => {
       setTimeout( () => {
         this.router.navigateByUrl('feed').then()
-      }, 50);
+      }, 100);
     });
   }
 
