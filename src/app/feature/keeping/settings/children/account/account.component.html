@@ -13,13 +13,13 @@
             <span>{{ 'settings.account.login-account-text' | translate }}</span>
             <div>
               <div class="social social-kakao" *ngIf="user.provider == 'kakao.com'">
-                <img src="assets/icons/social/kakao_2.png"/>
+                <img src="assets/icons/social/kakao_2.png" alt="">
               </div>
               <div class="social social-naver" *ngIf="user.provider == 'naver.com'">
-                <img src="assets/icons/social/naver.png"/>
+                <img src="assets/icons/social/naver.png" alt="">
               </div>
               <div class="social social-google" *ngIf="user.provider == 'google.com'">
-                <img src="assets/icons/social/google.png"/>
+                <img src="assets/icons/social/google.png" alt="">
               </div>
               <span class="email">{{ user.email || '' }}</span>
             </div>
