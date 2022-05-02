@@ -1,18 +1,17 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {User} from "@schemas/user";
-import {StorageService} from "@services/storage.service";
-import {FeedService} from "@services/feed.service";
-import {Feed} from "@schemas/feed";
-import {UserService} from "@services/user.service";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '@schemas/user';
+import { StorageService } from '@services/storage.service';
+import { FeedService } from '@services/feed.service';
+import { Feed } from '@schemas/feed';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-mypage-feed',
   templateUrl: './mypage-feed.component.html',
-  styleUrls: ['./mypage-feed.component.scss']
+  styleUrls: ['./mypage-feed.component.scss'],
 })
 export class MypageFeedComponent implements OnInit, AfterViewInit {
-
   user: User;
 
   feedList: any[] = [];
@@ -26,36 +25,33 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   otherUserId: string;
 
   isFeed = true;
+  viewType = 'desktop';
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private feedService: FeedService,
     private userService: UserService,
-    private activateRoute: ActivatedRoute,
+    private activateRoute: ActivatedRoute
   ) {
-    this.pushEmptyFeed(this.limit);
+    // this.pushEmptyFeed(this.limit);
   }
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
 
     // 라우팅 구분
-    this.activateRoute.params
-      .subscribe(params => {
-        if (params?.userId) {
-          this.otherUserId = params.userId;
-          this.userService
-            .getUser(this.otherUserId)
-            .subscribe((user) => {
-              this.user = user;
-              this.findMyPageFeedList(this.user.id, this.limit);
-            });
+    this.activateRoute.params.subscribe((params) => {
+      if (params?.userId) {
+        this.otherUserId = params.userId;
+        this.userService.getUser(this.otherUserId).subscribe((user) => {
+          this.user = user;
+          this.findMyPageFeedList(this.user.id, this.limit);
+        });
       } else {
         this.findMyPageFeedList(this.user.id, this.limit);
       }
     });
-
   }
 
   ngAfterViewInit(): void {}
@@ -67,32 +63,29 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
    */
   findMyPageFeedList(userId, limit): void {
     if (this.user) {
-      this.feedService
-        .findMyPageFeedMain(userId, limit)
-        .subscribe((data) => {
-          this.feedList = data?.feedList;
-          if (this.feedList.length < limit) {
-            let def = limit - this.feedList.length;
+      this.feedService.findMyPageFeedMain(userId, limit).subscribe((data) => {
+        this.feedList = data?.feedList;
 
-            for (let i = 0; i < def; i++) {
-              this.feedList.push({});
-            }
+        // 모바일 빈칸 생성 제거
+        /*if (this.feedList.length < limit) {
+          let def = limit - this.feedList.length;
+
+          for (let i = 0; i < def; i++) {
+            this.feedList.push({});
           }
-          this.otherCount = data?.otherCount;
-          this.totalCount = data?.totalCount;
+        }*/
+        this.otherCount = data?.otherCount;
+        this.totalCount = data?.totalCount;
 
-          if (this.totalCount === 0) {
-            this.feedList = [];
-          }
-
-        });
+        if (this.totalCount === 0) {
+          this.feedList = [];
+        }
+      });
     }
   }
 
   goFeedDetail(): void {
-    const path = this.otherUserId
-      ? `/mypage/feed-detail/${this.otherUserId}`
-      : '/mypage/feed-detail'
+    const path = this.otherUserId ? `/mypage/feed-detail/${this.otherUserId}` : '/mypage/feed-detail';
 
     this.router.navigateByUrl(path).then();
   }
@@ -102,11 +95,11 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   }
 
   comparisonBackgroundImage(feed: Feed): any {
-    return feed?.picture ? {'background-image': 'url(' + feed?.picture + ')'} : {};
+    return feed?.picture ? { 'background-image': 'url(' + feed?.picture + ')' } : {};
   }
 
   comparisonUserPicture(user: User): any {
-    return user?.picture ? {'background-image': 'url(' + user?.picture[0]?.url + ')'} : {};
+    return user?.picture ? { 'background-image': 'url(' + user?.picture[0]?.url + ')' } : {};
   }
 
   pushEmptyFeed(limit: number): void {
@@ -114,5 +107,4 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
       this.feedList.push({});
     }
   }
-
 }

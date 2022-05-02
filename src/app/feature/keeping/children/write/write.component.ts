@@ -196,7 +196,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     let picturesLength = this.feed.pictures.length + files.length;
     if (picturesLength > 8) {
       // 사진 최대 장 수 관련 토스트 메세지 출력
-      let message = this.textService.getText('write:feed:001');
+      let message = this.textService.getText('write:feed:006');
       this.globalService.showToast(message);
       return;
     }
@@ -302,7 +302,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.feed.tags.length >= 10 || !this.tagModalInput) {
       this.hideTagModal();
       if (this.feed.tags.length >= 10) {
-        let message = this.textService.getText('write:feed:001');
+        let message = this.textService.getText('write:feed:004');
         this.globalService.showToast(message);
       }
       return;
