@@ -43,13 +43,17 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.token = this.activatedRoute.snapshot.queryParams.token;
 
-    if (!this.token) {
-      this.isTokenValid = false;
-    } else {
-      this.checkResetPasswordLinkMail()
-    }
+    this.activatedRoute.params.subscribe(data => {
+      this.token = data?.token;
+
+      if (!this.token) {
+        this.isTokenValid = false;
+      } else {
+        this.checkResetPasswordLinkMail()
+      }
+
+    });
 
     this.password = '';
     this.passwordValid = false;
