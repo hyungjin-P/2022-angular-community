@@ -184,24 +184,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       }, 100);
     });
 
-    this.commentScrollEl.nativeElement.addEventListener('scroll', (event) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        const scrollHeight = this.commentScrollEl.nativeElement.scrollHeight;
-        const scrollTop = this.commentScrollEl.nativeElement.scrollTop;
-        const per = (scrollTop / scrollHeight) * 100;
-        const def = scrollHeight - scrollTop;
-
-        if (def < 700) {
-          this.findNextCommentPage();
-        }
-
-        if (50 < per) {
-          console.log('calc comment : ', per);
-        }
-      }, 100);
-    });
-
     this.likeScrollEl.nativeElement.addEventListener('scroll', (event) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
