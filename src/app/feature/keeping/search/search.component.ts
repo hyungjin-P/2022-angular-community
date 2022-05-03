@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FeedTag } from '@schemas/feed-tag';
 import { PublicService } from '@services/public.service';
+import { MagazineTag } from '@schemas/magazine-tag';
 
 @Component({
   selector: 'search',
@@ -10,17 +11,22 @@ import { PublicService } from '@services/public.service';
 })
 export class SearchComponent implements OnInit {
   text: string;
-  tagList: FeedTag[];
+  feedTagList: FeedTag[];
+  magazineTagList: MagazineTag[];
 
   constructor(private location: Location, private publicService: PublicService) {}
 
   ngOnInit() {}
 
   getTagList() {
-    this.publicService.getTagList(this.text).subscribe((data) => {
-      this.tagList = data;
-      console.log(this.tagList);
-    });
+    if (this.text !== '') {
+      this.publicService.getFeedTagList(this.text).subscribe((data) => {
+        this.feedTagList = data;
+      });
+      this.publicService.getMagazineTagList(this.text).subscribe((data) => {
+        this.magazineTagList = data;
+      });
+    }
   }
 
   back() {

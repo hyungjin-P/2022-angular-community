@@ -2,269 +2,270 @@
 @import '/src/assets/styles/checkbox';
 
 .header {
+  height: 60px;
+  background-color: var(--white);
+  box-shadow: 0px 1px 0px #f0f2f5;
+
+  .leading {
+    display: flex;
+    align-items: center;
     height: 60px;
-    background-color: var(--white);
-    box-shadow: 0px 1px 0px #f0f2f5;
 
-    .leading {
-        display: flex;
-        align-items: center;
-        height: 60px;
-
-        .logo {
-            height: 28px;
-            cursor: pointer;
-        }
+    .logo {
+      height: 28px;
+      cursor: pointer;
     }
+  }
 }
 
 .agreement-form {
-    margin: 40px 0 40px;
-    padding: 0 8px;
+  margin: 40px 0 40px;
+  padding: 0 8px;
+
+  .text-1 {
+    @include textStyle(700, 22px, 32px);
+  }
+
+  .text-2 {
+    margin-top: 22px;
+
+    @include textStyle(400, 12px, 20px);
+  }
+
+  .text-2,
+  .text-3 {
+    color: var(--text-2);
+  }
+
+  .all-agreement {
+    margin-top: 81px;
+  }
+
+  .h-line {
+    margin-top: 16px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--grey-8);
+  }
+
+  .agreement-1,
+  .agreement-2,
+  .agreement-3,
+  .agreement-4 {
+    padding-top: 12px;
+
+    > div {
+      cursor: pointer;
+
+      @include textStyle(500, 12px, 20px);
+      color: var(--grey-2);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  .agreement-button {
+    margin-top: 30px;
+    width: 100%;
+    height: 52px;
+
+    @include textStyle(500, 15px, 22px);
+  }
+}
+
+@media (min-width: 576px) {
+  .agreement-form {
+    margin: 60px -20.5px 40px;
+    padding: 0;
 
     .text-1 {
-        @include textStyle(700, 22px, 32px);
+      @include textStyle(700, 24px, 34px);
     }
 
     .text-2 {
-        margin-top: 22px;
+      margin-top: 20px;
 
-        @include textStyle(400, 12px, 20px);
-    }
-
-    .text-2,
-    .text-3 {
-        color: var(--text-2);
+      @include textStyle(400, 13px, 21px);
     }
 
     .all-agreement {
-        margin-top: 81px;
+      margin-top: 48px;
+
+      ::ng-deep shared-checkbox {
+        @include checkbox;
+      }
     }
 
     .h-line {
-        margin-top: 16px;
-        margin-bottom: 4px;
-        border-bottom: 1px solid var(--grey-8);
+      margin-top: 15px;
+      border-bottom: 1px solid var(--grey-8);
     }
 
     .agreement-1,
     .agreement-2,
     .agreement-3,
     .agreement-4 {
-        padding-top: 12px;
+      padding-top: 16px;
 
-        > div {
-            cursor: pointer;
+      ::ng-deep shared-checkbox {
+        @include checkbox;
+      }
 
-            @include textStyle(500, 12px, 20px);
-            color: var(--grey-2);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
+      > div {
+        @include textStyle(500, 13px, 21px);
+      }
     }
 
     .agreement-button {
-        margin-top: 30px;
-        width: 100%;
-        height: 52px;
-
-        @include textStyle(500, 15px, 22px);
+      margin-top: 36px;
     }
-}
-
-@media (min-width: 576px) {
-    .agreement-form {
-        margin: 60px -20.5px 40px;
-        padding: 0;
-
-        .text-1 {
-            @include textStyle(700, 24px, 34px);
-        }
-
-        .text-2 {
-            margin-top: 20px;
-
-            @include textStyle(400, 13px, 21px);
-        }
-
-        .all-agreement {
-            margin-top: 48px;
-
-            ::ng-deep shared-checkbox {
-                @include checkbox;
-            }
-        }
-
-        .h-line {
-            margin-top: 15px;
-            border-bottom: 1px solid var(--grey-8);
-        }
-
-        .agreement-1,
-        .agreement-2,
-        .agreement-3,
-        .agreement-4 {
-            padding-top: 16px;
-
-            ::ng-deep shared-checkbox {
-                @include checkbox;
-            }
-
-            > div {
-                @include textStyle(500, 13px, 21px);
-            }
-        }
-
-        .agreement-button {
-            margin-top: 36px;
-        }
-    }
+  }
 }
 
 @media (min-width: 768px) {
-    .agreement-form {
-        margin: 60px 75.5px 40px;
-        padding: 0;
-    }
+  .agreement-form {
+    margin: 60px 75.5px 40px;
+    padding: 0;
+  }
 }
 
 @media (min-width: 992px) {
-    .agreement-form {
-        margin: 60px 45px 40px;
-        padding: 0;
-    }
+  .agreement-form {
+    margin: 60px 45px 40px;
+    padding: 0;
+  }
 }
 
 @media (min-width: 1200px) {
-    .agreement-form {
-        margin: 60px 165px 40px;
-        padding: 0;
-    }
+  .agreement-form {
+    margin: 60px 165px 40px;
+    padding: 0;
+  }
 }
 
 .popup-privacy-service-terms {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
 
-    .privacy-service-terms {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        background-color: var(--white);
-        box-shadow: 0px 32px 32px -8px rgba(0, 0, 0, 0.08), 0px 0px 32px -8px rgba(0, 0, 0, 0.12),
-            0px 0px 1px rgba(0, 0, 0, 0.2);
+  .privacy-service-terms {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    box-shadow: 0px 32px 32px -8px rgba(0, 0, 0, 0.08), 0px 0px 32px -8px rgba(0, 0, 0, 0.12),
+      0px 0px 1px rgba(0, 0, 0, 0.2);
 
-        .privacy-service-terms-header {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 48px;
+    .privacy-service-terms-header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 48px;
 
-            > div:nth-child(1) {
-                @include textStyle(700, 16px, 24px);
-            }
+      > div:nth-child(1) {
+        @include textStyle(700, 16px, 24px);
+      }
 
-            .privacy-service-terms-close-icon {
-                position: absolute;
-                right: 0;
-                cursor: pointer;
+      .privacy-service-terms-close-icon {
+        position: absolute;
+        right: 0;
+        cursor: pointer;
 
-                font-size: 24px;
-            }
-        }
-
-        .privacy-service-terms-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 54px;
-            border-bottom: 1px solid var(--grey-7);
-
-            .privacy-service-terms-menu {
-                flex: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                border-bottom: 3px solid transparent;
-                cursor: pointer;
-
-                @include textStyle(500, 14px, 22px);
-                color: var(--grey-3);
-            }
-
-            .privacy-service-terms-v-line {
-                height: 12px;
-                border-right: 1px solid var(--grey-7);
-            }
-
-            .privacy-service-terms-selected {
-                border-bottom: 3px solid var(--blue-3);
-
-                font-weight: 700;
-                color: var(--blue-3);
-            }
-        }
-
-        .privacy-service-terms-content {
-            position: absolute;
-            top: 102px;
-            right: 0;
-            bottom: 52px;
-            left: 0;
-            padding: 20px;
-        }
-
-        .privacy-service-terms-confirm {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 52px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-
-            @include textStyle(500, 15px, 22px);
-        }
+        font-size: 24px;
+      }
     }
+
+    .privacy-service-terms-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 54px;
+      border-bottom: 1px solid var(--grey-7);
+
+      .privacy-service-terms-menu {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+
+        @include textStyle(500, 14px, 22px);
+        color: var(--grey-3);
+      }
+
+      .privacy-service-terms-v-line {
+        height: 12px;
+        border-right: 1px solid var(--grey-7);
+      }
+
+      .privacy-service-terms-selected {
+        border-bottom: 3px solid var(--blue-3);
+
+        font-weight: 700;
+        color: var(--blue-3);
+      }
+    }
+
+    .privacy-service-terms-content {
+      position: absolute;
+      top: 102px;
+      right: 0;
+      bottom: 52px;
+      left: 0;
+      padding: 20px;
+      margin-top: 5px;
+    }
+
+    .privacy-service-terms-confirm {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 52px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+
+      @include textStyle(500, 15px, 22px);
+    }
+  }
 }
 
 @media (min-width: 576px) {
-    .popup-privacy-service-terms {
-        .privacy-service-terms {
-            width: 412px;
-            height: 642px;
-            border-radius: 16px;
+  .popup-privacy-service-terms {
+    .privacy-service-terms {
+      width: 412px;
+      height: 642px;
+      border-radius: 16px;
 
-            .privacy-service-terms-header {
-                height: 54px;
+      .privacy-service-terms-header {
+        height: 54px;
 
-                > div:nth-child(1) {
-                    @include textStyle(700, 20px, 30px);
-                }
-            }
+        > div:nth-child(1) {
+          @include textStyle(700, 20px, 30px);
         }
+      }
     }
+  }
 }
 
 @media (min-width: 1200px) {
-    .popup-privacy-service-terms {
-        .privacy-service-terms {
-            width: 510px;
+  .popup-privacy-service-terms {
+    .privacy-service-terms {
+      width: 510px;
 
-            .container {
-                padding: 0 16px;
-            }
-        }
+      .container {
+        padding: 0 16px;
+      }
     }
+  }
 }

@@ -110,6 +110,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         } else {
           this.category = 'magazine_category_' + this.nowTab;
         }
+
         if (this.user) {
           this.getMagazineList();
         } else {
@@ -201,21 +202,13 @@ export class MagazineComponent implements OnInit, AfterViewInit {
       this.magazineService.getMagazineTopList(this.user?.id).subscribe((magazineList) => {
         this.topMagazineList = magazineList;
         this.changeBody(this.topMagazineList);
-        if (this.nowTab !== undefined) {
-          this.changeTab();
-        } else {
-          this.moveTab('/magazine?tabType=all');
-        }
+        this.changeTab();
       });
     } else {
       this.publicService.getMagazineTopList().subscribe((magazineList) => {
         this.topMagazineList = magazineList;
         this.changeBody(this.topMagazineList);
-        if (this.nowTab !== undefined) {
-          this.changeTab();
-        } else {
-          this.moveTab('/magazine?tabType=all');
-        }
+        this.changeTab();
       });
     }
   }
@@ -282,11 +275,12 @@ export class MagazineComponent implements OnInit, AfterViewInit {
       } else {
         this.category = 'magazine_category_' + this.nowTab;
       }
-      if (this.user) {
-        this.getMagazineList();
-      } else {
-        this.getPublicMagazineList();
-      }
+    }
+
+    if (this.user) {
+      this.getMagazineList();
+    } else {
+      this.getPublicMagazineList();
     }
   }
 
