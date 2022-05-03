@@ -297,8 +297,8 @@
         <ng-container *ngFor='let magazine of magazineList; let i = index'>
           <div class="item col-6 col-lg-6 col-xxl-2-5">
             <div class="d-flex flex-column flex-wrap">
-              <a class="image-box flex-fill" href="javascript: void(0)">
-                <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)'>
+              <a class="image-box flex-fill" href="javascript: void(0)" [title]="magazine.body.title">
+                <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)' [alt]="magazine.body.title">
                 <div class='gradient' (click)='moveLink(magazine)'></div>
                 <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                   <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
