@@ -1,5 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 import { PublicService } from '@services/public.service';
@@ -88,7 +96,34 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     private magazineService: MagazineService,
     private storageService: StorageService,
     private publicService: PublicService
-  ) {}
+  ) {
+    router.events.subscribe((event: NavigationStart) => {
+      if (event.navigationTrigger === 'popstate') {
+        if (event.url.indexOf('tabType') === -1) {
+          this.nowTab = this.tabMenu[0].tabName;
+        } else {
+          this.nowTab = event.url.split('tabType=')[1];
+        }
+
+        if (this.nowTab === 'all') {
+          this.category = 'all';
+        } else {
+          this.category = 'magazine_category_' + this.nowTab;
+        }
+        if (this.user) {
+          this.getMagazineList();
+        } else {
+          this.getPublicMagazineList();
+        }
+      }
+    });
+  }
+
+  /*@HostListener('window:popstate', ['$event'])
+  onBack(e: Event) {
+    this.nowTab = this.route.snapshot.queryParams.tabType;
+    this.changeTab();
+  }*/
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -96,7 +131,9 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     this.language = localStorage.getItem('language');
 
     this.nowTab = this.route.snapshot.queryParams.tabType;
-    this.getTopMagazineList();
+    if (!this.topMagazineList) {
+      this.getTopMagazineList();
+    }
   }
 
   ngAfterViewInit() {

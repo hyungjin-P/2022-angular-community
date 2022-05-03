@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'mobile-header',
@@ -28,7 +28,16 @@ export class MobileHeaderComponent implements OnInit {
   tabMenu: any[] = [];
   nowTab: '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    if (this.router.routerState.snapshot.url.indexOf('scrap') > 0) {
+      router.events.subscribe((event: NavigationStart) => {
+        if (event.navigationTrigger === 'popstate') {
+          const tabName = event.url.split('/')[2];
+          this.nowTab = this.tabMenu.filter((tab) => tab.tabName === tabName)[0].tabName;
+        }
+      });
+    }
+  }
 
   ngOnInit(): void {
     this.changeTab();
