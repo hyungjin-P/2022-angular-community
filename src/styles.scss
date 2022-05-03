@@ -41,6 +41,10 @@
   --red-1: #940200;
 }
 
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
 // Tooltip
 .shared-tooltip {
   position: fixed;
@@ -163,9 +167,8 @@
 
 .shared-button-secondary {
   @include shared-button;
-  background-color: var(--blue-9);
-
   color: var(--blue-1);
+  background-color: var(--blue-9);
 
   &:hover {
     background-color: var(--blue-7);

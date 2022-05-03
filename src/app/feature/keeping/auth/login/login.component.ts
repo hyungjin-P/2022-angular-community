@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 let viaPath = 'auth/login-success/google';
 
                 if (user?.signUpType === 'google') {
-                  viaPath = 'auth/signup-success/google';
+                  viaPath = 'auth/service-terms/google';
                 }
 
                 this.storageService.setUser(user);
@@ -164,7 +164,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       let viaPath = 'auth/login-success/kakao';
 
       if (user?.signUpType === 'kakao') {
-        viaPath = 'auth/signup-success/kakao';
+        viaPath = 'auth/service-terms/kakao';
       }
 
       this.router.navigateByUrl(viaPath).then(() => {
@@ -200,7 +200,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       let viaPath = 'auth/login-success/naver';
 
       if (user?.signUpType === 'naver') {
-        viaPath = 'auth/signup-success/naver';
+        viaPath = 'auth/service-terms/naver';
       }
 
       this.router.navigateByUrl(viaPath).then(() => {

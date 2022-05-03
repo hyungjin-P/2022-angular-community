@@ -139,13 +139,11 @@
 
     .img-content {
       display: flex;
-
       align-items: center;
 
       > img {
-        width: 90px;
-        height: auto;
-        //transform: translate(20%, 15%);
+        width: 100px;
+        height: 70px;
       }
     }
   }
@@ -441,6 +439,15 @@
 
 @media (min-width: 360px) {
   .section {
+    .banner {
+      .img-content {
+        > img {
+          width: 90px;
+          height: 63px;
+        }
+      }
+    }
+
     .item-list {
       margin: 10px -6px;
 
@@ -463,6 +470,8 @@
       }
     }
   }
+
+
 }
 
 @media (min-width: 576px) {
@@ -487,7 +496,18 @@
         }
       }
     }
+
+    .banner {
+      .img-content {
+        > img {
+          width: 90px;
+          height: 63px;
+        }
+      }
+    }
   }
+
+
 }
 
 @media (min-width: 768px) {
@@ -499,6 +519,11 @@
       border-radius: 8px;
       .img-content {
         margin-left: 120px;
+
+        > img {
+          width: 90px;
+          height: 63px;
+        }
       }
     }
 
@@ -535,6 +560,28 @@
     background-color: #f6f7f9;
     padding: 80px 16px;
 
+    .banner {
+      width: 90%;
+      margin: 0 auto;
+
+      .img-content {
+        > img {
+          width: 100px;
+          height: 70px;
+        }
+      }
+
+      .text-content {
+        .text-1 {
+          @include textStyleGmarketSans_medium(22px);
+        }
+
+        .text-2 {
+          @include textStyleGmarketSans_bold(22px);
+        }
+      }
+    }
+
     /* width */
     &::-webkit-scrollbar {
       width: 8px;
@@ -562,11 +609,6 @@
       width: 92%;
       margin: 0 auto 40px;
       box-shadow: none;
-    }
-
-    .banner {
-      width: 90%;
-      margin: 0 auto;
     }
 
     .item-list {
@@ -606,15 +648,48 @@
         flex-direction: row;
         .text-1 {
           margin-right: 12px;
+          @include textStyleGmarketSans_medium(22px);
+        }
+
+        .text-2 {
+          @include textStyleGmarketSans_bold(22px);
+        }
+      }
+
+      .img-content {
+        > img {
+          width: 100px;
+          height: 70px;
         }
       }
     }
+
+
   }
 }
 
 @media (min-width: 1920px) {
   .section {
     padding: 80px 16px;
+
+    .banner {
+      .img-content {
+        > img {
+          width: 100px;
+          height: 70px;
+        }
+      }
+
+      .text-content {
+        .text-1 {
+          @include textStyleGmarketSans_medium(22px);
+        }
+
+        .text-2 {
+          @include textStyleGmarketSans_bold(22px);
+        }
+      }
+    }
 
     .tag-list {
       margin: 0 auto 50px;

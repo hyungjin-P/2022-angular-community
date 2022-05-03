@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'reset-password', canActivate: [AuthGuard], component: ResetPasswordComponent },
   { path: 'reset-password/:token', canActivate: [AuthGuard], component: ResetPasswordComponent },
   { path: 'service-terms', canActivate: [AuthGuard], component: ServiceTermsComponent },
+  { path: 'service-terms:/type', canActivate: [AuthGuard], component: ServiceTermsComponent },
   { path: 'login-success/:type', component: ViaLoginSuccessComponent },
   { path: 'signup-success/:type', component: ViaSignupSuccessComponent },
 ];

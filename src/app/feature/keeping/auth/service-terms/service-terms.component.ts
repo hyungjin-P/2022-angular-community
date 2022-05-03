@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core'
-import {Router} from '@angular/router'
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core'
+import {ActivatedRoute, Router} from '@angular/router'
 
 import {GlobalService} from '@services/global.service'
 import {StorageService} from '@services/storage.service'
@@ -13,7 +13,7 @@ import {User} from '@schemas/user'
   templateUrl: './service-terms.component.html',
   styleUrls: ['./service-terms.component.scss'],
 })
-export class ServiceTermsComponent implements OnInit {
+export class ServiceTermsComponent implements OnInit, AfterViewInit {
   TAG = '서비스 이용약관'
 
   @ViewChild('popupPrivacyServiceTermsRef') popupPrivacyServiceTermsRef
@@ -28,12 +28,33 @@ export class ServiceTermsComponent implements OnInit {
   agreementServiceTerms: boolean
   agreementMarketing: boolean
 
+  signUpType = '';
+
   constructor(
     private router: Router,
     private globalService: GlobalService,
     private storageService: StorageService,
-    private userService: UserService
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute
   ) {}
+
+  ngAfterViewInit(): void {
+    this.activatedRoute.params.subscribe(data => {
+      if (data?.type) {
+        switch (data?.type) {
+          case 'kakao':
+            this.signUpType = 'kakao';
+            break;
+          case 'naver':
+            this.signUpType = 'naver';
+            break;
+          case 'google':
+            this.signUpType = 'google';
+            break;
+        }
+      }
+    })
+  }
 
   ngOnInit() {
     this.user = this.storageService.getUser()
@@ -73,7 +94,13 @@ export class ServiceTermsComponent implements OnInit {
 
           this.storageService.setUser(this.user);
 
-          this.router.navigateByUrl('/').then();
+          if (this.signUpType === 'kakao'
+            || this.signUpType === 'naver'
+            || this.signUpType === 'google') {
+            this.router.navigateByUrl(`auth/signup-success/${this.signUpType}`).then();
+          } else {
+            this.router.navigateByUrl('/').then();
+          }
         },
         (e) => {
           this.globalService.showToast(e.message)
