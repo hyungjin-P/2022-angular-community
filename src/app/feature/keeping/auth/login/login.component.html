@@ -22,11 +22,24 @@
     <div class="left-side">
       <div class="login-image">
         <!-- image processing -->
-        <!--        <img src="https://public.keeping.link/assets/images/auth/login.jpg?w=768&q=10"-->
-        <!--            #img-->
-        <!--            (load)="onImageLoad(img)" alt="">-->
-        <img src="assets/images/login-visual/login-left-wonder-woman.png" alt="">
+        <img class='main-image' src="https://public.keeping.link/assets/images/auth/login1.jpg?q=10"
+          #img
+          (load)="onImageLoad(img)"
+          alt="">
 
+        <div class='gradient'>
+          <div class='gradient2'>
+            <div class='description'>
+              <div class='text'>
+                <span class='text-1'>{{'auth.login.banner.text-1' | translate}}</span>
+                <span class='text-2'>{{'auth.login.banner.text-2' | translate}}</span>
+              </div>
+              <div class='logo'>
+                <img class='logo-image' src="assets/images/logo/header_logo.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right-side d-flex justify-content-center align-items-center">

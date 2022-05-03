@@ -140,9 +140,8 @@
       width: 54px;
       height: 30px;
 
-      border: 1px solid var(--blue-3) ;
+      border: 1px solid var(--blue-3);
       border-radius: 8px;
-
 
       @include textStyle(700, 12px, 20px);
       letter-spacing: -0.2px;
@@ -378,7 +377,6 @@
       .user-box {
         top: 35px;
         left: -185px;
-
       }
     }
 
@@ -430,7 +428,7 @@
       cursor: pointer;
       opacity: 0.9;
       text-decoration: none;
-      transition: all .15s;
+      transition: all 0.15s;
 
       img {
         width: 18px;
@@ -467,7 +465,6 @@
   border-bottom: 1px solid #f0f2f5;
   box-shadow: 0 7px 10px rgba(0, 0, 0, 0.08);
 
-
   .menu {
     position: relative;
     padding: 8px 12px;
@@ -486,7 +483,7 @@
       bottom: 0px;
       left: 6px;
       border-radius: 1.5px;
-      height:3px;
+      height: 3px;
       background-color: var(--black);
     }
   }
@@ -522,7 +519,7 @@
     }
 
     .action {
-      .login{
+      .login {
         width: 91px;
         height: 40px;
         margin-right: 4px;
@@ -543,7 +540,7 @@
           right: 10px;
         }
       }
-      .notification svg g path{
+      .notification svg g path {
         fill: white;
       }
     }

@@ -49,7 +49,11 @@
       "text1": "로그인",
       "text2-1": "아직 키핑 회원이 아니세요?",
       "text2-2": "회원가입",
-      "text3": "SNS 계정으로 3초만에 시작하기"
+      "text3": "SNS 계정으로 3초만에 시작하기",
+      "banner": {
+        "text-1": "피규어 컬렉터를 위한 커뮤니티\nKeep and Pick!",
+        "text-2": "키핑."
+      }
     },
     "registration": {
       "email-signup-button": "이메일로 가입하기",

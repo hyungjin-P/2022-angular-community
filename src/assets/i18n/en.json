@@ -49,7 +49,11 @@
       "text1": "Sign in",
       "text2-1": "Don't you have an account?",
       "text2-2": "Sign up",
-      "text3": "Continue with"
+      "text3": "Continue with",
+      "banner": {
+        "text-1": "Community for figure collectors\nKeep and Pick!",
+        "text-2": "KEEPING."
+      }
     },
     "registration": {
       "email-signup-button": "Continue with Email",
