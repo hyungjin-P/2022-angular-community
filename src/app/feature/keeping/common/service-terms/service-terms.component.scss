@@ -1,37 +1,37 @@
 @import '/src/assets/styles/font';
 
 .service-terms {
-    @include textStyle(400, 12px, 20px);
-    color: var(--text-2);
+  @include textStyle(400, 12px, 20px);
+  color: var(--text-2);
 
-    .title {
-        @include textStyle(700, 16px, 24px);
+  .title {
+    @include textStyle(700, 16px, 24px);
+  }
+
+  .item {
+    margin-top: 16px;
+
+    > div:nth-child(1) {
+      margin-bottom: 4px;
+
+      @include textStyle(500, 13px, 20px);
     }
 
-    .item {
-        margin-top: 16px;
+    > div:not(div:nth-child(1)) {
+      > div:nth-child(1) {
+        margin-top: 4px;
+      }
 
-        > div:nth-child(1) {
-            margin-bottom: 4px;
-
-            @include textStyle(500, 13px, 20px);
-        }
-
-        > div:not(div:nth-child(1)) {
-            > div:nth-child(1) {
-                margin-top: 4px;
-            }
-
-            > div:not(div:nth-child(1)) {
-                margin-top: 2px;
-                margin-left: 4px;
-            }
-        }
+      > div:not(div:nth-child(1)) {
+        margin-top: 2px;
+        margin-left: 4px;
+      }
     }
+  }
 }
 
 @media (min-width: 992px) {
-    .title {
-        text-align: center;
-    }
+  .title {
+    text-align: center;
+  }
 }
