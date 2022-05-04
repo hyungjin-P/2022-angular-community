@@ -28,6 +28,8 @@ import { MypagePopoverComponent } from './mypage/shared/mypage-popover/mypage-po
 import { ScrapComponent } from './scrap/scrap.component';
 import { ScrapFeedComponent } from './scrap/scrap-feed/scrap-feed.component';
 import { ScrapMagazineComponent } from './scrap/scrap-magazine/scrap-magazine.component';
+import { SearchFeedComponent } from './search/search-feed/search-feed.component';
+import { SearchMagazineComponent } from './search/search-magazine/search-magazine.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { ScrapMagazineComponent } from './scrap/scrap-magazine/scrap-magazine.co
     ScrapComponent,
     ScrapFeedComponent,
     ScrapMagazineComponent,
+    SearchFeedComponent,
+    SearchMagazineComponent,
   ],
   imports: [KeepingRoutingModule, SharedModule, CommonModule, InlineSVGModule.forRoot(), SwiperModule],
   exports: [],

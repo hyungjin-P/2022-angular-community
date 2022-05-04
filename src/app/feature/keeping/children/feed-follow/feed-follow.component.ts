@@ -121,7 +121,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
 
     this.getFeedFollowList();
 
-    console.log(this.activateRoute);
+    // console.log(this.activateRoute);
   }
 
   ngAfterViewInit(): void {

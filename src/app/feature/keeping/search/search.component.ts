@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   text: string;
   feedTagList: FeedTag[];
   magazineTagList: MagazineTag[];
+  selectLanguage: any;
 
   constructor(private location: Location, private publicService: PublicService) {}
 
