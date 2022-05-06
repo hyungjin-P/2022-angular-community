@@ -19,6 +19,7 @@ import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
 import { FollowService } from '@services/follow.service';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
+import {OtherUserUtil} from "../../../../core/utils/other-user.util";
 
 @Component({
   selector: 'feed-detail',
@@ -117,7 +118,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     private followService: FollowService,
     private publicService: PublicService,
     private textService: TextService,
-    private dateUtils: DateUtils
+    private dateUtils: DateUtils,
+    public otherUserUtil: OtherUserUtil
   ) {}
 
   ngOnInit() {
@@ -984,4 +986,22 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   commentModalShow(feed: Feed): void {
     this.commentModal.onModalShow(feed);
   }
+
+  /** 다른 유저 마이페이지 이동 시 로직 */
+  moveOtherUserMyPage(user: User, targetUserId): void {
+    if (!this.user) {
+      this.showLoginModal();
+      return;
+    } else {
+      if (user?.id !== targetUserId) {
+        this.otherUserUtil.moveOtherUserMyPage(targetUserId);
+        return;
+      } else {
+        this.otherUserUtil.moveMyPage();
+        return;
+      }
+    }
+  }
+
+
 }
