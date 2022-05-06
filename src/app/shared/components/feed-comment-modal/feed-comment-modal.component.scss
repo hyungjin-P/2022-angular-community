@@ -254,6 +254,7 @@
           .like {
             cursor: pointer;
             margin-right: 12px;
+            min-width: 60px;
 
             &.active {
               span {

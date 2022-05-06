@@ -86,7 +86,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
         const per = (scrollTop / scrollHeight) * 100;
         const def = scrollHeight - scrollTop;
 
-        if (def < 1000) {
+        if (def < 1200) {
           this.findNextPage();
         }
 
@@ -119,7 +119,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.feedList = feedList.items;
         }
       },
-      (e) => {}
+      () => {}
     );
   }
 

@@ -17,7 +17,9 @@ import { File } from '@schemas/file';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+
   user: User;
+
   selectedLanguage: string;
   currentPicture: any;
   currentNickname: string;
@@ -25,6 +27,8 @@ export class ProfileComponent implements OnInit {
   currentAboutMeText: string;
   aboutMeInfoText: string;
   aboutMeErrorText: string;
+
+  duplicatedNickname: boolean;
 
   constructor(
     private location: Location,
@@ -40,7 +44,7 @@ export class ProfileComponent implements OnInit {
 
     this.selectedLanguage = localStorage.getItem('language');
 
-    this.currentPicture = this.user?.picture?.length == 0 ? null : this.user?.picture[0]['url'];
+    this.currentPicture = this.user?.picture?.length === 0 ? null : this.user?.picture[0]['url'];
     this.currentNickname = this.user?.nickname;
     this.checkNickname();
     this.currentAboutMeText = this.user?.aboutMe ? this.user?.aboutMe : '';
@@ -78,8 +82,10 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.userService.checkDuplicateNickname(this.user.id, this.currentNickname).subscribe(
-      (v) => {
+    /* 닉네임 중복 확인 */
+    this.userService
+      .checkDuplicateNickname(this.user.id, this.currentNickname)
+      .subscribe((v) => {
         // 사용가능한 닉네임입니다.
         let message = this.textService.getText('settings:profile:002');
         this.globalService.showToast(message);
@@ -87,8 +93,7 @@ export class ProfileComponent implements OnInit {
       (e) => {
         const message: string = this.textService.getText('settings:profile:003');
         this.globalService.showToast(message);
-      }
-    );
+      });
   }
 
   onKeyup(event, type) {
@@ -135,21 +140,31 @@ export class ProfileComponent implements OnInit {
       picture.value = '';
     }
 
-    // 정보 업데이트
-    this.userService.updateUserProfile(this.user.id, this.currentNickname, this.currentAboutMeText).subscribe(
-      (user: User) => {
-        this.user.nickname = user.nickname;
-        this.user.aboutMe = user.aboutMe;
-        this.storageService.setUser(this.user);
+    /* 닉네임 중복 확인 */
+    this.userService
+      .checkDuplicateNickname(this.user.id, this.currentNickname)
+      .subscribe((v) => {
+          // 정보 업데이트
+          this.userService
+            .updateUserProfile(this.user.id, this.currentNickname, this.currentAboutMeText)
+            .subscribe((user: User) => {
+                this.user.nickname = user.nickname;
+                this.user.aboutMe = user.aboutMe;
+                this.storageService.setUser(this.user);
 
-        // 프로필이 수정되었습니다.
-        this.location.back();
-        let message = this.textService.getText('settings:profile:005');
-        this.globalService.showToast(message);
-      },
-      (e) => {
-        this.globalService.showToast(e.message);
-      }
-    );
+                // 프로필이 수정되었습니다.
+                this.location.back();
+                let message = this.textService.getText('settings:profile:005');
+                this.globalService.showToast(message);
+              },
+              (e) => {
+                this.globalService.showToast(e.message);
+              });
+        },
+        (e) => {
+          const message: string = this.textService.getText('settings:profile:003');
+          this.globalService.showToast(message);
+        });
+
   }
 }

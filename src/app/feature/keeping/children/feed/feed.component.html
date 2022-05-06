@@ -50,6 +50,7 @@
             <div class="card_detail">
               <div class="feed-infos cursor-pointer"
                    (click)="moveOtherUserMyPage(user, feed?.writer?.id)">
+
                 <shared-avatar
                   [image]="feed?.writer.picture[0]?.url"
                   text="{{ feed?.writer.email }}"
@@ -57,6 +58,7 @@
                   fontSize="14"
                   backgroundColor="red"
                 ></shared-avatar>
+
                 <span class="user-name">
                   {{ feed?.writer.nickname || feed?.writer.email.split('@')[0] }}
                 </span>

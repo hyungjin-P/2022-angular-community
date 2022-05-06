@@ -5,7 +5,8 @@
     (goBack)="goBack()"
   ></mobile-header>
 
-  <div class="flex-fill" style="position: relative">
+  <div class="flex-fill"
+       style="position: relative">
     <div class="section full-absolute scroll-y">
       <div class="user-background"
            [style.background-image]="'url(' + user.background[0]?.url + ')'"
@@ -66,11 +67,9 @@
             </div>
           </div>
           <!-- 프로필 수정 버튼 -->
-          <a
-            class="update-button shared-button-primary"
-            [class.shared-button-primary-disabled]="!currentNickname"
-            (click)="updateUser(picture)"
-          >
+          <a class="update-button shared-button-primary"
+             [class.shared-button-primary-disabled]="!currentNickname"
+             (click)="updateUser(picture)">
             <!-- 프로필 수정 완료-->
             <div>{{ 'settings.profile.update-button' | translate }}</div>
           </a>
