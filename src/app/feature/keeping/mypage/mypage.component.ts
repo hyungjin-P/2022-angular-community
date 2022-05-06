@@ -26,7 +26,7 @@ import { File } from '@schemas/file';
 import { MypageFeedDetailComponent } from './mypage-feed-detail/mypage-feed-detail.component';
 import { FollowService } from '@services/follow.service';
 import { TextService } from '@services/text.service';
-import {FollowViewModalComponent} from "@shared/components/follow-view-modal/follow-view-modal.component";
+import { FollowViewModalComponent } from '@shared/components/follow-view-modal/follow-view-modal.component';
 
 @Component({
   selector: 'mypage',

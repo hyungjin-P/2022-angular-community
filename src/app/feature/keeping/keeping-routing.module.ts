@@ -28,6 +28,10 @@ import { MypageFeedDetailComponent } from './mypage/mypage-feed-detail/mypage-fe
 import { ScrapComponent } from './scrap/scrap.component';
 import { ScrapFeedComponent } from './scrap/scrap-feed/scrap-feed.component';
 import { ScrapMagazineComponent } from './scrap/scrap-magazine/scrap-magazine.component';
+import { SearchFeedComponent } from './search/search-feed/search-feed.component';
+import { SearchMagazineComponent } from './search/search-magazine/search-magazine.component';
+
+// 2022.05.04 기준 미사용 항목 : notice, event, help, notification
 
 const routes: Routes = [
   {
@@ -48,7 +52,7 @@ const routes: Routes = [
       { path: 'notice', component: NoticeComponent },
       { path: 'event', component: EventComponent },
       { path: 'help', component: HelpComponent },
-      { path: 'test', component: TestPageComponent },
+      // { path: 'test', component: TestPageComponent },
       { path: 'privacy', component: PrivacyComponent },
       { path: 'service-terms', component: ServiceTermsComponent },
       { path: 'notification', component: NotificationComponent },
@@ -79,7 +83,15 @@ const routes: Routes = [
     ],
   },
 
-  { path: 'search', canActivate: [ServiceTermsGuard], component: SearchComponent },
+  {
+    path: 'search',
+    canActivate: [ServiceTermsGuard],
+    component: SearchComponent,
+    children: [
+      { path: 'feed', component: SearchFeedComponent },
+      { path: 'magazine', component: SearchMagazineComponent },
+    ],
+  },
 
   {
     path: 'auth',
@@ -91,7 +103,6 @@ const routes: Routes = [
     canActivate: [AuthGuard, ServiceTermsGuard],
     loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule),
   },
-
 ];
 
 @NgModule({
