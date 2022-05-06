@@ -160,7 +160,7 @@
                 <div class="nickname">
                   {{ user.nickname || user.email || '' }}
                 </div>
-                <div>
+                <div *ngIf='!isOtherUser'>
                   <div class="social social-kakao"
                        *ngIf="user.provider === 'kakao.com'">
                     <img src="assets/icons/social/kakao_2.png">
@@ -234,7 +234,7 @@
                   <div class="nickname">
                     {{ user.nickname || user.email || '' }}
                   </div>
-                  <div>
+                  <div *ngIf='!isOtherUser'>
                     <div class="social social-kakao"
                          *ngIf="user.provider === 'kakao.com'">
                       <img src="assets/icons/social/kakao_2.png"
