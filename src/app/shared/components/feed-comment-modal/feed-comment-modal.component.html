@@ -1,8 +1,10 @@
 <!-- Comment Modal -->
 <div class="modal fade" id="bs-comment-modal" data-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize" id="bs-comment-modal-dialog">
-    <div class="modal-content modal-fullsize animate-bottom" id="bs-comment-modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize"
+       id="bs-comment-modal-dialog">
+    <div class="modal-content modal-fullsize animate-bottom"
+         id="bs-comment-modal-content">
 
       <!-- 제목 영역 -->
       <div class="modal-header">
@@ -20,7 +22,6 @@
           </span>
 
         </h5>
-
         <!-- 닫기 버튼 -->
         <button type="button"
                 class="close"
@@ -70,13 +71,13 @@
         <!-- 본문 -->
         <div class="feed-content">
           <div class="nickname-box">
-            <shared-avatar
-              [image]="originFeed?.writer?.picture[0]?.url"
-              text="{{ originFeed?.writer?.email }}"
-              size="24"
-              fontSize="12"
-            ></shared-avatar>
-            <div class="nickname">
+            <shared-avatar class="cursor-pointer"
+                           [image]="originFeed?.writer?.picture[0]?.url"
+                           text="{{ originFeed?.writer?.email }}"
+                           size="24"
+                           fontSize="12">
+            </shared-avatar>
+            <div class="nickname cursor-pointer">
               {{ originFeed?.writer?.nickname || originFeed?.writer?.email?.split('@')[0] }}
             </div>
             <div class="last-ago">
@@ -97,7 +98,6 @@
         </div>
 
         <div class="h-line"></div>
-
 
         <!-- comment not found -->
         <div class="comment-notfound" *ngIf='sortedComments.length === 0'>

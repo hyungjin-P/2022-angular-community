@@ -17,6 +17,7 @@ import { StorageService } from '@services/storage.service';
 import { Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { TextService } from '@services/text.service';
+import {OtherUserUtil} from "../../../core/utils/other-user.util";
 
 declare const $;
 
@@ -72,7 +73,8 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     private textService: TextService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    public otherUserUtil: OtherUserUtil
   ) {
     this.loginUser = this.storageService.getUser();
   }
@@ -92,7 +94,10 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   textAreaAutoHeight(): void {
-    $('#bs-writing-comment').height($('#bs-writing-comment').prop('scrollHeight') - 40);
+    $('#bs-writing-comment')
+      .height(
+        $('#bs-writing-comment').prop('scrollHeight') - 40
+      );
 
     setTimeout(() => {
       const outerHeight = $('.write-comments').outerHeight();
@@ -131,14 +136,14 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   findFeedComments(feedId: string, tagId?: string): void {
-    console.log('feedId', feedId);
-
-    this.feedService.findFeedCommentsWithRelations(feedId).subscribe((feedComments) => {
-      if (feedComments) {
-        this.feedComments = feedComments;
-        this.setSortedComments(feedComments, tagId);
-      }
-    });
+    this.feedService
+      .findFeedCommentsWithRelations(feedId)
+      .subscribe((feedComments) => {
+          if (feedComments) {
+          this.feedComments = feedComments;
+          this.setSortedComments(feedComments, tagId);
+        }
+      });
   }
 
   setSortedComments(feedComments: any[], tagId?: string): void {
@@ -262,21 +267,23 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       params.parentId = this.selectedComment.id;
     }
 
-    this.feedService.createFeedComment({ ...params }).subscribe((comment) => {
-      if (params.parentId) {
-        const mention = {
-          feedCommentId: comment.id,
-          mentionUserId: this.selectedMentionUser.id,
-        };
+    this.feedService
+      .createFeedComment({ ...params })
+      .subscribe((comment) => {
+        if (params.parentId) {
+          const mention = {
+            feedCommentId: comment.id,
+            mentionUserId: this.selectedMentionUser.id,
+          };
 
-        this.feedService.addFeedCommentMention({ ...mention }).subscribe((mention) => {
+          this.feedService.addFeedCommentMention({ ...mention }).subscribe((mention) => {
+            this.findFeedComments(this.originFeed.id);
+            this.onHiddenBottomMessage();
+          });
+        } else {
           this.findFeedComments(this.originFeed.id);
           this.onHiddenBottomMessage();
-        });
-      } else {
-        this.findFeedComments(this.originFeed.id);
-        this.onHiddenBottomMessage();
-      }
+        }
 
       this.writingComment = '';
     });
@@ -402,4 +409,20 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   textAreaResize(textareaId: string): void {}
+
+  /** 다른 유저 마이페이지 이동 시 로직 */
+  moveOtherUserMyPage(user: User, targetUserId): void {
+    if (!this.loginUser) {
+      this.loginModalConfirm();
+      return;
+    } else {
+      if (user?.id !== targetUserId) {
+        this.otherUserUtil.moveOtherUserMyPage(targetUserId);
+        return;
+      } else {
+        this.otherUserUtil.moveMyPage();
+        return;
+      }
+    }
+  }
 }

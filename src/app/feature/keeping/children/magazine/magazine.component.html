@@ -8,31 +8,38 @@
         <div class='top-caption'>
           {{ 'keeping.magazine.top-title' | translate }} 💥
         </div>
-        <div class='top-banners'>
-            <div class='banner-first'>
-              <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
-                <div class='banner' *ngIf='i === 0'>
-                  <img [src]='magazine.picture'
-                       class='d-block w-100 h-100'
-                       alt='' (click)='moveLink(magazine)'>
-                  <a class='gradient' (click)='moveLink(magazine)'></a>
-                  <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
-                    <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
-                      <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>
+        <div class="top-banners">
+            <div class="banner-first">
+              <ng-container *ngFor="let magazine of topMagazineList; let i = index">
+                <a class="banner"
+                   href="javascript:void(0)"
+                   [title]="magazine?.body?.title"
+                   *ngIf="i === 0" >
+                  <img [src]="magazine.picture"
+                       class="d-block w-100 h-100"
+                       [alt]="magazine?.body?.title"
+                       (click)="moveLink(magazine)">
+                  <a class="gradient"
+                     (click)="moveLink(magazine)"></a>
+                  <a class="bookmark"
+                     [ngClass]="magazine.isBookmark ? 'active' : ''"
+                     (click)="toggleBookmark(magazine)">
+                    <ng-container *ngIf="!variables.isLogin || !magazine.isBookmark">
+                      <img src="/assets/icons/mypage/bookmark-default.svg" alt="">
                     </ng-container>
                     <ng-container *ngIf='variables.isLogin && magazine.isBookmark'>
-                      <img src='/assets/icons/mypage/bookmark-active.svg' alt=''>
+                      <img src="/assets/icons/mypage/bookmark-active.svg" alt="">
                     </ng-container>
                   </a>
-                  <div class='description'>
-                    <div class='category'>
+                  <div class="description">
+                    <div class="category">
                       {{ 'common.nav.magazine-tab.' + magazine.category | translate }}
                     </div>
-                    <div class='title'>
+                    <div class="title">
                       {{magazine.body.title}}
                     </div>
-                    <div class='additional'>
-                      <div class='user d-flex col-6'>
+                    <div class="additional">
+                      <div class="user d-flex col-6">
                         <shared-avatar
                           [image]="magazine.writer.picture[0].url"
                           text="{{ magazine.writer.email }}"
@@ -44,9 +51,9 @@
                           {{ magazine.writer.nickname || magazine.writer.email.split('@')[0] }}
                         </div>
                       </div>
-                      <div class='display d-flex col-6'>
-                        <div class='viewerObj d-flex'>
-                          <div class='view'>
+                      <div class="display d-flex col-6">
+                        <div class="viewerObj d-flex">
+                          <div class="view">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <g clip-path="url(#clip0_5775_19014)">
                                 <path d="M10.5002 8.33203C9.34593 8.33203 8.40808 9.24934 8.40808 10.3783C8.40808 11.5073 9.34593 12.4246 10.5002 12.4246C11.6545 12.4246 12.5923 11.5073 12.5923 10.3783C12.5923 9.24934 11.6545 8.33203 10.5002 8.33203ZM10.3413 9.77138C10.0814 9.77138 9.86502 9.98307 9.86502 10.2372H9.17234C9.18671 9.60215 9.70608 9.09416 10.341 9.09416V9.77138H10.3413Z" fill="#FFFFFF"/>
@@ -59,7 +66,7 @@
                               </defs>
                             </svg>
                           </div>
-                          <div class='text'>
+                          <div class="text">
                             {{magazine.viewCount}}+
                           </div>
                         </div>
@@ -84,13 +91,19 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </ng-container>
             </div>
-            <div class='banners'>
+            <div class="banners">
               <ng-container *ngFor='let magazine of topMagazineList; let i = index'>
-                <div class='banner' *ngIf='i !== 0 && i < 5'>
-                  <img [src]='magazine.picture' class='d-block w-100 h-100' alt='' (click)='moveLink(magazine)'>
+                <a class="banner"
+                   *ngIf='i !== 0 && i < 5'
+                   href="javascript:void(0);"
+                   [title]="magazine?.body?.title">
+                  <img [src]='magazine.picture'
+                       class='d-block w-100 h-100'
+                       [alt]="magazine?.body?.title"
+                       (click)='moveLink(magazine)'>
                   <a class='gradient' (click)='moveLink(magazine)'></a>
                   <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                     <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
@@ -160,7 +173,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </ng-container>
             </div>
         </div>
@@ -172,7 +185,7 @@
         >
           <ng-template swiperSlide *ngFor='let magazine of topMagazineList; let i = index'>
             <a class='swiper-item' (click)='moveLink(magazine)'>
-              <img [src]='magazine.picture' [alt]='magazine.id'>
+              <img [src]='magazine.picture' [alt]='magazine?.body?.title'>
               <div class='gradient'></div>
               <div class='description'>
                 <div class='category'>
@@ -299,8 +312,8 @@
         <ng-container *ngFor='let magazine of magazineList; let i = index'>
           <div class="item col-6 col-lg-6 col-xxl-2-5">
             <div class="d-flex flex-column flex-wrap">
-              <a class="image-box flex-fill" href="javascript: void(0)" title="매거진">
-                <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)' alt="매거진">
+              <a class="image-box flex-fill" href="javascript: void(0)" [title]="magazine?.body?.title">
+                <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)' [alt]="magazine?.body?.title">
                 <div class='gradient' (click)='moveLink(magazine)'></div>
                 <a class='bookmark' [ngClass]="magazine.isBookmark ? 'active' : ''" (click)='toggleBookmark(magazine)'>
                   <ng-container *ngIf='!variables.isLogin || !magazine.isBookmark'>
