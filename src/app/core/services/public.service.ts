@@ -19,8 +19,8 @@ import { FeedTag } from '@schemas/feed-tag';
 export class PublicService {
   constructor(private http: HttpClient) {}
 
-  getFeedList(page: number, limit: number): Observable<Array<Feed>> {
-    const url = environment.userApiAddress + `/public/feed/findPages?page=${page}&limit=${limit}`;
+  getFeedList(page: number, limit: number, pageDate: string): Observable<Array<Feed>> {
+    const url = environment.userApiAddress + `/public/feed/findPages?page=${page}&limit=${limit}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({

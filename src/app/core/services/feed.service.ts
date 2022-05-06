@@ -48,8 +48,9 @@ export class FeedService {
    * @param limit
    * @param userId
    */
-  getFeedList(page: number, limit: number, userId: string): Observable<any> {
-    const url = environment.userApiAddress + `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}`;
+  getFeedList(page: number, limit: number, userId: string, pageDate: string): Observable<any> {
+    const url =
+      environment.userApiAddress + `/feed/findPages?page=${page}&limit=${limit}&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({

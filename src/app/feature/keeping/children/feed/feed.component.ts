@@ -28,6 +28,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
   limit: number = 10;
   @ViewChild('scrollEl') scrollEl: ElementRef;
 
+  inPageDate: any;
+
   tabMenu: any[] = [
     {
       tabName: 'all',
@@ -63,6 +65,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
     this.nowTab = this.tabMenu[0].tabName;
+
+    // UTC기준 최초 페이지 접속 시점
+    this.inPageDate = new Date().toISOString();
 
     if (this.user) {
       this.getFeedList();
@@ -103,7 +108,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   getFeedList() {
-    this.feedService.getFeedList(this.page, this.limit, this.user?.id).subscribe(
+    this.feedService.getFeedList(this.page, this.limit, this.user?.id, this.inPageDate).subscribe(
       (feedList: any) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
@@ -120,7 +125,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   /** 피드 수정 완료 */
   getPublicFeedList() {
-    this.publicService.getFeedList(this.page, this.limit).subscribe(
+    this.publicService.getFeedList(this.page, this.limit, this.inPageDate).subscribe(
       (feedList: any) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
