@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {StorageService} from "@services/storage.service";
 import {FollowService} from "@services/follow.service";
 import {GlobalService} from "@services/global.service";
+import {OtherUserUtil} from "../../../core/utils/other-user.util";
 
 declare const $;
 
@@ -40,6 +41,7 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
     private followService: FollowService,
     private userService: UserService,
     private globalService: GlobalService,
+    private otherUserUtil: OtherUserUtil,
   ) {
     /* 실제 로그인 유저 */
     this.loginUser = this.storageService.getUser();
@@ -146,5 +148,17 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
         user.isFollow = false;
         this.globalService.showToast('팔로우를 해제했습니다.');
       });
+  }
+
+  /** 다른 유저 마이페이지 이동 시 로직 */
+  moveOtherUserMyPage(user: any, targetUserId: string): void {
+    this.onCloseFollowViewModal();
+    if (user?.id !== targetUserId) {
+      this.otherUserUtil.moveOtherUserMyPage(targetUserId);
+      return;
+    } else {
+      this.otherUserUtil.moveMyPage();
+      return;
+    }
   }
 }

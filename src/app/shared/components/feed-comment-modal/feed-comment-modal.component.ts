@@ -226,10 +226,12 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     return commentLikes.filter((like) => like.userId === compareId).length > 0;
   }
 
+  // 내가 작성한 댓글인지 여부
   isMyComment(writerId: any, userId): boolean {
     return writerId === userId;
   }
 
+  // 글쓰기 및 수정하기
   createCommentAndModify(): void {
     if (!this.loginUser) {
       this.loginModalVisible();
@@ -276,10 +278,13 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
             mentionUserId: this.selectedMentionUser.id,
           };
 
-          this.feedService.addFeedCommentMention({ ...mention }).subscribe((mention) => {
-            this.findFeedComments(this.originFeed.id);
-            this.onHiddenBottomMessage();
-          });
+          this.feedService
+            .addFeedCommentMention({ ...mention })
+            .subscribe((mention) => {
+              this.findFeedComments(this.originFeed.id);
+              this.onHiddenBottomMessage();
+            });
+
         } else {
           this.findFeedComments(this.originFeed.id);
           this.onHiddenBottomMessage();
@@ -312,16 +317,20 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   /* 댓글 좋아요 */
   addLikeComment(feedComment, userId: string, tagId?: string): void {
-    this.feedService.createFeedCommentLike(feedComment.id, userId).subscribe((data) => {
-      this.findFeedComments(this.originFeed.id, tagId);
-    });
+    this.feedService
+      .createFeedCommentLike(feedComment.id, userId)
+      .subscribe((data) => {
+        this.findFeedComments(this.originFeed.id, tagId);
+      });
   }
 
   /* 댓글 좋아요 취소 */
   cancelLikeComment(feedComment, userId: string, tagId?: string): void {
-    this.feedService.deleteFeedCommentLike(feedComment.id, userId).subscribe((data) => {
-      this.findFeedComments(this.originFeed.id, tagId);
-    });
+    this.feedService
+      .deleteFeedCommentLike(feedComment.id, userId)
+      .subscribe((data) => {
+        this.findFeedComments(this.originFeed.id, tagId);
+      });
   }
 
   onClickModifyComment(feedComment: any, userId: string): void {
@@ -340,13 +349,15 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   /* 댓글 수정 */
   modifyComment(feedComment, text): void {
-    this.feedService.modifyFeedComment(feedComment.id, text).subscribe((data) => {
-      this.findFeedComments(this.originFeed.id);
-      this.onHiddenBottomMessage();
-      this.writingComment = '';
-      let message = this.textService.getText('comment:002');
-      this.globalService.showToast(message);
-    });
+    this.feedService
+      .modifyFeedComment(feedComment.id, text)
+      .subscribe((data) => {
+        this.findFeedComments(this.originFeed.id);
+        this.onHiddenBottomMessage();
+        this.writingComment = '';
+        let message = this.textService.getText('comment:002');
+        this.globalService.showToast(message);
+      });
   }
 
   onConfirmModalShow(data?: any, type?: string): void {
@@ -371,8 +382,6 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   onConfirmModalConfirm(): void {
-    console.log('this.confirmComment : ', this.confirmComment);
-
     if (this.confirmComment) {
       this.removeComment(this.confirmComment);
     }
@@ -408,10 +417,11 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/auth/registration').then();
   }
 
-  textAreaResize(textareaId: string): void {}
-
   /** 다른 유저 마이페이지 이동 시 로직 */
-  moveOtherUserMyPage(user: User, targetUserId): void {
+  moveOtherUserMyPage(user: any, targetUserId: string): void {
+    this.closeConfirmModal();
+    this.closeModal();
+
     if (!this.loginUser) {
       this.loginModalConfirm();
       return;
@@ -425,4 +435,9 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  getClickElement(data: any): void {
+    console.log('on click data : ', data);
+  }
+
 }

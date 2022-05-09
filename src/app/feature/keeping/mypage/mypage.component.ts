@@ -82,6 +82,9 @@ export class MypageComponent implements OnInit, AfterViewInit {
     this.user = this.storageService.getUser();
     this.countFollow(this.user.id);
     this.closeDrawer();
+
+    this.activateRoute.params.subscribe((params) => {
+    });
   }
 
   ngAfterViewInit(): void {

@@ -33,15 +33,15 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
     private feedService: FeedService,
     private userService: UserService,
     private activateRoute: ActivatedRoute
-  ) {
-    // this.pushEmptyFeed(this.limit);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
 
     // 라우팅 구분
     this.activateRoute.params.subscribe((params) => {
+      console.log('routing event : ', params);
+
       if (params?.userId) {
         this.otherUserId = params.userId;
         this.userService.getUser(this.otherUserId).subscribe((user) => {
@@ -49,7 +49,11 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
           this.findMyPageFeedList(this.user.id, this.limit);
         });
       } else {
-        this.findMyPageFeedList(this.user.id, this.limit);
+        this.user = this.storageService.getUser();
+        this.userService.getUser(this.user.id).subscribe((user) => {
+          this.user = user;
+          this.findMyPageFeedList(this.user.id, this.limit);
+        });
       }
     });
   }
@@ -65,15 +69,6 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
     if (this.user) {
       this.feedService.findMyPageFeedMain(userId, limit).subscribe((data) => {
         this.feedList = data?.feedList;
-
-        // 모바일 빈칸 생성 제거
-        /*if (this.feedList.length < limit) {
-          let def = limit - this.feedList.length;
-
-          for (let i = 0; i < def; i++) {
-            this.feedList.push({});
-          }
-        }*/
         this.otherCount = data?.otherCount;
         this.totalCount = data?.totalCount;
 

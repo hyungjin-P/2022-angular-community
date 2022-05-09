@@ -3,6 +3,7 @@
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize"
        id="bs-comment-modal-dialog">
+
     <div class="modal-content modal-fullsize animate-bottom"
          id="bs-comment-modal-content">
 
@@ -20,8 +21,8 @@
             {{ 'component.feed-comment.comment' | translate }}
             {{ '(' + ((feedComments ? feedComments.length : 0) | number) + ')' }}
           </span>
-
         </h5>
+
         <!-- 닫기 버튼 -->
         <button type="button"
                 class="close"
@@ -67,17 +68,16 @@
           </div>
         </div>
 
-
         <!-- 본문 -->
         <div class="feed-content">
-          <div class="nickname-box">
-            <shared-avatar class="cursor-pointer"
-                           [image]="originFeed?.writer?.picture[0]?.url"
+          <div class="nickname-box cursor-pointer"
+               (click)="moveOtherUserMyPage(loginUser, originFeed?.writer?.id)">
+            <shared-avatar [image]="originFeed?.writer?.picture[0]?.url"
                            text="{{ originFeed?.writer?.email }}"
                            size="24"
                            fontSize="12">
             </shared-avatar>
-            <div class="nickname cursor-pointer">
+            <div class="nickname">
               {{ originFeed?.writer?.nickname || originFeed?.writer?.email?.split('@')[0] }}
             </div>
             <div class="last-ago">
@@ -109,7 +109,8 @@
           <ng-container *ngFor="let parent of sortedComments; let i = index">
             <!-- 1 Depth 댓글 -->
             <div class="comment-parent">
-              <div class="user-info">
+              <div class="user-info cursor-pointer"
+                   (click)="moveOtherUserMyPage(loginUser, parent?.writer?.id)">
                 <shared-avatar
                   class="avatar"
                   [image]="parent?.writer?.picture[0]?.url"
@@ -151,12 +152,14 @@
                   </div>
 
                 </div>
+
                 <div class="like"
                      (click)="toggleLike(parent, loginUser?.id, 'heart-parent-' + i)"
                      [ngClass]="isCommentLike(parent?.likes, loginUser?.id) ? 'active' : ''">
                   {{ 'component.feed-comment.like' | translate }}
                   <span *ngIf="parent?.likes.length > 0"> {{ parent?.likes.length }} </span>
                 </div>
+
                 <div class="writing-comment">
                   <span
                     (click)="onClickWritingComment(parent?.writer, parent)">
@@ -176,13 +179,15 @@
                     {{'component.feed-comment.delete' | translate}}
                   </div>
                 </div>
+
               </div>
             </div>
 
             <!-- 2 Depth 대댓글 -->
             <ng-container *ngFor="let child of parent?.children; let j = index">
               <div class="comment-child">
-                <div class="user-info">
+                <div class="user-info cursor-pointer"
+                     (click)="moveOtherUserMyPage(loginUser, child?.writer?.id)">
                   <shared-avatar
                     class="avatar"
                     [image]="child?.writer?.picture[0]?.url"

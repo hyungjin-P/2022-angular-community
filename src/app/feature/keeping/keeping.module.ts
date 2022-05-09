@@ -30,6 +30,7 @@ import { ScrapFeedComponent } from './scrap/scrap-feed/scrap-feed.component';
 import { ScrapMagazineComponent } from './scrap/scrap-magazine/scrap-magazine.component';
 import { SearchFeedComponent } from './search/search-feed/search-feed.component';
 import { SearchMagazineComponent } from './search/search-magazine/search-magazine.component';
+import { MypageViaComponent } from './mypage/mypage-via/mypage-via.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { SearchMagazineComponent } from './search/search-magazine/search-magazin
     ScrapMagazineComponent,
     SearchFeedComponent,
     SearchMagazineComponent,
+    MypageViaComponent,
   ],
   imports: [KeepingRoutingModule, SharedModule, CommonModule, InlineSVGModule.forRoot(), SwiperModule],
   exports: [],

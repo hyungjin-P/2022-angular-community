@@ -3,8 +3,7 @@
   class="feed-detail full-absolute d-flex flex-column"
   [class.v-visible]="selectedFeed"
   xmlns="http://www.w3.org/1999/html"
-  (window:resize)="onResize($event)"
->
+  (window:resize)="onResize($event)">
   <header class="d-block d-lg-none"></header>
 
   <app-feed-comment-modal #commentModal></app-feed-comment-modal>
@@ -355,7 +354,7 @@
             fontSize="18"
           ></shared-avatar>
           <div class="liked-view-user-nickname cursor-pointer"
-               (click)="moveOtherUserMyPage(likeUser?.user, likeUser?.user?.id)">
+               (click)="moveOtherUserMyPage(user, likeUser?.user?.id)">
             {{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}
           </div>
           <div class="liked-view-user-follow-button" *ngIf='user?.id !== likeUser.user.id'>

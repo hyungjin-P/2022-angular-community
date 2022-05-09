@@ -34,7 +34,7 @@
         </svg>
         <div class="text">{{ 'common.bottom-nav.signin' | translate }}</div>
     </a>
-    <a class="menu" *ngIf="variables.isLogin" [routerLink]="['/mypage']" routerLinkActive="selected">
+    <a class="menu" *ngIf="variables.isLogin" [routerLink]="['/via']" routerLinkActive="selected">
         <div class="avatar">
             <shared-avatar
                 [image]="globalUser.picture?.url"

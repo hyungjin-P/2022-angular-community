@@ -2,9 +2,11 @@
 <div class="modal fade follow-view-modal" id="bs-follow-view-modal" tabindex="-1"
      aria-labelledby="bs-follow-view-modal-label" aria-hidden="true">
 
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable animate-bottom" id="bs-follow-view-modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable animate-bottom"
+       id="bs-follow-view-modal-dialog">
 
-    <div class="modal-content" id="bs-follow-view-modal-content">
+    <div class="modal-content"
+         id="bs-follow-view-modal-content">
 
       <div class="modal-header">
         <h5 class="modal-title">
@@ -16,7 +18,6 @@
       </div>
 
       <div class="modal-body">
-
         <input type="radio"
                class="display-none"
                name="follow-tabs"
@@ -42,17 +43,22 @@
               <div class="details-content">
                 <div class="summary">전체 <strong>{{ followerMeta.totalItems | number }}</strong></div>
                 <!-- 팔로워 목록-->
-                <div class="data-list" *ngIf="followerList?.length > 0 ">
+                <div class="data-list"
+                     *ngIf="followerList?.length > 0 ">
 
-                  <div class="data-item" *ngFor="let item of followerList;">
-                    <shared-avatar class="avatar"
+                  <div class="data-item"
+                       *ngFor="let item of followerList;">
+
+                    <shared-avatar class="avatar cursor-pointer"
+                                   (click)="moveOtherUserMyPage(user, item.id)"
                                    [image]="item?.picture[0]?.url"
                                    text="{{ item?.email }}"
                                    size="36"
                                    fontSize="15">
                     </shared-avatar>
 
-                    <div class="nickname">
+                    <div class="nickname cursor-pointer"
+                         (click)="moveOtherUserMyPage(user, item.id)">
                       <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
                     </div>
 
@@ -94,13 +100,15 @@
                 <div class="data-list" *ngIf="followingList?.length > 0 ">
 
                   <div class="data-item" *ngFor="let item of followingList;">
-                    <shared-avatar class="avatar"
+                    <shared-avatar class="avatar cursor-pointer"
+                                   (click)="moveOtherUserMyPage(user, item.id)">
                                    [image]="item?.picture[0]?.url"
                                    text="{{ item?.email }}"
                                    size="36"
                                    fontSize="15">
                     </shared-avatar>
-                    <div class="nickname">
+                    <div class="nickname cursor-pointer"
+                         (click)="moveOtherUserMyPage(user, item.id)">
                       <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
                     </div>
                     <button type="button"
