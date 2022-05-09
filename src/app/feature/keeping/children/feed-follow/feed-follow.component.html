@@ -32,14 +32,17 @@
         <div class="item" *ngFor="let feed of feedList">
           <div class="row-1">
             <shared-avatar
+              class="cursor-pointer"
+              (click)="moveOtherUserMyPage(user, feed?.writer?.id)"
               [image]="feed?.writer.picture[0]?.url"
               text="{{ feed?.writer.email }}"
               size="30"
               fontSize="16"
             ></shared-avatar>
-            <div class="nickname">
+            <a class="nickname"
+                 (click)="moveOtherUserMyPage(user, feed?.writer?.id)">
               {{ feed?.writer.nickname || feed?.writer.email.split('@')[0] }}
-            </div>
+            </a>
             <div class="updated-at">
               {{feed?.begin_time_text}}
             </div>

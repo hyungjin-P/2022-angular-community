@@ -12,6 +12,7 @@ import { FeedComment } from '@schemas/feed-comment';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import * as moment from 'moment-timezone';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
+import { OtherUserUtil } from '../../../../core/utils/other-user.util';
 
 @Component({
   selector: 'app-feed-follow',
@@ -100,7 +101,8 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
     private followService: FollowService,
     private textService: TextService,
     private dateUtils: DateUtils,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    public otherUserUtil: OtherUserUtil
   ) {}
 
   ngOnInit(): void {
@@ -655,5 +657,16 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
    */
   commentModalShow(feed: Feed): void {
     this.commentModal.onModalShow(feed);
+  }
+
+  /** 다른 유저 마이페이지 이동 시 로직 */
+  moveOtherUserMyPage(user: User, targetUserId): void {
+    if (user?.id !== targetUserId) {
+      this.otherUserUtil.moveOtherUserMyPage(targetUserId);
+      return;
+    } else {
+      this.otherUserUtil.moveMyPage();
+      return;
+    }
   }
 }

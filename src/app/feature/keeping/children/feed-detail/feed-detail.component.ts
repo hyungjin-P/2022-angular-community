@@ -19,7 +19,7 @@ import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
 import { FollowService } from '@services/follow.service';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
-import {OtherUserUtil} from "../../../../core/utils/other-user.util";
+import { OtherUserUtil } from '../../../../core/utils/other-user.util';
 
 @Component({
   selector: 'feed-detail',
@@ -1007,6 +1007,4 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-
-
 }
