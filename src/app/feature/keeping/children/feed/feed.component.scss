@@ -149,7 +149,7 @@
   }
 
   .item-list {
-    margin: 30px -3px;
+    margin: 10px -3px;
 
     .item {
       padding: 15px 3px;
@@ -159,8 +159,11 @@
         .image-box {
           cursor: default;
           position: relative;
-          width: 185px;
-          height: 185px;
+
+          width: 100%;
+          flex: 1 0 auto;
+          height: auto;
+
           background-color: var(--grey-8);
           border-radius: 12px;
 
@@ -341,6 +344,12 @@
             }
           }
         }
+        .image-box:before {
+          content: '';
+          display: block;
+          padding-top: 100%;
+        }
+
         .card_detail {
           width: 100%;
           .feed-infos {
@@ -437,7 +446,7 @@
   }
 }
 
-@media (min-width: 360px) {
+@media (min-width: 414px) {
   .section {
     .banner {
       .img-content {
@@ -470,8 +479,6 @@
       }
     }
   }
-
-
 }
 
 @media (min-width: 576px) {
@@ -506,8 +513,6 @@
       }
     }
   }
-
-
 }
 
 @media (min-width: 768px) {
@@ -663,8 +668,6 @@
         }
       }
     }
-
-
   }
 }
 

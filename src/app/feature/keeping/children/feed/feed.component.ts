@@ -180,7 +180,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   moveFeedDetail(feed: Feed) {
-    console.log('is bookmark : ', feed.isBookmark);
+    // console.log('is bookmark : ', feed.isBookmark);
     this.router.navigateByUrl(`/feed/${feed.id}`).then();
   }
 
