@@ -31,6 +31,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
   language: string;
   variables: any;
   user: User;
+  pageDate: string;
 
   category: string = 'all';
   topMagazineList: Magazine[];
@@ -130,6 +131,8 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
     this.language = localStorage.getItem('language');
+    // UTC기준 최초 페이지 접속 시점
+    this.pageDate = new Date().toISOString();
 
     this.nowTab = this.route.snapshot.queryParams.tabType;
     if (!this.topMagazineList) {
@@ -214,7 +217,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
   }
 
   getMagazineList() {
-    this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id).subscribe(
+    this.magazineService.getMagazineList(this.page, this.limit, this.category, this.user?.id, this.pageDate).subscribe(
       (magazineList: any) => {
         this.pageMeta = magazineList?.meta;
         this.pageLink = magazineList?.links;
@@ -236,7 +239,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
   }
 
   getPublicMagazineList() {
-    this.publicService.getMagazineList(this.page, this.limit, this.category).subscribe(
+    this.publicService.getMagazineList(this.page, this.limit, this.category, this.pageDate).subscribe(
       (magazineList: any) => {
         this.pageMeta = magazineList?.meta;
         this.pageLink = magazineList?.links;

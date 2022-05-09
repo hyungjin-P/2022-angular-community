@@ -22,6 +22,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   variables: any;
   user: User;
   selectedLanguage: string;
+  pageDate: any;
 
   @ViewChild('scrollEl') scrollEl: ElementRef;
   feedList: Feed[];
@@ -106,6 +107,10 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
     this.selectedLanguage = localStorage.getItem('language');
+
+    // UTC기준 최초 페이지 접속 시점
+    this.pageDate = new Date().toISOString();
+
     this.nowTab = this.tabMenu[1].tabName;
 
     this.commentViewVisible = false;
@@ -171,7 +176,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   }
 
   private getFeedFollowList() {
-    this.feedService.getFeedFollowList(this.page, this.limit, this.user.id).subscribe(
+    this.feedService.getFeedFollowList(this.page, this.limit, this.user.id, this.pageDate).subscribe(
       (feedList) => {
         this.pageMeta = feedList.meta;
         this.pageLink = feedList.links;
@@ -332,7 +337,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   }
 
   getFeedLikeList(feed: Feed) {
-    this.feedService.getFeedLikeList(this.likePage, this.likeLimit, feed.id, this.user.id).subscribe(
+    this.feedService.getFeedLikeList(this.likePage, this.likeLimit, feed.id, this.user.id, this.pageDate).subscribe(
       (likeUserList: any) => {
         this.selectedFeed = feed;
         this.likePageMeta = likeUserList.meta;
@@ -372,39 +377,41 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   }
 
   getFeedCommentList(feed: Feed) {
-    this.feedService.getFeedCommentList(this.commentPage, this.commentLimit, feed.id, this.user?.id).subscribe(
-      (feedCommentList: any) => {
-        this.selectedFeed = feed;
+    this.feedService
+      .getFeedCommentList(this.commentPage, this.commentLimit, feed.id, this.user?.id, this.pageDate)
+      .subscribe(
+        (feedCommentList: any) => {
+          this.selectedFeed = feed;
 
-        this.commentPageMeta = feedCommentList.meta;
-        this.commentPageLink = feedCommentList.links;
+          this.commentPageMeta = feedCommentList.meta;
+          this.commentPageLink = feedCommentList.links;
 
-        if (this.commentPage > 1) {
-          this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
-        } else {
-          this.feedCommentList = feedCommentList.items;
-        }
-
-        this.feedCommentList.forEach((feedComment) => {
-          feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
-          feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
-
-          if (feedComment.sub_comment_count !== 0) {
-            // 댓글 더보기 기본 동작으로 변경 22.02.11
-            this.feedSubCommentListViewObj[feedComment.id] = true;
-            feedComment.page = 1;
-            feedComment.limit = 15;
-
-            this.getFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+          if (this.commentPage > 1) {
+            this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
+          } else {
+            this.feedCommentList = feedCommentList.items;
           }
-        });
-      },
-      (e) => {}
-    );
+
+          this.feedCommentList.forEach((feedComment) => {
+            feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
+            feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
+
+            if (feedComment.sub_comment_count !== 0) {
+              // 댓글 더보기 기본 동작으로 변경 22.02.11
+              this.feedSubCommentListViewObj[feedComment.id] = true;
+              feedComment.page = 1;
+              feedComment.limit = 15;
+
+              this.getFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+            }
+          });
+        },
+        (e) => {}
+      );
   }
 
   getFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
-    this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
+    this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id, this.pageDate).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
 

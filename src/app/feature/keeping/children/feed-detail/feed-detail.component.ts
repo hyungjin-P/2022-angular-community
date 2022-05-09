@@ -28,8 +28,8 @@ import {OtherUserUtil} from "../../../../core/utils/other-user.util";
 })
 export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   variables: any;
-
   user: User;
+  pageDate: string;
 
   carouselIndex: any;
 
@@ -125,6 +125,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
+    // UTC기준 최초 페이지 접속 시점
+    this.pageDate = new Date().toISOString();
 
     this.carouselIndex = 1;
 
@@ -296,37 +298,39 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getPublicFeedCommentList() {
-    this.publicService.getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id).subscribe(
-      (feedCommentList: any) => {
-        this.commentPageMeta = feedCommentList.meta;
-        this.commentPageLink = feedCommentList.links;
+    this.publicService
+      .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.pageDate)
+      .subscribe(
+        (feedCommentList: any) => {
+          this.commentPageMeta = feedCommentList.meta;
+          this.commentPageLink = feedCommentList.links;
 
-        if (this.commentPage > 1) {
-          this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
-        } else {
-          this.feedCommentList = feedCommentList.items;
-        }
-
-        this.feedCommentList.forEach((feedComment) => {
-          feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
-          feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
-
-          if (feedComment.sub_comment_count !== 0) {
-            // 댓글 더보기 기본 동작으로 변경 22.02.11
-            this.feedSubCommentListViewObj[feedComment.id] = true;
-            feedComment.page = 1;
-            feedComment.limit = 15;
-
-            this.getPublicFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+          if (this.commentPage > 1) {
+            this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
+          } else {
+            this.feedCommentList = feedCommentList.items;
           }
-        });
-      },
-      (e) => {}
-    );
+
+          this.feedCommentList.forEach((feedComment) => {
+            feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
+            feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
+
+            if (feedComment.sub_comment_count !== 0) {
+              // 댓글 더보기 기본 동작으로 변경 22.02.11
+              this.feedSubCommentListViewObj[feedComment.id] = true;
+              feedComment.page = 1;
+              feedComment.limit = 15;
+
+              this.getPublicFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
+            }
+          });
+        },
+        (e) => {}
+      );
   }
 
   getPublicFeedSubCommentList(page: number, limit: number, feedCommentId: string): void {
-    this.publicService.getFeedSubCommentList(page, limit, feedCommentId).subscribe(
+    this.publicService.getFeedSubCommentList(page, limit, feedCommentId, this.pageDate).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
 
@@ -342,7 +346,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getFeedCommentList() {
     this.feedService
-      .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.user?.id)
+      .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.user?.id, this.pageDate)
       .subscribe(
         (feedCommentList: any) => {
           this.commentPageMeta = feedCommentList.meta;
@@ -373,7 +377,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
-    this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id).subscribe(
+    this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id, this.pageDate).subscribe(
       (feedCommentList: Array<FeedComment>) => {
         this.feedSubCommentListObj[feedCommentId] = feedCommentList;
 
@@ -399,22 +403,24 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getFeedLikeList() {
-    this.feedService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.user?.id).subscribe(
-      (likeUserList: any) => {
-        this.likePageMeta = likeUserList.meta;
-        this.likePageLink = likeUserList.links;
-        if (this.likePage > 1) {
-          this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
-        } else {
-          this.likeUserList = likeUserList.items;
-        }
-      },
-      (e) => {}
-    );
+    this.feedService
+      .getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.user?.id, this.pageDate)
+      .subscribe(
+        (likeUserList: any) => {
+          this.likePageMeta = likeUserList.meta;
+          this.likePageLink = likeUserList.links;
+          if (this.likePage > 1) {
+            this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
+          } else {
+            this.likeUserList = likeUserList.items;
+          }
+        },
+        (e) => {}
+      );
   }
 
   getPublicFeedLikeList() {
-    this.publicService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id).subscribe(
+    this.publicService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.pageDate).subscribe(
       (likeUserList: any) => {
         this.likePageMeta = likeUserList.meta;
         this.likePageLink = likeUserList.links;
@@ -477,10 +483,9 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   goFeedDetail(feed: Feed) {
     this.refresh = true;
-    this.router.navigateByUrl(`/feed/${feed.id}`);
-    try {
-      this.scrollEl.nativeElement.scrollTop = 0;
-    } catch (err) {}
+    this.router.navigateByUrl(`/feed/${feed.id}`).then(() => {
+      location.reload();
+    });
   }
 
   openMoreBox(event) {

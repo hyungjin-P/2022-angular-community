@@ -75,8 +75,10 @@ export class PublicService {
     );
   }
 
-  getFeedLikeList(page: number, limit: number, feedId): Observable<Array<FeedLike>> {
-    const url = environment.userApiAddress + `/public/feed/like/findPages?page=${page}&limit=${limit}&feedId=${feedId}`;
+  getFeedLikeList(page: number, limit: number, feedId: string, pageDate: string): Observable<Array<FeedLike>> {
+    const url =
+      environment.userApiAddress +
+      `/public/feed/like/findPages?page=${page}&limit=${limit}&feedId=${feedId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -109,45 +111,53 @@ export class PublicService {
     );
   }
 
-  getMagazineList(page: number, limit: number, category: string = 'all'): Observable<any> {
-    const url =
-      environment.userApiAddress + `/public/magazine/findPages?page=${page}&limit=${limit}&category=${category}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.get<any>(url, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
-
-  getFeedCommentList(page: number, limit: number, feedId: string): Observable<Array<FeedComment>> {
-    const url = environment.userApiAddress + `/feed/comment/findPages?page=${page}&limit=${limit}&feedId=${feedId}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.get<any>(url, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
-
-  getFeedSubCommentList(page: number, limit: number, feedCommentId: string): Observable<Array<FeedComment>> {
+  getMagazineList(page: number, limit: number, category: string = 'all', pageDate: string): Observable<any> {
     const url =
       environment.userApiAddress +
-      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}`;
+      `/public/magazine/findPages?page=${page}&limit=${limit}&category=${category}&pageDate=${pageDate}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getFeedCommentList(page: number, limit: number, feedId: string, pageDate: string): Observable<Array<FeedComment>> {
+    const url =
+      environment.userApiAddress +
+      `/feed/comment/findPages?page=${page}&limit=${limit}&feedId=${feedId}&pageDate=${pageDate}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getFeedSubCommentList(
+    page: number,
+    limit: number,
+    feedCommentId: string,
+    pageDate: string
+  ): Observable<Array<FeedComment>> {
+    const url =
+      environment.userApiAddress +
+      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({

@@ -47,6 +47,7 @@ export class FeedService {
    * @param page
    * @param limit
    * @param userId
+   * @param pageDate
    */
   getFeedList(page: number, limit: number, userId: string, pageDate: string): Observable<any> {
     const url =
@@ -72,9 +73,12 @@ export class FeedService {
    * @param page
    * @param limit
    * @param userId
+   * @param pageDate
    */
-  getFeedFollowList(page: number, limit: number, userId: string): Observable<any> {
-    const url = environment.userApiAddress + `/feed/findPagesOverFollow?page=${page}&limit=${limit}&userId=${userId}`;
+  getFeedFollowList(page: number, limit: number, userId: string, pageDate: string): Observable<any> {
+    const url =
+      environment.userApiAddress +
+      `/feed/findPagesOverFollow?page=${page}&limit=${limit}&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -285,9 +289,10 @@ export class FeedService {
     );
   }
 
-  getFeedLikeList(page: number, limit: number, feedId, userId: string): Observable<Array<FeedLike>> {
+  getFeedLikeList(page: number, limit: number, feedId, userId: string, pageDate: string): Observable<Array<FeedLike>> {
     const url =
-      environment.userApiAddress + `/feed/like/findPages?page=${page}&limit=${limit}&feedId=${feedId}&userId=${userId}`;
+      environment.userApiAddress +
+      `/feed/like/findPages?page=${page}&limit=${limit}&feedId=${feedId}&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -320,10 +325,16 @@ export class FeedService {
     );
   }
 
-  getFeedCommentList(page: number, limit: number, feedId: string, userId: string): Observable<Array<FeedComment>> {
+  getFeedCommentList(
+    page: number,
+    limit: number,
+    feedId: string,
+    userId: string,
+    pageDate: string
+  ): Observable<Array<FeedComment>> {
     const url =
       environment.userApiAddress +
-      `/feed/comment/findPages?page=${page}&limit=${limit}&feedId=${feedId}&userId=${userId}`;
+      `/feed/comment/findPages?page=${page}&limit=${limit}&feedId=${feedId}&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -343,11 +354,12 @@ export class FeedService {
     page: number,
     limit: number,
     feedCommentId: string,
-    userId: string
+    userId: string,
+    pageDate: string
   ): Observable<Array<FeedComment>> {
     const url =
       environment.userApiAddress +
-      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}&userId=${userId}`;
+      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -566,9 +578,12 @@ export class FeedService {
    * @param userId
    * @param page
    * @param limit
+   * @param pageDate
    */
-  findMyPageFeedDetail(userId: string, page: number, limit: number): Observable<any> {
-    const url = environment.userApiAddress + `/feed/findMypageFeedDetail?userId=${userId}&page=${page}&limit=${limit}`;
+  findMyPageFeedDetail(userId: string, page: number, limit: number, pageDate: string): Observable<any> {
+    const url =
+      environment.userApiAddress +
+      `/feed/findMypageFeedDetail?userId=${userId}&page=${page}&limit=${limit}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({

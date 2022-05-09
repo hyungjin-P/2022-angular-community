@@ -33,6 +33,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
   feedDeleteModalVisible: boolean = false;
 
   user: User;
+  pageDate: string;
   feedList: any[] = [];
 
   /** feed pagination */
@@ -78,7 +79,8 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
-
+    // UTC기준 최초 페이지 접속 시점
+    this.pageDate = new Date().toISOString();
     this.selectedLanguage = localStorage.getItem('language');
 
     this.activatedRoute.params.subscribe((params) => {
@@ -113,7 +115,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    */
   findMyPageFeedList(userId, page, limit): void {
     if (this.user) {
-      this.feedService.findMyPageFeedDetail(userId, page, limit).subscribe((data) => {
+      this.feedService.findMyPageFeedDetail(userId, page, limit, this.pageDate).subscribe((data) => {
         this.feedPageMeta = data?.meta;
         this.feedPageLink = data?.links;
 
