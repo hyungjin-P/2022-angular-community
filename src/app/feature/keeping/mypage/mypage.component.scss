@@ -280,7 +280,7 @@
             margin-top: 4px;
 
             .social {
-              display: flex;
+              display: inline;
               justify-content: center;
               align-items: center;
               margin-right: 12px;
@@ -291,6 +291,8 @@
 
             .social-kakao {
               background-color: #ffeb00;
+              width: 12px;
+              max-width: 12px;
 
               img {
                 width: 12px;

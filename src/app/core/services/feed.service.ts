@@ -579,11 +579,16 @@ export class FeedService {
    * @param page
    * @param limit
    * @param pageDate
+   * @param otherUserId
    */
-  findMyPageFeedDetail(userId: string, page: number, limit: number, pageDate: string): Observable<any> {
-    const url =
+  findMyPageFeedDetail(userId: string, page: number, limit: number, pageDate: string, otherUserId?: string): Observable<any> {
+    let url =
       environment.userApiAddress +
       `/feed/findMypageFeedDetail?userId=${userId}&page=${page}&limit=${limit}&pageDate=${pageDate}`;
+
+    if (otherUserId) {
+      url += `&otherUserId=${otherUserId}`
+    }
 
     const options = {
       headers: new HttpHeaders({

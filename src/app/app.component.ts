@@ -1,31 +1,44 @@
-import {AfterViewInit, Component, HostListener, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 
 import { User } from '@schemas/user';
+import {Subscription} from "rxjs";
+import {NavigationStart, Router} from "@angular/router";
 
 declare const $;
+
+export let browserRefresh = false;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   variables: any;
   modal: any;
   toast: any;
 
   user: User;
 
+  subscription: Subscription;
+
   constructor(
     private translate: TranslateService,
     private globalService: GlobalService,
     private storageService: StorageService,
+    private router: Router,
   ) {
+    this.subscription = router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        browserRefresh = !router.navigated;
+      }
+    });
   }
+
   ngOnInit(): void {
     this.variables = this.globalService.variables;
     this.modal = this.globalService.modal;
@@ -74,6 +87,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   hideModal() {
     this.globalService.hideModal();
   }
@@ -81,4 +98,5 @@ export class AppComponent implements OnInit, AfterViewInit {
   hideToast() {
     this.globalService.hideToast();
   }
+
 }

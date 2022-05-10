@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import { StorageService } from '@services/storage.service';
 import { FeedService } from '@services/feed.service';
 import { User } from '@schemas/user';
@@ -12,6 +12,9 @@ import { UserService } from '@services/user.service';
 import { GlobalService } from '@services/global.service';
 import { TextService } from '@services/text.service';
 import {FeedLikeUserModalComponent} from "@shared/components/feed-like-user-modal/feed-like-user-modal.component";
+import {Subscription} from "rxjs";
+
+import { browserRefresh } from '../../../../app.component';
 
 @Component({
   selector: 'app-mypage-feed-detail',
@@ -54,11 +57,15 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   otherUserId: string;
 
+  otherUser: User;
+
   /** 피드 댓글 컴포넌트 */
   @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
 
   /** 좋아요 한 사람들 컴포넌트 */
   @ViewChild('likeUsersModal') likeUsersModal: FeedLikeUserModalComponent;
+
+  browserRefresh: boolean;
 
   constructor(
     private router: Router,
@@ -81,21 +88,35 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     this.user = this.storageService.getUser();
     // UTC기준 최초 페이지 접속 시점
     this.pageDate = new Date().toISOString();
+
     this.selectedLanguage = localStorage.getItem('language');
+
+    this.browserRefresh = browserRefresh;
 
     this.activatedRoute.params.subscribe((params) => {
       if (params.userId) {
-        this.otherUserId = params.userId;
-        this.userService.getUser(this.otherUserId).subscribe((user) => {
-          this.user = user;
+
+        if (!this.browserRefresh) {
+          this.otherUserId = params.userId;
+          this.userService
+            .getUser(this.otherUserId)
+            .subscribe((user) => {
+              this.otherUser = user;
+              this.findMyPageFeedList(this.otherUser.id, this.feedPage, this.feedLimit, this.user.id);
+              console.log('find other user feed: ', this.otherUser);
+            });
+        } else {
           this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
-        });
+          console.log('find user feed: ', this.otherUser);
+        }
       }
     });
 
     if (!this.otherUserId) {
       this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
+      console.log('find user feed: ', this.otherUser);
     }
+
   }
 
   ngAfterViewInit(): void {}
@@ -112,19 +133,33 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
    * @param userId
    * @param page
    * @param limit
+   * @param otherUserId
    */
-  findMyPageFeedList(userId, page, limit): void {
+  findMyPageFeedList(userId, page, limit, otherUserId?): void {
     if (this.user) {
-      this.feedService.findMyPageFeedDetail(userId, page, limit, this.pageDate).subscribe((data) => {
-        this.feedPageMeta = data?.meta;
-        this.feedPageLink = data?.links;
+      if (!this.otherUserId) {
+        this.feedService.findMyPageFeedDetail(userId, page, limit, this.pageDate).subscribe((data) => {
+          this.feedPageMeta = data?.meta;
+          this.feedPageLink = data?.links;
 
-        if (this.feedPage > 1) {
-          this.feedList = [...this.feedList, ...data?.items];
-        } else {
-          this.feedList = data?.items;
-        }
-      });
+          if (this.feedPage > 1) {
+            this.feedList = [...this.feedList, ...data?.items];
+          } else {
+            this.feedList = data?.items;
+          }
+        });
+      } else {
+        this.feedService.findMyPageFeedDetail(userId, page, limit, this.pageDate, otherUserId).subscribe((data) => {
+          this.feedPageMeta = data?.meta;
+          this.feedPageLink = data?.links;
+
+          if (this.feedPage > 1) {
+            this.feedList = [...this.feedList, ...data?.items];
+          } else {
+            this.feedList = data?.items;
+          }
+        });
+      }
     }
   }
 
