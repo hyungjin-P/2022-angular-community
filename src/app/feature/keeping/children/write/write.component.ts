@@ -235,6 +235,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isModifyState) {
       this.isModified = true;
       this.feed.pictures.splice(index, 1);
+      console.log(this.feed.pictures.length);
       return;
     }
 
@@ -341,6 +342,12 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   posting() {
+    if (this.feed.pictures.length < 1) {
+      let message = this.textService.getText('write:feed:007');
+      this.globalService.showToast(message);
+      return;
+    }
+
     if (!this.feed.picture) {
       let message = this.textService.getText('write:feed:001');
       this.globalService.showToast(message);
