@@ -101,7 +101,7 @@
 
                   <div class="data-item" *ngFor="let item of followingList;">
                     <shared-avatar class="avatar cursor-pointer"
-                                   (click)="moveOtherUserMyPage(user, item.id)">
+                                   (click)="moveOtherUserMyPage(user, item.id)"
                                    [image]="item?.picture[0]?.url"
                                    text="{{ item?.email }}"
                                    size="36"
