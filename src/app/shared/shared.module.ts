@@ -44,6 +44,7 @@ import {FeedCommentModalComponent} from './components/feed-comment-modal/feed-co
 import {InlineSVGModule} from "ng-inline-svg";
 import {ComponentsModule} from "../feature/components/components.module";
 import { FollowViewModalComponent } from './components/follow-view-modal/follow-view-modal.component';
+import { FeedLikeUserModalComponent } from './components/feed-like-user-modal/feed-like-user-modal.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -80,6 +81,7 @@ export function createTranslateLoader(http: HttpClient) {
     FeedSliderComponent,
     FeedCommentModalComponent,
     FollowViewModalComponent,
+    FeedLikeUserModalComponent,
   ],
   imports: [
     CommonModule,
@@ -138,6 +140,7 @@ export function createTranslateLoader(http: HttpClient) {
     FeedSliderComponent,
     FeedCommentModalComponent,
     FollowViewModalComponent,
+    FeedLikeUserModalComponent,
   ],
   providers: [],
 })

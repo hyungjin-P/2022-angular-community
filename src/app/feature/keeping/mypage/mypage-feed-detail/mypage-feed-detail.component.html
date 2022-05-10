@@ -16,26 +16,31 @@
 
 <app-feed-comment-modal #commentModal></app-feed-comment-modal>
 
+<app-feed-like-user-modal #likeUsersModal></app-feed-like-user-modal>
+
 <div class="items flex-wrap">
 
   <ng-container *ngFor="let feed of feedList">
-
     <!-- 피드 item -->
     <div class="item-list col-12">
       <div class="item-title">
 
         <div class="item-avatar">
-          <shared-avatar [image]="feed?.writer?.picture[0]?.url" text="AVATAR" size="25" fontSize="15"></shared-avatar>
+          <shared-avatar [image]="feed?.writer?.picture[0]?.url"
+                         text="AVATAR"
+                         size="25"
+                         fontSize="15"></shared-avatar>
         </div>
 
-        <div
-          class="item-nickname">
+        <div class="item-nickname">
           {{ feed?.writer?.nickname ? feed?.writer?.nickname : feed?.writer?.email }}
         </div>
+
         <div class="item-last-ago">
           {{ getTimeText(feed) }}
         </div>
-        <div class="item-more-option">
+
+        <div class="item-more-option" *ngIf="!otherUserId">
           <div [inlineSVG]="'assets/icons/mypage/more-option-btn.svg'"
                tabindex="0"
                (click)="onPopoverToggle(feed)"
