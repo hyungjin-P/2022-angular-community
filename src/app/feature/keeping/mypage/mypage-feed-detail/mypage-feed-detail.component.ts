@@ -6,15 +6,12 @@ import { User } from '@schemas/user';
 import { Feed } from '@schemas/feed';
 import { FollowService } from '@services/follow.service';
 import { DateUtils } from '../../../../core/utils/date.utils';
-import { HostListener } from '@angular/core';
-import { FeedComment } from '@schemas/feed-comment';
-import { PublicService } from '@services/public.service';
-import * as moment from 'moment-timezone';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { OtherUserUtil } from '../../../../core/utils/other-user.util';
 import { UserService } from '@services/user.service';
 import { GlobalService } from '@services/global.service';
 import { TextService } from '@services/text.service';
+import {FeedLikeUserModalComponent} from "@shared/components/feed-like-user-modal/feed-like-user-modal.component";
 
 @Component({
   selector: 'app-mypage-feed-detail',
@@ -59,6 +56,9 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   /** 피드 댓글 컴포넌트 */
   @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
+
+  /** 좋아요 한 사람들 컴포넌트 */
+  @ViewChild('likeUsersModal') likeUsersModal: FeedLikeUserModalComponent;
 
   constructor(
     private router: Router,

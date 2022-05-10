@@ -68,6 +68,7 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
     this.followingLink = {};
     this.followingMeta = {};
     this.followingList = [];
+
     this.followerPage = 1;
     this.followerLimit = 1000;
     this.followerLink = {};
@@ -137,7 +138,6 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
       .subscribe(data => {
         user.isFollow = true;
         this.globalService.showToast('팔로잉 되었습니다.');
-
       });
   }
 

@@ -1,32 +1,19 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  ComponentRef,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  OnInit,
-  Output,
-  Renderer2,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 
-import { GlobalService } from '@services/global.service';
-import { StorageService } from '@services/storage.service';
+import {GlobalService} from '@services/global.service';
+import {StorageService} from '@services/storage.service';
 
-import { UserService } from '@services/user.service';
-import { FileService } from '@services/file.service';
+import {UserService} from '@services/user.service';
+import {FileService} from '@services/file.service';
 
-import { User } from '@schemas/user';
-import { File } from '@schemas/file';
-import { MypageFeedDetailComponent } from './mypage-feed-detail/mypage-feed-detail.component';
-import { FollowService } from '@services/follow.service';
-import { TextService } from '@services/text.service';
-import { FollowViewModalComponent } from '@shared/components/follow-view-modal/follow-view-modal.component';
+import {User} from '@schemas/user';
+import {File} from '@schemas/file';
+import {MypageFeedDetailComponent} from './mypage-feed-detail/mypage-feed-detail.component';
+import {FollowService} from '@services/follow.service';
+import {TextService} from '@services/text.service';
+import {FollowViewModalComponent} from '@shared/components/follow-view-modal/follow-view-modal.component';
 
 @Component({
   selector: 'mypage',
