@@ -235,7 +235,10 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isModifyState) {
       this.isModified = true;
       this.feed.pictures.splice(index, 1);
-      console.log(this.feed.pictures.length);
+
+      if (this.feed.picture == fileUrl || this.feed.pictures.length == 0) {
+        this.checkMainPicture('');
+      }
       return;
     }
 
