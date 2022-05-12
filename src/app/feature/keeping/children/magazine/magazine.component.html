@@ -308,9 +308,9 @@
         </div>
       </ng-container>
 
-      <div class="item-list d-flex flex-wrap">
+      <div class="item-list">
         <ng-container *ngFor='let magazine of magazineList; let i = index'>
-          <div class="item col-6 col-lg-6 col-xxl-2-5">
+          <div class="item">
             <div class="d-flex flex-column flex-wrap">
               <a class="image-box flex-fill" href="javascript: void(0)" [title]="magazine?.body?.title">
                 <img class="picture" [src]='magazine.picture' draggable="false" (click)='moveLink(magazine)' [alt]="magazine?.body?.title">

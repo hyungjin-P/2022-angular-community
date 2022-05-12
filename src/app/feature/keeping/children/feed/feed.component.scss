@@ -149,13 +149,14 @@
   }
 
   .item-list {
-    margin: 10px -3px;
+    display: grid;
+    margin: 25px 0;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 25px 6px;
 
     .item {
-      padding: 15px 3px;
-      margin-bottom: 10px;
-
       > div {
+        position: relative;
         .image-box {
           cursor: default;
           position: relative;
@@ -351,7 +352,9 @@
         }
 
         .card_detail {
+          display: grid;
           width: 100%;
+
           .feed-infos {
             display: flex;
             margin: 10px 0 0 4px;
@@ -406,7 +409,6 @@
           margin: 4px 0 0 4px;
           letter-spacing: -0.2px;
           width: calc(100% - 3px);
-          font-family: none;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -458,25 +460,8 @@
     }
 
     .item-list {
-      margin: 10px -6px;
-
-      .item {
-        padding: 15px 6px;
-
-        > div {
-          .image-box {
-            width: 100%;
-            flex: 1 0 auto;
-            height: auto;
-          }
-
-          .image-box:before {
-            content: '';
-            display: block;
-            padding-top: 100%;
-          }
-        }
-      }
+      margin: 25px 0;
+      grid-gap: 25px 12px;
     }
   }
 }
@@ -484,33 +469,8 @@
 @media (min-width: 576px) {
   .section {
     .item-list {
-      margin: 30px -6px;
-
-      .item {
-        padding: 20px 6px;
-
-        > div {
-          .image-box {
-            flex: 1 0 auto;
-            height: auto;
-          }
-
-          .image-box:before {
-            content: '';
-            display: block;
-            padding-top: 100%;
-          }
-        }
-      }
-    }
-
-    .banner {
-      .img-content {
-        > img {
-          width: 90px;
-          height: 63px;
-        }
-      }
+      margin: 50px 0;
+      grid-gap: 40px 12px;
     }
   }
 }
@@ -524,35 +484,21 @@
       border-radius: 8px;
       .img-content {
         margin-left: 120px;
-
-        > img {
-          width: 90px;
-          height: 63px;
-        }
       }
     }
 
     .item-list {
-      margin: 30px -6px;
+      margin: 50px 0;
+      grid-gap: 40px 12px;
 
       .item {
-        padding: 20px 6px;
-
         > div {
           .image-box {
-            flex: 1 0 auto;
-            height: auto;
             .bookmark {
               top: 16px;
               bottom: auto;
               right: 16px;
             }
-          }
-
-          .image-box:before {
-            content: '';
-            display: block;
-            padding-top: 100%;
           }
         }
       }
@@ -611,34 +557,24 @@
     }
 
     .tag-list {
-      width: 92%;
+      width: 90%;
       margin: 0 auto 40px;
       box-shadow: none;
     }
 
     .item-list {
-      width: 92%;
-      margin: 40px auto;
+      width: 90%;
+      margin: 65px auto;
+      grid-gap: 50px 20px;
 
       .item {
-        padding: 25px 10px;
-
         > div {
           .image-box {
-            flex: 1 0 auto;
-            height: auto;
-
             .bookmark {
               top: 16px;
               bottom: auto;
               right: 16px;
             }
-          }
-
-          .image-box:before {
-            content: '';
-            display: block;
-            padding-top: 100%;
           }
         }
       }
@@ -660,13 +596,10 @@
           @include textStyleGmarketSans_bold(22px);
         }
       }
+    }
 
-      .img-content {
-        > img {
-          width: 100px;
-          height: 70px;
-        }
-      }
+    .item-list {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 }
@@ -676,13 +609,6 @@
     padding: 80px 16px;
 
     .banner {
-      .img-content {
-        > img {
-          width: 100px;
-          height: 70px;
-        }
-      }
-
       .text-content {
         .text-1 {
           @include textStyleGmarketSans_medium(22px);
@@ -699,28 +625,19 @@
     }
 
     .item-list {
-      width: 92%;
-      margin: 40px auto;
+      width: 90%;
+      margin: 70px auto;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-gap: 60px 30px;
 
       .item {
-        padding: 30px 15px;
-
         > div {
           .image-box {
-            flex: 1 0 auto;
-            height: auto;
-
             .bookmark {
               top: 16px;
               bottom: auto;
               right: 16px;
             }
-          }
-
-          .image-box:before {
-            content: '';
-            display: block;
-            padding-top: 100%;
           }
         }
       }

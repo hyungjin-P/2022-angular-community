@@ -31,10 +31,10 @@
         </div>
       </a>
 
-      <div class="item-list d-flex flex-wrap">
-        <div class="item col-6 col-lg-6 col-xl-4 col-xxl-2-5" *ngFor="let feed of feedList">
-          <div class="d-flex flex-column flex-wrap">
-            <a class="image-box flex-fill"
+      <div class="item-list">
+        <div class="item" *ngFor="let feed of feedList">
+          <div class="d-flex flex-column">
+            <a class="image-box"
                [id]="'feed-' + feed.id"
                href="javascript:void(0)"
                (click)="moveFeedDetail(feed)">
