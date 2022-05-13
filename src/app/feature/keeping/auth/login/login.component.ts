@@ -233,7 +233,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           });
         },
         (e) => {
-          let message = this.textService.getText('auth:email:008');
+          let message = this.textService.getText('auth:email:009');
           this.globalService.showToast(message);
         }
       );

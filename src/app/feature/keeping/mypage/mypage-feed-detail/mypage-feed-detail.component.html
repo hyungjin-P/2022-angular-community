@@ -96,7 +96,8 @@
             </ng-container>
           </div>
 
-          <div class="item-contents-comments" (click)="commentModalShow(feed)">
+          <div class="item-contents-comments"
+               (click)="commentModalShow(feed)">
             <i class="comment-icon"
                [inlineSVG]="'assets/icons/mypage/mypage-comment.svg'"></i>
             <span class="comment-count">
@@ -111,7 +112,8 @@
         </div>
 
         <div class="item-contents-tags">
-          <span class="tag" *ngFor="let tag of feed?.tags">{{ '# ' + tag.name }}</span>
+          <span class="tag"
+                *ngFor="let tag of feed?.tags">{{ '# ' + tag.name }}</span>
         </div>
 
       </div>

@@ -14,6 +14,7 @@ export class TextService {
       'auth:email:006': '비밀번호는 8자 이상, 영문+숫자를 포함해주세요.',
       'auth:email:007': '비밀번호가 일치하지 않습니다.',
       'auth:email:008': '사용자가 존재하지 않습니다.',
+      'auth:email:009': '아이디 및 패스워드가 일치하지 않습니다.',
 
       'auth:forgot-password:001': '비밀번호 재설정 링크를 발송하였습니다.',
       'auth:forgot-password:002': '확인',
@@ -75,6 +76,7 @@ export class TextService {
       'auth:email:006': 'Password must be at least 8 characters and contain English + numbers.',
       'auth:email:007': 'Passwords do not match.',
       'auth:email:008': 'Matched user is not found',
+      'auth:email:009': 'The ID and Password do not match.',
 
       'auth:forgot-password:001': 'We have sent you a password reset link.',
       'auth:forgot-password:002': 'Confirm',

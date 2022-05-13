@@ -1,15 +1,20 @@
 <div class="mypage full-absolute d-flex flex-column">
-  <header class="d-none d-lg-block" style="z-index: 1;"></header>
+  <header class="d-none d-lg-block"
+          style="z-index: 1;"></header>
 
-  <div class="flex-fill" style="position: relative">
+  <div class="flex-fill"
+       style="position: relative">
     <ng-container *ngTemplateOutlet="mypage"></ng-container>
   </div>
+
 </div>
 
 <div class="drawer-wrapper"
      [class.drawer-wrapper-open]="variables?.isDrawerOpen"
      (click)="closeDrawer()"></div>
-<div class="drawer" [class.drawer-open]="variables?.isDrawerOpen">
+
+<div class="drawer"
+     [class.drawer-open]="variables?.isDrawerOpen">
   <drawer></drawer>
 </div>
 
@@ -30,6 +35,7 @@
              (click)="goBack()"></div>
 
         <div>{{ user?.nickname || user?.email || '' }}</div>
+
         <a class="notification">
           <svg class="svg-icon"
                viewBox="-2 -2 28.5 28.5">
@@ -63,7 +69,8 @@
               <div class="line-1"></div>
               <div class="line-2"></div>
             </a>
-            <div class="add-button-text" *ngIf="!isOtherUser">
+            <div class="add-button-text"
+                 *ngIf="!isOtherUser">
               {{ 'mypage.add-button-text' | translate }}
             </div>
             <input type="file"
@@ -75,7 +82,8 @@
           <div [class.background-show]="user?.background?.length > 0">
 
             <ng-container *ngIf="user?.background?.length > 0">
-              <img [src]="user?.background[0]?.url" alt="user custom background image">
+              <img [src]="user?.background[0]?.url"
+                   alt="user profile picture">
             </ng-container>
 
             <!-- 배경이미지 바꾸기 -->
@@ -98,7 +106,6 @@
 
               <div class="edit-mode-button-group"
                    (click)="$event.stopPropagation()">
-
                 <!-- 이미지 바꾸기 버튼 -->
                 <div class="edit-mode-choose-button"
                      (click)="newBackground.click()">
@@ -141,32 +148,41 @@
                   {{ user.nickname || user.email || '' }}
                 </div>
                 <div *ngIf='!isOtherUser'>
-                  <div class="social social-kakao"
+                  <span class="social social-kakao"
                        *ngIf="user.provider === 'kakao.com'">
-                    <img src="assets/icons/social/kakao_2.png">
-                  </div>
-                  <div class="social social-naver"
+                    <img class="margin-right-5"
+                         src="assets/icons/social/kakao_2.png"
+                         alt="">
+                  </span>
+                  <span class="social social-naver"
                        *ngIf="user.provider === 'naver.com'">
-                    <img src="assets/icons/social/naver.png">
-                  </div>
-                  <div class="social social-google"
+                    <img class="margin-right-5"
+                         src="assets/icons/social/naver.png"
+                         alt="">
+                  </span>
+                  <span class="social social-google"
                        *ngIf="user.provider === 'google.com'">
-                    <img src="assets/icons/social/google.png">
-                  </div>
+                    <img class="margin-right-5"
+                         src="assets/icons/social/google.png"
+                         alt="">
+                  </span>
                   <span class="email">{{ user.email || '' }}</span>
                 </div>
 
                 <!-- 내프로필 > 팔로우 -->
                 <div class="follow cursor-pointer" (click)="openFollowView()">
-                  <div class="following">
-                    {{ 'mypage.following-text' | translate }}
-                  </div>
-                  <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
-                  <div class="v-line"></div>
                   <div class="follower">
                     {{ 'mypage.follower-text' | translate }}
                   </div>
                   <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
+
+                  <div class="v-line"></div>
+
+                  <div class="following">
+                    {{ 'mypage.following-text' | translate }}
+                  </div>
+                  <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
+
                 </div>
 
                 <!-- 자기소개 -->
@@ -234,11 +250,13 @@
                   </div>
 
                   <div class="follow cursor-pointer" (click)="openFollowView()">
-                    <div class="following">{{ 'mypage.following-text' | translate }}</div>
-                    <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
-                    <div class="v-line"></div>
                     <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
                     <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
+
+                    <div class="v-line"></div>
+
+                    <div class="following">{{ 'mypage.following-text' | translate }}</div>
+                    <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
                   </div>
 
                   <!-- 프로필 수정 본인 것 -->

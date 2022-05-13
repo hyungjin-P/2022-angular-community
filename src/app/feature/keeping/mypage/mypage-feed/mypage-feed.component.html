@@ -67,7 +67,7 @@
 
     <div class="item-box"
          [ngStyle]="comparisonBackgroundImage(feed)"
-         (click)="goFeedDetail()">
+         (click)="goFeedDetails(feed)">
 
       <div class="item-box-picture-count d-lg-none"
            *ngIf="feed?.pictureCount > 1">
@@ -112,8 +112,9 @@
   </div>
 
   <!-- 사진 없는 것 12개까지 증축하기 -->
-  <ng-container *ngIf='feedList?.length <= limit'>
-    <div class="item-list col-6 col-lg-3 d-none d-lg-block" *ngFor="let dummy of ' '.repeat(limit - feedList.length).split(''); let x = index">
+  <ng-container *ngIf="feedList?.length <= limit">
+    <div class="item-list col-6 col-lg-3 d-none d-lg-block"
+         *ngFor="let dummy of ' '.repeat(limit - feedList.length).split(''); let x = index">
       <div class="item-box"></div>
     </div>
   </ng-container>

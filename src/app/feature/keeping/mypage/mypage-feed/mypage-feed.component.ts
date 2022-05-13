@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '@schemas/user';
-import { StorageService } from '@services/storage.service';
-import { FeedService } from '@services/feed.service';
-import { Feed } from '@schemas/feed';
-import { UserService } from '@services/user.service';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '@schemas/user';
+import {StorageService} from '@services/storage.service';
+import {FeedService} from '@services/feed.service';
+import {Feed} from '@schemas/feed';
+import {UserService} from '@services/user.service';
 
 @Component({
   selector: 'app-mypage-feed',
@@ -33,29 +33,33 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
     private feedService: FeedService,
     private userService: UserService,
     private activateRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
 
     // 라우팅 구분
-    this.activateRoute.params.subscribe((params) => {
-      console.log('routing event : ', params);
-
-      if (params?.userId) {
-        this.otherUserId = params.userId;
-        this.userService.getUser(this.otherUserId).subscribe((user) => {
-          this.user = user;
-          this.findMyPageFeedList(this.user.id, this.limit);
-        });
-      } else {
-        this.user = this.storageService.getUser();
-        this.userService.getUser(this.user.id).subscribe((user) => {
-          this.user = user;
-          this.findMyPageFeedList(this.user.id, this.limit);
-        });
-      }
-    });
+    this.activateRoute.params
+      .subscribe((params) => {
+        if (params?.userId) {
+          this.otherUserId = params.userId;
+          this.userService
+            .getUser(this.otherUserId)
+            .subscribe((user) => {
+              this.user = user;
+              this.findMyPageFeedList(this.user.id, this.limit);
+            });
+        } else {
+          this.user = this.storageService.getUser();
+          this.userService
+            .getUser(this.user.id)
+            .subscribe((user) => {
+              this.user = user;
+              this.findMyPageFeedList(this.user.id, this.limit);
+            });
+        }
+      });
   }
 
   ngAfterViewInit(): void {}
@@ -67,20 +71,30 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
    */
   findMyPageFeedList(userId, limit): void {
     if (this.user) {
-      this.feedService.findMyPageFeedMain(userId, limit).subscribe((data) => {
-        this.feedList = data?.feedList;
-        this.otherCount = data?.otherCount;
-        this.totalCount = data?.totalCount;
+      this.feedService
+        .findMyPageFeedMain(userId, limit)
+        .subscribe((data) => {
+          this.feedList = data?.feedList;
+          this.otherCount = data?.otherCount;
+          this.totalCount = data?.totalCount;
 
-        if (this.totalCount === 0) {
-          this.feedList = [];
-        }
-      });
+          if (this.totalCount === 0) {
+            this.feedList = [];
+          }
+        });
     }
   }
 
-  goFeedDetail(): void {
-    const path = this.otherUserId ? `/mypage/feed-detail/${this.otherUserId}` : '/mypage/feed-detail';
+  goFeedDetails(feed: Feed): void {
+    console.log('feed : ', feed);
+    console.log('feed : ', feed.id);
+    console.log('feed : ', feed.content);
+    console.log('feed : ', feed.createdAt);
+
+    let path = this.otherUserId
+      ? `/mypage/feed-detail/${this.otherUserId}`
+      : '/mypage/feed-detail';
+    path += `?pageDate=${feed.createdAt}`;
 
     this.router.navigateByUrl(path).then();
   }
@@ -89,12 +103,14 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(path).then();
   }
 
+  /** background image */
   comparisonBackgroundImage(feed: Feed): any {
-    return feed?.picture ? { 'background-image': 'url(' + feed?.picture + ')' } : {};
+    return feed?.picture ? {'background-image': 'url(' + feed?.picture + ')'} : {};
   }
 
+  /** user profile image */
   comparisonUserPicture(user: User): any {
-    return user?.picture ? { 'background-image': 'url(' + user?.picture[0]?.url + ')' } : {};
+    return user?.picture ? {'background-image': 'url(' + user?.picture[0]?.url + ')'} : {};
   }
 
   pushEmptyFeed(limit: number): void {

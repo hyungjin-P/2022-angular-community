@@ -48,7 +48,7 @@ const routes: Routes = [
       {path: 'email', component: EmailComponent},
     ],
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

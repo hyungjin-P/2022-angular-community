@@ -357,9 +357,9 @@ export class FeedService {
     userId: string,
     pageDate: string
   ): Observable<Array<FeedComment>> {
-    const url =
-      environment.userApiAddress +
-      `/feed/comment/sub/findPages?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}&userId=${userId}&pageDate=${pageDate}`;
+    let url = environment.userApiAddress + `/feed/comment/sub/findPages`;
+    url += `?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}`
+    url += `&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -443,8 +443,7 @@ export class FeedService {
       map((res) => {
         return res;
       }),
-      catchError(handleError)
-    );
+      catchError(handleError));
   }
 
   /**
@@ -587,7 +586,7 @@ export class FeedService {
       `/feed/findMypageFeedDetail?userId=${userId}&page=${page}&limit=${limit}&pageDate=${pageDate}`;
 
     if (otherUserId) {
-      url += `&otherUserId=${otherUserId}`
+      url += `&otherUserId=${otherUserId}`;
     }
 
     const options = {

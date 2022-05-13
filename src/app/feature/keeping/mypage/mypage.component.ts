@@ -21,6 +21,7 @@ import {FollowViewModalComponent} from '@shared/components/follow-view-modal/fol
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit, AfterViewInit {
+
   variables: any;
 
   user: User;
@@ -76,27 +77,29 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     let timer = null;
-    this.scrollEl.nativeElement.addEventListener('scroll', () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
-        const scrollTop = this.scrollEl.nativeElement.scrollTop;
-        const per = (scrollTop / scrollHeight) * 100;
-        const def = scrollHeight - scrollTop;
-
-        if (this.mypageFeedDetail) {
-          if (def < 1000) {
-            this.mypageFeedDetail.findNextPage();
+    this.scrollEl.nativeElement
+      .addEventListener('scroll', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
+          const scrollTop = this.scrollEl.nativeElement.scrollTop;
+          const per = (scrollTop / scrollHeight) * 100;
+          const def = scrollHeight - scrollTop;
+          if (this.mypageFeedDetail) {
+            if (def < 1000) {
+              this.mypageFeedDetail.findNextPage();
+            }
           }
-        }
-      }, 100);
+        }, 100);
     });
   }
 
   countFollow(userId: string): void {
-    this.followService.countFollow(userId).subscribe((follow) => {
-      this.follow = follow;
-    });
+    this.followService
+      .countFollow(userId)
+      .subscribe((follow) => {
+        this.follow = follow;
+      });
   }
 
   onActivate(componentRef: any): void {
@@ -109,20 +112,22 @@ export class MypageComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         if (componentRef.otherUserId) {
           this.isOtherUser = true;
-          this.userService.getUser(componentRef.otherUserId).subscribe((user) => {
-            this.user = user;
-            this.countFollow(this.user.id);
-          });
+          this.userService
+            .getUser(componentRef.otherUserId)
+            .subscribe((user) => {
+              this.user = user;
+              this.countFollow(this.user.id);
+            });
         }
       }, 0);
     }
   }
 
-  goBack() {
+  goBack(): void {
     window.history.back();
   }
 
-  closeDrawer() {
+  closeDrawer(): void {
     this.variables.isDrawerOpen = false;
   }
 
@@ -130,7 +135,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
    * 배경 이미지 교체
    * @param background
    */
-  async onChangeFile(background: any) {
+  async onChangeFile(background: any): Promise<void> {
     const files: FileList = background.files;
 
     if (files && files.length === 0) {
@@ -180,7 +185,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
   }
 
   /** 배경사진 변경 */
-  async changeBackground(background) {
+  async changeBackground(background): Promise<void> {
     const files: FileList = background.files;
 
     if (files && files.length === 0) {
@@ -218,7 +223,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async logout() {
+  async logout(): Promise<void> {
     await this.storageService.removeUser();
     this.router.navigateByUrl('/').then(() => {
       let message = this.textService.getText('auth:logout:001');

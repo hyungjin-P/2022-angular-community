@@ -1,20 +1,19 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
-import { StorageService } from '@services/storage.service';
-import { FeedService } from '@services/feed.service';
-import { User } from '@schemas/user';
-import { Feed } from '@schemas/feed';
-import { FollowService } from '@services/follow.service';
-import { DateUtils } from '../../../../core/utils/date.utils';
-import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
-import { OtherUserUtil } from '../../../../core/utils/other-user.util';
-import { UserService } from '@services/user.service';
-import { GlobalService } from '@services/global.service';
-import { TextService } from '@services/text.service';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {StorageService} from '@services/storage.service';
+import {FeedService} from '@services/feed.service';
+import {User} from '@schemas/user';
+import {Feed} from '@schemas/feed';
+import {FollowService} from '@services/follow.service';
+import {DateUtils} from '../../../../core/utils/date.utils';
+import {FeedCommentModalComponent} from '@shared/components/feed-comment-modal/feed-comment-modal.component';
+import {OtherUserUtil} from '../../../../core/utils/other-user.util';
+import {UserService} from '@services/user.service';
+import {GlobalService} from '@services/global.service';
+import {TextService} from '@services/text.service';
 import {FeedLikeUserModalComponent} from "@shared/components/feed-like-user-modal/feed-like-user-modal.component";
-import {Subscription} from "rxjs";
 
-import { browserRefresh } from '../../../../app.component';
+import {browserRefresh} from '../../../../app.component';
 
 @Component({
   selector: 'app-mypage-feed-detail',
@@ -22,6 +21,7 @@ import { browserRefresh } from '../../../../app.component';
   styleUrls: ['./mypage-feed-detail.component.scss'],
 })
 export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+
   feedDeleteMessage: any = {
     text: '피드 삭제',
     subText: '정말 삭제 하시겠어요?',
@@ -86,12 +86,18 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
-    // UTC기준 최초 페이지 접속 시점
-    this.pageDate = new Date().toISOString();
 
     this.selectedLanguage = localStorage.getItem('language');
 
     this.browserRefresh = browserRefresh;
+
+    const queryParams = this.activatedRoute.snapshot.queryParams;
+
+    if (queryParams?.pageDate) {
+      this.pageDate = queryParams?.pageDate;
+    } else {
+      this.pageDate = new Date().toISOString();
+    }
 
     this.activatedRoute.params.subscribe((params) => {
       if (params.userId) {
@@ -103,18 +109,15 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
             .subscribe((user) => {
               this.otherUser = user;
               this.findMyPageFeedList(this.otherUser.id, this.feedPage, this.feedLimit, this.user.id);
-              console.log('find other user feed: ', this.otherUser);
             });
         } else {
           this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
-          console.log('find user feed: ', this.otherUser);
         }
       }
     });
 
     if (!this.otherUserId) {
       this.findMyPageFeedList(this.user.id, this.feedPage, this.feedLimit);
-      console.log('find user feed: ', this.otherUser);
     }
 
   }
@@ -138,27 +141,31 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
   findMyPageFeedList(userId, page, limit, otherUserId?): void {
     if (this.user) {
       if (!this.otherUserId) {
-        this.feedService.findMyPageFeedDetail(userId, page, limit, this.pageDate).subscribe((data) => {
-          this.feedPageMeta = data?.meta;
-          this.feedPageLink = data?.links;
+        this.feedService
+          .findMyPageFeedDetail(userId, page, limit, this.pageDate)
+          .subscribe((data) => {
+            this.feedPageMeta = data?.meta;
+            this.feedPageLink = data?.links;
 
-          if (this.feedPage > 1) {
-            this.feedList = [...this.feedList, ...data?.items];
-          } else {
+            if (this.feedPage > 1) {
+              this.feedList = [...this.feedList, ...data?.items];
+            } else {
             this.feedList = data?.items;
-          }
+            }
         });
       } else {
-        this.feedService.findMyPageFeedDetail(userId, page, limit, this.pageDate, otherUserId).subscribe((data) => {
-          this.feedPageMeta = data?.meta;
-          this.feedPageLink = data?.links;
+        this.feedService
+          .findMyPageFeedDetail(userId, page, limit, this.pageDate, otherUserId)
+          .subscribe((data) => {
+            this.feedPageMeta = data?.meta;
+            this.feedPageLink = data?.links;
 
-          if (this.feedPage > 1) {
-            this.feedList = [...this.feedList, ...data?.items];
-          } else {
-            this.feedList = data?.items;
-          }
-        });
+            if (this.feedPage > 1) {
+              this.feedList = [...this.feedList, ...data?.items];
+            } else {
+              this.feedList = data?.items;
+            }
+          });
       }
     }
   }
@@ -269,6 +276,11 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
+  /**
+   * 피드 좋아요 추가
+   * @param feed
+   * @param userId
+   */
   addFeedLike(feed: Feed, userId: string): void {
     this.feedService
       .createFeedLike({
@@ -284,6 +296,11 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
       );
   }
 
+  /**
+   * 피드 좋아요 삭제
+   * @param feed
+   * @param userId
+   */
   deleteFeedLike(feed: Feed, userId: string): void {
     this.feedService
       .deleteFeedLike({
@@ -319,10 +336,11 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
 
   deleteRealFeed(): void {
     if (this.selectedFeed) {
-      this.feedService.deleteRealFeed(this.selectedFeed.id).subscribe((data) => {
-        this.modalCancel();
-        console.log('data : ', data);
-      });
+      this.feedService
+        .deleteRealFeed(this.selectedFeed.id)
+        .subscribe((data) => {
+          this.modalCancel();
+        });
     }
   }
 
