@@ -41,10 +41,14 @@
               <div class="image-box-hover-content">
                 <img class="picture"
                      draggable="false"
+                     onerror="this.style.display='none'"
                      [alt]="feed.content"
                      [src]="feed.picture">
-                <div class="pictureCount-background" *ngIf="feed.pictureCount > 1">
-                  <span class="text">{{ '+' + feed.pictureCount }}</span>
+                <div class="pictureCount-background"
+                     *ngIf="feed.pictureCount > 1">
+                  <span class="text">
+                    {{ '+' + feed.pictureCount }}
+                  </span>
                 </div>
               </div>
             </a>

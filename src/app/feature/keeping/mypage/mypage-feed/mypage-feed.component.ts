@@ -86,11 +86,6 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   }
 
   goFeedDetails(feed: Feed): void {
-    console.log('feed : ', feed);
-    console.log('feed : ', feed.id);
-    console.log('feed : ', feed.content);
-    console.log('feed : ', feed.createdAt);
-
     let path = this.otherUserId
       ? `/mypage/feed-detail/${this.otherUserId}`
       : '/mypage/feed-detail';
@@ -111,11 +106,5 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   /** user profile image */
   comparisonUserPicture(user: User): any {
     return user?.picture ? {'background-image': 'url(' + user?.picture[0]?.url + ')'} : {};
-  }
-
-  pushEmptyFeed(limit: number): void {
-    for (let i = 0; i < limit; i++) {
-      this.feedList.push({});
-    }
   }
 }

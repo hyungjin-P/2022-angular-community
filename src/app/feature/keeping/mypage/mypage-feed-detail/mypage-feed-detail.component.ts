@@ -150,7 +150,7 @@ export class MypageFeedDetailComponent implements OnInit, AfterViewInit, OnDestr
             if (this.feedPage > 1) {
               this.feedList = [...this.feedList, ...data?.items];
             } else {
-            this.feedList = data?.items;
+              this.feedList = data?.items;
             }
         });
       } else {

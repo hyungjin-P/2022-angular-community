@@ -18,6 +18,7 @@ export let browserRefresh = false;
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+
   variables: any;
   modal: any;
   toast: any;

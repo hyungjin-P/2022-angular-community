@@ -83,32 +83,6 @@
       </ng-container>
     </div>
 
-    <div class="item-content">
-      <div class="user-infos" *ngIf="feed?.id">
-        <div class="avatar"
-             [ngStyle]="comparisonUserPicture(user)"></div>
-        <div class="nickname">
-            {{ user?.nickname ? user.nickname : user.email }}
-        </div>
-      </div>
-
-      <div class="user-contents" *ngIf="feed?.id">
-        {{ feed.content }}
-      </div>
-
-      <div class="user-contents-infos" *ngIf="feed?.id">
-        <div class="info-icon heart"
-             [inlineSVG]="'assets/icons/mypage/mypage-heart.svg'"></div>
-        <div class="info-count">
-          {{ feed?.likeCount > 99 ? '99+' : (feed?.likeCount) }}
-        </div>
-        <div class="info-icon"
-             [inlineSVG]="'assets/icons/mypage/mypage-content.svg'"></div>
-        <div class="info-count">
-          {{ feed?.commentCount > 99 ? '99+' : (feed?.commentCount) }}
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- 사진 없는 것 12개까지 증축하기 -->
