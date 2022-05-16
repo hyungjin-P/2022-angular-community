@@ -1,4 +1,4 @@
-<div class="modal fade" id="bs-feed-like-user-modal" data-keyboard="false" tabindex="-1"
+<div class="modal fade feed-like-user-modal" id="bs-feed-like-user-modal" data-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullsize"
@@ -14,27 +14,76 @@
         <h5 class="modal-title"
             id="staticBackdropLabel">
           <span class="chevron-left"
-                [inlineSVG]="'assets/icons/mypage/chevron-left-arrow.svg'"></span>
+                [inlineSVG]="'assets/icons/mypage/chevron-left-arrow.svg'"
+                (click)='onCloseLikeUserModal()'></span>
           <span>
             <!-- 댓글 -->
-            이 글을 좋아하는 유저
+            {{ 'keeping.feed-detail.liked-view-header' | translate }}
+            {{ '(' + ((feedLikes ? feedLikes.length : 0) | number) + ')' }}
           </span>
         </h5>
 
         <!-- 닫기 버튼 -->
         <button type="button"
-                class="close">
+                class="close"
+                (click)='onCloseLikeUserModal()'>
           <span aria-hidden="true">&times;</span>
         </button>
 
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body scroll-y" #scrollEl>
+        <!-- 좋아요를 누른 유저 목록 -->
+        <div class="liked-users" *ngFor="let likeUser of feedLikes">
+          <shared-avatar
+            class="cursor-pointer"
+            (click)="moveOtherUserMyPage(likeUser?.user, likeUser?.user?.id)"
+            [image]="likeUser.user.picture[0]?.url"
+            text="{{ likeUser.user.email }}"
+            size="45"
+            fontSize="18"
+          ></shared-avatar>
+          <div class="liked-user-nickname cursor-pointer"
+               (click)="moveOtherUserMyPage(user, likeUser?.user?.id)">
+            {{ likeUser.user.nickname || likeUser.user.email.split('@')[0] }}
+          </div>
+          <div class="liked-user-follow-button" *ngIf='user?.id !== likeUser.user.id'>
+            <div class="follow-active" *ngIf="likeUser.user.isFollow" (click)="removeFollow(user?.id, likeUser.user)">
+              <div class="follow-check-icon">
+                <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="text">
+                {{ 'keeping.feed-detail.following' | translate }}
+              </div>
+            </div>
+            <div class="follow-default"
+                 *ngIf="!likeUser.user.isFollow"
+                 (click)="addFollow(user?.id, likeUser.user)">
+              <div class="follow-plus-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 6H10Z" fill="#567DFF"/>
+                  <path d="M6 2V10M2 6H10" stroke="#567DFF"/>
+                </svg>
+              </div>
+              <div class="text">
+                {{ 'keeping.feed-detail.follow' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <shared-login-modal
+        type='login'
+        [(visible)]='isLoginModalVisible'
+        (cancel)='loginModalCancel()'
+        (confirm)='loginModalConfirm()'
+        (another)='loginModalAnother()'
+      ></shared-login-modal>
     </div>
-
   </div>
-
 </div>
+
 

@@ -1,0 +1,102 @@
+@import '/src/assets/styles/font';
+
+@keyframes pulse {
+  25% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes motion {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 10px;
+  }
+}
+
+.icon-motion {
+  position: absolute;
+  animation: motion 0.3s;
+  animation-iteration-count: 10;
+}
+
+.modal-back {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.animate-bottom {
+  position: relative;
+  animation: animateBottom ease 0.25s;
+}
+
+.animate-top {
+  position: relative;
+  animation: animateTop ease 0.25s;
+}
+
+@keyframes animateTop {
+  from {
+    bottom: 0;
+    opacity: 1;
+  }
+  to {
+    bottom: -150vh;
+    opacity: 0;
+  }
+}
+
+@keyframes animateBottom {
+  from {
+    bottom: -50vh;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.modal {
+  overflow-y: hidden !important;
+}
+
+@media (max-width: 993px) {
+  #bs-comment-modal {
+    padding: 0 !important;
+
+    #bs-comment-modal-dialog {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+      padding-top: 20%;
+    }
+
+    #bs-comment-modal-content {
+      height: 100%;
+      border: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+    }
+
+    .modal-dialog-centered {
+      max-height: 100%;
+    }
+
+    .modal-dialog-scrollable {
+      max-height: 100%;
+    }
+  }
+
+  .confirm-modal {
+    margin: 0 auto;
+  }
+}

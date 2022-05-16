@@ -20,7 +20,7 @@
   overflow-y: hidden !important;
 }
 
-.modal.follow-view-modal {
+.modal.feed-like-user-modal {
   .modal-content {
     border-radius: 20px;
     border: 0;
@@ -43,136 +43,74 @@
         margin-left: 0;
         padding-top: 17px;
       }
-
     }
 
     .modal-body {
-      padding: 0;
+      //padding: 0;
       overflow-y: hidden;
+      padding: 5px 24px;
+      .liked-users {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        width: 100%;
+        height: 45px;
 
-      .slider-wrapper {
-        height: calc(100% - 40px);
+        .liked-user-nickname {
+          margin-left: 8px;
 
-        .details-slider {
-          height: calc(100% - 40px);
-
-          .details {
-            display: flex;
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: scroll;
-
-            .details-content {
-              width: 100%;
-
-              .summary {
-                @include textStyleNotoSans(400, 13px);
-                margin-bottom: 12px;
-              }
-
-              .data-list {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-
-                .data-item {
-                  width: 100%;
-                  padding-top: 12px;
-                  padding-bottom: 12px;
-                  display: flex;
-                  flex-direction: row;
-                  align-items: center;
-
-                  .avatar {
-                    margin-right: 8px;
-                  }
-
-                  .nickname {
-                    flex-grow: 1;
-
-                    span {
-                      color: var(--black-2);
-                      @include textStyleNotoSans(400, 13px);
-                    }
-                  }
-
-                  .follow {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 92px;
-                    height: 33px;
-                    border: 1px solid var(--blue-3);
-                    border-radius: 8px;
-                    background-color: var(--white);
-                    @include textStyleNotoSans(500, 13px);
-                    color: var(--blue-3);
-                    transition: ease 0.3s;
-
-                    .button-icon {
-                      transition: ease 0.3s;
-                      margin-right: 4px;
-                      width: 14px;
-                      height: 14px;
-                      display: block;
-                      background: url('~src/assets/icons/follow-view/plus-icon.svg') no-repeat;
-                    }
-
-                    &.checked {
-                      transition: ease 0.5s;
-                      background-color: var(--blue-3);
-                      color: var(--white);
-
-                      .button-icon {
-                        background: url('~src/assets/icons/follow-view/plus-icon-checked-active.svg') no-repeat;
-                      }
-
-                    }
-
-                  }
-
-                }
-
-              }
-
-              .empty {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-
-                .empty-inner {
-                  padding-top: calc(50% - 40px);
-                  height: 100%;
-                  text-align: center;
-
-                  .empty-title {
-                    @include textStyleNotoSans(700, 14px);
-                    color: var(--grey-2);
-                    margin-bottom: 10px;
-                  }
-
-                  .empty-text {
-                    color: var(--grey-3);
-                    @include textStyleNotoSans(400, 13px);
-                  }
-
-                }
-
-              }
-
-            }
-
-          }
-
+          @include textStyle(500, 14px, 22px);
         }
 
+        .liked-user-follow-button {
+          position: absolute;
+          top: 0;
+          right: 0;
+          .follow-default,
+          .follow-active {
+            display: flex;
+            width: 100px;
+            height: 33px;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid var(--blue-3);
+
+            padding: 6px 14px;
+            border-radius: 8px;
+
+            .text {
+              margin-left: 4px;
+
+              @include textStyle(500, 13px, 21px);
+              letter-spacing: -0.2px;
+            }
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+
+          .follow-active {
+            background-color: var(--blue-3);
+            color: var(--white);
+            .follow-check-icon {
+              display: inline-flex;
+              align-items: center;
+            }
+          }
+
+          .follow-default {
+            color: var(--blue-3);
+            .follow-plus-icon {
+              display: inline-flex;
+              align-items: center;
+            }
+          }
+        }
       }
-
     }
-
-
   }
 }
 
@@ -190,33 +128,29 @@
 }
 
 @media (max-width: 993px) {
-
-  #bs-follow-view-modal {
+  #bs-feed-like-user-modal {
     padding: 0 !important;
     height: 100%;
     min-height: 100%;
 
-    #bs-follow-view-modal-dialog {
-      padding-top: 10%;
+    #bs-feed-like-user-modal-dialog {
+      padding-top: 20%;
       margin: 0;
       width: 100%;
       height: 100%;
       max-width: none;
 
-      #bs-follow-view-modal-content {
+      #bs-feed-like-user-modal-content {
         width: 100%;
         height: 100%;
         border: 0;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }
-
     }
 
     .modal-dialog-scrollable {
       max-height: 100%;
     }
-
   }
-
 }

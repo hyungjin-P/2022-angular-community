@@ -2,8 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as moment from 'moment-timezone';
 
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
@@ -13,13 +11,13 @@ import { PublicService } from '@services/public.service';
 import { TextService } from '@services/text.service';
 
 import { Feed } from '@schemas/feed';
-import { FeedComment } from '@schemas/feed-comment';
 import { User } from '@schemas/user';
 import { DateUtils } from '../../../../core/utils/date.utils';
 import { FeedLike } from '@schemas/feed-like';
 import { FollowService } from '@services/follow.service';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { OtherUserUtil } from '../../../../core/utils/other-user.util';
+import { FeedLikeUserModalComponent } from '@shared/components/feed-like-user-modal/feed-like-user-modal.component';
 
 @Component({
   selector: 'feed-detail',
@@ -53,27 +51,7 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectedLanguage: string;
 
-  commentViewVisible: boolean;
-
-  @ViewChild('commentScrollEl') commentScrollEl: ElementRef;
-  @ViewChild('feedCommentAddBtn') feedCommentAddBtnEl: ElementRef;
-  @ViewChild('feedCommentInput') feedCommentInputEl: ElementRef;
-
-  feedCommentInputObj: any;
-  feedCommentInputStatus: string;
-  feedCommentList: Array<FeedComment>;
-
   feedDelete: Feed;
-  feedSubComment: FeedComment;
-  feedModifyComment: FeedComment;
-  feedDeleteComment: FeedComment;
-
-  feedSubCommentListViewObj: any;
-  feedSubCommentListObj: any;
-
-  @ViewChild('likeScrollEl') likeScrollEl: ElementRef;
-  likedViewVisible: boolean;
-  likeUserList: Array<FeedLike>;
 
   onKeyEvent: boolean;
 
@@ -84,21 +62,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   pageMeta: any = {};
   pageLink: any = {};
 
-  likePage: number = 1;
-  likeLimit: number = 15;
-  likePageMeta: any = {};
-  likePageLink: any = {};
-
-  commentPage: number = 1;
-  commentLimit: number = 15;
-  commentPageMeta: any = {};
-  commentPageLink: any = {};
-
-  subCommentNumber: number = 0;
-
-  comment_info: string;
-  commentInfoVisible: boolean;
-
   isLoginModalVisible = false;
   isConfirmModalVisible = false;
 
@@ -107,6 +70,8 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /* 댓글 컴포넌트 */
   @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
+  /* 좋아요 컴포넌트 */
+  @ViewChild('likeModal') likeModal: FeedLikeUserModalComponent;
 
   constructor(
     private location: Location,
@@ -140,33 +105,15 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.selectedLanguage = localStorage.getItem('language');
     this.contentViewVisible = true;
-    this.commentViewVisible = false;
-    this.feedCommentInputObj = '';
-    this.feedCommentInputStatus = '';
-    this.feedCommentList = [];
-    this.feedSubComment = undefined;
-    this.feedSubCommentListViewObj = {};
-    this.feedSubCommentListObj = {};
-    this.likedViewVisible = false;
-
-    this.likeUserList = [];
 
     this.onKeyEvent = false;
 
     this.beginTime = '';
-
-    this.commentInfoVisible = false;
   }
 
   ngAfterViewInit(): void {
     document.addEventListener('keyup', (e) => {
       if (e.code !== 'Escape') return;
-
-      if (this.commentViewVisible) {
-        this.hideCommentView();
-      } else if (this.likedViewVisible) {
-        this.hideLikedView();
-      }
     });
 
     let timer = null;
@@ -184,24 +131,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (50 < per) {
           console.log('calc : ', per);
-        }
-      }, 100);
-    });
-
-    this.likeScrollEl.nativeElement.addEventListener('scroll', (event) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        const scrollHeight = this.likeScrollEl.nativeElement.scrollHeight;
-        const scrollTop = this.likeScrollEl.nativeElement.scrollTop;
-        const per = (scrollTop / scrollHeight) * 100;
-        const def = scrollHeight - scrollTop;
-
-        if (def < 700) {
-          this.findNextLikePage();
-        }
-
-        if (50 < per) {
-          console.log('calc comment : ', per);
         }
       }, 100);
     });
@@ -280,154 +209,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           this.feedList = [...this.feedList, ...feedList?.items];
         } else {
           this.feedList = feedList.items;
-        }
-      },
-      (e) => {}
-    );
-  }
-
-  findNextCommentPage() {
-    if (this.commentPageLink?.next) {
-      this.commentPage = this.commentPage + 1;
-      if (this.user) {
-        this.getFeedCommentList();
-      } else {
-        this.getPublicFeedCommentList();
-      }
-    }
-  }
-
-  getPublicFeedCommentList() {
-    this.publicService
-      .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.pageDate)
-      .subscribe(
-        (feedCommentList: any) => {
-          this.commentPageMeta = feedCommentList.meta;
-          this.commentPageLink = feedCommentList.links;
-
-          if (this.commentPage > 1) {
-            this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
-          } else {
-            this.feedCommentList = feedCommentList.items;
-          }
-
-          this.feedCommentList.forEach((feedComment) => {
-            feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
-            feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
-
-            if (feedComment.sub_comment_count !== 0) {
-              // 댓글 더보기 기본 동작으로 변경 22.02.11
-              this.feedSubCommentListViewObj[feedComment.id] = true;
-              feedComment.page = 1;
-              feedComment.limit = 15;
-
-              this.getPublicFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
-            }
-          });
-        },
-        (e) => {}
-      );
-  }
-
-  getPublicFeedSubCommentList(page: number, limit: number, feedCommentId: string): void {
-    this.publicService.getFeedSubCommentList(page, limit, feedCommentId, this.pageDate).subscribe(
-      (feedCommentList: Array<FeedComment>) => {
-        this.feedSubCommentListObj[feedCommentId] = feedCommentList;
-
-        this.feedSubCommentListObj[feedCommentId].forEach((feedSubComment) => {
-          feedSubComment.begin_timestamp = this.dateUtils.getTimeStamp(feedSubComment.createdAt);
-          feedSubComment.begin_time_text = this.dateUtils.transTimeType(feedSubComment.begin_timestamp);
-        });
-        // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
-      },
-      (e) => {}
-    );
-  }
-
-  getFeedCommentList() {
-    this.feedService
-      .getFeedCommentList(this.commentPage, this.commentLimit, this.selectedFeed.id, this.user?.id, this.pageDate)
-      .subscribe(
-        (feedCommentList: any) => {
-          this.commentPageMeta = feedCommentList.meta;
-          this.commentPageLink = feedCommentList.links;
-
-          if (this.commentPage > 1) {
-            this.feedCommentList = [...this.feedCommentList, ...feedCommentList?.items];
-          } else {
-            this.feedCommentList = feedCommentList.items;
-          }
-
-          this.feedCommentList.forEach((feedComment) => {
-            feedComment.begin_timestamp = this.dateUtils.getTimeStamp(feedComment.createdAt);
-            feedComment.begin_time_text = this.dateUtils.transTimeType(feedComment.begin_timestamp);
-
-            if (feedComment.sub_comment_count !== 0) {
-              // 댓글 더보기 기본 동작으로 변경 22.02.11
-              this.feedSubCommentListViewObj[feedComment.id] = true;
-              feedComment.page = 1;
-              feedComment.limit = 15;
-
-              this.getFeedSubCommentList(feedComment.page, feedComment.limit, feedComment.id);
-            }
-          });
-        },
-        (e) => {}
-      );
-  }
-
-  getFeedSubCommentList(page: number, limit: number, feedCommentId: string) {
-    this.feedService.getFeedSubCommentList(page, limit, feedCommentId, this.user?.id, this.pageDate).subscribe(
-      (feedCommentList: Array<FeedComment>) => {
-        this.feedSubCommentListObj[feedCommentId] = feedCommentList;
-
-        this.feedSubCommentListObj[feedCommentId].forEach((feedSubComment) => {
-          feedSubComment.begin_timestamp = this.dateUtils.getTimeStamp(feedSubComment.createdAt);
-          feedSubComment.begin_time_text = this.dateUtils.transTimeType(feedSubComment.begin_timestamp);
-        });
-        // this.feedSubCommentListObj[feedCommentId].nativeElement.style = 'margin-top: 12px';
-      },
-      (e) => {}
-    );
-  }
-
-  findNextLikePage() {
-    if (this.likePageLink?.next) {
-      this.likePage = this.likePage + 1;
-      if (this.user) {
-        this.getFeedLikeList();
-      } else {
-        this.getPublicFeedLikeList();
-      }
-    }
-  }
-
-  getFeedLikeList() {
-    this.feedService
-      .getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.user?.id, this.pageDate)
-      .subscribe(
-        (likeUserList: any) => {
-          this.likePageMeta = likeUserList.meta;
-          this.likePageLink = likeUserList.links;
-          if (this.likePage > 1) {
-            this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
-          } else {
-            this.likeUserList = likeUserList.items;
-          }
-        },
-        (e) => {}
-      );
-  }
-
-  getPublicFeedLikeList() {
-    this.publicService.getFeedLikeList(this.likePage, this.likeLimit, this.selectedFeed.id, this.pageDate).subscribe(
-      (likeUserList: any) => {
-        this.likePageMeta = likeUserList.meta;
-        this.likePageLink = likeUserList.links;
-        if (this.likePage > 1) {
-          this.likeUserList = [...this.likeUserList, ...likeUserList?.items];
-        } else {
-          this.likeUserList = likeUserList.items;
         }
       },
       (e) => {}
@@ -514,248 +295,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       (e) => {}
     );
-  }
-
-  /** 코멘트 */
-  showCommentView() {
-    this.commentPage = 1;
-    if (this.storageService.getUser()) {
-      this.getFeedCommentList();
-    } else {
-      this.getPublicFeedCommentList();
-    }
-
-    this.commentViewVisible = true;
-  }
-
-  hideCommentView() {
-    this.clearCommentInput();
-    this.commentViewVisible = false;
-  }
-
-  clearCommentInput() {
-    this.feedCommentInputObj = '';
-    this.feedCommentInputEl.nativeElement.style = 'height: 40px';
-  }
-
-  onClickCommentInput() {
-    if (!this.user) {
-      this.showLoginModal();
-    }
-  }
-
-  autosizeCommentInput(event) {
-    event.target.style.height = '0px';
-    event.target.style.height = event.target.scrollHeight + 'px';
-  }
-
-  confirmComment() {
-    if (!this.feedCommentInputObj) {
-      return;
-    }
-    if (!this.user) {
-      this.showLoginModal();
-    }
-
-    if (this.feedCommentInputStatus === 'sub') {
-      this.createSubComment(this.feedSubComment);
-    } else if (this.feedCommentInputStatus === 'modify') {
-      this.modifyComment(this.feedModifyComment);
-    } else {
-      this.createParentComment();
-    }
-  }
-
-  createSubComment(parentFeedComment: FeedComment): void {
-    if (!this.feedCommentInputObj) {
-      return;
-    }
-
-    this.feedService
-      .createFeedComment({
-        feedId: this.selectedFeed.id,
-        userId: this.user?.id,
-        parentId: this.feedSubComment.parentId,
-        text: this.feedCommentInputObj,
-      })
-      .subscribe(
-        (feedComment: FeedComment) => {
-          if (this.comment_info) {
-            this.feedService
-              .addFeedCommentMention({
-                feedCommentId: feedComment.id,
-                mentionUserId: parentFeedComment.writer.id,
-              })
-              .subscribe(() => {
-                this.hideCommentInput();
-                this.selectedFeed.commentCount++;
-                parentFeedComment.sub_comment_count++;
-                this.getFeedCommentList();
-              });
-          }
-        },
-        (e) => {}
-      );
-  }
-
-  modifyComment(modifyComment: FeedComment) {
-    if (!this.feedCommentInputObj || this.feedCommentInputObj === modifyComment.text) {
-      return;
-    }
-
-    this.feedService.modifyFeedComment(modifyComment.id, this.feedCommentInputObj).subscribe(
-      (feedComment: FeedComment) => {
-        this.feedModifyComment.text = feedComment.text;
-        this.hideCommentInput();
-      },
-      (e) => {}
-    );
-  }
-
-  createParentComment() {
-    this.feedService
-      .createFeedComment({ feedId: this.selectedFeed.id, userId: this.user.id, text: this.feedCommentInputObj })
-      .subscribe(
-        (feedComment: FeedComment) => {
-          this.clearCommentInput();
-          this.getFeedCommentList();
-        },
-        (e) => {}
-      );
-  }
-
-  showSubCommentInput(feedComment: FeedComment, parentComment?: FeedComment) {
-    // this.feedSubCommentInputValueObj[feedCommentId] = '@' + this.feedSubCommentListObj[feedCommentId].writer
-    if (!this.user) {
-      this.showLoginModal();
-      return;
-    }
-
-    this.feedCommentInputStatus = 'sub';
-    this.feedSubComment = feedComment;
-    if (parentComment) {
-      this.feedSubComment.parentId = parentComment.id;
-    } else {
-      this.feedSubComment.parentId = feedComment.id;
-    }
-
-    if (this.selectedLanguage === 'ko') {
-      if (feedComment.writer.nickname) {
-        this.comment_info = feedComment.writer.nickname + '님에게 답글 남기는 중';
-      } else {
-        this.comment_info = feedComment.writer.email.split('@')[0] + '님에게 답글 남기는 중';
-      }
-    } else {
-      if (feedComment.writer.nickname) {
-        this.comment_info = 'Reply to ' + feedComment.writer.nickname;
-      } else {
-        this.comment_info = 'Reply to ' + feedComment.writer.email.split('@')[0];
-      }
-    }
-
-    this.commentInfoVisible = true;
-    this.feedCommentInputEl.nativeElement.focus();
-  }
-
-  hideCommentInput() {
-    if (this.feedCommentInputStatus === 'sub' || this.feedCommentInputStatus === 'modify') {
-      this.feedCommentInputStatus = '';
-      this.commentInfoVisible = false;
-      this.feedSubComment = undefined;
-      this.feedModifyComment = undefined;
-    }
-    this.clearCommentInput();
-  }
-
-  showSubCommentList(feedCommentNumber: number, feedCommentId: string) {
-    if (this.feedSubCommentListViewObj[feedCommentId]) {
-      this.hideSubCommentList(feedCommentId);
-    } else {
-      this.feedSubCommentListViewObj[feedCommentId] = true;
-      if (this.user) {
-        this.getFeedSubCommentList(
-          this.feedCommentList[feedCommentNumber].page,
-          this.feedCommentList[feedCommentNumber].limit,
-          feedCommentId
-        );
-      } else {
-        this.getPublicFeedSubCommentList(
-          this.feedCommentList[feedCommentNumber].page,
-          this.feedCommentList[feedCommentNumber].limit,
-          feedCommentId
-        );
-      }
-    }
-  }
-
-  hideSubCommentList(feedCommentId: string) {
-    this.feedSubCommentListViewObj[feedCommentId] = false;
-    this.feedSubCommentListObj[feedCommentId] = [];
-  }
-
-  showModifyCommentInput(feedComment: FeedComment) {
-    this.feedCommentInputStatus = 'modify';
-    if (this.selectedLanguage === 'ko') {
-      this.comment_info = '댓글을 수정하는 중';
-    } else {
-      this.comment_info = 'modify comment';
-    }
-    this.feedModifyComment = feedComment;
-    this.feedCommentInputObj = feedComment.text;
-    this.commentInfoVisible = true;
-    this.feedCommentInputEl.nativeElement.focus();
-  }
-
-  deleteComment(feedComment: FeedComment) {
-    this.feedService.deleteFeedComment(feedComment.id).subscribe(
-      (v) => {
-        this.selectedFeed.commentCount--;
-        // if (feedComment.parent_id) {
-        //   parentFeedComment.sub_comment_count--;
-        // }
-        feedComment.deletedAt = moment().utc().format('YYYY-MM-DD HH:mm:ss');
-        this.feedDeleteComment = undefined;
-      },
-      (e) => {}
-    );
-  }
-
-  feedCommentLike(feedComment: FeedComment) {
-    if (this.storageService.getUser()) {
-      if (feedComment.isLike) {
-        this.feedService.deleteFeedCommentLike(feedComment.id, this.user?.id).subscribe(
-          (v) => {
-            feedComment.isLike = false;
-            feedComment.likeCount = v;
-          },
-          (e) => {}
-        );
-      } else {
-        this.feedService.createFeedCommentLike(feedComment.id, this.user?.id).subscribe(
-          (v) => {
-            feedComment.isLike = true;
-            feedComment.likeCount = v;
-          },
-          (e) => {}
-        );
-      }
-    } else {
-      this.showLoginModal();
-    }
-  }
-
-  showLikedView() {
-    this.likePage = 1;
-    if (this.storageService.getUser()) {
-      this.getFeedLikeList();
-    } else {
-      this.getPublicFeedLikeList();
-    }
-    this.likedViewVisible = true;
-  }
-
-  hideLikedView() {
-    this.likedViewVisible = false;
   }
 
   intervalCall(interval) {
@@ -896,16 +435,6 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.checkContentLimit(event.target.innerWidth);
   }
 
-  prevCarouselIndex() {
-    this.carouselIndex -= 1;
-    if (this.carouselIndex < 1) this.carouselIndex = this.selectedFeed.pictures.length;
-  }
-
-  nextCarouselIndex() {
-    this.carouselIndex += 1;
-    if (this.carouselIndex > this.selectedFeed.pictures.length) this.carouselIndex = 1;
-  }
-
   showLoginModal() {
     this.isLoginModalVisible = true;
   }
@@ -947,40 +476,15 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isConfirmModalVisible = true;
   }
 
-  showDeleteCommentConfirmModal(feedComment: FeedComment) {
-    this.confirmModalStatus = 'comment';
-    this.feedDeleteComment = feedComment;
-    if (this.selectedLanguage === 'ko') {
-      this.confirmModalData = {
-        isIcon: false,
-        text: '댓글 삭제',
-        subText: `정말 삭제 하시겠어요?`,
-        cancelBtnText: '아니요', // 선택
-        confirmBtnText: '삭제', // 선택
-      };
-    } else {
-      this.confirmModalData = {
-        isIcon: false,
-        text: 'Delete comment',
-        subText: `Are you sure?`,
-        cancelBtnText: 'No', // 선택
-        confirmBtnText: 'Delete', // 선택
-      };
-    }
-    this.isConfirmModalVisible = true;
-  }
   confirmModalConfirm() {
     this.isConfirmModalVisible = false;
-    if (this.confirmModalStatus === 'comment' && this.feedDeleteComment) {
-      this.deleteComment(this.feedDeleteComment);
-    } else if (this.confirmModalStatus === 'feed' && this.feedDelete) {
+    if (this.confirmModalStatus === 'feed' && this.feedDelete) {
       this.deleteFeed(this.feedDelete);
     }
   }
 
   confirmModalCancel() {
     this.isConfirmModalVisible = false;
-    this.feedDeleteComment = undefined;
     this.feedDelete = undefined;
   }
 
@@ -990,6 +494,10 @@ export class FeedDetailComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   commentModalShow(feed: Feed): void {
     this.commentModal.onModalShow(feed);
+  }
+
+  likeModalShow(feed: Feed): void {
+    this.likeModal.onLikeUserModalShow(feed);
   }
 
   /** 다른 유저 마이페이지 이동 시 로직 */
