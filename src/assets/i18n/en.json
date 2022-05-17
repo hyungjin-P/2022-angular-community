@@ -300,6 +300,12 @@
       "delete-confirm-title": "Delete Comment",
       "delete-confirm-sub-title": "Are you sure you want to delete it?",
       "write-comment-placeholder": "Add a comment... What are you thoughts?"
+    },
+    "feed-detail": {
+      "delete-confirm-title": "Delete feed",
+      "delete-confirm-sub-title": "Are you sure?",
+      "delete": "Delete",
+      "cancel": "No"
     }
   },
   "event": {

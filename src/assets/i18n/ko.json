@@ -300,6 +300,12 @@
       "delete-confirm-title": "댓글 삭제",
       "delete-confirm-sub-title": "정말 삭제 하시겠어요?",
       "write-comment-placeholder": "주제와 무관한 댓글 및 악플은 삭제될 수 있습니다."
+    },
+    "feed-detail": {
+      "delete-confirm-title": "피드 삭제",
+      "delete-confirm-sub-title": "정말 삭제 하시겠어요?",
+      "delete": "삭제",
+      "cancel": "아니오"
     }
   },
   "event": {

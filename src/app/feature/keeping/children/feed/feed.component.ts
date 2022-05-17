@@ -11,6 +11,8 @@ import { TextService } from '@services/text.service';
 import { Feed } from '@schemas/feed';
 import { User } from '@schemas/user';
 import { OtherUserUtil } from '../../../../core/utils/other-user.util';
+import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
+import { FeedDetailModalComponent } from '@shared/components/feed-detail-modal/feed-detail-modal.component';
 
 @Component({
   selector: 'feed',
@@ -50,6 +52,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
 
   /** 로그인 모달 */
   isLoginModalVisible = false;
+
+  @ViewChild('feedDetailModal') feedDetailModal: FeedDetailModalComponent;
 
   constructor(
     private router: Router,
@@ -283,5 +287,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
         return;
       }
     }
+  }
+
+  feedDetailModalShow(feed: Feed) {
+    this.feedDetailModal.onModalShow(feed);
   }
 }
