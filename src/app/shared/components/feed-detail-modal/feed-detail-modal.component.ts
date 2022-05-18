@@ -334,8 +334,8 @@ export class FeedDetailModalComponent implements OnInit {
   }
 
   loginModalConfirm() {
-    this.isLoginModalVisible = false;
     this.onCloseModal();
+    this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/login');
   }
 
@@ -344,8 +344,8 @@ export class FeedDetailModalComponent implements OnInit {
   }
 
   loginModalAnother() {
-    this.isLoginModalVisible = false;
     this.onCloseModal();
+    this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/registration');
   }
 
@@ -366,15 +366,19 @@ export class FeedDetailModalComponent implements OnInit {
   }
 
   commentModalShow(feed: Feed): void {
+    this.commentModal.feedDetailModal = this;
     this.commentModal.onModalShow(feed);
   }
 
   likeModalShow(feed: Feed): void {
+    this.likeModal.feedDetailModal = this;
     this.likeModal.onLikeUserModalShow(feed);
   }
 
   /** 다른 유저 마이페이지 이동 시 로직 */
   moveOtherUserMyPage(user: User, targetUserId): void {
+    this.onCloseModal();
+
     if (!this.user) {
       this.showLoginModal();
       return;

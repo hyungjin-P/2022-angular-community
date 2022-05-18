@@ -17,7 +17,8 @@ import { StorageService } from '@services/storage.service';
 import { Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { TextService } from '@services/text.service';
-import {OtherUserUtil} from "../../../core/utils/other-user.util";
+import { OtherUserUtil } from '../../../core/utils/other-user.util';
+import { FeedDetailModalComponent } from '@shared/components/feed-detail-modal/feed-detail-modal.component';
 
 declare const $;
 
@@ -65,6 +66,8 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   confirmSubTitleText: string;
 
+  feedDetailModal: FeedDetailModalComponent;
+
   constructor(
     private feedService: FeedService,
     private dateUtils: DateUtils,
@@ -94,10 +97,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   textAreaAutoHeight(): void {
-    $('#bs-writing-comment')
-      .height(
-        $('#bs-writing-comment').prop('scrollHeight') - 40
-      );
+    $('#bs-writing-comment').height($('#bs-writing-comment').prop('scrollHeight') - 40);
 
     setTimeout(() => {
       const outerHeight = $('.write-comments').outerHeight();
@@ -136,14 +136,12 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   findFeedComments(feedId: string, tagId?: string): void {
-    this.feedService
-      .findFeedCommentsWithRelations(feedId)
-      .subscribe((feedComments) => {
-          if (feedComments) {
-          this.feedComments = feedComments;
-          this.setSortedComments(feedComments, tagId);
-        }
-      });
+    this.feedService.findFeedCommentsWithRelations(feedId).subscribe((feedComments) => {
+      if (feedComments) {
+        this.feedComments = feedComments;
+        this.setSortedComments(feedComments, tagId);
+      }
+    });
   }
 
   setSortedComments(feedComments: any[], tagId?: string): void {
@@ -269,26 +267,21 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       params.parentId = this.selectedComment.id;
     }
 
-    this.feedService
-      .createFeedComment({ ...params })
-      .subscribe((comment) => {
-        if (params.parentId) {
-          const mention = {
-            feedCommentId: comment.id,
-            mentionUserId: this.selectedMentionUser.id,
-          };
+    this.feedService.createFeedComment({ ...params }).subscribe((comment) => {
+      if (params.parentId) {
+        const mention = {
+          feedCommentId: comment.id,
+          mentionUserId: this.selectedMentionUser.id,
+        };
 
-          this.feedService
-            .addFeedCommentMention({ ...mention })
-            .subscribe((mention) => {
-              this.findFeedComments(this.originFeed.id);
-              this.onHiddenBottomMessage();
-            });
-
-        } else {
+        this.feedService.addFeedCommentMention({ ...mention }).subscribe((mention) => {
           this.findFeedComments(this.originFeed.id);
           this.onHiddenBottomMessage();
-        }
+        });
+      } else {
+        this.findFeedComments(this.originFeed.id);
+        this.onHiddenBottomMessage();
+      }
 
       this.writingComment = '';
     });
@@ -317,20 +310,16 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   /* 댓글 좋아요 */
   addLikeComment(feedComment, userId: string, tagId?: string): void {
-    this.feedService
-      .createFeedCommentLike(feedComment.id, userId)
-      .subscribe((data) => {
-        this.findFeedComments(this.originFeed.id, tagId);
-      });
+    this.feedService.createFeedCommentLike(feedComment.id, userId).subscribe((data) => {
+      this.findFeedComments(this.originFeed.id, tagId);
+    });
   }
 
   /* 댓글 좋아요 취소 */
   cancelLikeComment(feedComment, userId: string, tagId?: string): void {
-    this.feedService
-      .deleteFeedCommentLike(feedComment.id, userId)
-      .subscribe((data) => {
-        this.findFeedComments(this.originFeed.id, tagId);
-      });
+    this.feedService.deleteFeedCommentLike(feedComment.id, userId).subscribe((data) => {
+      this.findFeedComments(this.originFeed.id, tagId);
+    });
   }
 
   onClickModifyComment(feedComment: any, userId: string): void {
@@ -349,15 +338,13 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   /* 댓글 수정 */
   modifyComment(feedComment, text): void {
-    this.feedService
-      .modifyFeedComment(feedComment.id, text)
-      .subscribe((data) => {
-        this.findFeedComments(this.originFeed.id);
-        this.onHiddenBottomMessage();
-        this.writingComment = '';
-        let message = this.textService.getText('comment:002');
-        this.globalService.showToast(message);
-      });
+    this.feedService.modifyFeedComment(feedComment.id, text).subscribe((data) => {
+      this.findFeedComments(this.originFeed.id);
+      this.onHiddenBottomMessage();
+      this.writingComment = '';
+      let message = this.textService.getText('comment:002');
+      this.globalService.showToast(message);
+    });
   }
 
   onConfirmModalShow(data?: any, type?: string): void {
@@ -401,8 +388,15 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
 
   loginModalConfirm() {
     this.isLoginModalVisible = false;
+
     this.closeConfirmModal();
     this.closeModal();
+
+    if (this.feedDetailModal) {
+      this.feedDetailModal.onCloseModal();
+      this.feedDetailModal = undefined;
+    }
+
     this.router.navigateByUrl('/auth/login').then();
   }
 
@@ -411,9 +405,15 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   loginModalAnother() {
-    this.isLoginModalVisible = false;
     this.closeConfirmModal();
     this.closeModal();
+
+    if (this.feedDetailModal) {
+      this.feedDetailModal.onCloseModal();
+      this.feedDetailModal = undefined;
+    }
+
+    this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/registration').then();
   }
 
@@ -421,6 +421,11 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   moveOtherUserMyPage(user: any, targetUserId: string): void {
     this.closeConfirmModal();
     this.closeModal();
+
+    if (this.feedDetailModal) {
+      this.feedDetailModal.onCloseModal();
+      this.feedDetailModal = undefined;
+    }
 
     if (!this.loginUser) {
       this.loginModalConfirm();
@@ -439,5 +444,4 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   getClickElement(data: any): void {
     console.log('on click data : ', data);
   }
-
 }

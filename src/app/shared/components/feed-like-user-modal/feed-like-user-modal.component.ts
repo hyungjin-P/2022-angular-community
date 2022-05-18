@@ -11,6 +11,7 @@ import { TextService } from '@services/text.service';
 import { FollowService } from '@services/follow.service';
 import { FeedService } from '@services/feed.service';
 import { PublicService } from '@services/public.service';
+import { FeedDetailModalComponent } from '@shared/components/feed-detail-modal/feed-detail-modal.component';
 
 declare const $;
 
@@ -35,6 +36,8 @@ export class FeedLikeUserModalComponent implements OnInit, AfterViewInit {
   likePageLink: any = {};
 
   isLoginModalVisible = false;
+
+  feedDetailModal: FeedDetailModalComponent;
 
   constructor(
     private router: Router,
@@ -185,6 +188,12 @@ export class FeedLikeUserModalComponent implements OnInit, AfterViewInit {
   loginModalConfirm() {
     this.isLoginModalVisible = false;
     this.onCloseLikeUserModal();
+
+    if (this.feedDetailModal) {
+      this.feedDetailModal.onCloseModal();
+      this.feedDetailModal = undefined;
+    }
+
     this.router.navigateByUrl('/auth/login');
   }
 
@@ -195,11 +204,24 @@ export class FeedLikeUserModalComponent implements OnInit, AfterViewInit {
   loginModalAnother() {
     this.isLoginModalVisible = false;
     this.onCloseLikeUserModal();
+
+    if (this.feedDetailModal) {
+      this.feedDetailModal.onCloseModal();
+      this.feedDetailModal = undefined;
+    }
+
     this.router.navigateByUrl('/auth/registration');
   }
 
   /** 다른 유저 마이페이지 이동 시 로직 */
   moveOtherUserMyPage(user: User, targetUserId): void {
+    this.onCloseLikeUserModal();
+
+    if (this.feedDetailModal) {
+      this.feedDetailModal.onCloseModal();
+      this.feedDetailModal = undefined;
+    }
+
     if (!this.user) {
       this.showLoginModal();
       return;
