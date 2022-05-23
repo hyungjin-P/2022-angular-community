@@ -64,9 +64,16 @@
   overflow-y: hidden !important;
 }
 
+.modal-dialog-scrollable .modal-body {
+  -ms-overflow-style: none;
+}
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+  display: none;
+}
+
 .modal.feed-detail-modal {
   .selected-item {
-    padding: 16px 16px 0 16px;
+    padding: 0 16px 0 16px;
 
     .row-1 {
       position: relative;
@@ -344,6 +351,42 @@
         }
       }
     }
+  }
+
+  .modal-button-prev,
+  .modal-button-next {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 50%;
+    transition: all 0.3s;
+  }
+
+  .modal-button-prev {
+    left: 30px;
+    background: url('~src/assets/icons/mypage/arrow-left-white.svg') no-repeat center;
+
+    &:hover {
+      background: url('~src/assets/icons/mypage/arrow-left-black.svg') no-repeat center;
+      transition: all 0.3s;
+    }
+  }
+
+  .modal-button-next {
+    right: 30px;
+    background: url('~src/assets/icons/mypage/arrow-right-white.svg') no-repeat center;
+
+    &:hover {
+      transition: all 0.3s;
+      background: url('~src/assets/icons/mypage/arrow-right-black.svg') no-repeat center;
+    }
+  }
+
+  .modal-button-prev.disabled,
+  .modal-button-next.disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
   }
 }
 

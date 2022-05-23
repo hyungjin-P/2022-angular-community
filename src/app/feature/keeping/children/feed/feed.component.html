@@ -1,7 +1,11 @@
 <div class="feed full-absolute d-flex flex-column">
   <header class="d-block d-lg-none"></header>
 
-  <app-feed-detail-modal #feedDetailModal></app-feed-detail-modal>
+  <app-feed-detail-modal
+    (prev)="feedDetailModalPrev()"
+    (next)="feedDetailModalNext()"
+    #feedDetailModal
+  ></app-feed-detail-modal>
 
   <div class="flex-fill" style="position: relative">
     <div class="section full-absolute scroll-y" #scrollEl>
@@ -39,7 +43,7 @@
             <a class="image-box"
                [id]="'feed-' + feed.id"
                href="javascript:void(0)"
-               (click)="feedDetailModalShow(feed)">
+               (click)="feedDetailModalShow(feed.id)">
               <div class="image-box-hover-content">
                 <img class="picture"
                      draggable="false"

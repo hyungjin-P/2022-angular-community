@@ -69,16 +69,16 @@
             <!-- 상단 표시 -->
             <shared-avatar
               class="cursor-pointer"
-              (click)="moveOtherUserMyPage(user, originFeed?.writer?.id)"
-              [image]="originFeed?.writer?.picture[0]?.url"
-              text="{{ originFeed?.writer.email }}"
+              (click)="moveOtherUserMyPage(user, feed?.writer?.id)"
+              [image]="feed?.writer?.picture[0]?.url"
+              text="{{ feed?.writer.email }}"
               size="30"
               fontSize="16">
             </shared-avatar>
 
             <div class="nickname cursor-pointer"
-                 (click)="moveOtherUserMyPage(user, originFeed?.writer?.id)">
-              {{ originFeed?.writer.nickname || originFeed?.writer.email.split('@')[0] }}
+                 (click)="moveOtherUserMyPage(user, feed?.writer?.id)">
+              {{ feed?.writer.nickname || feed?.writer.email.split('@')[0] }}
             </div>
 
             <div class="updated-at"
@@ -87,9 +87,9 @@
               {{ beginTime }}
             </div>
             <a class="follow"
-               *ngIf="user && user?.id != originFeed?.writer.id"
+               *ngIf="user && user?.id != feed?.writer.id"
                (click)="toggleFollow()">
-              <div class="follow-active" *ngIf="originFeed?.writer.isFollow">
+              <div class="follow-active" *ngIf="feed?.writer.isFollow">
                 <div class="follow-check-icon">
                   <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round" />
@@ -98,7 +98,7 @@
                 <div class="text">{{ 'keeping.feed-detail.following' | translate }}</div>
 
               </div>
-              <div class="follow-default" *ngIf="!originFeed?.writer.isFollow">
+              <div class="follow-default" *ngIf="!feed?.writer.isFollow">
                 <div class="follow-plus-icon">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 6H10Z" fill="#567DFF"/>
@@ -111,7 +111,7 @@
               </div>
             </a>
             <div class="more"
-                 *ngIf="user && user?.id == originFeed?.writer.id">
+                 *ngIf="user && user?.id == feed?.writer.id">
               <div class="more-menu"
                    (click)="openMoreBox($event)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +125,7 @@
                    (sharedClickOutside)="closeMoreBox()">
                 <div class="more-box-menu">
                   <a class="menu-modify"
-                     (click)="modifyFeed(originFeed)">
+                     (click)="modifyFeed(feed)">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M13.9376 2.06066L15.4361 3.55921L16.9344 5.05757L5.23885 16.745H2.25001L2.25015 13.7479L13.9376 2.06066Z"
@@ -138,7 +138,7 @@
                       {{ 'keeping.feed-detail.more-modify' | translate }}
                     </div>
                   </a>
-                  <a class="menu-delete" (click)="onConfirmModalShow(originFeed)">
+                  <a class="menu-delete" (click)="onConfirmModalShow(feed)">
                     <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M6.5 4.5V3C6.5 2.17157 7.17157 1.5 8 1.5H11C11.8284 1.5 12.5 2.17157 12.5 3V4.5M2.75 4.5H16.25H2.75ZM4.25 4.5V15C4.25 15.8284 4.92157 16.5 5.75 16.5H13.25C14.0784 16.5 14.75 15.8284 14.75 15V4.5H4.25Z"
@@ -161,18 +161,18 @@
             <!-- 슬라이더 -->
             <div class="item-box">
               <div class="item-box-inner">
-                <app-feed-slider [pictures]="originFeed?.pictures"
-                                 [isLike]="originFeed?.isLike"
-                                 [isBookmark]="originFeed?.isBookmark"
-                                 (onClickLike)='toggleFeedLike(originFeed)'
-                                 (onClickBookmark)='toggleFeedBookmark(originFeed)'>
+                <app-feed-slider [pictures]="feed?.pictures"
+                                 [isLike]="feed?.isLike"
+                                 [isBookmark]="feed?.isBookmark"
+                                 (onClickLike)='toggleFeedLike(feed)'
+                                 (onClickBookmark)='toggleFeedBookmark(feed)'>
                 </app-feed-slider>
               </div>
             </div>
           </div>
 
           <div class="row-3">
-            <a class='row-3-col-1' *ngIf='originFeed?.likeCount < 1' (click)='toggleFeedLike(originFeed)'>
+            <a class='row-3-col-1' *ngIf='feed?.likeCount < 1' (click)='toggleFeedLike(feed)'>
               <div class="heart">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -188,8 +188,8 @@
                 Be the first to <span>like this</span>
               </div>
             </a>
-            <a class="row-3-col-1" (click)="likeModalShow(originFeed)" *ngIf='originFeed?.likeCount > 0'>
-              <ng-container *ngFor="let like_user of originFeed?.likeUsers; let i = index">
+            <a class="row-3-col-1" (click)="likeModalShow(feed)" *ngIf='feed?.likeCount > 0'>
+              <ng-container *ngFor="let like_user of feed?.likeUsers; let i = index">
                 <div class="avatar" *ngIf="i < 3">
                   <shared-avatar
                     [image]="like_user.user.picture[0]?.url"
@@ -201,51 +201,51 @@
               </ng-container>
               <div
                 class="text"
-                *ngIf="selectedLanguage === 'ko' && originFeed?.likeCount > 0 && originFeed?.likeCount === 1"
+                *ngIf="selectedLanguage === 'ko' && feed?.likeCount > 0 && feed?.likeCount === 1"
               >
-                <div [ngSwitch]="originFeed?.likeUsers[0]?.user.nickname">
-                  <div *ngSwitchCase="undefined">{{ originFeed.likeUsers[0]?.user.name }}님이 좋아합니다.</div>
-                  <div *ngSwitchDefault>{{ originFeed.likeUsers[0]?.user.nickname }}님이 좋아합니다.</div>
+                <div [ngSwitch]="feed?.likeUsers[0]?.user.nickname">
+                  <div *ngSwitchCase="undefined">{{ feed.likeUsers[0]?.user.name }}님이 좋아합니다.</div>
+                  <div *ngSwitchDefault>{{ feed.likeUsers[0]?.user.nickname }}님이 좋아합니다.</div>
                 </div>
               </div>
               <div
                 class="text"
-                *ngIf="selectedLanguage != 'ko' && originFeed?.likeCount > 0 && originFeed?.likeCount === 1"
+                *ngIf="selectedLanguage != 'ko' && feed?.likeCount > 0 && feed?.likeCount === 1"
               >
-                <div [ngSwitch]="originFeed?.likeUsers[0]?.user.nickname">
-                  <div *ngSwitchCase="undefined">{{ originFeed.likeUsers[0]?.user.name }} like it.</div>
-                  <div *ngSwitchDefault>{{ originFeed.likeUsers[0]?.user.nickname }} like it.</div>
+                <div [ngSwitch]="feed?.likeUsers[0]?.user.nickname">
+                  <div *ngSwitchCase="undefined">{{ feed.likeUsers[0]?.user.name }} like it.</div>
+                  <div *ngSwitchDefault>{{ feed.likeUsers[0]?.user.nickname }} like it.</div>
                 </div>
               </div>
               <div
                 class="text"
                 *ngIf="
                   selectedLanguage === 'ko' &&
-                  originFeed?.likeCount > 0 &&
-                  originFeed?.likeCount > 1 &&
-                  originFeed?.likeCount <= 3
+                  feed?.likeCount > 0 &&
+                  feed?.likeCount > 1 &&
+                  feed?.likeCount <= 3
                 ">님이 좋아합니다.
               </div>
               <div
                 class="text"
                 *ngIf="
                   selectedLanguage != 'ko' &&
-                  originFeed?.likeCount > 0 &&
-                  originFeed?.likeCount > 1 &&
-                  originFeed?.likeCount <= 3
+                  feed?.likeCount > 0 &&
+                  feed?.likeCount > 1 &&
+                  feed?.likeCount <= 3
                 "
               >
                 like it.
               </div>
-              <div class="text" *ngIf="selectedLanguage == 'ko' && originFeed?.likeCount > 3">
-                외<span> {{ originFeed.likeCount - 3 }}명</span>이 좋아합니다.
+              <div class="text" *ngIf="selectedLanguage == 'ko' && feed?.likeCount > 3">
+                외<span> {{ feed.likeCount - 3 }}명</span>이 좋아합니다.
               </div>
-              <div class="text" *ngIf="selectedLanguage != 'ko' && originFeed?.likeCount > 3">
-                and<span> {{ originFeed.likeCount - 3 }}</span> others like it.
+              <div class="text" *ngIf="selectedLanguage != 'ko' && feed?.likeCount > 3">
+                and<span> {{ feed.likeCount - 3 }}</span> others like it.
               </div>
             </a>
             <div class="row-3-col-2">
-              <a class="comment" (click)="commentModalShow(originFeed)">
+              <a class="comment" (click)="commentModalShow(feed)">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M14.7 22.401C18.9526 22.401 22.4 18.9536 22.4 14.701C22.4 10.4484 18.9526 7.00101 14.7 7.00101C10.4474 7.00101 7 10.4484 7 14.701C7 16.7515 7.80152 18.6148 9.10835 19.9948L7.55964 21.7623C7.34158 22.0112 7.51832 22.401 7.84922 22.401H14.7Z"
@@ -254,22 +254,22 @@
                   <path d="M10.8496 12.3931H18.5496" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
                   <path d="M10.8496 15.4667H13.9296" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <div class="text">{{ originFeed?.commentCount }}</div>
+                <div class="text">{{ feed?.commentCount }}</div>
               </a>
             </div>
           </div>
           <div class="row-4" *ngIf="!contentViewVisible">
             <div class="row-4-col-1 ellipsis1">
-              {{ originFeed?.content }}
+              {{ feed?.content }}
             </div>
             <a class="row-4-col-2" (click)="moreContentView()"> 더 보기 </a>
           </div>
           <div class="row-5" *ngIf="contentViewVisible" #content>
-            {{ originFeed?.content }}
+            {{ feed?.content }}
           </div>
           <div class="row-6">
             <div>
-              <div class="tag" *ngFor="let tag of originFeed?.tags"># {{ tag.name }}</div>
+              <div class="tag" *ngFor="let tag of feed?.tags"># {{ tag.name }}</div>
             </div>
           </div>
         </div>
@@ -292,6 +292,14 @@
       ></shared-login-modal>
     </div>
   </div>
+  <a class="modal-button-prev"
+     [ngClass]="prevDisable ? 'disabled': ''"
+     (click)="getPrevFeed()">
+  </a>
+  <a class="modal-button-next"
+     [ngClass]="nextDisable ? 'disabled': ''"
+     (click)='getNextFeed()'>
+  </a>
 </div>
 
 <app-feed-comment-modal #commentModal></app-feed-comment-modal>

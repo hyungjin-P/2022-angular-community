@@ -1,4 +1,11 @@
 <div class="section">
+
+  <app-feed-detail-modal
+    (prev)="feedDetailModalPrev()"
+    (next)="feedDetailModalNext()"
+    #feedDetailModal
+  ></app-feed-detail-modal>
+
   <!-- 타이틀 -->
   <div class="items-title">
     <div class="title">
@@ -25,7 +32,7 @@
       <!-- 사진 있는 것-->
       <div class="item" *ngFor="let feedBookmark of feedBookmarkList">
         <div class="item-box d-flex flex-column flex-wrap">
-          <img class="picture" [src]="feedBookmark.feed.picture" [alt]="feedBookmark.feed.content" (click)="moveFeedDetail(feedBookmark.feed)">
+          <img class="picture" [src]="feedBookmark.feed.picture" [alt]="feedBookmark.feed.content" (click)="feedDetailModalShow(feedBookmark.feed.id)">
           <a class='bookmark' [ngClass]="feedBookmark.feed.isBookmark ? 'active' : ''" (click)='toggleBookmark(feedBookmark.feed)'>
             <ng-container *ngIf='!variables.isLogin || !feedBookmark.feed.isBookmark'>
               <img src='/assets/icons/mypage/bookmark-default.svg' alt=''>

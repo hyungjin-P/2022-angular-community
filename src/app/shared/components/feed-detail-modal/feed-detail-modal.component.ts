@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { FeedLike } from '@schemas/feed-like';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { FeedLikeUserModalComponent } from '@shared/components/feed-like-user-modal/feed-like-user-modal.component';
+import { FeedComponent } from '../../../feature/keeping/children/feed/feed.component';
+import { ScrapFeedComponent } from '../../../feature/keeping/scrap/scrap-feed/scrap-feed.component';
 
 declare const $;
 
@@ -22,17 +24,19 @@ declare const $;
   styleUrls: ['./feed-detail-modal.component.scss'],
 })
 export class FeedDetailModalComponent implements OnInit {
-  @Input() originFeed: Feed;
+  nowFeedId: string;
+  feed: Feed;
   @Output() modalShow = new EventEmitter();
+  @Output() prev = new EventEmitter();
+  @Output() next = new EventEmitter();
+
+  prevDisable = false;
+  nextDisable = false;
 
   variables: any;
   user: User;
   pageDate: string;
   selectedLanguage: string;
-
-  prevFeedId: string;
-  nowFeedId: string;
-  nextFeedId: string;
 
   beginTime: any;
   moreBoxVisible: boolean;
@@ -64,16 +68,18 @@ export class FeedDetailModalComponent implements OnInit {
     this.user = this.storageService.getUser();
   }
 
-  onModalShow(feed: Feed) {
+  onModalShow(nowFeedId: string) {
     /* 모달 최초 설정 */
     this.moreBoxVisible = false;
     this.contentViewVisible = true;
     this.selectedLanguage = localStorage.getItem('language');
 
-    // UTC기준 최초 페이지 접속 시점
-    this.pageDate = new Date().toISOString();
-    this.originFeed = feed;
-    this.nowFeedId = feed.id;
+    if (!this.pageDate) {
+      // UTC기준 최초 페이지 접속 시점
+      this.pageDate = new Date().toISOString();
+    }
+
+    this.nowFeedId = nowFeedId;
 
     if (this.user) {
       this.getFeed();
@@ -82,6 +88,29 @@ export class FeedDetailModalComponent implements OnInit {
     }
 
     $('#bs-feed-detail-modal').modal('show');
+  }
+
+  /* 이전 피드 게시글 부르기 */
+  getPrevFeed() {
+    this.closeMoreBox();
+    this.prev.emit({});
+  }
+  /* 다음 피드 게시글 부르기 */
+  getNextFeed() {
+    this.closeMoreBox();
+    this.next.emit({});
+  }
+
+  onChangeData(feedId) {
+    this.moreBoxVisible = false;
+    this.contentViewVisible = true;
+    this.nowFeedId = feedId;
+
+    if (this.user) {
+      this.getFeed();
+    } else {
+      this.getPublicFeed();
+    }
   }
 
   onCloseModal() {
@@ -94,13 +123,13 @@ export class FeedDetailModalComponent implements OnInit {
   getFeed() {
     this.feedService.getFeed(this.nowFeedId, this.user?.id).subscribe(
       (feed: Feed) => {
-        this.originFeed = feed[0];
+        this.feed = feed[0];
 
-        if (!this.originFeed) {
+        if (!this.feed) {
           this.onCloseModal();
           this.router.navigateByUrl('/feed');
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.originFeed.uploadedAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.feed.uploadedAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -114,13 +143,13 @@ export class FeedDetailModalComponent implements OnInit {
   getPublicFeed() {
     this.publicService.getFeed(this.nowFeedId).subscribe(
       (feed: Feed) => {
-        this.originFeed = feed[0];
+        this.feed = feed[0];
 
-        if (!this.originFeed) {
+        if (!this.feed) {
           this.onCloseModal();
           this.router.navigateByUrl('/feed').then();
         } else {
-          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.originFeed.uploadedAt));
+          this.beginTime = this.dateUtils.transTimeType(this.dateUtils.getTimeStamp(this.feed.uploadedAt));
           this.checkContentLimit(innerWidth);
         }
       },
@@ -129,7 +158,7 @@ export class FeedDetailModalComponent implements OnInit {
   }
 
   checkContentLimit(screenWidth: number) {
-    const contentLength = this.originFeed.content.length;
+    const contentLength = this.feed.content.length;
     if (screenWidth > 992) {
       screenWidth = 600;
     }
@@ -179,10 +208,10 @@ export class FeedDetailModalComponent implements OnInit {
   /* 팔로우 동작 로직 */
   toggleFollow() {
     if (this.user) {
-      if (this.originFeed.writer.isFollow) {
-        this.removeFollow(this.user.id, this.originFeed.writer);
+      if (this.feed.writer.isFollow) {
+        this.removeFollow(this.user.id, this.feed.writer);
       } else {
-        this.addFollow(this.user.id, this.originFeed.writer);
+        this.addFollow(this.user.id, this.feed.writer);
       }
     } else {
       this.showLoginModal();

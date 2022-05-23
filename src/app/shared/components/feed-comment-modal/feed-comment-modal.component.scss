@@ -382,7 +382,7 @@
           padding: 9px 15px;
           resize: none;
           color: var(--grey-1);
-          @include textStyleNotoSans(700, 13px);
+          @include textStyleNotoSans(500, 13px);
           overflow-y: scroll;
           vertical-align: middle;
 
@@ -499,11 +499,13 @@
       height: 100%;
       margin: 0;
       padding-top: 20%;
+      background-color: rgba(0, 0, 0, 0.6);
     }
 
     #bs-comment-modal-content {
       height: 100%;
       border: 0;
+      //border-radius: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }

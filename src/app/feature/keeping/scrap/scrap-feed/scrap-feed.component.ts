@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Feed } from '@schemas/feed';
 import { FeedService } from '@services/feed.service';
@@ -7,6 +7,7 @@ import { StorageService } from '@services/storage.service';
 import { GlobalService } from '@services/global.service';
 import { FeedBookmark } from '@schemas/feed-bookmark';
 import { TextService } from '@services/text.service';
+import { FeedDetailModalComponent } from '@shared/components/feed-detail-modal/feed-detail-modal.component';
 
 @Component({
   selector: 'app-scrap-feed',
@@ -42,6 +43,10 @@ export class ScrapFeedComponent implements OnInit {
 
   isScrapFeed = true;
   viewType = 'desktop';
+
+  /* 피드 상세 모달 */
+  @ViewChild('feedDetailModal') feedDetailModal: FeedDetailModalComponent;
+  selectFeedId: string;
 
   constructor(
     private router: Router,
@@ -156,10 +161,6 @@ export class ScrapFeedComponent implements OnInit {
     this.router.navigateByUrl(path).then();
   }
 
-  moveFeedDetail(feed: Feed) {
-    this.router.navigateByUrl(`/feed/${feed.id}`);
-  }
-
   showConfirmModal() {
     if (this.language === 'ko') {
       this.confirmModalData = this.confirmModalData_ko;
@@ -177,5 +178,54 @@ export class ScrapFeedComponent implements OnInit {
     this.feedService.deleteBookmarkAll(this.user.id).subscribe((v) => {});
     this.feedBookmarkList = [];
     this.isConfirmModalVisible = false;
+  }
+
+  feedDetailModalShow(selectedFeedId: string) {
+    this.selectFeedId = selectedFeedId;
+    this.feedDetailButtonCheck();
+    this.feedDetailModal.onModalShow(selectedFeedId);
+  }
+
+  feedDetailModalPrev() {
+    const nowFeedIndex = this.feedBookmarkList.findIndex((feed) => feed.feed.id === this.selectFeedId);
+
+    let prevFeedId: string = null;
+
+    if (nowFeedIndex > 0) {
+      prevFeedId = this.feedBookmarkList[nowFeedIndex - 1].feed.id;
+      this.selectFeedId = prevFeedId;
+      this.feedDetailButtonCheck();
+      this.feedDetailModal.onChangeData(prevFeedId);
+    }
+  }
+
+  feedDetailModalNext() {
+    const nowFeedIndex = this.feedBookmarkList.findIndex((feed) => feed.feed.id === this.selectFeedId);
+    let nextFeedId: string = null;
+
+    if (this.feedBookmarkList.length - 1 > nowFeedIndex) {
+      nextFeedId = this.feedBookmarkList[nowFeedIndex + 1].feed.id;
+      this.selectFeedId = nextFeedId;
+      this.feedDetailButtonCheck();
+      this.feedDetailModal.onChangeData(nextFeedId);
+    }
+
+    // 남은 게시물이 5개 이하 이하일 때 미리 페이지를 불러서 리스트에 추가함.
+    if (this.feedBookmarkList.length - nowFeedIndex < 5) {
+      this.findNextPage();
+    }
+  }
+
+  feedDetailButtonCheck() {
+    const nowFeedIndex = this.feedBookmarkList.findIndex((feed) => feed.feed.id === this.selectFeedId);
+
+    this.feedDetailModal.prevDisable = false;
+    this.feedDetailModal.nextDisable = false;
+
+    if (nowFeedIndex === 0) {
+      this.feedDetailModal.prevDisable = true;
+    } else if (nowFeedIndex === this.feedBookmarkList.length - 1) {
+      this.feedDetailModal.nextDisable = true;
+    }
   }
 }

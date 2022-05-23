@@ -11,7 +11,6 @@ import { TextService } from '@services/text.service';
 import { Feed } from '@schemas/feed';
 import { User } from '@schemas/user';
 import { OtherUserUtil } from '../../../../core/utils/other-user.util';
-import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { FeedDetailModalComponent } from '@shared/components/feed-detail-modal/feed-detail-modal.component';
 
 @Component({
@@ -53,7 +52,9 @@ export class FeedComponent implements OnInit, AfterViewInit {
   /** 로그인 모달 */
   isLoginModalVisible = false;
 
+  /* 피드 상세 모달 */
   @ViewChild('feedDetailModal') feedDetailModal: FeedDetailModalComponent;
+  selectFeedId: string;
 
   constructor(
     private router: Router,
@@ -289,7 +290,52 @@ export class FeedComponent implements OnInit, AfterViewInit {
     }
   }
 
-  feedDetailModalShow(feed: Feed) {
-    this.feedDetailModal.onModalShow(feed);
+  feedDetailModalShow(selectedFeedId: string) {
+    this.selectFeedId = selectedFeedId;
+    this.feedDetailButtonCheck();
+    this.feedDetailModal.onModalShow(selectedFeedId);
+  }
+
+  feedDetailModalPrev() {
+    const nowFeedIndex = this.feedList.findIndex((feed) => feed.id === this.selectFeedId);
+
+    let prevFeedId: string = null;
+
+    if (nowFeedIndex > 0) {
+      prevFeedId = this.feedList[nowFeedIndex - 1].id;
+      this.selectFeedId = prevFeedId;
+      this.feedDetailButtonCheck();
+      this.feedDetailModal.onChangeData(prevFeedId);
+    }
+  }
+
+  feedDetailModalNext() {
+    const nowFeedIndex = this.feedList.findIndex((feed) => feed.id === this.selectFeedId);
+    let nextFeedId: string = null;
+
+    if (this.feedList.length - 1 > nowFeedIndex) {
+      nextFeedId = this.feedList[nowFeedIndex + 1].id;
+      this.selectFeedId = nextFeedId;
+      this.feedDetailButtonCheck();
+      this.feedDetailModal.onChangeData(nextFeedId);
+    }
+
+    // 남은 게시물이 5개 이하 이하일 때 미리 페이지를 불러서 리스트에 추가함.
+    if (this.feedList.length - nowFeedIndex < 5) {
+      this.findNextPage();
+    }
+  }
+
+  feedDetailButtonCheck() {
+    const nowFeedIndex = this.feedList.findIndex((feed) => feed.id === this.selectFeedId);
+
+    this.feedDetailModal.prevDisable = false;
+    this.feedDetailModal.nextDisable = false;
+
+    if (nowFeedIndex === 0) {
+      this.feedDetailModal.prevDisable = true;
+    } else if (nowFeedIndex === this.feedList.length - 1) {
+      this.feedDetailModal.nextDisable = true;
+    }
   }
 }
