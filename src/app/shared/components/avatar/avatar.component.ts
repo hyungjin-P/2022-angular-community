@@ -10,61 +10,62 @@ import {
 } from '@angular/core'
 
 @Component({
-    selector: 'shared-avatar',
-    templateUrl: './avatar.component.html',
-    styleUrls: ['./avatar.component.scss'],
+  selector: 'shared-avatar',
+  templateUrl: './avatar.component.html',
+  styleUrls: ['./avatar.component.scss'],
 })
 export class AvatarComponent implements OnChanges, AfterViewInit, AfterViewChecked {
-    @Input() image: string
-    @Input() text: string
-    @Input() size: string
-    @Input() fontSize: string
-    @Input() backgroundColor: string
+  @Input() image: string
+  @Input() text: string
+  @Input() size: string
+  @Input() fontSize: string
+  @Input() backgroundColor: string
 
-    @ViewChild('imgElement') imgElement
-    @ViewChild('textElement') textElement
+  @ViewChild('imgElement') imgElement
+  @ViewChild('textElement') textElement
 
-    changed: boolean
+  changed: boolean
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {
+  }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (
-            (changes.hasOwnProperty('image') && !changes['image']['firstChange']) ||
-            (changes.hasOwnProperty('backgroundColor') && !changes['backgroundColor']['firstChange'])
-        ) {
-            this.changed = true
-        }
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      (changes.hasOwnProperty('image') && !changes['image']['firstChange']) ||
+      (changes.hasOwnProperty('backgroundColor') && !changes['backgroundColor']['firstChange'])
+    ) {
+      this.changed = true
     }
+  }
 
-    ngAfterViewInit() {
-        this.apply()
-    }
+  ngAfterViewInit() {
+    this.apply()
+  }
 
-    ngAfterViewChecked() {
-        if (this.changed) {
-            this.changed = false
-            this.apply()
-        }
+  ngAfterViewChecked() {
+    if (this.changed) {
+      this.changed = false
+      this.apply()
     }
+  }
 
-    apply() {
-        if (this.image) {
-            if (this.size) {
-                this.renderer.setStyle(this.imgElement.nativeElement, 'width', `${this.size}px`)
-                this.renderer.setStyle(this.imgElement.nativeElement, 'height', `${this.size}px`)
-            }
-        } else {
-            if (this.size) {
-                this.renderer.setStyle(this.textElement.nativeElement, 'width', `${this.size}px`)
-                this.renderer.setStyle(this.textElement.nativeElement, 'height', `${this.size}px`)
-            }
-            if (this.fontSize) {
-                this.renderer.setStyle(this.textElement.nativeElement, 'font-size', `${this.fontSize}px`)
-            }
-            if (this.backgroundColor) {
-                this.renderer.setStyle(this.textElement.nativeElement, 'background-color', `${this.backgroundColor}`)
-            }
-        }
+  apply() {
+    if (this.image) {
+      if (this.size) {
+        this.renderer.setStyle(this.imgElement.nativeElement, 'width', `${this.size}px`)
+        this.renderer.setStyle(this.imgElement.nativeElement, 'height', `${this.size}px`)
+      }
+    } else {
+      if (this.size) {
+        this.renderer.setStyle(this.textElement.nativeElement, 'width', `${this.size}px`)
+        this.renderer.setStyle(this.textElement.nativeElement, 'height', `${this.size}px`)
+      }
+      if (this.fontSize) {
+        this.renderer.setStyle(this.textElement.nativeElement, 'font-size', `${this.fontSize}px`)
+      }
+      if (this.backgroundColor) {
+        this.renderer.setStyle(this.textElement.nativeElement, 'background-color', `${this.backgroundColor}`)
+      }
     }
+  }
 }

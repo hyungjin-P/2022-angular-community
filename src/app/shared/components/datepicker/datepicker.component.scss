@@ -1,103 +1,103 @@
 @import '/src/assets/styles/font';
 
 .shared-datepicker {
-    width: 255px;
-    height: 251px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: var(--white);
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  width: 255px;
+  height: 251px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--white);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 
-    .col,
-    [class*='col-'] {
-        padding-right: 0;
-        padding-left: 0;
+  .col,
+  [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .month {
+    .start,
+    .end {
+      .mdi {
+        cursor: pointer;
+
+        font-size: 20px;
+        color: var(--grey-1);
+
+        &:hover {
+          color: var(--text-1);
+        }
+      }
     }
 
-    .month {
-        .start,
-        .end {
-            .mdi {
-                cursor: pointer;
-
-                font-size: 20px;
-                color: var(--grey-1);
-
-                &:hover {
-                    color: var(--text-1);
-                }
-            }
-        }
-
-        .center {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-1);
-        }
+    .center {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-1);
     }
+  }
 
-    .week-header {
-        font-size: 13px;
-        color: var(--text-1);
+  .week-header {
+    font-size: 13px;
+    color: var(--text-1);
 
-        & > div {
-            width: 26px;
-            height: 26px;
-        }
+    & > div {
+      width: 26px;
+      height: 26px;
     }
+  }
 
-    .week-row {
-        .week-col {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
+  .week-row {
+    .week-col {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
 
-            font-size: 11px;
-        }
+      font-size: 11px;
     }
+  }
 }
 
 .shared-datepicker-date {
-    .week-row {
-        .week-col {
-            cursor: pointer;
+  .week-row {
+    .week-col {
+      cursor: pointer;
 
-            &:hover {
-                background-color: var(--grey-8);
-            }
-        }
-
-        .selected {
-            background-color: var(--blue-3);
-
-            color: var(--white) !important;
-
-            &:hover {
-                background-color: var(--blue-3);
-            }
-        }
-    }
-}
-
-.shared-datepicker-week {
-    .week-row {
-        border-radius: 5px;
-        cursor: pointer;
-
-        &:hover {
-            background-color: var(--grey-8);
-        }
+      &:hover {
+        background-color: var(--grey-8);
+      }
     }
 
     .selected {
+      background-color: var(--blue-3);
+
+      color: var(--white) !important;
+
+      &:hover {
         background-color: var(--blue-3);
-
-        &:hover {
-            background-color: var(--blue-3);
-        }
-
-        .week-col {
-            color: var(--white) !important;
-        }
+      }
     }
+  }
+}
+
+.shared-datepicker-week {
+  .week-row {
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--grey-8);
+    }
+  }
+
+  .selected {
+    background-color: var(--blue-3);
+
+    &:hover {
+      background-color: var(--blue-3);
+    }
+
+    .week-col {
+      color: var(--white) !important;
+    }
+  }
 }

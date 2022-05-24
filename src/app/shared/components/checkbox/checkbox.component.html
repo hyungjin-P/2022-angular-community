@@ -1,16 +1,16 @@
 <div
-    class="shared-checkbox d-flex align-items-center user-select-none"
-    [class.checked]="checked"
-    [class.disabled]="disabled"
-    [class.checked-disabled]="checked && disabled"
-    [class.unchecked-disabled]="!checked && disabled"
-    [class.shape-none]="shape == 'none'"
-    [class.shape-circle]="shape == 'circle'"
+  class="shared-checkbox d-flex align-items-center user-select-none"
+  [class.checked]="checked"
+  [class.disabled]="disabled"
+  [class.checked-disabled]="checked && disabled"
+  [class.unchecked-disabled]="!checked && disabled"
+  [class.shape-none]="shape == 'none'"
+  [class.shape-circle]="shape == 'circle'"
 >
-    <div class="box d-flex justify-content-center align-items-center">
-        <div class="mdi mdi-check"></div>
-    </div>
-    <div class="text" *ngIf="text">
-        {{ text }}
-    </div>
+  <div class="box d-flex justify-content-center align-items-center">
+    <div class="mdi mdi-check"></div>
+  </div>
+  <div class="text" *ngIf="text">
+    {{ text }}
+  </div>
 </div>

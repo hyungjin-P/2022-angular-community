@@ -30,13 +30,16 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
 
   changed: boolean;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {
     this.type = 'alert'; // alert, confirm
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.visible) {
-      if (!changes.visible.firstChange) {
+      if (!changes.visible.firstChange)  {
         if (changes.visible.previousValue != changes.visible.currentValue) {
           this.changed = true;
         }

@@ -1,140 +1,140 @@
 @import '/src/assets/styles/font';
 
 .shared-checkbox {
-    cursor: pointer;
+  cursor: pointer;
 
-    &.checked {
-        .box {
-            border: 1px solid transparent;
-            background-color: var(--blue-3);
-        }
-
-        &:hover {
-            .box {
-                opacity: 0.8;
-            }
-        }
-
-        .text {
-            color: var(--text-2);
-        }
-    }
-
-    &.disabled {
-        opacity: 1;
-        cursor: not-allowed;
-
-        .text {
-            color: var(--grey-5);
-        }
-
-        .box {
-            border: 1px solid transparent;
-            background-color: var(--grey-8);
-        }
-
-        &:hover {
-            .box {
-                opacity: 1;
-            }
-        }
-    }
-
-    &.checked-disabled {
-        .box {
-            .mdi-check {
-                color: var(--grey-6);
-            }
-        }
-    }
-
-    &.unchecked-disabled {
-        .box {
-            .mdi-check {
-                color: var(--white);
-            }
-        }
-    }
-
-    &.shape-none {
-        .box {
-            border: none;
-            background-color: transparent;
-
-            .mdi-check {
-                color: var(--grey-4);
-            }
-        }
-
-        &.checked {
-            .box {
-                .mdi-check {
-                    color: var(--blue-3);
-                }
-            }
-        }
-
-        &.checked-disabled {
-            .box {
-                .mdi-check {
-                    color: var(--grey-6);
-                }
-            }
-        }
-
-        &.unchecked-disabled {
-            .box {
-                .mdi-check {
-                    color: var(--white);
-                }
-            }
-        }
-    }
-
-    &.shape-circle {
-        .box {
-            border: 1px solid transparent;
-            border-radius: 50%;
-            background-color: var(--grey-3);
-        }
-
-        &.checked {
-            .box {
-                background-color: var(--blue-3);
-            }
-        }
-
-        &.disabled {
-            .box {
-                background-color: var(--grey-8);
-            }
-        }
-
-        &.checked-disabled {
-            .box {
-                .mdi-check {
-                    color: var(--grey-6);
-                }
-            }
-        }
-    }
-
+  &.checked {
     .box {
-        width: 20px;
-        height: 20px;
-        border: 1px solid var(--grey-4);
-        border-radius: 4px;
+      border: 1px solid transparent;
+      background-color: var(--blue-3);
+    }
 
-        .mdi-check {
-            font-size: 13px;
-            color: var(--white);
-        }
+    &:hover {
+      .box {
+        opacity: 0.8;
+      }
     }
 
     .text {
-        margin-left: 8px;
-
-        @include textStyle(500, 12px, 20px);
-        color: var(--grey-1);
+      color: var(--text-2);
     }
+  }
+
+  &.disabled {
+    opacity: 1;
+    cursor: not-allowed;
+
+    .text {
+      color: var(--grey-5);
+    }
+
+    .box {
+      border: 1px solid transparent;
+      background-color: var(--grey-8);
+    }
+
+    &:hover {
+      .box {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.checked-disabled {
+    .box {
+      .mdi-check {
+        color: var(--grey-6);
+      }
+    }
+  }
+
+  &.unchecked-disabled {
+    .box {
+      .mdi-check {
+        color: var(--white);
+      }
+    }
+  }
+
+  &.shape-none {
+    .box {
+      border: none;
+      background-color: transparent;
+
+      .mdi-check {
+        color: var(--grey-4);
+      }
+    }
+
+    &.checked {
+      .box {
+        .mdi-check {
+          color: var(--blue-3);
+        }
+      }
+    }
+
+    &.checked-disabled {
+      .box {
+        .mdi-check {
+          color: var(--grey-6);
+        }
+      }
+    }
+
+    &.unchecked-disabled {
+      .box {
+        .mdi-check {
+          color: var(--white);
+        }
+      }
+    }
+  }
+
+  &.shape-circle {
+    .box {
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background-color: var(--grey-3);
+    }
+
+    &.checked {
+      .box {
+        background-color: var(--blue-3);
+      }
+    }
+
+    &.disabled {
+      .box {
+        background-color: var(--grey-8);
+      }
+    }
+
+    &.checked-disabled {
+      .box {
+        .mdi-check {
+          color: var(--grey-6);
+        }
+      }
+    }
+  }
+
+  .box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--grey-4);
+    border-radius: 4px;
+
+    .mdi-check {
+      font-size: 13px;
+      color: var(--white);
+    }
+  }
+
+  .text {
+    margin-left: 8px;
+
+    @include textStyle(500, 12px, 20px);
+    color: var(--grey-1);
+  }
 }

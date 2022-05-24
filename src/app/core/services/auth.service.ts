@@ -133,12 +133,14 @@ export class AuthService {
       }),
     }
 
-    return this.http.get<any>(url, options).pipe(
-      map((res) => {
+    return this.http
+      .get<any>(url, options)
+      .pipe(
+        map((res) => {
         return res;
-      }),
-      catchError(handleError)
-    )
+        }),
+        catchError(handleError)
+      )
   }
 
   /**
@@ -166,7 +168,7 @@ export class AuthService {
    * 인증번호 확인 (수정 OK)
    * */
   checkVerificationCodeMail(requestBody: CheckVerificationCodeMailRequestBody): Observable<Response> {
-    let url = environment.userApiAddress + '/user/checkVerificationCode'
+    let url = environment.userApiAddress + '/user/checkVerificatAionCode'
     url += `?providedId=${requestBody.email}&verifiedCode=${requestBody.verification_code}`;
 
     const options = {
@@ -289,7 +291,7 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.http.post<Response>(url, requestBody, options).pipe(
       map((res) => {

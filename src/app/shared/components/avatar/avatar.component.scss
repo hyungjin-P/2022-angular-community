@@ -1,20 +1,20 @@
 .shared-avatar {
 
-    img {
-        width: 34px;
-        height: 34px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: solid 1px var(--grey-6);
-    }
+  img {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid 1px var(--grey-6);
+  }
 
-    .text {
-        display: inline;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: solid 1px var(--grey-8);
-        background-color: var(--grey-1);
-        color: var(--white);
-    }
+  .text {
+    display: inline;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: solid 1px var(--grey-8);
+    background-color: var(--grey-1);
+    color: var(--white);
+  }
 }
