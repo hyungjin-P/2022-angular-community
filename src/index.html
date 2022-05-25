@@ -37,10 +37,14 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=REDACTED_GA_UA_ID"></script>
   <script>
+    var gtagData = sessionStorage.getItem('authAccess') ? sessionStorage.getItem('authAccess') : '';
+
     window.dataLayer = window.dataLayer || []
 
     function gtag() {
-      dataLayer.push(arguments);
+      dataLayer.push({
+        'userId': gtagData,
+      });
     }
 
     gtag('js', new Date())

@@ -33,11 +33,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private storageService: StorageService,
     private router: Router,
   ) {
-    this.subscription = router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        browserRefresh = !router.navigated;
-      }
-    });
+    this.subscription = router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+           browserRefresh = !router.navigated;
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.user = this.storageService.getUser();
+
     if (this.user && this.globalService.variables.isLogin === false) {
       this.storageService.setUser(this.user);
     }
@@ -78,13 +80,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // bootstrap modal
-    $(".modal").on("shown.bs.modal", function()  {
-      const urlReplace = "#" + $(this).attr('id');
+    $('.modal').on('shown.bs.modal', function()  {
+      const urlReplace = '#' + $(this).attr('id');
       history.pushState(null, null, urlReplace);
     });
 
     $(window).on('popstate', function() {
-      $(".modal").modal('hide');
+      $('.modal').modal('hide');
     });
   }
 
@@ -92,11 +94,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  hideModal() {
+  hideModal(): void {
     this.globalService.hideModal();
   }
 
-  hideToast() {
+  hideToast(): void {
     this.globalService.hideToast();
   }
 

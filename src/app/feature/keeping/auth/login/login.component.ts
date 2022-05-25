@@ -71,11 +71,13 @@ export class LoginComponent implements OnInit, OnDestroy {
        * google, meta, apple => firebase 통해서 로그인
        **/
       if (user) {
-        if (this.signInMethod === 'google' || this.signInMethod === 'facebook' || this.signInMethod === 'apple') {
+        if (this.signInMethod === 'google'
+          || this.signInMethod === 'facebook'
+          || this.signInMethod === 'apple') {
           user.getIdToken().then((accessToken) => {
-            this.authService.modifySignWithFirebase(accessToken).subscribe(
-              (user: User) => {
-
+            this.authService
+              .modifySignWithFirebase(accessToken)
+              .subscribe((user: User) => {
                 let viaPath = 'auth/login-success/google';
 
                 if (user?.signUpType === 'google') {
@@ -85,9 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.storageService.setUser(user);
                 // this.router.navigateByUrl(viaPath).then(() => {});
                 this.router.navigateByUrl(viaPath).then();
-              },
-              (e) => {}
-            );
+              }, (e) => {});
           });
         } else {
           if (this.signInMethod === 'kakao' || this.signInMethod === 'naver') {

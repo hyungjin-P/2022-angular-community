@@ -14,11 +14,10 @@ export class StorageService {
   private storage: Storage = sessionStorage;
   private userKey: string = 'authAccess';
 
-  constructor(
-    private angularFireAuth: AngularFireAuth,
-    private globalService: GlobalService,
-    private cryptoService: CryptoService
+  constructor(    private angularFireAuth: AngularFireAuth,
+                  private globalService: GlobalService,
 
+    private cryptoService: CryptoService
   ) {}
 
   getUser(): User {
