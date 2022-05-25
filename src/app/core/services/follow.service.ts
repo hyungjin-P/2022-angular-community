@@ -50,7 +50,7 @@ export class FollowService {
   }
 
   countFollow(userId: string): Observable<any> {
-    const url = environment.userApiAddress + `/follow/countFollow?userId=${userId}`
+    const url = environment.userApiAddress + `/follow/countFollow?userId=${userId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -64,12 +64,12 @@ export class FollowService {
       }),
       catchError(handleError)
     );
-
   }
 
   findFollowingList(followPageDto: FollowPageDto): Observable<any> {
-    const url = environment.userApiAddress +
-      `/follow/findFollowing?userId=${followPageDto.userId}&page=${followPageDto.page}&limit=${followPageDto.limit}`
+    const url =
+      environment.userApiAddress +
+      `/follow/findFollowing?loginUserId=${followPageDto.loginUserId}&userId=${followPageDto.userId}&page=${followPageDto.page}&limit=${followPageDto.limit}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -86,8 +86,9 @@ export class FollowService {
   }
 
   findFollowerList(followPageDto: FollowPageDto): Observable<any> {
-    const url = environment.userApiAddress +
-      `/follow/findFollower?userId=${followPageDto.userId}&page=${followPageDto.page}&limit=${followPageDto.limit}`;
+    const url =
+      environment.userApiAddress +
+      `/follow/findFollower?loginUserId=${followPageDto.loginUserId}&userId=${followPageDto.userId}&page=${followPageDto.page}&limit=${followPageDto.limit}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -105,6 +106,7 @@ export class FollowService {
 }
 
 class FollowPageDto {
+  loginUserId: string;
   userId: string;
   page: number;
   limit: number;

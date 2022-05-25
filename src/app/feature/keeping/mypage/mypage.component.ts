@@ -1,19 +1,19 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
-import {GlobalService} from '@services/global.service';
-import {StorageService} from '@services/storage.service';
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import {UserService} from '@services/user.service';
-import {FileService} from '@services/file.service';
+import { UserService } from '@services/user.service';
+import { FileService } from '@services/file.service';
 
-import {User} from '@schemas/user';
-import {File} from '@schemas/file';
-import {MypageFeedDetailComponent} from './mypage-feed-detail/mypage-feed-detail.component';
-import {FollowService} from '@services/follow.service';
-import {TextService} from '@services/text.service';
-import {FollowViewModalComponent} from '@shared/components/follow-view-modal/follow-view-modal.component';
+import { User } from '@schemas/user';
+import { File } from '@schemas/file';
+import { FollowService } from '@services/follow.service';
+import { TextService } from '@services/text.service';
+import { FollowViewModalComponent } from '@shared/components/follow-view-modal/follow-view-modal.component';
+import { MypageFeedComponent } from './mypage-feed/mypage-feed.component';
 
 @Component({
   selector: 'mypage',
@@ -21,12 +21,10 @@ import {FollowViewModalComponent} from '@shared/components/follow-view-modal/fol
   styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit, AfterViewInit {
-
   variables: any;
 
   user: User;
-
-  isOtherPeople = false;
+  ownerUser: User;
 
   backgroundEditMode: boolean;
 
@@ -36,7 +34,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('scrollEl') scrollEl: ElementRef;
 
-  mypageFeedDetail: MypageFeedDetailComponent;
+  mypageFeed: MypageFeedComponent;
 
   isOtherUser: boolean = false;
 
@@ -68,58 +66,43 @@ export class MypageComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.variables = this.globalService.variables;
     this.user = this.storageService.getUser();
-    this.countFollow(this.user.id);
     this.closeDrawer();
 
     this.activateRoute.params.subscribe((params) => {
+      if (params.userId === this.user.id) {
+        this.ownerUser = this.user;
+        this.isOtherUser = false;
+        this.countFollow(this.ownerUser.id);
+        if (this.mypageFeed) {
+          this.mypageFeed.ownerUser = this.ownerUser;
+          this.mypageFeed.changeOwner();
+        }
+      } else {
+        this.userService.getUser(params.userId).subscribe((user) => {
+          this.ownerUser = user;
+          this.isOtherUser = true;
+          this.countFollow(this.ownerUser.id);
+          if (this.mypageFeed) {
+            this.mypageFeed.ownerUser = this.ownerUser;
+            this.mypageFeed.changeOwner();
+          }
+        });
+      }
     });
   }
 
-  ngAfterViewInit(): void {
-    let timer = null;
-    this.scrollEl.nativeElement
-      .addEventListener('scroll', () => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          const scrollHeight = this.scrollEl.nativeElement.scrollHeight;
-          const scrollTop = this.scrollEl.nativeElement.scrollTop;
-          const per = (scrollTop / scrollHeight) * 100;
-          const def = scrollHeight - scrollTop;
-          if (this.mypageFeedDetail) {
-            if (def < 1000) {
-              this.mypageFeedDetail.findNextPage();
-            }
-          }
-        }, 100);
-    });
-  }
+  ngAfterViewInit(): void {}
 
   countFollow(userId: string): void {
-    this.followService
-      .countFollow(userId)
-      .subscribe((follow) => {
-        this.follow = follow;
-      });
+    this.followService.countFollow(userId).subscribe((follow) => {
+      this.follow = follow;
+    });
   }
 
   onActivate(componentRef: any): void {
-    if (componentRef?.isFeedDetail) {
-      this.mypageFeedDetail = componentRef;
-    }
-
-    // 다른 유저 구분 첫 페이지에 접근하는 것으로 판단
     if (componentRef?.isFeed) {
-      setTimeout(() => {
-        if (componentRef.otherUserId) {
-          this.isOtherUser = true;
-          this.userService
-            .getUser(componentRef.otherUserId)
-            .subscribe((user) => {
-              this.user = user;
-              this.countFollow(this.user.id);
-            });
-        }
-      }, 0);
+      this.mypageFeed = componentRef;
+      this.mypageFeed.ownerUser = this.ownerUser;
     }
   }
 
@@ -232,7 +215,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
   }
 
   openFollowView(): void {
-    this.followView.userId = this.user.id;
+    this.followView.userId = this.ownerUser.id;
     this.followView.onFollowViewModalShow();
   }
 }

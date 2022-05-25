@@ -23,13 +23,12 @@ import { MypageComponent } from './mypage/mypage.component';
 import { SearchComponent } from './search/search.component';
 import { MypageFeedComponent } from './mypage/mypage-feed/mypage-feed.component';
 import { FeedFollowComponent } from './children/feed-follow/feed-follow.component';
-import { MypageFeedDetailComponent } from './mypage/mypage-feed-detail/mypage-feed-detail.component';
 import { ScrapComponent } from './scrap/scrap.component';
 import { ScrapFeedComponent } from './scrap/scrap-feed/scrap-feed.component';
 import { ScrapMagazineComponent } from './scrap/scrap-magazine/scrap-magazine.component';
 import { SearchFeedComponent } from './search/search-feed/search-feed.component';
 import { SearchMagazineComponent } from './search/search-magazine/search-magazine.component';
-import {MypageViaComponent} from "./mypage/mypage-via/mypage-via.component";
+import { MypageViaComponent } from './mypage/mypage-via/mypage-via.component';
 
 // 2022.05.04 기준 미사용 항목 : notice, event, help, notification
 const routes: Routes = [
@@ -59,14 +58,11 @@ const routes: Routes = [
   },
   // 마이페이지
   {
-    path: 'mypage',
+    path: 'mypage/:userId',
     canActivate: [AuthGuard, ServiceTermsGuard],
     component: MypageComponent,
     children: [
       { path: 'feed', component: MypageFeedComponent },
-      { path: 'feed/:userId', component: MypageFeedComponent },
-      { path: 'feed-detail', component: MypageFeedDetailComponent },
-      { path: 'feed-detail/:userId', component: MypageFeedDetailComponent },
       { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
     ],
   },

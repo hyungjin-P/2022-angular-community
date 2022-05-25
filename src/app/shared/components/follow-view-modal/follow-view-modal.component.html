@@ -64,7 +64,7 @@
 
                     <button type="button"
                             class="follow"
-                            *ngIf="loginUser?.id === userId"
+                            *ngIf="loginUser?.id !== item.id"
                             [ngClass]="item?.isFollow ? 'checked' : ''"
                             (click)="toggleFollow(item, userId, item.id, 'follower')">
                       <span class="button-icon"></span>
@@ -113,7 +113,7 @@
                     </div>
                     <button type="button"
                             class="follow"
-                            *ngIf="loginUser?.id === userId"
+                            *ngIf="loginUser?.id !== item.id"
                             [ngClass]="item?.isFollow ? 'checked' : ''"
                             (click)="toggleFollow(item, userId, item.id, 'following')">
                       <span class="button-icon"></span>

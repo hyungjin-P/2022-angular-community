@@ -6,22 +6,22 @@
     <span class="title-content">피드</span>
     <span class="content-count">{{totalCount | number}}</span>
   </div>
-
-  <!-- 본인 것 -->
-  <ng-container *ngIf="!otherUserId">
+<!-- 기존 전체보기 동작 주석처리
+  &lt;!&ndash; 본인 것 &ndash;&gt;
+  <ng-container *ngIf="!isOtherUser">
     <a class="more-view"
        [routerLink]="'/mypage/feed-detail'">
       {{ 'mypage.more' | translate}}
     </a>
   </ng-container>
 
-  <!-- 다른 유저 것 -->
-  <ng-container *ngIf="otherUserId">
+  &lt;!&ndash; 다른 유저 것 &ndash;&gt;
+  <ng-container *ngIf="isOtherUser">
     <a class="more-view"
-       [routerLink]="'/mypage/feed-detail/' + otherUserId">
+       [routerLink]="'/mypage/feed-detail/' + isOtherUser">
       {{ 'mypage.more' | translate}}
     </a>
-  </ng-container>
+  </ng-container>-->
 
 </div>
 
@@ -30,7 +30,7 @@
      *ngIf="feedList.length === 0">
 
   <!-- 본인 것 -->
-  <ng-container *ngIf="!otherUserId">
+  <ng-container *ngIf="!isOtherUser">
     <div class="item-empty">
       <div class="item-empty-title">
         {{ 'mypage.empty-text-1' | translate }}
@@ -48,7 +48,7 @@
   </ng-container>
 
   <!-- 다른 유저 것 -->
-  <ng-container *ngIf="otherUserId">
+  <ng-container *ngIf="isOtherUser">
     <div class="item-empty">
       <div class="item-empty-content">
         {{('mypage.empty-text-3' | translate)}}
@@ -67,7 +67,7 @@
 
     <div class="item-box"
          [ngStyle]="comparisonBackgroundImage(feed)"
-         (click)="goFeedDetails(feed)">
+         (click)="feedDetailModalShow(feed.id)">
 
       <div class="item-box-picture-count d-lg-none"
            *ngIf="feed?.pictureCount > 1">
@@ -92,6 +92,10 @@
       <div class="item-box"></div>
     </div>
   </ng-container>
-
 </div>
 
+<app-feed-detail-modal
+  (prev)="feedDetailModalPrev()"
+  (next)="feedDetailModalNext()"
+  #feedDetailModal
+></app-feed-detail-modal>

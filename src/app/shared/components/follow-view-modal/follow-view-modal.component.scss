@@ -43,7 +43,6 @@
         margin-left: 0;
         padding-top: 17px;
       }
-
     }
 
     .modal-body {
@@ -147,11 +146,8 @@
                     //    background: url('~src/assets/icons/follow-view/plus-icon-checked.svg') no-repeat;
                     //  }
                     //}
-
                   }
-
                 }
-
               }
 
               .empty {
@@ -176,29 +172,20 @@
                     color: var(--grey-3);
                     @include textStyleNotoSans(400, 13px);
                   }
-
                 }
-
               }
-
             }
-
           }
-
         }
-
       }
-
     }
-
-
   }
 
   /***********************/
   /* sliding tab default */
   /***********************/
 
-  $tabs: "follower", "following";
+  $tabs: 'follower', 'following';
 
   .nav {
     display: flex;
@@ -217,7 +204,7 @@
     }
 
     &::after {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       width: calc(100% / var(--length));
@@ -251,7 +238,7 @@
       & ~ .slider-wrapper {
         --i: #{index($tabs, $tab) - 1};
 
-        label[for="#{$tab}"] {
+        label[for='#{$tab}'] {
           color: var(--primary);
           font-weight: 700;
           transition: all 0.3s;
@@ -278,7 +265,7 @@
 /**  Sliding Tab Default  **/
 /***************************/
 
-$tabs: "follower", "following";
+$tabs: 'follower', 'following';
 
 :root {
   font-size: calc(10px + 1vmin);
@@ -306,7 +293,6 @@ $tabs: "follower", "following";
 }
 
 @media (max-width: 993px) {
-
   #bs-follow-view-modal {
     padding: 0 !important;
     height: 100%;
@@ -326,13 +312,10 @@ $tabs: "follower", "following";
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }
-
     }
 
     .modal-dialog-scrollable {
       max-height: 100%;
     }
-
   }
-
 }

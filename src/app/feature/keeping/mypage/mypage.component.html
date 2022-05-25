@@ -24,28 +24,8 @@
     <!-- 팔로우 모달 컴포넌트 -->
     <app-follow-view-modal #followView></app-follow-view-modal>
 
-    <ng-container *ngIf="!isOtherPeople">
+    <ng-container>
       <header class="d-lg-none"></header>
-    </ng-container>
-
-    <ng-container *ngIf="isOtherPeople">
-      <div class="mobile-header d-lg-none">
-
-        <div class="mdi mdi-chevron-left"
-             (click)="goBack()"></div>
-
-        <div>{{ user?.nickname || user?.email || '' }}</div>
-
-        <a class="notification">
-          <svg class="svg-icon"
-               viewBox="-2 -2 28.5 28.5">
-            <use xlink:href="assets/icons/header/notification.svg#icon" />
-          </svg>
-          <div class="dot"></div>
-        </a>
-
-      </div>
-
     </ng-container>
 
     <div class="flex-fill" style="position: relative">
@@ -62,7 +42,7 @@
       <div class="section full-absolute scroll-y" #scrollEl>
         <!-- 상단 Background Image-->
         <div class="background">
-          <div [class.empty-background-show]="user?.background?.length === 0">
+          <div [class.empty-background-show]="ownerUser?.background?.length === 0">
             <a class="add-button"
                (click)="background.click()"
                *ngIf="!isOtherUser">
@@ -79,10 +59,10 @@
                    (change)="onChangeFile(background)"
                    hidden>
           </div>
-          <div [class.background-show]="user?.background?.length > 0">
+          <div [class.background-show]="ownerUser?.background?.length > 0">
 
-            <ng-container *ngIf="user?.background?.length > 0">
-              <img [src]="user?.background[0]?.url"
+            <ng-container *ngIf="ownerUser?.background?.length > 0">
+              <img [src]="ownerUser?.background[0]?.url"
                    alt="user profile picture">
             </ng-container>
 
@@ -115,7 +95,7 @@
                 <!-- 이미지 제거 -->
                 <div
                   class="edit-mode-delete-button"
-                  (click)="deleteBackground(user?.background[0]?.url)">
+                  (click)="deleteBackground(ownerUser?.background[0]?.url)">
                   {{ 'mypage.delete-button-text' | translate }}
                 </div>
 
@@ -138,35 +118,35 @@
               <div class="left-side">
                 <div class="avatar">
                   <shared-avatar
-                    [image]="user?.picture[0]?.url"
-                    text="{{ user.email }}"
+                    [image]="ownerUser?.picture[0]?.url"
+                    text="{{ ownerUser?.email }}"
                     size="80"
                     fontSize="30"
                   ></shared-avatar>
                 </div>
                 <div class="nickname">
-                  {{ user.nickname || user.email || '' }}
+                  {{ ownerUser?.nickname || ownerUser?.email || '' }}
                 </div>
                 <div *ngIf='!isOtherUser'>
                   <span class="social social-kakao"
-                       *ngIf="user.provider === 'kakao.com'">
+                       *ngIf="ownerUser?.provider === 'kakao.com'">
                     <img class="margin-right-5"
                          src="assets/icons/social/kakao_2.png"
                          alt="">
                   </span>
                   <span class="social social-naver"
-                       *ngIf="user.provider === 'naver.com'">
+                       *ngIf="ownerUser?.provider === 'naver.com'">
                     <img class="margin-right-5"
                          src="assets/icons/social/naver.png"
                          alt="">
                   </span>
                   <span class="social social-google"
-                       *ngIf="user.provider === 'google.com'">
+                       *ngIf="ownerUser?.provider === 'google.com'">
                     <img class="margin-right-5"
                          src="assets/icons/social/google.png"
                          alt="">
                   </span>
-                  <span class="email">{{ user.email || '' }}</span>
+                  <span class="email">{{ ownerUser?.email || '' }}</span>
                 </div>
 
                 <!-- 내프로필 > 팔로우 -->
@@ -187,7 +167,7 @@
 
                 <!-- 자기소개 -->
                 <div class="about-me">
-                  {{ user.aboutMe }}
+                  {{ ownerUser?.aboutMe }}
                 </div>
 
                 <!-- 프로필 수정 -->
@@ -220,33 +200,33 @@
                 <div class="avatar">
                   <!-- 아바타 이미지 -->
                   <shared-avatar
-                    [image]="user?.picture[0]?.url"
-                    text="{{ user.email }}"
+                    [image]="ownerUser?.picture[0]?.url"
+                    text="{{ ownerUser?.email }}"
                     size="74"
                     fontSize="30"
                   ></shared-avatar>
                 </div>
                 <div class="info">
                   <div class="nickname">
-                    {{ user.nickname || user.email || '' }}
+                    {{ ownerUser?.nickname || ownerUser?.email || '' }}
                   </div>
                   <div *ngIf='!isOtherUser'>
                     <div class="social social-kakao"
-                         *ngIf="user.provider === 'kakao.com'">
+                         *ngIf="ownerUser?.provider === 'kakao.com'">
                       <img src="assets/icons/social/kakao_2.png"
                            alt="kakao social icon">
                     </div>
                     <div class="social social-naver"
-                         *ngIf="user.provider === 'naver.com'">
+                         *ngIf="ownerUser?.provider === 'naver.com'">
                       <img src="assets/icons/social/naver.png"
                            alt="naver social icon">
                     </div>
                     <div class="social social-google"
-                         *ngIf="user.provider === 'google.com'">
+                         *ngIf="ownerUser?.provider === 'google.com'">
                       <img src="assets/icons/social/google.png"
                            alt="google social icon">
                     </div>
-                    <span class="email">{{ user.email || '' }}</span>
+                    <span class="email">{{ ownerUser?.email || '' }}</span>
                   </div>
 
                   <div class="follow cursor-pointer" (click)="openFollowView()">
@@ -271,7 +251,7 @@
               </div>
 
               <div class="about-me scroll-y">
-                {{ user.aboutMe }}
+                {{ ownerUser?.aboutMe }}
               </div>
 
             </div>
@@ -281,10 +261,8 @@
             <div class="right-side flex-fill d-flex flex-column mt-2">
               <router-outlet (activate)="onActivate($event)"></router-outlet>
             </div>
-
           </div>
         </ng-container>
-
       </div>
     </div>
   </div>

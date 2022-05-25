@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {User} from "@schemas/user";
-import {UserService} from "@services/user.service";
-import {ActivatedRoute} from "@angular/router";
-import {StorageService} from "@services/storage.service";
-import {FollowService} from "@services/follow.service";
-import {GlobalService} from "@services/global.service";
-import {OtherUserUtil} from "../../../core/utils/other-user.util";
+import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { User } from '@schemas/user';
+import { UserService } from '@services/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { StorageService } from '@services/storage.service';
+import { FollowService } from '@services/follow.service';
+import { GlobalService } from '@services/global.service';
+import { OtherUserUtil } from '../../../core/utils/other-user.util';
 
 declare const $;
 
@@ -16,7 +16,6 @@ declare const $;
   encapsulation: ViewEncapsulation.None,
 })
 export class FollowViewModalComponent implements OnInit, AfterViewInit {
-
   @Input() userId: string;
   user: User;
   loginUser: User;
@@ -41,17 +40,15 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
     private followService: FollowService,
     private userService: UserService,
     private globalService: GlobalService,
-    private otherUserUtil: OtherUserUtil,
+    private otherUserUtil: OtherUserUtil
   ) {
     /* 실제 로그인 유저 */
     this.loginUser = this.storageService.getUser();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   onFollowViewModalShow(): void {
     this.initFollowView(this.userId);
@@ -87,21 +84,20 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
   }
 
   findUserInfo(userId: string): void {
-    this.userService
-      .getUser(userId)
-      .subscribe((user) => {
-        if (user) {
-          this.user = user;
-        }
-      });
+    this.userService.getUser(userId).subscribe((user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
   }
 
   findFollowingList(userId): void {
     this.followService
       .findFollowingList({
+        loginUserId: this.loginUser.id,
         userId,
         page: this.followingPage,
-        limit: this.followingLimit
+        limit: this.followingLimit,
       })
       .subscribe((data) => {
         this.followingMeta = data.metaInfo.meta;
@@ -113,9 +109,10 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
   findFollowerList(userId): void {
     this.followService
       .findFollowerList({
+        loginUserId: this.loginUser.id,
         userId,
         page: this.followerPage,
-        limit: this.followerLimit
+        limit: this.followerLimit,
       })
       .subscribe((data) => {
         this.followerMeta = data.metaInfo.meta;
@@ -133,21 +130,17 @@ export class FollowViewModalComponent implements OnInit, AfterViewInit {
   }
 
   addFollow(user: any, fromUserId: string, toUserId: string, type: string): void {
-    this.followService
-      .addFollow(fromUserId, toUserId)
-      .subscribe(data => {
-        user.isFollow = true;
-        this.globalService.showToast('팔로잉 되었습니다.');
-      });
+    this.followService.addFollow(fromUserId, toUserId).subscribe((data) => {
+      user.isFollow = true;
+      this.globalService.showToast('팔로잉 되었습니다.');
+    });
   }
 
   deleteFollow(user: any, fromUserId: string, toUserId: string, type: string): void {
-    this.followService
-      .removeFollow(fromUserId, toUserId)
-      .subscribe(data => {
-        user.isFollow = false;
-        this.globalService.showToast('팔로우를 해제했습니다.');
-      });
+    this.followService.removeFollow(fromUserId, toUserId).subscribe((data) => {
+      user.isFollow = false;
+      this.globalService.showToast('팔로우를 해제했습니다.');
+    });
   }
 
   /** 다른 유저 마이페이지 이동 시 로직 */
