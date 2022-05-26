@@ -82,6 +82,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
           this.ownerUser = user;
           this.isOtherUser = true;
           this.countFollow(this.ownerUser.id);
+          this.isFollowInfo(this.ownerUser.id);
           if (this.mypageFeed) {
             this.mypageFeed.ownerUser = this.ownerUser;
             this.mypageFeed.changeOwner();
@@ -96,6 +97,12 @@ export class MypageComponent implements OnInit, AfterViewInit {
   countFollow(userId: string): void {
     this.followService.countFollow(userId).subscribe((follow) => {
       this.follow = follow;
+    });
+  }
+
+  isFollowInfo(userId: string) {
+    this.followService.getFollowInfo(this.user.id, userId).subscribe((follow) => {
+      this.ownerUser.isFollow = follow;
     });
   }
 
@@ -217,5 +224,39 @@ export class MypageComponent implements OnInit, AfterViewInit {
   openFollowView(): void {
     this.followView.userId = this.ownerUser.id;
     this.followView.onFollowViewModalShow();
+  }
+
+  toggleFollow(ownerUser: User) {
+    if (ownerUser.isFollow) {
+      this.removeFollow(this.user.id, ownerUser);
+    } else {
+      this.addFollow(this.user.id, ownerUser);
+    }
+  }
+
+  addFollow(fromUser: string, toUser: User) {
+    this.followService.addFollow(fromUser, toUser.id).subscribe(
+      (v) => {
+        toUser.isFollow = true;
+        let message = this.textService.getText('follow:001');
+        this.globalService.showToast(message);
+      },
+      (error) => {
+        console.log('add follow failed : ', error);
+      }
+    );
+  }
+
+  removeFollow(fromUser: string, toUser: User) {
+    this.followService.removeFollow(fromUser, toUser.id).subscribe(
+      () => {
+        toUser.isFollow = false;
+        let message = this.textService.getText('follow:002');
+        this.globalService.showToast(message);
+      },
+      (error) => {
+        console.log('remove follow failed : ', error);
+      }
+    );
   }
 }

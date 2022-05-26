@@ -19,6 +19,10 @@ import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal
 import { OtherUserUtil } from '../../../../core/utils/other-user.util';
 import { FeedLikeUserModalComponent } from '@shared/components/feed-like-user-modal/feed-like-user-modal.component';
 
+//////
+// 2022/05/25 모달창 변경으로 미사용
+//////
+
 @Component({
   selector: 'feed-detail',
   templateUrl: './feed-detail.component.html',

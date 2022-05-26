@@ -177,9 +177,33 @@
                     {{ 'mypage.edit-profile-button-text' | translate }}
                   </a>
                 </ng-container>
-
                 <!-- 팔로우 버튼 -->
+                <ng-container *ngIf='isOtherUser'>
+                  <a class = "follow-button"
+                     (click)='toggleFollow(ownerUser)'
+                  >
+                    <div class="follow-active" *ngIf="ownerUser?.isFollow">
+                      <div class="follow-check-icon">
+                        <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                      <div class="text">{{ 'keeping.feed-detail.following' | translate }}</div>
 
+                    </div>
+                    <div class="follow-default" *ngIf="!ownerUser.isFollow">
+                      <div class="follow-plus-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2 6H10Z" fill="#567DFF"/>
+                          <path d="M6 2V10M2 6H10" stroke="#567DFF"/>
+                        </svg>
+                      </div>
+                      <div class="text">
+                        {{ 'keeping.feed-detail.follow' | translate }}
+                      </div>
+                    </div>
+                  </a>
+                </ng-container>
               </div>
 
               <!-- 본문 -->
@@ -247,6 +271,33 @@
                     </a>
                   </ng-container>
 
+                  <!-- 팔로우 버튼 -->
+                  <ng-container *ngIf='isOtherUser'>
+                    <a class = "follow-button"
+                       (click)='toggleFollow(ownerUser)'
+                    >
+                      <div class="follow-active" *ngIf="ownerUser?.isFollow">
+                        <div class="follow-check-icon">
+                          <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6.99899L4.5 9.49899L9.5 4.49899" stroke="white" stroke-linejoin="round" />
+                          </svg>
+                        </div>
+                        <div class="text">{{ 'keeping.feed-detail.following' | translate }}</div>
+
+                      </div>
+                      <div class="follow-default" *ngIf="!ownerUser.isFollow">
+                        <div class="follow-plus-icon">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6H10Z" fill="#567DFF"/>
+                            <path d="M6 2V10M2 6H10" stroke="#567DFF"/>
+                          </svg>
+                        </div>
+                        <div class="text">
+                          {{ 'keeping.feed-detail.follow' | translate }}
+                        </div>
+                      </div>
+                    </a>
+                  </ng-container>
                 </div>
               </div>
 

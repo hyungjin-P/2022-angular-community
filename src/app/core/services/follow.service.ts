@@ -103,6 +103,23 @@ export class FollowService {
       catchError(handleError)
     );
   }
+
+  getFollowInfo(fromUser: string, toUser: string) {
+    const url = environment.userApiAddress + `/follow/isFollowed?fromUser=${fromUser}&toUser=${toUser}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class FollowPageDto {

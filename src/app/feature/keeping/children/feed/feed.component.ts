@@ -82,6 +82,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // 스크롤로 자동 리스트 추가 (자동 스크롤)
     let timer = null;
     this.scrollEl.nativeElement.addEventListener('scroll', () => {
       clearTimeout(timer);
@@ -112,6 +113,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /** 피드 수정 완료 */
   getFeedList() {
     this.feedService.getFeedList(this.page, this.limit, this.user?.id, this.pageDate).subscribe(
       (feedList: any) => {
@@ -128,7 +130,6 @@ export class FeedComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /** 피드 수정 완료 */
   getPublicFeedList() {
     this.publicService.getFeedList(this.page, this.limit, this.pageDate).subscribe(
       (feedList: any) => {
@@ -145,100 +146,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /** 피드 좋아요 수정 완료 */
-  feedLike(feed: Feed): void {
-    if (this.user?.id) {
-      if (feed.isLike) {
-        this.feedService
-          .deleteFeedLike({
-            feedId: feed.id,
-            userId: this.user?.id,
-          })
-          .subscribe(
-            (count) => {
-              feed.isLike = false;
-              feed.likeCount = count;
-            },
-            (e) => {
-              console.log('cancel like feed error : ', e);
-            }
-          );
-      } else {
-        this.feedService
-          .createFeedLike({
-            feedId: feed.id,
-            userId: this.user?.id,
-          })
-          .subscribe(
-            (count) => {
-              feed.isLike = true;
-              feed.likeCount = count;
-            },
-            (e) => {
-              console.log('like feed error : ', e);
-            }
-          );
-      }
-    } else {
-      this.loginModalShow();
-    }
-  }
-
-  moveFeedDetail(feed: Feed) {
-    // console.log('is bookmark : ', feed.isBookmark);
-    this.router.navigateByUrl(`/feed/${feed.id}`).then();
-  }
-
-  /**
-   * 북마크 추가/삭제
-   * @param feed
-   */
-  toggleFeedBookmark(feed: Feed): void {
-    if (feed) {
-      if (feed.isBookmark) {
-        this.deleteBookmark(feed, this.user?.id);
-      } else {
-        this.addBookmark(feed, this.user?.id);
-      }
-    }
-  }
-
-  /**
-   * 북마크 추가
-   * @param feed
-   * @param userId
-   */
-  addBookmark(feed: Feed, userId: string): void {
-    if (this.user) {
-      this.feedService.addFeedBookmark({ feedId: feed?.id, userId }).subscribe(
-        (data) => {
-          feed.isBookmark = true;
-          let message = this.textService.getText('scrap:001');
-          this.globalService.showToast(message);
-        },
-        (error) => {}
-      );
-    }
-  }
-
-  /**
-   * 북마크 삭제
-   * @param feed
-   * @param userId
-   */
-  deleteBookmark(feed: Feed, userId: string): void {
-    if (this.user) {
-      this.feedService.deleteFeedBookmark({ feedId: feed?.id, userId }).subscribe(
-        (data) => {
-          feed.isBookmark = false;
-          let message = this.textService.getText('scrap:002');
-          this.globalService.showToast(message);
-        },
-        () => {}
-      );
-    }
-  }
-
+  // 피드 내 탭 메뉴 이동
   moveTab(link: string) {
     if (this.user) {
       // this.router.navigateByUrl(link+ `/${this.user.id}?tabType=follow`).then();
@@ -290,6 +198,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /* 피드 상세 모달창 동작 */
   feedDetailModalShow(selectedFeedId: string) {
     this.selectFeedId = selectedFeedId;
     this.feedDetailButtonCheck();
