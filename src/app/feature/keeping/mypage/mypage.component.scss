@@ -287,7 +287,6 @@
               width: 20px;
               height: 20px;
               border-radius: 4px;
-
             }
 
             .social-kakao {
@@ -349,6 +348,47 @@
 
             @include textStyle(500, 12px, 20px);
             text-decoration: none;
+          }
+
+          .follow-button {
+            margin-top: 24px;
+
+            .follow-default,
+            .follow-active {
+              padding: 4px 8px;
+              width: 100px;
+              height: 32px;
+              border: 1px solid var(--blue-3);
+              border-radius: 8px;
+
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              .text {
+                margin-left: 4px;
+
+                @include textStyleNotoSans(500, 13px);
+                letter-spacing: -0.2px;
+              }
+            }
+
+            .follow-active {
+              background-color: var(--blue-3);
+              color: var(--white);
+              .follow-check-icon {
+                display: inline-flex;
+                align-items: center;
+              }
+            }
+
+            .follow-default {
+              color: var(--blue-3);
+              .follow-plus-icon {
+                display: inline-flex;
+                align-items: center;
+              }
+            }
           }
         }
       }
@@ -486,6 +526,7 @@
 
         > div:nth-child(4) {
           display: flex;
+          justify-content: center;
           align-items: center;
           margin-top: 8px;
 
@@ -575,6 +616,45 @@
           @include textStyle(500, 13px, 21px);
           text-decoration: none;
         }
+
+        .follow-button {
+          .follow-default,
+          .follow-active {
+            padding: 4px 8px;
+            width: 142px;
+            height: 38px;
+            border: 1px solid var(--blue-3);
+            border-radius: 8px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .text {
+              margin-left: 4px;
+
+              @include textStyleNotoSans(500, 13px);
+              letter-spacing: -0.2px;
+            }
+          }
+
+          .follow-active {
+            background-color: var(--blue-3);
+            color: var(--white);
+            .follow-check-icon {
+              display: inline-flex;
+              align-items: center;
+            }
+          }
+
+          .follow-default {
+            color: var(--blue-3);
+            .follow-plus-icon {
+              display: inline-flex;
+              align-items: center;
+            }
+          }
+        }
       }
 
       .right-side {
@@ -645,6 +725,11 @@
 
         > div {
           .edit-profile-button {
+            position: absolute;
+            top: -24px;
+            right: 0;
+          }
+          .follow-button {
             position: absolute;
             top: -24px;
             right: 0;

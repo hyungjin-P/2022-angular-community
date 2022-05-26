@@ -198,7 +198,9 @@ export class FeedDetailModalComponent implements OnInit {
     this.feedService.deleteFeed(feed.id).subscribe(
       (v) => {
         this.onCloseModal();
-        this.router.navigateByUrl('/feed').then();
+        this.router.navigateByUrl('/feed').then(() => {
+          window.location.reload();
+        });
         this.feedDelete = undefined;
       },
       (e) => {}

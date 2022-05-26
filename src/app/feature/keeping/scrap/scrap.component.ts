@@ -75,6 +75,7 @@ export class ScrapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (this.viewType === 'mobile') {
+      // 스크롤로 자동 리스트 추가 (자동 스크롤)
       let timer = null;
       this.scrollEl.nativeElement.addEventListener('scroll', () => {
         clearTimeout(timer);

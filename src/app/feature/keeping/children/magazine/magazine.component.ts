@@ -141,6 +141,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // 스크롤로 자동 리스트 추가 (자동 스크롤)
     let timer = null;
     this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
       clearTimeout(timer);

@@ -8,9 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FollowService } from '@services/follow.service';
 import { TextService } from '@services/text.service';
 import { FeedLike } from '@schemas/feed-like';
-import { FeedComment } from '@schemas/feed-comment';
 import { DateUtils } from '../../../../core/utils/date.utils';
-import * as moment from 'moment-timezone';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { OtherUserUtil } from '../../../../core/utils/other-user.util';
 import { FeedLikeUserModalComponent } from '@shared/components/feed-like-user-modal/feed-like-user-modal.component';
@@ -28,7 +26,6 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
 
   @ViewChild('scrollEl') scrollEl: ElementRef;
   feedList: Feed[];
-  selectedFeed: Feed;
 
   page: number = 1;
   limit: number = 5;
@@ -71,7 +68,6 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
     private followService: FollowService,
     private textService: TextService,
     private dateUtils: DateUtils,
-    private activateRoute: ActivatedRoute,
     public otherUserUtil: OtherUserUtil
   ) {}
 
@@ -90,6 +86,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // 스크롤로 자동 리스트 추가 (자동 스크롤)
     let timer = null;
     this.scrollEl.nativeElement.addEventListener('scroll', (event) => {
       clearTimeout(timer);
