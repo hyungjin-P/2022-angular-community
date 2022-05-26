@@ -168,7 +168,7 @@ export class AuthService {
    * 인증번호 확인 (수정 OK)
    * */
   checkVerificationCodeMail(requestBody: CheckVerificationCodeMailRequestBody): Observable<Response> {
-    let url = environment.userApiAddress + '/user/checkVerificatAionCode'
+    let url = environment.userApiAddress + '/user/checkVerificationCode'
     url += `?providedId=${requestBody.email}&verifiedCode=${requestBody.verification_code}`;
 
     const options = {
