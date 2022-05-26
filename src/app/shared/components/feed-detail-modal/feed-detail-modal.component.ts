@@ -406,12 +406,11 @@ export class FeedDetailModalComponent implements OnInit {
 
   /** 다른 유저 마이페이지 이동 시 로직 */
   moveOtherUserMyPage(user: User, targetUserId): void {
-    this.onCloseModal();
-
     if (!this.user) {
       this.showLoginModal();
       return;
     } else {
+      this.onCloseModal();
       if (user?.id !== targetUserId) {
         this.otherUserUtil.moveOtherUserMyPage(targetUserId);
         return;

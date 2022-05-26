@@ -420,8 +420,6 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   /** 다른 유저 마이페이지 이동 시 로직 */
   moveOtherUserMyPage(user: any, targetUserId: string): void {
     this.closeConfirmModal();
-    this.closeModal();
-
     if (this.feedDetailModal) {
       this.feedDetailModal.onCloseModal();
       this.feedDetailModal = undefined;
@@ -431,6 +429,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       this.loginModalConfirm();
       return;
     } else {
+      this.closeModal();
       if (user?.id !== targetUserId) {
         this.otherUserUtil.moveOtherUserMyPage(targetUserId);
         return;
