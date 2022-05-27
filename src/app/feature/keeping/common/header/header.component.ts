@@ -71,6 +71,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.url = this.router.url;
+    // 설정, 마이페이지 제외하고 헤더 그리기
     this.isDrawerMenu = this.url.indexOf('/settings') !== -1 || this.url.indexOf('/mypage') !== -1;
     this.variables = this.globalService.variables;
     this.globalUser = this.globalService.user;
@@ -148,6 +149,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  /* 로그인 모달 동작 */
   showLoginModal() {
     this.isLoginModalVisible = true;
   }

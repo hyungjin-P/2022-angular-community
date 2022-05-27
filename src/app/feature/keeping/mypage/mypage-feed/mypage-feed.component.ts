@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '@schemas/user';
 import { StorageService } from '@services/storage.service';
 import { FeedService } from '@services/feed.service';
 import { Feed } from '@schemas/feed';
-import { UserService } from '@services/user.service';
 import { FeedDetailModalComponent } from '@shared/components/feed-detail-modal/feed-detail-modal.component';
 
 @Component({
@@ -33,13 +32,7 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   isFeed = true;
   viewType = 'desktop';
 
-  constructor(
-    private router: Router,
-    private storageService: StorageService,
-    private feedService: FeedService,
-    private userService: UserService,
-    private activateRoute: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private storageService: StorageService, private feedService: FeedService) {}
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
@@ -48,6 +41,7 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {}
 
+  /* 상위 마이페이지에서 마이페이지 주인이 변경되면 이 컴포넌트의 오너도 변경 */
   public changeOwner() {
     if (this.user !== this.ownerUser) this.isOtherUser = true;
     if (this.ownerUser) {

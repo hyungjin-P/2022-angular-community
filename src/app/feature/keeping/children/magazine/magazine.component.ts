@@ -1,13 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 import { PublicService } from '@services/public.service';
@@ -15,7 +7,7 @@ import { MagazineService } from '@services/magazine.service';
 import { User } from '@schemas/user';
 import { Magazine } from '@schemas/magazine';
 
-import Swiper, { Autoplay, Navigation, Pagination, SwiperOptions } from 'swiper';
+import Swiper, { Autoplay, Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { TextService } from '@services/text.service';
 
@@ -98,6 +90,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     private storageService: StorageService,
     private publicService: PublicService
   ) {
+    // 뒤로가기 제어 - 목록 업데이트 최신화를 위함.
     router.events.subscribe((event: NavigationStart) => {
       if (event.navigationTrigger === 'popstate') {
         if (event.url.indexOf('tabType') === -1) {
@@ -120,12 +113,6 @@ export class MagazineComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  /*@HostListener('window:popstate', ['$event'])
-  onBack(e: Event) {
-    this.nowTab = this.route.snapshot.queryParams.tabType;
-    this.changeTab();
-  }*/
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -295,9 +282,11 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     window.location.href = magazine.body.body;
   }
 
+  /* 조회수 증가. 추후 이용 가능성으로 임시 제작 */
   createMagazineView(magazine: Magazine) {
     let userId = '';
     if (!this.user) {
+      // 특정할 수 없는 유저를 각각 고유번호를 생성해 특정함. -> app.component.ts 에서 생성
       userId = localStorage.getItem('undefinedUser');
     } else {
       userId = this.user.id;
@@ -306,6 +295,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     this.magazineService.createView(magazine.id, userId).subscribe((v) => {});
   }
 
+  /* 북마크 버튼 동작 */
   toggleBookmark(magazine: Magazine) {
     if (!this.user) {
       this.showLoginModal();
@@ -344,6 +334,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /* 로그인 모달 동작 */
   showLoginModal() {
     this.isLoginModalVisible = true;
   }

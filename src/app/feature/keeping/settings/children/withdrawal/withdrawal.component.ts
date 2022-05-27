@@ -1,116 +1,92 @@
-import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-import { Location } from '@angular/common'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
-import { GlobalService } from '@services/global.service'
-import { StorageService } from '@services/storage.service'
+import { GlobalService } from '@services/global.service';
+import { StorageService } from '@services/storage.service';
 
-import { UserService } from '@services/user.service'
-import { CodeService } from '@services/code.service'
+import { UserService } from '@services/user.service';
 
-import { User } from '@schemas/user'
+import { User } from '@schemas/user';
 
 @Component({
-    selector: 'withdrawal',
-    templateUrl: './withdrawal.component.html',
-    styleUrls: ['./withdrawal.component.scss'],
+  selector: 'withdrawal',
+  templateUrl: './withdrawal.component.html',
+  styleUrls: ['./withdrawal.component.scss'],
 })
 export class WithdrawalComponent implements OnInit {
-    user: User
-    selectedLanguage: string
+  user: User;
+  selectedLanguage: string;
 
-    userWithdrawalReasonList: Array<any>
-    userWithdrawalReasonObj: any
-    directInputText: string
+  userWithdrawalReasonList: Array<any>;
+  userWithdrawalReasonObj: any;
+  directInputText: string;
 
-    currentStep: string
-    required: boolean
+  currentStep: string;
+  required: boolean;
 
-    constructor(
-        private router: Router,
-        private location: Location,
-        private globalService: GlobalService,
-        private storageService: StorageService,
-        private userService: UserService,
-        private codeService: CodeService
-    ) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+    private globalService: GlobalService,
+    private storageService: StorageService,
+    private userService: UserService
+  ) {}
 
-    ngOnInit() {
-        this.user = this.storageService.getUser()
-        this.selectedLanguage = localStorage.getItem('language')
+  ngOnInit() {
+    this.user = this.storageService.getUser();
+    this.selectedLanguage = localStorage.getItem('language');
 
-        this.userWithdrawalReasonObj = {}
-        this.directInputText = ''
-        this.getUserWithdrawalReason()
+    this.userWithdrawalReasonObj = {};
+    this.directInputText = '';
 
-        this.currentStep = '1'
+    this.currentStep = '1';
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  checkRequired() {
+    this.required = !this.required;
+  }
+
+  next() {
+    if (!this.required) {
+      return;
     }
 
-    goBack() {
-        this.location.back()
-    }
+    this.currentStep = '2';
+  }
 
-    getUserWithdrawalReason() {
-        this.codeService.getCategory('user_withdrawal_reason').subscribe(
-            (v) => {
-                this.userWithdrawalReasonList = v.items
-            },
-            (e) => {
-                this.globalService.showToast(e.message)
-            }
-        )
-    }
+  previous() {
+    this.currentStep = '1';
+  }
 
-    checkRequired() {
-        this.required = !this.required
+  checkWithdrawalReason(reason: any) {
+    if (this.userWithdrawalReasonObj.hasOwnProperty(reason.id)) {
+      this.userWithdrawalReasonObj[reason.id] = !this.userWithdrawalReasonObj[reason.id];
+    } else {
+      this.userWithdrawalReasonObj[reason.id] = true;
     }
+  }
 
-    next() {
-        if (!this.required) {
-            return
+  deleteUser() {
+    let keys = Object.keys(this.userWithdrawalReasonObj);
+    let reasons = [];
+    keys.forEach((key) => {
+      if (this.userWithdrawalReasonObj[key]) {
+        let reason = {
+          code_item_id: key,
+          text: '',
+        };
+
+        if (key == 'user_withdrawal_reason_000') {
+          reason['text'] = this.directInputText;
         }
 
-        this.currentStep = '2'
-    }
-
-    previous() {
-        this.currentStep = '1'
-    }
-
-    checkWithdrawalReason(reason: any) {
-        if (this.userWithdrawalReasonObj.hasOwnProperty(reason.id)) {
-            this.userWithdrawalReasonObj[reason.id] = !this.userWithdrawalReasonObj[reason.id]
-        } else {
-            this.userWithdrawalReasonObj[reason.id] = true
-        }
-    }
-
-    deleteUser() {
-        let keys = Object.keys(this.userWithdrawalReasonObj)
-        let reasons = []
-        keys.forEach((key) => {
-            if (this.userWithdrawalReasonObj[key]) {
-                let reason = {
-                    code_item_id: key,
-                    text: '',
-                }
-
-                if (key == 'user_withdrawal_reason_000') {
-                    reason['text'] = this.directInputText
-                }
-
-                reasons.push(reason)
-            }
-        })
-
-        this.userService.deleteUser(this.user.id, { reasons: reasons }).subscribe(
-            async (v) => {
-                await this.storageService.removeUser()
-                this.router.navigateByUrl('/')
-            },
-            (e) => {
-                this.globalService.showToast(e.message)
-            }
-        )
-    }
+        reasons.push(reason);
+      }
+    });
+  }
 }

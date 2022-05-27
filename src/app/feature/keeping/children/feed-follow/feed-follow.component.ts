@@ -140,6 +140,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /* 팔로우 버튼 동작 */
   toggleFollow(feed: Feed) {
     if (feed.writer.isFollow) {
       this.removeFollow(this.user.id, feed.writer);
@@ -175,6 +176,7 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /* 피드 좋아요 동작 */
   feedLike(feed: Feed) {
     if (feed.isLike) {
       this.feedService
@@ -262,14 +264,20 @@ export class FeedFollowComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /* 콘텐츠(글 본문 내용) 더보기 */
   moreContentView(feed: Feed) {
     feed.contentViewVisible = true;
   }
 
+  /* 피드 내 카테고리 탭 이동 */
   moveTab(link: string) {
     this.router.navigateByUrl(link);
   }
 
+  /* confirm modal 현재 미사용 */
+  confirmModalShow() {
+    this.isConfirmModalVisible = true;
+  }
   confirmModalConfirm() {
     this.isConfirmModalVisible = false;
   }

@@ -1,6 +1,6 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import {GlobalService} from '@services/global.service'
+import { GlobalService } from '@services/global.service';
 
 @Component({
   selector: 'drawer',
@@ -8,26 +8,25 @@ import {GlobalService} from '@services/global.service'
   styleUrls: ['./drawer.component.scss'],
 })
 export class DrawerComponent implements OnInit {
-  @Output() scrollTop = new EventEmitter<any>()
+  @Output() scrollTop = new EventEmitter<any>();
 
-  variables: any
+  variables: any;
 
   constructor(private globalService: GlobalService) {
-    this.variables = this.globalService.variables
+    this.variables = this.globalService.variables;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   closeDrawer() {
-    this.variables.isDrawerOpen = false
+    this.variables.isDrawerOpen = false;
   }
 
   onScrollTop(): void {
-    this.scrollTop.emit({})
+    this.scrollTop.emit({});
   }
 
   openMenuMoreBox() {
-    this.variables.menuMoreBoxVisible = !this.variables.menuMoreBoxVisible
+    this.variables.menuMoreBoxVisible = !this.variables.menuMoreBoxVisible;
   }
 }
