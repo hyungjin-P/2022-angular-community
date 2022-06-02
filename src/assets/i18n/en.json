@@ -276,11 +276,20 @@
       "next-button": "Next",
       "previous-button": "Previous",
       "required": "[Required] I have read and agree to the membership cancellation notice.",
+      "origin-text" : {
+        "text-1": "Withdrawal",
+        "text-2": "Are you sure you want to cancel your mambership?",
+        "text-3": "If you unsubscribe now, all member information and usage history will be deleted and cannot be recovered again!",
+        "text-4": "Since the author cannot be identified due to deletion of member information after membership withdrawal, editing and deletion of posts is fundamentally impossible. If you wish to delete a post, please delete the post first and then apply for withdrawal.",
+        "text-5": "You cannot re-register within 14 days with the same information after withdrawal. After that, even if you re-register with the same information, your existing posts and other information will not be linked.",
+        "text-6": "[Optional] Please select a reason for leaving Kipping",
+        "text-7": "We will return your valuable feedback with better service."
+      },
       "text-1": "Withdrawal",
       "text-2": "Are you sure you want to cancel your mambership?",
       "text-3": "If you unsubscribe now, all member information and usage history will be deleted and cannot be recovered again!",
-      "text-4": "Since the author cannot be identified due to deletion of member information after membership withdrawal, editing and deletion of posts is fundamentally impossible. If you wish to delete a post, please delete the post first and then apply for withdrawal.",
-      "text-5": "You cannot re-register within 14 days with the same information after withdrawal. After that, even if you re-register with the same information, your existing posts and other information will not be linked.",
+      "text-4": "The activity history will also be permanently deleted and will not be restored by re-subscribing.",
+      "text-5": "It can take up to 14 days for the final processing and cannot rejoin with the same information within the processing period, and subsequent rejoins do not integrate the existing information.",
       "text-6": "[Optional] Please select a reason for leaving Kipping",
       "text-7": "We will return your valuable feedback with better service.",
       "withdrawal-button": "Leave"

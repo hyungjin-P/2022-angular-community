@@ -60,7 +60,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 this.storageService.setUser(user);
                 this.router.navigateByUrl(viaPath).then();
               },
-              (e) => {}
+              (e) => {
+                if (e.code === 'failure:deleted') {
+                  this.openModalFailDeleted();
+                }
+              }
             );
           });
         } else {
@@ -135,19 +139,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param accessToken
    */
   kakaoLoginTrigger(accessToken: string): void {
-    this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
-      let viaPath = 'auth/login-success/kakao';
+    this.authService.modifiedKakaoLogin(accessToken).subscribe(
+      (user: User) => {
+        let viaPath = 'auth/login-success/kakao';
 
-      if (user?.signUpType === 'kakao') {
-        viaPath = 'auth/service-terms/kakao';
+        if (user?.signUpType === 'kakao') {
+          viaPath = 'auth/service-terms/kakao';
+        }
+
+        this.router.navigateByUrl(viaPath).then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
+      },
+      (e) => {
+        if (e.code === 'failure:deleted') {
+          this.openModalFailDeleted();
+        }
       }
-
-      this.router.navigateByUrl(viaPath).then(() => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      });
-
-    });
+    );
   }
 
   signInWithNaver(): void {
@@ -170,18 +180,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   _signInWithNaver(code: string) {
     this.naverLoginPopupWindowRef.close();
 
-    this.authService.modifySignWithNaver(code).subscribe((user: User) => {
-      let viaPath = 'auth/login-success/naver';
+    this.authService.modifySignWithNaver(code).subscribe(
+      (user: User) => {
+        let viaPath = 'auth/login-success/naver';
 
-      if (user?.signUpType === 'naver') {
-        viaPath = 'auth/service-terms/naver';
+        if (user?.signUpType === 'naver') {
+          viaPath = 'auth/service-terms/naver';
+        }
+
+        this.router.navigateByUrl(viaPath).then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
+      },
+      (e) => {
+        if (e.code === 'failure:deleted') {
+          this.openModalFailDeleted();
+        }
       }
-
-      this.router.navigateByUrl(viaPath).then(() => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      });
-    });
+    );
   }
 
   openLangBox(event) {
@@ -204,5 +221,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.textService.changeLanguage(language);
     this.selectedLanguage = language;
     this.closeLangBox();
+  }
+
+  openModalFailDeleted() {
+    this.storageService.removeUser();
+    let message = this.textService.getText('auth:withdrawal:002');
+    this.globalService.showToast(message);
   }
 }

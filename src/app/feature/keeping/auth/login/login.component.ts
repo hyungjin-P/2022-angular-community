@@ -71,13 +71,10 @@ export class LoginComponent implements OnInit, OnDestroy {
        * google, meta, apple => firebase 통해서 로그인
        **/
       if (user) {
-        if (this.signInMethod === 'google'
-          || this.signInMethod === 'facebook'
-          || this.signInMethod === 'apple') {
+        if (this.signInMethod === 'google' || this.signInMethod === 'facebook' || this.signInMethod === 'apple') {
           user.getIdToken().then((accessToken) => {
-            this.authService
-              .modifySignWithFirebase(accessToken)
-              .subscribe((user: User) => {
+            this.authService.modifySignWithFirebase(accessToken).subscribe(
+              (user: User) => {
                 let viaPath = 'auth/login-success/google';
 
                 if (user?.signUpType === 'google') {
@@ -87,7 +84,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.storageService.setUser(user);
                 // this.router.navigateByUrl(viaPath).then(() => {});
                 this.router.navigateByUrl(viaPath).then();
-              }, (e) => {});
+              },
+              (e) => {
+                if (e.code === 'failure:deleted') {
+                  this.openModalFailDeleted();
+                  return;
+                }
+              }
+            );
           });
         } else {
           if (this.signInMethod === 'kakao' || this.signInMethod === 'naver') {
@@ -160,18 +164,25 @@ export class LoginComponent implements OnInit, OnDestroy {
    * @param accessToken
    */
   kakaoLoginTrigger(accessToken: string): void {
-    this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
-      let viaPath = 'auth/login-success/kakao';
+    this.authService.modifiedKakaoLogin(accessToken).subscribe(
+      (user: User) => {
+        let viaPath = 'auth/login-success/kakao';
 
-      if (user?.signUpType === 'kakao') {
-        viaPath = 'auth/service-terms/kakao';
+        if (user?.signUpType === 'kakao') {
+          viaPath = 'auth/service-terms/kakao';
+        }
+
+        this.router.navigateByUrl(viaPath).then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
+      },
+      (e) => {
+        if (e.code === 'failure:deleted') {
+          this.openModalFailDeleted();
+        }
       }
-
-      this.router.navigateByUrl(viaPath).then(() => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      });
-    });
+    );
   }
 
   /** 네이버 로그인 */
@@ -195,19 +206,25 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async _signInWithNaver(code: string): Promise<void> {
     this.naverLoginPopupWindowRef.close();
-    this.authService.modifySignWithNaver(code).subscribe((user: any) => {
+    this.authService.modifySignWithNaver(code).subscribe(
+      (user: any) => {
+        let viaPath = 'auth/login-success/naver';
 
-      let viaPath = 'auth/login-success/naver';
+        if (user?.signUpType === 'naver') {
+          viaPath = 'auth/service-terms/naver';
+        }
 
-      if (user?.signUpType === 'naver') {
-        viaPath = 'auth/service-terms/naver';
+        this.router.navigateByUrl(viaPath).then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
+      },
+      (e) => {
+        if (e.code === 'failure:deleted') {
+          this.openModalFailDeleted();
+        }
       }
-
-      this.router.navigateByUrl(viaPath).then(() => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      });
-    });
+    );
   }
 
   async signInWithEmail() {
@@ -233,8 +250,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           });
         },
         (e) => {
-          let message = this.textService.getText('auth:email:009');
-          this.globalService.showToast(message);
+          if (e.code === 'failure:deleted') {
+            this.openModalFailDeleted();
+          } else {
+            let message = this.textService.getText('auth:email:009');
+            this.globalService.showToast(message);
+          }
         }
       );
   }
@@ -348,5 +369,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.textService.changeLanguage(language);
     this.selectedLanguage = language;
     this.closeLangBox();
+  }
+
+  openModalFailDeleted() {
+    this.storageService.removeUser();
+    let message = this.textService.getText('auth:withdrawal:002');
+    this.globalService.showToast(message);
   }
 }

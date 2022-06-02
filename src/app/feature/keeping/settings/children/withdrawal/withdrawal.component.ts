@@ -8,6 +8,7 @@ import { StorageService } from '@services/storage.service';
 import { UserService } from '@services/user.service';
 
 import { User } from '@schemas/user';
+import { TextService } from '@services/text.service';
 
 @Component({
   selector: 'withdrawal',
@@ -30,6 +31,7 @@ export class WithdrawalComponent implements OnInit {
     private location: Location,
     private globalService: GlobalService,
     private storageService: StorageService,
+    private textService: TextService,
     private userService: UserService
   ) {}
 
@@ -87,6 +89,20 @@ export class WithdrawalComponent implements OnInit {
 
         reasons.push(reason);
       }
+    });
+  }
+
+  withdrawalTemporary() {
+    this.userService.withdrawalTemporary({ userId: this.user.id, reason: this.directInputText }).subscribe((result) => {
+      this.logout();
+    });
+  }
+
+  async logout() {
+    await this.storageService.removeUser();
+    this.router.navigateByUrl('/').then(() => {
+      let message = this.textService.getText('auth:withdrawal:001');
+      this.globalService.showToast(message);
     });
   }
 }

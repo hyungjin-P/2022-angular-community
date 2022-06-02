@@ -145,6 +145,23 @@ export class UserService {
       catchError(handleError)
     );
   }
+
+  withdrawalTemporary(dto: WithdrawalTemporaryDto) {
+    const url = environment.userApiAddress + `/user/withdrawalTemporary`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.httpClient.post<Response>(url, dto, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class UpdateUserDto {
@@ -178,4 +195,9 @@ class ChangePasswordDto {
   userId: string;
   oldPassword: string;
   newPassword: string;
+}
+
+class WithdrawalTemporaryDto {
+  userId: string;
+  reason: string;
 }
