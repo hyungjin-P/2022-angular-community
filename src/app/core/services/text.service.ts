@@ -38,6 +38,7 @@ export class TextService {
 
       'auth:withdrawal:001': '회원탈퇴 요청되었습니다.',
       'auth:withdrawal:002': '탈퇴 처리중인 회원입니다.',
+      'auth:withdrawal:003': '취소되었습니다. 다시 로그인해주세요.',
 
       'settings:profile:001': '최대 200자까지 간단 소개글을 입력해 주세요.',
       'settings:profile:002': '사용가능한 닉네임입니다.',
@@ -103,6 +104,7 @@ export class TextService {
 
       'auth:withdrawal:001': 'You have been to leave.',
       'auth:withdrawal:002': 'Member in process of withdrawal.',
+      'auth:withdrawal:003': 'Please login again.',
 
       'settings:profile:001': 'Please enter a brief introduction of up to 200 characters.',
       'settings:profile:002': 'Available nickname.',

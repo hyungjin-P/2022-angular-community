@@ -134,3 +134,11 @@
     </div>
   </div>
 </ng-template>
+
+<shared-modal
+  type="confirm"
+  [(visible)]='isConfirmModalVisible'
+  [data]="confirmModalData"
+  (cancel)="confirmModalCancel()"
+  (confirm)='confirmModalConfirm()'
+></shared-modal>

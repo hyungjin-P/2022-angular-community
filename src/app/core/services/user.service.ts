@@ -162,6 +162,23 @@ export class UserService {
       catchError(handleError)
     );
   }
+
+  withdrawalCancel(userId: string) {
+    const url = environment.userApiAddress + `/user/withdrawalCancel?userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.httpClient.post<Response>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
 }
 
 class UpdateUserDto {

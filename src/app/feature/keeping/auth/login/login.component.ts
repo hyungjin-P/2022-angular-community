@@ -16,6 +16,7 @@ import { HelperService } from '@services/helper.service';
 import { TextService } from '@services/text.service';
 
 import { User } from '@schemas/user';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'login',
@@ -41,6 +42,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   langBoxVisible: boolean;
   selectedLanguage: string;
 
+  deletedUserId: string;
+  /* confirm modal */
+  isConfirmModalVisible = false;
+  confirmModalData: any = {};
+  confirmModalStatus: string;
+
   constructor(
     private router: Router,
     private angularFireAuth: AngularFireAuth,
@@ -48,6 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private globalService: GlobalService,
     private storageService: StorageService,
     private authService: AuthService,
+    private userService: UserService,
     private helperService: HelperService,
     private textService: TextService
   ) {}
@@ -87,6 +95,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               },
               (e) => {
                 if (e.code === 'failure:deleted') {
+                  this.deletedUserId = e.message;
                   this.openModalFailDeleted();
                   return;
                 }
@@ -179,6 +188,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       (e) => {
         if (e.code === 'failure:deleted') {
+          this.deletedUserId = e.message;
           this.openModalFailDeleted();
         }
       }
@@ -221,6 +231,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       (e) => {
         if (e.code === 'failure:deleted') {
+          this.deletedUserId = e.message;
           this.openModalFailDeleted();
         }
       }
@@ -251,6 +262,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (e) => {
           if (e.code === 'failure:deleted') {
+            this.deletedUserId = e.message;
             this.openModalFailDeleted();
           } else {
             let message = this.textService.getText('auth:email:009');
@@ -372,8 +384,40 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   openModalFailDeleted() {
+    this.confirmModalStatus = 'deletedUser';
+    if (this.selectedLanguage === 'ko') {
+      this.confirmModalData = {
+        isIcon: false,
+        text: '삭제 요청중인 계정',
+        subText: '삭제 요청을 취소하시겠습니까?',
+        cancelBtnText: '아니요', // 선택
+        confirmBtnText: '요청취소', // 선택
+      };
+    } else {
+      this.confirmModalData = {
+        isIcon: false,
+        text: 'Account Requested for Withdrawal',
+        subText: `Do you want to cancel it?`,
+        cancelBtnText: 'No', // 선택
+        confirmBtnText: 'Yes', // 선택
+      };
+    }
+    this.isConfirmModalVisible = true;
+
     this.storageService.removeUser();
-    let message = this.textService.getText('auth:withdrawal:002');
-    this.globalService.showToast(message);
+  }
+
+  confirmModalCancel() {
+    this.isConfirmModalVisible = false;
+  }
+
+  confirmModalConfirm() {
+    this.isConfirmModalVisible = false;
+    if (this.confirmModalStatus === 'deletedUser') {
+      this.userService.withdrawalCancel(this.deletedUserId).subscribe((result) => {
+        let message = this.textService.getText('auth:withdrawal:003');
+        this.globalService.showToast(message);
+      });
+    }
   }
 }
