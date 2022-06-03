@@ -64,7 +64,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
     private publicService: PublicService,
     private textService: TextService,
     public otherUserUtil: OtherUserUtil
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.variables = this.globalService.variables;
@@ -126,7 +127,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.feedList = feedList.items;
         }
       },
-      () => {}
+      () => {
+      }
     );
   }
 
@@ -142,7 +144,8 @@ export class FeedComponent implements OnInit, AfterViewInit {
           this.feedList = feedList.items;
         }
       },
-      (e) => {}
+      (e) => {
+      }
     );
   }
 

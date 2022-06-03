@@ -641,6 +641,10 @@ export class FeedService {
     );
   }
 
+  /**
+   * 피드 댓글 및 연관 정보 조회
+   * @param feedId
+   * */
   findFeedCommentsWithRelations(feedId: string): Observable<any> {
     const url = environment.userApiAddress + `/feed/comment/getFeedCommentsWithRelations?feedId=${feedId}`;
 
@@ -657,6 +661,41 @@ export class FeedService {
       catchError(handleError)
     );
   }
+
+  getFirstFeedList(): Observable<any> {
+    const url = environment.userApiAddress + `/feed/`
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  getPublicFeedList(): Observable<any> {
+    const url = environment.userApiAddress + `/feed`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get<any>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
 }
 
 class FeedBookmarkDto {

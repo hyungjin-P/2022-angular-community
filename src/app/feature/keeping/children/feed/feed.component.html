@@ -28,8 +28,12 @@
       <!-- 이벤트 배너 -->
       <a class="banner" [routerLink]="['/write']">
         <div class="text-content">
-          <span class='text-1'>{{ 'event.banner.text-1' | translate }}</span>
-          <span class='text-2'>{{ 'event.banner.text-2' | translate }}</span>
+          <span class='text-1'>
+            {{ 'event.banner.text-1' | translate }}
+          </span>
+          <span class='text-2'>
+            {{ 'event.banner.text-2' | translate }}
+          </span>
         </div>
         <div class="img-content">
           <img src="assets/images/banner/beta_banner.png" alt="">
@@ -120,9 +124,9 @@
 </div>
 
 <shared-login-modal
-  [(visible)]='isLoginModalVisible'
-  type='login'
-  (cancel)='loginModalCancel()'
-  (confirm)='loginModalConfirm()'
-  (another)='loginModalAnother()'
+  [(visible)]="isLoginModalVisible"
+  type="login"
+  (cancel)="loginModalCancel()"
+  (confirm)="loginModalConfirm()"
+  (another)="loginModalAnother()"
 ></shared-login-modal>

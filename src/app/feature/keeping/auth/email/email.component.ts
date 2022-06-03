@@ -184,10 +184,9 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         } else {
           this.emailValid = false;
-          this.emailErrorText = this.textService.getText('auth:email:002')
+          this.emailErrorText = this.textService.getText('auth:email:002');
         }
-      }
-    )
+      });
   }
 
   /**
