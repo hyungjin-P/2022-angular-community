@@ -1,0 +1,6 @@
+User-agent: Crawler
+Disallow: /mypage/
+Disallow: /components/
+Disallow: /settings/
+Disallow: /via/
+Disallow: /auth/
