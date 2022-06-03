@@ -129,15 +129,17 @@
       text-align: left;
 
       .text-1 {
-        @include textStyleGmarketSans_bold(16px);
         //@include textStyle(500, 16px, 22px);
-        color: yellow;
+        @include textStyleGmarketSans_medium(16px);
+        color: var(--white);
+
       }
 
       .text-2 {
         //@include textStyle(700, 16px, 22px);
-        @include textStyleGmarketSans_medium(16px);
-        color: var(--white);
+        @include textStyleGmarketSans_bold(16px);
+        color: #DA0018;
+        text-shadow: 1px 1px 0 #282825;
       }
     }
 
@@ -593,11 +595,12 @@
         flex-direction: row;
         .text-1 {
           margin-right: 12px;
-          @include textStyleGmarketSans_bold(22px);
+          @include textStyleGmarketSans_medium(22px);
         }
 
         .text-2 {
-          @include textStyleGmarketSans_medium(22px);
+          @include textStyleGmarketSans_bold(22px);
+
         }
       }
     }
@@ -615,11 +618,12 @@
     .banner {
       .text-content {
         .text-1 {
-          @include textStyleGmarketSans_bold(22px);
+          @include textStyleGmarketSans_medium(22px);
         }
 
         .text-2 {
-          @include textStyleGmarketSans_medium(22px);
+          @include textStyleGmarketSans_bold(22px);
+
         }
       }
     }
