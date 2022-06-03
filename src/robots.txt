@@ -1,4 +1,4 @@
-User-agent: Crawler
+User-agent: *
 Disallow: /mypage/
 Disallow: /components/
 Disallow: /settings/
