@@ -145,7 +145,7 @@ export class AuthService {
    * 인증번호 확인 (수정 OK)
    * */
   checkVerificationCodeMail(requestBody: CheckVerificationCodeMailRequestBody): Observable<Response> {
-    let url = environment.userApiAddress + '/user/checkVerificatAionCode';
+    let url = environment.userApiAddress + '/user/checkVerificationCode';
     url += `?providedId=${requestBody.email}&verifiedCode=${requestBody.verification_code}`;
 
     const options = {
@@ -241,26 +241,26 @@ export class AuthService {
 }
 
 class signInEmailDto {
-  providedId: string;
-  password: string;
+  providedId: string
+  password: string
 }
 
 class RefreshRequestBody {
-  refreshToken: string;
+  refreshToken: string
 }
 
 class CheckDuplicateMailRequestBody {
-  email: string;
+  email: string
 }
 
 class SendVerificationCodeMailRequestBody {
-  email: string;
-  lang: string;
+  email: string
+  lang: string
 }
 
 class CheckVerificationCodeMailRequestBody {
-  email: string;
-  verification_code: number;
+  email: string
+  verification_code: number
 }
 
 class RegistrationRequestBody {
@@ -274,23 +274,23 @@ class RegistrationRequestBody {
 }
 
 class SendResetPasswordLinkMailRequestBody {
-  email: string;
-  lang: string;
+  email: string
+  lang: string
 }
 
 class CheckResetPasswordLinkMailRequestBody {
-  token: string;
+  token: string
 }
 
 class ChangePasswordRequestBody {
-  token: string;
-  password: string;
+  token: string
+  password: string
 }
 
 class SendVerificationCodeMailChangeRequestBody {
-  email: string;
+  email: string
 }
 
 class CheckVerificationCodeSMSChangeRequestBody {
-  verification_code: number;
+  verification_code: number
 }
