@@ -33,7 +33,7 @@
               "src/favicon.ico",
               "src/assets",
               "src/sitemap.xml",
-              "src/robot.txt"
+              "src/robots.txt"
             ],
             "styles": [
               "src/assets/styles/bootstrap.min.css",
