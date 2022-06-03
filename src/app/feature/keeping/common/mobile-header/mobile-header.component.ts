@@ -10,6 +10,7 @@ export class MobileHeaderComponent implements OnInit {
   @Input() text: string;
   @Output() goBack = new EventEmitter<any>();
 
+  /* 스크랩 페이지 전용 탭 */
   tabData: any = [
     {
       tabName: 'feed',
@@ -31,6 +32,7 @@ export class MobileHeaderComponent implements OnInit {
   constructor(private router: Router) {
     if (this.router.routerState.snapshot.url.indexOf('scrap') > 0) {
       router.events.subscribe((event: NavigationStart) => {
+        // 새로고침 제어
         if (event.navigationTrigger === 'popstate') {
           const tabName = event.url.split('/')[2];
           this.nowTab = this.tabMenu.filter((tab) => tab.tabName === tabName)[0].tabName;

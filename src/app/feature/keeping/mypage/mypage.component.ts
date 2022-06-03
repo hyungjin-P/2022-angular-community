@@ -68,8 +68,10 @@ export class MypageComponent implements OnInit, AfterViewInit {
     this.user = this.storageService.getUser();
     this.closeDrawer();
 
+    /* url 파라미터에서 해당 마이페이지의 주인(Owner) 특정 */
     this.activateRoute.params.subscribe((params) => {
       if (params.userId === this.user.id) {
+        // 나의 마이페이지
         this.ownerUser = this.user;
         this.isOtherUser = false;
         this.countFollow(this.ownerUser.id);
@@ -78,6 +80,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
           this.mypageFeed.changeOwner();
         }
       } else {
+        // 다른 유저의 마이페이지
         this.userService.getUser(params.userId).subscribe((user) => {
           this.ownerUser = user;
           this.isOtherUser = true;
@@ -94,18 +97,21 @@ export class MypageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {}
 
+  /* 팔로우 팔로워 수 불러오기 */
   countFollow(userId: string): void {
     this.followService.countFollow(userId).subscribe((follow) => {
       this.follow = follow;
     });
   }
 
+  /* 타 유저 내가 팔로우 했는지 확인 - leftSide */
   isFollowInfo(userId: string) {
     this.followService.getFollowInfo(this.user.id, userId).subscribe((follow) => {
       this.ownerUser.isFollow = follow;
     });
   }
 
+  /* router-outlet active 시, 아래 자식 컴포넌트 가져오기 */
   onActivate(componentRef: any): void {
     if (componentRef?.isFeed) {
       this.mypageFeed = componentRef;
@@ -156,10 +162,12 @@ export class MypageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /* 나의 마이페이지에서 배경 편집 활성화 */
   changeBackgroundEditMode(value: boolean): void {
     this.backgroundEditMode = value;
   }
 
+  /* 배경사진 삭제 */
   async deleteBackground(url): Promise<void> {
     try {
       await this.userService.deleteUserBackground(url).toPromise();
@@ -213,6 +221,7 @@ export class MypageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /* 현재 미사용 */
   async logout(): Promise<void> {
     await this.storageService.removeUser();
     this.router.navigateByUrl('/').then(() => {
@@ -221,11 +230,13 @@ export class MypageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /* follow-view modal */
   openFollowView(): void {
     this.followView.userId = this.ownerUser.id;
     this.followView.onFollowViewModalShow();
   }
 
+  /* leftSide 에서 팔로우 버튼 동작 */
   toggleFollow(ownerUser: User) {
     if (ownerUser.isFollow) {
       this.removeFollow(this.user.id, ownerUser);

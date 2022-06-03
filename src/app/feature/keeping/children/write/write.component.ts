@@ -84,6 +84,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     confirmBtnText: 'Yes', // 선택
   };
 
+  /* 수정 상태 체크 */
   selectFeedId: string;
   isModifyState = false;
   isModified = false;
@@ -98,7 +99,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     private fileService: FileService,
     private textService: TextService
   ) {}
-  // 이동감지 하려다 실패
+  // 이동감지 하려다 실패 - 위 constructor {} 내부 코드
   /*window.addEventListener('beforeunload', (event) => {
     event.preventDefault();
     event.returnValue = '';
@@ -134,10 +135,12 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    // 슬라이더 자동 넘기기 제거
     $('#carousel-addPicture').carousel({
       interval: 0,
     });
 
+    // 뒤로가기 시, 경고 메세지 출력
     window.onbeforeunload = (event) => {
       event.preventDefault();
       event.returnValue = '';
@@ -145,7 +148,10 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // 경고 메세지 출력 삭제
     window.onbeforeunload = null;
+
+    // 수정 상태인데 저장하지 않고 페이지를 벗어날 때 수정 기록 삭제
     if (this.isModified && this.isModifyState) {
       const beforeFeed = this.feed;
       beforeFeed.pictures = this.modifyBeforePictures;
@@ -156,11 +162,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  toPos(obs$) {
-    const SUPPORT_TOUCH = 'ontouchstart' in window;
-    return obs$.pipe(map((v: any) => (SUPPORT_TOUCH ? v.changedTouches[0].pageX : v.pageX)));
-  }
-
+  /* 신규 작성시 데이터 미리 생성(임시 저장의 방안) */
   createFeed(isRewrite: boolean) {
     this.feedService.createFeed(isRewrite, this.user.id).subscribe(
       (feed: Feed) => {
@@ -174,6 +176,15 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  /* 수정 작업 시, 수정 할 피드 채우기 */
+  private fillModifyFeed() {
+    this.feedService.getFeed(this.selectFeedId, this.user.id).subscribe((feed) => {
+      this.modifyBeforePictures = feed[0].pictures.slice();
+      this.feed = feed[0];
+      this.content = feed[0].content;
+    });
+  }
+
   goBack() {
     this.location.back();
   }
@@ -182,6 +193,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pictureBoxVisible = !this.pictureBoxVisible;
   }
 
+  /* 슬라이드 이동 제어 */
   changeSlideIndex(index) {
     this.slideIndex = index;
   }
@@ -285,6 +297,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  /* 태그 모달 동작 */
   showTagModal() {
     this.tagModalVisible = true;
     setTimeout(() => {
@@ -344,6 +357,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  /* 작성완료 or 실기완료 버튼 클릭 */
   posting() {
     if (this.feed.pictures.length < 1) {
       let message = this.textService.getText('write:feed:007');
@@ -370,6 +384,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  /* 작성 프로세스 */
   writing() {
     this.feedService.updateFeed({ feedId: this.feed.id, posting: true }).subscribe(
       (v) => {
@@ -382,6 +397,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  /* 수정 프로세스 */
   modify() {
     if (this.isModified) {
       this.feedService.modifyFeed(this.feed).subscribe(
@@ -396,6 +412,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  /* 태그 입력제어 */
   onTagKey(key) {
     switch (key.code) {
       case 'Escape':
@@ -409,6 +426,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  /* 연속 입력 방지 함수 */
   intervalCall(interval) {
     return (fn) => {
       if (this.tagModalInputKey) {
@@ -433,13 +451,5 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   confirmModalCancel(): void {
     this.createFeed(true);
     this.isConfirmModalVisible = false;
-  }
-
-  private fillModifyFeed() {
-    this.feedService.getFeed(this.selectFeedId, this.user.id).subscribe((feed) => {
-      this.modifyBeforePictures = feed[0].pictures.slice();
-      this.feed = feed[0];
-      this.content = feed[0].content;
-    });
   }
 }

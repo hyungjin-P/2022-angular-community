@@ -16,6 +16,7 @@ import { HelperService } from '@services/helper.service';
 import { User } from '@schemas/user';
 import { TranslateService } from '@ngx-translate/core';
 import { TextService } from '@services/text.service';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'registration',
@@ -32,6 +33,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   langBoxVisible: boolean;
   selectedLanguage: string;
 
+  deletedUserId: string;
+  /* confirm modal */
+  isConfirmModalVisible = false;
+  confirmModalData: any = {};
+  confirmModalStatus: string;
+
   constructor(
     private router: Router,
     private angularFireAuth: AngularFireAuth,
@@ -39,6 +46,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private globalService: GlobalService,
     private storageService: StorageService,
     private authService: AuthService,
+    private userService: UserService,
     private helperService: HelperService,
     private textService: TextService
   ) {}
@@ -60,7 +68,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 this.storageService.setUser(user);
                 this.router.navigateByUrl(viaPath).then();
               },
-              (e) => {}
+              (e) => {
+                if (e.code === 'failure:deleted') {
+                  this.deletedUserId = e.message;
+                  this.openModalFailDeleted();
+                }
+              }
             );
           });
         } else {
@@ -125,7 +138,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.kakaoLoginTrigger(accessToken);
       },
       (e) => {
-        this.globalService.showToast(e.message);
+        if (e.code === 'failure:deleted') {
+          this.deletedUserId = e.message;
+          this.openModalFailDeleted();
+        }
       }
     );
   }
@@ -135,19 +151,26 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param accessToken
    */
   kakaoLoginTrigger(accessToken: string): void {
-    this.authService.modifiedKakaoLogin(accessToken).subscribe((user: User) => {
-      let viaPath = 'auth/login-success/kakao';
+    this.authService.modifiedKakaoLogin(accessToken).subscribe(
+      (user: User) => {
+        let viaPath = 'auth/login-success/kakao';
 
-      if (user?.signUpType === 'kakao') {
-        viaPath = 'auth/service-terms/kakao';
+        if (user?.signUpType === 'kakao') {
+          viaPath = 'auth/service-terms/kakao';
+        }
+
+        this.router.navigateByUrl(viaPath).then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
+      },
+      (e) => {
+        if (e.code === 'failure:deleted') {
+          this.deletedUserId = e.message;
+          this.openModalFailDeleted();
+        }
       }
-
-      this.router.navigateByUrl(viaPath).then(() => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      });
-
-    });
+    );
   }
 
   signInWithNaver(): void {
@@ -170,18 +193,26 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   _signInWithNaver(code: string) {
     this.naverLoginPopupWindowRef.close();
 
-    this.authService.modifySignWithNaver(code).subscribe((user: User) => {
-      let viaPath = 'auth/login-success/naver';
+    this.authService.modifySignWithNaver(code).subscribe(
+      (user: User) => {
+        let viaPath = 'auth/login-success/naver';
 
-      if (user?.signUpType === 'naver') {
-        viaPath = 'auth/service-terms/naver';
+        if (user?.signUpType === 'naver') {
+          viaPath = 'auth/service-terms/naver';
+        }
+
+        this.router.navigateByUrl(viaPath).then(() => {
+          this.storageService.setUser(user);
+          this.angularFireAuth.signInWithCustomToken(user.customToken);
+        });
+      },
+      (e) => {
+        if (e.code === 'failure:deleted') {
+          this.deletedUserId = e.message;
+          this.openModalFailDeleted();
+        }
       }
-
-      this.router.navigateByUrl(viaPath).then(() => {
-        this.storageService.setUser(user);
-        this.angularFireAuth.signInWithCustomToken(user.customToken);
-      });
-    });
+    );
   }
 
   openLangBox(event) {
@@ -204,5 +235,42 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.textService.changeLanguage(language);
     this.selectedLanguage = language;
     this.closeLangBox();
+  }
+
+  openModalFailDeleted() {
+    this.storageService.removeUser();
+    this.confirmModalStatus = 'deletedUser';
+    if (this.selectedLanguage === 'ko') {
+      this.confirmModalData = {
+        isIcon: false,
+        text: '삭제 요청중인 계정',
+        subText: '삭제 요청을 취소하시겠습니까?',
+        cancelBtnText: '아니요', // 선택
+        confirmBtnText: '요청취소', // 선택
+      };
+    } else {
+      this.confirmModalData = {
+        isIcon: false,
+        text: 'Account Requested for Withdrawal',
+        subText: `Do you want to cancel it?`,
+        cancelBtnText: 'No', // 선택
+        confirmBtnText: 'Yes', // 선택
+      };
+    }
+    this.isConfirmModalVisible = true;
+  }
+
+  confirmModalCancel() {
+    this.isConfirmModalVisible = false;
+  }
+
+  confirmModalConfirm() {
+    this.isConfirmModalVisible = false;
+    if (this.confirmModalStatus === 'deletedUser') {
+      this.userService.withdrawalCancel(this.deletedUserId).subscribe((result) => {
+        let message = this.textService.getText('auth:withdrawal:003');
+        this.globalService.showToast(message);
+      });
+    }
   }
 }

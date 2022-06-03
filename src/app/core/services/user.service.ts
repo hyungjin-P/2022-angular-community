@@ -1,20 +1,19 @@
-import {Injectable} from '@angular/core'
-import {HttpClient, HttpHeaders} from '@angular/common/http'
-import {Observable} from 'rxjs'
-import {catchError, map} from 'rxjs/operators'
-import handleError from './handleError'
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import handleError from './handleError';
 
-import {environment} from '@environments/environment'
+import { environment } from '@environments/environment';
 
-import {Response} from '@schemas/response'
-import {User} from '@schemas/user'
+import { Response } from '@schemas/response';
+import { User } from '@schemas/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * 수정 완료
@@ -30,7 +29,7 @@ export class UserService {
 
     return this.httpClient.get<any>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
     );
@@ -54,7 +53,6 @@ export class UserService {
       }),
       catchError(handleError)
     );
-
   }
 
   /**
@@ -67,7 +65,7 @@ export class UserService {
     const param: any = {
       userId,
       nickName,
-      aboutMe
+      aboutMe,
     };
 
     const options = {
@@ -84,35 +82,18 @@ export class UserService {
     );
   }
 
-  deleteUser(userId: string, reasons: DeleteUserDto): Observable<Response> {
-    const url = environment['serverAddress'] + `/users/${userId}`;
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: reasons,
-    }
-
-    return this.httpClient.delete<Response>(url, options).pipe(
-      map((res) => {
-        return res
-      }),
-      catchError(handleError)
-    )
-  }
-
   /**
    * 비밀번호 변경
    * @param changePasswordDto
    */
   changePassword(changePasswordDto: ChangePasswordDto): Observable<Response> {
-    const url: string = environment.userApiAddress + `/user/changePassword`
+    const url: string = environment.userApiAddress + `/user/changePassword`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.httpClient.patch<any>(url, changePasswordDto, options).pipe(
       map((res) => {
@@ -120,7 +101,7 @@ export class UserService {
         return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -128,22 +109,21 @@ export class UserService {
    * 수정 완료
    * */
   checkDuplicateNickname(userId: string, nickName: string): Observable<Response> {
-    const url = environment.userApiAddress +
-      `/user/duplicateUserNickname?userId=${userId}&nickName=${nickName}`;
+    const url = environment.userApiAddress + `/user/duplicateUserNickname?userId=${userId}&nickName=${nickName}`;
 
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.httpClient.get<any>(url, options).pipe(
       map((res) => {
         console.log('check duplicate nickname : ', res);
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
   }
 
   /**
@@ -156,30 +136,64 @@ export class UserService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    }
+    };
 
     return this.httpClient.delete<Response>(url, options).pipe(
       map((res) => {
-        return res
+        return res;
       }),
       catchError(handleError)
-    )
+    );
+  }
+
+  withdrawalTemporary(dto: WithdrawalTemporaryDto) {
+    const url = environment.userApiAddress + `/user/withdrawalTemporary`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.httpClient.post<Response>(url, dto, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
+  }
+
+  withdrawalCancel(userId: string) {
+    const url = environment.userApiAddress + `/user/withdrawalCancel?userId=${userId}`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.httpClient.post<Response>(url, options).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError(handleError)
+    );
   }
 }
 
 class UpdateUserDto {
-  name?: string
-  nickname?: string
-  age?: number
-  sex?: string
-  birthDate?: string
-  color?: string
-  aboutMe?: string
-  fcmToken?: string
-  agreementAge?: boolean
-  agreementPrivacy?: boolean
-  agreementServiceTerms?: boolean
-  agreementMarketing?: boolean
+  name?: string;
+  nickname?: string;
+  age?: number;
+  sex?: string;
+  birthDate?: string;
+  color?: string;
+  aboutMe?: string;
+  fcmToken?: string;
+  agreementAge?: boolean;
+  agreementPrivacy?: boolean;
+  agreementServiceTerms?: boolean;
+  agreementMarketing?: boolean;
 }
 
 class ServiceTermsDto {
@@ -191,11 +205,16 @@ class ServiceTermsDto {
 }
 
 class DeleteUserDto {
-  reasons: Array<any>
+  reasons: Array<any>;
 }
 
 class ChangePasswordDto {
   userId: string;
   oldPassword: string;
   newPassword: string;
+}
+
+class WithdrawalTemporaryDto {
+  userId: string;
+  reason: string;
 }

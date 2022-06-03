@@ -3,11 +3,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from '@services/global.service';
 import { StorageService } from '@services/storage.service';
 import { User } from '@schemas/user';
-import { Location } from '@angular/common';
-import { Navigation } from 'swiper';
 import { ScrapFeedComponent } from './scrap-feed/scrap-feed.component';
 import { ScrapMagazineComponent } from './scrap-magazine/scrap-magazine.component';
-// import {window} from "rxjs/operators";
 
 @Component({
   selector: 'app-scrap',
@@ -50,6 +47,7 @@ export class ScrapComponent implements OnInit, AfterViewInit, OnDestroy {
       }, 200);
     });
 
+    // 페이지 이동 제어
     this.subscription = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         if (val.url === '/scrap/feed') {
@@ -110,6 +108,7 @@ export class ScrapComponent implements OnInit, AfterViewInit, OnDestroy {
     window.history.back();
   }
 
+  /* router-outlet active 시, 아래 자식 컴포넌트 가져오기 */
   onActivate(componentRef: any) {
     if (componentRef.isScrapFeed) {
       this.scrapFeed = componentRef;
