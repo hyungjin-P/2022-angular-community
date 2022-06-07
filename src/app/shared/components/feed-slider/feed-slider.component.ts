@@ -56,6 +56,7 @@ export class FeedSliderComponent implements OnInit, AfterViewInit {
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
+    // 슬라이드 변경 시
     this.swiper.swiperRef.on('slideChange', (swiper) => {
       this.setActiveNumber(swiper.realIndex + 1);
       this.onChangeSlideEvent(swiper);

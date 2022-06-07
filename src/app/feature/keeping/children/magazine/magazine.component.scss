@@ -12,7 +12,7 @@
       .top-caption {
         letter-spacing: -0.2px;
         font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-        @include textStyle(700, 40px, 52px);
+        @include textStyle(700, 32px, 52px);
       }
 
       .top-banners {
@@ -248,7 +248,7 @@
     .categories {
       width: 100%;
       height: 65px;
-      margin-left: 16px;
+      margin-left: 8px;
       padding: 16px 0;
 
       //color: #0c5460;
@@ -280,10 +280,10 @@
     }
 
     .item-list {
-      margin: 0 16px;
+      margin: 0 8px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 40px 12px;
+      grid-gap: 40px 6px;
       .item {
         > div {
           .image-box {
@@ -291,6 +291,7 @@
             width: 100%;
             flex: 1 0 auto !important;
             height: auto;
+            margin-bottom: 4px;
 
             .picture {
               position: absolute;
@@ -301,7 +302,7 @@
               object-fit: cover;
               object-position: top;
               margin: auto;
-              border-radius: 12px;
+              border-radius: 8px;
 
               border: 1px solid var(--grey-8);
               cursor: pointer;
@@ -334,6 +335,7 @@
 
           .description {
             //margin: 8px 0;
+            margin-left: 4px;
 
             .info {
               @include textStyle(500, 12px, 20px);
@@ -437,6 +439,16 @@
   }
 }
 
+@media (min-width: 414px) {
+  .magazine {
+    .section {
+      .item-list {
+        grid-gap: 40px 12px;
+      }
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .magazine {
     .section {
@@ -495,6 +507,8 @@
         .item {
           > div {
             .image-box {
+              margin-bottom: 0;
+
               .picture {
                 border-radius: 12px 12px 0 0 !important;
               }
@@ -512,6 +526,8 @@
               border-radius: 0 0 12px 12px;
               padding: 20px;
               width: 100%;
+
+              margin-left: 0;
 
               .info {
                 margin-bottom: 0;

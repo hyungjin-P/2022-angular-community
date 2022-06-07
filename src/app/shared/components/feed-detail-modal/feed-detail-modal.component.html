@@ -164,8 +164,9 @@
                 <app-feed-slider [pictures]="feed?.pictures"
                                  [isLike]="feed?.isLike"
                                  [isBookmark]="feed?.isBookmark"
-                                 (onClickLike)='toggleFeedLike(feed)'
-                                 (onClickBookmark)='toggleFeedBookmark(feed)'>
+                                 (onClickLike)="toggleFeedLike(feed)"
+                                 (onClickBookmark)="toggleFeedBookmark(feed)"
+                                 #swiper>
                 </app-feed-slider>
               </div>
             </div>

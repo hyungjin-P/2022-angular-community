@@ -1,7 +1,7 @@
 @import '/src/assets/styles/font';
 
 .section {
-  padding: 20px 16px;
+  padding: 20px 8px;
   overflow-y: auto;
 
   .nav {
@@ -111,12 +111,12 @@
 
   .banner {
     display: flex;
-    margin: -20px -16px 0;
+    margin: -20px -8px 0;
     padding: 0 20px;
     align-items: center;
     justify-content: space-between;
 
-    height: 100px;
+    height: 90px;
     background: linear-gradient(256.32deg, #1d30dc 6.63%, #357ae1 100%);
 
     &.bg-black {
@@ -133,7 +133,6 @@
         //@include textStyle(500, 16px, 22px);
         @include textStyleGmarketSans_medium(16px);
         color: var(--white);
-
       }
 
       .text-2 {
@@ -158,7 +157,7 @@
 
   .item-list {
     display: grid;
-    margin: 25px 0;
+    margin: 16px 0;
     grid-template-columns: 1fr 1fr;
     grid-gap: 25px 6px;
 
@@ -174,11 +173,11 @@
           height: auto;
 
           background-color: var(--grey-8);
-          border-radius: 12px;
+          border-radius: 8px;
 
           .image-box-hover-content {
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 8px;
             position: absolute;
             top: 0;
             left: 0;
@@ -199,7 +198,7 @@
               );
               z-index: 2;
               transition-duration: 0.5s;
-              border-radius: 12px;
+              border-radius: 8px;
               opacity: 0;
             }
 
@@ -212,7 +211,7 @@
               transform: translate(50, 50);
               object-fit: cover;
               margin: auto;
-              border-radius: 12px;
+              border-radius: 8px;
               cursor: pointer;
               transition-duration: 0.5s;
               border: 1px solid #efefef;
@@ -269,7 +268,7 @@
               );
               z-index: 2;
               transition-duration: 0.5s;
-              border-radius: 12px;
+              border-radius: 8px;
               opacity: 1;
               //transform: scale(1.05, 1.05);
             }
@@ -473,7 +472,6 @@
 
         .text-2 {
           @include textStyleGmarketSans_bold(15px);
-
         }
       }
     }
@@ -497,13 +495,12 @@
 
         .text-2 {
           @include textStyleGmarketSans_bold(16px);
-
         }
       }
     }
 
     .item-list {
-      margin: 25px 0;
+      margin: 16px 0;
       grid-gap: 25px 12px;
     }
   }
@@ -512,7 +509,7 @@
 @media (min-width: 576px) {
   .section {
     .item-list {
-      margin: 50px 0;
+      margin: 16px 0;
       grid-gap: 40px 12px;
     }
   }
@@ -536,13 +533,12 @@
 
         .text-2 {
           @include textStyleGmarketSans_bold(20px);
-
         }
       }
     }
 
     .item-list {
-      margin: 50px 0;
+      margin: 16px 0;
       grid-gap: 40px 12px;
 
       .item {
@@ -567,6 +563,7 @@
 
     .banner {
       width: 90%;
+      height: 100px;
       margin: 0 auto;
 
       .img-content {
@@ -618,7 +615,7 @@
 
     .item-list {
       width: 90%;
-      margin: 65px auto;
+      margin: 40px auto;
       grid-gap: 50px 20px;
 
       .item {
@@ -648,7 +645,6 @@
 
         .text-2 {
           @include textStyleGmarketSans_bold(22px);
-
         }
       }
     }
@@ -671,7 +667,6 @@
 
         .text-2 {
           @include textStyleGmarketSans_bold(22px);
-
         }
       }
     }
@@ -682,9 +677,9 @@
 
     .item-list {
       width: 90%;
-      margin: 70px auto;
+      margin: 40px auto;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      grid-gap: 60px 30px;
+      grid-gap: 60px 20px;
 
       .item {
         > div {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Feed } from '@schemas/feed';
 import { User } from '@schemas/user';
 import { GlobalService } from '@services/global.service';
@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
 import { FeedLike } from '@schemas/feed-like';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { FeedLikeUserModalComponent } from '@shared/components/feed-like-user-modal/feed-like-user-modal.component';
-import { FeedComponent } from '../../../feature/keeping/children/feed/feed.component';
-import { ScrapFeedComponent } from '../../../feature/keeping/scrap/scrap-feed/scrap-feed.component';
+import { SwiperComponent } from 'swiper/angular';
+import Swiper from 'swiper';
+import { FeedSliderComponent } from '@shared/components/feed-slider/feed-slider.component';
 
 declare const $;
 
@@ -50,6 +51,8 @@ export class FeedDetailModalComponent implements OnInit {
   @ViewChild('commentModal') commentModal: FeedCommentModalComponent;
   /* 좋아요 컴포넌트 */
   @ViewChild('likeModal') likeModal: FeedLikeUserModalComponent;
+  /* 스위퍼 */
+  @ViewChild('swiper') swiper: FeedSliderComponent;
 
   constructor(
     private router: Router,
@@ -73,6 +76,10 @@ export class FeedDetailModalComponent implements OnInit {
     this.moreBoxVisible = false;
     this.contentViewVisible = true;
     this.selectedLanguage = localStorage.getItem('language');
+    // 슬라이드 초기화
+    if (this.swiper.activeNumber > 1) {
+      this.swiper.swiper.swiperRef.slideTo(0);
+    }
 
     if (!this.pageDate) {
       // UTC기준 최초 페이지 접속 시점
@@ -94,11 +101,19 @@ export class FeedDetailModalComponent implements OnInit {
   getPrevFeed() {
     this.closeMoreBox();
     this.prev.emit({});
+    // 슬라이드 초기화
+    if (this.swiper.activeNumber > 1) {
+      this.swiper.swiper.swiperRef.slideTo(0);
+    }
   }
   /* 다음 피드 게시글 부르기 */
   getNextFeed() {
     this.closeMoreBox();
     this.next.emit({});
+    // 슬라이드 초기화
+    if (this.swiper.activeNumber > 1) {
+      this.swiper.swiper.swiperRef.slideTo(0);
+    }
   }
 
   onChangeData(feedId) {
@@ -153,7 +168,10 @@ export class FeedDetailModalComponent implements OnInit {
           this.checkContentLimit(innerWidth);
         }
       },
-      (e) => {}
+      (e) => {
+        this.onCloseModal();
+        this.router.navigateByUrl('/feed');
+      }
     );
   }
 
