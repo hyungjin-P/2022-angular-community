@@ -47,12 +47,11 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.patch<any>(url, serviceTerms, options).pipe(
-      map((data: any) => {
+    return this.httpClient
+      .patch<any>(url, serviceTerms, options)
+      .pipe(map((data: any) => {
         return data;
-      }),
-      catchError(handleError)
-    );
+      }), catchError(handleError));
   }
 
   /**
@@ -74,12 +73,11 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.patch<User>(url, param, options).pipe(
-      map((user: User) => {
+    return this.httpClient
+      .patch<User>(url, param, options)
+      .pipe(map((user: User) => {
         return user;
-      }),
-      catchError(handleError)
-    );
+      }), catchError(handleError));
   }
 
   /**
@@ -95,13 +93,11 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.patch<any>(url, changePasswordDto, options).pipe(
-      map((res) => {
-        console.log('password change res : ', res);
+    return this.httpClient
+      .patch<any>(url, changePasswordDto, options)
+      .pipe(map((res) => {
         return res;
-      }),
-      catchError(handleError)
-    );
+      }), catchError(handleError));
   }
 
   /**
@@ -117,13 +113,12 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.get<any>(url, options).pipe(
-      map((res) => {
+    return this.httpClient
+      .get<any>(url, options)
+      .pipe(map((res) => {
         console.log('check duplicate nickname : ', res);
         return res;
-      }),
-      catchError(handleError)
-    );
+      }), catchError(handleError));
   }
 
   /**
@@ -138,8 +133,9 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.delete<Response>(url, options).pipe(
-      map((res) => {
+    return this.httpClient
+      .delete<Response>(url, options)
+      .pipe(map((res) => {
         return res;
       }),
       catchError(handleError)
@@ -172,12 +168,12 @@ export class UserService {
       }),
     };
 
-    return this.httpClient.post<Response>(url, options).pipe(
-      map((res) => {
+    return this.httpClient
+      .post<Response>(url, options)
+      .pipe(map((res) => {
         return res;
       }),
-      catchError(handleError)
-    );
+      catchError(handleError));
   }
 }
 
