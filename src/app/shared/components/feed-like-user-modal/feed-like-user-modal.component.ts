@@ -216,15 +216,14 @@ export class FeedLikeUserModalComponent implements OnInit, AfterViewInit {
 
   /** 다른 유저 마이페이지 이동 시 로직 */
   moveOtherUserMyPage(user: User, targetUserId): void {
-    if (this.feedDetailModal) {
-      this.feedDetailModal.onCloseModal();
-      this.feedDetailModal = undefined;
-    }
-
     if (!this.user) {
       this.showLoginModal();
       return;
     } else {
+      if (this.feedDetailModal) {
+        this.feedDetailModal.onCloseModal();
+        this.feedDetailModal = undefined;
+      }
       this.onCloseLikeUserModal();
       if (user?.id !== targetUserId) {
         this.otherUserUtil.moveOtherUserMyPage(targetUserId);
