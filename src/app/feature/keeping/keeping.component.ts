@@ -16,28 +16,5 @@ export class KeepingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setUpTitleListener();
-  }
-
-  private setUpTitleListener() {
-    this.router.events
-      .pipe(filter(e => e instanceof ResolveEnd))
-      .subscribe((e: ResolveEnd) => {
-        const {data} = getDeepestChildSnapshot(e.state.root);
-        if (data?.title) {
-          this.title.setTitle(data.title);
-        }
-      });
   }
 }
-
-function getDeepestChildSnapshot(snapshot: ActivatedRouteSnapshot) {
-  let deepestChild = snapshot.firstChild;
-
-  while (deepestChild?.firstChild) {
-    deepestChild = deepestChild.firstChild
-  }
-
-  return deepestChild || snapshot;
-}
-

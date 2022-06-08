@@ -38,7 +38,7 @@ const routes: Routes = [
     canActivate: [ServiceTermsGuard],
     component: KeepingComponent,
     children: [
-      { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full' },
+      { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full', },
       { path: 'feed', component: FeedComponent, data: {title: '내 컬렉션을 보여주세요! 키핑 피드'}},
       { path: 'feed/follow', canActivate: [AuthGuard], component: FeedFollowComponent },
       { path: 'follow', canActivate: [AuthGuard], component: FeedFollowComponent },
@@ -66,7 +66,6 @@ const routes: Routes = [
       { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
     ],
   },
-
   // 경유 페이지
   {
     path: 'via',

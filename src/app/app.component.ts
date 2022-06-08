@@ -6,7 +6,9 @@ import { StorageService } from '@services/storage.service';
 
 import { User } from '@schemas/user';
 import {Subscription} from "rxjs";
-import {NavigationStart, Router} from "@angular/router";
+import {ActivatedRouteSnapshot, NavigationStart, ResolveEnd, Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
+import {filter} from "rxjs/operators";
 
 declare const $;
 
@@ -32,6 +34,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private globalService: GlobalService,
     private storageService: StorageService,
     private router: Router,
+    private title: Title,
+
   ) {
     this.subscription = router.events
       .subscribe((event) => {
@@ -76,6 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       localStorage.setItem('language', language);
       this.translate.use(language);
     }
+
+    this.setUpTitleListener();
   }
 
   ngAfterViewInit(): void {
@@ -102,4 +108,24 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.globalService.hideToast();
   }
 
+  private setUpTitleListener() {
+    this.router.events
+      .pipe(filter(e => e instanceof ResolveEnd))
+      .subscribe((e: ResolveEnd) => {
+        const {data} = getDeepestChildSnapshot(e.state.root);
+        if (data?.title) {
+          this.title.setTitle(data.title);
+        }
+      });
+  }
+}
+
+function getDeepestChildSnapshot(snapshot: ActivatedRouteSnapshot) {
+  let deepestChild = snapshot.firstChild;
+
+  while (deepestChild?.firstChild) {
+    deepestChild = deepestChild.firstChild
+  }
+
+  return deepestChild || snapshot;
 }
