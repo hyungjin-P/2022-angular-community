@@ -119,7 +119,7 @@
                 ></shared-avatar>
                 <div
                   class="nickname">
-                  {{parent?.writer?.nickname ? parent?.writer?.nickname : parent?.writer?.email}}
+                  {{parent?.writer?.nickname ? parent?.writer?.nickname : parent?.writer?.email?.split('@')[0]}}
                 </div>
                 <div class="latest-ago">
                   {{getTimeText(parent)}}
@@ -194,7 +194,7 @@
                     fontSize="12"
                   ></shared-avatar>
                   <div class="nickname">
-                    {{ child?.writer?.nickname ? child?.writer?.nickname : child?.writer?.email }}
+                    {{ child?.writer?.nickname ? child?.writer?.nickname : child?.writer?.email?.split('@')[0] }}
                   </div>
                   <div class="latest-ago">{{getTimeText(parent)}}</div>
                   <div class="new-tag"

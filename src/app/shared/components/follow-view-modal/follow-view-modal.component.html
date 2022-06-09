@@ -101,8 +101,7 @@
                                    [image]="item?.picture[0]?.url"
                                    text="{{ item?.email }}"
                                    size="36"
-                                   fontSize="15">
-                    </shared-avatar>
+                                   fontSize="15"></shared-avatar>
                     <div class="nickname cursor-pointer"
                          (click)="moveOtherUserMyPage(user, item.id)">
                       <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
