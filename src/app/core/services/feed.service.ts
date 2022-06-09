@@ -214,7 +214,7 @@ export class FeedService {
   }
 
   createFeedTag(feedId: string, name: string): Observable<FeedTag> {
-    const url = environment.userApiAddress + `/feed/addFeedTag?feedId=${feedId}&name=${name}`;
+    const url = environment.userApiAddress + `/feed/addFeedTagNameOnly?feedId=${feedId}&name=${name}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -231,7 +231,7 @@ export class FeedService {
   }
 
   deleteFeedTag(feedId: string, tagId: string): Observable<Response> {
-    const url = environment.userApiAddress + `/feed/deleteFeedTag?feedId=${feedId}&tagId=${tagId}`;
+    const url = environment.userApiAddress + `/feed/deleteFeedTagNameOnly?feedId=${feedId}&tagId=${tagId}`;
 
     const options = {
       headers: new HttpHeaders({
@@ -358,7 +358,7 @@ export class FeedService {
     pageDate: string
   ): Observable<Array<FeedComment>> {
     let url = environment.userApiAddress + `/feed/comment/sub/findPages`;
-    url += `?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}`
+    url += `?page=${page}&limit=${limit}&feedCommentId=${feedCommentId}`;
     url += `&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
@@ -443,7 +443,8 @@ export class FeedService {
       map((res) => {
         return res;
       }),
-      catchError(handleError));
+      catchError(handleError)
+    );
   }
 
   /**
@@ -580,7 +581,13 @@ export class FeedService {
    * @param pageDate
    * @param otherUserId
    */
-  findMyPageFeedDetail(userId: string, page: number, limit: number, pageDate: string, otherUserId?: string): Observable<any> {
+  findMyPageFeedDetail(
+    userId: string,
+    page: number,
+    limit: number,
+    pageDate: string,
+    otherUserId?: string
+  ): Observable<any> {
     let url =
       environment.userApiAddress +
       `/feed/findMypageFeedDetail?userId=${userId}&page=${page}&limit=${limit}&pageDate=${pageDate}`;
@@ -663,7 +670,7 @@ export class FeedService {
   }
 
   getFirstFeedList(): Observable<any> {
-    const url = environment.userApiAddress + `/feed/`
+    const url = environment.userApiAddress + `/feed/`;
 
     const options = {
       headers: new HttpHeaders({
@@ -695,7 +702,6 @@ export class FeedService {
       catchError(handleError)
     );
   }
-
 }
 
 class FeedBookmarkDto {

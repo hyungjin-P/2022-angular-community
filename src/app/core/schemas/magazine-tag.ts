@@ -1,7 +1,9 @@
+import { Tag } from '@schemas/tag';
+
 export class MagazineTag {
-  constructor(public nameKo: string, public nameEn: string, public tagCount: number) {
-    this.nameKo = nameKo;
-    this.nameEn = nameEn;
-    this.tagCount = tagCount;
+  constructor(public id: string, public tagId: string, public tagInfo: Tag) {
+    this.id = id;
+    this.tagId = tagId;
+    this.tagInfo = tagInfo;
   }
 }

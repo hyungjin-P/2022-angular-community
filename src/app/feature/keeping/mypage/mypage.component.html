@@ -119,13 +119,13 @@
                 <div class="avatar">
                   <shared-avatar
                     [image]="ownerUser?.picture[0]?.url"
-                    text="{{ ownerUser?.email }}"
+                    text="{{ ownerUser?.email.split('@')[0] }}"
                     size="80"
                     fontSize="30"
                   ></shared-avatar>
                 </div>
                 <div class="nickname">
-                  {{ ownerUser?.nickname || ownerUser?.email || '' }}
+                  {{ ownerUser?.nickname || ownerUser?.email.split('@')[0] || '' }}
                 </div>
                 <div *ngIf='!isOtherUser'>
                   <span class="social social-kakao"
@@ -150,19 +150,20 @@
                 </div>
 
                 <!-- 내프로필 > 팔로우 -->
-                <div class="follow cursor-pointer" (click)="openFollowView()">
-                  <div class="follower">
-                    {{ 'mypage.follower-text' | translate }}
-                  </div>
-                  <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
-
+                <div class="follow cursor-pointer">
+                  <a class = 'follower-button' (click)="openFollowView(true)">
+                    <div class="follower-text">
+                      {{ 'mypage.follower-text' | translate }}
+                    </div>
+                    <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
+                  </a>
                   <div class="v-line"></div>
-
-                  <div class="following">
-                    {{ 'mypage.following-text' | translate }}
-                  </div>
-                  <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
-
+                  <a class="following-button" (click)="openFollowView(false)">
+                    <div class="following-text">
+                      {{ 'mypage.following-text' | translate }}
+                    </div>
+                    <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
+                  </a>
                 </div>
 
                 <!-- 자기소개 -->
@@ -253,14 +254,20 @@
                     <span class="email">{{ ownerUser?.email || '' }}</span>
                   </div>
 
-                  <div class="follow cursor-pointer" (click)="openFollowView()">
-                    <div class="follower">{{ 'mypage.follower-text' | translate }}</div>
-                    <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
-
+                  <div class="follow cursor-pointer">
+                    <a class = "follower-button" (click)="openFollowView(true)">
+                      <div class="follower-text">
+                        {{ 'mypage.follower-text' | translate }}
+                      </div>
+                      <div>{{follow?.fromUserCount ? (follow?.fromUserCount | number ) : 0}}</div>
+                    </a>
                     <div class="v-line"></div>
-
-                    <div class="following">{{ 'mypage.following-text' | translate }}</div>
-                    <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
+                    <a class="following-button" (click)="openFollowView(false)">
+                      <div class="following-text">
+                        {{ 'mypage.following-text' | translate }}
+                      </div>
+                      <div>{{follow?.toUserCount ? (follow?.toUserCount | number ) : 0}}</div>
+                    </a>
                   </div>
 
                   <!-- 프로필 수정 본인 것 -->

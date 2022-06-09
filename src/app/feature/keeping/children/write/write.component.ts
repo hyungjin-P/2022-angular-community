@@ -327,8 +327,11 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.isModifyState) {
       this.isModified = true;
-      const feedTag: FeedTag = new FeedTag('', this.tagModalInput, 0);
-      this.feed.tags.push(feedTag);
+
+      /* 태그 분류 수정 작업 진행중 */
+
+      // const feedTag: FeedTag = new FeedTag('',);
+      // this.feed.tags.push(feedTag);
       this.hideTagModal();
       return;
     }

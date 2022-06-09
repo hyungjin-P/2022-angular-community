@@ -42,7 +42,7 @@
                       <div class="user d-flex col-6">
                         <shared-avatar
                           [image]="magazine.writer.picture[0].url"
-                          text="{{ magazine.writer.email }}"
+                          text="{{ magazine.writer.email.split('@')[0] }}"
                           size="18"
                           fontSize="11"
                           backgroundColor="red"
@@ -124,7 +124,7 @@
                       <div class='user d-flex col-6'>
                         <shared-avatar
                           [image]="magazine.writer.picture[0].url"
-                          text="{{ magazine.writer.email }}"
+                          text="{{ magazine.writer.email.split('@')[0] }}"
                           size="18"
                           fontSize="11"
                           backgroundColor="red"
@@ -334,7 +334,7 @@
                   <div class='user col-6'>
                     <shared-avatar
                       [image]="magazine.writer.picture[0].url"
-                      text="{{ magazine.writer.email }}"
+                      text="{{ magazine.writer.email.split('@')[0] }}"
                       size="18"
                       fontSize="11"
                       backgroundColor="red"></shared-avatar>

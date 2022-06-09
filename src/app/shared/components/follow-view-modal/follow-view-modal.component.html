@@ -10,7 +10,7 @@
 
       <div class="modal-header">
         <h5 class="modal-title">
-          {{ user?.nickname ? user.nickname : user?.email }}
+          {{ user?.nickname ? user.nickname : user?.email.split('@')[0] }}
         </h5>
         <button type="button"
                 class="close"
@@ -22,11 +22,12 @@
                class="display-none"
                name="follow-tabs"
                id="follower"
-               checked>
+               [checked]="isFollowerTab">
         <input type="radio"
                class="display-none"
                name="follow-tabs"
-               id="following">
+               id="following"
+               [checked]="!isFollowerTab">
 
         <ul class="nav" role="navigation">
           <label role="listitem" for="follower">팔로워</label>
@@ -51,14 +52,14 @@
                     <shared-avatar class="avatar cursor-pointer"
                                    (click)="moveOtherUserMyPage(user, item.id)"
                                    [image]="item?.picture[0]?.url"
-                                   text="{{ item?.email }}"
+                                   text="{{ item?.email.split('@')[0] }}"
                                    size="36"
                                    fontSize="15">
                     </shared-avatar>
 
                     <div class="nickname cursor-pointer"
                          (click)="moveOtherUserMyPage(user, item.id)">
-                      <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
+                      <span>{{ item?.nickname ? item?.nickname : item?.email.split('@')[0] }}</span>
                     </div>
 
                     <button type="button"
@@ -104,7 +105,7 @@
                                    fontSize="15"></shared-avatar>
                     <div class="nickname cursor-pointer"
                          (click)="moveOtherUserMyPage(user, item.id)">
-                      <span>{{ item?.nickname ? item?.nickname : item?.email }}</span>
+                      <span>{{ item?.nickname ? item?.nickname : item?.email.split('@')[0] }}</span>
                     </div>
                     <button type="button"
                             class="follow"

@@ -208,7 +208,7 @@
                     '@' +
                     (child?.mentions[0]?.mentionUser?.nickname
                       ? child?.mentions[0]?.mentionUser?.nickname
-                      : child?.mentions[0]?.mentionUser?.email)
+                      : child?.mentions[0]?.mentionUser?.email?.split('@')[0])
                     }}
                   </span>
                   {{ child.text }}

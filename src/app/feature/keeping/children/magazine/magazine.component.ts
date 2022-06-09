@@ -168,7 +168,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         if (v.tags.length > 0) {
           let tagsStr = '';
           v.tags.forEach((tag) => {
-            tagsStr += '#' + tag.nameKo + ' ';
+            tagsStr += '#' + tag.tagInfo.nameKo + ' ';
           });
           v.tagsStr = tagsStr;
         }
@@ -180,7 +180,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         if (v.tags.length > 0) {
           let tagsStr = '';
           v.tags.forEach((tag) => {
-            tagsStr += '#' + tag.nameEn + ' ';
+            tagsStr += '#' + tag.tagInfo.nameEn + ' ';
           });
           v.tagsStr = tagsStr;
         }
@@ -197,6 +197,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
       });
     } else {
       this.publicService.getMagazineTopList().subscribe((magazineList) => {
+        console.log(magazineList);
         this.topMagazineList = magazineList;
         this.changeBody(this.topMagazineList);
         this.changeTab();

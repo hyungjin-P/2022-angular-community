@@ -68,7 +68,7 @@
                    (click)="moveOtherUserMyPage(user, feed?.writer?.id)">
                 <shared-avatar
                   [image]="feed?.writer.picture[0]?.url"
-                  text="{{ feed?.writer.email }}"
+                  text="{{ feed?.writer.email.split('@')[0] }}"
                   size="22"
                   fontSize="14"
                   backgroundColor="red"

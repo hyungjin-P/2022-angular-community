@@ -169,7 +169,7 @@
                 <div class="avatar" *ngIf="i < 3">
                   <shared-avatar
                     [image]="like_user.user.picture[0]?.url"
-                    text="{{ like_user.user.email }}"
+                    text="{{ like_user.user.email.split('@')[0] }}"
                     size="18"
                     fontSize="8">
                   </shared-avatar>
@@ -263,7 +263,7 @@
                 <div class="user">
                   <shared-avatar
                     [image]="feed?.writer.picture[0]?.url"
-                    text="{{ feed?.writer.email }}"
+                    text="{{ feed?.writer.email.split('@')[0] }}"
                     size="20"
                     fontSize="14"
                     backgroundColor="red"

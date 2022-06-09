@@ -328,9 +328,14 @@
 
             @include textStyle(400, 13px, 21px);
 
-            .following,
-            .follower {
-              margin-right: 8px;
+            a {
+              display: flex;
+              color: black;
+
+              .following-text,
+              .follower-text {
+                margin-right: 8px;
+              }
             }
 
             .v-line {
@@ -577,9 +582,14 @@
 
           @include textStyle(400, 13px, 21px);
 
-          .following,
-          .follower {
-            margin-right: 8px;
+          a {
+            display: flex;
+            color: black;
+
+            .following-text,
+            .follower-text {
+              margin-right: 8px;
+            }
           }
 
           .v-line {

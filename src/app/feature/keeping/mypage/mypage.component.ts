@@ -231,7 +231,8 @@ export class MypageComponent implements OnInit, AfterViewInit {
   }
 
   /* follow-view modal */
-  openFollowView(): void {
+  openFollowView(isFollowerTab: boolean): void {
+    this.followView.isFollowerTab = isFollowerTab;
     this.followView.userId = this.ownerUser.id;
     this.followView.onFollowViewModalShow();
   }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { User } from '@schemas/user';
 import { UserService } from '@services/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,6 +17,7 @@ declare const $;
 })
 export class FollowViewModalComponent implements OnInit, AfterViewInit {
   @Input() userId: string;
+  @Output() isFollowerTab: boolean;
   user: User;
   loginUser: User;
 

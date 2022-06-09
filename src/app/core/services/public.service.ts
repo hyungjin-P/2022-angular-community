@@ -172,37 +172,4 @@ export class PublicService {
       catchError(handleError)
     );
   }
-
-  getFeedTagList(text: string): Observable<any> {
-    const url = environment.userApiAddress + `/public/feed/findTagList?name=${text}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.get<any>(url, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
-  getMagazineTagList(text: string): Observable<any> {
-    const url = environment.userApiAddress + `/public/magazine/findTagList?name=${text}`;
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http.get<any>(url, options).pipe(
-      map((res) => {
-        return res;
-      }),
-      catchError(handleError)
-    );
-  }
 }

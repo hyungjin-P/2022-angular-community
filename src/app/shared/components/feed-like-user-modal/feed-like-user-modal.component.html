@@ -39,7 +39,7 @@
             class="cursor-pointer"
             (click)="moveOtherUserMyPage(likeUser?.user, likeUser?.user?.id)"
             [image]="likeUser.user.picture[0]?.url"
-            text="{{ likeUser.user.email }}"
+            text="{{ likeUser.user.email.split('@')[0] }}"
             size="45"
             fontSize="18"
           ></shared-avatar>
