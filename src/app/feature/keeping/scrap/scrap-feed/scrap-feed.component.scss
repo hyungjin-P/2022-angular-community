@@ -1,7 +1,7 @@
 @import '/src/assets/styles/font';
 
 .items-title {
-  margin: 40px 20px 30px 20px;
+  margin: 20px 12px 10px;
   display: flex;
 
   .title {
@@ -46,9 +46,9 @@
 
 .items {
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 12px;
   grid-template-columns: 1fr 1fr;
-  padding: 20px 20px;
+  padding: 10px 12px;
 
   .item {
     .item-box {

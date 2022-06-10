@@ -25,14 +25,28 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   otherCount: number = 0;
   totalCount: number = 0;
 
-  limit: number = 12; // 메인 출력 개수
+  page = 1;
+  limit = 12;
+  pageMeta: any = {};
+  pageLink: any = {};
 
   isOtherUser: boolean = false;
 
   isFeed = true;
   viewType = 'desktop';
 
-  constructor(private router: Router, private storageService: StorageService, private feedService: FeedService) {}
+  constructor(private router: Router, private storageService: StorageService, private feedService: FeedService) {
+    this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+
+    let timer = null;
+
+    window.addEventListener('resize', (data) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        this.viewType = window.outerWidth > 991 ? 'desktop' : 'mobile';
+      }, 200);
+    });
+  }
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
@@ -45,18 +59,26 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   public changeOwner() {
     if (this.user !== this.ownerUser) this.isOtherUser = true;
     if (this.ownerUser) {
-      this.findMyPageFeedList(this.ownerUser.id, this.limit);
+      this.findMyPageFeedList(this.ownerUser.id);
     }
   }
 
   /**
    * 마이페이지 내 피드 메인 조회
    * @param userId
-   * @param limit
    */
-  findMyPageFeedList(userId, limit): void {
+  findMyPageFeedList(userId): void {
     if (this.user) {
-      this.feedService.findMyPageFeedMain(userId, limit).subscribe((data) => {
+      this.feedService.findMyPageFeedMain(userId, this.limit).subscribe((data) => {
+        this.pageMeta = data?.meta;
+        this.pageLink = data?.links;
+
+        if (this.page > 1) {
+          this.feedList = [...this.feedList, ...data?.feedList];
+        } else {
+          this.feedList = data?.feedList;
+        }
+
         this.feedList = data?.feedList;
         this.otherCount = data?.otherCount;
         this.totalCount = data?.totalCount;
@@ -129,6 +151,13 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
       this.feedDetailModal.prevDisable = true;
     } else if (nowFeedIndex === this.feedList.length - 1) {
       this.feedDetailModal.nextDisable = true;
+    }
+  }
+
+  findNextPage() {
+    if (this.pageLink?.next) {
+      this.page = this.page + 1;
+      this.findMyPageFeedList(this.ownerUser.id);
     }
   }
 }

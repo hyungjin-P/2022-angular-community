@@ -61,10 +61,10 @@
 </div>
 
 <!-- 등록한 피드 있을 때 -->
-<div class="items flex-wrap"
+<div class="items"
      *ngIf="feedList.length > 0">
 
-  <div class="item-list col-6 col-lg-3"
+  <div class="item-list"
        *ngFor="let feed of feedList; let i = index;">
 
     <div class="item-box"
@@ -85,17 +85,20 @@
         </div>
       </ng-container>
     </div>
-
   </div>
 
   <!-- 사진 없는 것 12개까지 증축하기 -->
   <ng-container *ngIf="feedList?.length <= limit">
-    <div class="item-list col-6 col-lg-3 d-none d-lg-block"
+    <div class="item-list d-none d-lg-block"
          *ngFor="let dummy of ' '.repeat(limit - feedList.length).split(''); let x = index"
     >
       <div class="item-box" style="cursor: default"></div>
     </div>
   </ng-container>
+
+  <div class='shared-button-outline d-none d-lg-flex' *ngIf='pageLink?.next' (click)='findNextPage()'>
+    {{'keeping.scrap.more' | translate}}
+  </div>
 </div>
 
 <!-- 피드 상세 모달 컴포넌트 -->
