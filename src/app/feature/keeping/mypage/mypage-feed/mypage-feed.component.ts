@@ -29,6 +29,7 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
   limit = 12;
   pageMeta: any = {};
   pageLink: any = {};
+  pageDate: any;
 
   isOtherUser: boolean = false;
 
@@ -50,6 +51,10 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.user = this.storageService.getUser();
+
+    // UTC기준 최초 페이지 접속 시점
+    this.pageDate = new Date().toISOString();
+
     this.changeOwner();
   }
 
@@ -69,19 +74,18 @@ export class MypageFeedComponent implements OnInit, AfterViewInit {
    */
   findMyPageFeedList(userId): void {
     if (this.user) {
-      this.feedService.findMyPageFeedMain(userId, this.limit).subscribe((data) => {
+      this.feedService.findMyPageFeedMain(this.page, this.limit, userId, this.pageDate).subscribe((data) => {
         this.pageMeta = data?.meta;
         this.pageLink = data?.links;
 
         if (this.page > 1) {
-          this.feedList = [...this.feedList, ...data?.feedList];
+          this.feedList = [...this.feedList, ...data?.items];
         } else {
-          this.feedList = data?.feedList;
+          this.feedList = data?.items;
         }
 
-        this.feedList = data?.feedList;
-        this.otherCount = data?.otherCount;
-        this.totalCount = data?.totalCount;
+        this.otherCount = data?.meta.otherCount;
+        this.totalCount = data?.meta.totalCount;
 
         if (this.totalCount === 0) {
           this.feedList = [];

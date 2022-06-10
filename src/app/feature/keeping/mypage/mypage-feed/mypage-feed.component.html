@@ -26,77 +26,78 @@
   </ng-container>-->
 
 </div>
+<div class='item-section'>
+  <!-- 등록한 피드 없을 때 -->
+  <div class="items justify-content-center"
+       *ngIf="feedList.length === 0">
 
-<!-- 등록한 피드 없을 때 -->
-<div class="items justify-content-center"
-     *ngIf="feedList.length === 0">
-
-  <!-- 본인 것 -->
-  <ng-container *ngIf="!isOtherUser">
-    <div class="item-empty">
-      <div class="item-empty-title">
-        {{ 'mypage.empty-text-1' | translate }}
-      </div>
-      <div class="item-empty-content">
-        {{('mypage.empty-text-2' | translate)}}
-      </div>
-      <div class="item-empty-btns d-none d-lg-flex">
-        <button type="button" (click)="goRouter('/write')">
-          <span [inlineSVG]="'assets/icons/mypage/pensil-color.svg'"></span>
-          <div>{{ 'mypage.write' | translate }}</div>
-        </button>
-      </div>
-    </div>
-  </ng-container>
-
-  <!-- 다른 유저 것 -->
-  <ng-container *ngIf="isOtherUser">
-    <div class="item-empty">
-      <div class="item-empty-content">
-        {{('mypage.empty-text-3' | translate)}}
-      </div>
-    </div>
-  </ng-container>
-
-</div>
-
-<!-- 등록한 피드 있을 때 -->
-<div class="items"
-     *ngIf="feedList.length > 0">
-
-  <div class="item-list"
-       *ngFor="let feed of feedList; let i = index;">
-
-    <div class="item-box"
-         [ngStyle]="comparisonBackgroundImage(feed)"
-         (click)="feedDetailModalShow(feed.id)"
-    >
-
-      <div class="item-box-picture-count d-lg-none"
-           *ngIf="feed?.pictureCount > 1">
-        {{ feed?.pictureCount > 99 ? '99+' : ('+' + feed?.pictureCount) }}
-      </div>
-
-      <ng-container *ngIf="otherCount > 0 && (i + 1) === limit">
-        <div class="item-box-other-count">
-          <div class="other-count-num">
-            {{ otherCount > 99 ? '99+' : (otherCount + '+') }}
-          </div>
+    <!-- 본인 것 -->
+    <ng-container *ngIf="!isOtherUser">
+      <div class="item-empty">
+        <div class="item-empty-title">
+          {{ 'mypage.empty-text-1' | translate }}
         </div>
-      </ng-container>
-    </div>
+        <div class="item-empty-content">
+          {{('mypage.empty-text-2' | translate)}}
+        </div>
+        <div class="item-empty-btns d-none d-lg-flex">
+          <button type="button" (click)="goRouter('/write')">
+            <span [inlineSVG]="'assets/icons/mypage/pensil-color.svg'"></span>
+            <div>{{ 'mypage.write' | translate }}</div>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- 다른 유저 것 -->
+    <ng-container *ngIf="isOtherUser">
+      <div class="item-empty">
+        <div class="item-empty-content">
+          {{('mypage.empty-text-3' | translate)}}
+        </div>
+      </div>
+    </ng-container>
+
   </div>
 
-  <!-- 사진 없는 것 12개까지 증축하기 -->
-  <ng-container *ngIf="feedList?.length <= limit">
-    <div class="item-list d-none d-lg-block"
-         *ngFor="let dummy of ' '.repeat(limit - feedList.length).split(''); let x = index"
-    >
-      <div class="item-box" style="cursor: default"></div>
-    </div>
-  </ng-container>
+  <!-- 등록한 피드 있을 때 -->
+  <div class="items"
+       *ngIf="feedList.length > 0">
 
-  <div class='shared-button-outline d-none d-lg-flex' *ngIf='pageLink?.next' (click)='findNextPage()'>
+    <div class="item-list"
+         *ngFor="let feed of feedList; let i = index;">
+
+      <div class="item-box"
+           [ngStyle]="comparisonBackgroundImage(feed)"
+           (click)="feedDetailModalShow(feed.id)"
+      >
+
+        <div class="item-box-picture-count d-lg-none"
+             *ngIf="feed?.pictureCount > 1">
+          {{ feed?.pictureCount > 99 ? '99+' : ('+' + feed?.pictureCount) }}
+        </div>
+
+        <ng-container *ngIf="otherCount > 0 && (i + 1) === limit">
+          <div class="item-box-other-count">
+            <div class="other-count-num">
+              {{ otherCount > 99 ? '99+' : (otherCount + '+') }}
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- 사진 없는 것 12개까지 증축하기 -->
+    <ng-container *ngIf="feedList?.length <= limit">
+      <div class="item-list d-none d-lg-block"
+           *ngFor="let dummy of ' '.repeat(limit - feedList.length).split(''); let x = index"
+      >
+        <div class="item-box" style="cursor: default"></div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class='shared-button-outline d-none d-lg-flex' *ngIf='pageLink?.next && feedList.length > 0' (click)='findNextPage()'>
     {{'keeping.scrap.more' | translate}}
   </div>
 </div>

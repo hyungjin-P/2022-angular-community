@@ -553,11 +553,15 @@ export class FeedService {
 
   /**
    * 마이페이지 피드 메인 조회
-   * @param userId
+   * @param page
    * @param limit
+   * @param userId
+   * @param pageDate
    */
-  findMyPageFeedMain(userId: string, limit: number): Observable<any> {
-    const url = environment.userApiAddress + `/feed/findMypageFeed?userId=${userId}&limit=${limit}`;
+  findMyPageFeedMain(page: number, limit: number, userId: string, pageDate: string): Observable<any> {
+    const url =
+      environment.userApiAddress +
+      `/feed/findMypageFeed?page=${page}&limit=${limit}&userId=${userId}&pageDate=${pageDate}`;
 
     const options = {
       headers: new HttpHeaders({
