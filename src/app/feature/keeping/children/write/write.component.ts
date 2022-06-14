@@ -322,6 +322,17 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
         let message = this.textService.getText('write:feed:004');
         this.globalService.showToast(message);
       }
+      if (!this.tagModalInput) {
+        let message = this.textService.getText('write:feed:008');
+        this.globalService.showToast(message);
+      }
+      return;
+    }
+
+    if (this.tagModalInput.replace(' ', '') === '') {
+      this.hideTagModal();
+      let message = this.textService.getText('write:feed:008');
+      this.globalService.showToast(message);
       return;
     }
 

@@ -58,6 +58,7 @@ export class TextService {
       'write:feed:005': '수정이 완료되었습니다.',
       'write:feed:006': '사진은 최대 8장까지 등록 가능해요.',
       'write:feed:007': '사진을 등록해주세요.',
+      'write:feed:008': '태그 내용을 작성하세요.',
 
       'follow:001': '팔로우 하였습니다.',
       'follow:002': '팔로우 해제되었습니다.',
@@ -124,6 +125,7 @@ export class TextService {
       'write:feed:005': 'Modified Complete.',
       'write:feed:006': 'You can register up to 8 photos.',
       'write:feed:007': 'Please register the photo.',
+      'write:feed:008': 'Please write your tag.',
 
       'follow:001': 'Followed it.',
       'follow:002': 'Unfollowed it.',
