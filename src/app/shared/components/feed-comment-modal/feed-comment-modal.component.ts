@@ -88,7 +88,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
         this.clearData();
       }
 
-      if ($(event.target).attr('id') === 'confirm-modal') {
+      if ($(event.target).attr('id') === 'comment-confirm-modal') {
         this.confirmComment = {};
       }
     });
@@ -110,7 +110,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
   }
 
   closeConfirmModal(): void {
-    $('#confirm-modal').modal('hide');
+    $('#comment-confirm-modal').modal('hide');
   }
 
   loginModalVisible(): void {
@@ -365,7 +365,7 @@ export class FeedCommentModalComponent implements OnInit, AfterViewInit {
       }
     }
 
-    $('#confirm-modal').modal('show');
+    $('#comment-confirm-modal').modal('show');
   }
 
   onConfirmModalConfirm(): void {

@@ -401,7 +401,7 @@ export class FeedDetailModalComponent implements OnInit {
   /* 피드 삭제 모 */
   onConfirmModalShow(feed: Feed): void {
     this.feedDelete = feed;
-    $('#confirm-modal').modal('show');
+    $('#feed-detail-confirm-modal').modal('show');
   }
 
   onConfirmModalConfirm(): void {
@@ -411,7 +411,7 @@ export class FeedDetailModalComponent implements OnInit {
   }
 
   closeConfirmModal(): void {
-    $('#confirm-modal').modal('hide');
+    $('#feed-detail-confirm-modal').modal('hide');
   }
 
   commentModalShow(feed: Feed): void {
