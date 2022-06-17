@@ -37,12 +37,8 @@
   min-height: 300px;
   margin-bottom: 90px;
 
-  .items {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 16px;
-    padding: 0;
-
+  .item-empty-section {
+    padding-top: 15%;
     .item-empty {
       display: flex;
       height: 100%;
@@ -98,6 +94,13 @@
         }
       }
     }
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 16px;
+    padding: 0;
 
     .item-list {
       .item-box {

@@ -1,0 +1,45 @@
+<div  class="section full-absolute scroll-y">
+  <swiper (swiper)="dragSwiper = $event" [freeMode] = "true" [slidesPerView]="4" [watchSlidesProgress]="false" cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="dropEvent($event)">
+    <ng-template swiperSlide *ngFor="let timePeriod of timePeriods">
+      <div class="example-box"  cdkDrag>
+        <img [src]="timePeriod" alt="">
+      </div>
+    </ng-template>
+  </swiper>
+
+
+  <div class="write-swiper">
+
+    <swiper
+      (swiper)="thumbsSwiper = $event"
+      [spaceBetween]="10"
+      [slidesPerView]="4"
+      [freeMode]="true"
+      [watchSlidesProgress]="false"
+      class="mySwiper"
+
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="dropEvent($event)"
+    >
+      <ng-template *ngFor="let timePeriod of timePeriods" swiperSlide>
+        <div class="example-box" cdkDrag [cdkDragStartDelay]="1000">
+          <img [src]="timePeriod" alt="">
+        </div>
+      </ng-template>
+    </swiper>
+
+    <swiper
+      style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+      [spaceBetween]="10"
+      [navigation]="true"
+      [thumbs]="{ swiper: thumbsSwiper }"
+      class="mySwiper2"
+    >
+      <ng-template *ngFor="let timePeriod of timePeriods" swiperSlide>
+        <img [src]="timePeriod" alt="">
+      </ng-template>
+    </swiper>
+
+  </div>
+</div>

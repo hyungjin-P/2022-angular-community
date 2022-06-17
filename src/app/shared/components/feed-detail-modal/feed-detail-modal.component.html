@@ -29,40 +29,6 @@
       </div>
 
       <div class="modal-body">
-        <!-- Confirm Modal -->
-        <div class="modal modal-back" id="confirm-modal" data-backdrop="static"
-             data-keyboard="false" tabindex="-1" aria-labelledby="confirm-modal"
-             aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered confirm-modal">
-            <div class="modal-content">
-              <div class="modal-body">
-
-                <div class="confirm-modal-title">
-                  {{ 'component.feed-detail.delete-confirm-title' | translate }}
-                </div>
-
-                <div class="confirm-modal-sub-title">
-                  {{ 'component.feed-detail.delete-confirm-sub-title' | translate }}
-                </div>
-
-                <div class="confirm-modal-btns">
-                  <button type="button"
-                          class="close"
-                          (click)="closeConfirmModal()">
-                    {{ 'component.feed-detail.cancel' | translate }}
-                  </button>
-                  <button type="button"
-                          class="confirm"
-                          (click)="onConfirmModalConfirm()">
-                    {{ 'component.feed-detail.delete' | translate }}
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- 본문 -->
         <div class="selected-item">
           <div class="row-1">
@@ -286,23 +252,57 @@
             </div>
           </div>
         </div>
+
+        <!-- shared modal -->
+        <app-feed-like-user-modal #likeModal></app-feed-like-user-modal>
+        <app-feed-comment-modal #commentModal></app-feed-comment-modal>
+        <shared-login-modal
+          type='login'
+          [(visible)]='isLoginModalVisible'
+          (cancel)='loginModalCancel()'
+          (confirm)='loginModalConfirm()'
+          (another)='loginModalAnother()'
+        ></shared-login-modal>
+
+        <!-- Confirm Modal -->
+        <div class="modal modal-back" id="confirm-modal" data-backdrop="static"
+             data-keyboard="false" tabindex="-1" aria-labelledby="confirm-modal"
+             aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered confirm-modal">
+            <div class="modal-content">
+              <div class="modal-body">
+
+                <div class="confirm-modal-title">
+                  {{ 'component.feed-detail.delete-confirm-title' | translate }}
+                </div>
+
+                <div class="confirm-modal-sub-title">
+                  {{ 'component.feed-detail.delete-confirm-sub-title' | translate }}
+                </div>
+
+                <div class="confirm-modal-btns">
+                  <button type="button"
+                          class="close"
+                          (click)="closeConfirmModal()">
+                    {{ 'component.feed-detail.cancel' | translate }}
+                  </button>
+                  <button type="button"
+                          class="confirm"
+                          (click)="onConfirmModalConfirm()">
+                    {{ 'component.feed-detail.delete' | translate }}
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="modal-footer">
 
       </div>
-
-
-
-      <app-feed-like-user-modal #likeModal></app-feed-like-user-modal>
-
-      <shared-login-modal
-        type='login'
-        [(visible)]='isLoginModalVisible'
-        (cancel)='loginModalCancel()'
-        (confirm)='loginModalConfirm()'
-        (another)='loginModalAnother()'
-      ></shared-login-modal>
     </div>
   </div>
   <a class="feed-detail-modal-button-prev"
@@ -315,4 +315,4 @@
   </a>
 </div>
 
-<app-feed-comment-modal #commentModal></app-feed-comment-modal>
+

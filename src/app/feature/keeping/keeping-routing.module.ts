@@ -29,6 +29,7 @@ import { ScrapMagazineComponent } from './scrap/scrap-magazine/scrap-magazine.co
 import { SearchFeedComponent } from './search/search-feed/search-feed.component';
 import { SearchMagazineComponent } from './search/search-magazine/search-magazine.component';
 import { MypageViaComponent } from './mypage/mypage-via/mypage-via.component';
+import { TestPageComponent } from './children/test-page/test-page.component';
 
 // 2022.05.04 기준 미사용 항목 : notice, event, help, notification
 const routes: Routes = [
@@ -38,22 +39,36 @@ const routes: Routes = [
     canActivate: [ServiceTermsGuard],
     component: KeepingComponent,
     children: [
-      { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full', },
-      { path: 'feed', component: FeedComponent, data: {title: '내 컬렉션을 보여주세요! 키핑 피드'}},
+      { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full' },
+      { path: 'feed', component: FeedComponent, data: { title: '내 컬렉션을 보여주세요! 키핑 피드' } },
       { path: 'feed/follow', canActivate: [AuthGuard], component: FeedFollowComponent },
       { path: 'follow', canActivate: [AuthGuard], component: FeedFollowComponent },
-      { path: 'feed/follow/:user_id', canActivate: [AuthGuard], component: FeedFollowComponent, data: {title: '내 컬렉션을 보여주세요! 키핑 피드'}},
-      { path: 'feed/:feed_id', component: FeedDetailComponent, data: {title: '내 컬렉션을 보여주세요! 키핑 피드'}},
-      { path: 'feed/:feed_id/:redirect', component: FeedDetailComponent, data: {title: '내 컬렉션을 보여주세요! 키핑 피드'}},
+      {
+        path: 'feed/follow/:user_id',
+        canActivate: [AuthGuard],
+        component: FeedFollowComponent,
+        data: { title: '내 컬렉션을 보여주세요! 키핑 피드' },
+      },
+      { path: 'feed/:feed_id', component: FeedDetailComponent, data: { title: '내 컬렉션을 보여주세요! 키핑 피드' } },
+      {
+        path: 'feed/:feed_id/:redirect',
+        component: FeedDetailComponent,
+        data: { title: '내 컬렉션을 보여주세요! 키핑 피드' },
+      },
       { path: 'write', canActivate: [AuthGuard], component: WriteComponent },
       { path: 'write/:feed_id', canActivate: [AuthGuard], component: WriteComponent },
-      { path: 'magazine', component: MagazineComponent, data: {title: '다양한 정보와 커스텀 작가님들을 소개합니다! 키핑 매거진'}},
+      {
+        path: 'magazine',
+        component: MagazineComponent,
+        data: { title: '다양한 정보와 커스텀 작가님들을 소개합니다! 키핑 매거진' },
+      },
       { path: 'notice', component: NoticeComponent },
       { path: 'event', component: EventComponent },
       { path: 'help', component: HelpComponent },
       { path: 'privacy', component: PrivacyComponent },
       { path: 'service-terms', component: ServiceTermsComponent },
       { path: 'notification', component: NotificationComponent },
+      { path: 'test-page', component: TestPageComponent },
     ],
   },
   // 마이페이지
@@ -62,7 +77,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, ServiceTermsGuard],
     component: MypageComponent,
     children: [
-      { path: 'feed', component: MypageFeedComponent, data: {title: '회원님들의 마이페이지를 구경하세요!'} },
+      { path: 'feed', component: MypageFeedComponent, data: { title: '회원님들의 마이페이지를 구경하세요!' } },
       { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
     ],
   },

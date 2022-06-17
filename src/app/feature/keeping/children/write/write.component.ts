@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {
@@ -40,13 +40,19 @@ import { FeedTag } from '@schemas/feed-tag';
 import { User } from '@schemas/user';
 import { File } from '@schemas/file';
 import { newArray } from '@angular/compiler/src/util';
+import { SwiperComponent } from 'swiper/angular';
+import Swiper, { FreeMode, Navigation, SwiperOptions, Thumbs } from 'swiper';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 declare const $;
+
+Swiper.use([FreeMode, Navigation, Thumbs]);
 
 @Component({
   selector: 'write',
   templateUrl: './write.component.html',
   styleUrls: ['./write.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('pictureBoxElement') pictureBoxElement;
@@ -63,6 +69,17 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedLanguage: string;
   modifyBeforePictures: Array<File>;
   feed: Feed;
+
+  /* swiper */
+  @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
+  thumbsSwiper: any;
+  // swiperOptions: SwiperOptions = {
+  //   spaceBetween: 10,
+  //   navigation: true,
+  //   thumbs: {
+  //     swiper: this.swiper,
+  //   },
+  // };
 
   tagModalVisible: boolean;
   tagModalInput: string;
@@ -198,6 +215,8 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     this.slideIndex = index;
   }
 
+  dropEvent($event: CdkDragDrop<any>) {}
+
   async addPicture(picture) {
     const files: FileList = picture.files;
 
@@ -318,10 +337,12 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   addTag() {
     if (this.feed.tags.length >= 10 || !this.tagModalInput) {
       this.hideTagModal();
+      // 태그 개수 제한 메세지
       if (this.feed.tags.length >= 10) {
         let message = this.textService.getText('write:feed:004');
         this.globalService.showToast(message);
       }
+      // 태그 입력 메세지
       if (!this.tagModalInput) {
         let message = this.textService.getText('write:feed:008');
         this.globalService.showToast(message);
@@ -329,6 +350,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    // 태그 입력 메세지 (빈칸[space]만 입력시)
     if (this.tagModalInput.replace(' ', '') === '') {
       this.hideTagModal();
       let message = this.textService.getText('write:feed:008');
