@@ -77,7 +77,6 @@ export class FeedDetailModalComponent implements OnInit {
     this.contentViewVisible = true;
     this.selectedLanguage = localStorage.getItem('language');
     // 슬라이드 초기화
-    console.log(this.swiper);
     if (this.swiper.activeNumber > 1) {
       this.swiper.swiper.swiperRef.slideTo(0);
     }
