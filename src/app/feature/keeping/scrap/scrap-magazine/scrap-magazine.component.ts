@@ -96,7 +96,7 @@ export class ScrapMagazineComponent implements OnInit {
         if (v.magazine.tags.length > 0) {
           let tagsStr = '';
           v.magazine.tags.forEach((tag) => {
-            tagsStr += '#' + tag.tagInfo.nameKo + ' ';
+            tagsStr += '#' + tag.nameKo + ' ';
           });
           v.magazine.tagsStr = tagsStr;
         }
@@ -108,7 +108,7 @@ export class ScrapMagazineComponent implements OnInit {
         if (v.magazine.tags.length > 0) {
           let tagsStr = '';
           v.magazine.tags.forEach((tag) => {
-            tagsStr += '#' + tag.tagInfo.nameEn + ' ';
+            tagsStr += '#' + tag.nameEn + ' ';
           });
           v.magazine.tagsStr = tagsStr;
         }

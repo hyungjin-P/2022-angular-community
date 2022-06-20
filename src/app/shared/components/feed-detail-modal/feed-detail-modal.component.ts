@@ -13,8 +13,6 @@ import { Router } from '@angular/router';
 import { FeedLike } from '@schemas/feed-like';
 import { FeedCommentModalComponent } from '@shared/components/feed-comment-modal/feed-comment-modal.component';
 import { FeedLikeUserModalComponent } from '@shared/components/feed-like-user-modal/feed-like-user-modal.component';
-import { SwiperComponent } from 'swiper/angular';
-import Swiper from 'swiper';
 import { FeedSliderComponent } from '@shared/components/feed-slider/feed-slider.component';
 
 declare const $;

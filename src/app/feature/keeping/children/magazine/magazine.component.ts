@@ -168,7 +168,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         if (v.tags.length > 0) {
           let tagsStr = '';
           v.tags.forEach((tag) => {
-            tagsStr += '#' + tag.tagInfo.nameKo + ' ';
+            tagsStr += '#' + tag.nameKo + ' ';
           });
           v.tagsStr = tagsStr;
         }
@@ -180,7 +180,7 @@ export class MagazineComponent implements OnInit, AfterViewInit {
         if (v.tags.length > 0) {
           let tagsStr = '';
           v.tags.forEach((tag) => {
-            tagsStr += '#' + tag.tagInfo.nameEn + ' ';
+            tagsStr += '#' + tag.nameEn + ' ';
           });
           v.tagsStr = tagsStr;
         }
