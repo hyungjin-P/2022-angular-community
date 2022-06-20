@@ -263,13 +263,13 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async deletePicture(index: number, fileUrl: string) {
+    if (this.feed.picture === fileUrl || this.feed.pictures.length === 1) {
+      this.checkMainPicture('');
+    }
+
     if (this.isModifyState) {
       this.isModified = true;
       this.feed.pictures.splice(index, 1);
-
-      if (this.feed.picture == fileUrl || this.feed.pictures.length == 0) {
-        this.checkMainPicture('');
-      }
       return;
     }
 
@@ -281,10 +281,6 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
 
       await this.fileService.deleteFile('feed', this.feed.id, fileUrl).toPromise();
       this.feed.pictures.splice(index, 1);
-
-      if (this.feed.picture == fileUrl || this.feed.pictures.length == 0) {
-        this.checkMainPicture('');
-      }
     } catch (e) {}
   }
 
