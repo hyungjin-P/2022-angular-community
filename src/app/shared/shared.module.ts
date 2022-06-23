@@ -46,6 +46,7 @@ import { ComponentsModule } from '../feature/components/components.module';
 import { FollowViewModalComponent } from './components/follow-view-modal/follow-view-modal.component';
 import { FeedLikeUserModalComponent } from './components/feed-like-user-modal/feed-like-user-modal.component';
 import { FeedDetailModalComponent } from './components/feed-detail-modal/feed-detail-modal.component';
+import { TopicSliderComponent } from './components/topic-slider/topic-slider.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -84,6 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
     FollowViewModalComponent,
     FeedLikeUserModalComponent,
     FeedDetailModalComponent,
+    TopicSliderComponent,
   ],
   imports: [
     CommonModule,
@@ -144,6 +146,7 @@ export function createTranslateLoader(http: HttpClient) {
     FollowViewModalComponent,
     FeedLikeUserModalComponent,
     FeedDetailModalComponent,
+    TopicSliderComponent,
   ],
   providers: [],
 })

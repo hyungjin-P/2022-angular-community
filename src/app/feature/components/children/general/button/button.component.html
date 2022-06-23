@@ -1,35 +1,47 @@
 <div class="title">Button</div>
 <div class="content">
-    <div class="d-flex">
-        <div class="shared-button-primary">
-            <div>버튼</div>
-        </div>
-        <div class="shared-button-primary shared-button-primary-disabled">
-            <div>버튼</div>
-        </div>
+  <div class="d-flex">
+    <div class="shared-button-primary">
+      <div>버튼</div>
     </div>
-    <div class="d-flex">
-        <div class="shared-button-secondary">
-            <div>버튼</div>
-        </div>
-        <div class="shared-button-secondary shared-button-secondary-disabled">
-            <div>버튼</div>
-        </div>
+    <div class="shared-button-primary shared-button-primary-disabled">
+      <div>버튼</div>
     </div>
-    <div class="d-flex">
-        <div class="shared-button-teriary">
-            <div>버튼</div>
-        </div>
-        <div class="shared-button-teriary shared-button-teriary-disabled">
-            <div>버튼</div>
-        </div>
+  </div>
+  <div class="d-flex">
+    <div class="shared-button-secondary">
+      <div>버튼</div>
     </div>
-    <div class="d-flex">
-        <div class="shared-button-outline">
-            <div>버튼</div>
-        </div>
-        <div class="shared-button-outline shared-button-outline-disabled">
-            <div>버튼</div>
-        </div>
+    <div class="shared-button-secondary shared-button-secondary-disabled">
+      <div>버튼</div>
     </div>
+  </div>
+  <div class="d-flex">
+    <div class="shared-button-teriary">
+      <div>버튼</div>
+    </div>
+    <div class="shared-button-teriary shared-button-teriary-disabled">
+      <div>버튼</div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="shared-button-outline">
+      <div>버튼</div>
+    </div>
+    <div class="shared-button-outline shared-button-outline-disabled">
+      <div>버튼</div>
+    </div>
+  </div>
+
+
+  <div style="display: inline-flex; align-items: center; width: 500px;">
+    <app-topic-slider style="width: 100%"
+                      [topics]="topics"
+                      (changeSelectedOption)="getChooseOptions($event)"
+                      (chooseTopic)="getChooseTopic($event)"></app-topic-slider>
+  </div>
+
+
+
+
 </div>

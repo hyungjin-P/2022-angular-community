@@ -1,0 +1,30 @@
+<div class="shared-topic-slider-wrap">
+
+  <div class="shared-topic-slider-options">
+    <div class="shared-topic-slider-options-item cursor-pointer"
+         (click)="changeSelectedOptions()"
+         [ngClass]="selectOption === 'new' ? 'active' : ''">
+      {{ language === 'ko' ? '최신' : 'New' }}
+    </div>
+    <div class="shared-topic-slider-options-item cursor-pointer"
+         (click)="changeSelectedOptions()"
+         [ngClass]="selectOption === 'popular' ? 'active' : ''">
+      {{ language === 'ko' ? '인기' : 'Popular' }}
+    </div>
+  </div>
+
+  <swiper class="shared-topic-slider cursor-pointer"
+          [slidesPerView]="'auto'"
+          [spaceBetween]="10"
+          [mousewheel]="true"
+          [slideToClickedSlide]="true">
+
+      <ng-template swiperSlide *ngFor="let topic of topics;">
+        <div (click)="chooseTopicEmit(topic)">
+          {{ language === 'ko' ? topic?.nameKo : topic?.nameEn}}
+        </div>
+      </ng-template>
+  </swiper>
+
+</div>
+

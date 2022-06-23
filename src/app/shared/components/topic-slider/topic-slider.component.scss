@@ -1,0 +1,60 @@
+@import '~swiper/swiper-bundle.min.css';
+@import '/src/assets/styles/font';
+
+.shared-topic-slider-wrap {
+  width: 100%;
+  display: inline-flex;
+
+  .shared-topic-slider-options {
+    display: inline-flex;
+    margin-right: 0;
+
+    .shared-topic-slider-options-item {
+      display: inline-block;
+      text-align: center;
+      clear: both;
+      width: 50px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-right: 10px;
+      border-radius: 10px;
+      background-color: #dddddd;
+      &.active {
+        background-color: #000000;
+        color: white;
+      }
+    }
+
+
+  }
+
+  .shared-topic-slider {
+
+    display: flex;
+
+    .swiper-wrapper {
+      .swiper-slide {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        clear: both;
+        text-align: center;
+        max-width: 100px;
+        width: auto;
+        border-radius: 10px;
+        background-color: #dddddd;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        div {
+          display: block;
+        }
+      }
+
+    }
+  }
+
+}
+
+
+
