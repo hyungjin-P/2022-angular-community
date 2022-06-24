@@ -13,17 +13,27 @@ import { TagService } from '@services/tag.service';
 })
 export class SearchComponent implements OnInit {
   text: string;
-  tagList: Tag[];
+  feedTagList: FeedTag[];
+  magazineTagList: MagazineTag[];
+
+  /*tagList: Tag[];*/
   selectLanguage: any;
 
-  constructor(private location: Location, private tagService: TagService) {}
+  constructor(private location: Location, private publicService: PublicService /*private tagService: TagService*/) {}
 
   ngOnInit() {}
 
   getTagList() {
     if (this.text !== '') {
-      this.tagService.getTagList(this.text).subscribe((data) => {
+      /*this.tagService.getTagList(this.text).subscribe((data) => {
         this.tagList = data;
+      });*/
+
+      this.publicService.getFeedTagList(this.text).subscribe((data) => {
+        this.feedTagList = data;
+      });
+      this.publicService.getMagazineTagList(this.text).subscribe((data) => {
+        this.magazineTagList = data;
       });
     }
   }

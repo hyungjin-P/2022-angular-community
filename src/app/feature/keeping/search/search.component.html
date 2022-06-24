@@ -46,11 +46,17 @@
         </div>
 
         태그 목록
-        <ul class="list-group" *ngFor='let tag of tagList'>
+        <ul class="list-group" *ngFor='let tag of feedTagList'>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{tag.name}}
+            <span class="badge badge-primary badge-pill">{{tag.tagCount}}</span>
+          </li>
+        </ul>
+
+        <ul class="list-group" *ngFor='let tag of magazineTagList'>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             {{tag.nameKo}} / / / {{tag.nameEn}}
-            <span class="badge badge-primary badge-pill">{{tag.feedCount}}</span>
-            <span class="badge badge-primary badge-pill">{{tag.magazineCount}}</span>
+            <span class="badge badge-primary badge-pill">{{tag.tagCount}}</span>
           </li>
         </ul>
         <router-outlet></router-outlet>
