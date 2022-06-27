@@ -1,5 +1,9 @@
 <div  class="section full-absolute scroll-y">
-  <swiper (swiper)="dragSwiper = $event" [freeMode] = "true" [slidesPerView]="4" [watchSlidesProgress]="false" cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="dropEvent($event)">
+
+
+
+  <!-- 이미지 슬라이더 순서 편집 생성 - 테스트 진행중 -->
+  <!--<swiper (swiper)="dragSwiper = $event" [freeMode] = "true" [slidesPerView]="4" [watchSlidesProgress]="false" cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="dropEvent($event)">
     <ng-template swiperSlide *ngFor="let timePeriod of timePeriods">
       <div class="example-box"  cdkDrag>
         <img [src]="timePeriod" alt="">
@@ -30,7 +34,7 @@
     </swiper>
 
     <swiper
-      style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+      style="&#45;&#45;swiper-navigation-color: #fff;&#45;&#45;swiper-pagination-color: #fff"
       [spaceBetween]="10"
       [navigation]="true"
       [thumbs]="{ swiper: thumbsSwiper }"
@@ -41,5 +45,5 @@
       </ng-template>
     </swiper>
 
-  </div>
+  </div>-->
 </div>

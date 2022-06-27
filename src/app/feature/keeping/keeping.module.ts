@@ -30,6 +30,7 @@ import { SearchFeedComponent } from './search/search-feed/search-feed.component'
 import { SearchMagazineComponent } from './search/search-magazine/search-magazine.component';
 import { MypageViaComponent } from './mypage/mypage-via/mypage-via.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SearchMagazineComponent,
     MypageViaComponent,
   ],
-  imports: [KeepingRoutingModule, SharedModule, CommonModule, InlineSVGModule.forRoot(), SwiperModule, DragDropModule],
+  imports: [
+    KeepingRoutingModule,
+    SharedModule,
+    CommonModule,
+    InlineSVGModule.forRoot(),
+    SwiperModule,
+    DragDropModule,
+    MatListModule,
+  ],
   exports: [],
   providers: [],
 })

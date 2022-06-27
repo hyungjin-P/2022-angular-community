@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { FeedTag } from '@schemas/feed-tag';
 import { PublicService } from '@services/public.service';
 import { MagazineTag } from '@schemas/magazine-tag';
-import { Tag } from '@schemas/tag';
-import { TagService } from '@services/tag.service';
 
 @Component({
   selector: 'search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SearchComponent implements OnInit {
   text: string;

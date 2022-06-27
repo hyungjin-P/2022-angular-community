@@ -1,0 +1,6 @@
+<mat-selection-list #lists class="list-group" [multiple]="false">
+  <mat-list-option class="list-group-item" *ngFor="let listItem of list" [value]="listItem.id">
+    <span>{{'# ' + listItem.name}}</span>
+    <span>{{listItem.tagCount + '개'}}</span>
+  </mat-list-option>
+</mat-selection-list>

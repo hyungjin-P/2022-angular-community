@@ -22,7 +22,11 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 // Swiper
 import { SwiperModule } from 'swiper/angular';
+
+// Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatListModule } from '@angular/material/list';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,6 +51,8 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
 
+    BrowserAnimationsModule,
+    MatListModule,
     DragDropModule,
   ],
   providers: [],

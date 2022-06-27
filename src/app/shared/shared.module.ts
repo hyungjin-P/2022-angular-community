@@ -47,6 +47,8 @@ import { FollowViewModalComponent } from './components/follow-view-modal/follow-
 import { FeedLikeUserModalComponent } from './components/feed-like-user-modal/feed-like-user-modal.component';
 import { FeedDetailModalComponent } from './components/feed-detail-modal/feed-detail-modal.component';
 import { TopicSliderComponent } from './components/topic-slider/topic-slider.component';
+import { SearchListComponent } from './components/search-list/search-list.component';
+import { MatListModule } from '@angular/material/list';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -86,6 +88,7 @@ export function createTranslateLoader(http: HttpClient) {
     FeedLikeUserModalComponent,
     FeedDetailModalComponent,
     TopicSliderComponent,
+    SearchListComponent,
   ],
   imports: [
     CommonModule,
@@ -104,6 +107,7 @@ export function createTranslateLoader(http: HttpClient) {
     ImageCropperModule,
     SwiperModule,
     InlineSVGModule,
+    MatListModule,
   ],
   exports: [
     CommonModule,

@@ -48,9 +48,9 @@ export class FeedSliderComponent implements OnInit, AfterViewInit {
 
   swiperOptions: SwiperOptions = {
     navigation: true,
-    mousewheel: {
+    /*mousewheel: {
       invert: true,
-    },
+    },*/
   };
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
