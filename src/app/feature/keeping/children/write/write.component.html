@@ -229,9 +229,17 @@
             </div>
           </div>
           <div class="tag-box">
-            <div class="add-tag" (click)="showTagModal()">
+            <div class="add-tag">
               <div class="mdi mdi-plus"></div>
-              <div>{{ 'keeping.write.add-tag-text' | translate }}</div>
+              <input
+                #tagModalInputElement
+                type="text" maxlength='20'
+                [(ngModel)]="tagInput"
+                (ngModelChange)="getTagList()"
+                (keydown)="onTagKey($event)"
+                [placeholder]="'keeping.write.add-tag-text' | translate"
+                style="outline: none; border: 0; width: 55px"
+              >
             </div>
             <div class="tag" *ngFor="let tag of feed?.tags; let i = index">
               <div>#</div>
@@ -241,7 +249,13 @@
               </div>
             </div>
           </div>
-
+          <div class="search-box" style="margin-bottom: 40px">
+            <app-search-list
+              #searchList
+              [list]="feedTagList"
+              (getSelect)="optionChange()"
+            ></app-search-list>
+          </div>
           <!-- write-feed-button class => 구글 애널리틱스 감지용 -->
           <a class="write-button shared-button-primary d-none d-lg-flex write-feed-button"
              (click)="posting()">
@@ -262,8 +276,8 @@
   <div class="add-tag-modal user-select-none" (click)="$event.stopPropagation()">
     <div class="tag-modal-label">{{ 'keeping.write.tag-modal-label' | translate }}</div>
     <div class="tag-modal-input">
-      <input type="text" maxlength='20' [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement
-             (keyup)="onTagKey($event)"/>
+      <!--<input type="text" maxlength='20' [placeholder]="" [(ngModel)]="tagModalInput" #tagModalInputElement
+             (keyup)="onTagKey($event)">-->
       <div class="tag-modal-input-clear" (click)="clearTagModal()">
         <div class="mdi mdi-close"></div>
       </div>

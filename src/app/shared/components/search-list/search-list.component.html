@@ -1,6 +1,13 @@
-<mat-selection-list #lists class="list-group" [multiple]="false">
-  <mat-list-option class="list-group-item" *ngFor="let listItem of list" [value]="listItem.id">
-    <span>{{'# ' + listItem.name}}</span>
-    <span>{{listItem.tagCount + '개'}}</span>
+<mat-selection-list #lists class="list-group scroll-y"
+                    [ngModel]="selectedOptions"
+                    (ngModelChange)="onNgModelChange($event)"
+                    [multiple]="false"
+                    [style.display]="visible ? 'block' : 'none'">
+  <mat-list-option class="list-group-item"
+                   *ngFor="let listItem of list"
+                   [value]="listItem"
+  >
+    <div>{{'# ' + listItem.name}}</div>
+    <div>{{listItem.tagCount + '개'}}</div>
   </mat-list-option>
 </mat-selection-list>

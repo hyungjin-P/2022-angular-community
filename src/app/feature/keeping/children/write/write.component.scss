@@ -454,7 +454,7 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 10px;
-      margin-bottom: 40px;
+      margin-bottom: 5px;
 
       .add-tag {
         display: flex;
@@ -463,7 +463,6 @@
         padding: 6px 16px;
         border: 1px solid var(--grey-7);
         border-radius: 30px;
-        cursor: pointer;
 
         .mdi {
           font-size: 16px;
@@ -514,6 +513,21 @@
           .mdi-close {
             font-size: 11px;
             color: var(--white);
+          }
+        }
+      }
+    }
+
+    .search-box {
+      .mat-list-base {
+        max-height: 220px;
+        .mat-list-option .mat-list-item-content {
+          .mat-list-item-ripple {
+            border-radius: 8px;
+          }
+          .mat-list-text {
+            flex-direction: row;
+            justify-content: space-between;
           }
         }
       }

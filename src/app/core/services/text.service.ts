@@ -59,6 +59,7 @@ export class TextService {
       'write:feed:006': '사진은 최대 8장까지 등록 가능해요.',
       'write:feed:007': '사진을 등록해주세요.',
       'write:feed:008': '태그 내용을 작성하세요.',
+      'write:feed:009': '_ 이외의 특수 문자는 사용할 수 없습니다.',
 
       'follow:001': '팔로우 하였습니다.',
       'follow:002': '팔로우 해제되었습니다.',
@@ -126,6 +127,7 @@ export class TextService {
       'write:feed:006': 'You can register up to 8 photos.',
       'write:feed:007': 'Please register the photo.',
       'write:feed:008': 'Please write your tag.',
+      'write:feed:009': 'Special characters other than _ are not allowed.',
 
       'follow:001': 'Followed it.',
       'follow:002': 'Unfollowed it.',

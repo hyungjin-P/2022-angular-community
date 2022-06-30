@@ -1,0 +1,30 @@
+.mat-list-base {
+  max-height: 250px;
+  padding-top: 0;
+}
+
+.mat-list-option:hover,
+.mat-list-option:focus,
+.mat-nav-list .mat-list-item:hover,
+.mat-nav-list .mat-list-item:focus,
+.mat-action-list .mat-list-item:hover,
+.mat-action-list .mat-list-item:focus {
+  border-radius: inherit;
+}
+
+.list-group {
+  display: none;
+  border: 1px solid var(--grey-8);
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  padding: 20px 15.5px;
+
+  .list-group-item {
+    border: none;
+  }
+}
+
+.scroll-y {
+  background: white;
+}

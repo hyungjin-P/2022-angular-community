@@ -49,6 +49,7 @@ import { FeedDetailModalComponent } from './components/feed-detail-modal/feed-de
 import { TopicSliderComponent } from './components/topic-slider/topic-slider.component';
 import { SearchListComponent } from './components/search-list/search-list.component';
 import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -108,6 +109,7 @@ export function createTranslateLoader(http: HttpClient) {
     SwiperModule,
     InlineSVGModule,
     MatListModule,
+    MatRippleModule,
   ],
   exports: [
     CommonModule,
@@ -151,6 +153,7 @@ export function createTranslateLoader(http: HttpClient) {
     FeedLikeUserModalComponent,
     FeedDetailModalComponent,
     TopicSliderComponent,
+    SearchListComponent,
   ],
   providers: [],
 })

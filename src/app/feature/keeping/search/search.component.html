@@ -46,7 +46,9 @@
         </div>
 
         태그 목록
-        <mat-selection-list class="list-group" [multiple]="false">
+        <app-search-list [list]="feedTagList" [visible]="searchListVisible" (getSelect)="optionChange()" #searchList
+        ></app-search-list>
+        <!--<mat-selection-list class="list-group" [multiple]="false">
           <mat-list-option class="list-group-item" *ngFor="let tag of feedTagList" [value]="tag.id">
             <span>{{'# ' + tag.name}}</span>
             <span>{{tag.tagCount + '개'}}</span>
@@ -58,7 +60,7 @@
             {{tag.nameKo}} / / / {{tag.nameEn}}
             <span class="badge badge-primary badge-pill">{{tag.tagCount}}</span>
           </li>
-        </ul>
+        </ul>-->
         <router-outlet></router-outlet>
       </div>
     </div>

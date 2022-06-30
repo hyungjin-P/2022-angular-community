@@ -121,9 +121,14 @@
     }
   }
 
-  .mat-list-base .mat-list-option .mat-list-item-content .mat-list-text {
-    flex-direction: row;
-    justify-content: space-between;
+  .mat-list-base .mat-list-option .mat-list-item-content {
+    .mat-list-item-ripple {
+      border-radius: 8px;
+    }
+    .mat-list-text {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 }
 

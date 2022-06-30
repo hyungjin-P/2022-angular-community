@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { FeedTag } from '@schemas/feed-tag';
 import { PublicService } from '@services/public.service';
 import { MagazineTag } from '@schemas/magazine-tag';
+import { SearchListComponent } from '@shared/components/search-list/search-list.component';
 
 @Component({
   selector: 'search',
@@ -17,6 +18,9 @@ export class SearchComponent implements OnInit {
 
   /*tagList: Tag[];*/
   selectLanguage: any;
+  searchListVisible: boolean = false;
+
+  @ViewChild('searchList') searchList: SearchListComponent;
 
   constructor(private location: Location, private publicService: PublicService /*private tagService: TagService*/) {}
 
@@ -30,14 +34,21 @@ export class SearchComponent implements OnInit {
 
       this.publicService.getFeedTagList(this.text).subscribe((data) => {
         this.feedTagList = data;
+        this.searchList.visible = this.feedTagList.length !== 0;
       });
       this.publicService.getMagazineTagList(this.text).subscribe((data) => {
         this.magazineTagList = data;
       });
+    } else {
+      this.searchList.visible = false;
     }
   }
 
   back() {
     this.location.back();
+  }
+
+  optionChange() {
+    this.text = this.searchList.selectedOption[0].name;
   }
 }

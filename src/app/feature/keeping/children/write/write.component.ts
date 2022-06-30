@@ -43,6 +43,8 @@ import { newArray } from '@angular/compiler/src/util';
 import { SwiperComponent } from 'swiper/angular';
 import Swiper, { FreeMode, Navigation, SwiperOptions, Thumbs } from 'swiper';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { PublicService } from '@services/public.service';
+import { SearchListComponent } from '@shared/components/search-list/search-list.component';
 
 declare const $;
 
@@ -70,6 +72,10 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   modifyBeforePictures: Array<File>;
   feed: Feed;
 
+  /* Search List */
+  @ViewChild('searchList') searchList: SearchListComponent;
+  feedTagList: FeedTag[];
+
   /* swiper */
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   thumbsSwiper: any;
@@ -82,7 +88,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   // };
 
   tagModalVisible: boolean;
-  tagModalInput: string;
+  tagInput: string;
   tagModalInputKey: boolean;
 
   isConfirmModalVisible = false;
@@ -113,6 +119,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     private globalService: GlobalService,
     private storageService: StorageService,
     private feedService: FeedService,
+    private publicService: PublicService,
     private fileService: FileService,
     private textService: TextService
   ) {}
@@ -327,11 +334,22 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearTagModal() {
-    this.tagModalInput = '';
+    this.tagInput = '';
   }
 
   addTag() {
-    if (this.feed.tags.length >= 10 || !this.tagModalInput) {
+    this.searchList.visible = false;
+    const reqExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+    /* 정규식 문자 제어 */
+    if (reqExp.test(this.tagInput)) {
+      let message = this.textService.getText('write:feed:009');
+      this.globalService.showToast(message);
+      this.tagInput = this.tagInput.replace(reqExp, '');
+      return;
+    }
+
+    if (this.feed.tags.length >= 10 || !this.tagInput) {
       this.hideTagModal();
       // 태그 개수 제한 메세지
       if (this.feed.tags.length >= 10) {
@@ -339,7 +357,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
         this.globalService.showToast(message);
       }
       // 태그 입력 메세지
-      if (!this.tagModalInput) {
+      if (!this.tagInput) {
         let message = this.textService.getText('write:feed:008');
         this.globalService.showToast(message);
       }
@@ -347,7 +365,7 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // 태그 입력 메세지 (빈칸[space]만 입력시)
-    if (this.tagModalInput.replace(' ', '') === '') {
+    if (this.tagInput.replace(' ', '') === '') {
       this.hideTagModal();
       let message = this.textService.getText('write:feed:008');
       this.globalService.showToast(message);
@@ -359,13 +377,13 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
 
       /* 태그 분류 수정 작업 진행중 */
 
-      const feedTag: FeedTag = new FeedTag('', this.tagModalInput, 0);
+      const feedTag: FeedTag = new FeedTag('', this.tagInput, 0);
       this.feed.tags.push(feedTag);
       this.hideTagModal();
       return;
     }
 
-    this.feedService.createFeedTag(this.feed.id, this.tagModalInput).subscribe(
+    this.feedService.createFeedTag(this.feed.id, this.tagInput).subscribe(
       (feedTag: FeedTag) => {
         this.feed.tags.push(feedTag);
         this.hideTagModal();
@@ -446,6 +464,16 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /* 태그 입력제어 */
   onTagKey(key) {
+    const reqExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+    /* 정규식 문자 제어 */
+    if (reqExp.test(key.key)) {
+      let message = this.textService.getText('write:feed:009');
+      this.globalService.showToast(message);
+      this.tagInput = this.tagInput.replace(reqExp, '');
+      return;
+    }
+
     switch (key.code) {
       case 'Escape':
         this.hideTagModal();
@@ -456,6 +484,37 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
         });
         break;
     }
+  }
+
+  tagInputChange() {
+    const reqExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+    /* 정규식 문자 제어 */
+    if (!reqExp.test(this.tagInput) && this.tagInput) {
+      this.getTagList();
+      return;
+    }
+  }
+
+  getTagList() {
+    if (this.tagInput !== '') {
+      /*this.tagService.getTagList(this.text).subscribe((data) => {
+        this.tagList = data;
+      });*/
+
+      this.publicService.getFeedTagList(this.tagInput).subscribe((data) => {
+        this.feedTagList = data;
+        console.log(data);
+        this.searchList.visible = this.feedTagList.length !== 0;
+      });
+    } else {
+      this.searchList.visible = false;
+    }
+  }
+
+  optionChange() {
+    this.tagInput = this.searchList.selectedOption[0].name;
+    this.addTag();
   }
 
   /* 연속 입력 방지 함수 */
