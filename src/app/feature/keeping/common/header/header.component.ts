@@ -61,6 +61,9 @@ export class HeaderComponent implements OnInit {
 
   isLoginModalVisible = false;
 
+  /* 검색 관련 */
+  searchInput: any;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -164,4 +167,6 @@ export class HeaderComponent implements OnInit {
     this.isLoginModalVisible = false;
     this.router.navigateByUrl('/auth/registration');
   }
+
+  getTagList() {}
 }

@@ -123,7 +123,8 @@
       "singup": "회원가입",
       "write": "글쓰기",
       "mypage": "마이페이지",
-      "scrap": "스크랩"
+      "scrap": "스크랩",
+      "search-placeholder": "태그로 검색해보세요"
     },
     "nav": {
       "feed": "피드",

@@ -504,7 +504,6 @@ export class WriteComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.publicService.getFeedTagList(this.tagInput).subscribe((data) => {
         this.feedTagList = data;
-        console.log(data);
         this.searchList.visible = this.feedTagList.length !== 0;
       });
     } else {
