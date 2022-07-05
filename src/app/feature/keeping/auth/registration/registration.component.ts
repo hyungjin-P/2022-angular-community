@@ -55,8 +55,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log(this.angularFireAuth.authState);
-
     this.angularFireAuth.authState.subscribe((user) => {
       if (user) {
         if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
