@@ -3,17 +3,23 @@
 
 
   <!-- 이미지 슬라이더 순서 편집 생성 - 테스트 진행중 -->
-  <!--<swiper (swiper)="dragSwiper = $event" [freeMode] = "true" [slidesPerView]="4" [watchSlidesProgress]="false" cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="dropEvent($event)">
-    <ng-template swiperSlide *ngFor="let timePeriod of timePeriods">
-      <div class="example-box"  cdkDrag>
-        <img [src]="timePeriod" alt="">
+  이미지 순서 변경
+  <div
+    cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="dropEvent($event)">
+      <div class="example-box"
+           cdkDrag
+           *ngFor="let timePeriod of timePeriods">
+          <img [src]="timePeriod" alt="">
       </div>
-    </ng-template>
-  </swiper>
+  </div>
+
+  이미지 삽입
+  <input type="file" (change)="fileChangeHandler($event)">
+<!--  <img [src]="output?.base64" alt="">-->
 
 
+  슬라이드
   <div class="write-swiper">
-
     <swiper
       (swiper)="thumbsSwiper = $event"
       [spaceBetween]="10"
@@ -21,20 +27,16 @@
       [freeMode]="true"
       [watchSlidesProgress]="false"
       class="mySwiper"
-
-      cdkDropList
-      cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="dropEvent($event)"
     >
       <ng-template *ngFor="let timePeriod of timePeriods" swiperSlide>
-        <div class="example-box" cdkDrag [cdkDragStartDelay]="1000">
+        <div class="example-box">
           <img [src]="timePeriod" alt="">
         </div>
       </ng-template>
     </swiper>
 
     <swiper
-      style="&#45;&#45;swiper-navigation-color: #fff;&#45;&#45;swiper-pagination-color: #fff"
+      style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
       [spaceBetween]="10"
       [navigation]="true"
       [thumbs]="{ swiper: thumbsSwiper }"
@@ -45,5 +47,5 @@
       </ng-template>
     </swiper>
 
-  </div>-->
+  </div>
 </div>

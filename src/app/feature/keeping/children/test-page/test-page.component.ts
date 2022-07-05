@@ -16,6 +16,8 @@ export class TestPageComponent implements OnInit, AfterViewInit {
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   thumbsSwiper: any;
 
+  /* photo editor */
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -34,5 +36,16 @@ export class TestPageComponent implements OnInit, AfterViewInit {
 
   dropEvent(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
+  }
+
+  fileChangeHandler(event: Event) {
+    /*this.photoService
+      .open(event, {
+        aspectRatio: 4 / 3,
+        autoCropArea: 1,
+      })
+      .subscribe((data) => {
+        this.output = data;
+      });*/
   }
 }

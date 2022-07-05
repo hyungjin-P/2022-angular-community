@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { TranslateService } from '@ngx-translate/core';
-import * as firebase from 'firebase/app';
-import { Observable, Subscription } from 'rxjs';
+
+import { observable, Observable, Subscription } from 'rxjs';
 
 declare let Kakao: any;
 
@@ -18,6 +17,10 @@ import { TextService } from '@services/text.service';
 import { User } from '@schemas/user';
 import { UserService } from '@services/user.service';
 
+import * as firebase from 'firebase/compat/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth/';
+import { onAuthStateChanged } from '@angular/fire/auth';
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -27,7 +30,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   TAG = '로그인';
 
   signInMethod: string;
-  subscription: Subscription;
   naverLoginPopupWindowRef: Window;
 
   email: string;
@@ -70,10 +72,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.passwordErrorText = '';
     this.passwordVisible = false;
 
-    this.angularFireAuth.setPersistence('session').then((r) => {});
-
-    /** SNS 로그인 Subscriber */
-    this.subscription = this.angularFireAuth.authState.subscribe((user) => {
+    /* SNS 로그인 Subscriber */
+    // subscriber 상태에서 기존 unSubscribe => signOut 으로 변경
+    this.angularFireAuth.authState.subscribe((user) => {
       /**
        * signInMethod 구분
        * google, meta, apple => firebase 통해서 로그인
@@ -109,6 +110,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/').then();
           }
         }
+      } else {
+        this.angularFireAuth.signOut().then(() => {});
       }
     });
 
@@ -120,7 +123,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.angularFireAuth.signOut().then(() => {});
+    //
+    // this.subscription.unsubscribe();
   }
 
   /** ImageLoad */

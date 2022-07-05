@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 
 declare let Kakao: any;
@@ -17,6 +15,11 @@ import { User } from '@schemas/user';
 import { TranslateService } from '@ngx-translate/core';
 import { TextService } from '@services/text.service';
 import { UserService } from '@services/user.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
+import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import OAuthProvider = firebase.auth.OAuthProvider;
 
 @Component({
   selector: 'registration',
@@ -52,8 +55,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.angularFireAuth.setPersistence('session');
-    this.subscription = this.angularFireAuth.authState.subscribe((user) => {
+    console.log(this.angularFireAuth.authState);
+
+    this.angularFireAuth.authState.subscribe((user) => {
       if (user) {
         if (this.signInMethod == 'google' || this.signInMethod == 'facebook' || this.signInMethod == 'apple') {
           user.getIdToken().then((accessToken) => {
@@ -83,6 +87,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/');
           }
         }
+      } else {
+        this.angularFireAuth.signOut().then();
       }
     });
 
@@ -93,9 +99,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.selectedLanguage = localStorage.getItem('language');
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   onImageLoad(element: HTMLImageElement) {
     this.helperService.ImproveImageQuality(element);
@@ -103,17 +107,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   signInWithGoogle() {
     this.signInMethod = 'google';
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
+    this.angularFireAuth.signInWithPopup(new GoogleAuthProvider());
   }
 
   signInWithFacebook() {
     this.signInMethod = 'facebook';
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.FacebookAuthProvider());
+    this.angularFireAuth.signInWithPopup(new FacebookAuthProvider());
   }
 
   signInWithApple() {
     this.signInMethod = 'apple';
-    this.angularFireAuth.signInWithPopup(new firebase.default.auth.OAuthProvider('apple.com'));
+    this.angularFireAuth.signInWithPopup(new OAuthProvider('apple.com'));
   }
 
   signInWithKakao() {

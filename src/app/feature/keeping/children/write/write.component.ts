@@ -39,7 +39,6 @@ import { Feed } from '@schemas/feed';
 import { FeedTag } from '@schemas/feed-tag';
 import { User } from '@schemas/user';
 import { File } from '@schemas/file';
-import { newArray } from '@angular/compiler/src/util';
 import { SwiperComponent } from 'swiper/angular';
 import Swiper, { FreeMode, Navigation, SwiperOptions, Thumbs } from 'swiper';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';

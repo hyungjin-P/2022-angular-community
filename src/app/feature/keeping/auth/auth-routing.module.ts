@@ -1,17 +1,17 @@
-import {NgModule} from '@angular/core'
-import {Routes, RouterModule} from '@angular/router'
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AuthGuard} from '@services/guards/auth.guard'
+import { AuthGuard } from '@services/guards/auth.guard';
 
-import {CallbackComponent} from './callback/callback.component'
-import {EmailComponent} from './email/email.component'
-import {ForgotPasswordComponent} from './forgot-password/forgot-password.component'
-import {LoginComponent} from './login/login.component'
-import {RegistrationComponent} from './registration/registration.component'
-import {ResetPasswordComponent} from './reset-password/reset-password.component'
-import {ServiceTermsComponent} from './service-terms/service-terms.component'
-import {ViaLoginSuccessComponent} from "./via-login-success/via-login-success.component";
-import {ViaSignupSuccessComponent} from "./via-signup-success/via-signup-success.component";
+import { CallbackComponent } from './callback/callback.component';
+import { EmailComponent } from './email/email.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ServiceTermsComponent } from './service-terms/service-terms.component';
+import { ViaLoginSuccessComponent } from './via-login-success/via-login-success.component';
+import { ViaSignupSuccessComponent } from './via-signup-success/via-signup-success.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,5 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule {
-}
+export class AuthRoutingModule {}

@@ -16,10 +16,6 @@ import { CoreModule } from './core/core.module';
 // Shared
 import { SharedModule } from '@shared/shared.module';
 
-// Firebase
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-
 // Swiper
 import { SwiperModule } from 'swiper/angular';
 
@@ -27,6 +23,12 @@ import { SwiperModule } from 'swiper/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatListModule } from '@angular/material/list';
+
+// Firebase
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { AngularFireAuthModule, PERSISTENCE } from '@angular/fire/compat/auth';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,14 +50,18 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     CoreModule,
     SharedModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
+
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
 
     BrowserAnimationsModule,
     MatListModule,
     DragDropModule,
   ],
-  providers: [],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    { provide: PERSISTENCE, useValue: 'session' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -39,7 +39,7 @@ const routes: Routes = [
     canActivate: [ServiceTermsGuard],
     component: KeepingComponent,
     children: [
-      { path: '', component: HomeComponent, redirectTo: 'feed', pathMatch: 'full' },
+      { path: '', redirectTo: 'feed', pathMatch: 'full' },
       { path: 'feed', component: FeedComponent, data: { title: '내 컬렉션을 보여주세요! 키핑 피드' } },
       { path: 'feed/follow', canActivate: [AuthGuard], component: FeedFollowComponent },
       { path: 'follow', canActivate: [AuthGuard], component: FeedFollowComponent },
@@ -78,7 +78,7 @@ const routes: Routes = [
     component: MypageComponent,
     children: [
       { path: 'feed', component: MypageFeedComponent, data: { title: '회원님들의 마이페이지를 구경하세요!' } },
-      { path: '', component: MypageFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
+      { path: '', redirectTo: 'feed', pathMatch: 'full' },
     ],
   },
   // 경유 페이지
@@ -92,7 +92,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, ServiceTermsGuard],
     component: ScrapComponent,
     children: [
-      { path: '', component: ScrapFeedComponent, redirectTo: 'feed', pathMatch: 'full' },
+      { path: '', redirectTo: 'feed', pathMatch: 'full' },
       { path: 'feed', component: ScrapFeedComponent },
       { path: 'magazine', component: ScrapMagazineComponent },
     ],
