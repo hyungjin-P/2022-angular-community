@@ -31,6 +31,7 @@ import { SearchMagazineComponent } from './search/search-magazine/search-magazin
 import { MypageViaComponent } from './mypage/mypage-via/mypage-via.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatListModule } from '@angular/material/list';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { MatListModule } from '@angular/material/list';
     SwiperModule,
     DragDropModule,
     MatListModule,
+    ImageCropperModule,
   ],
   exports: [],
   providers: [],

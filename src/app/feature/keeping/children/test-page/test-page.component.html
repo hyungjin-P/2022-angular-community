@@ -3,23 +3,40 @@
 
 
   <!-- 이미지 슬라이더 순서 편집 생성 - 테스트 진행중 -->
-  이미지 순서 변경
   <div
     cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="dropEvent($event)">
+    이미지 순서 변경
       <div class="example-box"
            cdkDrag
            *ngFor="let timePeriod of timePeriods">
           <img [src]="timePeriod" alt="">
       </div>
   </div>
+<!--
+  <div class="image-cropper">
+    이미지 삽입
+    <input type="file" (change)="fileChangeEvent($event)">
+    <div class="image-cropper-el" style="height: 500px">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="3 / 4"
+        format = "png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      >
+      </image-cropper>
+    </div>
+    <div class="cropped-image">
+      <img [src]="croppedImage" alt="">
+    </div>
+  </div>-->
 
-  이미지 삽입
-  <input type="file" (change)="fileChangeHandler($event)">
-<!--  <img [src]="output?.base64" alt="">-->
 
-
-  슬라이드
   <div class="write-swiper">
+    슬라이드
     <swiper
       (swiper)="thumbsSwiper = $event"
       [spaceBetween]="10"

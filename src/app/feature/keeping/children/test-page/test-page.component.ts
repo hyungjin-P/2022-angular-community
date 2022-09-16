@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { SwiperComponent } from 'swiper/angular';
 import Swiper, { FreeMode, Navigation, Thumbs } from 'swiper';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 Swiper.use([FreeMode, Navigation, Thumbs]);
 
@@ -16,14 +17,13 @@ export class TestPageComponent implements OnInit, AfterViewInit {
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   thumbsSwiper: any;
 
+  dragSwiper: any;
+
   /* photo editor */
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {}
-
+  /* ui */
   timePeriods = [
     'https://swiperjs.com/demos/images/nature-1.jpg',
     'https://swiperjs.com/demos/images/nature-2.jpg',
@@ -32,20 +32,33 @@ export class TestPageComponent implements OnInit, AfterViewInit {
     'https://swiperjs.com/demos/images/nature-5.jpg',
   ];
 
-  dragSwiper: any;
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {}
 
   dropEvent(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
   }
 
-  fileChangeHandler(event: Event) {
-    /*this.photoService
-      .open(event, {
-        aspectRatio: 4 / 3,
-        autoCropArea: 1,
-      })
-      .subscribe((data) => {
-        this.output = data;
-      });*/
+  fileChangeEvent(event: Event) {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+
+  imageLoaded() {
+    // show cropper
+  }
+
+  cropperReady() {
+    // cropper ready
+  }
+
+  loadImageFailed() {
+    // show message
   }
 }

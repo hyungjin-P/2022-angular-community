@@ -5,9 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class DateUtils {
   public getTimeStamp(date: string): number {
+
     let nowDate = new Date();
     let utcNow = nowDate.getTime();
+    // let theDate = new Date(Date.parse(date));
+    //임시 시간 3달 이후로 변경
     let theDate = new Date(Date.parse(date));
+    theDate = new Date(theDate.setMonth(theDate.getMonth()+2));
+
     const timeStamp = utcNow - theDate.getTime();
 
     return timeStamp;
