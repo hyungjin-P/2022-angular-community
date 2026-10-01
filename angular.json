@@ -81,6 +81,38 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "mock": {
+              "main": "src/_mock/main.mock.ts",
+              "index": {
+                "input": "src/_mock/index.mock.html",
+                "output": "index.html"
+              },
+              "tsConfig": "src/_mock/tsconfig.mock.json",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/_mock/environment.mock.ts"
+                }
+              ],
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                "src/sitemap.xml",
+                "src/robots.txt",
+                {
+                  "glob": "**/*",
+                  "input": "src/_mock/assets",
+                  "output": "assets/mock"
+                }
+              ],
+              "outputPath": "dist/keeping-angular-mock",
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -93,6 +125,9 @@
             },
             "development": {
               "browserTarget": "keeping-angular:build:development"
+            },
+            "mock": {
+              "browserTarget": "keeping-angular:build:mock"
             }
           },
           "defaultConfiguration": "development"

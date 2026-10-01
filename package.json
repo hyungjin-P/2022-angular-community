@@ -6,6 +6,8 @@
     "start": "ng serve --open --host 0.0.0.0",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
+    "start:mock": "ng serve --configuration mock",
+    "build:mock": "ng build --configuration mock",
     "test": "ng test",
     "deploy": "npm run build && aws s3 sync ./dist/keeping-angular s3://REDACTED_S3_BUCKET --acl public-read --delete --profile REDACTED_AWS_PROFILE && aws cloudfront create-invalidation --distribution-id REDACTED_CF_DISTRIBUTION_ID --paths \"/*\" --profile REDACTED_AWS_PROFILE",
     "i18n:extract": "ngx-translate-extract --input ./src/app --output ./src/assets/i18n/ko.json ./src/assets/i18n/en.json --clean --sort --format namespaced-json"

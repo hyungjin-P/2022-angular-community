@@ -1,0 +1,9 @@
+/* --configuration=mock 전용. 원본 tsconfig.app.json 을 상속하고 진입점만 목업판으로 바꾼다. */
+{
+  "extends": "../../tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/app-mock"
+  },
+  "files": ["main.mock.ts", "../polyfills.ts"],
+  "include": ["../**/*.d.ts"]
+}

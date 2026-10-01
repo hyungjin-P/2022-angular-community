@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+  --configuration=mock 전용 index. 원본 src/index.html 에서
+  - 트래커(GA gtag·GTM·Meta Pixel)와 사이트 인증 메타(naver·facebook)를 뺐다
+  - CDN 폰트·아이콘(Google Fonts·materialdesignicons CDN)을 로컬 파일(assets/mock/fonts)로 바꿨다
+  - 쓰이지 않는 Roboto·Material Icons 링크는 뺐다
+  - CSP 로 외부 스타일·폰트·이미지를 차단한다. 원본 소스에 박혀 있어 원본 수정 없이는 뺄 수 없는 것들이다.
+    · SCSS 의 @import url(Google Fonts·jsdelivr) — styles.scss:4, assets/styles/_font.scss:1-4
+      → 같은 이름의 @font-face 를 로컬 파일로 제공한다
+    · 로그인·회원가입·이메일 화면 템플릿의 이미지 https://public.keeping.link/... — auth/*/…component.html:25
+      → 아래 <style> 의 content 로 로컬 일러스트를 대신 보여 준다
+    요청은 브라우저가 보내기 전에 막으며, 콘솔에 CSP 위반("Loading the stylesheet … violates") 경고가 남는다.
+  나머지 메타·타이틀은 원본과 같다.
+-->
+<html lang="ko" translate="no">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:">
+
+
+  <title>키핑 keeping｜키덜트들의 아지트 공간</title>
+
+  <base href="/"/>
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+  <link rel="icon"
+        type="image/x-icon"
+        href="favicon.ico">
+
+  <meta name="description"
+        content="피규어, 건담, 레고 컬렉터들과 키덜트의 아지트 공간이자, 세상에 단 하나뿐인 커스텀 아티스트들을 소개하는 커뮤니티">
+  <meta name="author"
+        content="키핑">
+  <meta name="keywords"
+        content="피규어, 건담, 건프라, 레고, 키덜트, 커스텀, 커스텀피규어, 키핑, keeping, 마블, 핫토이, 스태츄">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="키핑｜키덜트들의 아지트 공간">
+  <meta property="og:description" content="피규어, 건담, 레고 취미공유 및 소통공간!">
+  <meta property="og:image" content="assets/images/opengraph/opengraph_img_logo.png">
+
+  <!-- 로컬 폰트·아이콘 (원본: Google Fonts Noto Sans KR·Poppins, cdn.materialdesignicons.com 5.4.55) -->
+  <link rel="stylesheet" href="assets/mock/fonts/noto-sans-kr/noto-sans-kr.css">
+  <link rel="stylesheet" href="assets/mock/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/mock/fonts/mdi/css/materialdesignicons.min.css">
+
+  <style>
+    img[src^="https://public.keeping.link/"] {
+      content: url(assets/mock/img/auth/login-visual.svg);
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+<app-root></app-root>
+</body>
+</html>
