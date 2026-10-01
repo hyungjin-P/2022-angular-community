@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { from, Observable, of, throwError } from 'rxjs';
+import { delay, mergeMap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { StorageService } from '@services/storage.service';
@@ -147,10 +147,22 @@ function modifyFeed(ctx: Ctx) {
   return OK;
 }
 
-function uploadFiles(ctx: Ctx): MockFile[] {
+function readAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+// 업로드 파일은 서버에 저장하지 않고 data: URL 로 돌려준다. blob: URL 은 Angular URL sanitizer 가
+// 'unsafe:' 로 바꿔 <img [src]> 미리보기가 깨진다.
+async function uploadFiles(ctx: Ctx): Promise<MockFile[]> {
   const form = ctx.rawBody instanceof FormData ? ctx.rawBody : null;
   const files = form ? (form.getAll('files') as File[]) : [];
-  const created = files.map((file, i) => ({ ...mockFile(`upload-${Date.now()}-${i}`, URL.createObjectURL(file)), originalname: file.name, mimetype: file.type, size: file.size }));
+  const urls = await Promise.all(files.map(readAsDataUrl));
+  const created = files.map((file, i) => ({ ...mockFile(`upload-${Date.now()}-${i}`, urls[i]), originalname: file.name, mimetype: file.type, size: file.size }));
   const record = findFeed(form ? String(form.get('tagInId') ?? '') : null);
   if (record) record.feed.pictures = [...created, ...record.feed.pictures];
   return created;
@@ -364,6 +376,13 @@ export class MockApiInterceptor implements HttpInterceptor {
     }
 
     const result = handler({ params: url.searchParams, body, rawBody, viewer });
+    if (result instanceof Promise) {
+      return from(result).pipe(mergeMap((value) => this.respond(req, value)));
+    }
+    return this.respond(req, result);
+  }
+
+  private respond(req: HttpRequest<unknown>, result: unknown): Observable<HttpEvent<unknown>> {
     if (result instanceof MockError) {
       return this.fail(req, result);
     }
