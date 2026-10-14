@@ -1,27 +1,70 @@
-# KeepingAngular
+# 키핑(Keeping) 웹 프론트
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
+수집품(컬렉션) 사진을 올리고 구경하는 SNS 피드와 매거진 서비스 **키핑**의 웹 프론트엔드입니다.
+지금은 운영하지 않는 서비스이며, 이 저장소는 포트폴리오 열람용 공개본입니다.
 
-## Development server
+## 내 역할
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- **웹 프론트 주 개발자**, 2022-04 서비스 오픈 이후 후임 1명 보조
+- 초기 골격(2021-08~12, 이전 개발자 작성)을 이어받아 피드·글쓰기·매거진 등 핵심 화면을 재작성하고 기능 영역을 넓혔습니다.
+- 주로 맡은 기능
+  - 글쓰기: 서버 draft 선생성, 임시저장 이어쓰기, 수정, 대표사진, 태그
+  - 피드 상세: 이미지 슬라이드, 댓글, 좋아요, 팔로우, 목록과 연동되는 재사용 상세 모달
+  - 팔로우 피드, 매거진, 스크랩, 태그 자동완성(검색 결과 화면은 미완성)
+  - 경과시간 표기, 회원탈퇴 유예와 재로그인 시 취소
+  - Angular 12.2 → 14.0 업그레이드
+- git 기준 비중: 커밋 26%(151/585), 생존 코드 약 30~35%(TypeScript 37~41%). 피드·매거진·스크랩·검색 화면은 주 작성자입니다.
+  - 커밋한 사람 기준의 근사치입니다. 당시 파일을 메일로 주고받거나 git 밖에서 합친 커밋이 있어 실제 작성자와 다를 수 있습니다.
 
-## Code scaffolding
+## 기간
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- 저장소: 2021-08 ~ 2022-09
+- 본인 커밋: 2021-12-22 ~ 2022-07-05 (이후 2022-09-16에 1건). 모두 ChatGPT 공개(2022-11-30) 이전입니다.
 
-## Build
+## 스택
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+| 구분 | 내용 |
+|---|---|
+| 프레임워크 | Angular 14.0 (12.2에서 업그레이드), TypeScript 4.7, RxJS 6.6 |
+| 인증 | Firebase Auth(`@angular/fire` 7.4, modular·compat 혼용), 카카오·네이버·이메일 로그인 |
+| UI | Angular Material·CDK 일부, Bootstrap 4.6, Swiper 8, ngx-image-cropper, ng2-dragula |
+| i18n | ngx-translate (ko/en) |
+| 백엔드 | REST API(별도 저장소). 이 공개본에서는 목업으로 대체 |
+| 실행 환경 | Node 14.21.3 · npm 6 (`.nvmrc`) |
 
-## Running unit tests
+## 목업 모드로 실행하기
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+백엔드와 외부 서비스 없이 로컬에서 띄울 수 있습니다. 자세한 내용은 [MOCK.md](MOCK.md)에 있습니다.
 
-## Running end-to-end tests
+```bash
+# Node 14.21.3 (.nvmrc)
+npm ci
+npm run start:mock    # http://localhost:4200/feed?as=user (로그인) · ?as=guest (비로그인)
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- 목업 코드는 `src/_mock/`에만 있고 `--configuration mock`으로 켭니다. 원본 소스(`src/app` 등)는 고치지 않았습니다.
+- fixture는 모두 지어낸 데이터와 직접 그린 일러스트입니다.
 
-## Further help
+## 이 공개본에서 바꾼 것
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+공개를 위해 git 히스토리 전체를 정리했습니다. 커밋 순서·날짜·메시지와 코드는 당시 그대로입니다.
+
+- 키·트래킹 ID·인프라 식별자를 `REDACTED_*` 자리표시자로 바꿨습니다.
+  - `src/environments/environment*.ts`: Firebase 설정, 카카오·네이버 키, 세션 암호화 키, API 엔드포인트
+  - `src/index.html`: GA·GTM·Meta Pixel ID, 사이트 인증 토큰
+  - `package.json` `deploy` 스크립트: S3 버킷, CloudFront ID, AWS 프로필
+  - 그래서 플래그 없는 원본 빌드는 되지만 실제 서버에는 연결되지 않습니다.
+- 사이트 하단 회사 정보와 약관·개인정보처리방침의 개인정보(대표 이름, 사업자등록번호, 주소, 대표 전화, 이메일)를 `***`로 가렸습니다. 번역 파일(`src/assets/i18n`)도 같습니다.
+- 빌드 캐시(`.angular/`)를 히스토리에서 지웠습니다.
+- 출처·사용권을 확인할 수 없는 제3자 이미지(영화 스틸·캐릭터·사진 등)를 히스토리 전체에서 지웠습니다(이미지 파일 11개 경로와 기본 아바타의 옛 판 1개, 2026-11-09). 그 이미지를 쓰던 당시 화면은 비어 보입니다.
+- 작성자 표기
+  - 회사 공용 계정으로 남긴 본인 커밋은 본인 계정으로 바꿨습니다.
+  - 저장소 생성 커밋은 회사(Flexible) 명의로 두었습니다.
+  - 다른 팀원은 이름만 남기고 이메일을 지웠습니다.
+- 마지막 `chore(mock):` 커밋 8건과 이 README는 2026년에 포트폴리오용으로 추가했습니다.
+- MOCK.md가 인용하는 원본 마지막 커밋 `d5d5205`는 이 저장소의 `9f19e22`입니다. 브랜치 `portfolio/mock`은 `main`입니다.
+
+## 라이선스
+
+All rights reserved — 포트폴리오 열람용입니다. 코드의 복제·재사용·재배포를 허용하지 않습니다.
+목업에 넣은 서드파티 폰트는 [MOCK.md](MOCK.md) 6절의 각 라이선스를 따릅니다.
