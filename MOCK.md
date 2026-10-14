@@ -65,7 +65,7 @@ SPA라 정적 호스팅할 때는 모든 경로를 `index.html`로 돌려야(fal
 
 | 원본 의존 | 목업 처리 | 위치 |
 |---|---|---|
-| user-api REST(55개 경로) | `MockApiInterceptor`가 `METHOD /path`로 응답. 좋아요·북마크·팔로우·댓글·글쓰기는 메모리에 반영(**새로고침하면 초기화**) | `src/_mock/mock-api.interceptor.ts`, `fixtures/` |
+| user-api REST(57개 경로) | `MockApiInterceptor`가 `METHOD /path`로 응답. 좋아요·북마크·팔로우·댓글·글쓰기·탈퇴 유예는 메모리에 반영(**새로고침하면 초기화**) | `src/_mock/mock-api.interceptor.ts`, `fixtures/` |
 | 파일 업로드(`POST /file`) | 서버 저장 없이 `data:` URL로 응답 | 같은 파일 `uploadFiles` |
 | Firebase Auth (`AngularFireAuth`) | `FakeAngularFireAuth`(서버 통신 없음). `providedIn:'any'`라 부트스트랩 전에 `'root'`로 바꿔 lazy 모듈에도 적용 | `fake-angular-fire-auth.ts`, `main.mock.ts` |
 | 소셜 로그인(카카오·네이버·구글·페이스북) | **범위 밖**. 버튼은 동작하지 않는다. 로그인 상태는 `?as=user`나 이메일 로그인으로 만든다 | `session.ts` |
@@ -82,6 +82,17 @@ SPA라 정적 호스팅할 때는 모든 경로를 `index.html`로 돌려야(fal
 - 피드 24개와 댓글·답글
 - 매거진 10개
 - 데모 사용자의 팔로우·스크랩 관계
+
+### 시나리오 (메모리 상태, 새로고침하면 초기화)
+
+| 시나리오 | 재현 | 목업 동작 |
+|---|---|---|
+| 임시저장 이어쓰기 | `/write`에서 사진·본문을 넣고 등록 없이 다른 화면으로 갔다가 다시 `/write` | `POST /feed/createFeed?rewrite=false`가 등록하지 않은 기존 draft를 돌려준다 → 화면이 "이어서 등록" 모달을 띄운다. `rewrite=true`("새로 등록")면 기존 draft를 버리고 새로 만든다 |
+| 회원탈퇴 유예·취소 | `/settings/withdrawal`에서 탈퇴 신청 → 이메일 로그인 | `POST /user/withdrawalTemporary` 이후 `POST /auth/signIn`이 `{code:'failure:deleted', message:<userId>}`(403)로 거절 → "삭제 요청중인 계정" 모달 → `POST /user/withdrawalCancel`로 해제되고 다시 로그인된다 |
+
+서버 동작은 화면 코드에서 역추정했다(가정). 상태 코드는 원본 화면이 보지 않아 임의로 정했다.
+
+캡처 스크립트용으로 목업이 응답한 요청을 `window.__mockApiLog`(`METHOD /path?query` 문자열 배열)에 남긴다. 목업 응답은 HttpClient 안에서 끝나 브라우저 네트워크 로그에 나타나지 않기 때문이다.
 
 ### 시각 보정
 

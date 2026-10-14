@@ -13,6 +13,13 @@ import { ago, feedAgo } from './fixtures/time';
 import { MockComment, MockFeed, MockFile, MockMagazine } from './fixtures/types';
 import { asSeenBy, DEMO_FOLLOWERS, DEMO_FOLLOWING, DEMO_USER, findUser, mockFile, USERS } from './fixtures/users';
 
+declare global {
+  interface Window {
+    /** 캡처 스크립트가 화면별 호출 API 를 집계하려고 읽는다(목업 응답은 네트워크에 나타나지 않는다) */
+    __mockApiLog?: string[];
+  }
+}
+
 interface Ctx {
   params: URLSearchParams;
   body: Record<string, unknown>;
@@ -92,9 +99,22 @@ function followersOf(userId: string | null): string[] {
   return USERS.filter((u) => u.id !== userId).slice(4, 9).map((u) => u.id);
 }
 
+function draftCopy(feed: MockFeed): MockFeed {
+  return { ...feed, pictures: [...feed.pictures], tags: [...feed.tags] };
+}
+
+// rewrite=false 면 등록하지 않은 기존 draft 를 돌려주고(화면이 내용을 보고 이어쓰기 모달을 띄운다),
+// rewrite=true('새로 등록')면 기존 draft 를 버리고 새로 만든다. 서버 동작은 화면 코드에서 역추정(가정)
 function createDraft(ctx: Ctx): MockFeed {
-  draftSeq += 1;
   const writer = findUser(ctx.params.get('userId')) ?? DEMO_USER;
+  const isOpenDraft = (r: { feed: MockFeed }) => r.feed.writer.id === writer.id && !isPosted(r.feed);
+  if (ctx.params.get('rewrite') !== 'true') {
+    const open = FEEDS.find(isOpenDraft);
+    if (open) return draftCopy(open.feed);
+  } else {
+    for (let i = FEEDS.length - 1; i >= 0; i--) if (isOpenDraft(FEEDS[i])) FEEDS.splice(i, 1);
+  }
+  draftSeq += 1;
   const id = `draft-${draftSeq}`;
   FEEDS.unshift({
     likerIds: [],
@@ -117,7 +137,16 @@ function createDraft(ctx: Ctx): MockFeed {
       isBookmark: false,
     },
   });
-  return { ...FEEDS[0].feed, pictures: [], tags: [] };
+  return draftCopy(FEEDS[0].feed);
+}
+
+// 탈퇴 유예: withdrawalTemporary 이후 이메일 로그인은 failure:deleted(message = userId)로 거절되고,
+// withdrawalCancel 로 풀린다. 상태 코드는 원본 화면이 보지 않아 임의로 정했다
+const WITHDRAWN_USER_IDS = new Set<string>();
+
+function signIn() {
+  if (WITHDRAWN_USER_IDS.has(DEMO_USER.id)) return new MockError(403, 'failure:deleted', DEMO_USER.id);
+  return { ...DEMO_USER, accessToken: 'mock-access-token', refreshToken: 'mock-refresh-token', customToken: 'mock-custom-token' };
 }
 
 function updateFeed(ctx: Ctx) {
@@ -342,7 +371,9 @@ const ROUTES: Record<string, Handler> = {
   'DELETE /follow/removeFollow': (ctx) => (ctx.params.get('fromUser') === DEMO_USER.id && toggle(DEMO_FOLLOWING, ctx.params.get('toUser') ?? '', false), OK),
 
   // 인증·설정 (P3: 이메일 로그인만 데모 계정으로 성공시킨다)
-  'POST /auth/signIn': () => ({ ...DEMO_USER, accessToken: 'mock-access-token', refreshToken: 'mock-refresh-token', customToken: 'mock-custom-token' }),
+  'POST /auth/signIn': signIn,
+  'POST /user/withdrawalTemporary': (ctx) => (WITHDRAWN_USER_IDS.add(String(ctx.body.userId ?? '')), OK),
+  'POST /user/withdrawalCancel': (ctx) => (WITHDRAWN_USER_IDS.delete(ctx.params.get('userId') ?? ''), OK),
   'GET /user/hasProvidedIdAndDeleteAtIsNull': () => false,
   'PATCH /auth/modifyServiceTerm': () => DEMO_USER,
   'PATCH /user/modifyProfile': () => DEMO_USER,
@@ -366,6 +397,7 @@ export class MockApiInterceptor implements HttpInterceptor {
     const url = new URL(req.url, window.location.origin);
     const path = url.pathname.slice(base.length).replace(/\/$/, '') || '/';
     const handler = ROUTES[`${req.method} ${path}`];
+    (window.__mockApiLog = window.__mockApiLog ?? []).push(`${req.method} ${path}${url.search}`);
     const viewer = this.storageService.getUser()?.id ?? null;
     const rawBody = req.body;
     const body = rawBody && typeof rawBody === 'object' && !(rawBody instanceof FormData) ? (rawBody as Record<string, unknown>) : {};
